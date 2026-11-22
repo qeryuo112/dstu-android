@@ -30,6 +30,8 @@ jobs:
   checks:
     needs: validate
     uses: ./.github/workflows/android.yml
+    secrets:
+      FROZEN_DESKTOP_TOKEN: ${{ secrets.FROZEN_DESKTOP_TOKEN }}
 
   package:
     name: Signed release (protected environment)
@@ -52,6 +54,7 @@ jobs:
       - uses: ./dstu-android/.github/actions/android-environment
         with:
           native: 'true'
+          frozen-desktop-token: ${{ secrets.FROZEN_DESKTOP_TOKEN }}
       - name: Build and verify signed APK and AAB
         env:
           VERSION: ${{ needs.validate.outputs.version }}

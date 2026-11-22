@@ -7,6 +7,9 @@ on:
     branches: [main, 'release/**']
   workflow_dispatch:
   workflow_call:
+    secrets:
+      FROZEN_DESKTOP_TOKEN:
+        required: false
 
 permissions:
   contents: read
@@ -37,7 +40,34 @@ jobs:
       - run: npm run test:repository
       - run: bash tools/ci/lint-workflows.sh
 
+  private-inputs:
+    name: Private baseline availability
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      ready: ${{ steps.access.outputs.ready }}
+    defaults:
+      run:
+        working-directory: .
+    steps:
+      - id: access
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          DESKTOP_TOKEN: ${{ github.event_name != 'pull_request' && secrets.FROZEN_DESKTOP_TOKEN || '' }}
+        run: |
+          if [[ "$EVENT_NAME" == "pull_request" ]]; then
+            echo 'ready=false' >> "$GITHUB_OUTPUT"
+            echo '::notice::PR checks never receive private desktop inputs. A maintainer must review the code and run full checks on a trusted branch.'
+          elif [[ -z "$DESKTOP_TOKEN" ]]; then
+            echo 'ready=false' >> "$GITHUB_OUTPUT"
+            echo '::notice::Configure FROZEN_DESKTOP_TOKEN with read-only access to helixnow/dstu-node for full Android CI. Repository contracts still run.'
+          else
+            echo 'ready=true' >> "$GITHUB_OUTPUT"
+          fi
+
   static:
+    needs: private-inputs
+    if: needs.private-inputs.outputs.ready == 'true'
     name: Format, architecture and build logic
     runs-on: ubuntu-24.04
     timeout-minutes: 45
@@ -48,6 +78,8 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       - uses: ./dstu-android/.github/actions/android-environment
+        with:
+          frozen-desktop-token: ${{ secrets.FROZEN_DESKTOP_TOKEN }}
       - run: ./gradlew spotlessCheck verifyModuleRegistry verifyDstu :core:design:verifyDesignTokens --stacktrace
       - run: ./gradlew -p build-logic check --stacktrace
       - run: node --test tools/s1/design.test.mjs tools/s1/content-assets.test.mjs tools/s1/progress.test.mjs
@@ -61,6 +93,8 @@ jobs:
           retention-days: 14
 
   unit:
+    needs: private-inputs
+    if: needs.private-inputs.outputs.ready == 'true'
     name: Unit tests (${{ matrix.group }})
     runs-on: ubuntu-24.04
     timeout-minutes: 90
@@ -76,6 +110,7 @@ jobs:
           persist-credentials: false
       - uses: ./dstu-android/.github/actions/android-environment
         with:
+          frozen-desktop-token: ${{ secrets.FROZEN_DESKTOP_TOKEN }}
           native: ${{ matrix.group == 'android' && 'true' || 'false' }}
       - run: node tools/ci/unit-tests.mjs '${{ matrix.group }}'
       - name: Coverage report and 60% line gate (explicit scope)
@@ -98,6 +133,8 @@ jobs:
           retention-days: 14
 
   device:
+    needs: private-inputs
+    if: needs.private-inputs.outputs.ready == 'true'
     name: Platform instrumentation (API ${{ matrix.api }})
     runs-on: ubuntu-24.04
     timeout-minutes: 45
@@ -112,6 +149,8 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       - uses: ./dstu-android/.github/actions/android-environment
+        with:
+          frozen-desktop-token: ${{ secrets.FROZEN_DESKTOP_TOKEN }}
       - name: Enable KVM
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm.rules
@@ -138,7 +177,7 @@ jobs:
   required:
     name: Android required checks
     if: always()
-    needs: [contracts, static, unit, device]
+    needs: [contracts, private-inputs, static, unit, device]
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     defaults:

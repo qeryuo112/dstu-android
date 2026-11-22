@@ -54,3 +54,10 @@ node tools/s1/gradle.mjs qualityGate
 ```
 
 公开默认许可证为AGPL-3.0-only，第三方原许可保持不变。源码发布不附带APK/AAB、rootfs或私有证据资产。
+
+## 私有外部依赖
+
+冻结桌面`helixnow/dstu-node`目前为私有仓库，不因Android源码公开而公开。
+GitHub完整构建需要维护者配置`FROZEN_DESKTOP_TOKEN`（仅该仓库Contents: read）。
+不复制日常gh登录token，不自动扩大权限；PR不执行需要该依赖的job，不通过pull_request_target提权。
+缺凭据时repository合同仍运行，完整检查保持未通过并提示配置要求。源码发布本身不需要公开桌面仓库。

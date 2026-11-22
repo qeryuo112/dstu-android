@@ -390,3 +390,10 @@
 - 为避免删历史后CI失效，新增SHA-256固定的S0输入清单（286源码/合同+249私有证据摘要）及唯一必要的旧功能计划源文档。planning/frozen-inputs支持无私有Git祖先的摘要校验，不包含旧日志正文。完整S0重放须显式设置`DSTU_PRIVATE_HISTORY`；缺失报错，不虚报历史验收通过。
 - 私有目录`verify:repository`、**93/93** Node回归、冻结输入对原Git校验、`qualityGate`均通过；新增回归验证无历史计划校验、篡改拒绝、导出不带私有祖先、原私有证据仍在本地、更新保持固定公开基线、目标脏工作区拒绝覆盖。GitHub现有CLI和SSH登录均为`qeryuo112`，未创建新密钥或修改认证权限；公开推送将在实际公开目录验证后执行。
 - 冻结desktop/Operit/terminal版本不变，业务验收仍`next=S2.16`；本次是公开边界治理，不签S2.G。
+
+
+## 2026-11-23T04:28:46+08:00 - 公开目录验证与私有外部依赖隔离
+
+- 独立公开目录实际执行`verify:repository`、93项Node回归、无原Git对象的286份冻结源码摘要校验、`qualityGate`和`:app:assembleDebug`全部通过；不是仅在私有目录验证。公开对象库检查原S0、dbf8b6c和私有源码提交均不存在，全部可达tree无logs/截图/未审阅归档。Gitleaks扫描公开源码历史32个提示均对应此前已审阅的固定摘要、提交ID、公开下载ID和synthetic测试marker，未把误报当生产凭据。
+- GitHub API核实冻结桌面`helixnow/dstu-node`为private，Operit为public。为防止公开PR拿到私有源码，新增明确的`FROZEN_DESKTOP_TOKEN`读取入口，只用于可信push/手动运行，PR不取得token或私有依赖。不复制日常CLI token，不新增SSH key，不公开桌面仓库。缺少专用只读secret时repository合同仍执行，完整job跳过且聚合必需检查保持未通过，不伪报全CI绿灯。
+- 私有依赖边界回归加入后共**94/94** Node用例通过，actionlint通过；发布CI和签名CI均显式使用该只读输入。管理员后续需单独配置只授权桌面仓库Contents: read的凭据。本次用户授权为Android源码公开，不包括私有桌面源码和旧验收材料。

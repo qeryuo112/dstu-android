@@ -1,6 +1,9 @@
 name: Frozen Android build environment
 description: Set up the locked JDK/SDK, frozen source inputs, and optional native dependencies.
 inputs:
+  frozen-desktop-token:
+    description: Dedicated read-only token for the private frozen desktop repository; trusted runs only
+    required: true
   native:
     description: Fetch and verify native-engine build inputs
     default: 'false'
@@ -9,6 +12,7 @@ runs:
   steps:
     - uses: actions/checkout@v4
       with:
+        token: ${{ inputs.frozen-desktop-token }}
         repository: helixnow/dstu-node
         ref: e6b2657fd59014a73f5bbb1d14c2db732cf23e87
         path: dstu-node

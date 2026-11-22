@@ -21,10 +21,14 @@ bash tools/ci/device-tests.sh   # 已启动的专用测试设备；不要选择�
 ## Pull request 与发布检查
 
 `android.yml` 对 `main`、`release/**` 的 push/PR 运行，也支持手动调用与 release 复用。
-每个 PR 分开显示仓库合同、格式/架构/build-logic、JVM/Android 单测分片、API 26/36 仪器测试。
+可信push/手动运行分开显示仓库合同、格式/架构/build-logic、JVM/Android单测分片、API26/36仪器测试。
+私有桌面基线不向PR开放；PR只自动执行不依赖私有源码的仓库合同，维护者审阅后在可信分支手动运行完整检查。
 `Android required checks` 聚合所有必需 job；任意失败、取消或跳过都会失败。
 仓库管理员应把该名称设为分支保护必需检查（本次只修改仓库代码，不修改 GitHub 账号设置）。
-PR 不使用 `pull_request_target`，不读取签名密钥；默认 token 仅 `contents: read`。
+PR 不使用 `pull_request_target`，不获取私有基线或签名密钥；默认 token 仅 `contents: read`。
+`helixnow/dstu-node`实际为私有仓库，完整构建需repository secret `FROZEN_DESKTOP_TOKEN`，
+只授权该仓库的Contents: read；不要使用拥有全部repo写权限的日常登录token。缺凭据或PR输入受限时完整job跳过，
+聚合必需检查会明确失败，不能把合同检查通过伪称全CI通过。
 所有 job 有超时；PR 新提交取消旧 CI，主线和发布不自动取消。
 
 JUnit4 保留；同步流水线的新回归测试使用 Truth 1.4.5，避免整仓测试框架迁移。

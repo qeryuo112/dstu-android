@@ -11,7 +11,7 @@ test('normal CI has separate required checks, bounded triggers and real device m
   assert.doesNotMatch(ci, /pull_request_target|continue-on-error: true/u);
   for (const job of ['contracts', 'static', 'unit', 'device', 'required']) assert.match(ci, new RegExp(`^  ${job}:`, 'mu'));
   assert.match(ci, /api: \[26, 36\]/u);
-  assert.match(ci, /needs: \[contracts, static, unit, device\]/u);
+  assert.match(ci, /needs: \[contracts, private-inputs, static, unit, device\]/u);
   assert.match(ci, /value.result!=="success"/u);
   const device = read('tools/ci/device-tests.sh');
   for (const module of ['storage', 'network', 'security']) assert.ok(device.includes(`:platform:${module}:connectedDebugAndroidTest`));
@@ -31,4 +31,13 @@ test('format ratchet is an immutable pre-change commit, not the branch currently
   assert.match(read('config/quality/format-baseline.txt').trim(), /^[0-9a-f]{40}$/u);
   assert.match(read('build.gradle.kts'), /config\/quality\/format-baseline.txt/u);
   assert.doesNotMatch(read('build.gradle.kts'), /ratchetFrom\("(?:HEAD|origin\/main)"\)/u);
+});
+
+test('private desktop inputs are explicit and never run on PR code', () => {
+  const ci = read('.github/workflows/android.yml');
+  assert.match(ci, /\[\[ "\$EVENT_NAME" == "pull_request" \]\]/u);
+  assert.match(ci, /secrets.FROZEN_DESKTOP_TOKEN/u);
+  assert.equal((ci.match(/if: needs.private-inputs.outputs.ready == 'true'/gu) ?? []).length, 3);
+  assert.match(read('.github/actions/android-environment/action.yml'), /token: \$\{\{ inputs.frozen-desktop-token \}\}/u);
+  assert.doesNotMatch(ci, /pull_request_target/u);
 });
