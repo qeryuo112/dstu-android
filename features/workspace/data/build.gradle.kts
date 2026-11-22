@@ -1,0 +1,17 @@
+plugins {
+    id("dstu.kotlin.library")
+}
+
+dependencies {
+    api(project(":features:workspace:api"))
+    implementation(project(":features:workspace:backend"))
+    implementation(project(":core:common"))
+    implementation(libs.kotlinx.coroutines.core)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
+}
+
+tasks.test {
+    useJUnit()
+}

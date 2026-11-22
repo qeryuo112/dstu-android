@@ -1,0 +1,10 @@
+package com.deepstudent.buildlogic.convention
+
+import org.gradle.api.Plugin
+import org.gradle.api.Project
+
+class DstuAndroidApplicationPlugin : Plugin<Project> {
+    override fun apply(project: Project) {
+        AndroidConvention.applyAndroid(project, application = true)
+    }
+}
