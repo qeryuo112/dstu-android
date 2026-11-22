@@ -188,4 +188,12 @@ jobs:
         env:
           RESULTS: ${{ toJSON(needs) }}
         run: |
-          node -e 'const results=JSON.parse(process.env.RESULTS); for(const [job,value] of Object.entries(results)) { if(value.result!=="success") throw new Error(`${job}: ${value.result}`); }'
+          node <<'NODE'
+          const results=JSON.parse(process.env.RESULTS);
+          if (results['private-inputs'].outputs.ready !== 'true') {
+            throw new Error('Full Android checks require a trusted run with FROZEN_DESKTOP_TOKEN; repository-only checks are not full acceptance.');
+          }
+          for(const [job,value] of Object.entries(results)) {
+            if(value.result!=="success") throw new Error(`${job}: ${value.result}`);
+          }
+          NODE

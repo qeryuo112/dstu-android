@@ -397,3 +397,10 @@
 - 独立公开目录实际执行`verify:repository`、93项Node回归、无原Git对象的286份冻结源码摘要校验、`qualityGate`和`:app:assembleDebug`全部通过；不是仅在私有目录验证。公开对象库检查原S0、dbf8b6c和私有源码提交均不存在，全部可达tree无logs/截图/未审阅归档。Gitleaks扫描公开源码历史32个提示均对应此前已审阅的固定摘要、提交ID、公开下载ID和synthetic测试marker，未把误报当生产凭据。
 - GitHub API核实冻结桌面`helixnow/dstu-node`为private，Operit为public。为防止公开PR拿到私有源码，新增明确的`FROZEN_DESKTOP_TOKEN`读取入口，只用于可信push/手动运行，PR不取得token或私有依赖。不复制日常CLI token，不新增SSH key，不公开桌面仓库。缺少专用只读secret时repository合同仍执行，完整job跳过且聚合必需检查保持未通过，不伪报全CI绿灯。
 - 私有依赖边界回归加入后共**94/94** Node用例通过，actionlint通过；发布CI和签名CI均显式使用该只读输入。管理员后续需单独配置只授权桌面仓库Contents: read的凭据。本次用户授权为Android源码公开，不包括私有桌面源码和旧验收材料。
+
+
+## 2026-11-23T04:34:16+08:00 - GitHub公开推送完成与云端边界实测
+
+- 已按用户授权创建并推送公开仓库`qeryuo112/dstu-android`，默认main、GitHub识别AGPL-3.0。首次公开head `b87614273af2a32d4cea6ab68948a865f05392a6`，仅3个独立源码提交；只推main，没有镜像推送、旧tags、旧日志、截图、归档或原Git祖先。私有开发目录仍无remote，完整历史保留。
+- 从GitHub重新clone实际远端后检查所有可达对象，无logs/截图/二进制发布包；`verify:repository`及94/94脚本测试通过，公开索引无可下载私有归档。云端run 45066852276实际启动，私有基线availability明确报告缺少FROZEN_DESKTOP_TOKEN，不运行依赖私有源码的job，聚合检查保持失败；不是全CI通过。
+- 首轮repository job脚本测试成功，actionlint在runner附带ShellCheck时把内嵌Node模板字符串的单引号误判为SC2016。改为带引号heredoc，保留字面量防shell展开；本机补装ShellCheck0.10.0与actionlint联合检查通过，并准备推送修复。完整AndroidCI剩余条件仍是管理员配置私有桌面仓库专用只读secret，未使用日常账户token作为CI凭据。
