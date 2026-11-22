@@ -1,0 +1,2839 @@
+{
+  "formatVersion": 2,
+  "unit": "S0.04",
+  "staticRegistry": {
+    "owner": "dstu.ui.workbench official static app registrations",
+    "count": 22,
+    "golden": "src/features/workbench/apps/__golden__/apps.json",
+    "registrationFiles": [
+      "src/features/workbench/apps/ai-dashboard/register.tsx",
+      "src/features/workbench/apps/browser/register.tsx",
+      "src/features/workbench/apps/chat/register.ts",
+      "src/features/workbench/apps/content/register.ts",
+      "src/features/workbench/apps/files/register.ts",
+      "src/features/workbench/apps/notes/register.ts",
+      "src/features/workbench/apps/preview/register.tsx",
+      "src/features/workbench/apps/sandbox/register.tsx",
+      "src/features/workbench/apps/system/register.tsx"
+    ],
+    "dynamicRegistrationFile": "src/features/workbench/apps/plugin-views/register.tsx",
+    "rule": "Only literal/const-resolved official registrations enter this 22-app set. Dynamic community plugin-view definitions are verified in their own family and are never merged into the official golden."
+  },
+  "apps": [
+    {
+      "id": "chat",
+      "definition": {
+        "typeId": "chat",
+        "nameKey": "apps.chat.name",
+        "icon": {
+          "expression": "React.createElement(AppIconImage, { typeId: 'chat', className: 'h-8 w-8' })"
+        },
+        "instanceMode": "single",
+        "memoryWeight": 2,
+        "defaultFrame": {
+          "w": 1080,
+          "h": 720
+        },
+        "minSize": {
+          "w": 640,
+          "h": 460
+        },
+        "render": {
+          "expression": "React.lazy(() => import('./ChatWindowFrame'))"
+        },
+        "onActivation": {
+          "expression": "handleChatActivation"
+        },
+        "agentManifest": {
+          "expression": "createChatAgentManifest(handleChatActivation)"
+        }
+      },
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/workbench/apps/chat/register.ts",
+        "line": 317,
+        "symbol": null
+      },
+      "factory": false,
+      "order": 0,
+      "resourceTypes": [
+        "chat"
+      ],
+      "instanceRule": "one panel per appId; resource switches within panel",
+      "resourceIdentity": "sessionId selected within singleton",
+      "activation": {
+        "expression": "handleChatActivation"
+      },
+      "draft": "session-scoped composer and streaming task independent of panel lifetime",
+      "close": "close panel without cancelling domain/background task",
+      "suspend": "scheduler may freeze view; task/repository remains application-owned",
+      "snapshot": {
+        "version": 1,
+        "identity": [
+          "appId",
+          "instanceKey"
+        ],
+        "localState": [
+          "route",
+          "active tab",
+          "scroll/selection",
+          "layout",
+          "focus"
+        ],
+        "excludes": [
+          "launchPayload",
+          "lifecycle",
+          "live handles",
+          "Job",
+          "lease"
+        ],
+        "storage": "Android runtime.db device-local layout snapshot",
+        "desktopReferenceKey": "desktop.workbenchSnapshot"
+      },
+      "android": {
+        "module": "features/chat",
+        "appId": "chat",
+        "phone": "apps/chat",
+        "tablet": "workspace/panel/{panelId}",
+        "deliveryUnit": "S5.30"
+      },
+      "acceptance": [
+        {
+          "id": "WB-chat-open",
+          "input": {
+            "appId": "chat",
+            "instanceKey": null
+          },
+          "expected": "reopen same identity activates existing panel; other allowed identity follows instanceMode"
+        },
+        {
+          "id": "WB-chat-lifecycle",
+          "input": [
+            "activate",
+            "background",
+            "rotate",
+            "close/cancel",
+            "relaunch"
+          ],
+          "expected": "resource and domain task state preserved; transient launch payload is not restored"
+        }
+      ]
+    },
+    {
+      "id": "chat-session",
+      "definition": {
+        "typeId": "chat-session",
+        "nameKey": "apps.chatSession.name",
+        "icon": {
+          "expression": "React.createElement(AppIconImage, { typeId: 'chat', className: 'h-8 w-8' })"
+        },
+        "showInLauncher": false,
+        "instanceMode": "multi",
+        "memoryWeight": 2,
+        "defaultFrame": {
+          "w": 860,
+          "h": 640
+        },
+        "minSize": {
+          "w": 480,
+          "h": 400
+        },
+        "render": {
+          "expression": "React.lazy(() => import('./ChatSessionWindowFrame'))"
+        },
+        "onActivation": {
+          "expression": "handleChatSessionActivation"
+        }
+      },
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/workbench/apps/chat/register.ts",
+        "line": 340,
+        "symbol": null
+      },
+      "factory": false,
+      "order": 1,
+      "resourceTypes": [
+        "chat-session"
+      ],
+      "instanceRule": "deduplicate by appId + instanceKey; distinct resource ids coexist",
+      "resourceIdentity": "sessionId",
+      "activation": {
+        "expression": "handleChatSessionActivation"
+      },
+      "draft": "session-scoped composer and streaming task independent of panel lifetime",
+      "close": "close panel without cancelling domain/background task",
+      "suspend": "scheduler may freeze view; task/repository remains application-owned",
+      "snapshot": {
+        "version": 1,
+        "identity": [
+          "appId",
+          "instanceKey"
+        ],
+        "localState": [
+          "route",
+          "active tab",
+          "scroll/selection",
+          "layout",
+          "focus"
+        ],
+        "excludes": [
+          "launchPayload",
+          "lifecycle",
+          "live handles",
+          "Job",
+          "lease"
+        ],
+        "storage": "Android runtime.db device-local layout snapshot",
+        "desktopReferenceKey": "desktop.workbenchSnapshot"
+      },
+      "android": {
+        "module": "features/chat",
+        "appId": "chat-session",
+        "phone": "apps/chat-session",
+        "tablet": "workspace/panel/{panelId}",
+        "deliveryUnit": "S5.30"
+      },
+      "acceptance": [
+        {
+          "id": "WB-chat-session-open",
+          "input": {
+            "appId": "chat-session",
+            "instanceKey": "fixture-resource-1"
+          },
+          "expected": "reopen same identity activates existing panel; other allowed identity follows instanceMode"
+        },
+        {
+          "id": "WB-chat-session-lifecycle",
+          "input": [
+            "activate",
+            "background",
+            "rotate",
+            "close/cancel",
+            "relaunch"
+          ],
+          "expected": "resource and domain task state preserved; transient launch payload is not restored"
+        }
+      ]
+    },
+    {
+      "id": "textbook",
+      "definition": {
+        "typeId": "textbook",
+        "nameKey": "workbench:apps.textbook",
+        "icon": {
+          "expression": "icon(TextbookAppIcon)"
+        },
+        "showInLauncher": false,
+        "memoryWeight": 3,
+        "defaultFrame": {
+          "w": 920,
+          "h": 700
+        },
+        "minSize": {
+          "w": 420,
+          "h": 320
+        },
+        "instanceMode": "multi"
+      },
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/workbench/apps/content/register.ts",
+        "line": 626,
+        "symbol": null
+      },
+      "factory": true,
+      "order": 2,
+      "resourceTypes": [
+        "textbook"
+      ],
+      "instanceRule": "deduplicate by appId + instanceKey; distinct resource ids coexist",
+      "resourceIdentity": "resourceId",
+      "activation": "createContentActivationHandler(typeId)",
+      "draft": "domain state persists through repository; view state remains local",
+      "close": "close panel without cancelling domain/background task",
+      "suspend": "dirty=false permits frozen; dirty=true stays background; visual pause does not stop domain task",
+      "snapshot": {
+        "version": 1,
+        "identity": [
+          "appId",
+          "instanceKey"
+        ],
+        "localState": [
+          "route",
+          "active tab",
+          "scroll/selection",
+          "layout",
+          "focus"
+        ],
+        "excludes": [
+          "launchPayload",
+          "lifecycle",
+          "live handles",
+          "Job",
+          "lease"
+        ],
+        "storage": "Android runtime.db device-local layout snapshot",
+        "desktopReferenceKey": "desktop.workbenchSnapshot"
+      },
+      "android": {
+        "module": "features/knowledge",
+        "appId": "textbook",
+        "phone": "apps/textbook",
+        "tablet": "workspace/panel/{panelId}",
+        "deliveryUnit": "S7.06"
+      },
+      "acceptance": [
+        {
+          "id": "WB-textbook-open",
+          "input": {
+            "appId": "textbook",
+            "instanceKey": "fixture-resource-1"
+          },
+          "expected": "reopen same identity activates existing panel; other allowed identity follows instanceMode"
+        },
+        {
+          "id": "WB-textbook-lifecycle",
+          "input": [
+            "activate",
+            "background",
+            "rotate",
+            "close/cancel",
+            "relaunch"
+          ],
+          "expected": "resource and domain task state preserved; transient launch payload is not restored"
+        }
+      ]
+    },
+    {
+      "id": "exam",
+      "definition": {
+        "typeId": "exam",
+        "nameKey": "workbench:apps.exam",
+        "icon": {
+          "expression": "icon(ExamAppIcon)"
+        },
+        "memoryWeight": 2,
+        "defaultFrame": {
+          "w": 880,
+          "h": 660
+        },
+        "instanceMode": "single",
+        "minSize": {
+          "w": 360,
+          "h": 280
+        }
+      },
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/workbench/apps/content/register.ts",
+        "line": 635,
+        "symbol": null
+      },
+      "factory": true,
+      "order": 3,
+      "resourceTypes": [
+        "exam"
+      ],
+      "instanceRule": "one panel per appId; resource switches within panel",
+      "resourceIdentity": "resourceId selected within singleton",
+      "activation": "createContentActivationHandler(typeId)",
+      "draft": "resource-scoped draft; dirty state survives panel switch and Activity recreation",
+      "close": "unfinished review confirmation → dirty confirmation → close",
+      "suspend": "dirty=false permits frozen; dirty=true stays background; visual pause does not stop domain task",
+      "snapshot": {
+        "version": 1,
+        "identity": [
+          "appId",
+          "instanceKey"
+        ],
+        "localState": [
+          "route",
+          "active tab",
+          "scroll/selection",
+          "layout",
+          "focus"
+        ],
+        "excludes": [
+          "launchPayload",
+          "lifecycle",
+          "live handles",
+          "Job",
+          "lease"
+        ],
+        "storage": "Android runtime.db device-local layout snapshot",
+        "desktopReferenceKey": "desktop.workbenchSnapshot"
+      },
+      "android": {
+        "module": "features/study",
+        "appId": "exam",
+        "phone": "apps/exam",
+        "tablet": "workspace/panel/{panelId}",
+        "deliveryUnit": "S7.18"
+      },
+      "acceptance": [
+        {
+          "id": "WB-exam-open",
+          "input": {
+            "appId": "exam",
+            "instanceKey": null
+          },
+          "expected": "reopen same identity activates existing panel; other allowed identity follows instanceMode"
+        },
+        {
+          "id": "WB-exam-lifecycle",
+          "input": [
+            "activate",
+            "background",
+            "rotate",
+            "close/cancel",
+            "relaunch"
+          ],
+          "expected": "draft retained; cancel close leaves layout and dirty text unchanged"
+        }
+      ]
+    },
+    {
+      "id": "translation",
+      "definition": {
+        "typeId": "translation",
+        "nameKey": "workbench:apps.translation",
+        "icon": {
+          "expression": "icon(TranslationAppIcon)"
+        },
+        "memoryWeight": 2,
+        "defaultFrame": {
+          "w": 880,
+          "h": 620
+        },
+        "confirmUnsavedOnClose": true,
+        "instanceMode": "single",
+        "minSize": {
+          "w": 360,
+          "h": 280
+        }
+      },
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/workbench/apps/content/register.ts",
+        "line": 643,
+        "symbol": null
+      },
+      "factory": true,
+      "order": 4,
+      "resourceTypes": [
+        "translation"
+      ],
+      "instanceRule": "one panel per appId; resource switches within panel",
+      "resourceIdentity": "resourceId selected within singleton",
+      "activation": "createContentActivationHandler(typeId)",
+      "draft": "resource-scoped draft; dirty state survives panel switch and Activity recreation",
+      "close": "clean closes; dirty offers save/discard/cancel; save failure and cancel keep panel",
+      "suspend": "dirty=false permits frozen; dirty=true stays background; visual pause does not stop domain task",
+      "snapshot": {
+        "version": 1,
+        "identity": [
+          "appId",
+          "instanceKey"
+        ],
+        "localState": [
+          "route",
+          "active tab",
+          "scroll/selection",
+          "layout",
+          "focus"
+        ],
+        "excludes": [
+          "launchPayload",
+          "lifecycle",
+          "live handles",
+          "Job",
+          "lease"
+        ],
+        "storage": "Android runtime.db device-local layout snapshot",
+        "desktopReferenceKey": "desktop.workbenchSnapshot"
+      },
+      "android": {
+        "module": "features/knowledge",
+        "appId": "translation",
+        "phone": "apps/translation",
+        "tablet": "workspace/panel/{panelId}",
+        "deliveryUnit": "S7.32"
+      },
+      "acceptance": [
+        {
+          "id": "WB-translation-open",
+          "input": {
+            "appId": "translation",
+            "instanceKey": null
+          },
+          "expected": "reopen same identity activates existing panel; other allowed identity follows instanceMode"
+        },
+        {
+          "id": "WB-translation-lifecycle",
+          "input": [
+            "activate",
+            "background",
+            "rotate",
+            "close/cancel",
+            "relaunch"
+          ],
+          "expected": "draft retained; cancel close leaves layout and dirty text unchanged"
+        }
+      ]
+    },
+    {
+      "id": "essay",
+      "definition": {
+        "typeId": "essay",
+        "nameKey": "workbench:apps.essay",
+        "icon": {
+          "expression": "icon(EssayAppIcon)"
+        },
+        "memoryWeight": 2,
+        "defaultFrame": {
+          "w": 880,
+          "h": 620
+        },
+        "confirmUnsavedOnClose": true,
+        "instanceMode": "single",
+        "minSize": {
+          "w": 360,
+          "h": 280
+        }
+      },
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/workbench/apps/content/register.ts",
+        "line": 652,
+        "symbol": null
+      },
+      "factory": true,
+      "order": 5,
+      "resourceTypes": [
+        "essay"
+      ],
+      "instanceRule": "one panel per appId; resource switches within panel",
+      "resourceIdentity": "resourceId selected within singleton",
+      "activation": "createContentActivationHandler(typeId)",
+      "draft": "resource-scoped draft; dirty state survives panel switch and Activity recreation",
+      "close": "clean closes; dirty offers save/discard/cancel; save failure and cancel keep panel",
+      "suspend": "dirty=false permits frozen; dirty=true stays background; visual pause does not stop domain task",
+      "snapshot": {
+        "version": 1,
+        "identity": [
+          "appId",
+          "instanceKey"
+        ],
+        "localState": [
+          "route",
+          "active tab",
+          "scroll/selection",
+          "layout",
+          "focus"
+        ],
+        "excludes": [
+          "launchPayload",
+          "lifecycle",
+          "live handles",
+          "Job",
+          "lease"
+        ],
+        "storage": "Android runtime.db device-local layout snapshot",
+        "desktopReferenceKey": "desktop.workbenchSnapshot"
+      },
+      "android": {
+        "module": "features/study",
+        "appId": "essay",
+        "phone": "apps/essay",
+        "tablet": "workspace/panel/{panelId}",
+        "deliveryUnit": "S7.23"
+      },
+      "acceptance": [
+        {
+          "id": "WB-essay-open",
+          "input": {
+            "appId": "essay",
+            "instanceKey": null
+          },
+          "expected": "reopen same identity activates existing panel; other allowed identity follows instanceMode"
+        },
+        {
+          "id": "WB-essay-lifecycle",
+          "input": [
+            "activate",
+            "background",
+            "rotate",
+            "close/cancel",
+            "relaunch"
+          ],
+          "expected": "draft retained; cancel close leaves layout and dirty text unchanged"
+        }
+      ]
+    },
+    {
+      "id": "image",
+      "definition": {
+        "typeId": "image",
+        "nameKey": "workbench:apps.image",
+        "icon": {
+          "expression": "icon(ImageAppIcon)"
+        },
+        "showInLauncher": false,
+        "memoryWeight": 1,
+        "defaultFrame": {
+          "w": 720,
+          "h": 560
+        },
+        "instanceMode": "multi",
+        "minSize": {
+          "w": 360,
+          "h": 280
+        }
+      },
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/workbench/apps/content/register.ts",
+        "line": 661,
+        "symbol": null
+      },
+      "factory": true,
+      "order": 6,
+      "resourceTypes": [
+        "image"
+      ],
+      "instanceRule": "deduplicate by appId + instanceKey; distinct resource ids coexist",
+      "resourceIdentity": "resourceId",
+      "activation": "createContentActivationHandler(typeId)",
+      "draft": "domain state persists through repository; view state remains local",
+      "close": "close panel without cancelling domain/background task",
+      "suspend": "dirty=false permits frozen; dirty=true stays background; visual pause does not stop domain task",
+      "snapshot": {
+        "version": 1,
+        "identity": [
+          "appId",
+          "instanceKey"
+        ],
+        "localState": [
+          "route",
+          "active tab",
+          "scroll/selection",
+          "layout",
+          "focus"
+        ],
+        "excludes": [
+          "launchPayload",
+          "lifecycle",
+          "live handles",
+          "Job",
+          "lease"
+        ],
+        "storage": "Android runtime.db device-local layout snapshot",
+        "desktopReferenceKey": "desktop.workbenchSnapshot"
+      },
+      "android": {
+        "module": "features/knowledge",
+        "appId": "image",
+        "phone": "apps/image",
+        "tablet": "workspace/panel/{panelId}",
+        "deliveryUnit": "S7.02"
+      },
+      "acceptance": [
+        {
+          "id": "WB-image-open",
+          "input": {
+            "appId": "image",
+            "instanceKey": "fixture-resource-1"
+          },
+          "expected": "reopen same identity activates existing panel; other allowed identity follows instanceMode"
+        },
+        {
+          "id": "WB-image-lifecycle",
+          "input": [
+            "activate",
+            "background",
+            "rotate",
+            "close/cancel",
+            "relaunch"
+          ],
+          "expected": "resource and domain task state preserved; transient launch payload is not restored"
+        }
+      ]
+    },
+    {
+      "id": "file",
+      "definition": {
+        "typeId": "file",
+        "nameKey": "workbench:apps.file",
+        "icon": {
+          "expression": "icon(FileAppIcon)"
+        },
+        "showInLauncher": false,
+        "memoryWeight": 1,
+        "defaultFrame": {
+          "w": 780,
+          "h": 600
+        },
+        "instanceMode": "multi",
+        "minSize": {
+          "w": 360,
+          "h": 280
+        }
+      },
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/workbench/apps/content/register.ts",
+        "line": 669,
+        "symbol": null
+      },
+      "factory": true,
+      "order": 7,
+      "resourceTypes": [
+        "file",
+        "pdf",
+        "audio",
+        "video",
+        "office",
+        "epub"
+      ],
+      "instanceRule": "deduplicate by appId + instanceKey; distinct resource ids coexist",
+      "resourceIdentity": "resourceId",
+      "activation": "createContentActivationHandler(typeId)",
+      "draft": "domain state persists through repository; view state remains local",
+      "close": "close panel without cancelling domain/background task",
+      "suspend": "dirty=false permits frozen; dirty=true stays background; visual pause does not stop domain task",
+      "snapshot": {
+        "version": 1,
+        "identity": [
+          "appId",
+          "instanceKey"
+        ],
+        "localState": [
+          "route",
+          "active tab",
+          "scroll/selection",
+          "layout",
+          "focus"
+        ],
+        "excludes": [
+          "launchPayload",
+          "lifecycle",
+          "live handles",
+          "Job",
+          "lease"
+        ],
+        "storage": "Android runtime.db device-local layout snapshot",
+        "desktopReferenceKey": "desktop.workbenchSnapshot"
+      },
+      "android": {
+        "module": "features/knowledge",
+        "appId": "file",
+        "phone": "apps/file",
+        "tablet": "workspace/panel/{panelId}",
+        "deliveryUnit": "S7.02"
+      },
+      "acceptance": [
+        {
+          "id": "WB-file-open",
+          "input": {
+            "appId": "file",
+            "instanceKey": "fixture-resource-1"
+          },
+          "expected": "reopen same identity activates existing panel; other allowed identity follows instanceMode"
+        },
+        {
+          "id": "WB-file-lifecycle",
+          "input": [
+            "activate",
+            "background",
+            "rotate",
+            "close/cancel",
+            "relaunch"
+          ],
+          "expected": "resource and domain task state preserved; transient launch payload is not restored"
+        }
+      ]
+    },
+    {
+      "id": "notes",
+      "definition": {
+        "typeId": "notes",
+        "nameKey": "workbench:apps.note",
+        "icon": {
+          "expression": "React.createElement(AppIconImage, { typeId: 'notes', className: 'h-8 w-8' })"
+        },
+        "instanceMode": "single",
+        "memoryWeight": 3,
+        "defaultFrame": {
+          "w": 1240,
+          "h": 760
+        },
+        "minSize": {
+          "w": 480,
+          "h": 420
+        },
+        "render": {
+          "expression": "React.lazy(() => import('./NotesWorkspaceApp'))"
+        },
+        "onActivation": {
+          "expression": "handleNotesActivation"
+        },
+        "agentManifest": {
+          "expression": "createNotesAgentManifest(handleNotesActivation)"
+        },
+        "canClose": {
+          "expression": "canCloseNotesWorkspace"
+        },
+        "canSuspend": {
+          "expression": "() => !hasUnsavedNotesWorkspaceChanges()"
+        },
+        "handlesCloseShortcut": true,
+        "handlesTabCycleShortcut": true
+      },
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/workbench/apps/notes/register.ts",
+        "line": 25,
+        "symbol": null
+      },
+      "factory": false,
+      "order": 8,
+      "resourceTypes": [
+        "note",
+        "mindmap"
+      ],
+      "instanceRule": "one panel per appId; resource switches within panel",
+      "resourceIdentity": "noteId/mindmapId tabs within singleton",
+      "activation": {
+        "expression": "handleNotesActivation"
+      },
+      "draft": "resource-scoped draft; dirty state survives panel switch and Activity recreation",
+      "close": "clean closes; dirty offers save/discard/cancel; save failure and cancel keep panel",
+      "suspend": "dirty=false permits frozen; dirty=true stays background; visual pause does not stop domain task",
+      "snapshot": {
+        "version": 1,
+        "identity": [
+          "appId",
+          "instanceKey"
+        ],
+        "localState": [
+          "route",
+          "active tab",
+          "scroll/selection",
+          "layout",
+          "focus"
+        ],
+        "excludes": [
+          "launchPayload",
+          "lifecycle",
+          "live handles",
+          "Job",
+          "lease"
+        ],
+        "storage": "Android runtime.db device-local layout snapshot",
+        "desktopReferenceKey": "desktop.workbenchSnapshot"
+      },
+      "android": {
+        "module": "features/knowledge",
+        "appId": "notes",
+        "phone": "apps/notes",
+        "tablet": "workspace/panel/{panelId}",
+        "deliveryUnit": "S5.30"
+      },
+      "acceptance": [
+        {
+          "id": "WB-notes-open",
+          "input": {
+            "appId": "notes",
+            "instanceKey": null
+          },
+          "expected": "reopen same identity activates existing panel; other allowed identity follows instanceMode"
+        },
+        {
+          "id": "WB-notes-lifecycle",
+          "input": [
+            "activate",
+            "background",
+            "rotate",
+            "close/cancel",
+            "relaunch"
+          ],
+          "expected": "draft retained; cancel close leaves layout and dirty text unchanged"
+        }
+      ]
+    },
+    {
+      "id": "files",
+      "definition": {
+        "typeId": "files",
+        "nameKey": "workbench:apps.files",
+        "icon": {
+          "expression": "React.createElement(AppIconImage, { typeId: 'files', className: 'h-8 w-8' })"
+        },
+        "instanceMode": "single",
+        "memoryWeight": 1,
+        "defaultFrame": {
+          "w": 980,
+          "h": 660
+        },
+        "minSize": {
+          "w": 480,
+          "h": 360
+        },
+        "render": {
+          "expression": "React.lazy(() => import('./FilesAppWindow'))"
+        },
+        "onActivation": {
+          "expression": "handleFilesActivation"
+        },
+        "agentManifest": {
+          "expression": "filesAgentManifest"
+        },
+        "handlesCloseShortcut": true
+      },
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/workbench/apps/files/register.ts",
+        "line": 17,
+        "symbol": null
+      },
+      "factory": false,
+      "order": 9,
+      "resourceTypes": [
+        "files"
+      ],
+      "instanceRule": "one panel per appId; resource switches within panel",
+      "resourceIdentity": "folderId selected within singleton",
+      "activation": {
+        "expression": "handleFilesActivation"
+      },
+      "draft": "domain state persists through repository; view state remains local",
+      "close": "close panel without cancelling domain/background task",
+      "suspend": "scheduler may freeze view; task/repository remains application-owned",
+      "snapshot": {
+        "version": 1,
+        "identity": [
+          "appId",
+          "instanceKey"
+        ],
+        "localState": [
+          "route",
+          "active tab",
+          "scroll/selection",
+          "layout",
+          "focus"
+        ],
+        "excludes": [
+          "launchPayload",
+          "lifecycle",
+          "live handles",
+          "Job",
+          "lease"
+        ],
+        "storage": "Android runtime.db device-local layout snapshot",
+        "desktopReferenceKey": "desktop.workbenchSnapshot"
+      },
+      "android": {
+        "module": "features/knowledge",
+        "appId": "files",
+        "phone": "apps/files",
+        "tablet": "workspace/panel/{panelId}",
+        "deliveryUnit": "S7.01"
+      },
+      "acceptance": [
+        {
+          "id": "WB-files-open",
+          "input": {
+            "appId": "files",
+            "instanceKey": null
+          },
+          "expected": "reopen same identity activates existing panel; other allowed identity follows instanceMode"
+        },
+        {
+          "id": "WB-files-lifecycle",
+          "input": [
+            "activate",
+            "background",
+            "rotate",
+            "close/cancel",
+            "relaunch"
+          ],
+          "expected": "resource and domain task state preserved; transient launch payload is not restored"
+        }
+      ]
+    },
+    {
+      "id": "file-preview",
+      "definition": {
+        "typeId": "file-preview",
+        "nameKey": "workbench:apps.filePreview",
+        "icon": {
+          "expression": "React.createElement(AppIconImage, { typeId: 'file-preview', className: 'h-8 w-8' })"
+        },
+        "showInLauncher": false,
+        "instanceMode": "multi",
+        "memoryWeight": 3,
+        "defaultFrame": {
+          "w": 920,
+          "h": 700
+        },
+        "minSize": {
+          "w": 420,
+          "h": 320
+        },
+        "render": {
+          "expression": "FilePreviewAppWindow"
+        },
+        "onActivation": {
+          "expression": "handleFilePreviewActivation"
+        },
+        "agentManifest": {
+          "expression": "createResourceContentManifest(\n    FILE_PREVIEW_APP_TYPE_ID,\n    handleFilePreviewActivation,\n  )"
+        }
+      },
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/workbench/apps/preview/register.tsx",
+        "line": 41,
+        "symbol": null
+      },
+      "factory": false,
+      "order": 10,
+      "resourceTypes": [
+        "file",
+        "pdf",
+        "audio",
+        "video",
+        "office",
+        "epub"
+      ],
+      "instanceRule": "deduplicate by appId + instanceKey; distinct resource ids coexist",
+      "resourceIdentity": "resourceId",
+      "activation": {
+        "expression": "handleFilePreviewActivation"
+      },
+      "draft": "domain state persists through repository; view state remains local",
+      "close": "close panel without cancelling domain/background task",
+      "suspend": "scheduler may freeze view; task/repository remains application-owned",
+      "snapshot": {
+        "version": 1,
+        "identity": [
+          "appId",
+          "instanceKey"
+        ],
+        "localState": [
+          "route",
+          "active tab",
+          "scroll/selection",
+          "layout",
+          "focus"
+        ],
+        "excludes": [
+          "launchPayload",
+          "lifecycle",
+          "live handles",
+          "Job",
+          "lease"
+        ],
+        "storage": "Android runtime.db device-local layout snapshot",
+        "desktopReferenceKey": "desktop.workbenchSnapshot"
+      },
+      "android": {
+        "module": "features/knowledge",
+        "appId": "file-preview",
+        "phone": "apps/file-preview",
+        "tablet": "workspace/panel/{panelId}",
+        "deliveryUnit": "S7.06"
+      },
+      "acceptance": [
+        {
+          "id": "WB-file-preview-open",
+          "input": {
+            "appId": "file-preview",
+            "instanceKey": "fixture-resource-1"
+          },
+          "expected": "reopen same identity activates existing panel; other allowed identity follows instanceMode"
+        },
+        {
+          "id": "WB-file-preview-lifecycle",
+          "input": [
+            "activate",
+            "background",
+            "rotate",
+            "close/cancel",
+            "relaunch"
+          ],
+          "expected": "resource and domain task state preserved; transient launch payload is not restored"
+        }
+      ]
+    },
+    {
+      "id": "aiDashboard",
+      "definition": {
+        "typeId": "aiDashboard",
+        "nameKey": "workbench:apps.aiDashboard",
+        "icon": {
+          "expression": "<AppIconImage typeId=\"aiDashboard\" className=\"h-8 w-8\" />"
+        },
+        "instanceMode": "single",
+        "memoryWeight": 1,
+        "defaultFrame": {
+          "w": 480,
+          "h": 620
+        },
+        "minSize": {
+          "w": 360,
+          "h": 440
+        },
+        "render": {
+          "expression": "React.lazy(() => import('./AiDashboardAppWindow'))"
+        },
+        "agentManifest": {
+          "expression": "aiDashboardAgentManifest"
+        }
+      },
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/workbench/apps/ai-dashboard/register.tsx",
+        "line": 10,
+        "symbol": null
+      },
+      "factory": false,
+      "order": 11,
+      "resourceTypes": [
+        "aiDashboard"
+      ],
+      "instanceRule": "one panel per appId; resource switches within panel",
+      "resourceIdentity": "singleton",
+      "activation": "launch-and-focus",
+      "draft": "domain state persists through repository; view state remains local",
+      "close": "close panel without cancelling domain/background task",
+      "suspend": "scheduler may freeze view; task/repository remains application-owned",
+      "snapshot": {
+        "version": 1,
+        "identity": [
+          "appId",
+          "instanceKey"
+        ],
+        "localState": [
+          "route",
+          "active tab",
+          "scroll/selection",
+          "layout",
+          "focus"
+        ],
+        "excludes": [
+          "launchPayload",
+          "lifecycle",
+          "live handles",
+          "Job",
+          "lease"
+        ],
+        "storage": "Android runtime.db device-local layout snapshot",
+        "desktopReferenceKey": "desktop.workbenchSnapshot"
+      },
+      "android": {
+        "module": "features/productivity",
+        "appId": "aiDashboard",
+        "phone": "apps/aiDashboard",
+        "tablet": "workspace/panel/{panelId}",
+        "deliveryUnit": "S7.34"
+      },
+      "acceptance": [
+        {
+          "id": "WB-aiDashboard-open",
+          "input": {
+            "appId": "aiDashboard",
+            "instanceKey": null
+          },
+          "expected": "reopen same identity activates existing panel; other allowed identity follows instanceMode"
+        },
+        {
+          "id": "WB-aiDashboard-lifecycle",
+          "input": [
+            "activate",
+            "background",
+            "rotate",
+            "close/cancel",
+            "relaunch"
+          ],
+          "expected": "resource and domain task state preserved; transient launch payload is not restored"
+        }
+      ]
+    },
+    {
+      "id": "todo",
+      "definition": {
+        "typeId": "todo",
+        "nameKey": "workbench:apps.todo",
+        "icon": {
+          "expression": "<AppIconImage typeId=\"todo\" className=\"h-8 w-8\" />"
+        },
+        "instanceMode": "single",
+        "memoryWeight": 2,
+        "defaultFrame": {
+          "w": 920,
+          "h": 660
+        },
+        "minSize": {
+          "w": 560,
+          "h": 420
+        },
+        "render": {
+          "expression": "React.lazy(() => import('./TodoAppWindow'))"
+        },
+        "onActivation": {
+          "expression": "handleTodoActivation"
+        },
+        "agentManifest": {
+          "expression": "todoAgentManifest"
+        }
+      },
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/workbench/apps/system/register.tsx",
+        "line": 210,
+        "symbol": null
+      },
+      "factory": false,
+      "order": 12,
+      "resourceTypes": [
+        "todo"
+      ],
+      "instanceRule": "one panel per appId; resource switches within panel",
+      "resourceIdentity": "singleton",
+      "activation": {
+        "expression": "handleTodoActivation"
+      },
+      "draft": "domain state persists through repository; view state remains local",
+      "close": "close panel without cancelling domain/background task",
+      "suspend": "scheduler may freeze view; task/repository remains application-owned",
+      "snapshot": {
+        "version": 1,
+        "identity": [
+          "appId",
+          "instanceKey"
+        ],
+        "localState": [
+          "route",
+          "active tab",
+          "scroll/selection",
+          "layout",
+          "focus"
+        ],
+        "excludes": [
+          "launchPayload",
+          "lifecycle",
+          "live handles",
+          "Job",
+          "lease"
+        ],
+        "storage": "Android runtime.db device-local layout snapshot",
+        "desktopReferenceKey": "desktop.workbenchSnapshot"
+      },
+      "android": {
+        "module": "features/productivity",
+        "appId": "todo",
+        "phone": "apps/todo",
+        "tablet": "workspace/panel/{panelId}",
+        "deliveryUnit": "S7.25"
+      },
+      "acceptance": [
+        {
+          "id": "WB-todo-open",
+          "input": {
+            "appId": "todo",
+            "instanceKey": null
+          },
+          "expected": "reopen same identity activates existing panel; other allowed identity follows instanceMode"
+        },
+        {
+          "id": "WB-todo-lifecycle",
+          "input": [
+            "activate",
+            "background",
+            "rotate",
+            "close/cancel",
+            "relaunch"
+          ],
+          "expected": "resource and domain task state preserved; transient launch payload is not restored"
+        }
+      ]
+    },
+    {
+      "id": "skills",
+      "definition": {
+        "typeId": "skills",
+        "nameKey": "workbench:apps.skills",
+        "icon": {
+          "expression": "<AppIconImage typeId=\"skills\" className=\"h-8 w-8\" />"
+        },
+        "instanceMode": "single",
+        "memoryWeight": 2,
+        "defaultFrame": {
+          "w": 980,
+          "h": 680
+        },
+        "minSize": {
+          "w": 640,
+          "h": 460
+        },
+        "render": {
+          "expression": "React.lazy(() => import('./SkillsAppWindow'))"
+        },
+        "agentManifest": {
+          "expression": "skillsAgentManifest"
+        }
+      },
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/workbench/apps/system/register.tsx",
+        "line": 224,
+        "symbol": null
+      },
+      "factory": false,
+      "order": 13,
+      "resourceTypes": [
+        "skills"
+      ],
+      "instanceRule": "one panel per appId; resource switches within panel",
+      "resourceIdentity": "singleton",
+      "activation": "launch-and-focus",
+      "draft": "domain state persists through repository; view state remains local",
+      "close": "close panel without cancelling domain/background task",
+      "suspend": "scheduler may freeze view; task/repository remains application-owned",
+      "snapshot": {
+        "version": 1,
+        "identity": [
+          "appId",
+          "instanceKey"
+        ],
+        "localState": [
+          "route",
+          "active tab",
+          "scroll/selection",
+          "layout",
+          "focus"
+        ],
+        "excludes": [
+          "launchPayload",
+          "lifecycle",
+          "live handles",
+          "Job",
+          "lease"
+        ],
+        "storage": "Android runtime.db device-local layout snapshot",
+        "desktopReferenceKey": "desktop.workbenchSnapshot"
+      },
+      "android": {
+        "module": "features/chat",
+        "appId": "skills",
+        "phone": "apps/skills",
+        "tablet": "workspace/panel/{panelId}",
+        "deliveryUnit": "S3.20"
+      },
+      "acceptance": [
+        {
+          "id": "WB-skills-open",
+          "input": {
+            "appId": "skills",
+            "instanceKey": null
+          },
+          "expected": "reopen same identity activates existing panel; other allowed identity follows instanceMode"
+        },
+        {
+          "id": "WB-skills-lifecycle",
+          "input": [
+            "activate",
+            "background",
+            "rotate",
+            "close/cancel",
+            "relaunch"
+          ],
+          "expected": "resource and domain task state preserved; transient launch payload is not restored"
+        }
+      ]
+    },
+    {
+      "id": "templates",
+      "definition": {
+        "typeId": "templates",
+        "nameKey": "workbench:apps.templates",
+        "icon": {
+          "expression": "<AppIconImage typeId=\"templates\" className=\"h-8 w-8\" />"
+        },
+        "instanceMode": "single",
+        "memoryWeight": 2,
+        "defaultFrame": {
+          "w": 980,
+          "h": 680
+        },
+        "minSize": {
+          "w": 640,
+          "h": 460
+        },
+        "render": {
+          "expression": "hostGatedApp(ANKI_HOST_PLUGIN, 'workbench:apps.templates', () => import('./TemplatesAppWindow'))"
+        },
+        "agentManifest": {
+          "expression": "templatesAgentManifest"
+        }
+      },
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/workbench/apps/system/register.tsx",
+        "line": 237,
+        "symbol": null
+      },
+      "factory": false,
+      "order": 14,
+      "resourceTypes": [
+        "templates"
+      ],
+      "instanceRule": "one panel per appId; resource switches within panel",
+      "resourceIdentity": "singleton",
+      "activation": "launch-and-focus",
+      "draft": "domain state persists through repository; view state remains local",
+      "close": "close panel without cancelling domain/background task",
+      "suspend": "scheduler may freeze view; task/repository remains application-owned",
+      "snapshot": {
+        "version": 1,
+        "identity": [
+          "appId",
+          "instanceKey"
+        ],
+        "localState": [
+          "route",
+          "active tab",
+          "scroll/selection",
+          "layout",
+          "focus"
+        ],
+        "excludes": [
+          "launchPayload",
+          "lifecycle",
+          "live handles",
+          "Job",
+          "lease"
+        ],
+        "storage": "Android runtime.db device-local layout snapshot",
+        "desktopReferenceKey": "desktop.workbenchSnapshot"
+      },
+      "android": {
+        "module": "features/study",
+        "appId": "templates",
+        "phone": "apps/templates",
+        "tablet": "workspace/panel/{panelId}",
+        "deliveryUnit": "S7.09"
+      },
+      "acceptance": [
+        {
+          "id": "WB-templates-open",
+          "input": {
+            "appId": "templates",
+            "instanceKey": null
+          },
+          "expected": "reopen same identity activates existing panel; other allowed identity follows instanceMode"
+        },
+        {
+          "id": "WB-templates-lifecycle",
+          "input": [
+            "activate",
+            "background",
+            "rotate",
+            "close/cancel",
+            "relaunch"
+          ],
+          "expected": "resource and domain task state preserved; transient launch payload is not restored"
+        }
+      ]
+    },
+    {
+      "id": "taskDashboard",
+      "definition": {
+        "typeId": "taskDashboard",
+        "nameKey": "workbench:apps.taskDashboard",
+        "icon": {
+          "expression": "<AppIconImage typeId=\"taskDashboard\" className=\"h-8 w-8\" />"
+        },
+        "instanceMode": "single",
+        "memoryWeight": 1,
+        "defaultFrame": {
+          "w": 920,
+          "h": 660
+        },
+        "minSize": {
+          "w": 600,
+          "h": 440
+        },
+        "render": {
+          "expression": "hostGatedApp(ANKI_HOST_PLUGIN, 'workbench:apps.taskDashboard', () => import('./TaskDashboardAppWindow'))"
+        },
+        "badgeSource": {
+          "expression": "ankiTaskBadgeSource"
+        },
+        "agentManifest": {
+          "expression": "taskDashboardAgentManifest"
+        }
+      },
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/workbench/apps/system/register.tsx",
+        "line": 249,
+        "symbol": null
+      },
+      "factory": false,
+      "order": 15,
+      "resourceTypes": [
+        "taskDashboard"
+      ],
+      "instanceRule": "one panel per appId; resource switches within panel",
+      "resourceIdentity": "singleton",
+      "activation": "launch-and-focus",
+      "draft": "domain state persists through repository; view state remains local",
+      "close": "close panel without cancelling domain/background task",
+      "suspend": "scheduler may freeze view; task/repository remains application-owned",
+      "snapshot": {
+        "version": 1,
+        "identity": [
+          "appId",
+          "instanceKey"
+        ],
+        "localState": [
+          "route",
+          "active tab",
+          "scroll/selection",
+          "layout",
+          "focus"
+        ],
+        "excludes": [
+          "launchPayload",
+          "lifecycle",
+          "live handles",
+          "Job",
+          "lease"
+        ],
+        "storage": "Android runtime.db device-local layout snapshot",
+        "desktopReferenceKey": "desktop.workbenchSnapshot"
+      },
+      "android": {
+        "module": "features/study",
+        "appId": "taskDashboard",
+        "phone": "apps/taskDashboard",
+        "tablet": "workspace/panel/{panelId}",
+        "deliveryUnit": "S7.08"
+      },
+      "acceptance": [
+        {
+          "id": "WB-taskDashboard-open",
+          "input": {
+            "appId": "taskDashboard",
+            "instanceKey": null
+          },
+          "expected": "reopen same identity activates existing panel; other allowed identity follows instanceMode"
+        },
+        {
+          "id": "WB-taskDashboard-lifecycle",
+          "input": [
+            "activate",
+            "background",
+            "rotate",
+            "close/cancel",
+            "relaunch"
+          ],
+          "expected": "resource and domain task state preserved; transient launch payload is not restored"
+        }
+      ]
+    },
+    {
+      "id": "flashcards",
+      "definition": {
+        "typeId": "flashcards",
+        "nameKey": "workbench:apps.flashcards",
+        "icon": {
+          "expression": "<AppIconImage typeId=\"flashcards\" className=\"h-8 w-8\" />"
+        },
+        "instanceMode": "single",
+        "memoryWeight": 2,
+        "defaultFrame": {
+          "w": 960,
+          "h": 680
+        },
+        "minSize": {
+          "w": 560,
+          "h": 440
+        },
+        "render": {
+          "expression": "hostGatedApp(ANKI_HOST_PLUGIN, 'workbench:apps.flashcards', () => import('./FlashcardsAppWindow'))"
+        },
+        "badgeSource": {
+          "expression": "flashcardsDueBadgeSource"
+        },
+        "onActivation": {
+          "expression": "handleFlashcardsActivation"
+        },
+        "agentManifest": {
+          "expression": "createFlashcardsAgentManifest(handleFlashcardsActivation)"
+        }
+      },
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/workbench/apps/system/register.tsx",
+        "line": 262,
+        "symbol": null
+      },
+      "factory": false,
+      "order": 16,
+      "resourceTypes": [
+        "flashcards"
+      ],
+      "instanceRule": "one panel per appId; resource switches within panel",
+      "resourceIdentity": "singleton",
+      "activation": {
+        "expression": "handleFlashcardsActivation"
+      },
+      "draft": "domain state persists through repository; view state remains local",
+      "close": "close panel without cancelling domain/background task",
+      "suspend": "scheduler may freeze view; task/repository remains application-owned",
+      "snapshot": {
+        "version": 1,
+        "identity": [
+          "appId",
+          "instanceKey"
+        ],
+        "localState": [
+          "route",
+          "active tab",
+          "scroll/selection",
+          "layout",
+          "focus"
+        ],
+        "excludes": [
+          "launchPayload",
+          "lifecycle",
+          "live handles",
+          "Job",
+          "lease"
+        ],
+        "storage": "Android runtime.db device-local layout snapshot",
+        "desktopReferenceKey": "desktop.workbenchSnapshot"
+      },
+      "android": {
+        "module": "features/study",
+        "appId": "flashcards",
+        "phone": "apps/flashcards",
+        "tablet": "workspace/panel/{panelId}",
+        "deliveryUnit": "S7.12"
+      },
+      "acceptance": [
+        {
+          "id": "WB-flashcards-open",
+          "input": {
+            "appId": "flashcards",
+            "instanceKey": null
+          },
+          "expected": "reopen same identity activates existing panel; other allowed identity follows instanceMode"
+        },
+        {
+          "id": "WB-flashcards-lifecycle",
+          "input": [
+            "activate",
+            "background",
+            "rotate",
+            "close/cancel",
+            "relaunch"
+          ],
+          "expected": "resource and domain task state preserved; transient launch payload is not restored"
+        }
+      ]
+    },
+    {
+      "id": "media",
+      "definition": {
+        "typeId": "media",
+        "nameKey": "workbench:apps.media",
+        "icon": {
+          "expression": "<AppIconImage typeId=\"media\" className=\"h-8 w-8\" />"
+        },
+        "instanceMode": "single",
+        "memoryWeight": 2,
+        "defaultFrame": {
+          "w": 1100,
+          "h": 700
+        },
+        "minSize": {
+          "w": 560,
+          "h": 440
+        },
+        "render": {
+          "expression": "React.lazy(() => import('./MediaStudioAppWindow'))"
+        }
+      },
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/workbench/apps/system/register.tsx",
+        "line": 278,
+        "symbol": null
+      },
+      "factory": false,
+      "order": 17,
+      "resourceTypes": [
+        "media"
+      ],
+      "instanceRule": "one panel per appId; resource switches within panel",
+      "resourceIdentity": "singleton",
+      "activation": "launch-and-focus",
+      "draft": "domain state persists through repository; view state remains local",
+      "close": "close panel without cancelling domain/background task",
+      "suspend": "scheduler may freeze view; task/repository remains application-owned",
+      "snapshot": {
+        "version": 1,
+        "identity": [
+          "appId",
+          "instanceKey"
+        ],
+        "localState": [
+          "route",
+          "active tab",
+          "scroll/selection",
+          "layout",
+          "focus"
+        ],
+        "excludes": [
+          "launchPayload",
+          "lifecycle",
+          "live handles",
+          "Job",
+          "lease"
+        ],
+        "storage": "Android runtime.db device-local layout snapshot",
+        "desktopReferenceKey": "desktop.workbenchSnapshot"
+      },
+      "android": {
+        "module": "features/knowledge",
+        "appId": "media",
+        "phone": "apps/media",
+        "tablet": "workspace/panel/{panelId}",
+        "deliveryUnit": "S7.31"
+      },
+      "acceptance": [
+        {
+          "id": "WB-media-open",
+          "input": {
+            "appId": "media",
+            "instanceKey": null
+          },
+          "expected": "reopen same identity activates existing panel; other allowed identity follows instanceMode"
+        },
+        {
+          "id": "WB-media-lifecycle",
+          "input": [
+            "activate",
+            "background",
+            "rotate",
+            "close/cancel",
+            "relaunch"
+          ],
+          "expected": "resource and domain task state preserved; transient launch payload is not restored"
+        }
+      ]
+    },
+    {
+      "id": "settings",
+      "definition": {
+        "typeId": "settings",
+        "nameKey": "workbench:apps.settings",
+        "icon": {
+          "expression": "<AppIconImage typeId=\"settings\" className=\"h-8 w-8\" />"
+        },
+        "instanceMode": "single",
+        "memoryWeight": 2,
+        "defaultFrame": {
+          "w": 1020,
+          "h": 700
+        },
+        "minSize": {
+          "w": 720,
+          "h": 520
+        },
+        "render": {
+          "expression": "React.lazy(() => import('./SettingsAppWindow'))"
+        },
+        "agentManifest": {
+          "expression": "settingsAgentManifest"
+        }
+      },
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/workbench/apps/system/register.tsx",
+        "line": 289,
+        "symbol": null
+      },
+      "factory": false,
+      "order": 18,
+      "resourceTypes": [
+        "settings"
+      ],
+      "instanceRule": "one panel per appId; resource switches within panel",
+      "resourceIdentity": "singleton",
+      "activation": "launch-and-focus",
+      "draft": "domain state persists through repository; view state remains local",
+      "close": "close panel without cancelling domain/background task",
+      "suspend": "scheduler may freeze view; task/repository remains application-owned",
+      "snapshot": {
+        "version": 1,
+        "identity": [
+          "appId",
+          "instanceKey"
+        ],
+        "localState": [
+          "route",
+          "active tab",
+          "scroll/selection",
+          "layout",
+          "focus"
+        ],
+        "excludes": [
+          "launchPayload",
+          "lifecycle",
+          "live handles",
+          "Job",
+          "lease"
+        ],
+        "storage": "Android runtime.db device-local layout snapshot",
+        "desktopReferenceKey": "desktop.workbenchSnapshot"
+      },
+      "android": {
+        "module": "features/system",
+        "appId": "settings",
+        "phone": "apps/settings",
+        "tablet": "workspace/panel/{panelId}",
+        "deliveryUnit": "S7.35"
+      },
+      "acceptance": [
+        {
+          "id": "WB-settings-open",
+          "input": {
+            "appId": "settings",
+            "instanceKey": null
+          },
+          "expected": "reopen same identity activates existing panel; other allowed identity follows instanceMode"
+        },
+        {
+          "id": "WB-settings-lifecycle",
+          "input": [
+            "activate",
+            "background",
+            "rotate",
+            "close/cancel",
+            "relaunch"
+          ],
+          "expected": "resource and domain task state preserved; transient launch payload is not restored"
+        }
+      ]
+    },
+    {
+      "id": "pomodoro",
+      "definition": {
+        "typeId": "pomodoro",
+        "nameKey": "workbench:apps.pomodoro",
+        "icon": {
+          "expression": "<AppIconImage typeId=\"pomodoro\" className=\"h-8 w-8\" />"
+        },
+        "instanceMode": "single",
+        "memoryWeight": 1,
+        "defaultFrame": {
+          "w": 380,
+          "h": 560
+        },
+        "minSize": {
+          "w": 320,
+          "h": 440
+        },
+        "render": {
+          "expression": "React.lazy(() => import('./PomodoroAppWindow'))"
+        },
+        "badgeSource": {
+          "expression": "pomodoroBadgeSource"
+        },
+        "onActivation": {
+          "expression": "handlePomodoroActivation"
+        },
+        "agentManifest": {
+          "expression": "createPomodoroAgentManifest(handlePomodoroActivation)"
+        }
+      },
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/workbench/apps/system/register.tsx",
+        "line": 301,
+        "symbol": null
+      },
+      "factory": false,
+      "order": 19,
+      "resourceTypes": [
+        "pomodoro"
+      ],
+      "instanceRule": "one panel per appId; resource switches within panel",
+      "resourceIdentity": "singleton",
+      "activation": {
+        "expression": "handlePomodoroActivation"
+      },
+      "draft": "domain state persists through repository; view state remains local",
+      "close": "close panel without cancelling domain/background task",
+      "suspend": "scheduler may freeze view; task/repository remains application-owned",
+      "snapshot": {
+        "version": 1,
+        "identity": [
+          "appId",
+          "instanceKey"
+        ],
+        "localState": [
+          "route",
+          "active tab",
+          "scroll/selection",
+          "layout",
+          "focus"
+        ],
+        "excludes": [
+          "launchPayload",
+          "lifecycle",
+          "live handles",
+          "Job",
+          "lease"
+        ],
+        "storage": "Android runtime.db device-local layout snapshot",
+        "desktopReferenceKey": "desktop.workbenchSnapshot"
+      },
+      "android": {
+        "module": "features/productivity",
+        "appId": "pomodoro",
+        "phone": "apps/pomodoro",
+        "tablet": "workspace/panel/{panelId}",
+        "deliveryUnit": "S7.28"
+      },
+      "acceptance": [
+        {
+          "id": "WB-pomodoro-open",
+          "input": {
+            "appId": "pomodoro",
+            "instanceKey": null
+          },
+          "expected": "reopen same identity activates existing panel; other allowed identity follows instanceMode"
+        },
+        {
+          "id": "WB-pomodoro-lifecycle",
+          "input": [
+            "activate",
+            "background",
+            "rotate",
+            "close/cancel",
+            "relaunch"
+          ],
+          "expected": "resource and domain task state preserved; transient launch payload is not restored"
+        }
+      ]
+    },
+    {
+      "id": "sandbox",
+      "definition": {
+        "typeId": "sandbox",
+        "nameKey": "workbench:apps.sandbox",
+        "icon": {
+          "expression": "<AppIconImage typeId=\"sandbox\" className=\"h-8 w-8\" />"
+        },
+        "showInLauncher": false,
+        "instanceMode": "single",
+        "memoryWeight": 2,
+        "defaultFrame": {
+          "w": 960,
+          "h": 680
+        },
+        "minSize": {
+          "w": 640,
+          "h": 420
+        },
+        "render": {
+          "expression": "React.lazy(() => import('./SandboxAppWindow'))"
+        },
+        "onActivation": {
+          "expression": "handleSandboxActivation"
+        },
+        "agentManifest": {
+          "expression": "createSandboxAgentManifest(handleSandboxActivation)"
+        }
+      },
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/workbench/apps/sandbox/register.tsx",
+        "line": 84,
+        "symbol": null
+      },
+      "factory": false,
+      "order": 20,
+      "resourceTypes": [
+        "sandbox"
+      ],
+      "instanceRule": "one panel per appId; resource switches within panel",
+      "resourceIdentity": "singleton",
+      "activation": {
+        "expression": "handleSandboxActivation"
+      },
+      "draft": "domain state persists through repository; view state remains local",
+      "close": "close panel without cancelling domain/background task",
+      "suspend": "scheduler may freeze view; task/repository remains application-owned",
+      "snapshot": {
+        "version": 1,
+        "identity": [
+          "appId",
+          "instanceKey"
+        ],
+        "localState": [
+          "route",
+          "active tab",
+          "scroll/selection",
+          "layout",
+          "focus"
+        ],
+        "excludes": [
+          "launchPayload",
+          "lifecycle",
+          "live handles",
+          "Job",
+          "lease"
+        ],
+        "storage": "Android runtime.db device-local layout snapshot",
+        "desktopReferenceKey": "desktop.workbenchSnapshot"
+      },
+      "android": {
+        "module": "features/workspace",
+        "appId": "sandbox",
+        "phone": "apps/sandbox",
+        "tablet": "workspace/panel/{panelId}",
+        "deliveryUnit": "S6.43"
+      },
+      "acceptance": [
+        {
+          "id": "WB-sandbox-open",
+          "input": {
+            "appId": "sandbox",
+            "instanceKey": null
+          },
+          "expected": "reopen same identity activates existing panel; other allowed identity follows instanceMode"
+        },
+        {
+          "id": "WB-sandbox-lifecycle",
+          "input": [
+            "activate",
+            "background",
+            "rotate",
+            "close/cancel",
+            "relaunch"
+          ],
+          "expected": "resource and domain task state preserved; transient launch payload is not restored"
+        }
+      ]
+    },
+    {
+      "id": "browser",
+      "definition": {
+        "typeId": "browser",
+        "nameKey": "workbench:apps.browser",
+        "icon": {
+          "expression": "<AppIconImage typeId=\"browser\" className=\"h-8 w-8\" />"
+        },
+        "instanceMode": "single",
+        "memoryWeight": 2,
+        "keepAliveWhenOccluded": true,
+        "defaultFrame": {
+          "w": 920,
+          "h": 600
+        },
+        "minSize": {
+          "w": 640,
+          "h": 420
+        },
+        "render": {
+          "expression": "React.lazy(() => import('./BrowserAppWindow'))"
+        },
+        "onActivation": {
+          "expression": "handleBrowserActivation"
+        },
+        "agentManifest": {
+          "expression": "createBrowserAgentManifest(handleBrowserActivation)"
+        },
+        "canClose": {
+          "expression": "canCloseBrowser"
+        }
+      },
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/workbench/apps/browser/register.tsx",
+        "line": 137,
+        "symbol": null
+      },
+      "factory": false,
+      "order": 21,
+      "resourceTypes": [
+        "browser"
+      ],
+      "instanceRule": "one panel per appId; resource switches within panel",
+      "resourceIdentity": "browserSessionId within singleton",
+      "activation": {
+        "expression": "handleBrowserActivation"
+      },
+      "draft": "domain state persists through repository; view state remains local",
+      "close": "close native browser surface on panel release",
+      "suspend": "scheduler may freeze view; task/repository remains application-owned",
+      "snapshot": {
+        "version": 1,
+        "identity": [
+          "appId",
+          "instanceKey"
+        ],
+        "localState": [
+          "route",
+          "active tab",
+          "scroll/selection",
+          "layout",
+          "focus"
+        ],
+        "excludes": [
+          "launchPayload",
+          "lifecycle",
+          "live handles",
+          "Job",
+          "lease"
+        ],
+        "storage": "Android runtime.db device-local layout snapshot",
+        "desktopReferenceKey": "desktop.workbenchSnapshot"
+      },
+      "android": {
+        "module": "features/workspace",
+        "appId": "browser",
+        "phone": "apps/browser",
+        "tablet": "workspace/panel/{panelId}",
+        "deliveryUnit": "S6.43"
+      },
+      "acceptance": [
+        {
+          "id": "WB-browser-open",
+          "input": {
+            "appId": "browser",
+            "instanceKey": null
+          },
+          "expected": "reopen same identity activates existing panel; other allowed identity follows instanceMode"
+        },
+        {
+          "id": "WB-browser-lifecycle",
+          "input": [
+            "activate",
+            "background",
+            "rotate",
+            "close/cancel",
+            "relaunch"
+          ],
+          "expected": "resource and domain task state preserved; transient launch payload is not restored"
+        }
+      ]
+    }
+  ],
+  "dynamicFamily": {
+    "id": "plugin-view",
+    "prefix": "plugin-view.",
+    "staticGoldenMembership": false,
+    "discovery": {
+      "source": "src/features/workbench/apps/plugin-views/register.tsx",
+      "windowHost": "src/features/workbench/apps/plugin-views/PluginViewAppWindow.tsx",
+      "registrationEntry": "registerAllWorkbenchApps() → registerPluginViewApps() → mirrorPluginViewApps(kernel)",
+      "slot": {
+        "name": "views",
+        "cardinality": "keyed",
+        "ownerField": "entry.owner",
+        "originField": "entry.origin"
+      },
+      "memberKey": "entry.key ?? entry.value.id",
+      "excludes": "entry.origin === builtin"
+    },
+    "owner": {
+      "source": "contributing community plugin id from the views slot entry",
+      "panelAuthority": "appRegistry definition owner is the mirrored family; view-level plugin scope remains entry.owner",
+      "replacement": "same viewKey with a different owner/value unregisters the old definition before registering the replacement"
+    },
+    "singleton": {
+      "instanceMode": "single",
+      "scope": "one window per plugin-view.<viewKey> typeId; distinct community views may coexist",
+      "instanceKey": null
+    },
+    "resourceIdentity": {
+      "family": "plugin-view.",
+      "viewKey": "entry.key ?? entry.value.id",
+      "typeId": "plugin-view.<viewKey>",
+      "owner": "slot provenance and rendering scope; not an extra panel dimension",
+      "resourceKey": "the keyed views slot guarantees one live contribution per viewKey; a viewKey is a community view identity, not an official ResourceType"
+    },
+    "reconciliation": {
+      "register": "new community entry → appRegistry.register(plugin-view.<viewKey>)",
+      "unchanged": "same entry.value identity and owner → no registry churn",
+      "update": "owner/value change for the same viewKey → unregister old then register new",
+      "remove": "slot entry removal → appRegistry.unregister(typeId, mirroredDefinition), leaving unrelated definitions untouched",
+      "stop": "unsubscribe views and unregister every mirrored definition; later slot changes do not resurrect apps"
+    },
+    "draft": {
+      "mirroredDefinitionCallbacks": {
+        "canClose": false,
+        "canSuspend": false,
+        "prepareSuspend": false
+      },
+      "panelState": "plugin content and plugin storage own view state; the shell owns only window layout",
+      "close": "requestClose uses the shell default because the mirrored definition has no app-specific close guard"
+    },
+    "snapshot": {
+      "version": 1,
+      "identity": [
+        "typeId",
+        "instanceKey"
+      ],
+      "persisted": [
+        "plugin-view.<viewKey> typeId",
+        "title",
+        "frame",
+        "restoreFrame",
+        "displayMode",
+        "minimized",
+        "zIndex",
+        "timestamps"
+      ],
+      "excludes": [
+        "launchPayload",
+        "lifecycle",
+        "live handles",
+        "plugin component state"
+      ],
+      "restore": "the shell may restore the layout entry by typeId before the plugin provider exists; WindowBody then takes the appRegistry miss branch (data-wb-unknown-app / unknownApp copy) and does not mount PluginViewAppWindow. The missing-view notice belongs to PluginViewAppWindow after a registered app loses its slot entry.",
+      "missingProvider": {
+        "condition": "no live mirrored appDefinition for the restored typeId",
+        "source": {
+          "source": "desktop",
+          "file": "src/features/workbench/components/WindowBody.tsx",
+          "line": 174,
+          "symbol": "const def = useMemo(() => (win ? appRegistry.get(win.typeId) : undefined), [win?.typeId]);"
+        },
+        "branch": {
+          "source": "desktop",
+          "file": "src/features/workbench/components/WindowBody.tsx",
+          "line": 196,
+          "symbol": "if (!def) {"
+        },
+        "renders": "WindowBody data-wb-unknown-app with workbench:window.unknownApp; PluginViewAppWindow is not mounted"
+      },
+      "missingViewAfterUnmount": {
+        "condition": "PluginViewAppWindow is already mounted and the registered app remains, while its views slot entry is revoked",
+        "source": {
+          "source": "desktop",
+          "file": "src/features/workbench/apps/plugin-views/PluginViewAppWindow.tsx",
+          "line": 36,
+          "symbol": "wb-plugin-view-missing"
+        },
+        "renders": "PluginViewAppWindow unavailable notice"
+      },
+      "draft": "not stored by the workbench snapshot; plugin data must use plugin-owned portable/local storage"
+    },
+    "back": {
+      "panel": "close returns to the prior shell focus stack; no mirrored app-specific back stack",
+      "view": "internal navigation remains the plugin view host responsibility"
+    },
+    "nativeDelivery": [
+      {
+        "unit": "S6.34",
+        "responsibility": "dynamic plugin view rendering, owner scope, slot/view/lifecycle removal"
+      },
+      {
+        "unit": "S6.43",
+        "responsibility": "formal workbench panel host, layout, focus and close integration"
+      },
+      {
+        "unit": "S7.37",
+        "responsibility": "per-package installation/run/update/revoke evidence, including official UI contribution coverage"
+      }
+    ],
+    "acceptance": [
+      {
+        "id": "WB-plugin-view-register",
+        "expected": "community views register plugin-view.<viewKey> with single instance mode and plugin name scope"
+      },
+      {
+        "id": "WB-plugin-view-builtin-exclusion",
+        "expected": "builtin views never enter the dynamic family"
+      },
+      {
+        "id": "WB-plugin-view-update",
+        "expected": "owner/value replacement swaps the definition without changing the typeId mapping"
+      },
+      {
+        "id": "WB-plugin-view-remove",
+        "expected": "slot removal unregisters only the mirrored definition"
+      },
+      {
+        "id": "WB-plugin-view-reentry",
+        "expected": "re-adding the entry restores the same typeId and a fresh definition"
+      },
+      {
+        "id": "WB-plugin-view-snapshot",
+        "expected": "layout snapshot keeps typeId; component/draft/payload are not persisted"
+      }
+    ],
+    "replay": {
+      "production": [
+        "mirrorPluginViewApps(kernel)",
+        "pluginViewAppTypeId(viewKey)",
+        "resolvePluginViewAppTypeId(viewKey)",
+        "appRegistry.register/unregister",
+        "SlotStore.declare/contribute/unsubscribe"
+      ],
+      "stubs": {
+        "boundary": "Only render-only imports are substituted; registration, reconciliation, lookup, slot storage and app registry are production code.",
+        "symbols": [
+          "react",
+          "react/jsx-runtime",
+          "react/jsx-dev-runtime",
+          "@phosphor-icons/react",
+          "@/components/ErrorBoundary",
+          "@/ui-kernel/app-kernel",
+          "./PluginViewAppWindow"
+        ],
+        "notStubbed": [
+          "plugin-views/register.tsx",
+          "core/appRegistry.ts",
+          "ui-kernel/slots.ts"
+        ]
+      },
+      "inputs": [
+        "host/kernel/platforms.ts",
+        "src/features/workbench/apps/plugin-views/register.tsx",
+        "src/features/workbench/core/appRegistry.ts",
+        "src/ui-kernel/meta.ts",
+        "src/ui-kernel/slots.ts"
+      ],
+      "steps": [
+        {
+          "stage": "start-empty",
+          "typeId": "plugin-view.recall",
+          "definition": null,
+          "resolved": null
+        },
+        {
+          "stage": "community-register",
+          "typeId": "plugin-view.recall",
+          "definition": {
+            "typeId": "plugin-view.recall",
+            "nameKey": "workshop.plugin-recall:title",
+            "instanceMode": "single",
+            "memoryWeight": 1,
+            "defaultFrame": {
+              "w": 960,
+              "h": 680
+            },
+            "minSize": {
+              "w": 420,
+              "h": 320
+            },
+            "showInLauncher": null,
+            "render": "lazy-view-host",
+            "hasOwnDraftHook": false,
+            "hasCanClose": false,
+            "hasCanSuspend": false,
+            "hasPrepareSuspend": false
+          },
+          "resolved": "plugin-view.recall"
+        },
+        {
+          "stage": "builtin-ignored",
+          "builtinTypeId": "plugin-view.official-view",
+          "definition": null
+        },
+        {
+          "stage": "entry-removed",
+          "typeId": "plugin-view.recall",
+          "definition": null,
+          "resolved": null
+        },
+        {
+          "stage": "owner-change-reentry",
+          "typeId": "plugin-view.recall",
+          "definition": {
+            "typeId": "plugin-view.recall",
+            "nameKey": "community.recall-v2:title",
+            "instanceMode": "single",
+            "memoryWeight": 1,
+            "defaultFrame": {
+              "w": 960,
+              "h": 680
+            },
+            "minSize": {
+              "w": 420,
+              "h": 320
+            },
+            "showInLauncher": null,
+            "render": "lazy-view-host",
+            "hasOwnDraftHook": false,
+            "hasCanClose": false,
+            "hasCanSuspend": false,
+            "hasPrepareSuspend": false
+          },
+          "resolved": "plugin-view.recall"
+        },
+        {
+          "stage": "mismatched-unregister-ignored",
+          "typeId": "plugin-view.recall",
+          "definition": {
+            "typeId": "plugin-view.recall",
+            "nameKey": "community.recall-v2:title",
+            "instanceMode": "single",
+            "memoryWeight": 1,
+            "defaultFrame": {
+              "w": 960,
+              "h": 680
+            },
+            "minSize": {
+              "w": 420,
+              "h": 320
+            },
+            "showInLauncher": null,
+            "render": "lazy-view-host",
+            "hasOwnDraftHook": false,
+            "hasCanClose": false,
+            "hasCanSuspend": false,
+            "hasPrepareSuspend": false
+          }
+        },
+        {
+          "stage": "reentry",
+          "typeId": "plugin-view.recall",
+          "definition": {
+            "typeId": "plugin-view.recall",
+            "nameKey": "workshop.plugin-recall:title",
+            "instanceMode": "single",
+            "memoryWeight": 1,
+            "defaultFrame": {
+              "w": 960,
+              "h": 680
+            },
+            "minSize": {
+              "w": 420,
+              "h": 320
+            },
+            "showInLauncher": null,
+            "render": "lazy-view-host",
+            "hasOwnDraftHook": false,
+            "hasCanClose": false,
+            "hasCanSuspend": false,
+            "hasPrepareSuspend": false
+          },
+          "resolved": "plugin-view.recall"
+        },
+        {
+          "stage": "mirror-stopped",
+          "typeId": "plugin-view.recall",
+          "definition": null,
+          "resolved": null
+        }
+      ],
+      "checkedAssertions": [
+        "builtin-not-mirrored",
+        "mismatched-unregister-preserves-owner",
+        "slot-key-overrides-value-id",
+        "remove-unregisters",
+        "stop-unregisters-and-unsubscribes"
+      ],
+      "aliasObservation": {
+        "stage": "slot-key-authoritative",
+        "aliasTypeId": "plugin-view.alias-key",
+        "innerTypeId": "plugin-view.inner-id",
+        "definition": {
+          "typeId": "plugin-view.alias-key",
+          "nameKey": "ns:title",
+          "instanceMode": "single",
+          "memoryWeight": 1,
+          "defaultFrame": {
+            "w": 960,
+            "h": 680
+          },
+          "minSize": {
+            "w": 420,
+            "h": 320
+          },
+          "showInLauncher": null,
+          "render": "lazy-view-host",
+          "hasOwnDraftHook": false,
+          "hasCanClose": false,
+          "hasCanSuspend": false,
+          "hasPrepareSuspend": false
+        }
+      }
+    },
+    "sources": [
+      {
+        "source": "desktop",
+        "file": "src/features/workbench/apps/plugin-views/register.tsx",
+        "line": 26,
+        "symbol": "export const PLUGIN_VIEW_APP_PREFIX = 'plugin-view.';"
+      },
+      {
+        "source": "desktop",
+        "file": "src/features/workbench/apps/plugin-views/register.tsx",
+        "line": 85,
+        "symbol": "instanceMode: 'single'"
+      },
+      {
+        "source": "desktop",
+        "file": "src/features/workbench/apps/plugin-views/register.tsx",
+        "line": 107,
+        "symbol": "entry.origin !== 'builtin'"
+      },
+      {
+        "source": "desktop",
+        "file": "src/features/workbench/apps/plugin-views/register.tsx",
+        "line": 114,
+        "symbol": "appRegistry.unregister(typeId, current.def)"
+      },
+      {
+        "source": "desktop",
+        "file": "src/features/workbench/apps/plugin-views/register.tsx",
+        "line": 121,
+        "symbol": "appRegistry.unregister(typeId, def)"
+      }
+    ]
+  },
+  "defaultDockPinned": [
+    "chat",
+    "files",
+    "settings",
+    "todo"
+  ],
+  "exclusions": [
+    {
+      "appId": "mindmap",
+      "reason": "definition exists but registerAll intentionally routes mindmaps through notes",
+      "androidHost": "notes"
+    },
+    {
+      "appId": "desktop",
+      "reason": "virtual Agent target; not a registered UI app",
+      "androidHost": "workspace"
+    },
+    {
+      "appId": "plugin-view.*",
+      "reason": "dynamic community family; not an official static app and not part of apps.json golden",
+      "androidHost": "workspace/panel/{panelId}"
+    }
+  ],
+  "resourceKey": {
+    "fields": {
+      "domain": "string",
+      "resourceId": "stable shared id",
+      "viewKind": "appId/content perspective",
+      "revision": "optional domain version"
+    },
+    "panelIdentity": "appId + instanceKey; resourceKey remains distinct from panel id",
+    "shared": "domain records and resource bytes",
+    "local": "layout, draft, view state and running task ownership"
+  },
+  "launchPlacement": {
+    "field": "LaunchRequest.placement",
+    "modes": [
+      "beside"
+    ],
+    "defaultAnchor": "focused window when anchorWindowId is absent",
+    "newWindow": "plan and place the new window beside the source without covering it when feasible; may tile or minimally move the source according to the source layout and available space",
+    "existingWindow": "focus the existing identity only; never move the existing window and never change the source window mode",
+    "dropPointPrecedence": "dropPoint takes precedence over beside placement",
+    "sourceHash": {
+      "file": "src/features/workbench/core/besidePlacement.ts",
+      "sha256": "473d44041211c7a99c089eb289dd68deeecd30e2a5bc0b43a68a52746b507e7f"
+    },
+    "sources": [
+      {
+        "source": "desktop",
+        "file": "src/features/workbench/core/types.ts",
+        "line": 533,
+        "symbol": "export interface LaunchPlacement"
+      },
+      {
+        "source": "desktop",
+        "file": "src/features/workbench/core/types.ts",
+        "line": 529,
+        "symbol": "placement?: LaunchPlacement;"
+      },
+      {
+        "source": "desktop",
+        "file": "src/features/workbench/core/besidePlacement.ts",
+        "line": 70,
+        "symbol": "export function planBesidePlacement"
+      },
+      {
+        "source": "desktop",
+        "file": "src/features/workbench/core/workbenchBus.ts",
+        "line": 238,
+        "symbol": "function launchBeside(req: LaunchRequest): string"
+      },
+      {
+        "source": "desktop",
+        "file": "src/features/workbench/core/workbenchBus.ts",
+        "line": 242,
+        "symbol": "if (findExistingLaunchTarget(req.typeId, instanceKey)) return store.openWindow(base);"
+      }
+    ],
+    "planner": {
+      "pure": true,
+      "module": "src/features/workbench/core/besidePlacement.ts",
+      "cases": {
+        "straddlingFloat": {
+          "anchorMode": "tiled-left",
+          "resourceMode": "tiled-right"
+        },
+        "noAnchor": null,
+        "minimizedAnchor": null
+      }
+    },
+    "replay": {
+      "production": [
+        "workbenchBus.launch",
+        "planBesidePlacement",
+        "useWindowStore.openWindow/focusWindow",
+        "appRegistry.get"
+      ],
+      "stubs": {
+        "boundary": "Only unrelated agent, notes/content workspace and close-guard imports are substituted; launch placement, window store, tiling and app registry are production code.",
+        "symbols": [
+          "./agentRuntime",
+          "../apps/notes/workspaceRegistry",
+          "../apps/content/resourceWorkspaceRegistry",
+          "./windowCloseGuard"
+        ]
+      },
+      "inputs": [
+        "node_modules/nanoid/index.js",
+        "node_modules/nanoid/url-alphabet/index.js",
+        "node_modules/react/cjs/react.development.js",
+        "node_modules/react/cjs/react.production.min.js",
+        "node_modules/react/index.js",
+        "node_modules/zustand/esm/index.mjs",
+        "node_modules/zustand/esm/react.mjs",
+        "node_modules/zustand/esm/vanilla.mjs",
+        "src/features/workbench/core/appRegistry.ts",
+        "src/features/workbench/core/besidePlacement.ts",
+        "src/features/workbench/core/metrics.ts",
+        "src/features/workbench/core/tiling.ts",
+        "src/features/workbench/core/windowStore.ts",
+        "src/features/workbench/core/workbenchBus.ts"
+      ],
+      "newWindow": {
+        "id": "<reader-window>",
+        "anchorId": "<anchor-window>",
+        "anchorMode": "tiled-left",
+        "anchorRestoreFrame": {
+          "x": 48,
+          "y": 48,
+          "w": 1080,
+          "h": 720
+        },
+        "resourceMode": "tiled-right",
+        "resourceInstanceKey": "file_paper",
+        "focusMatchesReader": true
+      },
+      "existingWindow": {
+        "id": "<reader-window>",
+        "anchorId": "<anchor-window>",
+        "sameWindowReused": true,
+        "frameUnchanged": true,
+        "displayModeUnchanged": true,
+        "anchorFrameUnchanged": true,
+        "anchorModeUnchanged": true,
+        "focusMatchesReader": true
+      },
+      "checkedAssertions": [
+        "new-reader-window-is-distinct",
+        "existing-reader-is-focused-not-moved",
+        "no-anchor-falls-back-to-cascade",
+        "minimized-anchor-falls-back-to-cascade"
+      ]
+    },
+    "checkedAssertions": [
+      "new-reader-window-is-distinct",
+      "existing-reader-is-focused-not-moved",
+      "no-anchor-falls-back-to-cascade",
+      "minimized-anchor-falls-back-to-cascade"
+    ]
+  },
+  "contracts": [
+    {
+      "name": "WorkbenchWindow",
+      "source": "export interface WorkbenchWindow {\n  /** 壳身份（nanoid） */\n  id: string;\n  typeId: string;\n  /** 业务身份，如 'note_xxx' / 'sess_xxx'；single 应用为 null */\n  instanceKey: string | null;\n  title: string;\n  /** floating 时的位置尺寸；tiled/maximized 时为落位前快照的冗余（渲染以 computeTiledFrame 为准） */\n  frame: Frame;\n  /** 进入 tiled/maximized 前的原始 frame（macOS 恢复语义） */\n  restoreFrame: Frame | null;\n  displayMode: DisplayMode;\n  minimized: boolean;\n  zIndex: number;\n  createdAt: number;\n  lastFocusedAt: number;\n}",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/workbench/core/types.ts",
+        "line": 45,
+        "symbol": null
+      }
+    },
+    {
+      "name": "ActivationContext",
+      "source": "export interface ActivationContext {\n  windowId: string;\n  instanceKey: string | null;\n  action: string;\n  payload?: unknown;\n}",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/workbench/core/types.ts",
+        "line": 67,
+        "symbol": null
+      }
+    },
+    {
+      "name": "AppDefinition",
+      "source": "export interface AppDefinition {\n  typeId: string;\n  /** i18n key（namespace: workbench） */\n  nameKey: string;\n  icon: React.ReactNode;\n  /** false when the window requires resource context and cannot be launched on its own. */\n  showInLauncher?: boolean;\n  instanceMode: 'single' | 'multi';\n  /** 调度器内存预算权重：PDF/教材=3，编辑器/Chat/思维导图=2，纯展示=1 */\n  memoryWeight: 1 | 2 | 3;\n  /**\n   * Keep the app mounted and visually present while another internal window\n   * covers it. Native child surfaces need this so the platform clip host can\n   * yield only the covered pixels instead of hiding the entire surface.\n   */\n  keepAliveWhenOccluded?: boolean;\n  defaultFrame: Size;\n  minSize: Size;\n  render: React.LazyExoticComponent<React.FC<AppWindowProps>>;\n  /**\n   * 应用的数据由哪个 Host 插件提供（如 `'dstu.anki'`）。经 `contributeWorkbenchApp` 登记时由 `dstu.ui.workbench`\n   * 按 Host 状态处理：缺失时不出现在工作台；降级时窗口内显示 Host 不可用面板（已打开的窗口即时切换）；\n   * 恢复后照常。Host 清单未到或没有 UI 内核时按在线处理。\n   */\n  hostPlugin?: string;\n  /** 一次性指令送达（scrollToMessage / gotoPage 等）；可返回结构化回执 */\n  onActivation?: (\n    ctx: ActivationContext,\n  ) => ActivationHandlerResult | Promise<ActivationHandlerResult>;\n  /** Optional, self-describing semantic control surface for ACR 2.0. */\n  agentManifest?: AppAgentManifest;\n  /** Dock 角标数据源（拉模式，Dock 轮询/订阅由 Dock 实现决定） */\n  badgeSource?: () => AppBadge | null;\n  /** 关闭拦截（未保存提示）；返回 false 阻止关闭。缺省 = 直接关 */\n  canClose?: (instanceKey: string | null) => boolean | Promise<boolean>;\n  /**\n   * suspend 契约（2026-08 Wave2 扩展，新增可选字段）：\n   * 调度器把 background 窗降为 frozen（卸载 React 子树）前询问本回调；\n   * 返回 false = 本窗当前不可冻（典型：有未保存编辑，冻结会丢内存态）。\n   *\n   * 约定：调度器热路径【不 await】——dirty 类查询必须同步返回 boolean\n   * （isContentDirty / isWindowDirty 均为同步）；返回 Promise 时热路径\n   * 视为「可冻」，异步结果仅供非热路径调用方参考。缺省 = 总是可冻。\n   */\n  canSuspend?: (instanceKey: string | null) => boolean | Promise<boolean>;\n  /**\n   * 可选的冻结前保存挂点：返回 true 表示已保存、随后可安全冻结。\n   * 仅供非热路径在「窗口脏但有保存能力、且调用方明确要冻」时使用；\n   * 调度器本身绝不自动调用（默认策略：脏窗保持 background，永不 frozen）。\n   */\n  prepareSuspend?: (instanceKey: string | null) => boolean | Promise<boolean>;\n  /**\n   * Ctrl+W is normally owned by the workbench window manager. Tabbed apps can\n   * opt in to receive it themselves, for example to close their active tab.\n   */\n  handlesCloseShortcut?: boolean;\n  /**\n   * Ctrl+Tab / Ctrl+Shift+Tab 让位协议（分层实现见 useWorkbenchShortcuts）：\n   * 默认归工作台窗口切换器；带内部标签页的应用（编辑器 / 浏览器等）声明\n   * 本标志后接管这组按键做内部标签循环。\n   *\n   * 分层规则（自上而下短路）：\n   * 1. 焦点在可编辑目标 / IME 组合中 → 壳层输入守卫本就不响应，谁也不抢；\n   * 2. 切换器会话已开启（按住 Ctrl 循环中）→ 壳层保持所有权直至松开 Ctrl，\n   *    壳层会 preventDefault —— 应用侧监听器必须跳过 defaultPrevented 事件；\n   * 3. 会话未开启且焦点应用声明本标志 → 壳层让位（不 preventDefault、\n   *    不开切换器），应用自持的 keydown 监听器消费并 preventDefault。\n   *\n   * 声明后该应用聚焦期间不可再用 Ctrl+Tab 呼出窗口切换器；窗口切换仍有\n   * Dock / 俯瞰（Ctrl+Alt+E）/ 同应用循环（Ctrl+`）等入口。\n   */\n  handlesTabCycleShortcut?: boolean;\n}",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/workbench/core/types.ts",
+        "line": 438,
+        "symbol": null
+      }
+    },
+    {
+      "name": "LaunchRequest",
+      "source": "export interface LaunchRequest {\n  typeId: string;\n  instanceKey?: string;\n  /** 瞬态，不进快照 */\n  payload?: unknown;\n  /** 桌面坐标系落点；仅新建窗口生效，窗口以该点为中心并钳制进桌面。 */\n  dropPoint?: { x: number; y: number };\n  /**\n   * 落位策略（仅新建窗口生效；窗口已存在时只聚焦，绝不移动）。\n   * 'beside'：开在来源窗旁边，不遮住来源窗（对话里点页码开阅读器等），见 core/besidePlacement。\n   */\n  placement?: LaunchPlacement;\n  reason: LaunchReason;\n}",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/workbench/core/types.ts",
+        "line": 518,
+        "symbol": null
+      }
+    },
+    {
+      "name": "LaunchPlacement",
+      "source": "export interface LaunchPlacement {\n  mode: 'beside';\n  /** 来源窗 id；缺省取当前焦点窗 */\n  anchorWindowId?: string | null;\n}",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/workbench/core/types.ts",
+        "line": 533,
+        "symbol": null
+      }
+    },
+    {
+      "name": "ActivateRequest",
+      "source": "export interface ActivateRequest {\n  typeId: string;\n  instanceKey: string;\n  action: string;\n  payload?: unknown;\n  /** 目标窗口不存在时的兜底 launch */\n  fallbackLaunch?: LaunchRequest;\n}",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/workbench/core/types.ts",
+        "line": 539,
+        "symbol": null
+      }
+    },
+    {
+      "name": "WorkbenchSnapshotV1",
+      "source": "export interface WorkbenchSnapshotV1 {\n  version: 1;\n  windows: WorkbenchWindow[];\n  dockPinned: string[];\n  /** key: `${leftWindowId}:${rightWindowId}`，value: 左侧占比 0–1 */\n  tilingRatios: Record<string, number>;\n  /**\n   * 壁纸配置；imageBlur/imageDim/imageVignette 为图片壁纸的可选适配字段\n   * （新增可选扩展，向后兼容），语义与 WallpaperLayer 的 WallpaperConfig 一致。\n   */\n  wallpaper?: {\n    kind: 'theme' | 'image';\n    value: string;\n    /** 高斯模糊半径 px，sanitize 钳制 0–40 */\n    imageBlur?: number;\n    /** 额外压暗，sanitize 钳制 0–0.6 */\n    imageDim?: number;\n    /** 边缘暗角开关 */\n    imageVignette?: boolean;\n  };\n  materialTier?: MaterialTier;\n  /**\n   * O11 追加（可选）：快照保存时的桌面尺寸。\n   * 恢复时若与当前桌面不一致，hydrate 按比例缩放窗口位置并钳回可视区\n   * （多显示器 / 分辨率变化自适应）。旧快照无此字段 → 仅做钳制兜底。\n   */\n  desktopSize?: Size;\n}",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/workbench/core/types.ts",
+        "line": 561,
+        "symbol": null
+      }
+    }
+  ],
+  "sourceHashes": [
+    {
+      "file": "src/features/workbench/apps/__golden__/apps.json",
+      "sha256": "5fb7614f4e12986c49f02c0787c6e8465cdc7f39e400be986293fa02375963d9"
+    },
+    {
+      "file": "src/features/workbench/apps/ai-dashboard/register.tsx",
+      "sha256": "ffea77956c41ee0ccd922d45054dd360c639163aedbcb58e8f102289c602703d"
+    },
+    {
+      "file": "src/features/workbench/apps/browser/register.tsx",
+      "sha256": "37e515873881d3fdf3b75721bd329953e31902881710f497d3a9fde44fc3b8cd"
+    },
+    {
+      "file": "src/features/workbench/apps/chat/register.ts",
+      "sha256": "555ba226d7f9a1d6dea4e767a8f22bd440747f8ee1aab1500200dd6b5d0468c9"
+    },
+    {
+      "file": "src/features/workbench/apps/content/createContentApp.tsx",
+      "sha256": "641427de76a2f88f4d259dd8e80010adcd23a63d75557b93a0a651ac1808e04b"
+    },
+    {
+      "file": "src/features/workbench/apps/content/register.ts",
+      "sha256": "9f225c90a8cb8487027287a09b923672f84b7df33c5750bd1d84b445f3a2e009"
+    },
+    {
+      "file": "src/features/workbench/apps/content/typeMap.ts",
+      "sha256": "15ceb450f5673aac0a3fe6321f8771a41ce522cd6bbcb617dcb78f0d4f543732"
+    },
+    {
+      "file": "src/features/workbench/apps/files/register.ts",
+      "sha256": "e53a88a0a66fce730312099647d62ec277d57a1089734afda4b43ea429f47f9d"
+    },
+    {
+      "file": "src/features/workbench/apps/notes/register.ts",
+      "sha256": "1544f2e7b9733d04a8636eff27117253b6a65e9f2e7ed871b6c057ebf25f6070"
+    },
+    {
+      "file": "src/features/workbench/apps/notes/workspaceRegistry.ts",
+      "sha256": "b8322f4491b07d67516cfa86aa244e222e4e1481218d16500cd7e7a808aa1feb"
+    },
+    {
+      "file": "src/features/workbench/apps/plugin-views/PluginViewAppWindow.tsx",
+      "sha256": "e40f46a68cf35d34c05bcfd174bfecdfecd5907bee2bf804fb4595b0eab08bc5"
+    },
+    {
+      "file": "src/features/workbench/apps/plugin-views/register.tsx",
+      "sha256": "44124eeff785c4a500b267deaf031f27b9647e7f31e748d72a0228574a5ba5a1"
+    },
+    {
+      "file": "src/features/workbench/apps/preview/register.tsx",
+      "sha256": "0defc4e303052bf950fd22d90e2c17f5142de5d225e45b10f766cb2befc8e023"
+    },
+    {
+      "file": "src/features/workbench/apps/registerAll.ts",
+      "sha256": "42b9211947cf73a38193bab1e982171580dcd9d4d9ac3a599c6cbea14f8282ac"
+    },
+    {
+      "file": "src/features/workbench/apps/sandbox/register.tsx",
+      "sha256": "489c24088b7f2c62bc12a2a672650a9b7162e5a495d1c58e3dcd0f6ce18e9fa0"
+    },
+    {
+      "file": "src/features/workbench/apps/system/register.tsx",
+      "sha256": "177dd5b4e2d424ffee7c107e218926b6a52f279b30536977e498cd8d7d395baa"
+    },
+    {
+      "file": "src/features/workbench/components/WindowBody.tsx",
+      "sha256": "f973a7e1c4fd6494d54309b1166b44799b97fff65a4267d6be200e4ce7da3c84"
+    },
+    {
+      "file": "src/features/workbench/core/besidePlacement.ts",
+      "sha256": "473d44041211c7a99c089eb289dd68deeecd30e2a5bc0b43a68a52746b507e7f"
+    },
+    {
+      "file": "src/features/workbench/core/scheduler.ts",
+      "sha256": "d0a3327f049af183e81fb0009bfed6fd63993db606c1f0cf0e4b5fbb173eac5f"
+    },
+    {
+      "file": "src/features/workbench/core/snapshot.ts",
+      "sha256": "204dcc9ffce2b56943035168e423af3df6a3e4ee6ad9b7f6e2ff60ffa6c3062e"
+    },
+    {
+      "file": "src/features/workbench/core/snapshotWindowPolicy.ts",
+      "sha256": "e375941506b1fe430fe5e98dd1748697434c0958157c4c3fc120210ad55f6c1a"
+    },
+    {
+      "file": "src/features/workbench/core/types.ts",
+      "sha256": "97d03cc504533887fea70ebaca03a915d6c6a8a80fa41d0afa75bcbe69371f6b"
+    },
+    {
+      "file": "src/features/workbench/core/windowCloseGuard.ts",
+      "sha256": "d14a58a2a257e61f47385e4b1d0bb3aef80ab431bac12a9d28de26fa39c5f5c1"
+    },
+    {
+      "file": "src/features/workbench/core/workbenchBus.ts",
+      "sha256": "7473ae2ce71269f5ab8baacbe002f1c3bc0d045f1a6f6066f91a0cdd0e1167a1"
+    }
+  ]
+}

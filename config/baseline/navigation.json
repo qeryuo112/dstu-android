@@ -1,0 +1,981 @@
+{
+  "formatVersion": 1,
+  "unit": "S0.02",
+  "baseline": "desktop",
+  "views": [
+    {
+      "id": "dashboard",
+      "contentKey": "dashboardContent",
+      "titleKey": "common:navigation.dashboard",
+      "extraClass": "overflow-hidden",
+      "order": 10,
+      "evidence": {
+        "source": "desktop",
+        "file": "src/ui-plugins/official/shell/index.ts",
+        "line": 15,
+        "symbol": null
+      },
+      "title": {
+        "zh": "总览",
+        "en": "Dashboard"
+      },
+      "visibility": "all-builds",
+      "hostCondition": "official-shell",
+      "keepAlive": true,
+      "shell": {
+        "sidebarKind": "main",
+        "mobileBackToHome": true
+      },
+      "android": {
+        "module": "features/productivity",
+        "route": "home/dashboard",
+        "deliveryUnit": "S7.34",
+        "phone": "native-page-in-panel-stack",
+        "tablet": "native-workbench-panel",
+        "return": "caller → home"
+      },
+      "acceptance": {
+        "id": "NAV-dashboard",
+        "normal": "open from declared entry, verify title/order and back path",
+        "exceptional": "recreate Activity and preserve selected route; enforce visibility and host condition"
+      }
+    },
+    {
+      "id": "settings",
+      "contentKey": "settingsContent",
+      "titleKey": "sidebar:navigation.settings",
+      "extraClass": "overflow-hidden",
+      "shell": {
+        "sidebarKind": "settings",
+        "mobileBackToHome": true,
+        "sidebarOwnsBackNavigation": true,
+        "hideExpandedSidebarToggle": true,
+        "contentClass": "settings-view"
+      },
+      "order": 20,
+      "evidence": {
+        "source": "desktop",
+        "file": "src/ui-plugins/official/shell/index.ts",
+        "line": 16,
+        "symbol": null
+      },
+      "title": {
+        "zh": "设置",
+        "en": "Settings"
+      },
+      "visibility": "all-builds",
+      "hostCondition": "official-shell",
+      "keepAlive": true,
+      "android": {
+        "module": "features/system",
+        "route": "settings",
+        "deliveryUnit": "S7.35",
+        "phone": "native-page-in-panel-stack",
+        "tablet": "native-workbench-panel",
+        "return": "section-stack → caller → home"
+      },
+      "acceptance": {
+        "id": "NAV-settings",
+        "normal": "open from declared entry, verify title/order and back path",
+        "exceptional": "recreate Activity and preserve selected route; enforce visibility and host condition"
+      }
+    },
+    {
+      "id": "task-dashboard",
+      "contentKey": "taskDashboardContent",
+      "titleKey": "sidebar:navigation.flashcards",
+      "shell": {
+        "sidebarKind": "main",
+        "mobileBackToHome": true,
+        "cardsHubTabs": true
+      },
+      "order": 30,
+      "evidence": {
+        "source": "desktop",
+        "file": "src/ui-plugins/official/shell/index.ts",
+        "line": 17,
+        "symbol": null
+      },
+      "title": {
+        "zh": "闪卡",
+        "en": "Flashcards"
+      },
+      "visibility": "all-builds",
+      "hostCondition": "dstu.anki available; unavailable state uses host-status surface",
+      "keepAlive": true,
+      "android": {
+        "module": "features/study",
+        "route": "study/card-tasks",
+        "deliveryUnit": "S7.08",
+        "phone": "native-page-in-panel-stack",
+        "tablet": "native-workbench-panel",
+        "return": "caller → home"
+      },
+      "acceptance": {
+        "id": "NAV-task-dashboard",
+        "normal": "open from declared entry, verify title/order and back path",
+        "exceptional": "recreate Activity and preserve selected route; enforce visibility and host condition"
+      }
+    },
+    {
+      "id": "skills-management",
+      "contentKey": "skillsManagementContent",
+      "titleKey": "sidebar:navigation.skills_management",
+      "shell": {
+        "sidebarKind": "main",
+        "mobileBackToHome": true,
+        "toolbarSlot": "skills-toolbar"
+      },
+      "order": 40,
+      "evidence": {
+        "source": "desktop",
+        "file": "src/ui-plugins/official/shell/index.ts",
+        "line": 18,
+        "symbol": null
+      },
+      "title": {
+        "zh": "技能管理",
+        "en": "Skills Management"
+      },
+      "visibility": "all-builds",
+      "hostCondition": "official-shell",
+      "keepAlive": true,
+      "android": {
+        "module": "features/chat",
+        "route": "agent/skills",
+        "deliveryUnit": "S3.20",
+        "phone": "native-page-in-panel-stack",
+        "tablet": "native-workbench-panel",
+        "return": "caller → home"
+      },
+      "acceptance": {
+        "id": "NAV-skills-management",
+        "normal": "open from declared entry, verify title/order and back path",
+        "exceptional": "recreate Activity and preserve selected route; enforce visibility and host condition"
+      }
+    },
+    {
+      "id": "data-management",
+      "contentKey": "dataManagementContent",
+      "titleKey": "common:navigation.data_management",
+      "order": 50,
+      "evidence": {
+        "source": "desktop",
+        "file": "src/ui-plugins/official/shell/index.ts",
+        "line": 19,
+        "symbol": null
+      },
+      "title": {
+        "zh": "数据管理",
+        "en": "Data Management"
+      },
+      "visibility": "all-builds",
+      "hostCondition": "official-shell",
+      "keepAlive": true,
+      "shell": {
+        "sidebarKind": "main",
+        "mobileBackToHome": true
+      },
+      "android": {
+        "module": "features/system",
+        "route": "data/overview",
+        "deliveryUnit": "S8.14",
+        "phone": "native-page-in-panel-stack",
+        "tablet": "native-workbench-panel",
+        "return": "caller → home"
+      },
+      "acceptance": {
+        "id": "NAV-data-management",
+        "normal": "open from declared entry, verify title/order and back path",
+        "exceptional": "recreate Activity and preserve selected route; enforce visibility and host condition"
+      }
+    },
+    {
+      "id": "template-management",
+      "contentKey": "templateManagementContent",
+      "titleKey": "sidebar:navigation.flashcards",
+      "shell": {
+        "sidebarKind": "main",
+        "mobileBackToHome": true,
+        "cardsHubTabs": true
+      },
+      "order": 60,
+      "evidence": {
+        "source": "desktop",
+        "file": "src/ui-plugins/official/shell/index.ts",
+        "line": 20,
+        "symbol": null
+      },
+      "title": {
+        "zh": "闪卡",
+        "en": "Flashcards"
+      },
+      "visibility": "all-builds",
+      "hostCondition": "dstu.anki available; unavailable state uses host-status surface",
+      "keepAlive": true,
+      "android": {
+        "module": "features/study",
+        "route": "study/templates",
+        "deliveryUnit": "S7.09",
+        "phone": "native-page-in-panel-stack",
+        "tablet": "native-workbench-panel",
+        "return": "caller → home"
+      },
+      "acceptance": {
+        "id": "NAV-template-management",
+        "normal": "open from declared entry, verify title/order and back path",
+        "exceptional": "recreate Activity and preserve selected route; enforce visibility and host condition"
+      }
+    },
+    {
+      "id": "ui-lab",
+      "contentKey": "styleDebugContent",
+      "titleKey": "sidebar:navigation.ui_lab",
+      "visible": {
+        "expression": "({ uiLabEnabled }) => uiLabEnabled"
+      },
+      "order": 70,
+      "evidence": {
+        "source": "desktop",
+        "file": "src/ui-plugins/official/shell/index.ts",
+        "line": 21,
+        "symbol": null
+      },
+      "title": {
+        "zh": "样式调试",
+        "en": "UI Lab"
+      },
+      "visibility": "uiLabEnabled",
+      "hostCondition": "official-shell",
+      "keepAlive": true,
+      "shell": {
+        "sidebarKind": "main",
+        "mobileBackToHome": true
+      },
+      "android": {
+        "module": "core/design",
+        "route": "debug/ui-lab",
+        "deliveryUnit": "S5.03",
+        "phone": "native-page-in-panel-stack",
+        "tablet": "native-workbench-panel",
+        "return": "caller → home"
+      },
+      "acceptance": {
+        "id": "NAV-ui-lab",
+        "normal": "open from declared entry, verify title/order and back path",
+        "exceptional": "recreate Activity and preserve selected route; enforce visibility and host condition"
+      }
+    },
+    {
+      "id": "learning-hub",
+      "contentKey": "learningHubContent",
+      "titleKey": "sidebar:navigation.learning_hub",
+      "shell": {
+        "sidebarKind": "desktop-page",
+        "mobileBackToHome": true,
+        "pageBackButton": true,
+        "toolbarSlot": "learning-hub-toolbar"
+      },
+      "order": 80,
+      "evidence": {
+        "source": "desktop",
+        "file": "src/ui-plugins/official/shell/index.ts",
+        "line": 22,
+        "symbol": null
+      },
+      "title": {
+        "zh": "资源库",
+        "en": "Files"
+      },
+      "visibility": "all-builds",
+      "hostCondition": "official-shell",
+      "keepAlive": true,
+      "android": {
+        "module": "features/knowledge",
+        "route": "knowledge/library",
+        "deliveryUnit": "S7.01",
+        "phone": "native-page-in-panel-stack",
+        "tablet": "native-workbench-panel",
+        "return": "caller → home"
+      },
+      "acceptance": {
+        "id": "NAV-learning-hub",
+        "normal": "open from declared entry, verify title/order and back path",
+        "exceptional": "recreate Activity and preserve selected route; enforce visibility and host condition"
+      }
+    },
+    {
+      "id": "media",
+      "contentKey": "mediaStudioContent",
+      "titleKey": "sidebar:navigation.media",
+      "shell": {
+        "sidebarKind": "main",
+        "mobileBackToHome": true,
+        "toolbarSlot": "media-toolbar"
+      },
+      "order": 90,
+      "evidence": {
+        "source": "desktop",
+        "file": "src/ui-plugins/official/shell/index.ts",
+        "line": 23,
+        "symbol": null
+      },
+      "title": {
+        "zh": "音视频",
+        "en": "Media"
+      },
+      "visibility": "all-builds",
+      "hostCondition": "official-shell",
+      "keepAlive": true,
+      "android": {
+        "module": "features/knowledge",
+        "route": "media/library",
+        "deliveryUnit": "S7.31",
+        "phone": "native-page-in-panel-stack",
+        "tablet": "native-workbench-panel",
+        "return": "caller → home"
+      },
+      "acceptance": {
+        "id": "NAV-media",
+        "normal": "open from declared entry, verify title/order and back path",
+        "exceptional": "recreate Activity and preserve selected route; enforce visibility and host condition"
+      }
+    },
+    {
+      "id": "sandbox-workbench",
+      "contentKey": "sandboxWorkbenchContent",
+      "titleKey": "common:navigation.sandbox_workbench",
+      "order": 100,
+      "evidence": {
+        "source": "desktop",
+        "file": "src/ui-plugins/official/shell/index.ts",
+        "line": 24,
+        "symbol": null
+      },
+      "title": {
+        "zh": "沙箱工作台",
+        "en": "Sandbox Workbench"
+      },
+      "visibility": "all-builds",
+      "hostCondition": "official-shell",
+      "keepAlive": true,
+      "shell": {
+        "sidebarKind": "main",
+        "mobileBackToHome": true
+      },
+      "android": {
+        "module": "features/workspace",
+        "route": "workspace",
+        "deliveryUnit": "S5.26",
+        "phone": "native-page-in-panel-stack",
+        "tablet": "native-workbench-panel",
+        "return": "caller → home"
+      },
+      "acceptance": {
+        "id": "NAV-sandbox-workbench",
+        "normal": "open from declared entry, verify title/order and back path",
+        "exceptional": "recreate Activity and preserve selected route; enforce visibility and host condition"
+      }
+    },
+    {
+      "id": "pdf-reader",
+      "contentKey": "pdfReaderContent",
+      "titleKey": "common:navigation.pdf_reader",
+      "order": 110,
+      "evidence": {
+        "source": "desktop",
+        "file": "src/ui-plugins/official/shell/index.ts",
+        "line": 25,
+        "symbol": null
+      },
+      "title": {
+        "zh": "PDF 阅读器",
+        "en": "PDF Reader"
+      },
+      "visibility": "all-builds",
+      "hostCondition": "official-shell",
+      "keepAlive": true,
+      "shell": {
+        "sidebarKind": "main",
+        "mobileBackToHome": true
+      },
+      "android": {
+        "module": "features/knowledge",
+        "route": "knowledge/pdf/{resourceId}",
+        "deliveryUnit": "S7.06",
+        "phone": "native-page-in-panel-stack",
+        "tablet": "native-workbench-panel",
+        "return": "caller → home"
+      },
+      "acceptance": {
+        "id": "NAV-pdf-reader",
+        "normal": "open from declared entry, verify title/order and back path",
+        "exceptional": "recreate Activity and preserve selected route; enforce visibility and host condition"
+      }
+    },
+    {
+      "id": "todo",
+      "contentKey": "todoContent",
+      "titleKey": "sidebar:navigation.todo",
+      "shell": {
+        "sidebarKind": "todo",
+        "mobileBackToHome": true,
+        "sidebarOwnsBackNavigation": true,
+        "toolbarSlot": "todo-toolbar"
+      },
+      "order": 120,
+      "evidence": {
+        "source": "desktop",
+        "file": "src/ui-plugins/official/shell/index.ts",
+        "line": 26,
+        "symbol": null
+      },
+      "title": {
+        "zh": "待办",
+        "en": "Todo"
+      },
+      "visibility": "all-builds",
+      "hostCondition": "official-shell",
+      "keepAlive": true,
+      "android": {
+        "module": "features/productivity",
+        "route": "productivity/todo",
+        "deliveryUnit": "S7.25",
+        "phone": "native-page-in-panel-stack",
+        "tablet": "native-workbench-panel",
+        "return": "section-stack → caller → home"
+      },
+      "acceptance": {
+        "id": "NAV-todo",
+        "normal": "open from declared entry, verify title/order and back path",
+        "exceptional": "recreate Activity and preserve selected route; enforce visibility and host condition"
+      }
+    },
+    {
+      "id": "flashcards",
+      "contentKey": "flashcardsContent",
+      "titleKey": "sidebar:navigation.flashcards",
+      "shell": {
+        "sidebarKind": "main",
+        "mobileBackToHome": true,
+        "cardsHubTabs": true
+      },
+      "order": 130,
+      "evidence": {
+        "source": "desktop",
+        "file": "src/ui-plugins/official/shell/index.ts",
+        "line": 27,
+        "symbol": null
+      },
+      "title": {
+        "zh": "闪卡",
+        "en": "Flashcards"
+      },
+      "visibility": "all-builds",
+      "hostCondition": "dstu.anki available; unavailable state uses host-status surface",
+      "keepAlive": true,
+      "android": {
+        "module": "features/study",
+        "route": "study/flashcards",
+        "deliveryUnit": "S7.12",
+        "phone": "native-page-in-panel-stack",
+        "tablet": "native-workbench-panel",
+        "return": "caller → home"
+      },
+      "acceptance": {
+        "id": "NAV-flashcards",
+        "normal": "open from declared entry, verify title/order and back path",
+        "exceptional": "recreate Activity and preserve selected route; enforce visibility and host condition"
+      }
+    },
+    {
+      "id": "crepe-demo",
+      "contentKey": "crepeDemoContent",
+      "titleKey": "common:navigation.crepe_demo",
+      "visible": {
+        "expression": "({ dev }) => dev"
+      },
+      "order": 140,
+      "evidence": {
+        "source": "desktop",
+        "file": "src/ui-plugins/official/shell/index.ts",
+        "line": 28,
+        "symbol": null
+      },
+      "title": {
+        "zh": "Crepe Demo",
+        "en": "Crepe Demo"
+      },
+      "visibility": "debug-build",
+      "hostCondition": "official-shell",
+      "keepAlive": true,
+      "shell": {
+        "sidebarKind": "main",
+        "mobileBackToHome": true
+      },
+      "android": {
+        "module": "core/design",
+        "route": "debug/editor",
+        "deliveryUnit": "S5.13",
+        "phone": "native-page-in-panel-stack",
+        "tablet": "native-workbench-panel",
+        "return": "caller → home"
+      },
+      "acceptance": {
+        "id": "NAV-crepe-demo",
+        "normal": "open from declared entry, verify title/order and back path",
+        "exceptional": "recreate Activity and preserve selected route; enforce visibility and host condition"
+      }
+    },
+    {
+      "id": "chat-v2-test",
+      "contentKey": "chatV2TestContent",
+      "titleKey": "common:navigation.chat_v2_test",
+      "visible": {
+        "expression": "({ dev }) => dev"
+      },
+      "order": 150,
+      "evidence": {
+        "source": "desktop",
+        "file": "src/ui-plugins/official/shell/index.ts",
+        "line": 29,
+        "symbol": null
+      },
+      "title": {
+        "zh": "Chat V2 Test",
+        "en": "Chat V2 Test"
+      },
+      "visibility": "debug-build",
+      "hostCondition": "official-shell",
+      "keepAlive": true,
+      "shell": {
+        "sidebarKind": "main",
+        "mobileBackToHome": true
+      },
+      "android": {
+        "module": "features/chat",
+        "route": "debug/chat",
+        "deliveryUnit": "S3.29",
+        "phone": "native-page-in-panel-stack",
+        "tablet": "native-workbench-panel",
+        "return": "caller → home"
+      },
+      "acceptance": {
+        "id": "NAV-chat-v2-test",
+        "normal": "open from declared entry, verify title/order and back path",
+        "exceptional": "recreate Activity and preserve selected route; enforce visibility and host condition"
+      }
+    },
+    {
+      "id": "llm-playground",
+      "contentKey": "llmPlaygroundContent",
+      "titleKey": "common:navigation.llm_playground",
+      "visible": {
+        "expression": "({ dev }) => dev"
+      },
+      "order": 160,
+      "evidence": {
+        "source": "desktop",
+        "file": "src/ui-plugins/official/shell/index.ts",
+        "line": 30,
+        "symbol": null
+      },
+      "title": {
+        "zh": "LLM Playground",
+        "en": "LLM Playground"
+      },
+      "visibility": "debug-build",
+      "hostCondition": "official-shell",
+      "keepAlive": true,
+      "shell": {
+        "sidebarKind": "main",
+        "mobileBackToHome": true
+      },
+      "android": {
+        "module": "features/chat",
+        "route": "debug/models",
+        "deliveryUnit": "S3.08",
+        "phone": "native-page-in-panel-stack",
+        "tablet": "native-workbench-panel",
+        "return": "caller → home"
+      },
+      "acceptance": {
+        "id": "NAV-llm-playground",
+        "normal": "open from declared entry, verify title/order and back path",
+        "exceptional": "recreate Activity and preserve selected route; enforce visibility and host condition"
+      }
+    },
+    {
+      "id": "chat-v2",
+      "contentKey": "chatV2Content",
+      "titleKey": "sidebar:navigation.chat_v2",
+      "allowInDemo": true,
+      "shell": {
+        "sidebarKind": "main",
+        "mobileBackToHome": false,
+        "chatHeader": true
+      },
+      "order": 170,
+      "evidence": {
+        "source": "desktop",
+        "file": "src/ui-plugins/official/shell/index.ts",
+        "line": 31,
+        "symbol": null
+      },
+      "title": {
+        "zh": "新会话",
+        "en": "New Chat"
+      },
+      "visibility": "all-builds",
+      "hostCondition": "official-shell",
+      "keepAlive": true,
+      "android": {
+        "module": "features/chat",
+        "route": "chat/sessions",
+        "deliveryUnit": "S3.27",
+        "phone": "native-page-in-panel-stack",
+        "tablet": "native-workbench-panel",
+        "return": "caller → home"
+      },
+      "acceptance": {
+        "id": "NAV-chat-v2",
+        "normal": "open from declared entry, verify title/order and back path",
+        "exceptional": "recreate Activity and preserve selected route; enforce visibility and host condition"
+      }
+    }
+  ],
+  "navigation": [
+    {
+      "id": "chat-v2",
+      "viewId": "chat-v2",
+      "labelKey": "sidebar:navigation.chat_v2",
+      "fallback": "新会话",
+      "icon": {
+        "expression": "StudyChatIcon"
+      },
+      "desktop": {
+        "placement": "primary",
+        "chatScope": true,
+        "action": "new-session",
+        "omitFallback": true
+      },
+      "mobile": {
+        "placement": "launcher",
+        "label": {
+          "key": "sidebar:navigation.launcher.chat_v2",
+          "fallback": "会话"
+        },
+        "ariaLabel": {
+          "key": "sidebar:navigation.sessions",
+          "fallback": "会话"
+        }
+      },
+      "order": 10,
+      "evidence": {
+        "source": "desktop",
+        "file": "src/ui-plugins/official/shell/index.ts",
+        "line": 38,
+        "symbol": null
+      },
+      "title": {
+        "zh": "新会话",
+        "en": "New Chat"
+      },
+      "visibility": "all-builds",
+      "androidRoute": "chat/sessions",
+      "androidPlacement": "main-navigation",
+      "action": "create-session-then-open"
+    },
+    {
+      "id": "learning-hub",
+      "viewId": "learning-hub",
+      "labelKey": "sidebar:navigation.learning_hub",
+      "fallback": "资源库",
+      "icon": {
+        "expression": "StudyBooksIcon"
+      },
+      "desktop": {
+        "placement": "primary"
+      },
+      "mobile": {
+        "placement": "launcher",
+        "label": {
+          "key": "sidebar:navigation.launcher.learning_hub",
+          "fallback": "资源"
+        },
+        "ariaLabel": {
+          "key": "sidebar:navigation.learning_hub",
+          "fallback": "资源库"
+        }
+      },
+      "order": 20,
+      "evidence": {
+        "source": "desktop",
+        "file": "src/ui-plugins/official/shell/index.ts",
+        "line": 41,
+        "symbol": null
+      },
+      "title": {
+        "zh": "资源库",
+        "en": "Files"
+      },
+      "visibility": "all-builds",
+      "androidRoute": "knowledge/library",
+      "androidPlacement": "main-navigation",
+      "action": "activate-view"
+    },
+    {
+      "id": "media",
+      "viewId": "media",
+      "labelKey": "sidebar:navigation.media",
+      "fallback": "音视频",
+      "icon": {
+        "expression": "StudyMediaIcon"
+      },
+      "desktop": {
+        "placement": "primary"
+      },
+      "mobile": {
+        "placement": "launcher",
+        "label": {
+          "key": "sidebar:navigation.launcher.media",
+          "fallback": "音视频"
+        },
+        "ariaLabel": {
+          "key": "sidebar:navigation.media",
+          "fallback": "音视频"
+        }
+      },
+      "order": 30,
+      "evidence": {
+        "source": "desktop",
+        "file": "src/ui-plugins/official/shell/index.ts",
+        "line": 43,
+        "symbol": null
+      },
+      "title": {
+        "zh": "音视频",
+        "en": "Media"
+      },
+      "visibility": "all-builds",
+      "androidRoute": "media/library",
+      "androidPlacement": "main-navigation",
+      "action": "activate-view"
+    },
+    {
+      "id": "todo",
+      "viewId": "todo",
+      "labelKey": "sidebar:navigation.todo",
+      "icon": {
+        "expression": "StudyTodoIcon"
+      },
+      "desktop": {
+        "placement": "primary"
+      },
+      "mobile": {
+        "placement": "launcher",
+        "label": {
+          "key": "sidebar:navigation.launcher.todo",
+          "fallback": "待办"
+        },
+        "ariaLabel": {
+          "key": "sidebar:navigation.todo",
+          "fallback": "待办"
+        }
+      },
+      "order": 40,
+      "evidence": {
+        "source": "desktop",
+        "file": "src/ui-plugins/official/shell/index.ts",
+        "line": 45,
+        "symbol": null
+      },
+      "title": {
+        "zh": "待办",
+        "en": "Todo"
+      },
+      "visibility": "all-builds",
+      "androidRoute": "productivity/todo",
+      "androidPlacement": "main-navigation",
+      "action": "activate-view"
+    },
+    {
+      "id": "skills-management",
+      "viewId": "skills-management",
+      "labelKey": "sidebar:navigation.skills_management",
+      "fallback": "技能管理",
+      "icon": {
+        "expression": "StudyMagicWandIcon"
+      },
+      "desktop": {
+        "placement": "primary"
+      },
+      "mobile": {
+        "placement": "launcher",
+        "label": {
+          "key": "sidebar:navigation.launcher.skills_management",
+          "fallback": "技能"
+        },
+        "ariaLabel": {
+          "key": "sidebar:navigation.skills_management",
+          "fallback": "技能管理"
+        }
+      },
+      "order": 50,
+      "evidence": {
+        "source": "desktop",
+        "file": "src/ui-plugins/official/shell/index.ts",
+        "line": 47,
+        "symbol": null
+      },
+      "title": {
+        "zh": "技能管理",
+        "en": "Skills Management"
+      },
+      "visibility": "all-builds",
+      "androidRoute": "agent/skills",
+      "androidPlacement": "main-navigation",
+      "action": "activate-view"
+    },
+    {
+      "id": "flashcards",
+      "viewId": "flashcards",
+      "labelKey": "sidebar:navigation.flashcards",
+      "fallback": "闪卡",
+      "icon": {
+        "expression": "StudyCardsIcon"
+      },
+      "desktop": {
+        "placement": "primary"
+      },
+      "mobile": {
+        "placement": "launcher",
+        "label": {
+          "key": "sidebar:navigation.launcher.flashcards",
+          "fallback": "闪卡"
+        },
+        "ariaLabel": {
+          "key": "sidebar:navigation.flashcards",
+          "fallback": "闪卡"
+        }
+      },
+      "order": 60,
+      "evidence": {
+        "source": "desktop",
+        "file": "src/ui-plugins/official/shell/index.ts",
+        "line": 49,
+        "symbol": null
+      },
+      "title": {
+        "zh": "闪卡",
+        "en": "Flashcards"
+      },
+      "visibility": "all-builds",
+      "androidRoute": "study/flashcards",
+      "androidPlacement": "main-navigation",
+      "action": "activate-view"
+    },
+    {
+      "id": "ui-lab",
+      "viewId": "ui-lab",
+      "labelKey": "sidebar:navigation.ui_lab",
+      "icon": {
+        "expression": "StudyBlocksIcon"
+      },
+      "visible": {
+        "expression": "({ uiLabEnabled }) => uiLabEnabled"
+      },
+      "desktop": {
+        "placement": "primary"
+      },
+      "order": 70,
+      "evidence": {
+        "source": "desktop",
+        "file": "src/ui-plugins/official/shell/index.ts",
+        "line": 51,
+        "symbol": null
+      },
+      "title": {
+        "zh": "样式调试",
+        "en": "UI Lab"
+      },
+      "visibility": "uiLabEnabled",
+      "androidRoute": "debug/ui-lab",
+      "androidPlacement": "main-navigation",
+      "action": "activate-view"
+    },
+    {
+      "id": "data-management",
+      "viewId": "data-management",
+      "labelKey": "common:navigation.data_management",
+      "fallback": "数据管理",
+      "icon": {
+        "expression": "Database"
+      },
+      "mobile": {
+        "placement": "launcher",
+        "label": {
+          "key": "sidebar:navigation.launcher.data_management",
+          "fallback": "数据"
+        },
+        "ariaLabel": {
+          "key": "common:navigation.data_management",
+          "fallback": "数据管理"
+        }
+      },
+      "order": 80,
+      "evidence": {
+        "source": "desktop",
+        "file": "src/ui-plugins/official/shell/index.ts",
+        "line": 53,
+        "symbol": null
+      },
+      "title": {
+        "zh": "数据管理",
+        "en": "Data Management"
+      },
+      "visibility": "all-builds",
+      "androidRoute": "data/overview",
+      "androidPlacement": "main-navigation",
+      "action": "activate-view"
+    },
+    {
+      "id": "settings",
+      "viewId": "settings",
+      "labelKey": "sidebar:navigation.settings",
+      "fallback": "设置",
+      "icon": {
+        "expression": "StudySettingsIcon"
+      },
+      "desktop": {
+        "placement": "settings"
+      },
+      "mobile": {
+        "placement": "settings"
+      },
+      "order": 90,
+      "evidence": {
+        "source": "desktop",
+        "file": "src/ui-plugins/official/shell/index.ts",
+        "line": 55,
+        "symbol": null
+      },
+      "title": {
+        "zh": "设置",
+        "en": "Settings"
+      },
+      "visibility": "all-builds",
+      "androidRoute": "settings",
+      "androidPlacement": "settings-entry",
+      "action": "activate-view"
+    }
+  ],
+  "rules": {
+    "order": "source array order × 10",
+    "debug": "development-only views require Android debug build",
+    "uiLab": "explicit UI laboratory setting",
+    "phone": "drawer or panel stack with the same feature order",
+    "tablet": "sidebar and workspace panels",
+    "desktopOnlyViewImplementation": "source evidence; Kotlin and Compose own Android routes"
+  }
+}

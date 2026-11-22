@@ -1,0 +1,758 @@
+{
+  "formatVersion": 1,
+  "format": "dstu-s0-gate-policy/v1",
+  "unit": "S0.G",
+  "title": "S0 stage-exit independent gate",
+  "desktop": {
+    "repository": "../dstu-node",
+    "commit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+    "tree": "3bee0f058851b9eb113bdc036d9f60433ed29944",
+    "sourceLock": "config/source-lock.json"
+  },
+  "expected": {
+    "upstreamMigrations": 135,
+    "coordinatedMigrations": 3,
+    "finalMigrations": 138,
+    "sharedDatabases": [
+      "vfs",
+      "chat_v2",
+      "mistakes",
+      "llm_usage"
+    ],
+    "databaseVersions": {
+      "vfs": 20261117,
+      "chat_v2": 20261111,
+      "mistakes": 20261006,
+      "llm_usage": 20260826,
+      "browser": 20260711
+    },
+    "databaseMigrationCounts": {
+      "vfs": 75,
+      "chat_v2": 30,
+      "mistakes": 24,
+      "llm_usage": 8,
+      "browser": 1
+    },
+    "registry": {
+      "entries": 126,
+      "rowSync": 61,
+      "categoryCounts": {
+        "RowSync": 61,
+        "DerivedRebuild": 16,
+        "LocalRuntime": 31,
+        "BackupOnly": 17,
+        "Deprecated": 1
+      }
+    },
+    "coordinated": [
+      {
+        "unit": "S0.21",
+        "database": "mistakes",
+        "version": 20261006,
+        "name": "portable_anki_templates",
+        "file": "config/schema/coordinated/mistakes/V20261006__portable_anki_templates.sql"
+      },
+      {
+        "unit": "S0.22",
+        "database": "vfs",
+        "version": 20261116,
+        "name": "portable_media_progress",
+        "file": "config/schema/coordinated/vfs/V20261116__portable_media_progress.sql"
+      },
+      {
+        "unit": "S0.24",
+        "database": "vfs",
+        "version": 20261117,
+        "name": "plugin_skill_data_contract",
+        "file": "config/schema/coordinated/vfs/V20261117__plugin_skill_data_contract.sql"
+      }
+    ],
+    "staleVersions": [
+      20261114
+    ],
+    "incrementIds": [
+      "portable-templates-and-persistent-assets",
+      "portable-media-time-events",
+      "portable-theme-model-tool-configuration",
+      "portable-plugin-skill-data"
+    ]
+  },
+  "units": [
+    {
+      "unit": "S0.01",
+      "stage": "sources",
+      "entries": [
+        "tools/baseline/sources.mjs"
+      ],
+      "artifacts": [
+        "config/source-inputs.json",
+        "config/source-lock.json",
+        "config/sources/*.commit.json"
+      ]
+    },
+    {
+      "unit": "S0.02",
+      "stage": "navigation",
+      "entries": [
+        "tools/baseline/navigation.mjs"
+      ],
+      "artifacts": [
+        "config/baseline/navigation.json"
+      ]
+    },
+    {
+      "unit": "S0.03",
+      "stage": "entries",
+      "entries": [
+        "tools/baseline/entries.mjs"
+      ],
+      "artifacts": [
+        "config/baseline/entries.json"
+      ]
+    },
+    {
+      "unit": "S0.04",
+      "stage": "workbench",
+      "entries": [
+        "tools/baseline/workbench.mjs"
+      ],
+      "artifacts": [
+        "config/baseline/workbench.json"
+      ]
+    },
+    {
+      "unit": "S0.05",
+      "stage": "domains",
+      "entries": [
+        "tools/baseline/domains.mjs"
+      ],
+      "artifacts": [
+        "config/baseline/domains.json"
+      ]
+    },
+    {
+      "unit": "S0.06",
+      "stage": "contributions",
+      "entries": [
+        "tools/baseline/contributions.mjs"
+      ],
+      "artifacts": [
+        "config/baseline/contributions.json"
+      ]
+    },
+    {
+      "unit": "S0.07",
+      "stage": "content",
+      "entries": [
+        "tools/baseline/content.mjs"
+      ],
+      "artifacts": [
+        "config/content-inputs.json",
+        "config/baseline/content.json"
+      ]
+    },
+    {
+      "unit": "S0.08",
+      "stage": "schema",
+      "entries": [
+        "tools/baseline/schema.mjs",
+        "tools/baseline/schema-upgrade.mjs"
+      ],
+      "artifacts": [
+        "config/baseline/schema.json",
+        "config/baseline/schema-upgrade.json"
+      ]
+    },
+    {
+      "unit": "S0.09",
+      "stage": "classification",
+      "entries": [
+        "tools/baseline/classification.mjs"
+      ],
+      "artifacts": [
+        "config/baseline/classification.json"
+      ]
+    },
+    {
+      "unit": "S0.10",
+      "stage": "protocol",
+      "entries": [
+        "tools/baseline/protocol.mjs"
+      ],
+      "artifacts": [
+        "config/baseline/protocol.json"
+      ]
+    },
+    {
+      "unit": "S0.11",
+      "stage": "design",
+      "entries": [
+        "tools/baseline/design.mjs"
+      ],
+      "artifacts": [
+        "config/design/tokens.baseline.json"
+      ]
+    },
+    {
+      "unit": "S0.12",
+      "stage": "brand",
+      "entries": [
+        "tools/baseline/brand.mjs"
+      ],
+      "artifacts": [
+        "config/design/brand.baseline.json"
+      ]
+    },
+    {
+      "unit": "S0.13",
+      "stage": "adoption",
+      "entries": [
+        "tools/baseline/adoption.mjs"
+      ],
+      "artifacts": [
+        "config/operit-adoption.json"
+      ]
+    },
+    {
+      "unit": "S0.14",
+      "stage": "assets",
+      "entries": [
+        "tools/baseline/assets.mjs"
+      ],
+      "artifacts": [
+        "config/runtime-assets.json",
+        "config/runtime-notices.json",
+        "NOTICE"
+      ]
+    },
+    {
+      "unit": "S0.15",
+      "stage": "platform",
+      "entries": [
+        "tools/baseline/platform.mjs",
+        "tools/baseline/version.mjs"
+      ],
+      "artifacts": [
+        "config/baseline/platform.json",
+        "config/release-contract.json"
+      ]
+    },
+    {
+      "unit": "S0.16",
+      "stage": "legacy-export",
+      "entries": [
+        "tools/baseline/legacy-export.mjs",
+        "tools/baseline/legacy-export/fixtures.mjs",
+        "tools/baseline/legacy-export/identity.mjs",
+        "tools/baseline/legacy-export/package.mjs",
+        "tools/baseline/legacy-export/upgrade.mjs"
+      ],
+      "artifacts": [
+        "config/baseline/legacy-export.json",
+        "config/legacy-import-contract.json",
+        "fixtures/legacy-mobile/*"
+      ]
+    },
+    {
+      "unit": "S0.17",
+      "stage": "test-foundation",
+      "entries": [
+        "tools/baseline/test-foundation.mjs",
+        "tools/baseline/corpus.mjs",
+        "tools/baseline/model-recordings.mjs",
+        "tools/baseline/measurement.mjs",
+        "tools/baseline/probe-device.mjs",
+        "tools/baseline/run-logged.mjs"
+      ],
+      "artifacts": [
+        "config/baseline/test-foundation.json",
+        "config/baseline/corpus.json",
+        "config/baseline/model-recordings.json",
+        "config/baseline/measurement.json",
+        "config/measurement-inputs.json",
+        "fixtures/model-streams/openai-python-v1.109.1/*"
+      ]
+    },
+    {
+      "unit": "S0.18",
+      "stage": "sync-formats",
+      "entries": [
+        "tools/baseline/sync-formats.mjs",
+        "tools/baseline/sync-golden.mjs",
+        "tools/baseline/crypto-golden.mjs",
+        "tools/baseline/file-golden.mjs"
+      ],
+      "artifacts": [
+        "config/baseline/sync-formats.json",
+        "config/baseline/sync-golden.json",
+        "config/baseline/crypto-golden.json",
+        "config/baseline/file-golden.json"
+      ]
+    },
+    {
+      "unit": "S0.19",
+      "stage": "registry-contract",
+      "entries": [
+        "tools/baseline/registry-contract.mjs",
+        "tools/baseline/registry-audit.mjs"
+      ],
+      "artifacts": [
+        "config/sync-registry-contract.json"
+      ]
+    },
+    {
+      "unit": "S0.20",
+      "stage": "release-window",
+      "entries": [
+        "tools/baseline/release-window.mjs",
+        "tools/baseline/release-audit.mjs"
+      ],
+      "artifacts": [
+        "config/sync-release-window.json"
+      ]
+    },
+    {
+      "unit": "S0.21",
+      "stage": "templates-assets",
+      "entries": [
+        "tools/baseline/templates-assets.mjs",
+        "tools/baseline/asset-transport.mjs",
+        "tools/baseline/chat-attachment.mjs"
+      ],
+      "artifacts": [
+        "config/contracts/templates-assets.json",
+        "config/contracts/asset-transport.json",
+        "config/contracts/chat-attachment.json",
+        "fixtures/templates-assets.json",
+        "desktop-increment/loader.mjs",
+        "desktop-increment/templates-assets.mjs",
+        "desktop-increment/chat-attachment.mjs",
+        "config/schema/coordinated/mistakes/V20261006__portable_anki_templates.sql"
+      ]
+    },
+    {
+      "unit": "S0.22",
+      "stage": "media-time",
+      "entries": [
+        "tools/baseline/media-time.mjs",
+        "tools/baseline/media-audit.mjs"
+      ],
+      "artifacts": [
+        "config/contracts/media-time.json",
+        "config/contracts/media-audit.json",
+        "fixtures/media-time.json",
+        "desktop-increment/media-time.mjs",
+        "config/schema/coordinated/vfs/V20261116__portable_media_progress.sql"
+      ]
+    },
+    {
+      "unit": "S0.23",
+      "stage": "portable-config",
+      "entries": [
+        "tools/baseline/portable-config.mjs",
+        "tools/baseline/config-audit.mjs"
+      ],
+      "artifacts": [
+        "config/contracts/portable-config.json",
+        "config/contracts/config-audit.json",
+        "fixtures/portable-config.json",
+        "desktop-increment/portable-config.mjs"
+      ]
+    },
+    {
+      "unit": "S0.24",
+      "stage": "plugin-data",
+      "entries": [
+        "tools/baseline/plugin-data.mjs",
+        "tools/baseline/plugin-audit.mjs"
+      ],
+      "artifacts": [
+        "config/contracts/plugin-data.json",
+        "config/contracts/plugin-audit.json",
+        "fixtures/plugin-data.json",
+        "desktop-increment/plugin-data.mjs",
+        "desktop-increment/plugin-data/*.mjs",
+        "config/schema/coordinated/vfs/V20261117__plugin_skill_data_contract.sql"
+      ]
+    },
+    {
+      "unit": "S0.25",
+      "stage": "execution-plan",
+      "semanticOnly": true,
+      "entries": [
+        "tools/baseline/execution-plan.mjs"
+      ],
+      "artifacts": [
+        "config/execution-plan.json"
+      ]
+    }
+  ],
+  "evidence": {
+    "policy": "The gate hashes unit artifacts and entry points. Test evidence uses the fixed unitEvidence logs below; legacy logPattern fields are display-only and are not used for acceptance.",
+    "notCheckedAsTruth": [
+      "checks.pass booleans inside unit artifacts",
+      "capture timestamps or durations",
+      "the gate's own report or log files"
+    ]
+  },
+  "unitEvidence": {
+    "S0.01": [
+      {
+        "file": "logs/s0-01-upstream-source-verify.log",
+        "requiredEvent": "baseline.verified",
+        "artifactMatch": true
+      },
+      {
+        "file": "logs/s0-resume-second-full.log",
+        "requiredEvent": "verification.unit.pass",
+        "unitMatch": true
+      }
+    ],
+    "S0.02": [
+      {
+        "file": "logs/s0-02-upstream-verify.log",
+        "requiredEvent": "baseline.verified",
+        "artifactMatch": true
+      },
+      {
+        "file": "logs/s0-resume-second-full.log",
+        "requiredEvent": "verification.unit.pass",
+        "unitMatch": true
+      }
+    ],
+    "S0.03": [
+      {
+        "file": "logs/s0-03-upstream-independent.log",
+        "requiredEvent": "baseline.verified",
+        "artifactMatch": true
+      },
+      {
+        "file": "logs/s0-resume-second-full.log",
+        "requiredEvent": "verification.unit.pass",
+        "unitMatch": true
+      }
+    ],
+    "S0.04": [
+      {
+        "file": "logs/s0-04-upstream-independent.log",
+        "requiredEvent": "baseline.verified",
+        "artifactMatch": true
+      },
+      {
+        "file": "logs/s0-resume-second-full.log",
+        "requiredEvent": "verification.unit.pass",
+        "unitMatch": true
+      }
+    ],
+    "S0.05": [
+      {
+        "file": "logs/s0-05-upstream-independent.log",
+        "requiredEvent": "baseline.verified",
+        "artifactMatch": true
+      },
+      {
+        "file": "logs/s0-resume-second-full.log",
+        "requiredEvent": "verification.unit.pass",
+        "unitMatch": true
+      }
+    ],
+    "S0.06": [
+      {
+        "file": "logs/s0-06-upstream-independent.log",
+        "requiredEvent": "baseline.verified",
+        "artifactMatch": true
+      },
+      {
+        "file": "logs/s0-resume-second-full.log",
+        "requiredEvent": "verification.unit.pass",
+        "unitMatch": true
+      }
+    ],
+    "S0.07": [
+      {
+        "file": "logs/s0-07-upstream-independent.log",
+        "requiredEvent": "baseline.verified",
+        "artifactMatch": true
+      },
+      {
+        "file": "logs/s0-resume-second-full.log",
+        "requiredEvent": "verification.unit.pass",
+        "unitMatch": true
+      }
+    ],
+    "S0.08": [
+      {
+        "file": "logs/s0-08-upstream-independent.log",
+        "requiredEvent": "baseline.verified",
+        "artifactMatch": true
+      },
+      {
+        "file": "logs/s0-resume-second-full.log",
+        "requiredEvent": "verification.unit.pass",
+        "unitMatch": true
+      }
+    ],
+    "S0.09": [
+      {
+        "file": "logs/s0-09-upstream-independent.log",
+        "requiredEvent": "baseline.verified",
+        "artifactMatch": true
+      },
+      {
+        "file": "logs/s0-resume-second-full.log",
+        "requiredEvent": "verification.unit.pass",
+        "unitMatch": true
+      }
+    ],
+    "S0.10": [
+      {
+        "file": "logs/s0-10-upstream-independent.log",
+        "requiredEvent": "baseline.verified",
+        "artifactMatch": true
+      },
+      {
+        "file": "logs/s0-resume-second-full.log",
+        "requiredEvent": "verification.unit.pass",
+        "unitMatch": true
+      }
+    ],
+    "S0.11": [
+      {
+        "file": "logs/s0-11-upstream-independent.log",
+        "requiredEvent": "baseline.verified",
+        "artifactMatch": true
+      },
+      {
+        "file": "logs/s0-resume-second-full.log",
+        "requiredEvent": "verification.unit.pass",
+        "unitMatch": true
+      }
+    ],
+    "S0.12": [
+      {
+        "file": "logs/s0-12-resume-independent.log",
+        "requiredEvent": "baseline.verified",
+        "artifactMatch": true
+      },
+      {
+        "file": "logs/s0-resume-second-full.log",
+        "requiredEvent": "verification.unit.pass",
+        "unitMatch": true
+      }
+    ],
+    "S0.13": [
+      {
+        "file": "logs/s0-13-resume-independent.log",
+        "requiredEvent": "baseline.verified",
+        "artifactMatch": true
+      },
+      {
+        "file": "logs/s0-resume-second-full.log",
+        "requiredEvent": "verification.unit.pass",
+        "unitMatch": true
+      }
+    ],
+    "S0.14": [
+      {
+        "file": "logs/s0-14-resume-independent.log",
+        "requiredEvent": "baseline.verified",
+        "artifactMatch": true
+      },
+      {
+        "file": "logs/s0-resume-second-full.log",
+        "requiredEvent": "verification.unit.pass",
+        "unitMatch": true
+      }
+    ],
+    "S0.15": [
+      {
+        "file": "logs/s0-15-resume-independent.log",
+        "requiredEvent": "baseline.verified",
+        "artifactMatch": true
+      },
+      {
+        "file": "logs/s0-resume-second-full.log",
+        "requiredEvent": "verification.unit.pass",
+        "unitMatch": true
+      }
+    ],
+    "S0.16": [
+      {
+        "file": "logs/s0-16-resume-independent.log",
+        "requiredEvent": "baseline.verified",
+        "artifactMatch": true
+      },
+      {
+        "file": "logs/s0-resume-second-full.log",
+        "requiredEvent": "verification.unit.pass",
+        "unitMatch": true
+      }
+    ],
+    "S0.17": [
+      {
+        "file": "logs/s0-17-verify.log",
+        "requiredEvent": "baseline.verified",
+        "artifactMatch": true
+      },
+      {
+        "file": "logs/s0-resume-second-full.log",
+        "requiredEvent": "verification.unit.pass",
+        "unitMatch": true
+      }
+    ],
+    "S0.18": [
+      {
+        "file": "logs/s0-18-resume-independent.log",
+        "requiredEvent": "baseline.verified",
+        "artifactMatch": true
+      },
+      {
+        "file": "logs/s0-resume-second-full.log",
+        "requiredEvent": "verification.unit.pass",
+        "unitMatch": true
+      }
+    ],
+    "S0.19": [
+      {
+        "file": "logs/s0-19-resume-independent.log",
+        "requiredEvent": "baseline.verified",
+        "artifactMatch": true
+      },
+      {
+        "file": "logs/s0-resume-second-full.log",
+        "requiredEvent": "verification.unit.pass",
+        "unitMatch": true
+      }
+    ],
+    "S0.20": [
+      {
+        "file": "logs/s0-20-resume-independent.log",
+        "requiredEvent": "release-audit.accepted"
+      },
+      {
+        "file": "logs/s0-resume-second-full.log",
+        "requiredEvent": "verification.unit.pass",
+        "unitMatch": true
+      }
+    ],
+    "S0.21": [
+      {
+        "file": "logs/s0-21-resume-independent.log",
+        "requiredEvent": "templates-assets.accepted"
+      },
+      {
+        "file": "logs/s0-21-assets-resume-independent.log",
+        "requiredEvent": "asset-transport.accepted"
+      },
+      {
+        "file": "logs/s0-21-chat-resume-independent.log",
+        "requiredEvent": "chat-attachment.accepted"
+      },
+      {
+        "file": "logs/s0-resume-second-full.log",
+        "requiredEvent": "verification.unit.pass",
+        "unitMatch": true
+      }
+    ],
+    "S0.22": [
+      {
+        "file": "logs/s0-22-resume-independent.log",
+        "requiredEvent": "media-time.accepted"
+      },
+      {
+        "file": "logs/s0-22-audit-resume-independent.log",
+        "requiredEvent": "media-audit.accepted"
+      },
+      {
+        "file": "logs/s0-resume-second-full.log",
+        "requiredEvent": "verification.unit.pass",
+        "unitMatch": true
+      }
+    ],
+    "S0.23": [
+      {
+        "file": "logs/s0-23-resume-independent.log",
+        "requiredEvent": "portable-config.accepted"
+      },
+      {
+        "file": "logs/s0-23-audit-resume-independent.log",
+        "requiredEvent": "config-audit.accepted"
+      },
+      {
+        "file": "logs/s0-resume-second-full.log",
+        "requiredEvent": "verification.unit.pass",
+        "unitMatch": true
+      }
+    ],
+    "S0.24": [
+      {
+        "file": "logs/s0-24-resume-independent.log",
+        "requiredEvent": "plugin-data.verified"
+      },
+      {
+        "file": "logs/s0-24-audit-resume-independent.log",
+        "requiredEvent": "plugin-audit.accepted"
+      },
+      {
+        "file": "logs/s0-resume-second-full.log",
+        "requiredEvent": "verification.unit.pass",
+        "unitMatch": true
+      }
+    ],
+    "S0.25": [
+      {
+        "file": "logs/s0-25-resume-independent.log",
+        "requiredEvent": "execution-plan.verified"
+      }
+    ]
+  },
+  "deferredPolicy": {
+    "licenseFollowUpGate": "S9.14",
+    "desktopApkDispositionGate": "S9.19",
+    "native16kFollowUpGate": "S9.13",
+    "notS0Failure": true,
+    "source": [
+      "config/runtime-notices.json",
+      "config/runtime-assets.json",
+      "config/release-contract.json"
+    ]
+  },
+  "limitations": [
+    {
+      "id": "no-apk",
+      "statement": "S0 produces contracts, fixtures and evidence only. No APK or Kotlin application is built; the Gradle project starts at S1.01."
+    },
+    {
+      "id": "no-device-run",
+      "statement": "S0 does not install or run the application on a device. S0.17 connects a read-only probe; runtime checks remain in later device units."
+    }
+  ],
+  "executionPlan": {
+    "unit": "S0.25",
+    "artifact": "config/execution-plan.json",
+    "entry": "tools/baseline/execution-plan.mjs",
+    "requiredForCapture": true,
+    "dependencyRule": "Every dependency must be a known unit that appears earlier in the serial queue.",
+    "statusWhenMissing": "pending-s0.25"
+  },
+  "mainReview": {
+    "receipt": "config/s0-g-main-review.json",
+    "formatVersion": 1,
+    "format": "dstu-s0-g-main-review/v1",
+    "signer": "main-thread",
+    "decision": "accepted",
+    "requiredUnits": 25,
+    "rule": "The gate capture writes a validated lock and never signs M0. A separate main-review receipt hashes the validated final-lock, the gate policy, the SQL set and all 25 unit evidence entries. The receipt is not hashed by the lock, so S0.25, S0.G and the main review do not form a hash cycle."
+  },
+  "m0": {
+    "owner": "main-thread",
+    "conditions": [
+      "Every S0.01-S0.25 artifact and entry hash matches final-lock.",
+      "Every unit has a matching test-evidence log.",
+      "The real 135 upstream + 3 coordinated SQL assembly passes fresh, upgrade and restart.",
+      "The live registry is 126 entries / 61 RowSync with trigger and primary-key checks passing.",
+      "The main thread performs the final capture and signoff."
+    ],
+    "gateToolSignsOff": false
+  }
+}

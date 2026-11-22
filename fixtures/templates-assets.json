@@ -1,0 +1,150 @@
+{
+  "formatVersion": 1,
+  "unit": "S0.21",
+  "fixtureClock": {
+    "created_at": "2026-11-15T08:00:00.000Z",
+    "updated_at": "2026-11-15T09:00:00.000Z",
+    "changed_at": "2026-11-15T10:00:00.000Z",
+    "tombstone": "2026-11-15T11:00:00.000Z"
+  },
+  "template": {
+    "createRequest": {
+      "name": "S0.21 portable template fixture",
+      "description": "Public fixture for portable template capture.",
+      "author": "dstu",
+      "version": "1.0.0",
+      "preview_front": "<article class=\"s021-preview\">Portable front</article>",
+      "preview_back": "<article class=\"s021-preview\">Portable back</article>",
+      "note_type": "Basic",
+      "fields": [
+        "Front",
+        "Back",
+        "Tags"
+      ],
+      "generation_prompt": "Return the public template fixture fields.",
+      "front_template": "<section class=\"card\">{{Front}}<script>globalThis.__s021TemplateExecuted = true</script></section>",
+      "back_template": "<section class=\"card\">{{Back}}<div data-tags>{{Tags}}</div></section>",
+      "css_style": ".card { color: #123456; }",
+      "field_extraction_rules": {
+        "Front": {
+          "field_type": "Text",
+          "is_required": true,
+          "description": "Front"
+        },
+        "Back": {
+          "field_type": "Text",
+          "is_required": true,
+          "description": "Back"
+        },
+        "Tags": {
+          "field_type": "Array",
+          "is_required": false,
+          "default_value": "[]",
+          "description": "Tags"
+        }
+      },
+      "is_active": true,
+      "is_built_in": false
+    },
+    "updateRequest": {
+      "name": "S0.21 portable template fixture",
+      "description": "Updated public template fixture.",
+      "front_template": "<section class=\"card updated\">{{Front}}</section>",
+      "back_template": "<section class=\"card updated\">{{Back}}</section>",
+      "css_style": ".card { color: #654321; }",
+      "expected_version": "1.0.0"
+    },
+    "templateId": "s021-template-fixture",
+    "expectedRow": {
+      "id": "s021-template-fixture",
+      "name": "S0.21 portable template fixture",
+      "description": "Updated public template fixture.",
+      "author": "dstu",
+      "version": "1.0.1",
+      "preview_front": "<article class=\"s021-preview\">Portable front</article>",
+      "preview_back": "<article class=\"s021-preview\">Portable back</article>",
+      "note_type": "Basic",
+      "fields_json": "[\"Front\",\"Back\",\"Tags\"]",
+      "generation_prompt": "Return the public template fixture fields.",
+      "front_template": "<section class=\"card updated\">{{Front}}</section>",
+      "back_template": "<section class=\"card updated\">{{Back}}</section>",
+      "css_style": ".card { color: #654321; }",
+      "field_extraction_rules_json": "{\"Front\":{\"field_type\":\"Text\",\"is_required\":true,\"default_value\":null,\"validation_pattern\":null,\"description\":\"Front\"},\"Back\":{\"field_type\":\"Text\",\"is_required\":true,\"default_value\":null,\"validation_pattern\":null,\"description\":\"Back\"},\"Tags\":{\"field_type\":\"Array\",\"is_required\":false,\"default_value\":\"[]\",\"validation_pattern\":null,\"description\":\"Tags\"}}",
+      "created_at": "2026-11-15T08:00:00.000Z",
+      "updated_at": "2026-11-15T09:00:00.000Z",
+      "is_active": 1,
+      "is_built_in": 0,
+      "preview_data_json": null,
+      "user_modified": 0,
+      "user_deleted": 0,
+      "device_id": null,
+      "local_version": 0,
+      "deleted_at": null
+    },
+    "expectedWire": {
+      "insert": "{\"table_name\":\"custom_anki_templates\",\"record_id\":\"s021-template-fixture\",\"operation\":\"Insert\",\"data\":{\"id\":\"s021-template-fixture\",\"name\":\"S0.21 portable template fixture\",\"description\":\"Public fixture for portable template capture.\",\"author\":\"dstu\",\"version\":\"1.0.0\",\"preview_front\":\"<article class=\\\"s021-preview\\\">Portable front</article>\",\"preview_back\":\"<article class=\\\"s021-preview\\\">Portable back</article>\",\"note_type\":\"Basic\",\"fields_json\":\"[\\\"Front\\\",\\\"Back\\\",\\\"Tags\\\"]\",\"generation_prompt\":\"Return the public template fixture fields.\",\"front_template\":\"<section class=\\\"card\\\">{{Front}}<script>globalThis.__s021TemplateExecuted = true</script></section>\",\"back_template\":\"<section class=\\\"card\\\">{{Back}}<div data-tags>{{Tags}}</div></section>\",\"css_style\":\".card { color: #123456; }\",\"field_extraction_rules_json\":\"{\\\"Front\\\":{\\\"field_type\\\":\\\"Text\\\",\\\"is_required\\\":true,\\\"default_value\\\":null,\\\"validation_pattern\\\":null,\\\"description\\\":\\\"Front\\\"},\\\"Back\\\":{\\\"field_type\\\":\\\"Text\\\",\\\"is_required\\\":true,\\\"default_value\\\":null,\\\"validation_pattern\\\":null,\\\"description\\\":\\\"Back\\\"},\\\"Tags\\\":{\\\"field_type\\\":\\\"Array\\\",\\\"is_required\\\":false,\\\"default_value\\\":\\\"[]\\\",\\\"validation_pattern\\\":null,\\\"description\\\":\\\"Tags\\\"}}\",\"created_at\":\"2026-11-15T08:00:00.000Z\",\"updated_at\":\"2026-11-15T08:00:00.000Z\",\"is_active\":1,\"is_built_in\":0,\"preview_data_json\":null,\"user_modified\":0,\"user_deleted\":0,\"device_id\":null,\"local_version\":0,\"deleted_at\":null},\"changed_at\":\"2026-11-15T10:00:00.000Z\",\"database_name\":\"mistakes\"}",
+      "update": "{\"table_name\":\"custom_anki_templates\",\"record_id\":\"s021-template-fixture\",\"operation\":\"Update\",\"data\":{\"id\":\"s021-template-fixture\",\"name\":\"S0.21 portable template fixture\",\"description\":\"Updated public template fixture.\",\"author\":\"dstu\",\"version\":\"1.0.1\",\"preview_front\":\"<article class=\\\"s021-preview\\\">Portable front</article>\",\"preview_back\":\"<article class=\\\"s021-preview\\\">Portable back</article>\",\"note_type\":\"Basic\",\"fields_json\":\"[\\\"Front\\\",\\\"Back\\\",\\\"Tags\\\"]\",\"generation_prompt\":\"Return the public template fixture fields.\",\"front_template\":\"<section class=\\\"card updated\\\">{{Front}}</section>\",\"back_template\":\"<section class=\\\"card updated\\\">{{Back}}</section>\",\"css_style\":\".card { color: #654321; }\",\"field_extraction_rules_json\":\"{\\\"Front\\\":{\\\"field_type\\\":\\\"Text\\\",\\\"is_required\\\":true,\\\"default_value\\\":null,\\\"validation_pattern\\\":null,\\\"description\\\":\\\"Front\\\"},\\\"Back\\\":{\\\"field_type\\\":\\\"Text\\\",\\\"is_required\\\":true,\\\"default_value\\\":null,\\\"validation_pattern\\\":null,\\\"description\\\":\\\"Back\\\"},\\\"Tags\\\":{\\\"field_type\\\":\\\"Array\\\",\\\"is_required\\\":false,\\\"default_value\\\":\\\"[]\\\",\\\"validation_pattern\\\":null,\\\"description\\\":\\\"Tags\\\"}}\",\"created_at\":\"2026-11-15T08:00:00.000Z\",\"updated_at\":\"2026-11-15T09:00:00.000Z\",\"is_active\":1,\"is_built_in\":0,\"preview_data_json\":null,\"user_modified\":0,\"user_deleted\":0,\"device_id\":null,\"local_version\":0,\"deleted_at\":null},\"changed_at\":\"2026-11-15T10:00:00.000Z\",\"database_name\":\"mistakes\"}"
+    },
+    "executionPolicy": "template HTML/CSS/JS is opaque data; applying a row never executes it"
+  },
+  "assets": [
+    {
+      "key": "active/anki_media/s021-card-audio.wav",
+      "role": "card-audio",
+      "root": "<active>/anki_media/s021-card-audio.wav",
+      "size": 44,
+      "sha256": "4f8734c5e13ac599e168cf247a51c1dd0758537ce00bf16d7fed1a3d14d07041",
+      "bytesHex": "524946462400000057415645666d74201000000001000100401f0000803e0000020010006461746100000000",
+      "reference": {
+        "kind": "anki-template-media",
+        "owner": "s021-template-fixture",
+        "field": "front_template"
+      }
+    },
+    {
+      "key": "active/chat_attachments/s021-session/attachment.txt",
+      "role": "chat-attachment",
+      "root": "<active>/chat_attachments/s021-session/attachment.txt",
+      "size": 40,
+      "sha256": "34b6f222dda8f5bc86cab72f8afc638476059ed69d7583fce187d975040db337",
+      "bytesHex": "53302e3231207065727369737465642063686174206174746163686d656e7420666978747572650a",
+      "reference": {
+        "kind": "chat-v2-attachment",
+        "owner": "s021-chat-attachment",
+        "field": "storage_path"
+      }
+    },
+    {
+      "key": "active/chat_attachments/s021-session/restorable.txt",
+      "role": "restorable-bytes",
+      "root": "<active>/chat_attachments/s021-session/restorable.txt",
+      "size": 32,
+      "sha256": "cb03616efad7554395db3257960c4fb87d3a2d0cd4f1f21b79c3b795e42019cd",
+      "bytesHex": "53302e323120746f6d6273746f6e6520726573746f726520666978747572650a",
+      "reference": {
+        "kind": "logical-byte-reference",
+        "owner": "s021-restorable",
+        "field": "content_hash"
+      }
+    }
+  ],
+  "logicalReferences": {
+    "templateCard": {
+      "templateId": "s021-template-fixture",
+      "cardIds": [
+        "s021-card-logical"
+      ],
+      "reference": "anki_cards.template_id"
+    },
+    "chatAttachment": {
+      "recordId": "s021-chat-attachment",
+      "storagePath": "active/chat_attachments/s021-session/attachment.txt",
+      "contentHash": "34b6f222dda8f5bc86cab72f8afc638476059ed69d7583fce187d975040db337"
+    }
+  },
+  "tombstone": {
+    "key": "active/chat_attachments/s021-session/restorable.txt",
+    "deletedAt": "2026-11-15T11:00:00.000Z",
+    "restoredSha256": "cb03616efad7554395db3257960c4fb87d3a2d0cd4f1f21b79c3b795e42019cd"
+  }
+}

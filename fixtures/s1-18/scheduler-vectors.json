@@ -1,0 +1,932 @@
+{
+  "oracle": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+  "timezoneOffsetMinutes": 480,
+  "nowMs": 1794686400000,
+  "cases": [
+    {
+      "id": "new-default",
+      "nowMs": 1794686400000,
+      "card": {
+        "id": "card-1",
+        "phase": "new",
+        "memory": null,
+        "learningStep": 0,
+        "daysElapsed": 0,
+        "reps": 0,
+        "lapses": 0
+      },
+      "config": {
+        "desiredRetention": 0.9,
+        "learningSteps": [
+          1,
+          10
+        ],
+        "relearningSteps": [
+          10
+        ],
+        "maximumInterval": 36500,
+        "fuzzFactor": 0.8096667528152466
+      },
+      "expected": {
+        "again": {
+          "phase": "learning",
+          "stability": 0.21199999749660492,
+          "difficulty": 6.413300037384033,
+          "delay": {
+            "kind": "minutes",
+            "minutes": 1
+          },
+          "learningStep": 0,
+          "reps": 1,
+          "lapses": 0,
+          "scheduledDays": 0,
+          "dueMs": 1794686460000
+        },
+        "hard": {
+          "phase": "learning",
+          "stability": 1.2930999994277954,
+          "difficulty": 5.112170696258545,
+          "delay": {
+            "kind": "minutes",
+            "minutes": 5.5
+          },
+          "learningStep": 0,
+          "reps": 1,
+          "lapses": 0,
+          "scheduledDays": 0,
+          "dueMs": 1794686730000
+        },
+        "good": {
+          "phase": "learning",
+          "stability": 2.30649995803833,
+          "difficulty": 2.1181039810180664,
+          "delay": {
+            "kind": "minutes",
+            "minutes": 10
+          },
+          "learningStep": 1,
+          "reps": 1,
+          "lapses": 0,
+          "scheduledDays": 0,
+          "dueMs": 1794687000000
+        },
+        "easy": {
+          "phase": "review",
+          "stability": 8.295599937438965,
+          "difficulty": 1,
+          "delay": {
+            "kind": "days",
+            "days": 10
+          },
+          "learningStep": 0,
+          "reps": 1,
+          "lapses": 0,
+          "scheduledDays": 10,
+          "dueMs": 1795550400000
+        }
+      }
+    },
+    {
+      "id": "learning-last-step-good",
+      "nowMs": 1794686400000,
+      "card": {
+        "id": "card-1",
+        "phase": "learning",
+        "memory": {
+          "stability": 2.30649995803833,
+          "difficulty": 2.1181039810180664
+        },
+        "learningStep": 1,
+        "daysElapsed": 0,
+        "reps": 1,
+        "lapses": 0
+      },
+      "config": {
+        "desiredRetention": 0.9,
+        "learningSteps": [
+          1,
+          10
+        ],
+        "relearningSteps": [
+          10
+        ],
+        "maximumInterval": 36500,
+        "fuzzFactor": 0.9330765604972839
+      },
+      "expected": {
+        "again": {
+          "phase": "learning",
+          "stability": 0.7750838994979858,
+          "difficulty": 7.39450216293335,
+          "delay": {
+            "kind": "minutes",
+            "minutes": 1
+          },
+          "learningStep": 0,
+          "reps": 2,
+          "lapses": 0,
+          "scheduledDays": 0,
+          "dueMs": 1794686460000
+        },
+        "hard": {
+          "phase": "learning",
+          "stability": 2.30649995803833,
+          "difficulty": 4.7528581619262695,
+          "delay": {
+            "kind": "minutes",
+            "minutes": 10
+          },
+          "learningStep": 1,
+          "reps": 2,
+          "lapses": 0,
+          "scheduledDays": 0,
+          "dueMs": 1794687000000
+        },
+        "good": {
+          "phase": "review",
+          "stability": 2.30649995803833,
+          "difficulty": 2.1112141609191895,
+          "delay": {
+            "kind": "days",
+            "days": 2
+          },
+          "learningStep": 0,
+          "reps": 2,
+          "lapses": 0,
+          "scheduledDays": 2,
+          "dueMs": 1794859200000
+        },
+        "easy": {
+          "phase": "review",
+          "stability": 3.946054220199585,
+          "difficulty": 1,
+          "delay": {
+            "kind": "days",
+            "days": 5
+          },
+          "learningStep": 0,
+          "reps": 2,
+          "lapses": 0,
+          "scheduledDays": 5,
+          "dueMs": 1795118400000
+        }
+      }
+    },
+    {
+      "id": "review-fuzz-off",
+      "nowMs": 1794686400000,
+      "card": {
+        "phase": "review",
+        "memory": {
+          "stability": 10,
+          "difficulty": 5
+        },
+        "learningStep": 0,
+        "daysElapsed": 10,
+        "reps": 3,
+        "lapses": 0,
+        "lastReviewMs": 1793822400000
+      },
+      "config": {
+        "desiredRetention": 0.9,
+        "learningSteps": [
+          1,
+          10
+        ],
+        "relearningSteps": [
+          10
+        ],
+        "maximumInterval": 36500,
+        "fuzzFactor": null
+      },
+      "expected": {
+        "again": {
+          "phase": "relearning",
+          "stability": 1.3919869661331177,
+          "difficulty": 8.34176254272461,
+          "delay": {
+            "kind": "minutes",
+            "minutes": 10
+          },
+          "learningStep": 0,
+          "reps": 4,
+          "lapses": 1,
+          "scheduledDays": 0,
+          "dueMs": 1794687000000
+        },
+        "hard": {
+          "phase": "review",
+          "stability": 23.24688720703125,
+          "difficulty": 6.6659955978393555,
+          "delay": {
+            "kind": "days",
+            "days": 23
+          },
+          "learningStep": 0,
+          "reps": 4,
+          "lapses": 0,
+          "scheduledDays": 23,
+          "dueMs": 1796673600000
+        },
+        "good": {
+          "phase": "review",
+          "stability": 32.02674865722656,
+          "difficulty": 4.990228176116943,
+          "delay": {
+            "kind": "days",
+            "days": 32
+          },
+          "learningStep": 0,
+          "reps": 4,
+          "lapses": 0,
+          "scheduledDays": 32,
+          "dueMs": 1797451200000
+        },
+        "easy": {
+          "phase": "review",
+          "stability": 51.2538948059082,
+          "difficulty": 3.3144614696502686,
+          "delay": {
+            "kind": "days",
+            "days": 51
+          },
+          "learningStep": 0,
+          "reps": 4,
+          "lapses": 0,
+          "scheduledDays": 51,
+          "dueMs": 1799092800000
+        }
+      }
+    },
+    {
+      "id": "review-fuzz-on",
+      "nowMs": 1794686400000,
+      "card": {
+        "phase": "review",
+        "memory": {
+          "stability": 10,
+          "difficulty": 5
+        },
+        "learningStep": 0,
+        "daysElapsed": 10,
+        "reps": 3,
+        "lapses": 0,
+        "id": "card-1",
+        "lastReviewMs": 1793822400000
+      },
+      "config": {
+        "desiredRetention": 0.9,
+        "learningSteps": [
+          1,
+          10
+        ],
+        "relearningSteps": [
+          10
+        ],
+        "maximumInterval": 36500,
+        "fuzzFactor": 0.8645288348197937
+      },
+      "expected": {
+        "again": {
+          "phase": "relearning",
+          "stability": 1.3919869661331177,
+          "difficulty": 8.34176254272461,
+          "delay": {
+            "kind": "minutes",
+            "minutes": 10
+          },
+          "learningStep": 0,
+          "reps": 4,
+          "lapses": 1,
+          "scheduledDays": 0,
+          "dueMs": 1794687000000
+        },
+        "hard": {
+          "phase": "review",
+          "stability": 23.24688720703125,
+          "difficulty": 6.6659955978393555,
+          "delay": {
+            "kind": "days",
+            "days": 26
+          },
+          "learningStep": 0,
+          "reps": 4,
+          "lapses": 0,
+          "scheduledDays": 26,
+          "dueMs": 1796932800000
+        },
+        "good": {
+          "phase": "review",
+          "stability": 32.02674865722656,
+          "difficulty": 4.990228176116943,
+          "delay": {
+            "kind": "days",
+            "days": 35
+          },
+          "learningStep": 0,
+          "reps": 4,
+          "lapses": 0,
+          "scheduledDays": 35,
+          "dueMs": 1797710400000
+        },
+        "easy": {
+          "phase": "review",
+          "stability": 51.2538948059082,
+          "difficulty": 3.3144614696502686,
+          "delay": {
+            "kind": "days",
+            "days": 55
+          },
+          "learningStep": 0,
+          "reps": 4,
+          "lapses": 0,
+          "scheduledDays": 55,
+          "dueMs": 1799438400000
+        }
+      }
+    },
+    {
+      "id": "learning-no-steps",
+      "nowMs": 1794686400000,
+      "card": {
+        "id": "card-empty",
+        "phase": "new",
+        "memory": null,
+        "learningStep": 0,
+        "daysElapsed": 0,
+        "reps": 0,
+        "lapses": 0
+      },
+      "config": {
+        "desiredRetention": 0.9,
+        "learningSteps": [],
+        "relearningSteps": [
+          10
+        ],
+        "maximumInterval": 36500,
+        "fuzzFactor": 0.554531455039978
+      },
+      "expected": {
+        "again": {
+          "phase": "learning",
+          "stability": 0.21199999749660492,
+          "difficulty": 6.413300037384033,
+          "delay": {
+            "kind": "minutes",
+            "minutes": 305.2799963951111
+          },
+          "learningStep": 0,
+          "reps": 1,
+          "lapses": 0,
+          "scheduledDays": 0,
+          "dueMs": 1794704716800
+        },
+        "hard": {
+          "phase": "review",
+          "stability": 1.2930999994277954,
+          "difficulty": 5.112170696258545,
+          "delay": {
+            "kind": "days",
+            "days": 1
+          },
+          "learningStep": 0,
+          "reps": 1,
+          "lapses": 0,
+          "scheduledDays": 1,
+          "dueMs": 1794772800000
+        },
+        "good": {
+          "phase": "review",
+          "stability": 2.30649995803833,
+          "difficulty": 2.1181039810180664,
+          "delay": {
+            "kind": "days",
+            "days": 2
+          },
+          "learningStep": 0,
+          "reps": 1,
+          "lapses": 0,
+          "scheduledDays": 2,
+          "dueMs": 1794859200000
+        },
+        "easy": {
+          "phase": "review",
+          "stability": 8.295599937438965,
+          "difficulty": 1,
+          "delay": {
+            "kind": "days",
+            "days": 8
+          },
+          "learningStep": 0,
+          "reps": 1,
+          "lapses": 0,
+          "scheduledDays": 8,
+          "dueMs": 1795377600000
+        }
+      }
+    },
+    {
+      "id": "review-max-interval",
+      "nowMs": 1794686400000,
+      "card": {
+        "phase": "review",
+        "memory": {
+          "stability": 400,
+          "difficulty": 5
+        },
+        "learningStep": 0,
+        "daysElapsed": 400,
+        "reps": 5,
+        "lapses": 0,
+        "lastReviewMs": 1760126400000
+      },
+      "config": {
+        "desiredRetention": 0.9,
+        "learningSteps": [
+          1,
+          10
+        ],
+        "relearningSteps": [
+          10
+        ],
+        "maximumInterval": 30,
+        "fuzzFactor": null
+      },
+      "expected": {
+        "again": {
+          "phase": "relearning",
+          "stability": 6.076916694641113,
+          "difficulty": 8.34176254272461,
+          "delay": {
+            "kind": "minutes",
+            "minutes": 10
+          },
+          "learningStep": 0,
+          "reps": 6,
+          "lapses": 1,
+          "scheduledDays": 0,
+          "dueMs": 1794687000000
+        },
+        "hard": {
+          "phase": "review",
+          "stability": 686.5963134765625,
+          "difficulty": 6.6659955978393555,
+          "delay": {
+            "kind": "days",
+            "days": 30
+          },
+          "learningStep": 0,
+          "reps": 6,
+          "lapses": 0,
+          "scheduledDays": 30,
+          "dueMs": 1797278400000
+        },
+        "good": {
+          "phase": "review",
+          "stability": 876.548583984375,
+          "difficulty": 4.990228176116943,
+          "delay": {
+            "kind": "days",
+            "days": 30
+          },
+          "learningStep": 0,
+          "reps": 6,
+          "lapses": 0,
+          "scheduledDays": 30,
+          "dueMs": 1797278400000
+        },
+        "easy": {
+          "phase": "review",
+          "stability": 1292.52783203125,
+          "difficulty": 3.3144614696502686,
+          "delay": {
+            "kind": "days",
+            "days": 30
+          },
+          "learningStep": 0,
+          "reps": 6,
+          "lapses": 0,
+          "scheduledDays": 30,
+          "dueMs": 1797278400000
+        }
+      }
+    }
+  ],
+  "planCases": [
+    {
+      "plan": {
+        "id": "rp_fsrs",
+        "question_id": "q1",
+        "exam_id": "e1",
+        "ease_factor": 2.5,
+        "interval_days": 0,
+        "repetitions": 0,
+        "next_review_date": "2026-11-15",
+        "last_review_date": null,
+        "status": "new",
+        "total_reviews": 0,
+        "total_correct": 0,
+        "consecutive_failures": 0,
+        "is_difficult": false,
+        "created_at": "2026-11-01T00:00:00+00:00",
+        "updated_at": "2026-11-01T00:00:00+00:00"
+      },
+      "nowMs": 1794686400000,
+      "state": {
+        "stability": null,
+        "difficulty": null,
+        "phase": "new",
+        "learning_step": 0,
+        "lapses": 0,
+        "due_at": null,
+        "last_review_at": null
+      },
+      "previews": {
+        "again": {
+          "interval_minutes": 1,
+          "next_review_date": "2026-11-15"
+        },
+        "hard": {
+          "interval_minutes": 6,
+          "next_review_date": "2026-11-15"
+        },
+        "good": {
+          "interval_minutes": 10,
+          "next_review_date": "2026-11-15"
+        },
+        "easy": {
+          "interval_minutes": 11520,
+          "next_review_date": "2026-11-23"
+        }
+      },
+      "outcomes": [
+        {
+          "rating": 1,
+          "passed": false,
+          "intervalDays": 0,
+          "nextReviewDate": "2026-11-15",
+          "intervalMinutes": 1,
+          "fsrs": {
+            "stability": 0.21199999749660492,
+            "difficulty": 6.413300037384033,
+            "phase": "learning",
+            "learning_step": 0,
+            "lapses": 0,
+            "due_at": 1794686460000,
+            "last_review_at": 1794686400000
+          },
+          "easeFactor": 2.161,
+          "phase": "learning"
+        },
+        {
+          "rating": 2,
+          "passed": true,
+          "intervalDays": 0,
+          "nextReviewDate": "2026-11-15",
+          "intervalMinutes": 6,
+          "fsrs": {
+            "stability": 1.2930999994277954,
+            "difficulty": 5.112170696258545,
+            "phase": "learning",
+            "learning_step": 0,
+            "lapses": 0,
+            "due_at": 1794686730000,
+            "last_review_at": 1794686400000
+          },
+          "easeFactor": 2.473,
+          "phase": "learning"
+        },
+        {
+          "rating": 3,
+          "passed": true,
+          "intervalDays": 0,
+          "nextReviewDate": "2026-11-15",
+          "intervalMinutes": 10,
+          "fsrs": {
+            "stability": 2.30649995803833,
+            "difficulty": 2.1181039810180664,
+            "phase": "learning",
+            "learning_step": 1,
+            "lapses": 0,
+            "due_at": 1794687000000,
+            "last_review_at": 1794686400000
+          },
+          "easeFactor": 3.192,
+          "phase": "learning"
+        },
+        {
+          "rating": 4,
+          "passed": true,
+          "intervalDays": 8,
+          "nextReviewDate": "2026-11-23",
+          "intervalMinutes": 11520,
+          "fsrs": {
+            "stability": 8.295599937438965,
+            "difficulty": 1,
+            "phase": "review",
+            "learning_step": 0,
+            "lapses": 0,
+            "due_at": 1795377600000,
+            "last_review_at": 1794686400000
+          },
+          "easeFactor": 3.46,
+          "phase": "review"
+        }
+      ]
+    },
+    {
+      "plan": {
+        "id": "rp_legacy_review",
+        "question_id": "q2",
+        "exam_id": "e1",
+        "ease_factor": 2.5,
+        "interval_days": 12,
+        "repetitions": 3,
+        "next_review_date": "2026-11-15",
+        "last_review_date": "2026-11-03",
+        "status": "reviewing",
+        "total_reviews": 3,
+        "total_correct": 3,
+        "consecutive_failures": 0,
+        "is_difficult": false,
+        "created_at": "2026-11-01T00:00:00+00:00",
+        "updated_at": "2026-11-01T00:00:00+00:00"
+      },
+      "nowMs": 1794686400000,
+      "state": {
+        "stability": 12,
+        "difficulty": 5,
+        "phase": "review",
+        "learning_step": 0,
+        "lapses": 0,
+        "due_at": null,
+        "last_review_at": 1793678400000
+      },
+      "previews": {
+        "again": {
+          "interval_minutes": 10,
+          "next_review_date": "2026-11-15"
+        },
+        "hard": {
+          "interval_minutes": 43200,
+          "next_review_date": "2026-12-15"
+        },
+        "good": {
+          "interval_minutes": 57600,
+          "next_review_date": "2026-12-25"
+        },
+        "easy": {
+          "interval_minutes": 90720,
+          "next_review_date": "2027-01-17"
+        }
+      },
+      "outcomes": [
+        {
+          "rating": 1,
+          "passed": false,
+          "intervalDays": 0,
+          "nextReviewDate": "2026-11-15",
+          "intervalMinutes": 10,
+          "fsrs": {
+            "stability": 1.5256333351135254,
+            "difficulty": 8.34176254272461,
+            "phase": "relearning",
+            "learning_step": 0,
+            "lapses": 1,
+            "due_at": 1794687000000,
+            "last_review_at": 1794686400000
+          },
+          "easeFactor": 1.698,
+          "phase": "relearning"
+        },
+        {
+          "rating": 2,
+          "passed": true,
+          "intervalDays": 30,
+          "nextReviewDate": "2026-12-15",
+          "intervalMinutes": 43200,
+          "fsrs": {
+            "stability": 27.420679092407227,
+            "difficulty": 6.6659955978393555,
+            "phase": "review",
+            "learning_step": 0,
+            "lapses": 0,
+            "due_at": 1797278400000,
+            "last_review_at": 1794686400000
+          },
+          "easeFactor": 2.1,
+          "phase": "review"
+        },
+        {
+          "rating": 3,
+          "passed": true,
+          "intervalDays": 40,
+          "nextReviewDate": "2026-12-25",
+          "intervalMinutes": 57600,
+          "fsrs": {
+            "stability": 37.641300201416016,
+            "difficulty": 4.990228176116943,
+            "phase": "review",
+            "learning_step": 0,
+            "lapses": 0,
+            "due_at": 1798142400000,
+            "last_review_at": 1794686400000
+          },
+          "easeFactor": 2.502,
+          "phase": "review"
+        },
+        {
+          "rating": 4,
+          "passed": true,
+          "intervalDays": 63,
+          "nextReviewDate": "2027-01-17",
+          "intervalMinutes": 90720,
+          "fsrs": {
+            "stability": 60.023590087890625,
+            "difficulty": 3.3144614696502686,
+            "phase": "review",
+            "learning_step": 0,
+            "lapses": 0,
+            "due_at": 1800129600000,
+            "last_review_at": 1794686400000
+          },
+          "easeFactor": 2.905,
+          "phase": "review"
+        }
+      ]
+    },
+    {
+      "plan": {
+        "id": "rp_legacy_failed",
+        "question_id": "q3",
+        "exam_id": "e1",
+        "ease_factor": 1.7,
+        "interval_days": 1,
+        "repetitions": 0,
+        "next_review_date": "2026-11-15",
+        "last_review_date": "2026-11-14",
+        "status": "learning",
+        "total_reviews": 4,
+        "total_correct": 1,
+        "consecutive_failures": 2,
+        "is_difficult": true,
+        "created_at": "2026-11-01T00:00:00+00:00",
+        "updated_at": "2026-11-01T00:00:00+00:00"
+      },
+      "nowMs": 1794686400000,
+      "state": {
+        "stability": 1,
+        "difficulty": 8.333333333333334,
+        "phase": "relearning",
+        "learning_step": 0,
+        "lapses": 2,
+        "due_at": null,
+        "last_review_at": 1794628800000
+      },
+      "previews": {
+        "again": {
+          "interval_minutes": 10,
+          "next_review_date": "2026-11-15"
+        },
+        "hard": {
+          "interval_minutes": 15,
+          "next_review_date": "2026-11-15"
+        },
+        "good": {
+          "interval_minutes": 2880,
+          "next_review_date": "2026-11-17"
+        },
+        "easy": {
+          "interval_minutes": 4320,
+          "next_review_date": "2026-11-18"
+        }
+      },
+      "outcomes": [
+        {
+          "rating": 1,
+          "passed": false,
+          "intervalDays": 0,
+          "nextReviewDate": "2026-11-15",
+          "intervalMinutes": 10,
+          "fsrs": {
+            "stability": 0.3069878816604614,
+            "difficulty": 9.437406539916992,
+            "phase": "relearning",
+            "learning_step": 0,
+            "lapses": 2,
+            "due_at": 1794687000000,
+            "last_review_at": 1794686400000
+          },
+          "easeFactor": 1.435,
+          "phase": "relearning"
+        },
+        {
+          "rating": 2,
+          "passed": true,
+          "intervalDays": 0,
+          "nextReviewDate": "2026-11-15",
+          "intervalMinutes": 15,
+          "fsrs": {
+            "stability": 1.8640351295471191,
+            "difficulty": 8.878816604614258,
+            "phase": "relearning",
+            "learning_step": 0,
+            "lapses": 2,
+            "due_at": 1794687300000,
+            "last_review_at": 1794686400000
+          },
+          "easeFactor": 1.569,
+          "phase": "relearning"
+        },
+        {
+          "rating": 3,
+          "passed": true,
+          "intervalDays": 2,
+          "nextReviewDate": "2026-11-17",
+          "intervalMinutes": 2880,
+          "fsrs": {
+            "stability": 2.436706066131592,
+            "difficulty": 8.32022762298584,
+            "phase": "review",
+            "learning_step": 0,
+            "lapses": 2,
+            "due_at": 1794859200000,
+            "last_review_at": 1794686400000
+          },
+          "easeFactor": 1.703,
+          "phase": "review"
+        },
+        {
+          "rating": 4,
+          "passed": true,
+          "intervalDays": 3,
+          "nextReviewDate": "2026-11-18",
+          "intervalMinutes": 4320,
+          "fsrs": {
+            "stability": 3.6908071041107178,
+            "difficulty": 7.76163911819458,
+            "phase": "review",
+            "learning_step": 0,
+            "lapses": 2,
+            "due_at": 1794945600000,
+            "last_review_at": 1794686400000
+          },
+          "easeFactor": 1.837,
+          "phase": "review"
+        }
+      ]
+    }
+  ],
+  "fuzzFactors": [
+    {
+      "id": "card-1",
+      "reps": 3,
+      "expected": 0.8645288348197937
+    },
+    {
+      "id": "fsrs_卡片_é",
+      "reps": 0,
+      "expected": 0.02028799057006836
+    },
+    {
+      "id": "x\ud800y",
+      "reps": -1,
+      "expected": 0.8720685243606567
+    },
+    {
+      "id": "",
+      "reps": 2147483647,
+      "expected": 0.918796956539154
+    },
+    {
+      "id": "🃏",
+      "reps": 7,
+      "expected": 0.3736802339553833
+    }
+  ],
+  "hardDelays": [
+    {
+      "steps": [
+        10
+      ],
+      "index": 0,
+      "expected": 15
+    },
+    {
+      "steps": [
+        2880
+      ],
+      "index": 0,
+      "expected": 4320
+    },
+    {
+      "steps": [
+        1,
+        10,
+        60
+      ],
+      "index": 2,
+      "expected": 60
+    }
+  ]
+}

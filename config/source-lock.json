@@ -1,0 +1,926 @@
+{
+  "formatVersion": 1,
+  "lockedAt": "2026-11-16T01:20:26+08:00",
+  "inputsSha256": "d440065e6545e4e2204c6e674bd9e207ce8dc63c6d810f8993c1b127c4746c2e",
+  "repositories": [
+    {
+      "id": "desktop",
+      "path": "dstu-node",
+      "commit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+      "tree": "3bee0f058851b9eb113bdc036d9f60433ed29944",
+      "repository": "https://github.com/helixnow/dstu-node.git",
+      "contentHash": {
+        "algorithm": "git-sha1-tree",
+        "value": "3bee0f058851b9eb113bdc036d9f60433ed29944"
+      },
+      "acquisition": {
+        "method": "git-checkout",
+        "revision": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+        "submodules": []
+      },
+      "anchors": [
+        {
+          "file": "package.json",
+          "sha256": "bcfd8bd1ee38779d5c18fb8e730021eef51908b33edba7a699aa0094a0ed94ce"
+        },
+        {
+          "file": "package-lock.json",
+          "sha256": "b215b5cceea3a4366f1a2aad3bccd62b5d4db2c10b668a3603e6e8679296398c"
+        },
+        {
+          "file": "LICENSE",
+          "sha256": "8943429804542a78e4f48d6a7ac6323f059a5a8540200eb0a2a9b3de7c33bf1d"
+        },
+        {
+          "file": "resources/app/migrations/migration-lock.json",
+          "sha256": "1d21338ded468243fc0dbe2593f5cd0b3cb1a259930f77be56c625dd32205445"
+        }
+      ]
+    },
+    {
+      "id": "operit",
+      "path": "Operit",
+      "commit": "7a39941bad80209973c535046a18195c5da9e647",
+      "tree": "1c74219f7b7fdebebd07e99830877559e2dcd3e6",
+      "repository": "https://github.com/AAswordman/Operit",
+      "contentHash": {
+        "algorithm": "git-sha1-tree",
+        "value": "1c74219f7b7fdebebd07e99830877559e2dcd3e6"
+      },
+      "acquisition": {
+        "method": "git-checkout",
+        "revision": "7a39941bad80209973c535046a18195c5da9e647",
+        "submodules": [
+          "terminal"
+        ]
+      },
+      "anchors": [
+        {
+          "file": ".gitmodules",
+          "sha256": "918a9e91cfd864de3e41762b0f3e35e11306fa7af58ea2befc9a2697018da311"
+        },
+        {
+          "file": "build.gradle.kts",
+          "sha256": "53029ad47e4d0f5d7f9bcc1308d9a954ab161cbbcdedb30e55b32a41a605d84c"
+        },
+        {
+          "file": "gradle/libs.versions.toml",
+          "sha256": "f1a33af94925d8c59f901a84c8d0f26963da63cf576d815adce1a7c0e6527c4a"
+        },
+        {
+          "file": "app/build.gradle.kts",
+          "sha256": "ff2f6f249c0ed02cfefaa5a59a3f487128e3c473cdf76802056dd45fcc5c75bb"
+        },
+        {
+          "file": "quickjs/src/main/cpp/CMakeLists.txt",
+          "sha256": "d4bf11b97a0db82341d28fdae7fc056a79c8f0bafcc8bde5958a24d088bdd903"
+        },
+        {
+          "file": "llm/llama/CMakeLists.txt",
+          "sha256": "6ee715e359e593f9511412afa6192b54be34819e78840ada0245a243f07714d7"
+        },
+        {
+          "file": "llm/mnn/CMakeLists.txt",
+          "sha256": "c1dc59ffeb7a56c2359326b4ae62ba16ba9493f6a2d7c51c4971f03a7a7ad98d"
+        },
+        {
+          "file": "app/src/main/cpp/CMakeLists.txt",
+          "sha256": "ff8cd08bde121bd6619069cb13d991e499fc9b6199fb69deec8ad4ecc1e3bf8e"
+        }
+      ]
+    },
+    {
+      "id": "terminal",
+      "path": "Operit/terminal",
+      "commit": "e4646680663789002b43bbfffa6e69e65c35e614",
+      "tree": "bb5420c2fd21040878c25240607996aed6afbd77",
+      "repository": "https://github.com/AAswordman/OperitTerminalCore.git",
+      "contentHash": {
+        "algorithm": "git-sha1-tree",
+        "value": "bb5420c2fd21040878c25240607996aed6afbd77"
+      },
+      "acquisition": {
+        "method": "git-checkout",
+        "revision": "e4646680663789002b43bbfffa6e69e65c35e614",
+        "submodules": []
+      },
+      "anchors": [
+        {
+          "file": "build.gradle.kts",
+          "sha256": "368fe137c381d14a2ef91f7dab0addcecebffb8f2d36263b5abb70cfad23660c"
+        },
+        {
+          "file": "src/main/jni/CMakeLists.txt",
+          "sha256": "002a94db09313862c9faf40dd4491928fdbd9f647067d4a7c3759cadf71411bd"
+        },
+        {
+          "file": "src/main/jni/pty.c",
+          "sha256": "b5d7448b06d30c4c61f376352029385725ef123490ac852d2585e15f9d384215"
+        }
+      ]
+    }
+  ],
+  "engines": [
+    {
+      "id": "quickjs",
+      "repository": "https://github.com/bellard/quickjs.git",
+      "upstreamRef": "master",
+      "commit": "e585640ffa2cf88ce7c2d587583c6fe15928ec2f",
+      "declaration": "quickjs/src/main/cpp/CMakeLists.txt",
+      "role": "script",
+      "adoptionUnit": "S1.19",
+      "path": "third_party/sources/quickjs",
+      "hash": {
+        "algorithm": "git-sha1-tree",
+        "value": "5b914b9a114100ef1935d689c7009a40794b26f0"
+      },
+      "sourceObject": {
+        "path": "config/sources/quickjs.commit.json",
+        "sha256": "e28e2ce3057dcb809799b5019108481d0763e14342200bdcfbafcbeda871e2a4"
+      },
+      "declarationSha256": "d4bf11b97a0db82341d28fdae7fc056a79c8f0bafcc8bde5958a24d088bdd903",
+      "acquisition": {
+        "method": "git-checkout",
+        "revision": "e585640ffa2cf88ce7c2d587583c6fe15928ec2f",
+        "archive": "https://github.com/bellard/quickjs/archive/e585640ffa2cf88ce7c2d587583c6fe15928ec2f.tar.gz"
+      }
+    },
+    {
+      "id": "wamr",
+      "repository": "https://github.com/bytecodealliance/wasm-micro-runtime.git",
+      "upstreamRef": "main",
+      "commit": "ffc22889948b1f063d7258d34d4e636ee0914925",
+      "declaration": "app/src/main/cpp/CMakeLists.txt",
+      "role": "toolpkg-wasm",
+      "adoptionUnit": "S6.31",
+      "path": "third_party/sources/wamr",
+      "hash": {
+        "algorithm": "git-sha1-tree",
+        "value": "7c210ea36cb06cc62f097c3b68bad7faf98ef107"
+      },
+      "sourceObject": {
+        "path": "config/sources/wamr.commit.json",
+        "sha256": "0b6ec7cf6978479b34b9ed8aedfb6baeab8c207e3f960f7c33538fbda8e1232d"
+      },
+      "declarationSha256": "ff8cd08bde121bd6619069cb13d991e499fc9b6199fb69deec8ad4ecc1e3bf8e",
+      "acquisition": {
+        "method": "git-checkout",
+        "revision": "ffc22889948b1f063d7258d34d4e636ee0914925",
+        "archive": "https://github.com/bytecodealliance/wasm-micro-runtime/archive/ffc22889948b1f063d7258d34d4e636ee0914925.tar.gz"
+      }
+    },
+    {
+      "id": "sherpa-ncnn",
+      "repository": "https://github.com/k2-fsa/sherpa-ncnn.git",
+      "upstreamRef": "master",
+      "commit": "497b83215d218958833496182614b7c3807001a8",
+      "declaration": "app/src/main/cpp/CMakeLists.txt",
+      "role": "speech",
+      "adoptionUnit": "S4.18",
+      "path": "third_party/sources/sherpa-ncnn",
+      "hash": {
+        "algorithm": "git-sha1-tree",
+        "value": "0b74f64ff6145535a901dbc7166e593f58b33f72"
+      },
+      "sourceObject": {
+        "path": "config/sources/sherpa-ncnn.commit.json",
+        "sha256": "cee6c91770fcd007e429ce8a581679e929b516041780531f1a402ab949f2e78a"
+      },
+      "declarationSha256": "ff8cd08bde121bd6619069cb13d991e499fc9b6199fb69deec8ad4ecc1e3bf8e",
+      "acquisition": {
+        "method": "git-checkout",
+        "revision": "497b83215d218958833496182614b7c3807001a8",
+        "archive": "https://github.com/k2-fsa/sherpa-ncnn/archive/497b83215d218958833496182614b7c3807001a8.tar.gz"
+      }
+    },
+    {
+      "id": "ncnn",
+      "repository": "https://github.com/Tencent/ncnn.git",
+      "upstreamRef": "master",
+      "commit": "d1f6ac67e9fc91390cc70f7168573fd2626f1d66",
+      "declaration": "app/src/main/cpp/cmake/ncnn.cmake",
+      "role": "speech-dependency",
+      "adoptionUnit": "S4.18",
+      "path": "third_party/sources/ncnn",
+      "hash": {
+        "algorithm": "git-sha1-tree",
+        "value": "e7f5c21a40c8981d16a68f6256aa80ba9cba604b"
+      },
+      "sourceObject": {
+        "path": "config/sources/ncnn.commit.json",
+        "sha256": "170b901701a1d11a279308843b6e25251244a3d017583f1ed095d53b242ba376"
+      },
+      "declarationSha256": "14814d5fd36af518302d6835fc39adde0115bcefda52425efe010ae84181c935",
+      "acquisition": {
+        "method": "git-checkout",
+        "revision": "d1f6ac67e9fc91390cc70f7168573fd2626f1d66",
+        "archive": "https://github.com/Tencent/ncnn/archive/d1f6ac67e9fc91390cc70f7168573fd2626f1d66.tar.gz"
+      }
+    },
+    {
+      "id": "llama-cpp",
+      "repository": "https://github.com/ggml-org/llama.cpp.git",
+      "upstreamRef": "720d7fa4097f76e5d0eade5a92c1df87c1faf9d9",
+      "commit": "720d7fa4097f76e5d0eade5a92c1df87c1faf9d9",
+      "declaration": "llm/llama/CMakeLists.txt",
+      "role": "local-inference",
+      "adoptionUnit": "S4.21",
+      "path": "third_party/sources/llama-cpp",
+      "hash": {
+        "algorithm": "git-sha1-tree",
+        "value": "7f87312fe277e889e50538b150fa7cce40b43d48"
+      },
+      "sourceObject": {
+        "path": "config/sources/llama-cpp.commit.json",
+        "sha256": "dd65ae9baa56e2aae221da2d159a967d160f0a795c36e2d25fd8ddc1d4654a44"
+      },
+      "declarationSha256": "6ee715e359e593f9511412afa6192b54be34819e78840ada0245a243f07714d7",
+      "acquisition": {
+        "method": "git-checkout",
+        "revision": "720d7fa4097f76e5d0eade5a92c1df87c1faf9d9",
+        "archive": "https://github.com/ggml-org/llama.cpp/archive/720d7fa4097f76e5d0eade5a92c1df87c1faf9d9.tar.gz"
+      }
+    },
+    {
+      "id": "mnn",
+      "repository": "https://github.com/alibaba/MNN.git",
+      "upstreamRef": "3.6.1",
+      "commit": "d407447ed56c4121a11ccbd266dc184ca1ead0c2",
+      "declaration": "llm/mnn/CMakeLists.txt",
+      "role": "local-inference",
+      "adoptionUnit": "S4.21",
+      "path": "third_party/sources/mnn",
+      "hash": {
+        "algorithm": "git-sha1-tree",
+        "value": "33df4af812ff1960795dd11b53ceccf3a7187d93"
+      },
+      "sourceObject": {
+        "path": "config/sources/mnn.commit.json",
+        "sha256": "50c025a2145480e655805112c37f1eed091a900a0f3d781a4103c6f80661538c"
+      },
+      "declarationSha256": "c1dc59ffeb7a56c2359326b4ae62ba16ba9493f6a2d7c51c4971f03a7a7ad98d",
+      "acquisition": {
+        "method": "git-checkout",
+        "revision": "d407447ed56c4121a11ccbd266dc184ca1ead0c2",
+        "archive": "https://github.com/alibaba/MNN/archive/d407447ed56c4121a11ccbd266dc184ca1ead0c2.tar.gz"
+      }
+    },
+    {
+      "id": "kleidiai",
+      "repository": "https://github.com/ARM-software/kleidiai.git",
+      "upstreamRef": "v1.16.0",
+      "tagObject": "fa0a8e861d58451e0a3a0d1588bc0d49bad23743",
+      "commit": "84796ece210fbf736c2c51236f4690e0b8812861",
+      "declaration": "llm/mnn/CMakeLists.txt",
+      "role": "inference-dependency",
+      "adoptionUnit": "S4.21",
+      "path": "third_party/sources/kleidiai",
+      "hash": {
+        "algorithm": "git-sha1-tree",
+        "value": "4439f0dabb407cbe4c32b1b4846368beb4f95950"
+      },
+      "sourceObject": {
+        "path": "config/sources/kleidiai.commit.json",
+        "sha256": "f9bb57869a7fc17f1f20d057652a6f4850f045f4ce1c9ed9ef6cadaa7e04af2c"
+      },
+      "declarationSha256": "c1dc59ffeb7a56c2359326b4ae62ba16ba9493f6a2d7c51c4971f03a7a7ad98d",
+      "acquisition": {
+        "method": "git-checkout",
+        "revision": "84796ece210fbf736c2c51236f4690e0b8812861",
+        "archive": "https://github.com/ARM-software/kleidiai/archive/84796ece210fbf736c2c51236f4690e0b8812861.tar.gz"
+      }
+    },
+    {
+      "id": "saba",
+      "repository": "https://github.com/benikabocha/saba.git",
+      "upstreamRef": "master",
+      "commit": "29b8efa8b31c8e746f9a88020fb0ad9dcdcf3332",
+      "declaration": "avator/mmd/CMakeLists.txt",
+      "role": "adoption-catalog-avatar",
+      "adoptionUnit": "S0.13",
+      "path": "third_party/sources/saba",
+      "hash": {
+        "algorithm": "git-sha1-tree",
+        "value": "7351057ef21b5ebc1937cd3aa150313e2f4c34c7"
+      },
+      "sourceObject": {
+        "path": "config/sources/saba.commit.json",
+        "sha256": "c813f8c25f0ed7db7696835d0905a7d97fc9790e05aa3f765570345aa7f59ad9"
+      },
+      "declarationSha256": "c3695c73676e23a2b286b4921924ed301f134765b72cc4d303c9ee18084a8f9a",
+      "acquisition": {
+        "method": "git-checkout",
+        "revision": "29b8efa8b31c8e746f9a88020fb0ad9dcdcf3332",
+        "archive": "https://github.com/benikabocha/saba/archive/29b8efa8b31c8e746f9a88020fb0ad9dcdcf3332.tar.gz"
+      }
+    },
+    {
+      "id": "bullet3",
+      "repository": "https://github.com/bulletphysics/bullet3.git",
+      "upstreamRef": "master",
+      "commit": "d3afe76132fc76b0f9b2359cbaef47a3766e7fbb",
+      "declaration": "avator/mmd/CMakeLists.txt",
+      "role": "adoption-catalog-avatar",
+      "adoptionUnit": "S0.13",
+      "path": "third_party/sources/bullet3",
+      "hash": {
+        "algorithm": "git-sha1-tree",
+        "value": "dae36e483b4037e0b141f1186a51c7d75c31a831"
+      },
+      "sourceObject": {
+        "path": "config/sources/bullet3.commit.json",
+        "sha256": "de2ab0bd5e73cd030a0162f1ca8f59e2815ff8be68359ca9ed800f4aeba2ed01"
+      },
+      "declarationSha256": "c3695c73676e23a2b286b4921924ed301f134765b72cc4d303c9ee18084a8f9a",
+      "acquisition": {
+        "method": "git-checkout",
+        "revision": "d3afe76132fc76b0f9b2359cbaef47a3766e7fbb",
+        "archive": "https://github.com/bulletphysics/bullet3/archive/d3afe76132fc76b0f9b2359cbaef47a3766e7fbb.tar.gz"
+      }
+    },
+    {
+      "id": "ufbx",
+      "repository": "https://github.com/ufbx/ufbx.git",
+      "upstreamRef": "main",
+      "commit": "5955c5c0b042ac2dc6f32955ab206aaec0620cfc",
+      "declaration": "avator/fbx/CMakeLists.txt",
+      "role": "adoption-catalog-avatar",
+      "adoptionUnit": "S0.13",
+      "path": "third_party/sources/ufbx",
+      "hash": {
+        "algorithm": "git-sha1-tree",
+        "value": "a3728a5cb214bf231b13260c64cfe78550b7bede"
+      },
+      "sourceObject": {
+        "path": "config/sources/ufbx.commit.json",
+        "sha256": "36941be94bc4ac0bea1127eab4043a3aeeba8fb0bb42891605368345bdd16a83"
+      },
+      "declarationSha256": "032ffb836806bff9e18c0d1cb303e49f99db937b3a392520c3a70ad4fe4d4c6e",
+      "acquisition": {
+        "method": "git-checkout",
+        "revision": "5955c5c0b042ac2dc6f32955ab206aaec0620cfc",
+        "archive": "https://github.com/ufbx/ufbx/archive/5955c5c0b042ac2dc6f32955ab206aaec0620cfc.tar.gz"
+      }
+    },
+    {
+      "id": "dragonbones-cpp",
+      "repository": "https://github.com/DragonBones/DragonBonesCPP.git",
+      "upstreamRef": "f696143045e07b7c4c4590bdd95534e9e8074b37",
+      "commit": "f696143045e07b7c4c4590bdd95534e9e8074b37",
+      "declaration": "avator/dragonbones/CMakeLists.txt",
+      "role": "adoption-catalog-avatar",
+      "adoptionUnit": "S0.13",
+      "path": "third_party/sources/dragonbones-cpp",
+      "hash": {
+        "algorithm": "git-sha1-tree",
+        "value": "37249c82c7200d6d37cb229001d3336e00809711"
+      },
+      "sourceObject": {
+        "path": "config/sources/dragonbones-cpp.commit.json",
+        "sha256": "70d3783dfc2ad367a0b54d57f5fed2fd9fd79da950dcf9aa6da2ee1c4208d75c"
+      },
+      "declarationSha256": "e5958138f316afc2e77cf22caa3002a8b98eb3fa673ae0e4fcd9184f74d4486e",
+      "acquisition": {
+        "method": "git-checkout",
+        "revision": "f696143045e07b7c4c4590bdd95534e9e8074b37",
+        "archive": "https://github.com/DragonBones/DragonBonesCPP/archive/f696143045e07b7c4c4590bdd95534e9e8074b37.tar.gz"
+      }
+    }
+  ],
+  "packages": [
+    {
+      "id": "better-sqlite3",
+      "version": "13.0.3",
+      "path": "dstu-node/node_modules/better-sqlite3",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-RbOBxmLBG8uvFUc15X9+9SFemKcQ0WBuISBVkpuiaUB2qblC8UWlHEjdWVoZ8AdhSwmoEgsiXKfopX0CQxaACQ=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/better-sqlite3/-/better-sqlite3-13.0.3.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "@embedpdf/pdfium",
+      "version": "2.15.1",
+      "path": "dstu-node/node_modules/@embedpdf/pdfium",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-qDH4gEkGSQT0iM+07Hpm3LyvoB7PEFbW3Qyk6+LPkEYLJYfHagkHM1OzYlDq2EDOhJRguykTkzdMOT3/w27x5Q=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/@embedpdf/pdfium/-/pdfium-2.15.1.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "@lancedb/lancedb",
+      "version": "0.22.1",
+      "path": "dstu-node/node_modules/@lancedb/lancedb",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-OytLNQLmRmLWRsoHri5Ne2EKNloluphvr1zL+BRQHDnh0KwC3ihC3HlTNUWzcqwlcYGKwFporMOGzqk38r4GuQ=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/@lancedb/lancedb/-/lancedb-0.22.1.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "@node-rs/argon2",
+      "version": "2.2.2",
+      "path": "dstu-node/node_modules/@node-rs/argon2",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-NtdlPPWtR5U4BxX5EGJYza+UklNaoWORmkaKCMqf/nyKeXWKVwNt8KfQoRpNT7OB1DcEwmePafO4wZyW+sbfCQ=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/@node-rs/argon2/-/argon2-2.2.2.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "@noble/ciphers",
+      "version": "1.3.0",
+      "path": "dstu-node/node_modules/@noble/ciphers",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-2I0gnIVPtfnMw9ee9h1dJG7tp81+8Ob3OJb3Mv37rx5L40/b0i7djjCVvGOVqc9AEIQyvyu1i6ypKdFw8R8gQw=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/@noble/ciphers/-/ciphers-1.3.0.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "@noble/hashes",
+      "version": "1.8.0",
+      "path": "dstu-node/node_modules/@noble/hashes",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-jCs9ldd7NwzpgXDIf6P3+NrHh9/sD6CQdxHyjQI+h/6rDNo88ypBxxz45UDuZHz9r3tNz7N/VInSVoVdtXEI4A=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/@noble/hashes/-/hashes-1.8.0.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "ts-fsrs",
+      "version": "6.0.0",
+      "path": "dstu-node/node_modules/ts-fsrs",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-kX03GIEhXgBtUrgZuv7k7Aax8oYF3GCO0lASqJFw/8cvvI7qjE83J8IzFhHugux7//W0yquG7zidk3e9NRgEwg=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/ts-fsrs/-/ts-fsrs-6.0.0.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "@open-spaced-repetition/binding",
+      "version": "0.6.0",
+      "path": "dstu-node/node_modules/@open-spaced-repetition/binding",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-aByDwIRYBW0dlqiQJXSKDb7Z4WOWsQjvA4XJ3nCni/MkCTjLE0eiDISVqyF0mYAojoulX3ZWe47K5GOomuAj1w=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/@open-spaced-repetition/binding/-/binding-0.6.0.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "tiktoken",
+      "version": "1.0.22",
+      "path": "dstu-node/node_modules/tiktoken",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-PKvy1rVF1RibfF3JlXBSP0Jrcw2uq3yXdgcEXtKTYn3QJ/cBRBHDnrJ5jHky+MENZ6DIPwNUGWpkVx+7joCpNA=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/tiktoken/-/tiktoken-1.0.22.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "pdfjs-dist",
+      "version": "5.4.296",
+      "path": "dstu-node/node_modules/pdfjs-dist",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-DlOzet0HO7OEnmUmB6wWGJrrdvbyJKftI1bhMitK7O2N8W2gc757yyYBbINy9IDafXAV9wmKr9t7xsTaNKRG5Q=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/pdfjs-dist/-/pdfjs-dist-5.4.296.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "pdf-lib",
+      "version": "1.17.1",
+      "path": "dstu-node/node_modules/pdf-lib",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-V/mpyJAoTsN4cnP31vc0wfNA1+p20evqqnap0KLoRUN0Yk/p3wN52DOEsL4oBFcLdb76hlpKPtzJIgo67j/XLw=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/pdf-lib/-/pdf-lib-1.17.1.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "jszip",
+      "version": "3.10.1",
+      "path": "dstu-node/node_modules/jszip",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-xXDvecyTpGLrqFrvkrUSoxxfJI5AH7U8zxxtVclpsUtMCq4JQ290LY8AW5c7Ggnr/Y/oK+bQMbqK2qmtk3pN4g=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/jszip/-/jszip-3.10.1.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "pako",
+      "version": "1.0.11",
+      "path": "dstu-node/node_modules/pako",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/pako/-/pako-1.0.11.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "katex",
+      "version": "0.16.47",
+      "path": "dstu-node/node_modules/katex",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-Eeo8Ys1doU1z+x8AZsPpQu+p/QcZBI5PeOo7QGQdy2x2m0MU/hYagBbGOmXwr5KVbEfVuWv9LpnQWeehogurjg=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/katex/-/katex-0.16.47.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "mermaid",
+      "version": "11.15.0",
+      "path": "dstu-node/node_modules/mermaid",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-pTMbcf3rWdtLiYGpmoTjHEpeY8seiy6sR+9nD7LOs8KfUbHE4lOUAprTRqRAcWSQ6MQpdX+YEsxShtGsINtPtw=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/mermaid/-/mermaid-11.15.0.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "@viz-js/viz",
+      "version": "3.30.0",
+      "path": "dstu-node/node_modules/@viz-js/viz",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-2zmcP55QY44uQfZ+GvgNHmGd8S6KUD+2eMur9AbYybSzrOd/m8nMUg0ZircJNiJRKGgVBKAE8kh0hAwpUFUFQQ=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/@viz-js/viz/-/viz-3.30.0.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "vega",
+      "version": "6.4.0",
+      "path": "dstu-node/node_modules/vega",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-rHXCq2LpEWCLMjXBEj7hocY9G0/i5TGYRayGGSj06VTF4+l2IG2Z7oeZKCjWbUh/7hTE/mVhbaOPB72wCElh6g=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/vega/-/vega-6.4.0.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "vega-lite",
+      "version": "6.4.3",
+      "path": "dstu-node/node_modules/vega-lite",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-d/7hPjfz560UERaQuTmGgIVfXAe3g2hJWeC+igDeaGohUdEoNrHLXgR/yTOBT8vV/lIuuKnw+0/xWWblkDwkMQ=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/vega-lite/-/vega-lite-6.4.3.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "vega-interpreter",
+      "version": "2.3.2",
+      "path": "dstu-node/node_modules/vega-interpreter",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-JDAoi3taFcCDLujZG84TNNUXdkAZ5WsSHssx8lWVYaxb9Slsjk7v7PtRIYXpSlUwLaKGRBqoJ9KDs36Z0eMEIw=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/vega-interpreter/-/vega-interpreter-2.3.2.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "abcjs",
+      "version": "6.7.0",
+      "path": "dstu-node/node_modules/abcjs",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-dSj1Iho8IvGZEbfRTcGS4uGt+DMrrXTqXXpfNXYMuUNfDMRadTqA1DlVvs3u0uUDJIej8UOAeDauEPnZ6RThmg=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/abcjs/-/abcjs-6.7.0.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "wavedrom",
+      "version": "3.7.0",
+      "path": "dstu-node/node_modules/wavedrom",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-2dd4xLooh+bvkJ4iAudM3lkvHF11MLznAdLgR7QYX2Mfvtu7Jf2yVZsr29l6Z74n8ONso30UKPgRnr3gTFnf3Q=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/wavedrom/-/wavedrom-3.7.0.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "openchemlib",
+      "version": "9.25.0",
+      "path": "dstu-node/node_modules/openchemlib",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-FGTaZLJRTGXNC7khx8QvX/EiQBHpH1ncUbT7YXDJhw/Y/aDUKe5WrUIqTguMEtSs3GUHcRUjNUhfkpxulx2UXw=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/openchemlib/-/openchemlib-9.25.0.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "smiles-drawer",
+      "version": "2.4.1",
+      "path": "dstu-node/node_modules/smiles-drawer",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-kJeD91Bp8EwLTQouq4az7hn5zUYdIaLQoyFt8XlsqriugPiZOdBFADJMUnfqDYpyu3XK9SFpBgTuDtczpbSUbA=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/smiles-drawer/-/smiles-drawer-2.4.1.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "3dmol",
+      "version": "2.5.5",
+      "path": "dstu-node/node_modules/3dmol",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-kqNHouGqq3YfW58174tdERvm0XYTmP0tavQKOqIw1ouc2OJ7epkXEFrtEkVXV0clBZT2Ze2xHRC/qxX0u0qCdw=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/3dmol/-/3dmol-2.5.5.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "sharp",
+      "version": "0.34.5",
+      "path": "dstu-node/node_modules/sharp",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-Ou9I5Ft9WNcCbXrU9cMgPBcCK8LiwLqcbywW3t4oDV37n1pzpuNLsYiAV8eODnjbtQlSDwZ2cUEeQz4E54Hltg=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/sharp/-/sharp-0.34.5.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "docx",
+      "version": "9.15.2",
+      "path": "dstu-node/node_modules/docx",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-G/R41dlYE5RS3TG2ybX1DIodQv+TchMspmdvrrovFyzTpvLZe0pLKVqiGosBhZszLkRonrK9+zxJDPWHDYx4NA=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/docx/-/docx-9.15.2.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "exceljs",
+      "version": "4.4.0",
+      "path": "dstu-node/node_modules/exceljs",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-XctvKaEMaj1Ii9oDOqbW/6e1gXknSY4g/aLCDicOXqBE4M0nRWkUu0PTp++UPNzoFY12BNHMfs/VadKIS6llvg=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/exceljs/-/exceljs-4.4.0.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "pptxgenjs",
+      "version": "4.0.1",
+      "path": "dstu-node/node_modules/pptxgenjs",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-TeJISr8wouAuXw4C1F/mC33xbZs/FuEG6nH9FG1Zj+nuPcGMP5YRHl6X+j3HSUnS1f3at6k75ZZXPMZlA5Lj9A=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/pptxgenjs/-/pptxgenjs-4.0.1.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "mustache",
+      "version": "4.2.0",
+      "path": "dstu-node/node_modules/mustache",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-71ippSywq5Yb7/tVYyGbkBggbU8H3u5Rz56fH60jGFgr8uHwxs+aSKeqmluIVzM0m0kB7xQjKS6qPfd0b2ZoqQ=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/mustache/-/mustache-4.2.0.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "mdast-util-from-markdown",
+      "version": "2.0.3",
+      "path": "dstu-node/node_modules/mdast-util-from-markdown",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-W4mAWTvSlKvf8L6J+VN9yLSqQ9AOAAvHuoDAmPkz4dHf553m5gVj2ejadHJhoJmcmxEnOv6Pa8XJhpxE93kb8Q=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/mdast-util-from-markdown/-/mdast-util-from-markdown-2.0.3.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "mdast-util-gfm",
+      "version": "3.1.0",
+      "path": "dstu-node/node_modules/mdast-util-gfm",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-0ulfdQOM3ysHhCJ1p06l0b0VKlhU0wuQs3thxZQagjcjPrlFRqY215uZGHHJan9GEAXd9MbfPjFJz+qMkVR6zQ=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/mdast-util-gfm/-/mdast-util-gfm-3.1.0.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "micromark-extension-gfm",
+      "version": "3.0.0",
+      "path": "dstu-node/node_modules/micromark-extension-gfm",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-vsKArQsicm7t0z2GugkCKtZehqUm31oeGBV/KVSorWSy8ZlNAv7ytjFhvaryUiCUJYqs+NoE6AFhpQvBTM6Q4w=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/micromark-extension-gfm/-/micromark-extension-gfm-3.0.0.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "@milkdown/crepe",
+      "version": "7.22.1",
+      "path": "dstu-node/node_modules/@milkdown/crepe",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-0BZTGBRV8lnlKsA3vmPK5Qyomjqd952493AIzfnbhiYwzHpluX03iMtOgHC6E2UcpMXP86P5CXhPUWjzDu+JZQ=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/@milkdown/crepe/-/crepe-7.22.1.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "@milkdown/transformer",
+      "version": "7.22.1",
+      "path": "dstu-node/node_modules/@milkdown/transformer",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-rU1IBtxezNg7TSWaq+RP59/t6tfD3jIPGrwAtMKPIGuYEax+8d1fyGisp98TeI3l0VQEIgMpF+KlNDV+Y1HJVA=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/@milkdown/transformer/-/transformer-7.22.1.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    },
+    {
+      "id": "typescript",
+      "version": "5.6.3",
+      "path": "dstu-node/node_modules/typescript",
+      "hash": {
+        "algorithm": "npm-sri",
+        "value": "sha512-hjcS1mhfuyi4WW8IWtjP7brDrG2cuDZukyrYrSauoXGNgx0S7zceP07adYkJycEr56BOUTNPzbInooiN3fn1qw=="
+      },
+      "acquisition": {
+        "method": "npm-locked-tarball",
+        "url": "https://registry.npmjs.org/typescript/-/typescript-5.6.3.tgz"
+      },
+      "purpose": "desktop-behavior-reference",
+      "androidAdoptionUnit": "S4.01"
+    }
+  ],
+  "rules": {
+    "baselineFreeze": "The desktop source is frozen at the exact commit in config/source-inputs.json. Do not refresh or advance automatically; any future change requires an explicit new reviewed decision.",
+    "repositories": "HEAD, git tree, clean tracked files, byte SHA-256 of anchors",
+    "engines": "exact Git commit and tree; archived commit API response SHA-256; floating upstream ref recorded only as evidence",
+    "packages": "exact lockfile version, URL and integrity; desktop packages stay in development tools",
+    "drift": "fail with artifact JSON path and expected/actual values; capture is not an automatic refresh and must not be used to move a frozen baseline",
+    "upstreamMobile": "upstream mobile/Capacitor/storage-mobile/Java runtime is source-diff/legacy evidence only, not product delivery, and must not create feature-completion requirements",
+    "legacyExport": "S0.16 keeps the existing data-export contract and validates the target schema with existing legacy samples; do not extend the upstream Android chain"
+  }
+}

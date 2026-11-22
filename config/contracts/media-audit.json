@@ -1,0 +1,52 @@
+{
+  "formatVersion": 1,
+  "unit": "S0.22",
+  "permutations": 3,
+  "duplicateEventsReplayed": true,
+  "expectedStudySeconds": 120,
+  "expectedResumePositionMs": 12000,
+  "summary": {
+    "resource_id": "public-media",
+    "logical_date": "2026-11-15",
+    "seconds": 120,
+    "position": 12000,
+    "position_ms": 12000,
+    "duration_ms": 100000,
+    "resume_event_id": "audit-resume-b",
+    "resume_observed_at": "2026-11-15T08:02:00Z",
+    "by_device": [
+      {
+        "device_id": "device-a",
+        "seconds": 90,
+        "events": 2
+      },
+      {
+        "device_id": "device-b",
+        "seconds": 30,
+        "events": 2
+      }
+    ],
+    "subtitles": [],
+    "latest_plan_versions": [],
+    "event_count": 4
+  },
+  "migrations": {
+    "freshVfs": {
+      "id": "vfs",
+      "fromVersion": 0,
+      "toVersion": 20261116,
+      "appliedCount": 74,
+      "success": true,
+      "error": null
+    },
+    "restartVfs": {
+      "id": "vfs",
+      "fromVersion": 20261116,
+      "toVersion": 20261116,
+      "appliedCount": 0,
+      "success": true,
+      "error": null
+    }
+  },
+  "scope": "production desktop increment event adapter; no scheduler/playback execution"
+}

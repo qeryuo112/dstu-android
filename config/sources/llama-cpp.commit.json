@@ -1,0 +1,35 @@
+{
+  "sha": "720d7fa4097f76e5d0eade5a92c1df87c1faf9d9",
+  "node_id": "C_kwDOJH_K4NoAKDcyMGQ3ZmE0MDk3Zjc2ZTVkMGVhZGU1YTkyYzFkZjg3YzFmYWY5ZDk",
+  "url": "https://api.github.com/repos/ggml-org/llama.cpp/git/commits/720d7fa4097f76e5d0eade5a92c1df87c1faf9d9",
+  "html_url": "https://github.com/ggml-org/llama.cpp/commit/720d7fa4097f76e5d0eade5a92c1df87c1faf9d9",
+  "author": {
+    "name": "Adrien Gallouët",
+    "email": "angt@huggingface.co",
+    "date": "2026-07-25T16:16:29Z"
+  },
+  "committer": {
+    "name": "GitHub",
+    "email": "noreply@github.com",
+    "date": "2026-07-25T16:16:29Z"
+  },
+  "tree": {
+    "sha": "7f87312fe277e889e50538b150fa7cce40b43d48",
+    "url": "https://api.github.com/repos/ggml-org/llama.cpp/git/trees/7f87312fe277e889e50538b150fa7cce40b43d48"
+  },
+  "message": "vendor : update cpp-httplib to 0.51.0 (#26067)\n\nSigned-off-by: Adrien Gallouët <angt@huggingface.co>",
+  "parents": [
+    {
+      "sha": "fb92d8f1873c96ec63f9c59721d58a55bf46d441",
+      "url": "https://api.github.com/repos/ggml-org/llama.cpp/git/commits/fb92d8f1873c96ec63f9c59721d58a55bf46d441",
+      "html_url": "https://github.com/ggml-org/llama.cpp/commit/fb92d8f1873c96ec63f9c59721d58a55bf46d441"
+    }
+  ],
+  "verification": {
+    "verified": true,
+    "reason": "valid",
+    "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqZOFdCRC1aQ7uu5UhlAAAt+IQACNvHyjRrijeYL+TN7PuQhYz\n56QKFMKMl1mnRPtNIjOJydn0Wcs1TP72UbtHP4P1ukPWor0sYRNMFQ0IZyPVUFzh\n5v4/kkZe5KrUdx/KGSJKxKX12YuzTG+Dq9jEXl2SI+PNjWt8PWQ3cbExa9DL69T4\nv8BlTM1sYGddKfUvccv0b/k0IHXzw5gaCPXtbCFTm71DpvSNVwJpVO7B0PRTfy1X\n6uujtLIyxTnfj7KR+25Ny2LFSw13Kqz1vb/LWYERxxjVUkaOQxJjMFxVx4E1LTHg\n/Hfae4eB6xPw3FWX41rGttFyjQqX7IJ3k9jF8HwSVcRAlKoTbOZEUyOidO3CM0xr\n24irRLxEER4iMSfiNC9dS4JxAjhLbiENdwgko61MQaflOZdZPFhCfSFN6SCI03sD\nHrankThl3TDFbcCj2EEdUH8KKMXnFqZ310wThVYMsI3ZV0BETpSwlEWIAnC5jjLu\ntJkmVcgykjSE+Oly/Q+kHpFHPbFezfTRDW6U3BjD/ORiZox1T4BkVklQfCgp3WOF\n1ZS6BHrTy7UqlshBtJdmgchW8yiOZcUto2IHueQtISd0l1ueJ3S+8wZTtgjDfafF\n4hR4nTppG2L3pOBPyT360rCJQi0HnWvB62j5CvEF+/vKrOKgHCQftMb4LwDY5tYo\nSSjteM5vr8QR7UvZeZMT\n=EdiQ\n-----END PGP SIGNATURE-----\n",
+    "payload": "tree 7f87312fe277e889e50538b150fa7cce40b43d48\nparent fb92d8f1873c96ec63f9c59721d58a55bf46d441\nauthor Adrien Gallouët <angt@huggingface.co> 1784996189 +0200\ncommitter GitHub <noreply@github.com> 1784996189 +0200\n\nvendor : update cpp-httplib to 0.51.0 (#26067)\n\nSigned-off-by: Adrien Gallouët <angt@huggingface.co>",
+    "verified_at": "2026-07-25T16:16:29Z"
+  }
+}

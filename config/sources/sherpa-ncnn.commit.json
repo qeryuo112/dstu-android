@@ -1,0 +1,35 @@
+{
+  "sha": "497b83215d218958833496182614b7c3807001a8",
+  "node_id": "C_kwDOH72aitoAKDQ5N2I4MzIxNWQyMTg5NTg4MzM0OTYxODI2MTRiN2MzODA3MDAxYTg",
+  "url": "https://api.github.com/repos/k2-fsa/sherpa-ncnn/git/commits/497b83215d218958833496182614b7c3807001a8",
+  "html_url": "https://github.com/k2-fsa/sherpa-ncnn/commit/497b83215d218958833496182614b7c3807001a8",
+  "author": {
+    "name": "Nabid Nur",
+    "email": "nurnabid754@gmail.com",
+    "date": "2026-11-12T08:58:18Z"
+  },
+  "committer": {
+    "name": "GitHub",
+    "email": "noreply@github.com",
+    "date": "2026-11-12T08:58:18Z"
+  },
+  "tree": {
+    "sha": "0b74f64ff6145535a901dbc7166e593f58b33f72",
+    "url": "https://api.github.com/repos/k2-fsa/sherpa-ncnn/git/trees/0b74f64ff6145535a901dbc7166e593f58b33f72"
+  },
+  "message": "Fix dead Vulkan SDK download link and typos in install-vulkan-macos.md (#447)",
+  "parents": [
+    {
+      "sha": "c61e50d61e9fbed5972afa4d95bc560e168affe2",
+      "url": "https://api.github.com/repos/k2-fsa/sherpa-ncnn/git/commits/c61e50d61e9fbed5972afa4d95bc560e168affe2",
+      "html_url": "https://github.com/k2-fsa/sherpa-ncnn/commit/c61e50d61e9fbed5972afa4d95bc560e168affe2"
+    }
+  ],
+  "verification": {
+    "verified": true,
+    "reason": "valid",
+    "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJq9X+qCRC1aQ7uu5UhlAAAqDUQAJyRHnzK9iHKFlsgxHE5oPIO\nI+ET2ejEyvmUNhrM3zP+aMS4BoOnqM8znkUqN13tr0/T7+32X/wry2KNmbJ5OHzK\nCTRR6MQmFq4zOfFxTHxnft+o3OPRWqXa3UmwTlSirP/Y7kdJcsHPPcmino4a53Oa\nlwyAcaqP6eNzqZh5QYRwvk9FLLX7Zp59ARya0W415TB1IeWy+AA2SLbd0+qqh4mh\nJgrBV7XY6VwIEYFj4gZTQSy6HF/6s2MZL9MAU49cIHPTMDYoj6RQSWxzdYQZedAM\nhpEnzv/PrXvy1fMzlIIqB5hPlTHIZt0pUUIMaMmG/uv9HEtxwJpZtYyYguQyWbCT\ncrwL3tAHLym6HDokhsmeWcL3kMG8eY5Qgy267jdDWG6YLNac6mAVH/qvG2zdR+ZJ\ndy+rAkWNh8uL8MZVieruT5ZEygAj0qzPGeECE8VEOGDfvoUvKF5Wy+WxpEj1sqO3\napyZzWmjdZ/o2CE/yiKpCjelfjyMeWgypFu14pbMOo3gzdxM8F9gXgJpdODjXddg\n5V1XF+aetlnqeCKjLm4MzitMdB+chCLl3olxFeSWD+vWI15UsafwWKbUWKM5F21j\nIxr86MYtL7C+LHsKt7fPcB3IIWfk+OhgrqNcQO/6pVnTPwetZuy95qHraILFH/To\nOqVspAEgvc1t+Lkq3iMW\n=QK9h\n-----END PGP SIGNATURE-----\n",
+    "payload": "tree 0b74f64ff6145535a901dbc7166e593f58b33f72\nparent c61e50d61e9fbed5972afa4d95bc560e168affe2\nauthor Nabid Nur <nurnabid754@gmail.com> 1794473898 +0600\ncommitter GitHub <noreply@github.com> 1794473898 +0800\n\nFix dead Vulkan SDK download link and typos in install-vulkan-macos.md (#447)",
+    "verified_at": "2026-11-12T08:58:19Z"
+  }
+}

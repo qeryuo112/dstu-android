@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <cache-path name="workspace-fixtures" path="s117-documents/" />
+    <cache-path name="backup-preview-fixtures" path="s210-preview-fixtures/" />
+</paths>

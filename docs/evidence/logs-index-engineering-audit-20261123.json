@@ -1,0 +1,208 @@
+{
+  "format": "dstu-evidence-index/v1",
+  "generatedAt": "2026-11-22T19:58:47.546Z",
+  "source": {
+    "repository": "dstu-android",
+    "ref": "HEAD",
+    "revision": "dbf8b6c04686e7727ac0ac7e9ca18bd8840729ac",
+    "selection": "worktree",
+    "entryCount": 21,
+    "trackedCount": 0,
+    "presentCount": 21,
+    "missingFromWorktree": []
+  },
+  "archive": {
+    "format": "tar.gz",
+    "root": "PRIVATE_ARTIFACT_ROOT",
+    "relativeLocation": "engineering-audit-20261123/evidence.tar.gz",
+    "location": "PRIVATE_ARTIFACT_ROOT/engineering-audit-20261123/evidence.tar.gz",
+    "size": 82871,
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "573ddfb817b02f8fb2399de875937784cd27c4d4ab8195b303e7a451ab81bc51"
+    },
+    "manifest": {
+      "relativeLocation": "engineering-audit-20261123/manifest.json",
+      "location": "PRIVATE_ARTIFACT_ROOT/engineering-audit-20261123/manifest.json",
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "4944b19f878416007330426fccfffefa1cec28b98376974825d3db0731e56a64"
+      }
+    }
+  },
+  "entries": [
+    {
+      "path": "logs/audit-20261123-actionlint.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/audit-20261123-build-variants.log",
+      "size": 192832,
+      "sha256": "b5778b00d32d862ba99ab15544f3545531968a78dfe6c9bcaa8f01f04eefa7d5",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/audit-20261123-debug-apk-verification.json",
+      "size": 1451,
+      "sha256": "bfeb9166f0cfe74518a59728364da861396c0c55a9f737867891ce6cd0feef6f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/audit-20261123-device-api26.log",
+      "size": 49571,
+      "sha256": "37df6c40f1c420e8f98a758ebfcb145b272034d997f1bf3a8da8433c40f92138",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/audit-20261123-device-api36.log",
+      "size": 49432,
+      "sha256": "34a81529924d77985e846d5b73308e3e8f4b365decc2ac542f7e5c42fa054b29",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/audit-20261123-existing-tool-tests.log",
+      "size": 6168,
+      "sha256": "01ce2d2c87bbf4212d83cd0ae2b74f3cf5c0b3ba92364769dfac9943f160e120",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/audit-20261123-final-summary.json",
+      "size": 2414,
+      "sha256": "1305cbc4bf239b168349f7e36ec6e04728660ac096a31f92633a851e6eb5449d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/audit-20261123-format-negative.log",
+      "size": 13111,
+      "sha256": "580cc8ebbeb267a88885073cd170f7234471c99fc037f213380043c5fe7109cc",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/audit-20261123-frozen-inputs.log",
+      "size": 217,
+      "sha256": "7a7e59f0f931eebf7c44a939002a0fb464a10de3043528b6dce4c0b2efc73431",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/audit-20261123-historical-archive-verification.json",
+      "size": 408,
+      "sha256": "d68ff387e8d5d3b413f9b176b0a55df08f117653e752283c604c50c317c51f91",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/audit-20261123-historical-progress.log",
+      "size": 193,
+      "sha256": "45aeed4397b78e366c1eb0ca478a3607a59ad93c375509f65c27b8e02dd0affc",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/audit-20261123-quality-gate-final.log",
+      "size": 18252,
+      "sha256": "11261e439849d436664b8c4db8648519f109b5b9e2f755e75ee7418ac0052ed1",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/audit-20261123-repository-check.log",
+      "size": 1273,
+      "sha256": "1f7b506b99f34181313e6b503d22bfbdf9062a10693f3ef97ddf7f9cd5de8800",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/audit-20261123-repository-tests.log",
+      "size": 15462,
+      "sha256": "2bb181c02a42d135e47437039315ab8758184499a2234778f72755d88cd4c663",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/audit-20261123-signing-negative.log",
+      "size": 1638,
+      "sha256": "b3efe147ba95ca9cde849b42c127536d04ae3c93ef9db8e857f706c96d1e7c30",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/audit-20261123-signing-smoke-aab-verification.log",
+      "size": 565275,
+      "sha256": "3dc1697368b0fa06f1599a113d903cb822bad00bf1f16437760db09459731d20",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/audit-20261123-signing-smoke-apk-verification.json",
+      "size": 1455,
+      "sha256": "068ae882010e858df9d6d5e27b691aac845647630739b01b790414c36d1fa811",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/audit-20261123-signing-smoke-build.log",
+      "size": 132839,
+      "sha256": "912ab3ac5b481e3bc11ec6f81604fdcd0bcf511674de23816f5088abc9cb9268",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/audit-20261123-sync-regression.log",
+      "size": 17410,
+      "sha256": "4c0b9be082a064fa71436aafc35bd796928bf3222358c44a5bacadb195fed9e0",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/audit-20261123-unit-android.log",
+      "size": 103807,
+      "sha256": "5385b6e2fc21022d2a866a0fd99354748f8fb3633897a0c70abf31e15939d046",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/audit-20261123-unit-jvm.log",
+      "size": 34588,
+      "sha256": "bd61b18662484efcaf8aad513b85d29d7a9571fd12c016bb691a5515b273874e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    }
+  ],
+  "compatibility": {
+    "legacyPathPolicy": "Entries retain original logs/... paths; historical docs/config references are lookup keys, not tracked files.",
+    "localWrites": "logs/ is gitignored; existing tools may continue writing local evidence.",
+    "restoreCommand": "node tools/evidence/restore.mjs <logs/path>"
+  }
+}

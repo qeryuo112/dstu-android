@@ -1,0 +1,62 @@
+{
+  "formatVersion": 1,
+  "unit": "S0.16",
+  "note": "公开 fixture 的期望值；verify 用它逐行比对导出包，不依赖采集时的随机 id 之外的事实。",
+  "source": "tools/baseline/legacy-export/fixtures.mjs",
+  "seeds": {
+    "noteIds": [
+      "note_EUX0uLPRD4",
+      "note_6eezX7uPIP"
+    ],
+    "noteTitles": [
+      "迁移示例笔记",
+      "迁移示例笔记二"
+    ],
+    "noteContents": [
+      "# 迁移示例\n\n这是公开 fixture 笔记，用于验证旧包导入。\n\n参见 [[迁移示例笔记二]]。\n",
+      "## 代码块\n\n```ts\nconst answer = 42;\n```\n\n- 列表项一\n- 列表项二\n"
+    ],
+    "noteHashes": [
+      "6fab517871fd70145f9b43a9b257f5775084196a4dc7adca0b94fee947dbc91a",
+      "3ffaa79b54dac1b256faea636a39023110b9a08ecc77fc7afca85efa4af4ca5c"
+    ],
+    "folderId": "fld_legacy_demo",
+    "fileSha256": "254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a",
+    "fileBytes": 70,
+    "fileText": "Deep Student legacy export fixture.\n公开样本，无用户数据。\n",
+    "fileId": "file_CDUjXdTa6Z",
+    "blobHash": "254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a",
+    "blobRelativePath": "25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt",
+    "sessionId": "sess_legacy_demo",
+    "messageIds": [
+      "msg_legacy_user",
+      "msg_legacy_assistant"
+    ],
+    "blockId": "blk_legacy_answer",
+    "mistakeId": "mistake_legacy_demo",
+    "ankiCardId": "card_legacy_demo",
+    "documentTaskId": "task_legacy_demo",
+    "usageId": "usage_214c4eab-7996-406e-a09d-d35b07135c4e",
+    "auditId": "audit_legacy_demo",
+    "settingsKeys": [
+      "appearance.theme",
+      "notes.default_folder"
+    ]
+  },
+  "files": {
+    "standard": {
+      "file": "fixtures/legacy-mobile/legacy-mobile-standard-standard-v1.zip",
+      "bytes": 3987747,
+      "sha256": "3bcecfdd5ec02b0d3b8ee110f2649b6edc136bc9bb6d41b2a5673061ec932eba"
+    },
+    "continuity": {
+      "file": "fixtures/legacy-mobile/legacy-mobile-continuity-continuity-v1.zip",
+      "bytes": 3987749,
+      "sha256": "774b1aea192eaec9f991c127aa275689b624b6679724e6ac6dea1316f5a13924"
+    }
+  },
+  "sidecar": {
+    "file": "fixtures/legacy-mobile/legacy-mobile-continuity-continuity-v1.continuity.json",
+    "sha256": "9c6b0fa1c3b93b8677514e6add0f0aecec4521e4ee4289cbe2d1f38a09bcadb6"
+  }
+}

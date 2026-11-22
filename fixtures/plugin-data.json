@@ -1,0 +1,222 @@
+{
+  "formatVersion": 1,
+  "unit": "S0.24",
+  "capability": {
+    "owner_id": "plugin.public",
+    "package_version": "1.0.0",
+    "source_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "schema_version": 2,
+    "device_id": "device-a"
+  },
+  "records": [
+    {
+      "id": "[\"plugin.other\",\"prefs\",\"item\"]",
+      "owner_id": "plugin.other",
+      "owner_kind": "plugin",
+      "namespace": "prefs",
+      "record_id": "item",
+      "package_version": "1.0.0",
+      "source_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "schema_version": 2,
+      "min_writer_schema": 1,
+      "data_json": "{\"text\":\"other owner\"}",
+      "unknown_json": "{}",
+      "deleted_at": null,
+      "device_id": "device-a",
+      "local_version": 1,
+      "updated_at": "2026-11-15T16:00:00Z",
+      "decoded_live": {
+        "text": "other owner"
+      }
+    },
+    {
+      "id": "[\"plugin.public\",\"prefs\",\"bound\"]",
+      "owner_id": "plugin.public",
+      "owner_kind": "plugin",
+      "namespace": "prefs",
+      "record_id": "bound",
+      "package_version": "1.0.1",
+      "source_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "schema_version": 2,
+      "min_writer_schema": 1,
+      "data_json": "{\"owner_id\":\"plugin.forged\",\"text\":\"bound capability\"}",
+      "unknown_json": "{}",
+      "deleted_at": "2026-11-15T16:00:00Z",
+      "device_id": "device-b",
+      "local_version": 2,
+      "updated_at": "2026-11-15T16:00:00Z",
+      "decoded_live": null
+    },
+    {
+      "id": "[\"plugin.public\",\"prefs\",\"compat\"]",
+      "owner_id": "plugin.public",
+      "owner_kind": "plugin",
+      "namespace": "prefs",
+      "record_id": "compat",
+      "package_version": "1.0.1",
+      "source_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "schema_version": 2,
+      "min_writer_schema": 1,
+      "data_json": "{\"future\":{\"n\":9007199254740993},\"text\":\"schema-two\"}",
+      "unknown_json": "{}",
+      "deleted_at": "2026-11-15T16:00:00Z",
+      "device_id": "device-b",
+      "local_version": 2,
+      "updated_at": "2026-11-15T16:00:00Z",
+      "decoded_live": null
+    },
+    {
+      "id": "[\"plugin.public\",\"prefs\",\"item\"]",
+      "owner_id": "plugin.public",
+      "owner_kind": "plugin",
+      "namespace": "prefs",
+      "record_id": "item",
+      "package_version": "1.0.1",
+      "source_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "schema_version": 2,
+      "min_writer_schema": 2,
+      "data_json": "{\"future\":{\"n\":9007199254740993,\"nullable\":null},\"nested\":[\"中\",true],\"text\":\"device-b edit\"}",
+      "unknown_json": "{}",
+      "deleted_at": "2026-11-15T16:00:00Z",
+      "device_id": "device-b",
+      "local_version": 4,
+      "updated_at": "2026-11-15T16:00:00Z",
+      "decoded_live": null
+    },
+    {
+      "id": "[\"skill.public\",\"defs\",\"item\"]",
+      "owner_id": "skill.public",
+      "owner_kind": "skill",
+      "namespace": "defs",
+      "record_id": "item",
+      "package_version": "1.0.0",
+      "source_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "schema_version": 1,
+      "min_writer_schema": 1,
+      "data_json": "{\"command\":\"not executed\",\"text\":\"skill data\"}",
+      "unknown_json": "{}",
+      "deleted_at": null,
+      "device_id": "device-a",
+      "local_version": 1,
+      "updated_at": "2026-11-15T16:00:00Z",
+      "decoded_live": {
+        "command": "not executed",
+        "text": "skill data"
+      }
+    }
+  ],
+  "unknownRoundTrip": {
+    "retained": {
+      "n": {
+        "$bigint": "9007199254740993"
+      },
+      "nullable": null
+    }
+  },
+  "trust": {
+    "install": "local-only",
+    "trust": "local-only",
+    "fullTrust": "local-only",
+    "remoteTrustMarker": false,
+    "remoteFullTrustAccepted": false
+  },
+  "pluginServices": {
+    "localOnly": true,
+    "portableData": false,
+    "secretKeyPattern": "secret.plugin.<owner>.<key>",
+    "scheduleKeyPattern": "plugin.schedule.<owner>.<job>",
+    "sample": {
+      "secretKeys": [
+        "apiKey"
+      ],
+      "scheduleKeys": [
+        "nightly"
+      ]
+    },
+    "fullTrustSource": "local-policy"
+  },
+  "migration": {
+    "version": 20261117,
+    "file": "vfs/V20261117__plugin_skill_data_contract.sql",
+    "baselineVersion": 20261115,
+    "mediaVersion": 20261116,
+    "previousReservation": {
+      "version": 20261116,
+      "path": "vfs/V20261116__plugin_skill_data_contract.sql"
+    },
+    "sha256": "e0c9ba13527bf4ae0d1409dadc890b6af63a4cc86017b8b3b2a051289742ee38",
+    "preparedInputs": [
+      {
+        "unit": "S0.21",
+        "file": "mistakes/V20261006__portable_anki_templates.sql",
+        "sha256": "205f7da3f916b65c56b20bdd1472213837dcf359cc25cfe2697a6a3bbf6646d9"
+      },
+      {
+        "unit": "S0.22",
+        "file": "vfs/V20261116__portable_media_progress.sql",
+        "sha256": "1beeb57d996340270b2f8acfe3fe6608a7432fda5c4178aca6034abaad00d116"
+      },
+      {
+        "unit": "S0.24",
+        "file": "vfs/V20261117__plugin_skill_data_contract.sql",
+        "sha256": "e0c9ba13527bf4ae0d1409dadc890b6af63a4cc86017b8b3b2a051289742ee38"
+      }
+    ]
+  },
+  "upstreamUpgrade": {
+    "vfs": {
+      "fromVersion": 20261115,
+      "mediaVersion": 20261116,
+      "mediaName": "portable_media_progress",
+      "pluginVersion": 20261117,
+      "pluginName": "plugin_skill_data_contract",
+      "restartApplied": 0,
+      "migrationRow": {
+        "version": 20261117,
+        "name": "plugin_skill_data_contract"
+      }
+    },
+    "mistakes": {
+      "fromVersion": 20261005,
+      "templateVersion": 20261006,
+      "templateName": "portable_anki_templates",
+      "restartApplied": 0
+    }
+  },
+  "freshAndRestart": {
+    "device-a": {
+      "freshVfs": {
+        "fromVersion": 0,
+        "toVersion": 20261117,
+        "appliedCount": 75,
+        "success": true
+      },
+      "restartVfs": {
+        "fromVersion": 20261117,
+        "toVersion": 20261117,
+        "appliedCount": 0,
+        "success": true
+      }
+    },
+    "device-b": {
+      "freshVfs": {
+        "fromVersion": 0,
+        "toVersion": 20261117,
+        "appliedCount": 75,
+        "success": true
+      },
+      "restartVfs": {
+        "fromVersion": 20261117,
+        "toVersion": 20261117,
+        "appliedCount": 0,
+        "success": true
+      }
+    }
+  },
+  "quota": {
+    "depth": 16,
+    "recordBytes": 65536,
+    "ownerRecords": 2000,
+    "ownerBytes": 5242880
+  }
+}

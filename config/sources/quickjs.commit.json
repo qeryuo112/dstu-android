@@ -1,0 +1,35 @@
+{
+  "sha": "e585640ffa2cf88ce7c2d587583c6fe15928ec2f",
+  "node_id": "C_kwDOEXul59oAKGU1ODU2NDBmZmEyY2Y4OGNlN2MyZDU4NzU4M2M2ZmUxNTkyOGVjMmY",
+  "url": "https://api.github.com/repos/bellard/quickjs/git/commits/e585640ffa2cf88ce7c2d587583c6fe15928ec2f",
+  "html_url": "https://github.com/bellard/quickjs/commit/e585640ffa2cf88ce7c2d587583c6fe15928ec2f",
+  "author": {
+    "name": "Fabrice Bellard",
+    "email": "fabrice@bellard.org",
+    "date": "2026-11-10T10:56:48Z"
+  },
+  "committer": {
+    "name": "Fabrice Bellard",
+    "email": "fabrice@bellard.org",
+    "date": "2026-11-10T10:56:48Z"
+  },
+  "tree": {
+    "sha": "5b914b9a114100ef1935d689c7009a40794b26f0",
+    "url": "https://api.github.com/repos/bellard/quickjs/git/trees/5b914b9a114100ef1935d689c7009a40794b26f0"
+  },
+  "message": "intl: fixed DateTimeFormat OOM leaks - simplified and fixed listformat (#610 point 11)",
+  "parents": [
+    {
+      "sha": "3cbe3f2fea7c14c1e57c434346b491418159b9a9",
+      "url": "https://api.github.com/repos/bellard/quickjs/git/commits/3cbe3f2fea7c14c1e57c434346b491418159b9a9",
+      "html_url": "https://github.com/bellard/quickjs/commit/3cbe3f2fea7c14c1e57c434346b491418159b9a9"
+    }
+  ],
+  "verification": {
+    "verified": false,
+    "reason": "unsigned",
+    "signature": null,
+    "payload": null,
+    "verified_at": null
+  }
+}

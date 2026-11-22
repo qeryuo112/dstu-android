@@ -1,0 +1,22 @@
+{
+  "formatVersion": 1,
+  "unit": "S0.23",
+  "contributionsUses": 573,
+  "everyContributionUseHasEvidence": true,
+  "scopes": {
+    "portable": 20,
+    "local": 503,
+    "secret": 50
+  },
+  "localTrustRetained": true,
+  "localEnableRetained": true,
+  "localPermissionRetained": true,
+  "themeVariantLocalPluginDependency": true,
+  "pluginScheduleLocal": true,
+  "unknownDefaultsLocal": true,
+  "secretScope": true,
+  "pluginSecretScope": true,
+  "nestedCredentialRejections": 5,
+  "invalidSnapshotNoPartialWrites": true,
+  "userCredentialsRead": false
+}

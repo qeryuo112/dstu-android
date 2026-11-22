@@ -1,0 +1,2487 @@
+{
+  "formatVersion": 2,
+  "format": "dstu-s0.18-sync-golden/v2",
+  "unit": "S0.18",
+  "generatedAt": "2026-11-15T18:39:23.714Z",
+  "scope": {
+    "included": [
+      "change record",
+      "change batch envelope",
+      "sync manifest",
+      "change keys",
+      "lossless JSON",
+      "HLC/LWW",
+      "field merge",
+      "UTF-8/path codecs",
+      "zstd compression",
+      "unknown-column vault",
+      "format descriptor boundaries"
+    ],
+    "excluded": [
+      "backup version manifest (parent file golden)",
+      "tombstone/file manifests (parent)",
+      "DSBK encryption golden (parent)",
+      "provider transport/integration (parent)",
+      "S0.19 classification",
+      "v5 deferred replay and cloud publication (not registered by the production plugin)",
+      "plugin sandbox opaque fields (parent source, not a wire function)"
+    ]
+  },
+  "sourceInputs": {
+    "binding": {
+      "commit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+      "head": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+      "implementation": [
+        {
+          "file": "host/plugins/sync/repository/unknown-fields.ts",
+          "sha256": "2a42e88760e0bca2d3a5a0663385f242d60b503d724ff82609cde0b75be4c2e5"
+        },
+        {
+          "file": "host/plugins/sync/repository/record-data.ts",
+          "sha256": "075866386fb0562d9a88c664e5d9741c8b0028b29c8fbd65488a26e80be7e9a5"
+        }
+      ],
+      "wrappers": [
+        {
+          "file": "host/plugins/sync/src/unknown-fields.ts",
+          "sha256": "f8df6089fded00566a451ca8275b0431b4e8b97af5e115765a4ad8256d91c548"
+        }
+      ],
+      "protocol": [
+        {
+          "file": "host/platform/util/lossless-json.ts",
+          "sha256": "79c8f5fb03d98cb402ee87afc684ddc8c8fdd387a046c9a20289c73e5c6acccc"
+        },
+        {
+          "file": "host/platform/util/json-exact.ts",
+          "sha256": "7d3c82d72388078004daef57e946a75f052f7c3f18330c3f9f0d2acbfe83ebe3"
+        },
+        {
+          "file": "host/platform/util/utf8.ts",
+          "sha256": "9c2f9e9465f2790b03123bba52f63a84c1f79b3a12725637fc65915855aaca0d"
+        },
+        {
+          "file": "host/platform/util/portable.ts",
+          "sha256": "889309ad37045ea2808e54506ab53a5473682db634ca07401490346f72df3d3c"
+        },
+        {
+          "file": "host/platform/crypto/sync.ts",
+          "sha256": "9be6f4ac9513026a85cbcd9c6062942a997f04b054a5ad85d2d7e7dd3fdf7aec"
+        },
+        {
+          "file": "host/plugins/sync/src/change-log.ts",
+          "sha256": "7a318604020b84e9941b91257f7f6e55a37adde3f9095a37893e20590b92b8eb"
+        },
+        {
+          "file": "host/plugins/sync/src/change-payload.ts",
+          "sha256": "6b0bb9ca47a98c6f788cde3949486af9011e8fea9a9a053c067a2a1fd675f0ac"
+        },
+        {
+          "file": "host/plugins/sync/src/download-payload.ts",
+          "sha256": "0c14cf7c1e4bef829a2e8cc217eee33195e5b8319b475083483d129d0b8ef226"
+        },
+        {
+          "file": "host/plugins/sync/src/change-keys.ts",
+          "sha256": "95f039f5ce19f1ac77d0112d5e6e3eada85ac5cfd593e41e3fadf3dc85d06dfe"
+        },
+        {
+          "file": "host/plugins/sync/src/lww.ts",
+          "sha256": "266d496fdf63b237316f60accf42b9963203cade02ff0d9b3a543670c56ed6cb"
+        },
+        {
+          "file": "host/plugins/sync/src/hlc.ts",
+          "sha256": "73d3f14ea0e84419ec481421d9c5eb3fb58712ae9f76c4f7b9fcd96548bf6574"
+        },
+        {
+          "file": "host/plugins/sync/src/field-merge.ts",
+          "sha256": "962ced59f7d4b72ec7aeb21cca46957dff2f53ae3526d22cb053ce57bafedb23"
+        },
+        {
+          "file": "host/plugins/sync/src/remote-manifest.ts",
+          "sha256": "3bf64d4245403a33efe8d3af266b57a2fc0e6320f5c3ae0491b96633815b4f4e"
+        },
+        {
+          "file": "host/plugins/sync/src/remote-format.ts",
+          "sha256": "5f2af3683dcab64d6f9aab2544c8595094240d346bdeaa05b96b8f9312553bee"
+        },
+        {
+          "file": "host/plugins/sync/src/merge.ts",
+          "sha256": "1542fcf163a503d7f16fc10a5c70d4ec6afbba76271bfcf63ef007c7191ddf35"
+        },
+        {
+          "file": "host/plugins/sync/src/classification.ts",
+          "sha256": "f31d4be8357b717bec4efad895be99acb02373ce32639639f0cadea6457f378c"
+        },
+        {
+          "file": "host/plugins/sync-providers/src/device_id.ts",
+          "sha256": "dd73d4f609e9cd7d61493cb7ea92b6dbd8281904e09e030c6567b3caed870476"
+        }
+      ],
+      "buildInputsSha256": "4bcc2b33674dceb33605b9fc731467ffab282d79daee7f42bdc7e0dc4f4a9b55",
+      "buildInputs": 122,
+      "baselineV1BuildInputs": 121,
+      "wrapperSplit": "S0.18 v1 imported unknown-field logic from src/unknown-fields.ts; the frozen desktop tree moved it to repository/unknown-fields.ts and left the src module as a re-export wrapper."
+    },
+    "protocol": [
+      {
+        "file": "host/kernel/agent-api.ts",
+        "sha256": "be86da821dc6deda693b8dcdf9c804965529c7e7942662c6d24a2e09e442f75f"
+      },
+      {
+        "file": "host/kernel/agent-roster.ts",
+        "sha256": "801d0888b8cee96240d16588ace49738a8abf2f75fda1f63f0cdcdebbcef7cf8"
+      },
+      {
+        "file": "host/kernel/agent-wiring.ts",
+        "sha256": "ede4bd475c34a27dedcead5dcf3fe27aa0f41fd4beba658db0b8046e6ac8425e"
+      },
+      {
+        "file": "host/kernel/api.ts",
+        "sha256": "85dded8efcc552071b356e442f4dd3768a01bf5a011cbfdd81505f2e3c8fa401"
+      },
+      {
+        "file": "host/kernel/capability-decode.ts",
+        "sha256": "89bc8004ff5d9fd86f23f3695928d7f814478eb586e3c57d6444019b0c30f765"
+      },
+      {
+        "file": "host/kernel/core.ts",
+        "sha256": "dbbc2977d544e5b5bc317fd9b0c9aefd97313ded06a09fd161fcbd1920047a92"
+      },
+      {
+        "file": "host/kernel/error-model.ts",
+        "sha256": "6ac9ed2f878976a639ce4b9889d05aaa0441155eb37eb1e8f3ee8a3be6d98219"
+      },
+      {
+        "file": "host/kernel/extensions.ts",
+        "sha256": "4b52e1f0746779899155d1e2edd67debb24ee8138671b40198e94e55eb89d065"
+      },
+      {
+        "file": "host/kernel/json.ts",
+        "sha256": "cb822ef4c205b543824388c78b7e191e99e4f716757e588b49d06573695e4274"
+      },
+      {
+        "file": "host/kernel/platforms.ts",
+        "sha256": "90bc3728446b64320669f200d8dbcc1bf831d74ea7d84aae7f1e2779723fd863"
+      },
+      {
+        "file": "host/kernel/plugin-events.ts",
+        "sha256": "ad7e1725092c60f1c1baa171d29ab0c3a85322f9a974333c7814128db1f40cc9"
+      },
+      {
+        "file": "host/kernel/plugin-guard.ts",
+        "sha256": "84a98e918a7ec7b3c562f2def9f4f7c2e1d3fc3585c4135110820cbfd9a7262d"
+      },
+      {
+        "file": "host/kernel/plugin-manager.ts",
+        "sha256": "aba67a817dc5bfd5c5dac6fed0ad68374c257a37e8bec46bec8f68c3b057511a"
+      },
+      {
+        "file": "host/kernel/plugin-types.ts",
+        "sha256": "7860e4254101e3cc2ddeb3ce71334c8413285b2cee4d78a8e43984ff310f2e66"
+      },
+      {
+        "file": "host/kernel/primitives.ts",
+        "sha256": "485a523961d2feda00bce010e353f1079003980615d203a4278609411cdb8823"
+      },
+      {
+        "file": "host/kernel/serde.ts",
+        "sha256": "e7a6eb0955ca9955165a0dd4d2e6afad65ffecf69b20a2e9f4a7b0be1c012f63"
+      },
+      {
+        "file": "host/kernel/shell-error.ts",
+        "sha256": "8d1d94fcafab3f6aadc32ca3f49f5eb1cb130bdaebe73aaef5939dad8e2b242d"
+      },
+      {
+        "file": "host/platform/crypto/api.ts",
+        "sha256": "1790cc15eab7c4dfa5480515b7fd66cd4ec7eda400ad3bdc194c66f5a10f7d82"
+      },
+      {
+        "file": "host/platform/crypto/encoding.ts",
+        "sha256": "0d8c2be36e95c4bfb5eec89b336d18db12b243811acb5eda2a04337042dceab7"
+      },
+      {
+        "file": "host/platform/crypto/sync.ts",
+        "sha256": "9be6f4ac9513026a85cbcd9c6062942a997f04b054a5ad85d2d7e7dd3fdf7aec"
+      },
+      {
+        "file": "host/platform/crypto/web.ts",
+        "sha256": "49106f44cbf42799d7f2b8055e4440b479eb290c449e4d656f12a09ec4a2e767"
+      },
+      {
+        "file": "host/platform/errors/api.ts",
+        "sha256": "e873df5bc7d749d079650f59b09e6bc666700fdd424e5913c390eca6b9ffea87"
+      },
+      {
+        "file": "host/platform/errors/localized-error-json.ts",
+        "sha256": "1fda971dc81a67f2d203c29e96bb55d4fd7ca5b8154b637e56bddbf3111d31a0"
+      },
+      {
+        "file": "host/platform/errors/tool-args.ts",
+        "sha256": "886d2f9297fa5b669503f0308da7334fd93e77d1834513a772f2977c29abd012"
+      },
+      {
+        "file": "host/platform/errors/unsupported-on-platform.ts",
+        "sha256": "48fab9466a576bf05dfde72b621ccb338716d9b604639e3b003addc081a5f1d0"
+      },
+      {
+        "file": "host/platform/net-policy/ip.ts",
+        "sha256": "34e884c4ce706d521895dd2a597c9d008a85cd347bd57861495b1645c0cb52f5"
+      },
+      {
+        "file": "host/platform/paths/device-id-core.ts",
+        "sha256": "5740c024b142c1a5f0512609a9d621c1cb641806a0722268f56c5dbb97416208"
+      },
+      {
+        "file": "host/platform/secrets/dsbk-stream.ts",
+        "sha256": "83b0f59d44808c92f2eaf0418966454ea92deeb3793453ef30781c82bdd6f710"
+      },
+      {
+        "file": "host/platform/storage/api.ts",
+        "sha256": "ca6aa8187f7e052e1a707978197152c4526d7f4a6b4637241dd99ecba9d3ba35"
+      },
+      {
+        "file": "host/platform/storage/deletion-journal-owner.ts",
+        "sha256": "c7c921781424765881fb9df00c7bc94a920ed1c20f9c22c68e3b4512fd75f045"
+      },
+      {
+        "file": "host/platform/storage/errors.ts",
+        "sha256": "5d12be1a5ee90f0d1ddffe04825f071bdeb847c14fd2c8cce1e064503ccb5971"
+      },
+      {
+        "file": "host/platform/storage/file-names.ts",
+        "sha256": "33290ff8286b3de3e7c3f7ffc739cca772a7b87ec2c752572bfd65fc6e0d6448"
+      },
+      {
+        "file": "host/platform/storage/query.ts",
+        "sha256": "c57392fec9007f47f4835cc1c9eec6517380e7753fd906d2e2667ea24095f513"
+      },
+      {
+        "file": "host/platform/storage/workspace-deletion-owner.ts",
+        "sha256": "7f9e6742ad03e8dd7a152e82f52070ddc6324814e0cd253b18e69def79d8c4cc"
+      },
+      {
+        "file": "host/platform/time/index.ts",
+        "sha256": "10d68a041ac4fb086dfb52d26d7cc2d6866a00f27ea35c5a88002ab02dea4c82"
+      },
+      {
+        "file": "host/platform/util/base64-core.ts",
+        "sha256": "48529c907029e9a9287a211f9393644b971e16a0eb4c3608c5df25564e318edf"
+      },
+      {
+        "file": "host/platform/util/bytes.ts",
+        "sha256": "456e9e3d0e2c4c08ed5dd2d6dbf0096f56709d4009b423c1d82b36b3458c5a35"
+      },
+      {
+        "file": "host/platform/util/crc32.ts",
+        "sha256": "47b33faf16edad71d275f395523b240a6e4efc1505347eff5342abb7f52fd313"
+      },
+      {
+        "file": "host/platform/util/f32-json.ts",
+        "sha256": "9ec81fee66d477712a09721f38608543a2f3665d7b72ee22863cb228c7d47223"
+      },
+      {
+        "file": "host/platform/util/http-status.ts",
+        "sha256": "cc182d5c13162eaca37512d50330f2d6a1e9f3e798322f116cb5c1bafaad3aa0"
+      },
+      {
+        "file": "host/platform/util/index.ts",
+        "sha256": "1386ff8987985c4f68efe027a00d3d9b23b104357948abf39094fc1784a39103"
+      },
+      {
+        "file": "host/platform/util/json-exact.ts",
+        "sha256": "7d3c82d72388078004daef57e946a75f052f7c3f18330c3f9f0d2acbfe83ebe3"
+      },
+      {
+        "file": "host/platform/util/json-value.ts",
+        "sha256": "7e76c4071409855e92fc89b7a7d072e8c328aee5cd6329e62189e3988a2b4baf"
+      },
+      {
+        "file": "host/platform/util/lossless-json.ts",
+        "sha256": "79c8f5fb03d98cb402ee87afc684ddc8c8fdd387a046c9a20289c73e5c6acccc"
+      },
+      {
+        "file": "host/platform/util/model-special-tokens.ts",
+        "sha256": "94c4cfaf25150d586300fcaee92917cd2916cba2d14295e50df4600cdda21cf9"
+      },
+      {
+        "file": "host/platform/util/node-path-port.ts",
+        "sha256": "0d5b78181c5dea2d3269078a595d0c55e4d95613c79cd75455db81e402d796e3"
+      },
+      {
+        "file": "host/platform/util/path.ts",
+        "sha256": "f006332236712c09ff3b69653f1db98defa4cd0c6a5937b8db2b0daf5444c499"
+      },
+      {
+        "file": "host/platform/util/portable.ts",
+        "sha256": "889309ad37045ea2808e54506ab53a5473682db634ca07401490346f72df3d3c"
+      },
+      {
+        "file": "host/platform/util/prompt-contracts.ts",
+        "sha256": "5393971642bf1b0672b3cdc9ef6d03e90e1377815703baabc23bf933a3fb8580"
+      },
+      {
+        "file": "host/platform/util/rust-fixed.ts",
+        "sha256": "222f55536fd175fffd6ad1b8e3eee184d4ca52f9e3fac54edf932c58fc520630"
+      },
+      {
+        "file": "host/platform/util/sse-buffer.ts",
+        "sha256": "acceafed4822df2cdb7fa2bc4893d243d30b0e83a41b4f855fb384536ca44aa5"
+      },
+      {
+        "file": "host/platform/util/text.ts",
+        "sha256": "fb5206bfce64f5770f1e4b0e9e9176ca2862b0b5dd3e25c2bdb7948c3846f163"
+      },
+      {
+        "file": "host/platform/util/utf8.ts",
+        "sha256": "9c2f9e9465f2790b03123bba52f63a84c1f79b3a12725637fc65915855aaca0d"
+      },
+      {
+        "file": "host/plugins/sync-providers/api.ts",
+        "sha256": "3d3de901e6969b372956217f58d0c2bb7d71787b566ffb79ccbc5c300b744c17"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/aes-gcm.ts",
+        "sha256": "1eee1918c51462255d4678c50480adee52c7c4d2b331ee865bf1255634020f55"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/backup_lease.ts",
+        "sha256": "7264564508a9f12a6d0329b2ace7c87ec2b3f0f0a5629ea74bb069128633f020"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/bad_object.ts",
+        "sha256": "c81bef2fd764491c61f79d497efd006a490b0be6452c8b6fe0282909d5ce5310"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/bytes.ts",
+        "sha256": "0968ce9a553c390cbb6ecc5cf4e68202f71af84c3c67fde94ebc0c30d4688bad"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/config.ts",
+        "sha256": "7b3cea96f8feac4eeeae188b8540e1beff425e10ff0ed0a8432a5d0b412a8a39"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/delta_format.ts",
+        "sha256": "6c894d332cd5b6fca8c631f9d332aa4df497342ca7f11f2ae088e10d665898a5"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/delta_gc.ts",
+        "sha256": "ad1b895c165e6ae7860df0e572a38b71acf20c771b758cdbf35ad633e8319b11"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/delta_restore.ts",
+        "sha256": "c126f755a6dbe4177f4f0c107bae660809e40d9b95388e75e981e04dbbccdbf8"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/delta_upload.ts",
+        "sha256": "d39f2c28bc6a34ba1bdc49f38a9f7aa0aee64951f4cf516b17ccdcb13a7512cd"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/device_id.ts",
+        "sha256": "dd73d4f609e9cd7d61493cb7ea92b6dbd8281904e09e030c6567b3caed870476"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/e2ee_claim.ts",
+        "sha256": "088744909567b5dabcbc9517f5c3042e051565ac4032091c4706bc7f7c3f1315"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/errors.ts",
+        "sha256": "cdd4cff5ceb4a2443feda81ddb70f0daf73a47bde4fb385e0d1afc926378725b"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/files.ts",
+        "sha256": "b04725c775bcf7f9f5bf1a3489f8229200531d5d2d9182d0783e0e245dce0f6c"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/hashing.ts",
+        "sha256": "8c225f878c6d958bf52b1d047bd67d32acd3f9d6369aec88f6eefe04403e89da"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/lease.ts",
+        "sha256": "880fa6c6bb4e26d24a46da97bdad1da5d632a62a3eb5130e2aa70000ddf94024"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/local-fs.ts",
+        "sha256": "fdaea9c1c521b82c679478e5fbbbb72e9cb769587d3d4f0b58af82815345b2df"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/logging.ts",
+        "sha256": "340f158791510f62264d281db91abcc3c96c7d2de0152630d6381aa5c06cb581"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/manifest.ts",
+        "sha256": "1f8c7cda6a5fb770535f6df24e6911358a7464bf7617e3df91561b8a9a6c4562"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/marker.ts",
+        "sha256": "0fae356f164d5eb10aa4363b545ceb090f5019872a1a1589603292269ba458e7"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/mod.ts",
+        "sha256": "bdadfcc3dd0601b722e4283c956dff47cec599390ee29d8b3aa9c5b111e12de7"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/password_proof.ts",
+        "sha256": "f9804d3a45c68c091a9a1663f30d4552f78f416c91059deb3379600d32588f39"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/random.ts",
+        "sha256": "7208bbbe1b4136e66254fe5f29a629d1ad484417a2f5171d030f406aa4cc3992"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/repo_check.ts",
+        "sha256": "dc25de12b0e8dbed4a4944939100416fa82b54a7990d54d1830e05b197232f5a"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/resume.ts",
+        "sha256": "b4408de8ea04e2a5a3eadd91154003bbcd2c6e0f6cbca5abb1749fbdcd7164e5"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/serde_struct.ts",
+        "sha256": "d3a42c76c9f280711893aa4173df04e1cc2f77eed880457da1ec1a40f65509bb"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/sync_lease.ts",
+        "sha256": "f3c224f19575d68e1cff2a70fa14fcadc93fd4e8b6c575393ac8796304e3f0b5"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/sync_manager.ts",
+        "sha256": "bd80002c474c6402081749a461461f9d1a35d209cfcb5a47268cf902fd864231"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/time.ts",
+        "sha256": "3c2040fa8a54ae44a9574c8318c6faa7fc10b90a960d7b83dcad3d0a05c702a7"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/traits.ts",
+        "sha256": "f06aadc542dd9ea1bd2a28aa4694c82270a00ff47fabc208624281ca3be76eff"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/v5_framed_pack.ts",
+        "sha256": "b789f2accf5945bbdc30e583e0a80fe968f15d0285ecb8dd05c77d5ffb5ff3d6"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/v5_index_and_checkpoint.ts",
+        "sha256": "7c413fc4cb3fa0bca40d0e861bce9627d346af97c6fb43460b84a3d5b9533cbc"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/v5_keyring.ts",
+        "sha256": "81890f9e09d76ddd578f111f4c40c956a80e91f02c212808a6ffebd64e1eed63"
+      },
+      {
+        "file": "host/plugins/sync-providers/src/verified_publish.ts",
+        "sha256": "6b887aaf436a86888686cb7ca292be6d1850a2c5ed1f2ff9c0d14c5af26df63a"
+      },
+      {
+        "file": "host/plugins/sync/repository/record-data.ts",
+        "sha256": "075866386fb0562d9a88c664e5d9741c8b0028b29c8fbd65488a26e80be7e9a5"
+      },
+      {
+        "file": "host/plugins/sync/repository/sqlite-values.ts",
+        "sha256": "31c69ac2544da5377fbc959d5c3b12ac4be6f5312fe5d22c8b0e8bb17a2e0cad"
+      },
+      {
+        "file": "host/plugins/sync/repository/unknown-fields.ts",
+        "sha256": "2a42e88760e0bca2d3a5a0663385f242d60b503d724ff82609cde0b75be4c2e5"
+      },
+      {
+        "file": "host/plugins/sync/src/change-keys.ts",
+        "sha256": "95f039f5ce19f1ac77d0112d5e6e3eada85ac5cfd593e41e3fadf3dc85d06dfe"
+      },
+      {
+        "file": "host/plugins/sync/src/change-log.ts",
+        "sha256": "7a318604020b84e9941b91257f7f6e55a37adde3f9095a37893e20590b92b8eb"
+      },
+      {
+        "file": "host/plugins/sync/src/change-payload.ts",
+        "sha256": "6b0bb9ca47a98c6f788cde3949486af9011e8fea9a9a053c067a2a1fd675f0ac"
+      },
+      {
+        "file": "host/plugins/sync/src/classification-data/chat-v2.ts",
+        "sha256": "5906c87229b8a5134d90894ec0fdc4f2e882d951d5402269535703c4e5e650fe"
+      },
+      {
+        "file": "host/plugins/sync/src/classification-data/llm-usage.ts",
+        "sha256": "322389d2cd5a5319b82693d12dee414d4979df03650e3751f59beb131e9fee0b"
+      },
+      {
+        "file": "host/plugins/sync/src/classification-data/mistakes.ts",
+        "sha256": "fa7ba4ad88c03ce2c838e32a7481723f57fb0f7212dc74db8b1fc47ed277a5c1"
+      },
+      {
+        "file": "host/plugins/sync/src/classification-data/vfs-core.ts",
+        "sha256": "957e31ce39ca2b79dc5cdf69a5cd593687ceb08b7a9ed79a6aa02488e10bd71b"
+      },
+      {
+        "file": "host/plugins/sync/src/classification-data/vfs-notes.ts",
+        "sha256": "c62585aa54442eddb06e58213538195e589bb7105df6073595485267e25d8339"
+      },
+      {
+        "file": "host/plugins/sync/src/classification-registry.ts",
+        "sha256": "34494175370479849f94e80790ae43a30bc68209699902a6d28936ba6a12287a"
+      },
+      {
+        "file": "host/plugins/sync/src/classification.ts",
+        "sha256": "f31d4be8357b717bec4efad895be99acb02373ce32639639f0cadea6457f378c"
+      },
+      {
+        "file": "host/plugins/sync/src/download-payload.ts",
+        "sha256": "0c14cf7c1e4bef829a2e8cc217eee33195e5b8319b475083483d129d0b8ef226"
+      },
+      {
+        "file": "host/plugins/sync/src/errors.ts",
+        "sha256": "9414576fba54a7e0f71641c0a234f6e965b77d575d4c7d4da915e9e65210d9a2"
+      },
+      {
+        "file": "host/plugins/sync/src/field-merge.ts",
+        "sha256": "962ced59f7d4b72ec7aeb21cca46957dff2f53ae3526d22cb053ce57bafedb23"
+      },
+      {
+        "file": "host/plugins/sync/src/hlc.ts",
+        "sha256": "73d3f14ea0e84419ec481421d9c5eb3fb58712ae9f76c4f7b9fcd96548bf6574"
+      },
+      {
+        "file": "host/plugins/sync/src/lww.ts",
+        "sha256": "266d496fdf63b237316f60accf42b9963203cade02ff0d9b3a543670c56ed6cb"
+      },
+      {
+        "file": "host/plugins/sync/src/merge.ts",
+        "sha256": "1542fcf163a503d7f16fc10a5c70d4ec6afbba76271bfcf63ef007c7191ddf35"
+      },
+      {
+        "file": "host/plugins/sync/src/remote-format.ts",
+        "sha256": "5f2af3683dcab64d6f9aab2544c8595094240d346bdeaa05b96b8f9312553bee"
+      },
+      {
+        "file": "host/plugins/sync/src/remote-manifest.ts",
+        "sha256": "3bf64d4245403a33efe8d3af266b57a2fc0e6320f5c3ae0491b96633815b4f4e"
+      },
+      {
+        "file": "host/plugins/sync/src/unknown-fields.ts",
+        "sha256": "f8df6089fded00566a451ca8275b0431b4e8b97af5e115765a4ad8256d91c548"
+      },
+      {
+        "file": "node_modules/@deepseek-ai/cosmokit/lib/index.js",
+        "sha256": "ba44c0871656e4c7cac2c3c8a2ff644e0d2eb9d6bda7f6355866d686d513268e"
+      },
+      {
+        "file": "node_modules/@deepseek-ai/schemastery/lib/index.mjs",
+        "sha256": "cfcbe46c7416bdb35ce891c252152bbf519e08199bede5930dd7cb880c65f1ef"
+      },
+      {
+        "file": "node_modules/@noble/ciphers/esm/_polyval.js",
+        "sha256": "93b718b57b8a6739b62145e6ba82ac0be5f225ba6754d825427fef8010b142e6"
+      },
+      {
+        "file": "node_modules/@noble/ciphers/esm/aes.js",
+        "sha256": "c112ad02f2b5315f5f6d51b211c208ed29d91b4a81f9a99ccfc35b043de5c4fc"
+      },
+      {
+        "file": "node_modules/@noble/ciphers/esm/utils.js",
+        "sha256": "306e36d8c59519a289756f5775e2fc2faed9b02b6b60029a7c8e3e943522e441"
+      },
+      {
+        "file": "node_modules/@noble/hashes/esm/_md.js",
+        "sha256": "cefb1557e7715cb2117c83f82ef3e3175c7e0391c80bd5795b2d4effc45fc582"
+      },
+      {
+        "file": "node_modules/@noble/hashes/esm/_u64.js",
+        "sha256": "e48c0cfc10810439a4807b46db136ce603a3fa09b62584f513ef2f3ca496af54"
+      },
+      {
+        "file": "node_modules/@noble/hashes/esm/cryptoNode.js",
+        "sha256": "26f80c6a85b6ef7bfd83b99d95b2b5ba8764397b9465feff32e81ba4e6416619"
+      },
+      {
+        "file": "node_modules/@noble/hashes/esm/hkdf.js",
+        "sha256": "4bdbfb687cfb409aaffb80a6223fc718bbab79ef083fd6191a6e063d68ddd16a"
+      },
+      {
+        "file": "node_modules/@noble/hashes/esm/hmac.js",
+        "sha256": "a330af1af3fb00ebdbba2f023dd5e023aa367669081cd51c7d172eb499533d0b"
+      },
+      {
+        "file": "node_modules/@noble/hashes/esm/legacy.js",
+        "sha256": "4906186a82438392443e3ac2a59d0acbbec2bee2595d048c8d8c0dd6584d4bdb"
+      },
+      {
+        "file": "node_modules/@noble/hashes/esm/sha2.js",
+        "sha256": "e729088b82e5450bff54c3a0013582aa42e1fe8f58dd31f5967f6ebe34c52299"
+      },
+      {
+        "file": "node_modules/@noble/hashes/esm/utils.js",
+        "sha256": "4cf4c1e05affedcb4fd584a43d76ae1a3711e34a36e2251b90c27e33ecc74fad"
+      }
+    ],
+    "native": [
+      {
+        "file": "host/platform/native/compression/index.ts",
+        "sha256": "b27ef95d26af35274e0fe45701b16815b43cdbffd4eeb92447081d71336393ce"
+      },
+      {
+        "file": "host/platform/storage/connection.ts",
+        "sha256": "160e00cef3b647729280b74a5f795bb59e55b6c3edc79ab0c62e4af869f10632"
+      }
+    ],
+    "combinedSha256": "7419a3997591e5c9be05a0d9e7cb18a07d9ad6d3bba8ac4a9b86ca7fbad9d4fa"
+  },
+  "environment": {
+    "desktop": "/home/xutao/deepstudent/dstu-node",
+    "node": "v22.23.5",
+    "loader": "tools/baseline/desktop-module.mjs",
+    "esbuild": "0.25.12",
+    "sqlite": "13.0.3"
+  },
+  "changes": [
+    {
+      "id": "change-full-minimal",
+      "input": {
+        "text": "{\"table_name\":\"notes\",\"record_id\":\"n1\",\"operation\":\"Update\",\"data\":{\"id\":\"n1\",\"title\":\"中文🙂\"},\"changed_at\":\"2026-11-15T00:00:00Z\"}",
+        "bytes": 136,
+        "sha256": "e9565c367d83aa0e4bbefc78e7b36524bf71bde0767c0b3b998b58ee75aaaf73",
+        "utf8Hex": "7b227461626c655f6e616d65223a226e6f746573222c227265636f72645f6964223a226e31222c226f7065726174696f6e223a22557064617465222c2264617461223a7b226964223a226e31222c227469746c65223a22e4b8ade69687f09f9982227d2c226368616e6765645f6174223a22323032362d31312d31355430303a30303a30305a227d"
+      },
+      "parsed": {
+        "table_name": "notes",
+        "record_id": "n1",
+        "operation": "Update",
+        "data": {
+          "id": "n1",
+          "title": "中文🙂"
+        },
+        "changed_at": "2026-11-15T00:00:00Z"
+      },
+      "expected": {
+        "text": "{\"table_name\":\"notes\",\"record_id\":\"n1\",\"operation\":\"Update\",\"data\":{\"id\":\"n1\",\"title\":\"中文🙂\"},\"changed_at\":\"2026-11-15T00:00:00Z\"}",
+        "bytes": 136,
+        "sha256": "e9565c367d83aa0e4bbefc78e7b36524bf71bde0767c0b3b998b58ee75aaaf73",
+        "utf8Hex": "7b227461626c655f6e616d65223a226e6f746573222c227265636f72645f6964223a226e31222c226f7065726174696f6e223a22557064617465222c2264617461223a7b226964223a226e31222c227469746c65223a22e4b8ade69687f09f9982227d2c226368616e6765645f6174223a22323032362d31312d31355430303a30303a30305a227d"
+      },
+      "reparsed": {
+        "table_name": "notes",
+        "record_id": "n1",
+        "operation": "Update",
+        "data": {
+          "id": "n1",
+          "title": "中文🙂"
+        },
+        "changed_at": "2026-11-15T00:00:00Z"
+      },
+      "serializationStable": true,
+      "nullOptionalPolicy": {
+        "parserPreservesExplicitNullKeys": true,
+        "serializerOmitsNullOptionalKeys": true,
+        "suppressChangeLogNullParsedAs": false,
+        "omittedOptionalKeysStayOmitted": true,
+        "exactObjectRoundtrip": false
+      }
+    },
+    {
+      "id": "change-optional-omitted",
+      "input": {
+        "text": "{\"table_name\":\"notes\",\"record_id\":\"n1\",\"operation\":\"INSERT\",\"data\":null,\"changed_at\":\"2026-11-15T00:00:00.123456789Z\"}",
+        "bytes": 118,
+        "sha256": "481f04234519a21ff67b5ff946f22be03fa4b091b45ce9406733b167fcf8f29a",
+        "utf8Hex": "7b227461626c655f6e616d65223a226e6f746573222c227265636f72645f6964223a226e31222c226f7065726174696f6e223a22494e53455254222c2264617461223a6e756c6c2c226368616e6765645f6174223a22323032362d31312d31355430303a30303a30302e3132333435363738395a227d"
+      },
+      "parsed": {
+        "table_name": "notes",
+        "record_id": "n1",
+        "operation": "Insert",
+        "data": null,
+        "changed_at": "2026-11-15T00:00:00.123456789Z"
+      },
+      "expected": {
+        "text": "{\"table_name\":\"notes\",\"record_id\":\"n1\",\"operation\":\"Insert\",\"data\":null,\"changed_at\":\"2026-11-15T00:00:00.123456789Z\"}",
+        "bytes": 118,
+        "sha256": "7384ea97f9d27b86199875563f7256ce7a5aab51a55f01eb6e53964d929f57b2",
+        "utf8Hex": "7b227461626c655f6e616d65223a226e6f746573222c227265636f72645f6964223a226e31222c226f7065726174696f6e223a22496e73657274222c2264617461223a6e756c6c2c226368616e6765645f6174223a22323032362d31312d31355430303a30303a30302e3132333435363738395a227d"
+      },
+      "reparsed": {
+        "table_name": "notes",
+        "record_id": "n1",
+        "operation": "Insert",
+        "data": null,
+        "changed_at": "2026-11-15T00:00:00.123456789Z"
+      },
+      "serializationStable": true,
+      "nullOptionalPolicy": {
+        "parserPreservesExplicitNullKeys": true,
+        "serializerOmitsNullOptionalKeys": true,
+        "suppressChangeLogNullParsedAs": false,
+        "omittedOptionalKeysStayOmitted": true,
+        "exactObjectRoundtrip": false
+      }
+    },
+    {
+      "id": "change-i64-u64-boundaries",
+      "input": {
+        "text": "{\"table_name\":\"messages\",\"record_id\":\"m1\",\"operation\":\"update\",\"data\":{\"big\":9007199254740993,\"min\":-9223372036854775808,\"max\":9223372036854775807,\"real\":1.0,\"nil\":null},\"changed_at\":\"2026-11-15T00:00:00+08:00\",\"change_log_id\":-9223372036854775808,\"database_name\":\"chat_v2\",\"suppress_change_log\":false,\"source_device_id\":\"peer\",\"source_seq\":18446744073709551615,\"unknown\":\"ignored\"}",
+        "bytes": 382,
+        "sha256": "1b2249ff80ae74248679e05ac5476eb2bd8b1b99335cd98f4dd5ae0976356ebe",
+        "utf8Hex": "7b227461626c655f6e616d65223a226d65737361676573222c227265636f72645f6964223a226d31222c226f7065726174696f6e223a22757064617465222c2264617461223a7b22626967223a393030373139393235343734303939332c226d696e223a2d393232333337323033363835343737353830382c226d6178223a393232333337323033363835343737353830372c227265616c223a312e302c226e696c223a6e756c6c7d2c226368616e6765645f6174223a22323032362d31312d31355430303a30303a30302b30383a3030222c226368616e67655f6c6f675f6964223a2d393232333337323033363835343737353830382c2264617461626173655f6e616d65223a22636861745f7632222c2273757070726573735f6368616e67655f6c6f67223a66616c73652c22736f757263655f6465766963655f6964223a2270656572222c22736f757263655f736571223a31383434363734343037333730393535313631352c22756e6b6e6f776e223a2269676e6f726564227d"
+      },
+      "parsed": {
+        "table_name": "messages",
+        "record_id": "m1",
+        "operation": "Update",
+        "data": {
+          "big": {
+            "$bigint": "9007199254740993"
+          },
+          "min": {
+            "$bigint": "-9223372036854775808"
+          },
+          "max": {
+            "$bigint": "9223372036854775807"
+          },
+          "real": {
+            "value": 1,
+            "source": "1.0"
+          },
+          "nil": null
+        },
+        "changed_at": "2026-11-15T00:00:00+08:00",
+        "change_log_id": {
+          "$bigint": "-9223372036854775808"
+        },
+        "database_name": "chat_v2",
+        "suppress_change_log": false,
+        "source_device_id": "peer",
+        "source_seq": {
+          "$bigint": "18446744073709551615"
+        }
+      },
+      "expected": {
+        "text": "{\"table_name\":\"messages\",\"record_id\":\"m1\",\"operation\":\"Update\",\"data\":{\"big\":9007199254740993,\"min\":-9223372036854775808,\"max\":9223372036854775807,\"real\":1.0,\"nil\":null},\"changed_at\":\"2026-11-15T00:00:00+08:00\",\"change_log_id\":-9223372036854775808,\"database_name\":\"chat_v2\",\"suppress_change_log\":false,\"source_device_id\":\"peer\",\"source_seq\":18446744073709551615}",
+        "bytes": 362,
+        "sha256": "fa293125769177a630355724285478fdaa6ec40a3ea3348a9858b9a0bff41612",
+        "utf8Hex": "7b227461626c655f6e616d65223a226d65737361676573222c227265636f72645f6964223a226d31222c226f7065726174696f6e223a22557064617465222c2264617461223a7b22626967223a393030373139393235343734303939332c226d696e223a2d393232333337323033363835343737353830382c226d6178223a393232333337323033363835343737353830372c227265616c223a312e302c226e696c223a6e756c6c7d2c226368616e6765645f6174223a22323032362d31312d31355430303a30303a30302b30383a3030222c226368616e67655f6c6f675f6964223a2d393232333337323033363835343737353830382c2264617461626173655f6e616d65223a22636861745f7632222c2273757070726573735f6368616e67655f6c6f67223a66616c73652c22736f757263655f6465766963655f6964223a2270656572222c22736f757263655f736571223a31383434363734343037333730393535313631357d"
+      },
+      "reparsed": {
+        "table_name": "messages",
+        "record_id": "m1",
+        "operation": "Update",
+        "data": {
+          "big": {
+            "$bigint": "9007199254740993"
+          },
+          "min": {
+            "$bigint": "-9223372036854775808"
+          },
+          "max": {
+            "$bigint": "9223372036854775807"
+          },
+          "real": {
+            "value": 1,
+            "source": "1.0"
+          },
+          "nil": null
+        },
+        "changed_at": "2026-11-15T00:00:00+08:00",
+        "change_log_id": {
+          "$bigint": "-9223372036854775808"
+        },
+        "database_name": "chat_v2",
+        "suppress_change_log": false,
+        "source_device_id": "peer",
+        "source_seq": {
+          "$bigint": "18446744073709551615"
+        }
+      },
+      "serializationStable": true,
+      "nullOptionalPolicy": {
+        "parserPreservesExplicitNullKeys": true,
+        "serializerOmitsNullOptionalKeys": true,
+        "suppressChangeLogNullParsedAs": false,
+        "omittedOptionalKeysStayOmitted": true,
+        "exactObjectRoundtrip": false
+      }
+    },
+    {
+      "id": "change-unknown-and-explicit-null-optionals",
+      "input": {
+        "text": "{\"unknown\":{\"nested\":[1,2]},\"table_name\":\"notes\",\"record_id\":\"n2\",\"operation\":\"Delete\",\"data\":null,\"changed_at\":\"2026-11-15T00:00:00Z\",\"database_name\":null,\"suppress_change_log\":null,\"source_seq\":null,\"change_log_id\":0}",
+        "bytes": 219,
+        "sha256": "84c9de47b0b7a1b365879d4eb4df9a7eb6a43c98122dc1d94bebfa3ebf07d793",
+        "utf8Hex": "7b22756e6b6e6f776e223a7b226e6573746564223a5b312c325d7d2c227461626c655f6e616d65223a226e6f746573222c227265636f72645f6964223a226e32222c226f7065726174696f6e223a2244656c657465222c2264617461223a6e756c6c2c226368616e6765645f6174223a22323032362d31312d31355430303a30303a30305a222c2264617461626173655f6e616d65223a6e756c6c2c2273757070726573735f6368616e67655f6c6f67223a6e756c6c2c22736f757263655f736571223a6e756c6c2c226368616e67655f6c6f675f6964223a307d"
+      },
+      "parsed": {
+        "table_name": "notes",
+        "record_id": "n2",
+        "operation": "Delete",
+        "data": null,
+        "changed_at": "2026-11-15T00:00:00Z",
+        "change_log_id": 0,
+        "database_name": null,
+        "suppress_change_log": false,
+        "source_seq": null
+      },
+      "expected": {
+        "text": "{\"table_name\":\"notes\",\"record_id\":\"n2\",\"operation\":\"Delete\",\"data\":null,\"changed_at\":\"2026-11-15T00:00:00Z\",\"change_log_id\":0,\"suppress_change_log\":false}",
+        "bytes": 154,
+        "sha256": "9692d255be65feb6d0792c4ecb805824a9b8fcb9a77ec0880ca33ac5f3128c44",
+        "utf8Hex": "7b227461626c655f6e616d65223a226e6f746573222c227265636f72645f6964223a226e32222c226f7065726174696f6e223a2244656c657465222c2264617461223a6e756c6c2c226368616e6765645f6174223a22323032362d31312d31355430303a30303a30305a222c226368616e67655f6c6f675f6964223a302c2273757070726573735f6368616e67655f6c6f67223a66616c73657d"
+      },
+      "reparsed": {
+        "table_name": "notes",
+        "record_id": "n2",
+        "operation": "Delete",
+        "data": null,
+        "changed_at": "2026-11-15T00:00:00Z",
+        "change_log_id": 0,
+        "suppress_change_log": false
+      },
+      "serializationStable": true,
+      "nullOptionalPolicy": {
+        "parserPreservesExplicitNullKeys": true,
+        "serializerOmitsNullOptionalKeys": true,
+        "suppressChangeLogNullParsedAs": false,
+        "omittedOptionalKeysStayOmitted": true,
+        "exactObjectRoundtrip": false
+      }
+    }
+  ],
+  "envelopes": {
+    "batch": {
+      "input": {
+        "text": "{\"changes\":[{\"table_name\":\"notes\",\"record_id\":\"n1\",\"operation\":\"Update\",\"data\":{\"id\":\"n1\",\"x\":1,\"x\":2,\"big\":9007199254740993},\"changed_at\":\"2026-11-15T00:00:00Z\"}],\"total_count\":1,\"device_id\":\"peer\",\"format_version\":4,\"source_seq\":18446744073709551615,\"source_device_id\":\"peer\",\"operation_id\":\"550e8400-e29b-41d4-a716-446655440000\",\"unknown_field\":{\"kept\":\"ignored\"}}",
+        "bytes": 367,
+        "sha256": "50316c513017d1b29af3311b1437c2e16762d9e5a1f22fcc9ff6f314ba495139",
+        "utf8Hex": "7b226368616e676573223a5b7b227461626c655f6e616d65223a226e6f746573222c227265636f72645f6964223a226e31222c226f7065726174696f6e223a22557064617465222c2264617461223a7b226964223a226e31222c2278223a312c2278223a322c22626967223a393030373139393235343734303939337d2c226368616e6765645f6174223a22323032362d31312d31355430303a30303a30305a227d5d2c22746f74616c5f636f756e74223a312c226465766963655f6964223a2270656572222c22666f726d61745f76657273696f6e223a342c22736f757263655f736571223a31383434363734343037333730393535313631352c22736f757263655f6465766963655f6964223a2270656572222c226f7065726174696f6e5f6964223a2235353065383430302d653239622d343164342d613731362d343436363535343430303030222c22756e6b6e6f776e5f6669656c64223a7b226b657074223a2269676e6f726564227d7d"
+      },
+      "parsed": {
+        "changes": [
+          {
+            "table_name": "notes",
+            "record_id": "n1",
+            "operation": "Update",
+            "data": {
+              "id": "n1",
+              "x": 2,
+              "big": {
+                "$bigint": "9007199254740993"
+              }
+            },
+            "changed_at": "2026-11-15T00:00:00Z"
+          }
+        ],
+        "format_version": {
+          "$bigint": "4"
+        },
+        "source_seq": {
+          "$bigint": "18446744073709551615"
+        },
+        "source_device_id": "peer",
+        "operation_id": "550e8400-e29b-41d4-a716-446655440000"
+      },
+      "formatVersion": "4",
+      "sourceSeq": "18446744073709551615",
+      "operationId": "550e8400-e29b-41d4-a716-446655440000"
+    },
+    "legacyPending": {
+      "input": {
+        "text": "{\"entries\":[{\"id\":7,\"sync_version\":0,\"table_name\":\"notes\",\"record_id\":\"n1\",\"operation\":\"Update\",\"changed_at\":\"2026-11-15T00:00:00Z\"}],\"changes_by_table\":{\"notes\":1},\"total_count\":1,\"earliest_change\":\"2026-11-15T00:00:00Z\",\"latest_change\":\"2026-11-15T00:00:00Z\"}",
+        "bytes": 261,
+        "sha256": "e2b6fb2e38e8c326dd534ba58c2aa4e800c092c0c2586b02ac48423423bc2806",
+        "utf8Hex": "7b22656e7472696573223a5b7b226964223a372c2273796e635f76657273696f6e223a302c227461626c655f6e616d65223a226e6f746573222c227265636f72645f6964223a226e31222c226f7065726174696f6e223a22557064617465222c226368616e6765645f6174223a22323032362d31312d31355430303a30303a30305a227d5d2c226368616e6765735f62795f7461626c65223a7b226e6f746573223a317d2c22746f74616c5f636f756e74223a312c226561726c696573745f6368616e6765223a22323032362d31312d31355430303a30303a30305a222c226c61746573745f6368616e6765223a22323032362d31312d31355430303a30303a30305a227d"
+      },
+      "parsed": [
+        {
+          "table_name": "notes",
+          "record_id": "n1",
+          "operation": "Update",
+          "data": null,
+          "changed_at": "2026-11-15T00:00:00Z",
+          "change_log_id": 7
+        }
+      ]
+    },
+    "format": {
+      "parsed": {
+        "format_version": 4,
+        "min_reader_version": 3,
+        "features": [
+          "v4_change_shards"
+        ],
+        "checkpoint": {
+          "generation": {
+            "$bigint": "18446744073709551615"
+          },
+          "shard_cursors": {
+            "a": {
+              "$bigint": "9007199254740993"
+            }
+          },
+          "complete": true,
+          "compaction_marker_key": null,
+          "full_listing_verified": false
+        },
+        "compatibility_lease": null
+      },
+      "expected": {
+        "text": "{\n  \"format_version\": 4,\n  \"min_client\": 3,\n  \"features\": [\n    \"v4_change_shards\"\n  ],\n  \"checkpoint\": {\n    \"generation\": 18446744073709551615,\n    \"shard_cursors\": {\n      \"a\": 9007199254740993\n    },\n    \"complete\": true,\n    \"full_listing_verified\": false\n  }\n}",
+        "bytes": 266,
+        "sha256": "b749eb251a24ce7735523d0a0e584b63858b812d113416f78e3aa25943b9f741",
+        "utf8Hex": "7b0a202022666f726d61745f76657273696f6e223a20342c0a2020226d696e5f636c69656e74223a20332c0a2020226665617475726573223a205b0a202020202276345f6368616e67655f736861726473220a20205d2c0a202022636865636b706f696e74223a207b0a202020202267656e65726174696f6e223a2031383434363734343037333730393535313631352c0a202020202273686172645f637572736f7273223a207b0a2020202020202261223a20393030373139393235343734303939330a202020207d2c0a2020202022636f6d706c657465223a20747275652c0a202020202266756c6c5f6c697374696e675f7665726966696564223a2066616c73650a20207d0a7d"
+      }
+    }
+  },
+  "manifests": {
+    "note": "S0.18 owns the sync-manifest wire; backup version manifests and tombstone/file manifests are parent-owned and intentionally omitted.",
+    "keys": {
+      "deviceKey": "data_governance/manifests/2ffc1d06387ef8bb.json",
+      "legacyDeviceKey": "data_governance/manifests/peer.json",
+      "divergentSentinel": "__cloud_diverged_same_version__"
+    },
+    "sync": {
+      "input": {
+        "text": "{\"sync_transaction_id\":\"tx-1\",\"databases\":{\"vfs\":{\"schema_version\":20261111,\"data_version\":18446744073709551615,\"checksum\":\"abc\",\"last_updated_at\":null,\"unknown\":1}},\"status\":\"Complete\",\"created_at\":\"2026-11-15T00:00:00Z\",\"device_id\":\"peer\",\"format_version\":4,\"published_max_seq\":9007199254740993,\"cursors\":{\"peer\":18446744073709551614},\"superseded_by\":null,\"snapshot_seen\":{},\"unknown\":true}",
+        "bytes": 392,
+        "sha256": "2393d383f33f7a250f2fb58f4dbeacc4559a267c45661ae949121079f9e79b54",
+        "utf8Hex": "7b2273796e635f7472616e73616374696f6e5f6964223a2274782d31222c22646174616261736573223a7b22766673223a7b22736368656d615f76657273696f6e223a32303236313131312c22646174615f76657273696f6e223a31383434363734343037333730393535313631352c22636865636b73756d223a22616263222c226c6173745f757064617465645f6174223a6e756c6c2c22756e6b6e6f776e223a317d7d2c22737461747573223a22436f6d706c657465222c22637265617465645f6174223a22323032362d31312d31355430303a30303a30305a222c226465766963655f6964223a2270656572222c22666f726d61745f76657273696f6e223a342c227075626c69736865645f6d61785f736571223a393030373139393235343734303939332c22637572736f7273223a7b2270656572223a31383434363734343037333730393535313631347d2c22737570657273656465645f6279223a6e756c6c2c22736e617073686f745f7365656e223a7b7d2c22756e6b6e6f776e223a747275657d"
+      },
+      "parsed": {
+        "sync_transaction_id": "tx-1",
+        "databases": {
+          "vfs": {
+            "schema_version": 20261111,
+            "data_version": {
+              "$bigint": "18446744073709551615"
+            },
+            "checksum": "abc",
+            "last_updated_at": null
+          }
+        },
+        "status": "Complete",
+        "created_at": "2026-11-15T00:00:00Z",
+        "device_id": "peer",
+        "format_version": 4,
+        "published_max_seq": {
+          "$bigint": "9007199254740993"
+        },
+        "cursors": {
+          "peer": {
+            "$bigint": "18446744073709551614"
+          }
+        },
+        "superseded_by": null,
+        "snapshot_seen": {}
+      },
+      "encoded": {
+        "text": "{\n  \"sync_transaction_id\": \"tx-1\",\n  \"databases\": {\n    \"vfs\": {\n      \"schema_version\": 20261111,\n      \"data_version\": 18446744073709551615,\n      \"checksum\": \"abc\",\n      \"last_updated_at\": null\n    }\n  },\n  \"status\": \"Complete\",\n  \"created_at\": \"2026-11-15T00:00:00Z\",\n  \"device_id\": \"peer\",\n  \"format_version\": 4,\n  \"published_max_seq\": 9007199254740993,\n  \"cursors\": {\n    \"peer\": 18446744073709551614\n  },\n  \"superseded_by\": null,\n  \"snapshot_seen\": {}\n}",
+        "bytes": 461,
+        "sha256": "e30c1aca04cce2eb5b469e16f7a0207b1dacd0956ae9c678fd9b8f3433256189",
+        "utf8Hex": "7b0a20202273796e635f7472616e73616374696f6e5f6964223a202274782d31222c0a202022646174616261736573223a207b0a2020202022766673223a207b0a20202020202022736368656d615f76657273696f6e223a2032303236313131312c0a20202020202022646174615f76657273696f6e223a2031383434363734343037333730393535313631352c0a20202020202022636865636b73756d223a2022616263222c0a202020202020226c6173745f757064617465645f6174223a206e756c6c0a202020207d0a20207d2c0a202022737461747573223a2022436f6d706c657465222c0a202022637265617465645f6174223a2022323032362d31312d31355430303a30303a30305a222c0a2020226465766963655f6964223a202270656572222c0a202022666f726d61745f76657273696f6e223a20342c0a2020227075626c69736865645f6d61785f736571223a20393030373139393235343734303939332c0a202022637572736f7273223a207b0a202020202270656572223a2031383434363734343037333730393535313631340a20207d2c0a202022737570657273656465645f6279223a206e756c6c2c0a202022736e617073686f745f7365656e223a207b7d0a7d"
+      }
+    },
+    "generated": {
+      "validated": {
+        "syncTransactionId": "uuid-v4",
+        "createdAt": "rfc3339",
+        "status": "Complete",
+        "formatVersion": 4,
+        "deviceId": "local"
+      },
+      "normalized": {
+        "sync_transaction_id": "<uuid>",
+        "databases": {
+          "vfs": {
+            "schema_version": 20261111,
+            "data_version": 1,
+            "checksum": "left"
+          }
+        },
+        "status": "Complete",
+        "created_at": "<rfc3339>",
+        "device_id": "local",
+        "format_version": 4,
+        "published_max_seq": 0,
+        "cursors": {},
+        "superseded_by": null,
+        "snapshot_seen": {}
+      }
+    },
+    "format": {
+      "parsed": {
+        "format_version": 4,
+        "min_reader_version": 3,
+        "features": [],
+        "checkpoint": null,
+        "compatibility_lease": null
+      },
+      "encoded": {
+        "text": "{\n  \"format_version\": 4,\n  \"min_client\": 3,\n  \"features\": []\n}",
+        "bytes": 62,
+        "sha256": "6341174a04d0514a1e182236bb5a666af5b812beafc765a262ea78fbd6262696",
+        "utf8Hex": "7b0a202022666f726d61745f76657273696f6e223a20342c0a2020226d696e5f636c69656e74223a20332c0a2020226665617475726573223a205b5d0a7d"
+      }
+    },
+    "conflicts": {
+      "database_conflicts": [
+        {
+          "database_name": "vfs",
+          "conflict_type": "SchemaMismatch",
+          "local_state": {
+            "schema_version": 20261111,
+            "data_version": 1,
+            "checksum": "left"
+          },
+          "cloud_state": {
+            "schema_version": 20261023,
+            "data_version": 2,
+            "checksum": "right"
+          }
+        }
+      ],
+      "record_conflicts": [],
+      "has_conflicts": true,
+      "needs_migration": true
+    },
+    "keepLatest": {
+      "success": true,
+      "kept_local": 0,
+      "used_cloud": 1,
+      "records_to_push": [],
+      "records_to_pull": [
+        "n1"
+      ],
+      "errors": []
+    }
+  },
+  "keys": {
+    "deviceHash": "03204de92e11fc8c",
+    "normalizedDeviceId": "device-1",
+    "v3": {
+      "rawKey": "data_governance/changes/03204de92e11fc8c/000000000042-1707500000-d0a5cc3a-c79d-450a-a5c9-eccd1320d2ce.json.zst",
+      "normalizedKey": "data_governance/changes/03204de92e11fc8c/000000000042-1707500000-<uuid>.json.zst",
+      "uuid": "<uuid>",
+      "normalizedUuid": "<uuid>",
+      "parsedNormalized": {
+        "kind": "v3",
+        "deviceId": "03204de92e11fc8c",
+        "seq": {
+          "$bigint": "42"
+        },
+        "version": {
+          "$bigint": "1707500000"
+        }
+      },
+      "version": "1707500000"
+    },
+    "v4": {
+      "rawKey": "data_governance/v4/shards/03204de92e11fc8c/000000000043-1707500001-5c8e03f3-8c18-46d8-a6cd-993a9c90b26e.json.zst",
+      "normalizedKey": "data_governance/v4/shards/03204de92e11fc8c/000000000043-1707500001-<uuid>.json.zst",
+      "uuid": "<uuid>",
+      "normalizedUuid": "<uuid>",
+      "parsedNormalized": {
+        "kind": "v4Shard",
+        "deviceId": "03204de92e11fc8c",
+        "seq": {
+          "$bigint": "43"
+        },
+        "version": {
+          "$bigint": "1707500001"
+        },
+        "operationId": "<uuid>"
+      }
+    },
+    "cases": [
+      {
+        "id": "v3",
+        "key": "data_governance/changes/03204de92e11fc8c/000000000042-1707500000-<uuid>.json.zst",
+        "parsed": {
+          "kind": "v3",
+          "deviceId": "03204de92e11fc8c",
+          "seq": {
+            "$bigint": "42"
+          },
+          "version": {
+            "$bigint": "1707500000"
+          }
+        }
+      },
+      {
+        "id": "v4",
+        "key": "data_governance/v4/shards/03204de92e11fc8c/000000000043-1707500001-<uuid>.json.zst",
+        "parsed": {
+          "kind": "v4Shard",
+          "deviceId": "03204de92e11fc8c",
+          "seq": {
+            "$bigint": "43"
+          },
+          "version": {
+            "$bigint": "1707500001"
+          },
+          "operationId": "<uuid>"
+        }
+      },
+      {
+        "id": "legacy-nonce",
+        "key": "data_governance/changes/peer/12345-acde.json",
+        "parsed": {
+          "kind": "legacy",
+          "deviceId": "peer",
+          "version": {
+            "$bigint": "12345"
+          }
+        }
+      },
+      {
+        "id": "legacy-plain",
+        "key": "data_governance/changes/peer/12345.json.zst",
+        "parsed": {
+          "kind": "legacy",
+          "deviceId": "peer",
+          "version": {
+            "$bigint": "12345"
+          }
+        }
+      },
+      {
+        "id": "malformed-extension",
+        "key": "data_governance/changes/peer/12345.json.gz",
+        "parsed": null
+      },
+      {
+        "id": "bad-seq",
+        "key": "data_governance/v4/shards/peer/00000000000x-1-op.json.zst",
+        "parsed": null
+      },
+      {
+        "id": "u64-overflow",
+        "key": "data_governance/changes/peer/000000000001-18446744073709551616.json.zst",
+        "parsed": {
+          "kind": "legacy",
+          "deviceId": "peer",
+          "version": {
+            "$bigint": "1"
+          }
+        }
+      },
+      {
+        "id": "blank-operation",
+        "key": "data_governance/v4/shards/peer/000000000001-1- .json.zst",
+        "parsed": null
+      }
+    ],
+    "normalizedVersion": [
+      {
+        "id": "milliseconds",
+        "input": "1707500000123",
+        "expected": "1707500000"
+      },
+      {
+        "id": "seconds",
+        "input": "1707500000",
+        "expected": "1707500000"
+      },
+      {
+        "id": "threshold",
+        "input": "100000000000",
+        "expected": "100000000000"
+      }
+    ],
+    "missingSequence": [
+      {
+        "id": "proven",
+        "expected": "2",
+        "observed": "3",
+        "published": "3",
+        "result": true
+      },
+      {
+        "id": "not-proven",
+        "expected": "2",
+        "observed": "3",
+        "published": "2",
+        "result": true
+      },
+      {
+        "id": "equal",
+        "expected": "1",
+        "observed": "1",
+        "published": "1",
+        "result": false
+      }
+    ],
+    "pathMatch": [
+      {
+        "value": "device-1",
+        "result": true
+      },
+      {
+        "value": "03204de92e11fc8c",
+        "result": true
+      },
+      {
+        "value": "other",
+        "result": false
+      }
+    ]
+  },
+  "lossless": {
+    "input": {
+      "text": "{\"i\":1,\"float\":1.0,\"negzero\":-0.0,\"big\":9007199254740993,\"i64min\":-9223372036854775808,\"u64\":18446744073709551615,\"null\":null,\"string\":\"中文🙂\",\"array\":[1,1.0,9007199254740993],\"unknown\":{\"nested\":true}}",
+      "bytes": 207,
+      "sha256": "c7142b6d0513b6732039f138e55581ec8014742f81278051273432d8ccc8165f",
+      "utf8Hex": "7b2269223a312c22666c6f6174223a312e302c226e65677a65726f223a2d302e302c22626967223a393030373139393235343734303939332c226936346d696e223a2d393232333337323033363835343737353830382c22753634223a31383434363734343037333730393535313631352c226e756c6c223a6e756c6c2c22737472696e67223a22e4b8ade69687f09f9982222c226172726179223a5b312c312e302c393030373139393235343734303939335d2c22756e6b6e6f776e223a7b226e6573746564223a747275657d7d"
+    },
+    "parsed": {
+      "i": 1,
+      "float": {
+        "value": 1,
+        "source": "1.0"
+      },
+      "negzero": {
+        "value": 0,
+        "source": "-0.0"
+      },
+      "big": {
+        "$bigint": "9007199254740993"
+      },
+      "i64min": {
+        "$bigint": "-9223372036854775808"
+      },
+      "u64": {
+        "$bigint": "18446744073709551615"
+      },
+      "null": null,
+      "string": "中文🙂",
+      "array": [
+        1,
+        {
+          "value": 1,
+          "source": "1.0"
+        },
+        {
+          "$bigint": "9007199254740993"
+        }
+      ],
+      "unknown": {
+        "nested": true
+      }
+    },
+    "expected": {
+      "text": "{\"i\":1,\"float\":1.0,\"negzero\":-0.0,\"big\":9007199254740993,\"i64min\":-9223372036854775808,\"u64\":18446744073709551615,\"null\":null,\"string\":\"中文🙂\",\"array\":[1,1.0,9007199254740993],\"unknown\":{\"nested\":true}}",
+      "bytes": 207,
+      "sha256": "c7142b6d0513b6732039f138e55581ec8014742f81278051273432d8ccc8165f",
+      "utf8Hex": "7b2269223a312c22666c6f6174223a312e302c226e65677a65726f223a2d302e302c22626967223a393030373139393235343734303939332c226936346d696e223a2d393232333337323033363835343737353830382c22753634223a31383434363734343037333730393535313631352c226e756c6c223a6e756c6c2c22737472696e67223a22e4b8ade69687f09f9982222c226172726179223a5b312c312e302c393030373139393235343734303939335d2c22756e6b6e6f776e223a7b226e6573746564223a747275657d7d"
+    },
+    "exactDocumentKind": "object",
+    "duplicateKeys": {
+      "input": "{\"a\":1,\"a\":2}",
+      "parsed": {
+        "a": 2
+      }
+    },
+    "rejected": [
+      {
+        "id": "bad-json",
+        "input": "{\"a\":",
+        "result": {
+          "rejected": true,
+          "name": "SyntaxError",
+          "message": "Unexpected end of JSON input"
+        }
+      },
+      {
+        "id": "trailing",
+        "input": "{\"a\":1} x",
+        "result": {
+          "rejected": true,
+          "name": "SyntaxError",
+          "message": "Unexpected non-whitespace character after JSON at position 8 (line 1 column 9)"
+        }
+      },
+      {
+        "id": "bom",
+        "input": "﻿{}",
+        "result": {
+          "rejected": true,
+          "name": "SyntaxError",
+          "message": "Unexpected token '﻿', \"﻿{}\" is not valid JSON"
+        }
+      }
+    ],
+    "rejectedBytes": [
+      {
+        "id": "invalid-utf8",
+        "hex": "7bff7d",
+        "result": {
+          "rejected": true,
+          "name": "JsonSyntaxError",
+          "message": "key must be a string at line 1 column 2"
+        }
+      },
+      {
+        "id": "bom-bytes",
+        "hex": "efbbbf7b7d",
+        "result": {
+          "rejected": true,
+          "name": "JsonSyntaxError",
+          "message": "expected value at line 1 column 1"
+        }
+      }
+    ]
+  },
+  "lww": {
+    "comparisons": [
+      {
+        "id": "hlc-newer",
+        "local": "000000000000001-00001",
+        "cloud": "000000000000001-00000",
+        "ordering": 1,
+        "symmetric": 1
+      },
+      {
+        "id": "hlc-counter",
+        "local": "000000000000001-00002",
+        "cloud": "000000000000001-00001",
+        "ordering": 1,
+        "symmetric": 1
+      },
+      {
+        "id": "device-tie",
+        "local": "2026-11-15T00:00:00Z",
+        "cloud": "2026-11-15T00:00:00Z",
+        "ordering": -1,
+        "symmetric": 0
+      },
+      {
+        "id": "rfc-offset",
+        "local": "2026-11-15T08:00:00+08:00",
+        "cloud": "2026-11-15T00:00:00Z",
+        "ordering": -1,
+        "symmetric": 0
+      },
+      {
+        "id": "integer-millis",
+        "local": "1700000000000",
+        "cloud": "2026-11-14T00:00:00Z",
+        "ordering": -1,
+        "symmetric": -1
+      },
+      {
+        "id": "sqlite-time",
+        "local": "2026-11-15 00:00:00",
+        "cloud": "2026-11-14T00:00:00Z",
+        "ordering": 1,
+        "symmetric": 1
+      },
+      {
+        "id": "invalid",
+        "local": "not-a-time",
+        "cloud": "2026-11-14T00:00:00Z",
+        "ordering": -1,
+        "symmetric": -1
+      }
+    ],
+    "hlc": {
+      "parse": [
+        {
+          "value": "000000000000001-00002",
+          "parsed": {
+            "millis": {
+              "$bigint": "1"
+            },
+            "counter": 2
+          },
+          "normalized": "000000000000001-00002"
+        },
+        {
+          "value": "+1-+2",
+          "parsed": {
+            "millis": {
+              "$bigint": "1"
+            },
+            "counter": 2
+          },
+          "normalized": "000000000000001-00002"
+        },
+        {
+          "value": "18446744073709551615-65535",
+          "parsed": {
+            "millis": {
+              "$bigint": "18446744073709551615"
+            },
+            "counter": 65535
+          },
+          "normalized": "18446744073709551615-65535"
+        },
+        {
+          "value": "18446744073709551616-0",
+          "parsed": null,
+          "normalized": null
+        },
+        {
+          "value": "1-65536",
+          "parsed": null,
+          "normalized": null
+        },
+        {
+          "value": "1-x",
+          "parsed": null,
+          "normalized": null
+        }
+      ],
+      "ticks": [
+        "000000000001000-00000",
+        "000000000001000-00001",
+        "000000000001000-00002",
+        "000000000001001-00000"
+      ],
+      "receive": {
+        "decision": "absorb",
+        "localHlc": {
+          "millis": {
+            "$bigint": "5000"
+          },
+          "counter": 2
+        },
+        "preservedRemoteHlc": {
+          "millis": {
+            "$bigint": "5000"
+          },
+          "counter": 2
+        },
+        "driftMs": {
+          "$bigint": "4000"
+        }
+      },
+      "constructorRecord": {
+        "millis": {
+          "$bigint": "0"
+        },
+        "counter": 65536
+      },
+      "clockRejectsCounterOverflow": {
+        "rejected": true,
+        "name": "RangeError",
+        "message": "HLC exceeds 48-bit millis / 16-bit counter"
+      }
+    },
+    "timestampValues": [
+      {
+        "input": null,
+        "expected": null
+      },
+      {
+        "input": true,
+        "expected": null
+      },
+      {
+        "input": 0,
+        "expected": "0"
+      },
+      {
+        "input": 1700000000000,
+        "expected": "1700000000000"
+      },
+      {
+        "input": "2026-11-15T00:00:00Z",
+        "expected": "2026-11-15T00:00:00Z"
+      },
+      {
+        "input": {
+          "x": 1
+        },
+        "expected": null
+      }
+    ],
+    "devicePair": [
+      {
+        "local": {
+          "device_id": "local"
+        },
+        "cloud": {
+          "device_id": "cloud"
+        },
+        "hint": null,
+        "expected": [
+          "local",
+          "cloud"
+        ]
+      },
+      {
+        "local": {
+          "device_id": "local"
+        },
+        "cloud": {
+          "device_id": "cloud"
+        },
+        "hint": "hint",
+        "expected": [
+          "local",
+          "hint"
+        ]
+      },
+      {
+        "local": {},
+        "cloud": {
+          "device_id": "cloud"
+        },
+        "hint": null,
+        "expected": [
+          "",
+          ""
+        ]
+      }
+    ]
+  },
+  "merge": {
+    "cases": [
+      {
+        "id": "tag-union",
+        "table": "notes",
+        "column": "tags",
+        "input": {
+          "left": [
+            "math",
+            "physics"
+          ],
+          "right": [
+            "physics",
+            "chemistry"
+          ]
+        },
+        "expected": {
+          "value": [
+            "chemistry",
+            "math",
+            "physics"
+          ],
+          "merged": true,
+          "conflict": false
+        },
+        "reverse": {
+          "value": [
+            "chemistry",
+            "math",
+            "physics"
+          ],
+          "merged": true,
+          "conflict": false
+        },
+        "secondPass": {
+          "value": [
+            "chemistry",
+            "math",
+            "physics"
+          ],
+          "merged": true,
+          "conflict": false
+        },
+        "commutative": true,
+        "idempotent": true
+      },
+      {
+        "id": "tag-numeric-max",
+        "table": "notes",
+        "column": "tags",
+        "input": {
+          "left": [
+            "_hits:3",
+            "_hits:10"
+          ],
+          "right": [
+            "_hits:5"
+          ]
+        },
+        "expected": {
+          "value": [
+            "_hits:10"
+          ],
+          "merged": true,
+          "conflict": false
+        },
+        "reverse": {
+          "value": [
+            "_hits:10"
+          ],
+          "merged": true,
+          "conflict": false
+        },
+        "secondPass": {
+          "value": [
+            "_hits:10"
+          ],
+          "merged": true,
+          "conflict": false
+        },
+        "commutative": true,
+        "idempotent": true
+      },
+      {
+        "id": "tag-enum",
+        "table": "notes",
+        "column": "tags",
+        "input": {
+          "left": [
+            "_type:fact"
+          ],
+          "right": [
+            "_type:study"
+          ]
+        },
+        "expected": {
+          "value": [
+            "_type:fact"
+          ],
+          "merged": true,
+          "conflict": false
+        },
+        "reverse": {
+          "value": [
+            "_type:fact"
+          ],
+          "merged": true,
+          "conflict": false
+        },
+        "secondPass": {
+          "value": [
+            "_type:fact"
+          ],
+          "merged": true,
+          "conflict": false
+        },
+        "commutative": true,
+        "idempotent": true
+      },
+      {
+        "id": "max-i64",
+        "table": "review_plans",
+        "column": "total_reviews",
+        "input": {
+          "left": {
+            "$bigint": "9007199254740993"
+          },
+          "right": {
+            "$bigint": "9007199254740992"
+          }
+        },
+        "expected": {
+          "value": {
+            "$bigint": "9007199254740993"
+          },
+          "merged": true,
+          "conflict": false
+        },
+        "reverse": {
+          "value": {
+            "$bigint": "9007199254740993"
+          },
+          "merged": true,
+          "conflict": false
+        },
+        "secondPass": {
+          "value": {
+            "$bigint": "9007199254740993"
+          },
+          "merged": true,
+          "conflict": false
+        },
+        "commutative": true,
+        "idempotent": true
+      },
+      {
+        "id": "boolean-or",
+        "table": "questions",
+        "column": "is_favorite",
+        "input": {
+          "left": 0,
+          "right": 1
+        },
+        "expected": {
+          "value": true,
+          "merged": true,
+          "conflict": false
+        },
+        "reverse": {
+          "value": true,
+          "merged": true,
+          "conflict": false
+        },
+        "secondPass": {
+          "value": true,
+          "merged": false,
+          "conflict": false
+        },
+        "commutative": true,
+        "idempotent": true
+      },
+      {
+        "id": "unknown-column",
+        "table": "questions",
+        "column": "images_json",
+        "input": {
+          "left": [
+            {
+              "id": "a"
+            }
+          ],
+          "right": [
+            {
+              "id": "b"
+            }
+          ]
+        },
+        "expected": {
+          "value": [
+            {
+              "id": "b"
+            }
+          ],
+          "merged": false,
+          "conflict": true
+        },
+        "reverse": {
+          "value": [
+            {
+              "id": "a"
+            }
+          ],
+          "merged": false,
+          "conflict": true
+        },
+        "secondPass": {
+          "value": [
+            {
+              "id": "b"
+            }
+          ],
+          "merged": false,
+          "conflict": false
+        },
+        "commutative": null,
+        "idempotent": null
+      },
+      {
+        "id": "derived-counter",
+        "table": "todo_items",
+        "column": "completed_pomodoros",
+        "input": {
+          "left": 3,
+          "right": 5
+        },
+        "expected": {
+          "value": 5,
+          "merged": false,
+          "conflict": true
+        },
+        "reverse": {
+          "value": 3,
+          "merged": false,
+          "conflict": true
+        },
+        "secondPass": {
+          "value": 5,
+          "merged": false,
+          "conflict": false
+        },
+        "commutative": null,
+        "idempotent": null
+      },
+      {
+        "id": "json-float-max-fallback",
+        "table": "review_plans",
+        "column": "total_reviews",
+        "input": {
+          "left": {
+            "value": 10,
+            "source": "10.0"
+          },
+          "right": 7
+        },
+        "expected": {
+          "value": 7,
+          "merged": true,
+          "conflict": false
+        },
+        "reverse": {
+          "value": 7,
+          "merged": true,
+          "conflict": false
+        },
+        "secondPass": {
+          "value": 7,
+          "merged": false,
+          "conflict": false
+        },
+        "commutative": true,
+        "idempotent": true
+      }
+    ],
+    "tables": [
+      "questions",
+      "notes",
+      "files",
+      "review_plans",
+      "todo_items",
+      "essays",
+      "translations",
+      "todo_lists",
+      "mindmaps",
+      "exam_sheets",
+      "mistakes",
+      "review_analyses",
+      "anki_cards",
+      "resources"
+    ],
+    "columns": {
+      "questions": [
+        "is_favorite",
+        "is_bookmarked",
+        "tags"
+      ],
+      "notes": [
+        "tags",
+        "is_favorite"
+      ],
+      "files": [
+        "tags_json",
+        "is_favorite"
+      ],
+      "review_plans": [
+        "total_reviews",
+        "total_correct"
+      ],
+      "todo_items": [
+        "tags_json"
+      ],
+      "essays": [
+        "is_favorite"
+      ],
+      "translations": [
+        "is_favorite"
+      ],
+      "todo_lists": [
+        "is_favorite"
+      ],
+      "mindmaps": [
+        "is_favorite"
+      ],
+      "exam_sheets": [
+        "is_favorite"
+      ],
+      "mistakes": [
+        "tags"
+      ],
+      "review_analyses": [
+        "tags"
+      ],
+      "anki_cards": [
+        "tags_json"
+      ],
+      "resources": [
+        "data"
+      ]
+    }
+  },
+  "utf8": {
+    "cases": [
+      {
+        "input": "中文🙂",
+        "bytes": 10,
+        "sha256": "3f7e2b3029a16c844f54b308c8035842509a1a8d8a4f35a7548d2384f3b51901",
+        "utf8Hex": "e4b8ade69687f09f9982",
+        "decoded": "中文🙂",
+        "jsLength": 4
+      },
+      {
+        "input": "é",
+        "bytes": 3,
+        "sha256": "bf12767b0f2a56b2190075bae8169f656e3ce8d6357d4aff184bc6c7ea48f9f6",
+        "utf8Hex": "65cc81",
+        "decoded": "é",
+        "jsLength": 2
+      },
+      {
+        "input": "é",
+        "bytes": 2,
+        "sha256": "4a99557e4033c3539de2eb65472017cad5f9557f7a0625a09f1c3f6e2ba69c4c",
+        "utf8Hex": "c3a9",
+        "decoded": "é",
+        "jsLength": 1
+      },
+      {
+        "input": "﻿正文",
+        "bytes": 9,
+        "sha256": "72bc2dcc24023d7d080554200fd268b8328ac8402e63f561793b24f45eeeeded",
+        "utf8Hex": "efbbbfe6ada3e69687",
+        "decoded": "﻿正文",
+        "jsLength": 3
+      },
+      {
+        "input": "line\r\nnext",
+        "bytes": 10,
+        "sha256": "80ef8c498512aa799857e5227a9f84a2528904453c833dcfcfe52407cffc9ddc",
+        "utf8Hex": "6c696e650d0a6e657874",
+        "decoded": "line\r\nnext",
+        "jsLength": 10
+      },
+      {
+        "input": "path/空 格/文件.md",
+        "bytes": 22,
+        "sha256": "1fdcfec4fd0d7d6012c8a4b152e3536c4e9ae598a8f7e4b67a5081baa74c89b5",
+        "utf8Hex": "706174682fe7a9ba20e6a0bc2fe69687e4bbb62e6d64",
+        "decoded": "path/空 格/文件.md",
+        "jsLength": 14
+      },
+      {
+        "input": "a\u0000b",
+        "bytes": 3,
+        "sha256": "59b271ae1bbcb1d31d41929817f4b16fb439eb4f31520b5ad1d5ce98920a7138",
+        "utf8Hex": "610062",
+        "decoded": "a\u0000b",
+        "jsLength": 3
+      }
+    ],
+    "ordering": [
+      {
+        "id": "ascii",
+        "left": "a",
+        "right": "b",
+        "expected": -1
+      },
+      {
+        "id": "unicode",
+        "left": "é",
+        "right": "中",
+        "expected": -1
+      },
+      {
+        "id": "prefix",
+        "left": "a",
+        "right": "ab",
+        "expected": -1
+      }
+    ],
+    "invalid": [
+      {
+        "id": "truncated",
+        "hex": "e4b8",
+        "prefix": {
+          "validUpTo": 0,
+          "errorLength": null
+        },
+        "error": {
+          "rejected": true,
+          "name": "Utf8DecodeError",
+          "message": "incomplete utf-8 byte sequence from index 0"
+        }
+      },
+      {
+        "id": "overlong",
+        "hex": "c080",
+        "prefix": {
+          "validUpTo": 0,
+          "errorLength": 1
+        },
+        "error": {
+          "rejected": true,
+          "name": "Utf8DecodeError",
+          "message": "invalid utf-8 sequence of 1 bytes from index 0"
+        }
+      },
+      {
+        "id": "surrogate",
+        "hex": "eda080",
+        "prefix": {
+          "validUpTo": 0,
+          "errorLength": 1
+        },
+        "error": {
+          "rejected": true,
+          "name": "Utf8DecodeError",
+          "message": "invalid utf-8 sequence of 1 bytes from index 0"
+        }
+      },
+      {
+        "id": "too-high",
+        "hex": "f4908080",
+        "prefix": {
+          "validUpTo": 0,
+          "errorLength": 1
+        },
+        "error": {
+          "rejected": true,
+          "name": "Utf8DecodeError",
+          "message": "invalid utf-8 sequence of 1 bytes from index 0"
+        }
+      },
+      {
+        "id": "ff",
+        "hex": "ff",
+        "prefix": {
+          "validUpTo": 0,
+          "errorLength": 1
+        },
+        "error": {
+          "rejected": true,
+          "name": "Utf8DecodeError",
+          "message": "invalid utf-8 sequence of 1 bytes from index 0"
+        }
+      }
+    ]
+  },
+  "compression": {
+    "codec": "node:zlib zstdCompress/zstdDecode (desktop nativeCompression implementation)",
+    "input": {
+      "bytes": 207,
+      "sha256": "c7142b6d0513b6732039f138e55581ec8014742f81278051273432d8ccc8165f"
+    },
+    "expected": {
+      "bytes": 180,
+      "sha256": "8bba1e4ffc2e6004d20ff5380dffc25599ae72df49896950fdb5d0b1c6ac1e01",
+      "zstdHex": "28b52ffd00585d0500f28b28298029cd01cb27cc00e632c92226ae61cbe0cd6e65563e926bfce418460c2aa98990a4266743cc51d4478d468bb0e10fb466d1fa0c7e1f305dd0f119907a9c3c007c040542e57985068789050689078888f39776b0593cdf8bcd7f2ff6331d755262bad0d2dda57693c35f159f892669ad4d89428a2c84108429f8ed0c56b927624c776d42183b4b95f11727f0d443157c06b684a5f5538fc36f14e6113c0fdf9d110100231f0952"
+    },
+    "decoded": {
+      "bytes": 207,
+      "sha256": "c7142b6d0513b6732039f138e55581ec8014742f81278051273432d8ccc8165f",
+      "equal": true
+    },
+    "empty": {
+      "inputBytes": 0,
+      "compressedBytes": 9,
+      "compressedSha256": "14aef1c44bc3aa5a0b683894c4839cc9c22f113d90cb6a2fd1761b9325f16d99",
+      "decodedBytes": 0
+    },
+    "corrupt": {
+      "rejected": true,
+      "name": "Error",
+      "message": "Data corruption detected"
+    }
+  },
+  "unknownColumns": {
+    "provenance": "real desktop Connection with production unknown-fields vault/getRecordData/rehydrate functions",
+    "before": {
+      "future_text": "中文🙂",
+      "future_int": {
+        "$bigint": "9007199254740993"
+      },
+      "future_null": null,
+      "future_obj": {
+        "nested": [
+          1,
+          true,
+          null
+        ]
+      },
+      "id": "n1",
+      "title": "title",
+      "updated_at": "2026-11-15T00:00:00Z",
+      "deleted_at": null
+    },
+    "vault": {
+      "storedFieldsJson": "{\"future_text\":{\"value\":\"中文🙂\",\"hlc\":\"000000000000002-00001\",\"dev\":\"peer\"},\"future_int\":{\"value\":9007199254740993,\"hlc\":\"000000000000002-00001\",\"dev\":\"peer\"},\"future_null\":{\"value\":null,\"hlc\":\"000000000000002-00001\",\"dev\":\"peer\"},\"future_obj\":{\"value\":{\"nested\":[1,true,null]},\"hlc\":\"000000000000002-00001\",\"dev\":\"peer\"}}",
+      "read": {
+        "values": {
+          "future_text": "中文🙂",
+          "future_int": {
+            "$bigint": "9007199254740993"
+          },
+          "future_null": null,
+          "future_obj": {
+            "nested": [
+              1,
+              true,
+              null
+            ]
+          }
+        },
+        "fieldDeltas": {
+          "future_text": {
+            "hlc": "000000000000002-00001",
+            "dev": "peer"
+          },
+          "future_int": {
+            "hlc": "000000000000002-00001",
+            "dev": "peer"
+          },
+          "future_null": {
+            "hlc": "000000000000002-00001",
+            "dev": "peer"
+          },
+          "future_obj": {
+            "hlc": "000000000000002-00001",
+            "dev": "peer"
+          }
+        }
+      },
+      "volatileUpdatedAt": {
+        "present": true,
+        "format": "YYYY-MM-DD HH:MM:SS",
+        "excludedFromComparison": true
+      }
+    },
+    "after": {
+      "future_null": null,
+      "future_obj": {
+        "nested": [
+          1,
+          true,
+          null
+        ]
+      },
+      "id": "n1",
+      "title": "title",
+      "updated_at": "2026-11-15T00:00:00Z",
+      "deleted_at": null,
+      "future_text": "中文🙂",
+      "future_int": {
+        "$bigint": "9007199254740993"
+      }
+    },
+    "remaining": {
+      "future_null": null,
+      "future_obj": {
+        "nested": [
+          1,
+          true,
+          null
+        ]
+      }
+    },
+    "sqlite": {
+      "engine": "3.53.4",
+      "futureTextType": "text",
+      "futureIntType": "integer",
+      "futureIntText": "9007199254740993"
+    },
+    "partialRehydrate": {
+      "provenance": "second real Connection row; only the column that now exists is restored",
+      "before": {
+        "values": {
+          "late_obj": {
+            "a": [
+              1,
+              null
+            ]
+          },
+          "late_null": null,
+          "late_big": {
+            "$bigint": "9007199254740993"
+          }
+        },
+        "fieldDeltas": {
+          "late_obj": {
+            "hlc": "000000000000003-00001",
+            "dev": "peer"
+          },
+          "late_null": {
+            "hlc": "000000000000003-00001",
+            "dev": "peer"
+          },
+          "late_big": {
+            "hlc": "000000000000003-00001",
+            "dev": "peer"
+          }
+        }
+      },
+      "row": {
+        "late_obj": "{\"a\":[1,null]}"
+      },
+      "remaining": {
+        "values": {
+          "late_null": null,
+          "late_big": {
+            "$bigint": "9007199254740993"
+          }
+        },
+        "fieldDeltas": {
+          "late_null": {
+            "hlc": "000000000000003-00001",
+            "dev": "peer"
+          },
+          "late_big": {
+            "hlc": "000000000000003-00001",
+            "dev": "peer"
+          }
+        }
+      },
+      "restoredColumn": "late_obj",
+      "preservedUnknownColumns": [
+        "late_big",
+        "late_null"
+      ]
+    }
+  },
+  "formats": {
+    "constants": {
+      "current": 4,
+      "minimumReader": 3,
+      "currentIsV4": true,
+      "minimumReaderIsV3": true
+    },
+    "cases": [
+      {
+        "id": "missing-descriptor-defaults-v3",
+        "input": "{}",
+        "expected": {
+          "format_version": 3,
+          "min_client": 3,
+          "features": []
+        }
+      },
+      {
+        "id": "v3-root-accepted",
+        "input": "{\"format_version\":3,\"min_reader_version\":3,\"features\":[]}",
+        "expected": {
+          "format_version": 3,
+          "min_client": 3,
+          "features": []
+        }
+      },
+      {
+        "id": "v4-min-reader-3-accepted",
+        "input": "{\"format_version\":4,\"min_client\":3,\"features\":[\"v4_change_shards\"]}",
+        "expected": {
+          "format_version": 4,
+          "min_client": 3,
+          "features": [
+            "v4_change_shards"
+          ]
+        }
+      },
+      {
+        "id": "future-v5-descriptor-parses-diagnostically",
+        "input": "{\"format_version\":5,\"min_reader_version\":4,\"features\":[\"v5_framed_pack\"]}",
+        "expected": {
+          "format_version": 5,
+          "min_client": 4,
+          "features": [
+            "v5_framed_pack"
+          ]
+        },
+        "note": "Parsing is not format activation; validateRemoteFormat rejects any descriptor above the frozen current version before writing."
+      }
+    ],
+    "negotiation": [
+      {
+        "id": "missing-format-reads-v3",
+        "input": null,
+        "rejected": false,
+        "parsed": {
+          "format_version": 3,
+          "min_client": 3,
+          "features": []
+        }
+      },
+      {
+        "id": "v3-root-reads",
+        "input": "{\"format_version\":3,\"min_reader_version\":3,\"features\":[]}",
+        "rejected": false,
+        "parsed": {
+          "format_version": 3,
+          "min_client": 3,
+          "features": []
+        }
+      },
+      {
+        "id": "v4-min-reader-3-reads",
+        "input": "{\"format_version\":4,\"min_client\":3,\"features\":[\"v4_change_shards\"]}",
+        "rejected": false,
+        "parsed": {
+          "format_version": 4,
+          "min_client": 3,
+          "features": [
+            "v4_change_shards"
+          ]
+        }
+      },
+      {
+        "id": "v5-reader-rejected",
+        "input": "{\"format_version\":5,\"min_reader_version\":4,\"features\":[\"v5_framed_pack\"]}",
+        "rejected": true,
+        "name": "SyncError",
+        "message": "Database error: 远端同步格式 v5（最低 reader v4）高于当前客户端 v4；为避免旧客户端破坏数据，已在写入前拒绝同步"
+      },
+      {
+        "id": "v5-format-rejected",
+        "input": "{\"format_version\":5,\"min_client\":3,\"features\":[\"v5_framed_pack\"]}",
+        "rejected": true,
+        "name": "SyncError",
+        "message": "Database error: 远端同步格式 v5（最低 reader v3）高于当前客户端 v4；为避免旧客户端破坏数据，已在写入前拒绝同步"
+      },
+      {
+        "id": "v2-format-rejected",
+        "input": "{\"format_version\":2,\"min_reader_version\":2,\"features\":[]}",
+        "rejected": true,
+        "name": "SyncError",
+        "message": "Database error: 远端同步格式 v2 过旧，当前客户端仅兼容 v3-v4"
+      },
+      {
+        "id": "corrupt-format-rejected",
+        "input": "{\"format_version\":",
+        "rejected": true,
+        "name": "SyncError",
+        "message": "Database error: 远端 format.json 损坏: Unexpected end of JSON input"
+      }
+    ],
+    "boundary": {
+      "writableCurrent": 4,
+      "writableMinimumReader": 3,
+      "futureRejectedBy": [
+        "format_version",
+        "min_reader_version"
+      ],
+      "v5DescriptorsCanBeParsedForDiagnosticsOnly": true,
+      "productionActivatesV5": false
+    }
+  },
+  "productionSurface": {
+    "registeredCommands": [
+      "data_governance_count_record_conflicts",
+      "data_governance_discard_quarantine",
+      "data_governance_discard_all_quarantine",
+      "data_governance_get_sync_status",
+      "data_governance_list_sync_snapshot_batches",
+      "data_governance_purge_resolved_conflicts",
+      "data_governance_list_quarantine",
+      "data_governance_list_record_conflicts",
+      "data_governance_resolve_conflicts",
+      "data_governance_retry_quarantine",
+      "data_governance_retry_all_quarantine",
+      "data_governance_cancel_sync",
+      "data_governance_export_sync_data",
+      "data_governance_repo_check",
+      "data_governance_detect_conflicts",
+      "data_governance_detect_prune_gap",
+      "data_governance_import_sync_data",
+      "data_governance_resolve_record_conflict",
+      "data_governance_rollback_sync_snapshot_batch",
+      "data_governance_run_sync",
+      "data_governance_run_sync_with_progress",
+      "data_governance_mark_blob_deleted",
+      "data_governance_mark_asset_deleted",
+      "data_governance_list_unsynced_items"
+    ],
+    "registeredCommandCount": 24,
+    "sources": {
+      "plugin": {
+        "file": "host/plugins/sync/src/plugin.ts",
+        "sha256": "5afb44654389593ecd6a2382f2147e86127ecde35629e8a431b126be433aa0e1"
+      },
+      "runSync": {
+        "file": "host/plugins/sync/src/run-sync.ts",
+        "sha256": "b5135ff77a927d432d29920639d1f4e79581e675e434d4c79d71f7aad42a632c"
+      }
+    },
+    "v5": {
+      "registered": false,
+      "activeFormat": 4,
+      "minimumReader": 3,
+      "reason": "runSyncV5 is exported from api.ts but is not registered by createSyncPlugin; the current production command surface negotiates v4/min_reader v3."
+    }
+  },
+  "negative": [
+    {
+      "id": "change-missing-required",
+      "expected": "rejected",
+      "rejected": true,
+      "name": "Error",
+      "message": "change payload 缺少必填字段"
+    },
+    {
+      "id": "change-i64-low",
+      "expected": "rejected",
+      "rejected": true,
+      "name": "Error",
+      "message": "change_log_id 超出范围"
+    },
+    {
+      "id": "change-i64-high",
+      "expected": "rejected",
+      "rejected": true,
+      "name": "Error",
+      "message": "change_log_id 超出范围"
+    },
+    {
+      "id": "change-u64-high",
+      "expected": "rejected",
+      "rejected": true,
+      "name": "Error",
+      "message": "source_seq 超出范围"
+    },
+    {
+      "id": "change-bad-operation",
+      "expected": "rejected",
+      "rejected": true,
+      "name": "Error",
+      "message": "change payload 缺少必填字段"
+    },
+    {
+      "id": "envelope-missing-changes",
+      "expected": "rejected",
+      "rejected": true,
+      "name": "Error",
+      "message": "缺少 changes"
+    },
+    {
+      "id": "envelope-u64-high",
+      "expected": "rejected",
+      "rejected": true,
+      "name": "Error",
+      "message": "source_seq 超出 u64 范围"
+    },
+    {
+      "id": "manifest-u32-high",
+      "expected": "rejected",
+      "rejected": true,
+      "name": "Error",
+      "message": "字段 format_version 必须是无符号整数"
+    },
+    {
+      "id": "manifest-bad-status",
+      "expected": "rejected",
+      "rejected": true,
+      "name": "Error",
+      "message": "字段 status 非法: Unknown"
+    },
+    {
+      "id": "manifest-u64-high",
+      "expected": "rejected",
+      "rejected": true,
+      "name": "Error",
+      "message": "字段 published_max_seq 超出范围"
+    },
+    {
+      "id": "format-duplicate-min",
+      "expected": "rejected",
+      "rejected": true,
+      "name": "Error",
+      "message": "duplicate field `min_client`"
+    },
+    {
+      "id": "format-negative-u64",
+      "expected": "rejected",
+      "rejected": true,
+      "name": "Error",
+      "message": "字段 checkpoint.generation 必须是无符号整数"
+    },
+    {
+      "id": "hlc-clock-counter-overflow",
+      "expected": "rejected",
+      "rejected": true,
+      "name": "RangeError",
+      "message": "HLC exceeds 48-bit millis / 16-bit counter"
+    }
+  ],
+  "replay": {
+    "deterministicInputs": [
+      "change record",
+      "change batch",
+      "manifest",
+      "keys",
+      "merge",
+      "UTF-8",
+      "lossless JSON"
+    ],
+    "zstdByteStable": true,
+    "uuidPolicy": "v3/v4 key UUIDs captured once, raw key retained, normalized key and parsed comparison use <uuid>",
+    "randomFieldsPolicy": "createManifest UUID and RFC3339 time validated then replaced with <uuid>/<rfc3339>; vault updated_at validated but excluded",
+    "mergeConvergence": "value equality only; merged flags are recorded but not used for commutativity/idempotence",
+    "artifactSha256": "608cfe39faea032939905bf09a0bcd8a3b16eb6540547c60b604b13be2f740da"
+  },
+  "captureMs": 123
+}

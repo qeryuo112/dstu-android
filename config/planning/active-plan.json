@@ -1,0 +1,337 @@
+{
+  "formatVersion": 1,
+  "format": "dstu-active-plan/v1",
+  "generatedAt": "2026-11-23T01:26:09+08:00",
+  "unit": "planning.active-plan-integrity",
+  "activePlan": {
+    "file": "docs/plans/2026-11-16-native-modular-execution-plan.md",
+    "role": "effective-execution-plan",
+    "frozen": false
+  },
+  "frozenPlan": {
+    "file": "docs/plans/2026-11-15-mobile-full-feature-refactor.md",
+    "gitRef": "36511a1ba27ef2db7c45636162575a2b1c6564e8",
+    "sha256": "c020010851908ea34fa9f837847ad734ee4d50a226c03761a315c4045dc5603e",
+    "role": "frozen-functional-acceptance-source"
+  },
+  "functionalPlan": {
+    "file": "docs/plans/2026-11-15-mobile-full-feature-refactor.md",
+    "sha256": "349f0071c4e66313ed6020fee12bcf0513f1bd1ae7b8ee762b8f2f29f162313f",
+    "hashStatus": "sealed",
+    "role": "live-functional-plan"
+  },
+  "frozenQueue": {
+    "file": "config/execution-plan.json",
+    "sha256": "38f498292b37eeebbfcdc517773bd4ce103274dd0cde655b4192286454a51c1a",
+    "role": "frozen-302-unit-1774-card-3198-scenario-historical-index"
+  },
+  "signedReceipt": {
+    "file": "config/s0-g-main-review.json",
+    "sha256": "5a9fc4d66b4d8ae4189cf40b67b16749e32cdd416160563b23aca3922bb2f73d",
+    "role": "accepted-s0-g-main-review"
+  },
+  "s2Receipt": {
+    "file": "config/stages/s2-progress.json",
+    "planRevision": "2026-11-23-s2-desktop-compatibility",
+    "currentPlan": "config/planning/active-plan.json"
+  },
+  "revision": {
+    "id": "2026-11-23-s2-desktop-compatibility",
+    "inserted": [
+      {
+        "id": "S2.16",
+        "sourceUnits": [
+          "S2.15"
+        ],
+        "dependencies": [
+          "S2.15",
+          "S2.05",
+          "S2.11"
+        ],
+        "requiredTerms": [
+          "普通恢复",
+          "同步基线"
+        ],
+        "cardRef": "S2.16/remediation/implementation"
+      },
+      {
+        "id": "S2.17",
+        "sourceUnits": [
+          "S2.08",
+          "S2.14"
+        ],
+        "dependencies": [
+          "S2.16",
+          "S2.08",
+          "S2.14"
+        ],
+        "requiredTerms": [
+          "资源",
+          "引用"
+        ],
+        "cardRef": "S2.17/remediation/implementation"
+      },
+      {
+        "id": "S2.18",
+        "sourceUnits": [
+          "S2.13",
+          "S2.14"
+        ],
+        "dependencies": [
+          "S2.17",
+          "S2.13",
+          "S1.24",
+          "S1.26"
+        ],
+        "requiredTerms": [
+          "加密",
+          "marker"
+        ],
+        "cardRef": "S2.18/remediation/implementation"
+      }
+    ],
+    "shift": {
+      "from": "S2.16",
+      "to": "S2.28",
+      "delta": 3
+    },
+    "refinements": {
+      "S2.19": {
+        "fields": [],
+        "additionalDependencies": [
+          "S2.18"
+        ]
+      },
+      "S2.29": {
+        "fields": [
+          "deliverable",
+          "acceptance"
+        ],
+        "additionalDependencies": [
+          "S2.16",
+          "S2.17",
+          "S2.18"
+        ]
+      },
+      "S2.30": {
+        "fields": [
+          "deliverable",
+          "acceptance"
+        ],
+        "additionalDependencies": []
+      },
+      "S8.02": {
+        "fields": [
+          "deliverable",
+          "acceptance"
+        ],
+        "additionalDependencies": [
+          "S2.29",
+          "S2.30"
+        ]
+      },
+      "S8.06": {
+        "fields": [
+          "deliverable",
+          "acceptance"
+        ],
+        "additionalDependencies": []
+      },
+      "S8.10": {
+        "fields": [
+          "deliverable",
+          "acceptance"
+        ],
+        "additionalDependencies": []
+      },
+      "S8.11": {
+        "fields": [
+          "deliverable",
+          "acceptance"
+        ],
+        "additionalDependencies": []
+      },
+      "S8.12": {
+        "fields": [
+          "deliverable",
+          "acceptance"
+        ],
+        "additionalDependencies": []
+      },
+      "S8.17": {
+        "fields": [
+          "deliverable",
+          "acceptance"
+        ],
+        "additionalDependencies": [
+          "S2.16",
+          "S2.18"
+        ]
+      },
+      "S8.19": {
+        "fields": [
+          "deliverable",
+          "acceptance"
+        ],
+        "additionalDependencies": []
+      },
+      "S8.20": {
+        "fields": [
+          "deliverable",
+          "acceptance"
+        ],
+        "additionalDependencies": [
+          "S2.16",
+          "S2.17"
+        ]
+      },
+      "S8.21": {
+        "fields": [
+          "deliverable",
+          "acceptance"
+        ],
+        "additionalDependencies": []
+      },
+      "S8.22": {
+        "fields": [
+          "deliverable",
+          "acceptance"
+        ],
+        "additionalDependencies": []
+      }
+    },
+    "startsAt": "S2.16",
+    "startName": "修复普通恢复四库同步基线"
+  },
+  "handoffs": {
+    "archive": {
+      "file": "docs/archive/handoff-s0.md",
+      "source": "docs/handoff.md",
+      "bytes": 77108,
+      "sha256": "f22db4c71a074f3c81391c34a40033601826eae59d92202de55a2797c8063158"
+    },
+    "s1Archive": {
+      "file": "docs/archive/handoff-s1.md",
+      "source": "docs/handoff-s1.md",
+      "bytes": 134297,
+      "sha256": "2080fb13c58d862ab8427a371105276ed575d047337b6c5935aec9976f0b16e0"
+    },
+    "current": {
+      "file": "docs/handoff-s2.md",
+      "frozen": false,
+      "required": true
+    }
+  },
+  "references": [
+    {
+      "id": "source-lock",
+      "file": "config/source-lock.json",
+      "sha256": "738677c72d82a4c50fa14c4711a2afe7c6130bfd52f6bb1d458c1a4ad084fc64"
+    },
+    {
+      "id": "execution-inputs",
+      "file": "config/execution-inputs.json",
+      "sha256": "36bd93d4da16d780f9a116038a6b717f59bed2f1d93657e38958986e343a8479"
+    },
+    {
+      "id": "execution-plan",
+      "file": "config/execution-plan.json",
+      "sha256": "38f498292b37eeebbfcdc517773bd4ce103274dd0cde655b4192286454a51c1a"
+    },
+    {
+      "id": "s0-gate",
+      "file": "config/s0-gate.json",
+      "sha256": "825d12f3400f7bc4d5a234d1fc6e0cfa8c3d2bd2e7952136444aa966d22ce2fe"
+    },
+    {
+      "id": "final-lock",
+      "file": "config/schema/final-lock.json",
+      "sha256": "5fd1b3a4bd4288ce577c3f17677c9ca6accfab56c03a80130a8797baed5c08e8"
+    },
+    {
+      "id": "s0-g-main-review",
+      "file": "config/s0-g-main-review.json",
+      "sha256": "5a9fc4d66b4d8ae4189cf40b67b16749e32cdd416160563b23aca3922bb2f73d"
+    },
+    {
+      "id": "frozen-plan",
+      "file": "docs/plans/2026-11-15-mobile-full-feature-refactor.md",
+      "gitRef": "36511a1ba27ef2db7c45636162575a2b1c6564e8",
+      "sha256": "c020010851908ea34fa9f837847ad734ee4d50a226c03761a315c4045dc5603e"
+    },
+    {
+      "id": "s0-handoff-archive",
+      "file": "docs/archive/handoff-s0.md",
+      "sha256": "f22db4c71a074f3c81391c34a40033601826eae59d92202de55a2797c8063158"
+    },
+    {
+      "id": "s1-handoff-archive",
+      "file": "docs/archive/handoff-s1.md",
+      "sha256": "2080fb13c58d862ab8427a371105276ed575d047337b6c5935aec9976f0b16e0"
+    }
+  ],
+  "expected": {
+    "activeUnits": 280,
+    "activeStageExits": 9,
+    "functionalUnits": 305,
+    "functionalStageExits": 10,
+    "functionalSerialQueue": 315,
+    "stages": [
+      "S1",
+      "S2",
+      "S3",
+      "S4",
+      "S5",
+      "S6",
+      "S7",
+      "S8",
+      "S9"
+    ],
+    "firstUnit": "S1.01",
+    "lastUnit": "S9.19",
+    "stageCounts": {
+      "S0": 25,
+      "S1": 27,
+      "S2": 31,
+      "S3": 29,
+      "S4": 32,
+      "S5": 34,
+      "S6": 44,
+      "S7": 38,
+      "S8": 26,
+      "S9": 19
+    },
+    "queue": {
+      "mainUnits": 302,
+      "stageExits": 10,
+      "serialQueue": 312,
+      "cards": 1774,
+      "scenarios": 3198
+    },
+    "currentQueue": {
+      "mainUnits": 305,
+      "stageExits": 10,
+      "serialQueue": 315,
+      "inheritedFrozenCards": 1774,
+      "inheritedFrozenScenarios": 3198,
+      "newImplementationCards": 3
+    }
+  },
+  "scope": {
+    "checks": [
+      "s0-frozen-reference-sha256",
+      "authorized-functional-plan-revision",
+      "functional-plan-unit-and-dependency-coverage",
+      "active-plan-unit-and-exit-coverage",
+      "frozen-queue-and-signed-receipt-counts",
+      "handoff-archive-and-current-files",
+      "s2-progress-next-planRevision-and-remediations"
+    ],
+    "excludes": [
+      "Android source architecture or module layering",
+      "Gradle project creation, build or device runtime",
+      "functional acceptance execution or implementation"
+    ],
+    "note": "The frozen queue and S0 receipt remain historical bytes. The current functional plan is validated as a revision against S0_REF; the active plan is validated separately as the S1-S9 responsibility view. currentQueue.inheritedFrozenCards and inheritedFrozenScenarios are inherited historical counts, not current totals; the three remediation units use separate current implementation card IDs and retain their historical source cards/scenarios for provenance only."
+  }
+}

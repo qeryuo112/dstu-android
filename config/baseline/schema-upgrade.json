@@ -1,0 +1,304 @@
+{
+  "formatVersion": 1,
+  "unit": "S0.08",
+  "upstream": {
+    "repository": "../dstu-node",
+    "commit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+    "migration": "config/schema/history/vfs/V20261115__review_plans_fsrs.sql",
+    "sha256": "483b242fbf76ded1755644dbb0c6ad9391a91f73af1b32f5d7407a2614faa7d1",
+    "refineryChecksum": "12050512011832493113"
+  },
+  "fixture": {
+    "database": "vfs",
+    "fromVersion": 20261111,
+    "toVersion": 20261115,
+    "vfsMigrationCount": {
+      "before": 72,
+      "after": 73
+    },
+    "dueToday": "2026-11-16",
+    "seededPlans": [
+      {
+        "id": "rp_due_fixture",
+        "nextReviewDate": "2026-11-01",
+        "status": "reviewing",
+        "easeFactor": 2.3,
+        "intervalDays": 6,
+        "repetitions": 3
+      },
+      {
+        "id": "rp_future_fixture",
+        "nextReviewDate": "2099-12-31",
+        "status": "graduated",
+        "easeFactor": 2.5,
+        "intervalDays": 30,
+        "repetitions": 8
+      }
+    ]
+  },
+  "columns": {
+    "previousCount": 18,
+    "currentCount": 25,
+    "appended": [
+      {
+        "name": "fsrs_stability",
+        "type": "REAL",
+        "notNull": 0,
+        "defaultValue": null,
+        "primaryKey": 0
+      },
+      {
+        "name": "fsrs_difficulty",
+        "type": "REAL",
+        "notNull": 0,
+        "defaultValue": null,
+        "primaryKey": 0
+      },
+      {
+        "name": "fsrs_phase",
+        "type": "TEXT",
+        "notNull": 0,
+        "defaultValue": null,
+        "primaryKey": 0
+      },
+      {
+        "name": "fsrs_learning_step",
+        "type": "INTEGER",
+        "notNull": 0,
+        "defaultValue": "0",
+        "primaryKey": 0
+      },
+      {
+        "name": "fsrs_lapses",
+        "type": "INTEGER",
+        "notNull": 0,
+        "defaultValue": "0",
+        "primaryKey": 0
+      },
+      {
+        "name": "fsrs_due_at",
+        "type": "INTEGER",
+        "notNull": 0,
+        "defaultValue": null,
+        "primaryKey": 0
+      },
+      {
+        "name": "fsrs_last_review_at",
+        "type": "INTEGER",
+        "notNull": 0,
+        "defaultValue": null,
+        "primaryKey": 0
+      }
+    ]
+  },
+  "values": {
+    "before": {
+      "id": "rp_due_fixture",
+      "question_id": "q_due_fixture",
+      "exam_id": "exam_fsrs_fixture",
+      "ease_factor": 2.3,
+      "interval_days": 6,
+      "repetitions": 3,
+      "next_review_date": "2026-11-01",
+      "last_review_date": "2026-10-26",
+      "status": "reviewing",
+      "total_reviews": 5,
+      "total_correct": 4,
+      "consecutive_failures": 0,
+      "is_difficult": 1,
+      "created_at": "2026-10-20T08:00:00Z",
+      "updated_at": "2026-10-20T08:00:00Z",
+      "device_id": "upgrade-device",
+      "local_version": 7,
+      "deleted_at": null
+    },
+    "after": {
+      "id": "rp_due_fixture",
+      "question_id": "q_due_fixture",
+      "exam_id": "exam_fsrs_fixture",
+      "ease_factor": 2.3,
+      "interval_days": 6,
+      "repetitions": 3,
+      "next_review_date": "2026-11-01",
+      "last_review_date": "2026-10-26",
+      "status": "reviewing",
+      "total_reviews": 5,
+      "total_correct": 4,
+      "consecutive_failures": 0,
+      "is_difficult": 1,
+      "created_at": "2026-10-20T08:00:00Z",
+      "updated_at": "2026-10-20T08:00:00Z",
+      "device_id": "upgrade-device",
+      "local_version": 7,
+      "deleted_at": null
+    },
+    "appendedDefaults": {
+      "fsrs_stability": null,
+      "fsrs_difficulty": null,
+      "fsrs_phase": null,
+      "fsrs_learning_step": 0,
+      "fsrs_lapses": 0,
+      "fsrs_due_at": null,
+      "fsrs_last_review_at": null
+    }
+  },
+  "due": {
+    "query": "next_review_date <= dueToday AND status != suspended",
+    "rows": [
+      {
+        "id": "rp_due_fixture",
+        "next_review_date": "2026-11-01"
+      }
+    ]
+  },
+  "history": {
+    "beforeCount": 72,
+    "afterCount": 73,
+    "last": {
+      "version": 20261115,
+      "name": "review_plans_fsrs",
+      "checksum": "12050512011832493113"
+    },
+    "frozenPrefixUnchanged": true
+  },
+  "fingerprints": {
+    "previousVersion": {
+      "schemaVersion": 20261111,
+      "fingerprint": "b807a28417167a8e62fb7378b237e671b640e54dea63e077b8641a2bec84e0a6"
+    },
+    "currentVersion": {
+      "schemaVersion": 20261115,
+      "fingerprint": "c3da4956b07fa60548a8c848a4e7f60fd7f05d10ac936d2396f0fa1920b98d23",
+      "canonicalSchemaSha256": "c3da4956b07fa60548a8c848a4e7f60fd7f05d10ac936d2396f0fa1920b98d23"
+    },
+    "matchesSchemaBaseline": true,
+    "governanceStored": true
+  },
+  "production": {
+    "coordinator": true,
+    "upgrade": {
+      "success": true,
+      "databases": [
+        {
+          "id": "vfs",
+          "fromVersion": 20261111,
+          "toVersion": 20261115,
+          "appliedCount": 1,
+          "success": true
+        },
+        {
+          "id": "llm_usage",
+          "fromVersion": 0,
+          "toVersion": 20260826,
+          "appliedCount": 8,
+          "success": true
+        },
+        {
+          "id": "chat_v2",
+          "fromVersion": 0,
+          "toVersion": 20261111,
+          "appliedCount": 30,
+          "success": true
+        },
+        {
+          "id": "mistakes",
+          "fromVersion": 0,
+          "toVersion": 20261005,
+          "appliedCount": 23,
+          "success": true
+        }
+      ]
+    },
+    "restart": {
+      "success": true,
+      "databases": [
+        {
+          "id": "vfs",
+          "fromVersion": 20261115,
+          "toVersion": 20261115,
+          "appliedCount": 0,
+          "success": true
+        },
+        {
+          "id": "llm_usage",
+          "fromVersion": 20260826,
+          "toVersion": 20260826,
+          "appliedCount": 0,
+          "success": true
+        },
+        {
+          "id": "chat_v2",
+          "fromVersion": 20261111,
+          "toVersion": 20261111,
+          "appliedCount": 0,
+          "success": true
+        },
+        {
+          "id": "mistakes",
+          "fromVersion": 20261005,
+          "toVersion": 20261005,
+          "appliedCount": 0,
+          "success": true
+        }
+      ]
+    }
+  },
+  "independentFreshEvidence": {
+    "artifact": "config/baseline/schema.json",
+    "operation": "production MigrationCoordinator on an empty active directory",
+    "expected": {
+      "vfsFromVersion": 0,
+      "vfsToVersion": 20261115,
+      "vfsAppliedCount": 73
+    },
+    "observed": {
+      "success": true,
+      "databases": [
+        {
+          "id": "vfs",
+          "fromVersion": 0,
+          "toVersion": 20261115,
+          "appliedCount": 73,
+          "success": true
+        },
+        {
+          "id": "llm_usage",
+          "fromVersion": 0,
+          "toVersion": 20260826,
+          "appliedCount": 8,
+          "success": true
+        },
+        {
+          "id": "chat_v2",
+          "fromVersion": 0,
+          "toVersion": 20261111,
+          "appliedCount": 30,
+          "success": true
+        },
+        {
+          "id": "mistakes",
+          "fromVersion": 0,
+          "toVersion": 20261005,
+          "appliedCount": 23,
+          "success": true
+        }
+      ]
+    }
+  },
+  "checks": {
+    "productionUpgrade": true,
+    "independentFresh": true,
+    "productionRestart": true,
+    "oldDatabaseUpgrade": true,
+    "oldColumnsPreserved": true,
+    "oldRowPreserved": true,
+    "newColumnDefaults": true,
+    "dailyDueQuery": true,
+    "checksumPreserved": true,
+    "checksumAppended": true,
+    "fingerprintMatchesBaseline": true,
+    "fingerprintStored": true,
+    "integrityOk": true,
+    "foreignKeyCheckEmpty": true
+  }
+}

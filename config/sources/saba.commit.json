@@ -1,0 +1,35 @@
+{
+  "sha": "29b8efa8b31c8e746f9a88020fb0ad9dcdcf3332",
+  "node_id": "C_kwDOBKqX-doAKDI5YjhlZmE4YjMxYzhlNzQ2ZjlhODgwMjBmYjBhZDlkY2RjZjMzMzI",
+  "url": "https://api.github.com/repos/benikabocha/saba/git/commits/29b8efa8b31c8e746f9a88020fb0ad9dcdcf3332",
+  "html_url": "https://github.com/benikabocha/saba/commit/29b8efa8b31c8e746f9a88020fb0ad9dcdcf3332",
+  "author": {
+    "name": "benikabocha",
+    "email": "benikabocha@gmail.com",
+    "date": "2023-09-21T14:52:05Z"
+  },
+  "committer": {
+    "name": "benikabocha",
+    "email": "benikabocha@gmail.com",
+    "date": "2023-09-21T14:52:05Z"
+  },
+  "tree": {
+    "sha": "7351057ef21b5ebc1937cd3aa150313e2f4c34c7",
+    "url": "https://api.github.com/repos/benikabocha/saba/git/trees/7351057ef21b5ebc1937cd3aa150313e2f4c34c7"
+  },
+  "message": "fix mingw build faile",
+  "parents": [
+    {
+      "sha": "dda5c4b8b429968fc1e6ad8b4fb2907ee6d361ea",
+      "url": "https://api.github.com/repos/benikabocha/saba/git/commits/dda5c4b8b429968fc1e6ad8b4fb2907ee6d361ea",
+      "html_url": "https://github.com/benikabocha/saba/commit/dda5c4b8b429968fc1e6ad8b4fb2907ee6d361ea"
+    }
+  ],
+  "verification": {
+    "verified": false,
+    "reason": "unsigned",
+    "signature": null,
+    "payload": null,
+    "verified_at": null
+  }
+}

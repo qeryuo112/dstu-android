@@ -1,0 +1,229 @@
+{
+  "formatVersion": 1,
+  "unit": "S0.23",
+  "frozenDesktop": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+  "fixtureClock": {
+    "fixed": "2026-11-16T00:00:00.000Z",
+    "later": "2026-11-16T00:01:00.000Z"
+  },
+  "contributions": {
+    "uses": 573,
+    "evidenceRows": 573,
+    "scopes": {
+      "portable": 20,
+      "local": 503,
+      "secret": 50
+    }
+  },
+  "boundaries": [
+    {
+      "id": "skill-trust-authorization",
+      "probe": "skill.ui.trust_overrides",
+      "scope": "local"
+    },
+    {
+      "id": "skill-enable-authorization",
+      "probe": "skill.ui.enable_overrides",
+      "scope": "local"
+    },
+    {
+      "id": "permission-preset-policy",
+      "probe": "chat.defaultPermissionPreset",
+      "scope": "local"
+    },
+    {
+      "id": "plugin-theme-variant-selection",
+      "probe": "ds.ui.themeVariant",
+      "scope": "local"
+    },
+    {
+      "id": "plugin-schedule-execution-history",
+      "probe": "plugin.schedule.demo.job",
+      "scope": "local"
+    },
+    {
+      "id": "plugin-secrets",
+      "probe": "secret.plugin.demo.note",
+      "scope": "secret"
+    }
+  ],
+  "appearance": {
+    "version": 1,
+    "fields": {
+      "mode": {
+        "source": "localStorage",
+        "key": "dstu-theme-mode",
+        "value": "dark"
+      },
+      "palette": {
+        "source": "settings",
+        "key": "theme_palette",
+        "value": "custom"
+      },
+      "customColor": {
+        "source": "settings",
+        "key": "theme_custom_color",
+        "value": "#a1b2c3"
+      }
+    }
+  },
+  "portableRows": [
+    {
+      "key": "portable.model.preferences.v1",
+      "value": "{\"version\":1,\"models\":[{\"baseUrl\":\"https://api.example.invalid/v1\",\"id\":\"public-model\",\"isMultimodal\":true,\"model\":\"model-id\",\"name\":\"Public model\"}]}",
+      "scope": "portable"
+    },
+    {
+      "key": "portable.tool.preferences.v1",
+      "value": "{\"version\":1,\"tools\":[{\"description\":\"read-only fixture\",\"id\":\"public-tool\",\"name\":\"Public tool\"}]}",
+      "scope": "portable"
+    },
+    {
+      "key": "theme",
+      "value": "dark",
+      "scope": "portable"
+    },
+    {
+      "key": "theme_custom_color",
+      "value": "#a1b2c3",
+      "scope": "portable"
+    },
+    {
+      "key": "theme_palette",
+      "value": "custom",
+      "scope": "portable"
+    }
+  ],
+  "modelVector": {
+    "input": {
+      "id": "public-model",
+      "name": "Public model",
+      "model": "model-id",
+      "baseUrl": "https://api.example.invalid/v1",
+      "apiKey": "fixture-only-key",
+      "headers": {}
+    },
+    "rejected": true
+  },
+  "toolVector": {
+    "input": {
+      "id": "public-tool",
+      "name": "Public tool",
+      "command": "sh",
+      "args": [
+        "-c",
+        "true"
+      ],
+      "env": {
+        "API_TOKEN": "fixture-only-key"
+      }
+    },
+    "rejected": true
+  },
+  "unknown": {
+    "key": "unknown.future.setting",
+    "scope": "local"
+  },
+  "local": {
+    "keys": [
+      "skill.ui.trust_overrides",
+      "skill.ui.enable_overrides",
+      "chat.defaultPermissionPreset",
+      "ds.ui.themeVariant",
+      "plugin.schedule.demo.job",
+      "tool_approval.global_bypass"
+    ]
+  },
+  "secret": {
+    "keys": [
+      "api_configs",
+      "cloud_storage_credentials",
+      "secret.plugin.demo.note",
+      "web_search.api_key.tavily"
+    ]
+  },
+  "directions": {
+    "Upload": {
+      "localTheme": "light",
+      "published": [
+        {
+          "key": "theme",
+          "value": "dark",
+          "updatedAt": "2026-11-16T00:01:00.000Z"
+        },
+        {
+          "key": "theme_custom_color",
+          "value": "#112233",
+          "updatedAt": "2026-11-16T00:00:00.000Z"
+        },
+        {
+          "key": "theme_palette",
+          "value": "default",
+          "updatedAt": "2026-11-16T00:00:00.000Z"
+        }
+      ]
+    },
+    "Download": {
+      "localTheme": "dark",
+      "published": null
+    },
+    "Bidirectional": {
+      "localTheme": "dark",
+      "published": [
+        {
+          "key": "theme",
+          "value": "dark",
+          "updatedAt": "2026-11-16T00:01:00.000Z"
+        },
+        {
+          "key": "theme_custom_color",
+          "value": "#112233",
+          "updatedAt": "2026-11-16T00:00:00.000Z"
+        },
+        {
+          "key": "theme_palette",
+          "value": "default",
+          "updatedAt": "2026-11-16T00:00:00.000Z"
+        }
+      ]
+    }
+  },
+  "inbound": [
+    {
+      "name": "nested model apiKey",
+      "rejected": true
+    },
+    {
+      "name": "nested tool env",
+      "rejected": true
+    },
+    {
+      "name": "nested tool command",
+      "rejected": true
+    },
+    {
+      "name": "trust key",
+      "rejected": true
+    },
+    {
+      "name": "theme variant plugin selection",
+      "rejected": true
+    },
+    {
+      "name": "plugin schedule history",
+      "rejected": true
+    },
+    {
+      "name": "plugin secret",
+      "rejected": true
+    },
+    {
+      "name": "local key",
+      "rejected": true
+    },
+    {
+      "name": "multi-file valid then nested env",
+      "rejected": true
+    }
+  ]
+}

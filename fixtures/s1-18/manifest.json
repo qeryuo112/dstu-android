@@ -1,0 +1,18 @@
+{
+  "format": "dstu-s1-18-fsrs-vectors/v1",
+  "oracle": {
+    "repository": "dstu-node",
+    "commit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+    "tree": "3bee0f058851b9eb113bdc036d9f60433ed29944",
+    "readOnly": true
+  },
+  "generator": {
+    "path": "tools/s1/fsrs-oracle.mjs",
+    "sha256": "0833ca75ff0d67eb46668b9aa7ceef9564986a43c96d4c5ccde76e69dd0addd0",
+    "note": "Expected values are produced by importing the frozen desktop scheduler, review-plan adapter, and crate evaluator; the Android harness only consumes these files."
+  },
+  "fixtures": {
+    "scheduler-vectors.json": "e9f5cf59625e75d6bec07327a66a1683dabde0c7ccbfcc1ef88787eb80567ce9",
+    "training-vectors.json": "2cc1cc69e024953d20ba0f865ca4ea87e50c9c9b4b95a62399b357dd268713ac"
+  }
+}

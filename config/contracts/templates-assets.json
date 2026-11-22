@@ -1,0 +1,1141 @@
+{
+  "formatVersion": 1,
+  "unit": "S0.21",
+  "status": {
+    "sourceIncrement": "delivered and callable on the locked desktop checkout",
+    "packaging": "not completed; no APK or Gradle artifact is claimed",
+    "distribution": "not completed"
+  },
+  "sourceDelta": {
+    "loader": "desktop-increment/loader.mjs",
+    "installer": "desktop-increment/templates-assets.mjs",
+    "installApi": "installTemplateAssetIncrement()",
+    "genericApi": "registerIncrement({ unit, id, files })",
+    "returnedApi": [
+      "unit",
+      "id",
+      "files[].path",
+      "files[].originalSha256",
+      "unregister()"
+    ],
+    "files": [
+      {
+        "path": "host/plugins/sync/src/classification-registry.ts",
+        "originalSha256": "34494175370479849f94e80790ae43a30bc68209699902a6d28936ba6a12287a"
+      },
+      {
+        "path": "host/plugins/sync/src/asset-filenames.ts",
+        "originalSha256": "7d4af08386fc9e4e1b8fee2b82dfcb12e9bda754ce98b9314e3f3dcd80f63f9f"
+      },
+      {
+        "path": "host/plugins/sync/src/portable-assets.ts",
+        "originalSha256": "414949e6b4d54abe3a3e24d0370d512ac1a4dd30ce0ae428b5f575cfabfe8ddb"
+      },
+      {
+        "path": "host/plugins/sync/src/asset-paths.ts",
+        "originalSha256": "88bd9cc12f2727955d89d3bf164c210ec07814177114180739ef561af003896f"
+      },
+      {
+        "path": "host/platform/storage/migration/definitions/mistakes.ts",
+        "originalSha256": "3671731fd47c10c59348eac17043cc3aa3f60e66c4fee2c294b6e737e3c4b6ed"
+      }
+    ],
+    "anchors": [
+      {
+        "file": "host/plugins/sync/src/classification-registry.ts",
+        "line": 15,
+        "symbol": "classification registry return",
+        "sha256": "34494175370479849f94e80790ae43a30bc68209699902a6d28936ba6a12287a",
+        "text": "return [...vfsCore, ...vfsNotes, ...chatV2, ...mistakes, ...llmUsage];"
+      },
+      {
+        "file": "host/plugins/sync/src/asset-filenames.ts",
+        "line": 138,
+        "symbol": "active asset roots",
+        "sha256": "7d4af08386fc9e4e1b8fee2b82dfcb12e9bda754ce98b9314e3f3dcd80f63f9f",
+        "text": "['active', ['images', 'notes_assets', 'documents', 'subjects', 'textbooks', 'audio', 'videos']],"
+      },
+      {
+        "file": "host/plugins/sync/src/portable-assets.ts",
+        "line": 2,
+        "symbol": "portable asset gate",
+        "sha256": "414949e6b4d54abe3a3e24d0370d512ac1a4dd30ce0ae428b5f575cfabfe8ddb",
+        "text": "export function isPortableAssetEnabled(key: string, options: PortableAssetOptions = {}): boolean {"
+      },
+      {
+        "file": "host/plugins/sync/src/asset-paths.ts",
+        "line": 32,
+        "symbol": "asset scan symlink guard",
+        "sha256": "88bd9cc12f2727955d89d3bf164c210ec07814177114180739ef561af003896f",
+        "text": "let meta;"
+      },
+      {
+        "file": "host/plugins/sync/src/asset-paths.ts",
+        "line": 98,
+        "symbol": "asset materialization symlink guard",
+        "sha256": "88bd9cc12f2727955d89d3bf164c210ec07814177114180739ef561af003896f",
+        "text": "return join(base, top, rel);"
+      },
+      {
+        "file": "host/platform/storage/migration/definitions/mistakes.ts",
+        "line": 301,
+        "symbol": "portable template migration definition",
+        "sha256": "3671731fd47c10c59348eac17043cc3aa3f60e66c4fee2c294b6e737e3c4b6ed",
+        "text": "export const V20260720_FSRS_MASTERY_OUTBOX: MigrationDefSpec = {"
+      },
+      {
+        "file": "host/platform/storage/migration/definitions/mistakes.ts",
+        "line": 334,
+        "symbol": "portable template migration list",
+        "sha256": "3671731fd47c10c59348eac17043cc3aa3f60e66c4fee2c294b6e737e3c4b6ed",
+        "text": "V20261005_FSRS_LEARNING_STEP,"
+      }
+    ],
+    "migrationPreparation": "prepareTemplateMigrations(parent) copies locked historical SQL plus coordinated SQL into a caller-owned temporary directory",
+    "lockedDesktopSource": "read-only; no original file is rewritten"
+  },
+  "classification": {
+    "before": {
+      "category": "BackupOnly",
+      "conflictPolicy": "NoConflict"
+    },
+    "after": {
+      "database": "mistakes",
+      "table_name": "custom_anki_templates",
+      "primary_key": "id",
+      "category": "RowSync",
+      "conflict_policy": "Lww",
+      "business_unique_keys": "name",
+      "has_json_blobs": true,
+      "merge_notes": "S0.21: portable user templates (is_built_in=0); row-level LWW on the template id, with name as a business key"
+    }
+  },
+  "migrations": {
+    "coordinatedFile": "config/schema/coordinated/mistakes/V20261006__portable_anki_templates.sql",
+    "coordinatedSha256": "205f7da3f916b65c56b20bdd1472213837dcf359cc25cfe2697a6a3bbf6646d9",
+    "historicalSource": "resources/app/migrations/mistakes",
+    "historicalSourceUnchanged": true,
+    "upstream": {
+      "commit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+      "migrationLock": {
+        "file": "resources/app/migrations/migration-lock.json",
+        "sha256": "1d21338ded468243fc0dbe2593f5cd0b3cb1a259930f77be56c625dd32205445"
+      },
+      "vfs": {
+        "version": 20261115,
+        "name": "review_plans_fsrs",
+        "file": "vfs/V20261115__review_plans_fsrs.sql",
+        "sha256": "483b242fbf76ded1755644dbb0c6ad9391a91f73af1b32f5d7407a2614faa7d1",
+        "count": 73
+      }
+    },
+    "preparedInputs": {
+      "upstreamVfs": {
+        "file": "vfs/V20261115__review_plans_fsrs.sql",
+        "sha256": "483b242fbf76ded1755644dbb0c6ad9391a91f73af1b32f5d7407a2614faa7d1"
+      },
+      "template": {
+        "file": "mistakes/V20261006__portable_anki_templates.sql",
+        "sha256": "205f7da3f916b65c56b20bdd1472213837dcf359cc25cfe2697a6a3bbf6646d9"
+      }
+    },
+    "baselineVersion": 20261005,
+    "newVersion": 20261006,
+    "baselineDatabases": {
+      "vfs": {
+        "version": 20261115,
+        "count": 73
+      },
+      "llm_usage": {
+        "version": 20260826,
+        "count": 8
+      },
+      "chat_v2": {
+        "version": 20261111,
+        "count": 30
+      },
+      "mistakes": {
+        "version": 20261005,
+        "count": 23
+      }
+    },
+    "newDatabases": {
+      "vfs": {
+        "version": 20261115,
+        "count": 73
+      },
+      "llm_usage": {
+        "version": 20260826,
+        "count": 8
+      },
+      "chat_v2": {
+        "version": 20261111,
+        "count": 30
+      },
+      "mistakes": {
+        "version": 20261006,
+        "count": 24
+      }
+    },
+    "baselineHistory": [
+      {
+        "version": 20260130,
+        "name": "init",
+        "checksum": "7056604260822007762"
+      },
+      {
+        "version": 20260131,
+        "name": "add_change_log",
+        "checksum": "6608506450117968322"
+      },
+      {
+        "version": 20260201,
+        "name": "add_sync_fields",
+        "checksum": "7301675098626191735"
+      },
+      {
+        "version": 20260207,
+        "name": "add_template_preview_data",
+        "checksum": "1743993301467245459"
+      },
+      {
+        "version": 20260208,
+        "name": "add_hot_query_indexes",
+        "checksum": "17202954835638165067"
+      },
+      {
+        "version": 20260209,
+        "name": "anki_card_dedup_unique",
+        "checksum": "13701066855322671875"
+      },
+      {
+        "version": 20260523,
+        "name": "add_missing_sync_coverage",
+        "checksum": "6343691248788572142"
+      },
+      {
+        "version": 20260524,
+        "name": "add_change_log_field_deltas",
+        "checksum": "417851633219573743"
+      },
+      {
+        "version": 20260705,
+        "name": "add_document_tasks_source_session_id",
+        "checksum": "10927560918158328655"
+      },
+      {
+        "version": 20260709,
+        "name": "flashcard_fsrs",
+        "checksum": "3099774520752553145"
+      },
+      {
+        "version": 20260710,
+        "name": "anki_export_receipt",
+        "checksum": "8672886196158617961"
+      },
+      {
+        "version": 20260711,
+        "name": "fsrs_sync_coverage",
+        "checksum": "13539785444761611991"
+      },
+      {
+        "version": 20260712,
+        "name": "fsrs_undo_snapshot",
+        "checksum": "11763057337870966300"
+      },
+      {
+        "version": 20260713,
+        "name": "apkg_card_identity",
+        "checksum": "9866187645454259872"
+      },
+      {
+        "version": 20260714,
+        "name": "automation_scheduler",
+        "checksum": "15018988436487580117"
+      },
+      {
+        "version": 20260715,
+        "name": "harden_automation_runtime",
+        "checksum": "8332733441449950659"
+      },
+      {
+        "version": 20260720,
+        "name": "fsrs_mastery_outbox",
+        "checksum": "16271601134189950924"
+      },
+      {
+        "version": 20260721,
+        "name": "trusted_automation_profile",
+        "checksum": "5837270328434309245"
+      },
+      {
+        "version": 20260722,
+        "name": "fsrs_scheduler_hardening",
+        "checksum": "8521263247832451368"
+      },
+      {
+        "version": 20260723,
+        "name": "template_user_state",
+        "checksum": "1035286137891469713"
+      },
+      {
+        "version": 20260724,
+        "name": "anki_dedup_index_exclude_deleted",
+        "checksum": "12860009361473216846"
+      },
+      {
+        "version": 20260824,
+        "name": "normalize_anki_card_optional_json",
+        "checksum": "11475050403973432488"
+      },
+      {
+        "version": 20261005,
+        "name": "fsrs_learning_step",
+        "checksum": "15009873917906083320"
+      }
+    ],
+    "newHistory": [
+      {
+        "version": 20260130,
+        "name": "init",
+        "checksum": "7056604260822007762"
+      },
+      {
+        "version": 20260131,
+        "name": "add_change_log",
+        "checksum": "6608506450117968322"
+      },
+      {
+        "version": 20260201,
+        "name": "add_sync_fields",
+        "checksum": "7301675098626191735"
+      },
+      {
+        "version": 20260207,
+        "name": "add_template_preview_data",
+        "checksum": "1743993301467245459"
+      },
+      {
+        "version": 20260208,
+        "name": "add_hot_query_indexes",
+        "checksum": "17202954835638165067"
+      },
+      {
+        "version": 20260209,
+        "name": "anki_card_dedup_unique",
+        "checksum": "13701066855322671875"
+      },
+      {
+        "version": 20260523,
+        "name": "add_missing_sync_coverage",
+        "checksum": "6343691248788572142"
+      },
+      {
+        "version": 20260524,
+        "name": "add_change_log_field_deltas",
+        "checksum": "417851633219573743"
+      },
+      {
+        "version": 20260705,
+        "name": "add_document_tasks_source_session_id",
+        "checksum": "10927560918158328655"
+      },
+      {
+        "version": 20260709,
+        "name": "flashcard_fsrs",
+        "checksum": "3099774520752553145"
+      },
+      {
+        "version": 20260710,
+        "name": "anki_export_receipt",
+        "checksum": "8672886196158617961"
+      },
+      {
+        "version": 20260711,
+        "name": "fsrs_sync_coverage",
+        "checksum": "13539785444761611991"
+      },
+      {
+        "version": 20260712,
+        "name": "fsrs_undo_snapshot",
+        "checksum": "11763057337870966300"
+      },
+      {
+        "version": 20260713,
+        "name": "apkg_card_identity",
+        "checksum": "9866187645454259872"
+      },
+      {
+        "version": 20260714,
+        "name": "automation_scheduler",
+        "checksum": "15018988436487580117"
+      },
+      {
+        "version": 20260715,
+        "name": "harden_automation_runtime",
+        "checksum": "8332733441449950659"
+      },
+      {
+        "version": 20260720,
+        "name": "fsrs_mastery_outbox",
+        "checksum": "16271601134189950924"
+      },
+      {
+        "version": 20260721,
+        "name": "trusted_automation_profile",
+        "checksum": "5837270328434309245"
+      },
+      {
+        "version": 20260722,
+        "name": "fsrs_scheduler_hardening",
+        "checksum": "8521263247832451368"
+      },
+      {
+        "version": 20260723,
+        "name": "template_user_state",
+        "checksum": "1035286137891469713"
+      },
+      {
+        "version": 20260724,
+        "name": "anki_dedup_index_exclude_deleted",
+        "checksum": "12860009361473216846"
+      },
+      {
+        "version": 20260824,
+        "name": "normalize_anki_card_optional_json",
+        "checksum": "11475050403973432488"
+      },
+      {
+        "version": 20261005,
+        "name": "fsrs_learning_step",
+        "checksum": "15009873917906083320"
+      },
+      {
+        "version": 20261006,
+        "name": "portable_anki_templates",
+        "checksum": "16508459149764817551"
+      }
+    ],
+    "baselineShape": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT",
+          "notnull": 0,
+          "default": null,
+          "pk": 1
+        },
+        {
+          "name": "name",
+          "type": "TEXT",
+          "notnull": 1,
+          "default": null,
+          "pk": 0
+        },
+        {
+          "name": "description",
+          "type": "TEXT",
+          "notnull": 0,
+          "default": null,
+          "pk": 0
+        },
+        {
+          "name": "author",
+          "type": "TEXT",
+          "notnull": 0,
+          "default": null,
+          "pk": 0
+        },
+        {
+          "name": "version",
+          "type": "TEXT",
+          "notnull": 1,
+          "default": "'1.0.0'",
+          "pk": 0
+        },
+        {
+          "name": "preview_front",
+          "type": "TEXT",
+          "notnull": 1,
+          "default": null,
+          "pk": 0
+        },
+        {
+          "name": "preview_back",
+          "type": "TEXT",
+          "notnull": 1,
+          "default": null,
+          "pk": 0
+        },
+        {
+          "name": "note_type",
+          "type": "TEXT",
+          "notnull": 1,
+          "default": "'Basic'",
+          "pk": 0
+        },
+        {
+          "name": "fields_json",
+          "type": "TEXT",
+          "notnull": 1,
+          "default": "'[]'",
+          "pk": 0
+        },
+        {
+          "name": "generation_prompt",
+          "type": "TEXT",
+          "notnull": 1,
+          "default": null,
+          "pk": 0
+        },
+        {
+          "name": "front_template",
+          "type": "TEXT",
+          "notnull": 1,
+          "default": null,
+          "pk": 0
+        },
+        {
+          "name": "back_template",
+          "type": "TEXT",
+          "notnull": 1,
+          "default": null,
+          "pk": 0
+        },
+        {
+          "name": "css_style",
+          "type": "TEXT",
+          "notnull": 1,
+          "default": null,
+          "pk": 0
+        },
+        {
+          "name": "field_extraction_rules_json",
+          "type": "TEXT",
+          "notnull": 1,
+          "default": "'{}'",
+          "pk": 0
+        },
+        {
+          "name": "created_at",
+          "type": "TEXT",
+          "notnull": 1,
+          "default": "strftime('%Y-%m-%dT%H:%M:%fZ', 'now')",
+          "pk": 0
+        },
+        {
+          "name": "updated_at",
+          "type": "TEXT",
+          "notnull": 1,
+          "default": "strftime('%Y-%m-%dT%H:%M:%fZ', 'now')",
+          "pk": 0
+        },
+        {
+          "name": "is_active",
+          "type": "INTEGER",
+          "notnull": 1,
+          "default": "1",
+          "pk": 0
+        },
+        {
+          "name": "is_built_in",
+          "type": "INTEGER",
+          "notnull": 1,
+          "default": "0",
+          "pk": 0
+        },
+        {
+          "name": "preview_data_json",
+          "type": "TEXT",
+          "notnull": 0,
+          "default": null,
+          "pk": 0
+        },
+        {
+          "name": "user_modified",
+          "type": "INTEGER",
+          "notnull": 1,
+          "default": "0",
+          "pk": 0
+        },
+        {
+          "name": "user_deleted",
+          "type": "INTEGER",
+          "notnull": 1,
+          "default": "0",
+          "pk": 0
+        }
+      ],
+      "indexes": [
+        {
+          "name": "idx_custom_anki_templates_is_active",
+          "sha256": "8b6280939b71eb9cd80a400554b052776cd8fb031e88d8bf7e998e68e688801b"
+        },
+        {
+          "name": "idx_custom_anki_templates_is_built_in",
+          "sha256": "164b1255bf67b59c2015fbbbe94880cea72f2f776cfc531078c67c7a5b664ba0"
+        },
+        {
+          "name": "idx_custom_anki_templates_user_deleted",
+          "sha256": "98f1db2636895daf612a04efc8d4bb7a798d7cb520c9dcd36dc5747fb2bf8aea"
+        }
+      ],
+      "triggers": []
+    },
+    "newShape": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT",
+          "notnull": 0,
+          "default": null,
+          "pk": 1
+        },
+        {
+          "name": "name",
+          "type": "TEXT",
+          "notnull": 1,
+          "default": null,
+          "pk": 0
+        },
+        {
+          "name": "description",
+          "type": "TEXT",
+          "notnull": 0,
+          "default": null,
+          "pk": 0
+        },
+        {
+          "name": "author",
+          "type": "TEXT",
+          "notnull": 0,
+          "default": null,
+          "pk": 0
+        },
+        {
+          "name": "version",
+          "type": "TEXT",
+          "notnull": 1,
+          "default": "'1.0.0'",
+          "pk": 0
+        },
+        {
+          "name": "preview_front",
+          "type": "TEXT",
+          "notnull": 1,
+          "default": null,
+          "pk": 0
+        },
+        {
+          "name": "preview_back",
+          "type": "TEXT",
+          "notnull": 1,
+          "default": null,
+          "pk": 0
+        },
+        {
+          "name": "note_type",
+          "type": "TEXT",
+          "notnull": 1,
+          "default": "'Basic'",
+          "pk": 0
+        },
+        {
+          "name": "fields_json",
+          "type": "TEXT",
+          "notnull": 1,
+          "default": "'[]'",
+          "pk": 0
+        },
+        {
+          "name": "generation_prompt",
+          "type": "TEXT",
+          "notnull": 1,
+          "default": null,
+          "pk": 0
+        },
+        {
+          "name": "front_template",
+          "type": "TEXT",
+          "notnull": 1,
+          "default": null,
+          "pk": 0
+        },
+        {
+          "name": "back_template",
+          "type": "TEXT",
+          "notnull": 1,
+          "default": null,
+          "pk": 0
+        },
+        {
+          "name": "css_style",
+          "type": "TEXT",
+          "notnull": 1,
+          "default": null,
+          "pk": 0
+        },
+        {
+          "name": "field_extraction_rules_json",
+          "type": "TEXT",
+          "notnull": 1,
+          "default": "'{}'",
+          "pk": 0
+        },
+        {
+          "name": "created_at",
+          "type": "TEXT",
+          "notnull": 1,
+          "default": "strftime('%Y-%m-%dT%H:%M:%fZ', 'now')",
+          "pk": 0
+        },
+        {
+          "name": "updated_at",
+          "type": "TEXT",
+          "notnull": 1,
+          "default": "strftime('%Y-%m-%dT%H:%M:%fZ', 'now')",
+          "pk": 0
+        },
+        {
+          "name": "is_active",
+          "type": "INTEGER",
+          "notnull": 1,
+          "default": "1",
+          "pk": 0
+        },
+        {
+          "name": "is_built_in",
+          "type": "INTEGER",
+          "notnull": 1,
+          "default": "0",
+          "pk": 0
+        },
+        {
+          "name": "preview_data_json",
+          "type": "TEXT",
+          "notnull": 0,
+          "default": null,
+          "pk": 0
+        },
+        {
+          "name": "user_modified",
+          "type": "INTEGER",
+          "notnull": 1,
+          "default": "0",
+          "pk": 0
+        },
+        {
+          "name": "user_deleted",
+          "type": "INTEGER",
+          "notnull": 1,
+          "default": "0",
+          "pk": 0
+        },
+        {
+          "name": "device_id",
+          "type": "TEXT",
+          "notnull": 0,
+          "default": null,
+          "pk": 0
+        },
+        {
+          "name": "local_version",
+          "type": "INTEGER",
+          "notnull": 0,
+          "default": "0",
+          "pk": 0
+        },
+        {
+          "name": "deleted_at",
+          "type": "TEXT",
+          "notnull": 0,
+          "default": null,
+          "pk": 0
+        }
+      ],
+      "indexes": [
+        {
+          "name": "idx_custom_anki_templates_deleted_at",
+          "sha256": "3f798e9dd4a8a95fe64e2e1bd2b68e8216f4fdee0010d2b923aa8ffa3ec905c9"
+        },
+        {
+          "name": "idx_custom_anki_templates_device_id",
+          "sha256": "fd5718045c1963a1d63e1da742dd4d7bc631e3a2de366e62c51654c2aa4cfdfc"
+        },
+        {
+          "name": "idx_custom_anki_templates_device_version",
+          "sha256": "23344fe4c4e3132448b03648a0706afe8ab95452a180df189fde0a458472e767"
+        },
+        {
+          "name": "idx_custom_anki_templates_is_active",
+          "sha256": "8b6280939b71eb9cd80a400554b052776cd8fb031e88d8bf7e998e68e688801b"
+        },
+        {
+          "name": "idx_custom_anki_templates_is_built_in",
+          "sha256": "164b1255bf67b59c2015fbbbe94880cea72f2f776cfc531078c67c7a5b664ba0"
+        },
+        {
+          "name": "idx_custom_anki_templates_local_version",
+          "sha256": "cc83dd83023dfa7ad6a9cbf136d4f08eb6230ffe4016a07d73da6e286c36a726"
+        },
+        {
+          "name": "idx_custom_anki_templates_updated_at",
+          "sha256": "d5ce6c758c1e70b575d8c4eebb68c1343b15c33c3f97d4f6b494015bf50670e5"
+        },
+        {
+          "name": "idx_custom_anki_templates_updated_not_deleted",
+          "sha256": "85406ae6346b08e1b7f3f306d5dcc2777b0d09850aef915e8184168b79b16d0d"
+        },
+        {
+          "name": "idx_custom_anki_templates_user_deleted",
+          "sha256": "98f1db2636895daf612a04efc8d4bb7a798d7cb520c9dcd36dc5747fb2bf8aea"
+        }
+      ],
+      "triggers": [
+        {
+          "name": "trg__change_log_custom_anki_templates_delete",
+          "sha256": "2dea414cb7d2898be98d4eb64b113af6e916740d8dd3d4cb930049808da878d0"
+        },
+        {
+          "name": "trg__change_log_custom_anki_templates_insert",
+          "sha256": "a6ad2bb62bab0b0d52f9134c06e89872eed7cc66f804c71242ab9ddafb025124"
+        },
+        {
+          "name": "trg__change_log_custom_anki_templates_update",
+          "sha256": "01e93704fa02237cf5f5998c11ffea8f886c9afcf62c14e5736d304aa02c5bea"
+        }
+      ]
+    },
+    "addedColumns": [
+      "device_id",
+      "local_version",
+      "deleted_at"
+    ],
+    "addedIndexes": [
+      "idx_custom_anki_templates_deleted_at",
+      "idx_custom_anki_templates_device_id",
+      "idx_custom_anki_templates_device_version",
+      "idx_custom_anki_templates_local_version",
+      "idx_custom_anki_templates_updated_at",
+      "idx_custom_anki_templates_updated_not_deleted"
+    ],
+    "addedTriggers": [
+      "trg__change_log_custom_anki_templates_delete",
+      "trg__change_log_custom_anki_templates_insert",
+      "trg__change_log_custom_anki_templates_update"
+    ],
+    "userTemplateOnlyTriggers": false,
+    "userStateTriggers": "user-created templates and user-modified/user-deleted bundled templates are captured; untouched bundled templates remain local"
+  },
+  "baselineCapture": {
+    "migrationVersion": 20261005,
+    "collectedTemplateChanges": 0,
+    "reason": "the locked schema has no template change-log triggers"
+  },
+  "templateCapture": {
+    "collectedInsertCount": 1,
+    "collectedUpdateCount": 1,
+    "insert": {
+      "normalizedChangedAt": "2026-11-15T10:00:00.000Z",
+      "changeLogIdOmitted": true,
+      "wire": "{\"table_name\":\"custom_anki_templates\",\"record_id\":\"s021-template-fixture\",\"operation\":\"Insert\",\"data\":{\"id\":\"s021-template-fixture\",\"name\":\"S0.21 portable template fixture\",\"description\":\"Public fixture for portable template capture.\",\"author\":\"dstu\",\"version\":\"1.0.0\",\"preview_front\":\"<article class=\\\"s021-preview\\\">Portable front</article>\",\"preview_back\":\"<article class=\\\"s021-preview\\\">Portable back</article>\",\"note_type\":\"Basic\",\"fields_json\":\"[\\\"Front\\\",\\\"Back\\\",\\\"Tags\\\"]\",\"generation_prompt\":\"Return the public template fixture fields.\",\"front_template\":\"<section class=\\\"card\\\">{{Front}}<script>globalThis.__s021TemplateExecuted = true</script></section>\",\"back_template\":\"<section class=\\\"card\\\">{{Back}}<div data-tags>{{Tags}}</div></section>\",\"css_style\":\".card { color: #123456; }\",\"field_extraction_rules_json\":\"{\\\"Front\\\":{\\\"field_type\\\":\\\"Text\\\",\\\"is_required\\\":true,\\\"default_value\\\":null,\\\"validation_pattern\\\":null,\\\"description\\\":\\\"Front\\\"},\\\"Back\\\":{\\\"field_type\\\":\\\"Text\\\",\\\"is_required\\\":true,\\\"default_value\\\":null,\\\"validation_pattern\\\":null,\\\"description\\\":\\\"Back\\\"},\\\"Tags\\\":{\\\"field_type\\\":\\\"Array\\\",\\\"is_required\\\":false,\\\"default_value\\\":\\\"[]\\\",\\\"validation_pattern\\\":null,\\\"description\\\":\\\"Tags\\\"}}\",\"created_at\":\"2026-11-15T08:00:00.000Z\",\"updated_at\":\"2026-11-15T08:00:00.000Z\",\"is_active\":1,\"is_built_in\":0,\"preview_data_json\":null,\"user_modified\":0,\"user_deleted\":0,\"device_id\":null,\"local_version\":0,\"deleted_at\":null},\"changed_at\":\"2026-11-15T10:00:00.000Z\",\"database_name\":\"mistakes\"}",
+      "parsed": {
+        "table_name": "custom_anki_templates",
+        "record_id": "s021-template-fixture",
+        "operation": "Insert",
+        "data": {
+          "id": "s021-template-fixture",
+          "name": "S0.21 portable template fixture",
+          "description": "Public fixture for portable template capture.",
+          "author": "dstu",
+          "version": "1.0.0",
+          "preview_front": "<article class=\"s021-preview\">Portable front</article>",
+          "preview_back": "<article class=\"s021-preview\">Portable back</article>",
+          "note_type": "Basic",
+          "fields_json": "[\"Front\",\"Back\",\"Tags\"]",
+          "generation_prompt": "Return the public template fixture fields.",
+          "front_template": "<section class=\"card\">{{Front}}<script>globalThis.__s021TemplateExecuted = true</script></section>",
+          "back_template": "<section class=\"card\">{{Back}}<div data-tags>{{Tags}}</div></section>",
+          "css_style": ".card { color: #123456; }",
+          "field_extraction_rules_json": "{\"Front\":{\"field_type\":\"Text\",\"is_required\":true,\"default_value\":null,\"validation_pattern\":null,\"description\":\"Front\"},\"Back\":{\"field_type\":\"Text\",\"is_required\":true,\"default_value\":null,\"validation_pattern\":null,\"description\":\"Back\"},\"Tags\":{\"field_type\":\"Array\",\"is_required\":false,\"default_value\":\"[]\",\"validation_pattern\":null,\"description\":\"Tags\"}}",
+          "created_at": "2026-11-15T08:00:00.000Z",
+          "updated_at": "2026-11-15T08:00:00.000Z",
+          "is_active": 1,
+          "is_built_in": 0,
+          "preview_data_json": null,
+          "user_modified": 0,
+          "user_deleted": 0,
+          "device_id": null,
+          "local_version": 0,
+          "deleted_at": null
+        },
+        "changed_at": "2026-11-15T10:00:00.000Z",
+        "database_name": "mistakes"
+      }
+    },
+    "update": {
+      "normalizedChangedAt": "2026-11-15T10:00:00.000Z",
+      "changeLogIdOmitted": true,
+      "wire": "{\"table_name\":\"custom_anki_templates\",\"record_id\":\"s021-template-fixture\",\"operation\":\"Update\",\"data\":{\"id\":\"s021-template-fixture\",\"name\":\"S0.21 portable template fixture\",\"description\":\"Updated public template fixture.\",\"author\":\"dstu\",\"version\":\"1.0.1\",\"preview_front\":\"<article class=\\\"s021-preview\\\">Portable front</article>\",\"preview_back\":\"<article class=\\\"s021-preview\\\">Portable back</article>\",\"note_type\":\"Basic\",\"fields_json\":\"[\\\"Front\\\",\\\"Back\\\",\\\"Tags\\\"]\",\"generation_prompt\":\"Return the public template fixture fields.\",\"front_template\":\"<section class=\\\"card updated\\\">{{Front}}</section>\",\"back_template\":\"<section class=\\\"card updated\\\">{{Back}}</section>\",\"css_style\":\".card { color: #654321; }\",\"field_extraction_rules_json\":\"{\\\"Front\\\":{\\\"field_type\\\":\\\"Text\\\",\\\"is_required\\\":true,\\\"default_value\\\":null,\\\"validation_pattern\\\":null,\\\"description\\\":\\\"Front\\\"},\\\"Back\\\":{\\\"field_type\\\":\\\"Text\\\",\\\"is_required\\\":true,\\\"default_value\\\":null,\\\"validation_pattern\\\":null,\\\"description\\\":\\\"Back\\\"},\\\"Tags\\\":{\\\"field_type\\\":\\\"Array\\\",\\\"is_required\\\":false,\\\"default_value\\\":\\\"[]\\\",\\\"validation_pattern\\\":null,\\\"description\\\":\\\"Tags\\\"}}\",\"created_at\":\"2026-11-15T08:00:00.000Z\",\"updated_at\":\"2026-11-15T09:00:00.000Z\",\"is_active\":1,\"is_built_in\":0,\"preview_data_json\":null,\"user_modified\":0,\"user_deleted\":0,\"device_id\":null,\"local_version\":0,\"deleted_at\":null},\"changed_at\":\"2026-11-15T10:00:00.000Z\",\"database_name\":\"mistakes\"}",
+      "parsed": {
+        "table_name": "custom_anki_templates",
+        "record_id": "s021-template-fixture",
+        "operation": "Update",
+        "data": {
+          "id": "s021-template-fixture",
+          "name": "S0.21 portable template fixture",
+          "description": "Updated public template fixture.",
+          "author": "dstu",
+          "version": "1.0.1",
+          "preview_front": "<article class=\"s021-preview\">Portable front</article>",
+          "preview_back": "<article class=\"s021-preview\">Portable back</article>",
+          "note_type": "Basic",
+          "fields_json": "[\"Front\",\"Back\",\"Tags\"]",
+          "generation_prompt": "Return the public template fixture fields.",
+          "front_template": "<section class=\"card updated\">{{Front}}</section>",
+          "back_template": "<section class=\"card updated\">{{Back}}</section>",
+          "css_style": ".card { color: #654321; }",
+          "field_extraction_rules_json": "{\"Front\":{\"field_type\":\"Text\",\"is_required\":true,\"default_value\":null,\"validation_pattern\":null,\"description\":\"Front\"},\"Back\":{\"field_type\":\"Text\",\"is_required\":true,\"default_value\":null,\"validation_pattern\":null,\"description\":\"Back\"},\"Tags\":{\"field_type\":\"Array\",\"is_required\":false,\"default_value\":\"[]\",\"validation_pattern\":null,\"description\":\"Tags\"}}",
+          "created_at": "2026-11-15T08:00:00.000Z",
+          "updated_at": "2026-11-15T09:00:00.000Z",
+          "is_active": 1,
+          "is_built_in": 0,
+          "preview_data_json": null,
+          "user_modified": 0,
+          "user_deleted": 0,
+          "device_id": null,
+          "local_version": 0,
+          "deleted_at": null
+        },
+        "changed_at": "2026-11-15T10:00:00.000Z",
+        "database_name": "mistakes"
+      }
+    },
+    "expectedRow": {
+      "id": "s021-template-fixture",
+      "name": "S0.21 portable template fixture",
+      "description": "Updated public template fixture.",
+      "author": "dstu",
+      "version": "1.0.1",
+      "preview_front": "<article class=\"s021-preview\">Portable front</article>",
+      "preview_back": "<article class=\"s021-preview\">Portable back</article>",
+      "note_type": "Basic",
+      "fields_json": "[\"Front\",\"Back\",\"Tags\"]",
+      "generation_prompt": "Return the public template fixture fields.",
+      "front_template": "<section class=\"card updated\">{{Front}}</section>",
+      "back_template": "<section class=\"card updated\">{{Back}}</section>",
+      "css_style": ".card { color: #654321; }",
+      "field_extraction_rules_json": "{\"Front\":{\"field_type\":\"Text\",\"is_required\":true,\"default_value\":null,\"validation_pattern\":null,\"description\":\"Front\"},\"Back\":{\"field_type\":\"Text\",\"is_required\":true,\"default_value\":null,\"validation_pattern\":null,\"description\":\"Back\"},\"Tags\":{\"field_type\":\"Array\",\"is_required\":false,\"default_value\":\"[]\",\"validation_pattern\":null,\"description\":\"Tags\"}}",
+      "created_at": "2026-11-15T08:00:00.000Z",
+      "updated_at": "2026-11-15T09:00:00.000Z",
+      "is_active": 1,
+      "is_built_in": 0,
+      "preview_data_json": null,
+      "user_modified": 0,
+      "user_deleted": 0,
+      "device_id": null,
+      "local_version": 0,
+      "deleted_at": null
+    },
+    "builtinTemplatePolicy": {
+      "untouchedBuiltinCaptured": false,
+      "modifiedBuiltinCaptured": true,
+      "capturePredicate": "is_built_in = 0 OR user_modified = 1 OR user_deleted = 1",
+      "application": "user-state rows travel as data; bundle upgrade logic still decides what local template code to install"
+    }
+  },
+  "application": {
+    "targetDevice": "s021-device-b",
+    "strategy": "UseCloud",
+    "result": {
+      "total_success": 2,
+      "total_skipped": 0,
+      "total_incomplete_skipped": 0,
+      "total_failed": 0,
+      "total_conflicts": 0,
+      "db_errors": []
+    },
+    "targetRow": {
+      "id": "s021-template-fixture",
+      "version": "1.0.1",
+      "front_template": "<section class=\"card updated\">{{Front}}</section>",
+      "back_template": "<section class=\"card updated\">{{Back}}</section>",
+      "css_style": ".card { color: #654321; }",
+      "is_built_in": 0,
+      "user_modified": 0,
+      "user_deleted": 0
+    },
+    "scriptExecuted": false,
+    "trustRule": "template content arrives as data and is not executed during insert, collect, apply, or read"
+  },
+  "unknownFields": {
+    "insertedField": "future_template_metadata",
+    "wire": "{\"table_name\":\"custom_anki_templates\",\"record_id\":\"s021-template-unknown\",\"operation\":\"Insert\",\"data\":{\"id\":\"s021-template-unknown\",\"name\":\"S0.21 unknown-field template\",\"description\":\"Updated public template fixture.\",\"author\":\"dstu\",\"version\":\"1.0.1\",\"preview_front\":\"<article class=\\\"s021-preview\\\">Portable front</article>\",\"preview_back\":\"<article class=\\\"s021-preview\\\">Portable back</article>\",\"note_type\":\"Basic\",\"fields_json\":\"[\\\"Front\\\",\\\"Back\\\",\\\"Tags\\\"]\",\"generation_prompt\":\"Return the public template fixture fields.\",\"front_template\":\"<section class=\\\"card updated\\\">{{Front}}</section>\",\"back_template\":\"<section class=\\\"card updated\\\">{{Back}}</section>\",\"css_style\":\".card { color: #654321; }\",\"field_extraction_rules_json\":\"{\\\"Front\\\":{\\\"field_type\\\":\\\"Text\\\",\\\"is_required\\\":true,\\\"default_value\\\":null,\\\"validation_pattern\\\":null,\\\"description\\\":\\\"Front\\\"},\\\"Back\\\":{\\\"field_type\\\":\\\"Text\\\",\\\"is_required\\\":true,\\\"default_value\\\":null,\\\"validation_pattern\\\":null,\\\"description\\\":\\\"Back\\\"},\\\"Tags\\\":{\\\"field_type\\\":\\\"Array\\\",\\\"is_required\\\":false,\\\"default_value\\\":\\\"[]\\\",\\\"validation_pattern\\\":null,\\\"description\\\":\\\"Tags\\\"}}\",\"created_at\":\"2026-11-15T08:00:00.000Z\",\"updated_at\":\"2026-11-15T09:00:00.000Z\",\"is_active\":1,\"is_built_in\":0,\"preview_data_json\":null,\"user_modified\":0,\"user_deleted\":0,\"device_id\":null,\"local_version\":0,\"deleted_at\":null,\"future_template_metadata\":{\"source\":\"future-desktop\",\"trusted\":false}},\"changed_at\":\"2026-11-15T10:00:00.000Z\",\"database_name\":\"mistakes\"}",
+    "preservedInRowRead": {
+      "source": "future-desktop",
+      "trusted": false
+    },
+    "preservedInVault": {
+      "source": "future-desktop",
+      "trusted": false
+    },
+    "applyFailures": 0
+  },
+  "negatives": {
+    "duplicateName": {
+      "rejected": true,
+      "reason": "UNIQUE constraint failed: custom_anki_templates.name"
+    },
+    "duplicateReference": [
+      {
+        "name": "active/anki_media/s021-card-audio.wav",
+        "detail": "duplicate logical reference",
+        "rejected": true
+      }
+    ],
+    "hashMismatch": [
+      {
+        "name": "active/anki_media/s021-card-audio.wav",
+        "detail": "hash or size mismatch: 4f8734c5e13ac599e168cf247a51c1dd0758537ce00bf16d7fed1a3d14d07041/44",
+        "rejected": true
+      }
+    ],
+    "protectedDatabasePath": {
+      "key": "active/databases/vfs.db",
+      "localPath": null
+    }
+  },
+  "assets": {
+    "roots": [
+      "active/anki_media",
+      "active/chat_attachments"
+    ],
+    "fixture": [
+      {
+        "key": "active/anki_media/s021-card-audio.wav",
+        "role": "card-audio",
+        "root": "<active>/anki_media/s021-card-audio.wav",
+        "size": 44,
+        "sha256": "4f8734c5e13ac599e168cf247a51c1dd0758537ce00bf16d7fed1a3d14d07041",
+        "bytesHex": "524946462400000057415645666d74201000000001000100401f0000803e0000020010006461746100000000",
+        "reference": {
+          "kind": "anki-template-media",
+          "owner": "s021-template-fixture",
+          "field": "front_template"
+        }
+      },
+      {
+        "key": "active/chat_attachments/s021-session/attachment.txt",
+        "role": "chat-attachment",
+        "root": "<active>/chat_attachments/s021-session/attachment.txt",
+        "size": 40,
+        "sha256": "34b6f222dda8f5bc86cab72f8afc638476059ed69d7583fce187d975040db337",
+        "bytesHex": "53302e3231207065727369737465642063686174206174746163686d656e7420666978747572650a",
+        "reference": {
+          "kind": "chat-v2-attachment",
+          "owner": "s021-chat-attachment",
+          "field": "storage_path"
+        }
+      },
+      {
+        "key": "active/chat_attachments/s021-session/restorable.txt",
+        "role": "restorable-bytes",
+        "root": "<active>/chat_attachments/s021-session/restorable.txt",
+        "size": 32,
+        "sha256": "cb03616efad7554395db3257960c4fb87d3a2d0cd4f1f21b79c3b795e42019cd",
+        "bytesHex": "53302e323120746f6d6273746f6e6520726573746f726520666978747572650a",
+        "reference": {
+          "kind": "logical-byte-reference",
+          "owner": "s021-restorable",
+          "field": "content_hash"
+        }
+      }
+    ],
+    "scan": [
+      {
+        "key": "active/anki_media/s021-card-audio.wav",
+        "sha256": "4f8734c5e13ac599e168cf247a51c1dd0758537ce00bf16d7fed1a3d14d07041",
+        "size": 44,
+        "updatedAt": "2026-11-15T08:00:00+00:00",
+        "path": "<active>/anki_media/s021-card-audio.wav"
+      },
+      {
+        "key": "active/chat_attachments/s021-session/attachment.txt",
+        "sha256": "34b6f222dda8f5bc86cab72f8afc638476059ed69d7583fce187d975040db337",
+        "size": 40,
+        "updatedAt": "2026-11-15T08:00:00+00:00",
+        "path": "<active>/chat_attachments/s021-session/attachment.txt"
+      },
+      {
+        "key": "active/chat_attachments/s021-session/restorable.txt",
+        "sha256": "cb03616efad7554395db3257960c4fb87d3a2d0cd4f1f21b79c3b795e42019cd",
+        "size": 32,
+        "updatedAt": "2026-11-15T08:00:00+00:00",
+        "path": "<active>/chat_attachments/s021-session/restorable.txt"
+      }
+    ],
+    "references": {
+      "accepted": [
+        {
+          "key": "active/anki_media/s021-card-audio.wav",
+          "sha256": "4f8734c5e13ac599e168cf247a51c1dd0758537ce00bf16d7fed1a3d14d07041",
+          "size": 44
+        },
+        {
+          "key": "active/chat_attachments/s021-session/attachment.txt",
+          "sha256": "34b6f222dda8f5bc86cab72f8afc638476059ed69d7583fce187d975040db337",
+          "size": 40
+        },
+        {
+          "key": "active/chat_attachments/s021-session/restorable.txt",
+          "sha256": "cb03616efad7554395db3257960c4fb87d3a2d0cd4f1f21b79c3b795e42019cd",
+          "size": 32
+        }
+      ],
+      "rejected": []
+    },
+    "symlinkFileExcluded": true,
+    "tombstone": {
+      "key": "active/chat_attachments/s021-session/restorable.txt",
+      "encoding": {
+        "bigint": "{$bigint:decimal}"
+      },
+      "manifestEntry": {
+        "deleted_at": "2026-11-15T11:00:00.000Z",
+        "device_id": "s021-device-b",
+        "size": {
+          "$bigint": "32"
+        }
+      },
+      "filteredForFreshWatermark": true,
+      "restoredSha256": "cb03616efad7554395db3257960c4fb87d3a2d0cd4f1f21b79c3b795e42019cd",
+      "bytesSurvivedReplayAndRestore": true,
+      "verificationScope": "local storage/tombstone/SQL readback only; full transport is parent-owned asset-transport evidence"
+    }
+  },
+  "checks": {
+    "baselineCannotCaptureTemplate": true,
+    "newClassificationExercised": true,
+    "insertAndUpdateApplied": true,
+    "duplicateNameRejected": true,
+    "duplicateReferenceRejected": true,
+    "hashMismatchRejected": true,
+    "unknownFieldsPreserved": true,
+    "localUserFlagsAreData": true,
+    "templateScriptNotExecuted": true,
+    "assetBytesKnownAndHashed": true,
+    "tombstoneDeleteRestore": true,
+    "modifiedBuiltinCaptured": true,
+    "untouchedBuiltinNotCaptured": true,
+    "sourceLocked": true,
+    "upstreamVfsApplied": true,
+    "templateSqlBytesUnchanged": true,
+    "sourceAnchorsCurrent": true
+  },
+  "fixtureFile": "fixtures/templates-assets.json",
+  "notes": {
+    "chatAttachmentPromotion": "Parent-owned adapter; this artifact does not claim a production promotion handler.",
+    "packaging": "Source-level increment only; packaging and distribution are not completed.",
+    "timeNormalization": "change-log clock values are fixed before serialization; no random IDs or temporary paths enter the fixture"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "unit": "S1.11",
+  "desktopCommit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+  "tokens": "config/design/tokens.baseline.json",
+  "brand": "config/design/brand.baseline.json",
+  "adopted": [
+    {
+      "source": "src/components/ui/DeepStudentLogo.tsx",
+      "role": "Brand mark and wordmark geometry",
+      "license": "AGPL-3.0-or-later",
+      "licenseFile": "LICENSE",
+      "licenseSha256": "8943429804542a78e4f48d6a7ac6323f059a5a8540200eb0a2a9b3de7c33bf1d"
+    },
+    {
+      "source": "src/components/icons/StudySidebarIcons.tsx",
+      "role": "Frozen navigation geometry and selection of Phosphor Database icon",
+      "license": "AGPL-3.0-or-later",
+      "licenseFile": "LICENSE",
+      "licenseSha256": "8943429804542a78e4f48d6a7ac6323f059a5a8540200eb0a2a9b3de7c33bf1d"
+    },
+    {
+      "source": "node_modules/@phosphor-icons/react",
+      "role": "Database navigation glyph",
+      "license": "MIT",
+      "licenseFile": "node_modules/@phosphor-icons/react/LICENSE",
+      "licenseSha256": "6918b72504641180600cbbd4a86b0dfa9dfccf788775694325b71b9a029f6eb4"
+    }
+  ],
+  "policy": "Source and license evidence for adopted geometry, not release legal clearance; frozen S0 NOTICE and remaining release blockers are unchanged."
+}

@@ -1,0 +1,17 @@
+<resources>
+    <string name="background_channel_name">Background tasks</string>
+    <string name="background_channel_description">Tasks running in the background</string>
+    <string name="background_notification_title">Background tasks</string>
+    <string name="background_notification_starting">Starting task</string>
+    <string name="background_notification_count">Active tasks: %1$d</string>
+    <string name="background_notification_task">Task %1$s</string>
+    <string name="background_notification_stop">Stop task</string>
+    <string name="background_state_created">Starting</string>
+    <string name="background_state_running">In progress</string>
+    <string name="background_state_waiting">Waiting for approval</string>
+    <string name="background_state_paused">Paused</string>
+    <string name="background_state_completed">Completed</string>
+    <string name="background_state_failed">Failed</string>
+    <string name="background_state_cancelled">Cancelled</string>
+    <string name="background_state_interrupted">Interrupted</string>
+</resources>

@@ -1,0 +1,35 @@
+{
+  "sha": "d3afe76132fc76b0f9b2359cbaef47a3766e7fbb",
+  "node_id": "C_kwDOABh_3toAKGQzYWZlNzYxMzJmYzc2YjBmOWIyMzU5Y2JhZWY0N2EzNzY2ZTdmYmI",
+  "url": "https://api.github.com/repos/bulletphysics/bullet3/git/commits/d3afe76132fc76b0f9b2359cbaef47a3766e7fbb",
+  "html_url": "https://github.com/bulletphysics/bullet3/commit/d3afe76132fc76b0f9b2359cbaef47a3766e7fbb",
+  "author": {
+    "name": "erwincoumans",
+    "email": "erwin.coumans@gmail.com",
+    "date": "2026-10-09T21:51:41Z"
+  },
+  "committer": {
+    "name": "GitHub",
+    "email": "noreply@github.com",
+    "date": "2026-10-09T21:51:41Z"
+  },
+  "tree": {
+    "sha": "dae36e483b4037e0b141f1186a51c7d75c31a831",
+    "url": "https://api.github.com/repos/bulletphysics/bullet3/git/trees/dae36e483b4037e0b141f1186a51c7d75c31a831"
+  },
+  "message": "Update README.md\n\nstatic Bullet Physics website and forum at https://bulletphysics.github.io",
+  "parents": [
+    {
+      "sha": "a7cabd590ad30a064a8e3e10c95553f733b43d0f",
+      "url": "https://api.github.com/repos/bulletphysics/bullet3/git/commits/a7cabd590ad30a064a8e3e10c95553f733b43d0f",
+      "html_url": "https://github.com/bulletphysics/bullet3/commit/a7cabd590ad30a064a8e3e10c95553f733b43d0f"
+    }
+  ],
+  "verification": {
+    "verified": true,
+    "reason": "valid",
+    "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqyWHtCRC1aQ7uu5UhlAAAp1UQAA1gOe+8zgNJygxPVDhB3Bgb\nvt79cKlbl/SM6uNSlW2fL422xGry/4dh7I+CdEoG/3IKNRUgH0+dKKqHlFG9xGb/\nU0O0YieQOnTNHYo0hKm0GvQzqruc//h3Ni4/waMTc2JNqmEzO1Pnrox/cI2tz6YD\n0T8tB7zCkAFbJYuHmgRkvvY6pIdJ0JrOoKxias7w6NvnFH84mj/SzuMo5iKgoK8C\nXms9ryT8xXKjaeihqgr6G9uPAH0bnE05/2G//Ok/JBzc84gP4Z5bClxuuzykNmCc\n5fve4aU3DA9XJxizXRTMuo84+zqRwmDFY92VMIDbBc/WT/JUpRaLKAm9smmVahKs\nOikXGJBQ5O+Oq6AcGQBrbTDG9lgd5NG3MD1pfF1MEYjsbm0oZB578wnmOrtYjDX8\ny+lSgDkj+NHjPDA57aLqDDllvRChF0pni0wWl52vQv8Z9mhziaIzwMCzmTnly1Rr\nZh9svvbsrZN41M1NLzHB/sa4tSo5/DxIKPlcDU7QQs7TcZofbXToU3IWvT7E0Lz/\nV84VqmtZlT05mQDzZXgpLS753m4a5OENEX31r3xCstD5LZfRz9Be8rhKp0GVuaN0\nUfMF0sP5IP8DIXnRjKespcWiP/8C5mfN/7s9EsX1ZfwfEcPsJ3qus8Bn2fT6qBXH\n3txL9uKT0IrsGDxS05vg\n=zGDp\n-----END PGP SIGNATURE-----\n",
+    "payload": "tree dae36e483b4037e0b141f1186a51c7d75c31a831\nparent a7cabd590ad30a064a8e3e10c95553f733b43d0f\nauthor erwincoumans <erwin.coumans@gmail.com> 1791582701 -0700\ncommitter GitHub <noreply@github.com> 1791582701 -0700\n\nUpdate README.md\n\nstatic Bullet Physics website and forum at https://bulletphysics.github.io",
+    "verified_at": "2026-10-09T21:51:42Z"
+  }
+}

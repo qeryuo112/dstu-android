@@ -1,0 +1,1677 @@
+{
+  "formatVersion": 1,
+  "unit": "S0.10",
+  "planContract": {
+    "file": "docs/plans/2026-11-15-mobile-full-feature-refactor.md",
+    "line": 592,
+    "section": {
+      "line": 425,
+      "title": "8.2 同步"
+    }
+  },
+  "upstream": {
+    "repository": "../dstu-node",
+    "commit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+    "head": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+    "role": "frozen desktop baseline; legacy mobile provider observations are historical comparison evidence, not a new capability claim"
+  },
+  "sourceHashes": {
+    "host/plugins/sync/src/run-sync.ts": "b5135ff77a927d432d29920639d1f4e79581e675e434d4c79d71f7aad42a632c",
+    "host/plugins/sync/src/remote-format.ts": "5f2af3683dcab64d6f9aab2544c8595094240d346bdeaa05b96b8f9312553bee",
+    "host/plugins/sync/src/manifest-upload.ts": "278ffce36353f8059390842d0a1b6f29449505383c4799062062c3fb952fd01a",
+    "host/plugins/sync/src/remote-manifest.ts": "3bf64d4245403a33efe8d3af266b57a2fc0e6320f5c3ae0491b96633815b4f4e",
+    "host/plugins/sync/src/change-keys.ts": "95f039f5ce19f1ac77d0112d5e6e3eada85ac5cfd593e41e3fadf3dc85d06dfe",
+    "host/plugins/sync/src/change-payload.ts": "6b0bb9ca47a98c6f788cde3949486af9011e8fea9a9a053c067a2a1fd675f0ac",
+    "host/plugins/sync/src/download-payload.ts": "0c14cf7c1e4bef829a2e8cc217eee33195e5b8319b475083483d129d0b8ef226",
+    "host/plugins/sync/src/upload-changes.ts": "7690d5253a6fa22c8a8599695b69a985fc4b9e25e4a2038d3d7e221f76b98b6b",
+    "host/plugins/sync/src/download-changes.ts": "5a326d25693e4daad3d665a8037fe494a84ece1e2287f35c89be40d6c59c66ca",
+    "host/plugins/sync/src/payload.ts": "585dd66ec05f959abf7b70f5f3716d5a6f00d7f5ea12fcb5e0bf50504c0e0b7c",
+    "host/plugins/sync/src/merge.ts": "1542fcf163a503d7f16fc10a5c70d4ec6afbba76271bfcf63ef007c7191ddf35",
+    "host/plugins/sync/src/record-plain.ts": "a5b8ec569d3f5de9b231a4da11ff470af98ea453a8532fc1f5f572c000b6fde6",
+    "host/plugins/sync/src/collect-sync-changes.ts": "ad6072d591d4f1ed20bcb509cd2e4140d492f7d72143bf8f9eb927978295215c",
+    "host/plugins/sync/src/transfer-commands.ts": "c8caf348abcbad0c422c5c188be0ef2139bde77db122224e43f324e944f5c2d1",
+    "host/plugins/sync/src/plugin.ts": "5afb44654389593ecd6a2382f2147e86127ecde35629e8a431b126be433aa0e1",
+    "host/plugins/sync/repository/state.ts": "a56fd1845fd82b0360564e3b17c5a723ef81c4c04385e8eebb53cbd6d07fc80e",
+    "host/plugins/sync/repository/registry-preflight.ts": "413cc8942dce9550526228242e291522ada558128dfa3479c7818a3d509cbdba",
+    "host/plugins/sync/repository/apply-databases.ts": "ae95653d6c75cd8967701ae31098e4628627c966f41ed176271e3aeb8340ddee",
+    "host/plugins/sync-providers/src/sync_lease.ts": "f3c224f19575d68e1cff2a70fa14fcadc93fd4e8b6c575393ac8796304e3f0b5",
+    "host/plugins/sync-providers/src/lease.ts": "880fa6c6bb4e26d24a46da97bdad1da5d632a62a3eb5130e2aa70000ddf94024",
+    "host/plugins/sync-providers/src/config.ts": "7b3cea96f8feac4eeeae188b8540e1beff425e10ff0ed0a8432a5d0b412a8a39",
+    "host/plugins/sync-providers/src/entry.ts": "67e0dd50ad71573c638e96dd7b9ce2ee41b6fe69189d315d7e1f257fab7fa422",
+    "host/plugins/sync-providers/src/desktop-platform.ts": "d4965baef950efc9e25e36bee358b41a4a89f78c9af3dcb2ff017761f5b116a6",
+    "host/plugins/sync-providers/mobile.ts": "f3af259c51a99aa5f0710742a7bb7957a45e4a13c80cbd6caea423f7585cc4ea",
+    "host/plugins/sync-support/src/tombstone-model.ts": "e5d0c3ec855820a0121e25dedd475715af8fcb89558376629b82ee469ce5de2f"
+  },
+  "sourceBinding": {
+    "repository": {
+      "implementation": [
+        {
+          "file": "host/plugins/sync/repository/record-data.ts",
+          "sha256": "075866386fb0562d9a88c664e5d9741c8b0028b29c8fbd65488a26e80be7e9a5"
+        },
+        {
+          "file": "host/plugins/sync/repository/unknown-fields.ts",
+          "sha256": "2a42e88760e0bca2d3a5a0663385f242d60b503d724ff82609cde0b75be4c2e5"
+        }
+      ],
+      "wrappers": [
+        {
+          "file": "host/plugins/sync/src/unknown-fields.ts",
+          "sha256": "f8df6089fded00566a451ca8275b0431b4e8b97af5e115765a4ad8256d91c548"
+        }
+      ]
+    },
+    "rule": "sourceHashes bind the runSync chain; repositoryBinding proves the implementation and src wrapper are both consumed by the compiled protocol module"
+  },
+  "callChain": {
+    "entry": {
+      "file": "host/plugins/sync/src/run-sync.ts",
+      "line": 131,
+      "symbol": "runSync"
+    },
+    "stages": [
+      {
+        "stage": "create-storage",
+        "source": "desktop",
+        "file": "host/plugins/sync/src/run-sync.ts",
+        "line": 161,
+        "callee": "ctx.syncProvider.createStorage",
+        "contract": "CloudStorage"
+      },
+      {
+        "stage": "payload-codec",
+        "source": "desktop",
+        "file": "host/plugins/sync/src/run-sync.ts",
+        "line": 163,
+        "callee": "createPayloadCodec",
+        "contract": "PayloadCodec"
+      },
+      {
+        "stage": "format-negotiation",
+        "source": "desktop",
+        "file": "host/plugins/sync/src/run-sync.ts",
+        "line": 167,
+        "callee": "validateRemoteFormat",
+        "contract": "SyncFormatDescriptor"
+      },
+      {
+        "stage": "target-lease",
+        "source": "desktop",
+        "file": "host/plugins/sync/src/run-sync.ts",
+        "line": 169,
+        "callee": "acquireSyncTargetLease",
+        "contract": "LeaseRecord"
+      },
+      {
+        "stage": "upload-encryption-policy",
+        "source": "desktop",
+        "file": "host/plugins/sync/src/run-sync.ts",
+        "line": 170,
+        "callee": "enforceRecordUploadEncryptionPolicyForConfig",
+        "contract": "encryption-marker"
+      },
+      {
+        "stage": "registry-drift",
+        "source": "desktop",
+        "file": "host/plugins/sync/src/run-sync.ts",
+        "line": 172,
+        "callee": "validateSyncRegistryDrift",
+        "contract": "S0.09 registry"
+      },
+      {
+        "stage": "local-manifest",
+        "source": "desktop",
+        "file": "host/plugins/sync/src/run-sync.ts",
+        "line": 173,
+        "callee": "collectLocalManifest",
+        "contract": "SyncManifest"
+      },
+      {
+        "stage": "schema-gate",
+        "source": "desktop",
+        "file": "host/plugins/sync/src/run-sync.ts",
+        "line": 174,
+        "callee": "validateUploadSchemaCompatibility",
+        "contract": "SchemaMismatchError"
+      },
+      {
+        "stage": "collect-changes",
+        "source": "desktop",
+        "file": "host/plugins/sync/src/run-sync.ts",
+        "line": 176,
+        "callee": "collectSyncChanges",
+        "contract": "EngineChange"
+      },
+      {
+        "stage": "execute",
+        "source": "desktop",
+        "file": "host/plugins/sync/src/run-sync.ts",
+        "line": 178,
+        "callee": "executePlainSync",
+        "contract": "SyncExecutionResponse"
+      }
+    ],
+    "separateEntries": [
+      {
+        "symbol": "runSyncWithProgress",
+        "source": "desktop",
+        "file": "host/plugins/sync/src/run-sync.ts",
+        "line": 196,
+        "note": "独立命令 data_governance_run_sync_with_progress；同一前置序列，日志/事件更多"
+      },
+      {
+        "symbol": "runSyncV5",
+        "source": "desktop",
+        "file": "host/plugins/sync/src/run-sync.ts",
+        "line": 44,
+        "note": "v5 入口只从 api.ts 导出，插件 service/command 未注册（not-wired）；v5 不经过 format.json/validateRemoteFormat/schema gate"
+      }
+    ]
+  },
+  "wire": {
+    "types": {
+      "SyncFormatDescriptor": {
+        "symbol": "SyncFormatDescriptor",
+        "file": "host/plugins/sync/src/remote-format.ts",
+        "line": 58,
+        "fields": [
+          {
+            "name": "format_version",
+            "optional": false,
+            "type": "number",
+            "line": 59
+          },
+          {
+            "name": "min_reader_version",
+            "optional": false,
+            "type": "number",
+            "line": 60
+          },
+          {
+            "name": "features",
+            "optional": false,
+            "type": "string[]",
+            "line": 61
+          },
+          {
+            "name": "checkpoint",
+            "optional": false,
+            "type": "SyncShardCheckpoint | null",
+            "line": 62
+          },
+          {
+            "name": "compatibility_lease",
+            "optional": false,
+            "type": "SyncCompatibilityLease | null",
+            "line": 63
+          }
+        ]
+      },
+      "SyncShardCheckpoint": {
+        "symbol": "SyncShardCheckpoint",
+        "file": "host/plugins/sync/src/remote-format.ts",
+        "line": 43,
+        "fields": [
+          {
+            "name": "generation",
+            "optional": false,
+            "type": "number | bigint",
+            "line": 44
+          },
+          {
+            "name": "shard_cursors",
+            "optional": false,
+            "type": "Record<string, number | bigint>",
+            "line": 45
+          },
+          {
+            "name": "complete",
+            "optional": false,
+            "type": "boolean",
+            "line": 46
+          },
+          {
+            "name": "compaction_marker_key",
+            "optional": true,
+            "type": "string | null",
+            "line": 47
+          },
+          {
+            "name": "full_listing_verified",
+            "optional": false,
+            "type": "boolean",
+            "line": 48
+          }
+        ]
+      },
+      "SyncCompatibilityLease": {
+        "symbol": "SyncCompatibilityLease",
+        "file": "host/plugins/sync/src/remote-format.ts",
+        "line": 51,
+        "fields": [
+          {
+            "name": "holder_device_id",
+            "optional": false,
+            "type": "string",
+            "line": 52
+          },
+          {
+            "name": "operation_id",
+            "optional": false,
+            "type": "string",
+            "line": 53
+          },
+          {
+            "name": "expires_at",
+            "optional": false,
+            "type": "string",
+            "line": 54
+          },
+          {
+            "name": "min_writer_version",
+            "optional": false,
+            "type": "number",
+            "line": 55
+          }
+        ]
+      },
+      "SyncManifest": {
+        "symbol": "SyncManifest",
+        "file": "host/plugins/sync/src/merge.ts",
+        "line": 20,
+        "fields": [
+          {
+            "name": "sync_transaction_id",
+            "optional": false,
+            "type": "string",
+            "line": 21
+          },
+          {
+            "name": "databases",
+            "optional": false,
+            "type": "Record<string, DatabaseSyncState>",
+            "line": 22
+          },
+          {
+            "name": "status",
+            "optional": false,
+            "type": "SyncTransactionStatus",
+            "line": 23
+          },
+          {
+            "name": "created_at",
+            "optional": false,
+            "type": "string",
+            "line": 24
+          },
+          {
+            "name": "device_id",
+            "optional": false,
+            "type": "string",
+            "line": 25
+          },
+          {
+            "name": "format_version",
+            "optional": false,
+            "type": "number",
+            "line": 26
+          },
+          {
+            "name": "published_max_seq",
+            "optional": false,
+            "type": "number | bigint",
+            "line": 27
+          },
+          {
+            "name": "cursors",
+            "optional": false,
+            "type": "Record<string, number | bigint>",
+            "line": 28
+          },
+          {
+            "name": "superseded_by",
+            "optional": true,
+            "type": "string | null",
+            "line": 29
+          },
+          {
+            "name": "snapshot_seen",
+            "optional": false,
+            "type": "Record<string, string>",
+            "line": 30
+          }
+        ]
+      },
+      "DatabaseSyncState": {
+        "symbol": "DatabaseSyncState",
+        "file": "host/plugins/sync/src/merge.ts",
+        "line": 12,
+        "fields": [
+          {
+            "name": "schema_version",
+            "optional": false,
+            "type": "number",
+            "line": 13
+          },
+          {
+            "name": "data_version",
+            "optional": false,
+            "type": "number | bigint",
+            "line": 14
+          },
+          {
+            "name": "checksum",
+            "optional": false,
+            "type": "string",
+            "line": 15
+          },
+          {
+            "name": "last_updated_at",
+            "optional": true,
+            "type": "string | null",
+            "line": 16
+          }
+        ]
+      },
+      "EngineChange": {
+        "symbol": "EngineChange",
+        "file": "host/plugins/sync/src/change-payload.ts",
+        "line": 9,
+        "fields": [
+          {
+            "name": "table_name",
+            "optional": false,
+            "type": "string",
+            "line": 10
+          },
+          {
+            "name": "record_id",
+            "optional": false,
+            "type": "string",
+            "line": 11
+          },
+          {
+            "name": "operation",
+            "optional": false,
+            "type": "ChangeOperation",
+            "line": 12
+          },
+          {
+            "name": "data",
+            "optional": false,
+            "type": "DbJson | null",
+            "line": 13
+          },
+          {
+            "name": "changed_at",
+            "optional": false,
+            "type": "string",
+            "line": 14
+          },
+          {
+            "name": "change_log_id",
+            "optional": true,
+            "type": "number | bigint | null",
+            "line": 15
+          },
+          {
+            "name": "database_name",
+            "optional": true,
+            "type": "string | null",
+            "line": 16
+          },
+          {
+            "name": "suppress_change_log",
+            "optional": true,
+            "type": "boolean | null",
+            "line": 17
+          },
+          {
+            "name": "source_device_id",
+            "optional": true,
+            "type": "string | null",
+            "line": 18
+          },
+          {
+            "name": "source_seq",
+            "optional": true,
+            "type": "number | bigint | null",
+            "line": 19
+          }
+        ]
+      },
+      "ChangesPayload": {
+        "symbol": "ChangesPayload",
+        "file": "host/plugins/sync/src/download-payload.ts",
+        "line": 15,
+        "fields": [
+          {
+            "name": "changes",
+            "optional": false,
+            "type": "EngineChange[]",
+            "line": 16
+          },
+          {
+            "name": "format_version",
+            "optional": false,
+            "type": "bigint",
+            "line": 17
+          },
+          {
+            "name": "source_seq",
+            "optional": false,
+            "type": "bigint",
+            "line": 18
+          },
+          {
+            "name": "source_device_id",
+            "optional": false,
+            "type": "string",
+            "line": 19
+          },
+          {
+            "name": "operation_id",
+            "optional": false,
+            "type": "string | null",
+            "line": 20
+          }
+        ]
+      },
+      "LeaseRecord": {
+        "symbol": "LeaseRecord",
+        "file": "host/plugins/sync-providers/src/lease.ts",
+        "line": 30,
+        "fields": [
+          {
+            "name": "format_version",
+            "optional": false,
+            "type": "number",
+            "line": 31
+          },
+          {
+            "name": "target",
+            "optional": false,
+            "type": "string",
+            "line": 32
+          },
+          {
+            "name": "holder_device_id",
+            "optional": false,
+            "type": "string",
+            "line": 33
+          },
+          {
+            "name": "operation_id",
+            "optional": false,
+            "type": "string",
+            "line": 34
+          },
+          {
+            "name": "created_at",
+            "optional": false,
+            "type": "string",
+            "line": 35
+          },
+          {
+            "name": "expires_at",
+            "optional": false,
+            "type": "string",
+            "line": 36
+          },
+          {
+            "name": "activation_committed",
+            "optional": false,
+            "type": "boolean",
+            "line": 37
+          }
+        ]
+      },
+      "CloudStorageConfig": {
+        "symbol": "CloudStorageConfig",
+        "file": "contracts/ipc/generated/_shared.ts",
+        "line": 53,
+        "fields": [
+          {
+            "name": "provider",
+            "optional": true,
+            "type": "StorageProvider",
+            "line": 54
+          },
+          {
+            "name": "webdav",
+            "optional": true,
+            "type": "WebDavConfig | null",
+            "line": 55
+          },
+          {
+            "name": "s3",
+            "optional": true,
+            "type": "S3Config | null",
+            "line": 56
+          },
+          {
+            "name": "ftp",
+            "optional": true,
+            "type": "FtpConfig | null",
+            "line": 57
+          },
+          {
+            "name": "root",
+            "optional": true,
+            "type": "string | null",
+            "line": 58
+          },
+          {
+            "name": "encryptionPassword",
+            "optional": true,
+            "type": "string | null",
+            "line": 59
+          }
+        ]
+      },
+      "WebDavConfig": {
+        "symbol": "WebDavConfig",
+        "file": "contracts/ipc/generated/_shared.ts",
+        "line": 455,
+        "fields": [
+          {
+            "name": "endpoint",
+            "optional": false,
+            "type": "string",
+            "line": 456
+          },
+          {
+            "name": "username",
+            "optional": false,
+            "type": "string",
+            "line": 457
+          },
+          {
+            "name": "password",
+            "optional": false,
+            "type": "string",
+            "line": 458
+          }
+        ]
+      },
+      "S3Config": {
+        "symbol": "S3Config",
+        "file": "contracts/ipc/generated/_shared.ts",
+        "line": 276,
+        "fields": [
+          {
+            "name": "endpoint",
+            "optional": false,
+            "type": "string",
+            "line": 277
+          },
+          {
+            "name": "bucket",
+            "optional": false,
+            "type": "string",
+            "line": 278
+          },
+          {
+            "name": "accessKeyId",
+            "optional": false,
+            "type": "string",
+            "line": 279
+          },
+          {
+            "name": "secretAccessKey",
+            "optional": false,
+            "type": "string",
+            "line": 280
+          },
+          {
+            "name": "region",
+            "optional": true,
+            "type": "string | null",
+            "line": 281
+          },
+          {
+            "name": "pathStyle",
+            "optional": true,
+            "type": "boolean",
+            "line": 282
+          }
+        ]
+      },
+      "FtpConfig": {
+        "symbol": "FtpConfig",
+        "file": "contracts/ipc/generated/_shared.ts",
+        "line": 146,
+        "fields": [
+          {
+            "name": "host",
+            "optional": false,
+            "type": "string",
+            "line": 147
+          },
+          {
+            "name": "port",
+            "optional": true,
+            "type": "number",
+            "line": 148
+          },
+          {
+            "name": "username",
+            "optional": false,
+            "type": "string",
+            "line": 149
+          },
+          {
+            "name": "password",
+            "optional": false,
+            "type": "string",
+            "line": 150
+          },
+          {
+            "name": "useTls",
+            "optional": true,
+            "type": "boolean",
+            "line": 151
+          }
+        ]
+      },
+      "SyncExecutionResponse": {
+        "symbol": "SyncExecutionResponse",
+        "file": "contracts/ipc/generated/L20-sync.ts",
+        "line": 108,
+        "fields": [
+          {
+            "name": "success",
+            "optional": false,
+            "type": "boolean",
+            "line": 109
+          },
+          {
+            "name": "direction",
+            "optional": false,
+            "type": "string",
+            "line": 110
+          },
+          {
+            "name": "changes_uploaded",
+            "optional": false,
+            "type": "number",
+            "line": 111
+          },
+          {
+            "name": "changes_downloaded",
+            "optional": false,
+            "type": "number",
+            "line": 112
+          },
+          {
+            "name": "conflicts_detected",
+            "optional": false,
+            "type": "number",
+            "line": 113
+          },
+          {
+            "name": "duration_ms",
+            "optional": false,
+            "type": "number",
+            "line": 114
+          },
+          {
+            "name": "device_id",
+            "optional": false,
+            "type": "string",
+            "line": 115
+          },
+          {
+            "name": "error_message",
+            "optional": false,
+            "type": "string | null",
+            "line": 116
+          },
+          {
+            "name": "skipped_changes",
+            "optional": false,
+            "type": "number",
+            "line": 117
+          }
+        ]
+      }
+    },
+    "changePayloadFieldOrder": [
+      "table_name",
+      "record_id",
+      "operation",
+      "data",
+      "changed_at",
+      "change_log_id",
+      "database_name",
+      "suppress_change_log",
+      "source_device_id",
+      "source_seq"
+    ],
+    "changePayloadEnvelope": [
+      "changes",
+      "total_count",
+      "device_id",
+      "format_version",
+      "source_seq",
+      "source_device_id",
+      "operation_id"
+    ],
+    "changePayloadSource": {
+      "source": "desktop",
+      "file": "host/plugins/sync/src/upload-changes.ts",
+      "line": 85,
+      "symbol": "uploadEnrichedChanges"
+    },
+    "serialization": {
+      "source": "desktop",
+      "file": "host/plugins/sync/src/change-payload.ts",
+      "line": 40,
+      "symbol": "serializeSyncChange",
+      "text": "export function serializeSyncChange(change: EngineChange): string {"
+    }
+  },
+  "manifest": {
+    "types": {
+      "SyncManifest": {
+        "symbol": "SyncManifest",
+        "file": "host/plugins/sync/src/merge.ts",
+        "line": 20,
+        "fields": [
+          {
+            "name": "sync_transaction_id",
+            "optional": false,
+            "type": "string",
+            "line": 21
+          },
+          {
+            "name": "databases",
+            "optional": false,
+            "type": "Record<string, DatabaseSyncState>",
+            "line": 22
+          },
+          {
+            "name": "status",
+            "optional": false,
+            "type": "SyncTransactionStatus",
+            "line": 23
+          },
+          {
+            "name": "created_at",
+            "optional": false,
+            "type": "string",
+            "line": 24
+          },
+          {
+            "name": "device_id",
+            "optional": false,
+            "type": "string",
+            "line": 25
+          },
+          {
+            "name": "format_version",
+            "optional": false,
+            "type": "number",
+            "line": 26
+          },
+          {
+            "name": "published_max_seq",
+            "optional": false,
+            "type": "number | bigint",
+            "line": 27
+          },
+          {
+            "name": "cursors",
+            "optional": false,
+            "type": "Record<string, number | bigint>",
+            "line": 28
+          },
+          {
+            "name": "superseded_by",
+            "optional": true,
+            "type": "string | null",
+            "line": 29
+          },
+          {
+            "name": "snapshot_seen",
+            "optional": false,
+            "type": "Record<string, string>",
+            "line": 30
+          }
+        ]
+      },
+      "DatabaseSyncState": {
+        "symbol": "DatabaseSyncState",
+        "file": "host/plugins/sync/src/merge.ts",
+        "line": 12,
+        "fields": [
+          {
+            "name": "schema_version",
+            "optional": false,
+            "type": "number",
+            "line": 13
+          },
+          {
+            "name": "data_version",
+            "optional": false,
+            "type": "number | bigint",
+            "line": 14
+          },
+          {
+            "name": "checksum",
+            "optional": false,
+            "type": "string",
+            "line": 15
+          },
+          {
+            "name": "last_updated_at",
+            "optional": true,
+            "type": "string | null",
+            "line": 16
+          }
+        ]
+      }
+    },
+    "keys": {
+      "current": "data_governance/manifests/<deviceIdShortHash16>.json",
+      "legacy": "undefined/<deviceId>.json",
+      "readers": {
+        "current": {
+          "source": "desktop",
+          "file": "host/plugins/sync/src/remote-manifest.ts",
+          "line": 157,
+          "symbol": "deviceManifestKey"
+        },
+        "legacy": {
+          "source": "desktop",
+          "file": "host/plugins/sync/src/remote-manifest.ts",
+          "line": 162,
+          "symbol": "deviceManifestLegacyKey"
+        }
+      }
+    },
+    "writePath": {
+      "source": "desktop",
+      "file": "host/plugins/sync/src/manifest-upload.ts",
+      "line": 157,
+      "symbol": "uploadManifest"
+    },
+    "readPath": {
+      "source": "desktop",
+      "file": "host/plugins/sync/src/remote-manifest.ts",
+      "line": 173,
+      "symbol": "downloadManifest"
+    },
+    "parseDefaults": {
+      "format_version": 2,
+      "published_max_seq": 0,
+      "cursors": {},
+      "superseded_by": null
+    },
+    "shapes": {
+      "v2-default": {
+        "format_version": 2,
+        "published_max_seq": "0",
+        "cursors": [],
+        "superseded_by": null
+      },
+      "v3": {
+        "format_version": 3,
+        "published_max_seq": "4",
+        "cursors": [],
+        "superseded_by": null
+      },
+      "v4-with-cursor": {
+        "format_version": 4,
+        "published_max_seq": "4",
+        "cursors": [
+          "f0752acd93a07dfa"
+        ],
+        "superseded_by": "device-s010-z"
+      }
+    }
+  },
+  "objectKeys": {
+    "format": {
+      "key": "data_governance/format.json",
+      "source": {
+        "source": "desktop",
+        "file": "host/plugins/sync/src/remote-format.ts",
+        "line": 38,
+        "symbol": "FORMAT_KEY"
+      }
+    },
+    "instance": {
+      "key": "data_governance/instance.json",
+      "source": {
+        "source": "desktop",
+        "file": "host/plugins/sync/src/change-availability.ts",
+        "line": 13,
+        "symbol": "INSTANCE_KEY"
+      }
+    },
+    "manifests": {},
+    "changes": {
+      "v3": "data_governance/changes/{deviceIdShortHash}/{seq:012}-{version}-{uuid}.json.zst",
+      "v4": "data_governance/v4/shards/{deviceIdShortHash}/{seq:012}-{version}-{uuid}.json.zst",
+      "builders": {
+        "v3": {
+          "source": "desktop",
+          "file": "host/plugins/sync/src/change-keys.ts",
+          "line": 21,
+          "symbol": "buildChangeKeyV3"
+        },
+        "v4": {
+          "source": "desktop",
+          "file": "host/plugins/sync/src/change-keys.ts",
+          "line": 24,
+          "symbol": "buildChangeKeyV4"
+        }
+      },
+      "parser": {
+        "source": "desktop",
+        "file": "host/plugins/sync/src/change-keys.ts",
+        "line": 44,
+        "symbol": "parseChangeKey"
+      }
+    },
+    "lease": {
+      "key": "undefined/{operationId}.json"
+    },
+    "encryptionMarker": {
+      "key": ".encryption-marker",
+      "version": 2,
+      "source": {
+        "source": "desktop",
+        "file": "host/plugins/sync-providers/src/sync_manager.ts",
+        "line": 58,
+        "symbol": "ENCRYPTION_MARKER_FILE"
+      }
+    },
+    "files": {
+      "preferences": "data_governance/preferences/{encodeURIComponent(deviceId)}.json",
+      "blobs": "data_governance/blobs/{relativePath}",
+      "blobsManifest": "data_governance/blobs_manifest.json",
+      "blobManifests": "data_governance/file_manifests/blobs",
+      "assets": "undefined/{key}",
+      "assetLegacyManifest": "data_governance/assets_manifest.json",
+      "workspaces": "data_governance/workspaces/{id}.db",
+      "workspaceManifests": "data_governance/file_manifests/workspaces",
+      "tombstones": {}
+    },
+    "samples": [
+      {
+        "kind": "v3",
+        "key": "data_governance/changes/f0752acd93a07dfa/000000000007-<epochSeconds>-<uuid>.json.zst",
+        "parsed": {
+          "kind": "v3",
+          "deviceId": "16hex",
+          "seq": "7",
+          "version": "1700000000"
+        }
+      },
+      {
+        "kind": "v4",
+        "key": "data_governance/v4/shards/f0752acd93a07dfa/000000000007-<epochSeconds>-<uuid>.json.zst",
+        "parsed": {
+          "kind": "v4Shard",
+          "deviceId": "16hex",
+          "seq": "7",
+          "version": "1700000000"
+        }
+      },
+      {
+        "kind": "legacy",
+        "key": "data_governance/changes/<pathId>/1700000000.json.zst",
+        "parsed": {
+          "kind": "legacy",
+          "version": "1700000000"
+        }
+      },
+      {
+        "kind": "legacy",
+        "key": "data_governance/changes/<pathId>/1700000000-abc.json",
+        "parsed": {
+          "kind": "legacy",
+          "version": "1700000000"
+        }
+      }
+    ]
+  },
+  "compression": {
+    "algorithm": "zstd",
+    "level": 0,
+    "frameMagic": "28b52ffd",
+    "appliedTo": "change payload JSON；format.json/manifest/instance 为明文 JSON（manifest 仅 E2EE 加密）",
+    "source": {
+      "source": "desktop",
+      "file": "host/plugins/sync/src/upload-changes.ts",
+      "line": 88,
+      "symbol": "zstdEncode"
+    }
+  },
+  "encryption": {
+    "kind": "DSBK session (backup_crypto createFileCipherSession)",
+    "plaintextPolicy": "password empty → plaintext allowed only when no .encryption-marker and no local encrypted-root memory",
+    "scope": [
+      "device manifest",
+      "change payload after zstd",
+      "preferences/blobs/assets/workspaces objects"
+    ],
+    "notEncrypted": [
+      "format.json",
+      "instance.json",
+      "lease objects",
+      "encryption-marker"
+    ],
+    "codes": {
+      "passwordRequired": "E_SYNC_E2EE_PASSWORD_REQUIRED",
+      "wrongPassword": "E_SYNC_E2EE_WRONG_PASSWORD",
+      "plaintextRejected": "E_SYNC_E2EE_PLAINTEXT_LEGACY_REJECTED"
+    },
+    "source": {
+      "source": "desktop",
+      "file": "host/plugins/sync/src/payload.ts",
+      "line": 34,
+      "symbol": "createPayloadCodec"
+    }
+  },
+  "versionWindow": {
+    "current": 4,
+    "minCompatible": 3,
+    "compatibilityReleaseDays": 30,
+    "features": [
+      "append_only_tombstones",
+      "v4_change_shards",
+      "verified_compaction_marker",
+      "compatibility_lease"
+    ],
+    "freshDescriptorMinClient": 3,
+    "formatBytes": {
+      "normalizedBytes": 468,
+      "normalizedText": "{\n  \"format_version\": 4,\n  \"min_client\": 3,\n  \"features\": [\n    \"append_only_tombstones\",\n    \"v4_change_shards\",\n    \"verified_compaction_marker\",\n    \"compatibility_lease\"\n  ],\n  \"checkpoint\": {\n    \"generation\": 0,\n    \"shard_cursors\": {},\n    \"complete\": false,\n    \"full_listing_verified\": false\n  },\n  \"compatibility_lease\": {\n    \"holder_device_id\": \"device-s010-a\",\n    \"operation_id\": \"<uuid>\",\n    \"expires_at\": \"<rfc3339>\",\n    \"min_writer_version\": 3\n  }\n}",
+      "sha256": "359251aa5553fe2901235c42dd13f0c2e0cc9b6c8d7bd8c0b9802be181aa39ec",
+      "note": "sha256 covers the normalized descriptor text; operation_id/expires_at are regenerated on every write"
+    },
+    "v3V4": {
+      "v3AcceptedAsReader": true,
+      "v4ShardsRequireMinReader4": "uploadEnrichedChanges uses negotiated.min_reader_version >= 4",
+      "leaseDowngradeRule": "min_reader stays 3 until lease expiry AND all active manifests format_version >= 4"
+    },
+    "v5": {
+      "symbol": "runSyncV5",
+      "separatelyExported": true,
+      "registered": false,
+      "wire": "sync-v2/ (keyring/packs/segments), not format.json",
+      "activation": "requires cloud_sync.v5_root secret; no plugin command or service method calls it"
+    },
+    "samples": [
+      {
+        "label": "missing-write",
+        "input": null,
+        "willWrite": true,
+        "outcome": {
+          "accepted": true,
+          "format_version": 4,
+          "min_client": 3,
+          "features": [
+            "append_only_tombstones",
+            "v4_change_shards",
+            "verified_compaction_marker",
+            "compatibility_lease"
+          ],
+          "compatibility_lease": {
+            "holder_device_id": "device-s010-a",
+            "min_writer_version": 3,
+            "expires_at_format": "RFC3339 UTC, optional 1-9 fractional digits"
+          },
+          "rewroteFormatObject": true
+        }
+      },
+      {
+        "label": "missing-read",
+        "input": null,
+        "willWrite": false,
+        "outcome": {
+          "accepted": true,
+          "format_version": 3,
+          "min_client": 3,
+          "features": [],
+          "compatibility_lease": null,
+          "rewroteFormatObject": false
+        }
+      },
+      {
+        "label": "format-3",
+        "input": "{\"format_version\":3}",
+        "willWrite": true,
+        "outcome": {
+          "accepted": true,
+          "format_version": 4,
+          "min_client": 3,
+          "features": [
+            "append_only_tombstones",
+            "v4_change_shards",
+            "verified_compaction_marker",
+            "compatibility_lease"
+          ],
+          "compatibility_lease": {
+            "holder_device_id": "device-s010-a",
+            "min_writer_version": 3,
+            "expires_at_format": "RFC3339 UTC, optional 1-9 fractional digits"
+          },
+          "rewroteFormatObject": true
+        }
+      },
+      {
+        "label": "format-4-skeleton",
+        "input": "{\"format_version\":4}",
+        "willWrite": true,
+        "outcome": {
+          "accepted": true,
+          "format_version": 4,
+          "min_client": 3,
+          "features": [],
+          "compatibility_lease": {
+            "holder_device_id": "device-s010-a",
+            "min_writer_version": 3,
+            "expires_at_format": "RFC3339 UTC, optional 1-9 fractional digits"
+          },
+          "rewroteFormatObject": true
+        }
+      },
+      {
+        "label": "format-4-min-4",
+        "input": "{\"format_version\":4,\"min_client\":4}",
+        "willWrite": true,
+        "outcome": {
+          "accepted": true,
+          "format_version": 4,
+          "min_client": 4,
+          "features": [],
+          "compatibility_lease": null,
+          "rewroteFormatObject": false
+        }
+      },
+      {
+        "label": "format-5",
+        "input": "{\"format_version\":5}",
+        "willWrite": true,
+        "outcome": {
+          "accepted": false,
+          "message": "Database error: 远端同步格式 v5（最低 reader v3）高于当前客户端 v4；为避免旧客户端破坏数据，已在写入前拒绝同步"
+        }
+      },
+      {
+        "label": "format-2",
+        "input": "{\"format_version\":2}",
+        "willWrite": true,
+        "outcome": {
+          "accepted": false,
+          "message": "Database error: 远端同步格式 v2 过旧，当前客户端仅兼容 v3-v4"
+        }
+      },
+      {
+        "label": "duplicate-min-client",
+        "input": "{\"min_client\":4,\"min_reader_version\":4}",
+        "willWrite": true,
+        "outcome": {
+          "accepted": false,
+          "message": "Database error: 远端 format.json 损坏: duplicate field `min_client`"
+        }
+      },
+      {
+        "label": "corrupt",
+        "input": "{",
+        "willWrite": true,
+        "outcome": {
+          "accepted": false,
+          "message": "Database error: 远端 format.json 损坏: Expected property name or '}' in JSON at position 1 (line 1 column 2)"
+        }
+      }
+    ]
+  },
+  "providers": [
+    {
+      "provider": "webdav",
+      "desktop": {
+        "accepted": true,
+        "providerName": "WebDAV",
+        "bindingHint": "webdav|endpoint=https://sync.invalid/dav|user=<redacted>|root=deep-student-sync"
+      },
+      "mobile": {
+        "accepted": true,
+        "providerName": "WebDAV",
+        "bindingHint": "webdav|endpoint=https://sync.invalid/dav|user=<redacted>|root=deep-student-sync"
+      },
+      "port": "HTTP(S) per endpoint; no separate port field",
+      "transport": "host/plugins/sync-providers/src/webdav.ts",
+      "capabilities": [
+        "put",
+        "get",
+        "listOutcome",
+        "stat",
+        "delete",
+        "putFile",
+        "getFile"
+      ]
+    },
+    {
+      "provider": "s3",
+      "desktop": {
+        "accepted": true,
+        "providerName": "S3",
+        "bindingHint": "s3|endpoint=https://s3.invalid|bucket=b|root=deep-student-sync"
+      },
+      "mobile": {
+        "accepted": false,
+        "code": "E_S3_UNSUPPORTED_IN_BUILD",
+        "type": "CommandError",
+        "message": "当前安装包不支持 S3 兼容存储，请改用 WebDAV。"
+      },
+      "port": "HTTP(S) per endpoint; endpoint 中的 bucket 前缀会按已知云厂商归一化",
+      "transport": "host/plugins/sync-providers/src/s3.ts",
+      "capabilities": [
+        "put",
+        "get",
+        "listOutcome",
+        "stat",
+        "delete",
+        "putFile"
+      ]
+    },
+    {
+      "provider": "ftp",
+      "desktop": {
+        "accepted": true,
+        "providerName": "FTP",
+        "bindingHint": "ftp|host=ftp.invalid|port=21|user=<redacted>|tls=true|root=deep-student-sync"
+      },
+      "mobile": {
+        "accepted": false,
+        "code": "E_FTP_UNSUPPORTED_ON_ANDROID",
+        "type": "CommandError",
+        "message": "FTP/FTPS storage is not available on Android."
+      },
+      "port": "config.port ?? 21 (ftps via useTls=true, same port)",
+      "transport": "host/plugins/sync-providers/src/ftp.ts",
+      "capabilities": [
+        "put",
+        "get",
+        "listOutcome",
+        "stat",
+        "delete"
+      ]
+    }
+  ],
+  "platformCapabilities": {
+    "desktop": {
+      "status": "frozen upstream baseline",
+      "source": "host/plugins/sync-providers/index.ts"
+    },
+    "legacyMobile": {
+      "status": "historical-comparison-only",
+      "source": "host/plugins/sync-providers/mobile.ts",
+      "note": "retained as evidence; this unit does not adopt the upstream mobile provider chain",
+      "observed": [
+        {
+          "provider": "webdav",
+          "result": {
+            "accepted": true,
+            "providerName": "WebDAV",
+            "bindingHint": "webdav|endpoint=https://sync.invalid/dav|user=<redacted>|root=deep-student-sync"
+          }
+        },
+        {
+          "provider": "s3",
+          "result": {
+            "accepted": false,
+            "code": "E_S3_UNSUPPORTED_IN_BUILD",
+            "type": "CommandError",
+            "message": "当前安装包不支持 S3 兼容存储，请改用 WebDAV。"
+          }
+        },
+        {
+          "provider": "ftp",
+          "result": {
+            "accepted": false,
+            "code": "E_FTP_UNSUPPORTED_ON_ANDROID",
+            "type": "CommandError",
+            "message": "FTP/FTPS storage is not available on Android."
+          }
+        }
+      ]
+    },
+    "nativeAndroid": {
+      "status": "not-built",
+      "note": "Kotlin/Compose provider implementations arrive in later units; none is claimed here"
+    }
+  },
+  "schemaMatrix": [
+    {
+      "database": "vfs",
+      "schemaVersion": 20261115,
+      "migrationCount": 73,
+      "fingerprint": "c3da4956b07fa60548a8c848a4e7f60fd7f05d10ac936d2396f0fa1920b98d23",
+      "tables": 77,
+      "rowSync": 36,
+      "wireRole": [
+        "manifest databases[]",
+        "change payload database_name",
+        "change key not per-database"
+      ],
+      "productionIterationIndex": 0
+    },
+    {
+      "database": "chat_v2",
+      "schemaVersion": 20261111,
+      "migrationCount": 30,
+      "fingerprint": "2a29bf29771c7381db4cac8cdbad325cddad8d86bc06795a369176e4654e8b7a",
+      "tables": 22,
+      "rowSync": 10,
+      "wireRole": [
+        "manifest databases[]",
+        "change payload database_name",
+        "change key not per-database"
+      ],
+      "productionIterationIndex": 2
+    },
+    {
+      "database": "mistakes",
+      "schemaVersion": 20261005,
+      "migrationCount": 23,
+      "fingerprint": "d3888182592592c3f6a44b5df024e176e846015f264d87daab03ac2e277f49ba",
+      "tables": 23,
+      "rowSync": 11,
+      "wireRole": [
+        "manifest databases[]",
+        "change payload database_name",
+        "change key not per-database"
+      ],
+      "productionIterationIndex": 3
+    },
+    {
+      "database": "llm_usage",
+      "schemaVersion": 20260826,
+      "migrationCount": 8,
+      "fingerprint": "ed69ae106103c3b48460d898be47fdfe12124e26f392e4636d1fe7816beb6245",
+      "tables": 2,
+      "rowSync": 1,
+      "wireRole": [
+        "manifest databases[]",
+        "change payload database_name",
+        "change key not per-database"
+      ],
+      "productionIterationIndex": 1
+    }
+  ],
+  "schemaIterations": {
+    "classificationOrder": [
+      "vfs",
+      "chat_v2",
+      "mistakes",
+      "llm_usage"
+    ],
+    "productionOrder": [
+      "vfs",
+      "llm_usage",
+      "chat_v2",
+      "mistakes"
+    ],
+    "discrepancy": "same set, different order: S0.09 lists vfs/chat_v2/mistakes/llm_usage, production loops vfs/llm_usage/chat_v2/mistakes",
+    "sources": [
+      {
+        "source": "desktop",
+        "file": "host/plugins/sync/src/collect-sync-changes.ts",
+        "line": 12
+      },
+      {
+        "source": "desktop",
+        "file": "host/plugins/sync/src/run-sync.ts",
+        "line": 74
+      },
+      {
+        "source": "desktop",
+        "file": "host/plugins/sync/src/transfer-commands.ts",
+        "line": 30
+      },
+      {
+        "source": "desktop",
+        "file": "host/plugins/sync/repository/apply-databases.ts",
+        "line": 26
+      },
+      {
+        "source": "desktop",
+        "file": "host/plugins/sync/repository/registry-preflight.ts",
+        "line": 74
+      }
+    ]
+  },
+  "scenarios": {
+    "sameSchema": {
+      "scenario": "same-schema-two-devices",
+      "schemaVersion": 20261115,
+      "applicationVersionLabels": {
+        "device-s010-a": "0.20.0",
+        "device-s010-b": "0.21.0"
+      },
+      "applicationVersionScope": "文档标签：两设备使用同一生产 sync 代码；wire/manifest 中没有应用版本字段，因此本场景不证明跨应用二进制兼容",
+      "results": {
+        "aUpload": {
+          "success": true,
+          "direction": "upload",
+          "changes_uploaded": 3,
+          "changes_downloaded": 0,
+          "conflicts_detected": 0,
+          "error_message": null,
+          "device_id": "device-s010-a",
+          "skipped_changes": 0
+        },
+        "bDownload": {
+          "success": true,
+          "direction": "download",
+          "changes_uploaded": 0,
+          "changes_downloaded": 3,
+          "conflicts_detected": 0,
+          "error_message": null,
+          "device_id": "device-s010-b",
+          "skipped_changes": 0
+        },
+        "bUpload": {
+          "success": true,
+          "direction": "upload",
+          "changes_uploaded": 4,
+          "changes_downloaded": 0,
+          "conflicts_detected": 0,
+          "error_message": null,
+          "device_id": "device-s010-b",
+          "skipped_changes": 0
+        },
+        "aDownload": {
+          "success": true,
+          "direction": "download",
+          "changes_uploaded": 0,
+          "changes_downloaded": 4,
+          "conflicts_detected": 0,
+          "error_message": null,
+          "device_id": "device-s010-a",
+          "skipped_changes": 0
+        }
+      },
+      "observations": {
+        "bSawAData": {
+          "id": "note_s010_a",
+          "title": "title from a"
+        },
+        "aSawBEdit": {
+          "id": "note_s010_a",
+          "title": "edited on b"
+        },
+        "aPendingAfterUpload": 0,
+        "bPendingAfterUpload": 0,
+        "cursors": [
+          [
+            "b98d8d9a2efc6f77",
+            "1"
+          ],
+          [
+            "device-s010-b",
+            "1"
+          ]
+        ]
+      },
+      "cloudKeys": [
+        "data_governance/changes/b98d8d9a2efc6f77/000000000001-<epochSeconds>-<uuid>.json.zst",
+        "data_governance/changes/f0752acd93a07dfa/000000000001-<epochSeconds>-<uuid>.json.zst",
+        "data_governance/format.json",
+        "data_governance/instance.json",
+        "data_governance/manifests/b98d8d9a2efc6f77.json",
+        "data_governance/manifests/f0752acd93a07dfa.json",
+        "data_governance/preferences/device-s010-a.json",
+        "data_governance/preferences/device-s010-b.json"
+      ],
+      "passed": true
+    },
+    "mismatch": {
+      "aUpload": {
+        "success": true,
+        "direction": "upload",
+        "changes_uploaded": 3,
+        "changes_downloaded": 0,
+        "conflicts_detected": 0,
+        "error_message": null,
+        "device_id": "device-s010-a",
+        "skipped_changes": 0
+      },
+      "versions": {
+        "cloud": 20261115,
+        "localBeforeUpgrade": 20261111,
+        "previousMigration": 20261111
+      },
+      "rejection": {
+        "scenario": "mismatched-schema-local-older",
+        "cloudSchemaVersion": 20261115,
+        "localSchemaVersion": 20261111,
+        "downgradedDatabase": "vfs",
+        "pendingOrigin": "note_c/res_c inserted on the old vfs schema by this scenario; the mistakes row is the migration-time default deck seed, not reinserted here",
+        "addedColumnOnCloudOnly": null,
+        "uploadReturnedNull": true,
+        "rejection": {
+          "name": "CommandError",
+          "message": "同步 schema 预检失败: Schema mismatch: vfs (local=20261111, cloud=20261115)：本端数据库版本过旧，请升级当前客户端后再同步；已阻止上传以避免降级云端数据"
+        },
+        "controlPlaneWrites": [
+          {
+            "key": "control:targetLease data_governance/locks/sync-target/<operationId>.json",
+            "count": 2
+          }
+        ],
+        "publicationWrites": [],
+        "controlPlaneDeletes": [
+          {
+            "key": "control:targetLease data_governance/locks/sync-target/<operationId>.json",
+            "count": 1
+          }
+        ],
+        "publicationDeletes": [],
+        "publicationWriteCount": 0,
+        "cloudKeysChanged": [],
+        "pendingUnchanged": true,
+        "localRowsUnchanged": true,
+        "audit": [
+          {
+            "direction": "Upload",
+            "outcome": "started",
+            "recordsAffected": 0
+          }
+        ],
+        "passed": true
+      },
+      "upgrade": {
+        "schemaFrom": 20261111,
+        "schemaTo": 20261115,
+        "sameDirectorySameDeviceId": true,
+        "originalPendingCarried": true,
+        "pendingAtUpgrade": [
+          {
+            "id": 1,
+            "table_name": "resources",
+            "record_id": "res_c",
+            "operation": "INSERT",
+            "sync_version": 0
+          },
+          {
+            "id": 2,
+            "table_name": "notes",
+            "record_id": "note_c",
+            "operation": "INSERT",
+            "sync_version": 0
+          }
+        ],
+        "pendingByDatabaseBefore": {
+          "vfs": 2,
+          "llm_usage": 0,
+          "chat_v2": 0,
+          "mistakes": 1
+        },
+        "pendingByDatabaseAfterUpgrade": {
+          "vfs": 2,
+          "llm_usage": 0,
+          "chat_v2": 0,
+          "mistakes": 1
+        },
+        "publishableAfterUpgrade": 3,
+        "pendingAddedByMigration": [],
+        "dataReinserted": false,
+        "upload": {
+          "success": true,
+          "direction": "upload",
+          "changes_uploaded": 3,
+          "changes_downloaded": 0,
+          "conflicts_detected": 0,
+          "error_message": null,
+          "device_id": "device-s010-c",
+          "skipped_changes": 0
+        },
+        "publicationWritesDuringUpgradeUpload": 3,
+        "pendingAfterUpload": 0,
+        "aDownload": {
+          "success": true,
+          "direction": "download",
+          "changes_uploaded": 0,
+          "changes_downloaded": 3,
+          "conflicts_detected": 0,
+          "error_message": null,
+          "device_id": "device-s010-a",
+          "skipped_changes": 0
+        },
+        "aSawNoteC": {
+          "id": "note_c",
+          "resource_id": "res_c",
+          "title": "pending from c"
+        },
+        "passed": true
+      }
+    }
+  },
+  "rules": {
+    "wire": "整数按无损 JSON number/bigint 序列化；manifest/change 外层未知字段按解析器处理，记录 data 的未知列经 unknown-fields vault 保留与回传；null 与省略按各字段的 serde Option 规则比较",
+    "keys": "当前写者使用 deviceIdShortHash16/至少12位seq/epoch秒version/UUID；读取器兼容明文pathId与legacy key，按生产parseChangeKey的路径和数字分支判定，S0.18保存宽松解析边界",
+    "pending": "pending 发布以 __change_log.sync_version=0 为准；schema gate 只阻止业务发布（change/manifest/文件对象），控制面 format/lease 已先写入，pending 与云端游标都不推进",
+    "versions": "应用版本可独立编号，互通只取决于共享 schema 版本 + wire 窗口（format v3–v4）",
+    "v5": "v5 是独立入口与独立对象命名空间；S0.18 golden 与 S0.20 发布窗口不得把 v5 当作已启用"
+  },
+  "checks": {
+    "chainStages": 53,
+    "types": 13,
+    "fields": 79,
+    "providers": 3,
+    "nativeProvidersBuilt": 0,
+    "schemaDatabases": 4,
+    "windowSamples": 9,
+    "sameSchemaPassed": true,
+    "applicationVersionLabelsOnly": true,
+    "mismatchRejectedBeforePublication": true,
+    "mismatchUpgradePublishedPending": true
+  }
+}

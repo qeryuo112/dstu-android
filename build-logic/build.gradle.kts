@@ -1,5 +1,10 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
-    `kotlin-dsl`
+    `java-gradle-plugin`
+    kotlin("jvm") version "2.2.21"
+    // Keep Gradle Action receiver syntax without kotlin-dsl's embedded Kotlin.
+    kotlin("plugin.sam.with.receiver") version "2.2.21"
     checkstyle
 }
 
@@ -12,15 +17,28 @@ java {
     }
 }
 
+kotlin {
+    jvmToolchain(17)
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_17)
+    }
+}
+
+samWithReceiver {
+    annotation("org.gradle.api.HasImplicitReceiver")
+}
+
 dependencies {
+    // java-gradle-plugin does not add the Gradle API to this Kotlin compile classpath.
+    compileOnly(gradleApi())
     implementation(project(":architecture-analyzer"))
     implementation("com.google.code.gson:gson:2.11.0")
 
-    // Both plugins are part of the convention-plugin runtime classpath. The
-    // consumer root build keeps the authoritative catalog versions; these
-    // pins are the S1.01 fixed toolchain and must stay in lockstep.
-    runtimeOnly("com.android.tools.build:gradle:8.13.0")
-    runtimeOnly("org.jetbrains.kotlin:kotlin-gradle-plugin:2.2.21")
+    // Typed compile-time dependencies. They are also runtime dependencies
+    // because the convention plugins must load AGP/KGP in TestKit fixtures and
+    // in the included build. Keep these pins aligned with DstuVersions.
+    implementation("com.android.tools.build:gradle:8.13.0")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:2.2.21")
 
     checkstyle("com.puppycrawl.tools:checkstyle:10.20.1")
     checkstyle(project(":java-complexity-checks"))
@@ -50,6 +68,10 @@ gradlePlugin {
             id = "dstu.architecture"
             implementationClass = "com.deepstudent.buildlogic.architecture.DstuArchitecturePlugin"
         }
+        create("dstuCoverage") {
+            id = "dstu.coverage"
+            implementationClass = "com.deepstudent.buildlogic.quality.DstuCoveragePlugin"
+        }
     }
 }
 
@@ -67,7 +89,7 @@ tasks.validatePlugins {
 }
 
 val checkstyleJavaComplexity = tasks.register<org.gradle.api.plugins.quality.Checkstyle>(
-    "checkstyleJavaComplexity"
+    "checkstyleJavaComplexity",
 ) {
     group = "verification"
     description = "Checks build-logic Java tools with fixed Checkstyle AST limits."
@@ -79,11 +101,11 @@ val checkstyleJavaComplexity = tasks.register<org.gradle.api.plugins.quality.Che
     reports {
         xml.required.set(true)
         xml.outputLocation.set(
-            layout.buildDirectory.file("reports/checkstyle/java-complexity.xml")
+            layout.buildDirectory.file("reports/checkstyle/java-complexity.xml"),
         )
         html.required.set(true)
         html.outputLocation.set(
-            layout.buildDirectory.file("reports/checkstyle/java-complexity.html")
+            layout.buildDirectory.file("reports/checkstyle/java-complexity.html"),
         )
     }
 }

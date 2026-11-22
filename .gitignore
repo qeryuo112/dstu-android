@@ -1,0 +1,12 @@
+.gradle/
+.kotlin/
+**/build/
+node_modules/
+local.properties
+*.db
+*.db-shm
+*.db-wal
+*.tmp
+
+# Evidence logs are local-only. The portable index lives in docs/evidence/.
+/logs/

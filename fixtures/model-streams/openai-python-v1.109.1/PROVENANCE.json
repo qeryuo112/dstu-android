@@ -1,0 +1,48 @@
+{
+  "formatVersion": 1,
+  "repository": "https://github.com/openai/openai-python",
+  "tag": "v1.109.1",
+  "commit": "a1493f92a7cd4399d57046aadc943aeadda5b8e7",
+  "testFile": "tests/lib/chat/test_completions_streaming.py",
+  "testFileSha256": "1f4b71f04632425350b85ef0ac128f7976c58dcef11725d8babd1eeee321d9f1",
+  "testFileCopy": "test_completions_streaming.py",
+  "testFileCopyBytes": 37830,
+  "archive": {
+    "url": "https://codeload.github.com/openai/openai-python/tar.gz/a1493f92a7cd4399d57046aadc943aeadda5b8e7",
+    "sha256": "cf7b1184608c2c7f0c3042fb60700d26e9615a2fc9d26895afac8806b4582823"
+  },
+  "license": {
+    "spdx": "Apache-2.0",
+    "file": "LICENSE",
+    "sha256": "d711ed37bb19ae7249af8d093b8fc6ea758fd3554b92ac61500c1ad3cc0e3fb9"
+  },
+  "captureEvidence": "The upstream test source says: all the snapshots in this file are auto-generated from the live API.",
+  "captureEvidenceLine": 39,
+  "downloadMethod": "Direct HTTPS download through the local operator-provided proxy; no OpenAI API request, credential, or paid call was made.",
+  "fixtures": [
+    {
+      "file": "e2aad469b71d1d4894ff833ea147020a9d875eb7ce644a0ff355581690a4cbfd.sse",
+      "upstreamFile": ".inline-snapshot/external/e2aad469b71d1d4894ff833ea147020a9d875eb7ce644a0ff355581690a4cbfd.bin",
+      "upstreamTest": "test_parse_nothing",
+      "bytes": 8761,
+      "sha256": "e2aad469b71d1d4894ff833ea147020a9d875eb7ce644a0ff355581690a4cbfd",
+      "contentKind": "assistant-text"
+    },
+    {
+      "file": "7e5ea4d12e7cc064399b6631415e65923f182256b6e6b752950a3aaa2ad2320a.sse",
+      "upstreamFile": ".inline-snapshot/external/7e5ea4d12e7cc064399b6631415e65923f182256b6e6b752950a3aaa2ad2320a.bin",
+      "upstreamTest": "test_parse_pydantic_model",
+      "bytes": 4537,
+      "sha256": "7e5ea4d12e7cc064399b6631415e65923f182256b6e6b752950a3aaa2ad2320a",
+      "contentKind": "json-text"
+    },
+    {
+      "file": "a247c49c5fcd492bfb7a02a3306ad615ed8d8f649888ebfddfbc3ee151f44d46.sse",
+      "upstreamFile": ".inline-snapshot/external/a247c49c5fcd492bfb7a02a3306ad615ed8d8f649888ebfddfbc3ee151f44d46.bin",
+      "upstreamTest": "test_parse_strict_tools",
+      "bytes": 4046,
+      "sha256": "a247c49c5fcd492bfb7a02a3306ad615ed8d8f649888ebfddfbc3ee151f44d46",
+      "contentKind": "tool-call"
+    }
+  ]
+}

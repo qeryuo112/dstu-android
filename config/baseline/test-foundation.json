@@ -1,0 +1,27 @@
+{
+  "formatVersion": 1,
+  "unit": "S0.17",
+  "artifacts": [
+    {
+      "file": "config/baseline/corpus.json",
+      "sha256": "5d53ebeb27bc351bf95463ca23634e6bb067ffe6a10647004d86e3cf0aeaab2b"
+    },
+    {
+      "file": "config/baseline/measurement.json",
+      "sha256": "59bcf9e842ef832e16f57cb4eb4bea8ffcde101da95363ea24c299d0c1f940f4"
+    },
+    {
+      "file": "config/baseline/model-recordings.json",
+      "sha256": "ed6586f42ecf204b4f1dd705773d711f7aeed0b1090ea60be1abfb375e4fc5e1"
+    }
+  ],
+  "measurement": {
+    "profiles": 5,
+    "measurementProtocols": 6,
+    "percentileCases": 5,
+    "connectedDevicesAtObservation": 1,
+    "avdsAtObservation": 0,
+    "androidPerformanceClaimed": false
+  },
+  "androidImplementation": "S1 onward; this unit supplies source-bound corpora and measurement protocols"
+}

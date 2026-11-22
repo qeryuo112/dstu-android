@@ -1,0 +1,13 @@
+app 1 com.deepstudent.app.storage.DataSpaceCompositionDeviceTest
+app 1 com.deepstudent.app.ui.DataSpaceMaintenanceUiDeviceTest
+app 1 com.deepstudent.app.ui.MigrationMaintenanceUiDeviceTest
+app 2 com.deepstudent.app.storage.SharedResourceStorageDeviceTest
+app 4 com.deepstudent.app.storage.AssetLedgerCompositionDeviceTest
+storage 13 com.deepstudent.platform.storage.DataSpaceAndroidTest
+death STAGING_PREPARED old
+death STAGING_VALIDATED old
+death STAGING_DURABLE old
+death POINTER_TEMP_DURABLE old
+death POINTER_REPLACED new
+death POINTER_DURABLE new
+death COMMIT_RECORDED new

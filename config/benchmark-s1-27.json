@@ -1,0 +1,231 @@
+{
+  "formatVersion": 1,
+  "unit": "S1.27",
+  "status": "provisional-until-three-physical-devices-calibrated",
+  "policy": {
+    "warmup": 3,
+    "iterations": 30,
+    "percentile": "nearest-rank",
+    "missingIsNotPass": true,
+    "syntheticIsNeverDeviceEvidence": true,
+    "frozenDeviceIdentityRequired": true,
+    "frozenBudgetRequiredForAcceptance": true,
+    "privacy": "Never store serials, Android IDs, credentials, private content, or endpoint URLs in committed evidence."
+  },
+  "corpus": {
+    "id": "s1-27-notes-v1",
+    "generator": "tools/s1/benchmark-corpus.mjs",
+    "noteCount": 64,
+    "sha256": "2e70cb23f302b8d415b1dbd8ceca1460fb1c68928280e0f5bd5ba0a02e61be45",
+    "encoding": "title, content, tag in note order; each UTF-8 byte string prefixed by ASCII decimal byte length and colon"
+  },
+  "syncCorpus": {
+    "id": "s1-27-desktop-roundtrip-v1",
+    "requirements": "Each iteration resets only the isolated benchmark APK data and uses the frozen desktop production encrypted WebDAV fixture (S1.26): one desktop note and a 1048593-byte attachment, plus one Android local pending note. Pairing, reset, fixture setup and both-direction verification are outside the timed Android UI action. No mock, private corpus or normal application data.",
+    "sha256": "9349ef4b22df04c6b9696d4f3521be9b35762738623360ff45bd06120cb64ee9"
+  },
+  "terminalCorpus": {
+    "id": "s1-27-pty-v1",
+    "outputLines": 128,
+    "outputLineAscii": "0123456789abcdef\\n",
+    "expectedOutputBytes": 2176,
+    "completion": "unique marker produced by shell printf escapes, observed in the actual terminal viewport; shell echo is not the completion marker"
+  },
+  "devices": [
+    {
+      "id": "low-memory-phone",
+      "form": "phone",
+      "api": [
+        26,
+        28
+      ],
+      "abi": "arm64-v8a",
+      "ramMiB": [
+        2048,
+        3072
+      ],
+      "smallestWidthDp": [
+        320,
+        411
+      ],
+      "pageSize": 4096,
+      "lock": null
+    },
+    {
+      "id": "midrange-phone",
+      "form": "phone",
+      "api": [
+        33,
+        36
+      ],
+      "abi": "arm64-v8a",
+      "ramMiB": [
+        4096,
+        8192
+      ],
+      "smallestWidthDp": [
+        360,
+        480
+      ],
+      "pageSize": 4096,
+      "lock": null
+    },
+    {
+      "id": "tablet-foldable",
+      "form": "tablet-foldable",
+      "api": [
+        34,
+        36
+      ],
+      "abi": "arm64-v8a",
+      "ramMiB": [
+        6144,
+        16384
+      ],
+      "smallestWidthDp": [
+        600,
+        960
+      ],
+      "pageSize": 4096,
+      "lock": null,
+      "previouslyObservedFingerprint": "vivo/DPD2329M/DPD2329:16/BP2A.250605.031.A3/compiler260701181748:user/release-keys"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "cold-start-ttid-ms",
+      "unit": "ms",
+      "direction": "lower",
+      "measurement": "Official androidx.benchmark.macro StartupTimingMetric with StartupMode.COLD: timeToInitialDisplayMs; am start -W is smoke only and cannot populate this metric.",
+      "budgets": {
+        "low-memory-phone": {
+          "p50": 3000,
+          "p95": 5000
+        },
+        "midrange-phone": {
+          "p50": 1800,
+          "p95": 3000
+        },
+        "tablet-foldable": {
+          "p50": 1800,
+          "p95": 3000
+        }
+      },
+      "method": "androidx.benchmark.macro.StartupTimingMetric/COLD"
+    },
+    {
+      "id": "cold-start-ttfd-ms",
+      "unit": "ms",
+      "direction": "lower",
+      "measurement": "Official androidx.benchmark.macro StartupTimingMetric with StartupMode.COLD: timeToFullDisplayMs after real page reports fully drawn; missing reportFullyDrawn is missing evidence, not TTID substitution.",
+      "method": "androidx.benchmark.macro.StartupTimingMetric/COLD",
+      "budgets": {
+        "low-memory-phone": {
+          "p50": 4000,
+          "p95": 6500
+        },
+        "midrange-phone": {
+          "p50": 2500,
+          "p95": 4000
+        },
+        "tablet-foldable": {
+          "p50": 2500,
+          "p95": 4000
+        }
+      }
+    },
+    {
+      "id": "notes-scroll-frame-p95-ms",
+      "unit": "ms",
+      "direction": "lower",
+      "measurement": "P95 of complete frame TOTAL_DURATION samples per four-gesture notes-list trial; report P50/P95 of the 30 trial P95s and pooled raw frame percentiles",
+      "minimumFramesPerIteration": 5,
+      "budgets": {
+        "low-memory-phone": {
+          "p50": 32,
+          "p95": 50
+        },
+        "midrange-phone": {
+          "p50": 24,
+          "p95": 40
+        },
+        "tablet-foldable": {
+          "p50": 24,
+          "p95": 40
+        }
+      }
+    },
+    {
+      "id": "notes-scroll-peak-pss-mib",
+      "unit": "MiB",
+      "direction": "lower",
+      "measurement": "Maximum main-process Debug.getPss() at approximately 100 ms intervals during each notes-list trial; sampled peak, not an instantaneous global-process peak",
+      "budgets": {
+        "low-memory-phone": {
+          "p50": 320,
+          "p95": 400
+        },
+        "midrange-phone": {
+          "p50": 450,
+          "p95": 550
+        },
+        "tablet-foldable": {
+          "p50": 550,
+          "p95": 700
+        }
+      }
+    },
+    {
+      "id": "sync-apply-ms",
+      "unit": "ms",
+      "direction": "lower",
+      "measurement": "Actual Android sync page click through terminal COMPLETE against a restored fixed public two-way desktop fixture; desktop verifies the resulting roundtrip outside the timed interval",
+      "budgets": {
+        "low-memory-phone": {
+          "p50": 12000,
+          "p95": 20000
+        },
+        "midrange-phone": {
+          "p50": 8000,
+          "p95": 14000
+        },
+        "tablet-foldable": {
+          "p50": 8000,
+          "p95": 14000
+        }
+      }
+    },
+    {
+      "id": "terminal-roundtrip-ms",
+      "unit": "ms",
+      "direction": "lower",
+      "measurement": "Actual terminal page: send fixed PTY command to unique completion marker rendered in viewport; includes app and UI observation",
+      "budgets": {
+        "low-memory-phone": {
+          "p50": 1500,
+          "p95": 3000
+        },
+        "midrange-phone": {
+          "p50": 1000,
+          "p95": 2000
+        },
+        "tablet-foldable": {
+          "p50": 1000,
+          "p95": 2000
+        }
+      }
+    }
+  ],
+  "costEvidence": {
+    "requiredReports": [
+      "architecture-graph",
+      "complexity-psi",
+      "detekt"
+    ],
+    "requiredTimedCommands": [
+      "build",
+      "test"
+    ],
+    "note": "Record actual command, exit status, monotonic elapsed time, source fingerprint and report SHA-256; old or mismatched artifacts are missing, not current evidence."
+  }
+}

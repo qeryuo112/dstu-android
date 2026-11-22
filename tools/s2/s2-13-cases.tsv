@@ -1,0 +1,3 @@
+platform	10	com.deepstudent.platform.security.AndroidKeystoreDeviceTest,com.deepstudent.platform.security.KeystoreInvalidationDeviceTest
+ui	7	com.deepstudent.features.sync.ui.SyncPanelStatesTest,com.deepstudent.features.sync.ui.SyncPanelTest
+app	6	com.deepstudent.app.security.MainSecurityResourcesDeviceTest,com.deepstudent.app.sync.MainSyncResourcesDeviceTest

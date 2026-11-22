@@ -1,0 +1,350 @@
+{
+  "version": "3.0.0",
+  "app_version": "0.0.0-test",
+  "created_at": "2026-01-01T00:00:00Z",
+  "platform": "linux",
+  "schema_versions": {},
+  "files": [
+    {
+      "path": "vfs.db",
+      "size": 10,
+      "sha256": "101ac41b5ec65f8503f5019400afd74e559660ee4493719520d7ee6ed640ea4b",
+      "database_id": "vfs"
+    },
+    {
+      "path": "llm_usage.db",
+      "size": 16,
+      "sha256": "de2e23a68941a64d894816726dcfe971460f65a559ed7687d8021aa318c49323",
+      "database_id": "llm_usage"
+    },
+    {
+      "path": "chat_v2.db",
+      "size": 14,
+      "sha256": "bd2fc88d99fdc6ac13806f3439fe78846eb5e34709df003b77f2e519db1556f3",
+      "database_id": "chat_v2"
+    },
+    {
+      "path": "mistakes.db",
+      "size": 15,
+      "sha256": "4cd3911c1d11c063e8df7be9fe666d7da70d999f7bdd9a95dbf05f655d8a07d1",
+      "database_id": "mistakes"
+    }
+  ],
+  "is_incremental": false,
+  "incremental_base": null,
+  "backup_id": "s210-desktop-full",
+  "snapshot_kind": "full",
+  "snapshot_epoch": "00000000-0000-4000-8000-000000000001",
+  "required_components": [
+    "agents",
+    "asset-root:audio",
+    "asset-root:documents",
+    "asset-root:images",
+    "asset-root:notes_assets",
+    "asset-root:pdf_ocr_sessions",
+    "asset-root:subjects",
+    "asset-root:textbooks",
+    "asset-root:vfs_blobs",
+    "asset-root:videos",
+    "asset-root:workspaces",
+    "audit",
+    "crypto",
+    "custom-grading-modes",
+    "database:chat_v2",
+    "database:llm_usage",
+    "database:mistakes",
+    "database:vfs",
+    "user-skills",
+    "webview-settings",
+    "workspaces-root"
+  ],
+  "included_components": [
+    "agents",
+    "asset-root:audio",
+    "asset-root:documents",
+    "asset-root:images",
+    "asset-root:notes_assets",
+    "asset-root:pdf_ocr_sessions",
+    "asset-root:subjects",
+    "asset-root:textbooks",
+    "asset-root:vfs_blobs",
+    "asset-root:videos",
+    "asset-root:workspaces",
+    "audit",
+    "crypto",
+    "custom-grading-modes",
+    "database:chat_v2",
+    "database:llm_usage",
+    "database:mistakes",
+    "database:vfs",
+    "user-skills",
+    "webview-settings",
+    "workspaces-root"
+  ],
+  "key_policy": "not_present",
+  "coverage": {
+    "version": 1,
+    "domains": {
+      "database:vfs": {
+        "status": "complete",
+        "paths": [
+          "vfs.db"
+        ],
+        "file_count": 1,
+        "total_size": 10,
+        "executable": false,
+        "optional": false,
+        "encrypted": false,
+        "restore_target": "databases/vfs.db",
+        "restore_scope": "active_data_space",
+        "restore_trust": "data"
+      },
+      "database:llm_usage": {
+        "status": "complete",
+        "paths": [
+          "llm_usage.db"
+        ],
+        "file_count": 1,
+        "total_size": 16,
+        "executable": false,
+        "optional": false,
+        "encrypted": false,
+        "restore_target": "llm_usage.db",
+        "restore_scope": "active_data_space",
+        "restore_trust": "data"
+      },
+      "database:chat_v2": {
+        "status": "complete",
+        "paths": [
+          "chat_v2.db"
+        ],
+        "file_count": 1,
+        "total_size": 14,
+        "executable": false,
+        "optional": false,
+        "encrypted": false,
+        "restore_target": "chat_v2.db",
+        "restore_scope": "active_data_space",
+        "restore_trust": "data"
+      },
+      "database:mistakes": {
+        "status": "complete",
+        "paths": [
+          "mistakes.db"
+        ],
+        "file_count": 1,
+        "total_size": 15,
+        "executable": false,
+        "optional": false,
+        "encrypted": false,
+        "restore_target": "mistakes.db",
+        "restore_scope": "active_data_space",
+        "restore_trust": "data"
+      },
+      "workspaces-root": {
+        "status": "absent",
+        "paths": [],
+        "file_count": 0,
+        "total_size": 0,
+        "executable": false,
+        "optional": true,
+        "encrypted": false,
+        "restore_target": "workspaces",
+        "restore_scope": "active_data_space",
+        "restore_trust": "data"
+      },
+      "asset-root:images": {
+        "status": "absent",
+        "paths": [],
+        "file_count": 0,
+        "total_size": 0,
+        "executable": false,
+        "optional": true,
+        "encrypted": false,
+        "restore_target": "images",
+        "restore_scope": "active_data_space",
+        "restore_trust": "data"
+      },
+      "asset-root:notes_assets": {
+        "status": "absent",
+        "paths": [],
+        "file_count": 0,
+        "total_size": 0,
+        "executable": false,
+        "optional": true,
+        "encrypted": false,
+        "restore_target": "notes_assets",
+        "restore_scope": "active_data_space",
+        "restore_trust": "data"
+      },
+      "asset-root:documents": {
+        "status": "absent",
+        "paths": [],
+        "file_count": 0,
+        "total_size": 0,
+        "executable": false,
+        "optional": true,
+        "encrypted": false,
+        "restore_target": "documents",
+        "restore_scope": "active_data_space",
+        "restore_trust": "data"
+      },
+      "asset-root:vfs_blobs": {
+        "status": "absent",
+        "paths": [],
+        "file_count": 0,
+        "total_size": 0,
+        "executable": false,
+        "optional": true,
+        "encrypted": false,
+        "restore_target": "vfs_blobs",
+        "restore_scope": "active_data_space",
+        "restore_trust": "data"
+      },
+      "asset-root:subjects": {
+        "status": "absent",
+        "paths": [],
+        "file_count": 0,
+        "total_size": 0,
+        "executable": false,
+        "optional": true,
+        "encrypted": false,
+        "restore_target": "subjects",
+        "restore_scope": "active_data_space",
+        "restore_trust": "data"
+      },
+      "asset-root:workspaces": {
+        "status": "absent",
+        "paths": [],
+        "file_count": 0,
+        "total_size": 0,
+        "executable": false,
+        "optional": true,
+        "encrypted": false,
+        "restore_target": "workspaces",
+        "restore_scope": "active_data_space",
+        "restore_trust": "data"
+      },
+      "asset-root:audio": {
+        "status": "absent",
+        "paths": [],
+        "file_count": 0,
+        "total_size": 0,
+        "executable": false,
+        "optional": true,
+        "encrypted": false,
+        "restore_target": "audio",
+        "restore_scope": "active_data_space",
+        "restore_trust": "data"
+      },
+      "asset-root:videos": {
+        "status": "absent",
+        "paths": [],
+        "file_count": 0,
+        "total_size": 0,
+        "executable": false,
+        "optional": true,
+        "encrypted": false,
+        "restore_target": "videos",
+        "restore_scope": "active_data_space",
+        "restore_trust": "data"
+      },
+      "asset-root:textbooks": {
+        "status": "absent",
+        "paths": [],
+        "file_count": 0,
+        "total_size": 0,
+        "executable": false,
+        "optional": true,
+        "encrypted": false,
+        "restore_target": "textbooks",
+        "restore_scope": "active_data_space",
+        "restore_trust": "data"
+      },
+      "asset-root:pdf_ocr_sessions": {
+        "status": "absent",
+        "paths": [],
+        "file_count": 0,
+        "total_size": 0,
+        "executable": false,
+        "optional": true,
+        "encrypted": false,
+        "restore_target": "pdf_ocr_sessions",
+        "restore_scope": "active_data_space",
+        "restore_trust": "data"
+      },
+      "crypto": {
+        "status": "absent",
+        "paths": [],
+        "file_count": 0,
+        "total_size": 0,
+        "executable": false,
+        "optional": true,
+        "encrypted": true,
+        "restore_target": ".",
+        "restore_scope": "application_data",
+        "restore_trust": "explicit"
+      },
+      "audit": {
+        "status": "absent",
+        "paths": [],
+        "file_count": 0,
+        "total_size": 0,
+        "executable": false,
+        "optional": true,
+        "encrypted": false,
+        "restore_target": "databases/audit.db",
+        "restore_scope": "application_data",
+        "restore_trust": "explicit"
+      },
+      "webview-settings": {
+        "status": "absent",
+        "paths": [],
+        "file_count": 0,
+        "total_size": 0,
+        "executable": false,
+        "optional": true,
+        "encrypted": false,
+        "restore_target": "webview_settings.json",
+        "restore_scope": "active_data_space",
+        "restore_trust": "data"
+      },
+      "custom-grading-modes": {
+        "status": "absent",
+        "paths": [],
+        "file_count": 0,
+        "total_size": 0,
+        "executable": false,
+        "optional": true,
+        "encrypted": false,
+        "restore_target": "custom_grading_modes.json",
+        "restore_scope": "active_data_space",
+        "restore_trust": "data"
+      },
+      "agents": {
+        "status": "absent",
+        "paths": [],
+        "file_count": 0,
+        "total_size": 0,
+        "executable": true,
+        "optional": true,
+        "encrypted": false,
+        "restore_target": "workspaces/agents",
+        "restore_scope": "active_data_space",
+        "restore_trust": "untrusted_executable"
+      },
+      "user-skills": {
+        "status": "absent",
+        "paths": [],
+        "file_count": 0,
+        "total_size": 0,
+        "executable": true,
+        "optional": true,
+        "encrypted": true,
+        "restore_target": "~/.deep-student/skills",
+        "restore_scope": "user_home",
+        "restore_trust": "untrusted_executable"
+      }
+    }
+  }
+}

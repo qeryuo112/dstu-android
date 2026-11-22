@@ -1,0 +1,23 @@
+{
+  "formatVersion": 1,
+  "lockedAt": "2026-11-16T01:20:26+08:00",
+  "repositories": [
+    { "id": "desktop", "path": "dstu-node", "commit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87", "anchors": ["package.json", "package-lock.json", "LICENSE", "resources/app/migrations/migration-lock.json"] },
+    { "id": "operit", "path": "Operit", "commit": "7a39941bad80209973c535046a18195c5da9e647", "anchors": [".gitmodules", "build.gradle.kts", "gradle/libs.versions.toml", "app/build.gradle.kts", "quickjs/src/main/cpp/CMakeLists.txt", "llm/llama/CMakeLists.txt", "llm/mnn/CMakeLists.txt", "app/src/main/cpp/CMakeLists.txt"] },
+    { "id": "terminal", "path": "Operit/terminal", "commit": "e4646680663789002b43bbfffa6e69e65c35e614", "anchors": ["build.gradle.kts", "src/main/jni/CMakeLists.txt", "src/main/jni/pty.c"] }
+  ],
+  "gitEngines": [
+    { "id": "quickjs", "repository": "https://github.com/bellard/quickjs.git", "upstreamRef": "master", "commit": "e585640ffa2cf88ce7c2d587583c6fe15928ec2f", "declaration": "quickjs/src/main/cpp/CMakeLists.txt", "role": "script", "adoptionUnit": "S1.19" },
+    { "id": "wamr", "repository": "https://github.com/bytecodealliance/wasm-micro-runtime.git", "upstreamRef": "main", "commit": "ffc22889948b1f063d7258d34d4e636ee0914925", "declaration": "app/src/main/cpp/CMakeLists.txt", "role": "toolpkg-wasm", "adoptionUnit": "S6.31" },
+    { "id": "sherpa-ncnn", "repository": "https://github.com/k2-fsa/sherpa-ncnn.git", "upstreamRef": "master", "commit": "497b83215d218958833496182614b7c3807001a8", "declaration": "app/src/main/cpp/CMakeLists.txt", "role": "speech", "adoptionUnit": "S4.18" },
+    { "id": "ncnn", "repository": "https://github.com/Tencent/ncnn.git", "upstreamRef": "master", "commit": "d1f6ac67e9fc91390cc70f7168573fd2626f1d66", "declaration": "app/src/main/cpp/cmake/ncnn.cmake", "role": "speech-dependency", "adoptionUnit": "S4.18" },
+    { "id": "llama-cpp", "repository": "https://github.com/ggml-org/llama.cpp.git", "upstreamRef": "720d7fa4097f76e5d0eade5a92c1df87c1faf9d9", "commit": "720d7fa4097f76e5d0eade5a92c1df87c1faf9d9", "declaration": "llm/llama/CMakeLists.txt", "role": "local-inference", "adoptionUnit": "S4.21" },
+    { "id": "mnn", "repository": "https://github.com/alibaba/MNN.git", "upstreamRef": "3.6.1", "commit": "d407447ed56c4121a11ccbd266dc184ca1ead0c2", "declaration": "llm/mnn/CMakeLists.txt", "role": "local-inference", "adoptionUnit": "S4.21" },
+    { "id": "kleidiai", "repository": "https://github.com/ARM-software/kleidiai.git", "upstreamRef": "v1.16.0", "tagObject": "fa0a8e861d58451e0a3a0d1588bc0d49bad23743", "commit": "84796ece210fbf736c2c51236f4690e0b8812861", "declaration": "llm/mnn/CMakeLists.txt", "role": "inference-dependency", "adoptionUnit": "S4.21" },
+    { "id": "saba", "repository": "https://github.com/benikabocha/saba.git", "upstreamRef": "master", "commit": "29b8efa8b31c8e746f9a88020fb0ad9dcdcf3332", "declaration": "avator/mmd/CMakeLists.txt", "role": "adoption-catalog-avatar", "adoptionUnit": "S0.13" },
+    { "id": "bullet3", "repository": "https://github.com/bulletphysics/bullet3.git", "upstreamRef": "master", "commit": "d3afe76132fc76b0f9b2359cbaef47a3766e7fbb", "declaration": "avator/mmd/CMakeLists.txt", "role": "adoption-catalog-avatar", "adoptionUnit": "S0.13" },
+    { "id": "ufbx", "repository": "https://github.com/ufbx/ufbx.git", "upstreamRef": "main", "commit": "5955c5c0b042ac2dc6f32955ab206aaec0620cfc", "declaration": "avator/fbx/CMakeLists.txt", "role": "adoption-catalog-avatar", "adoptionUnit": "S0.13" },
+    { "id": "dragonbones-cpp", "repository": "https://github.com/DragonBones/DragonBonesCPP.git", "upstreamRef": "f696143045e07b7c4c4590bdd95534e9e8074b37", "commit": "f696143045e07b7c4c4590bdd95534e9e8074b37", "declaration": "avator/dragonbones/CMakeLists.txt", "role": "adoption-catalog-avatar", "adoptionUnit": "S0.13" }
+  ],
+  "desktopEnginePackages": ["better-sqlite3", "@embedpdf/pdfium", "@lancedb/lancedb", "@node-rs/argon2", "@noble/ciphers", "@noble/hashes", "ts-fsrs", "@open-spaced-repetition/binding", "tiktoken", "pdfjs-dist", "pdf-lib", "jszip", "pako", "katex", "mermaid", "@viz-js/viz", "vega", "vega-lite", "vega-interpreter", "abcjs", "wavedrom", "openchemlib", "smiles-drawer", "3dmol", "sharp", "docx", "exceljs", "pptxgenjs", "mustache", "mdast-util-from-markdown", "mdast-util-gfm", "micromark-extension-gfm", "@milkdown/crepe", "@milkdown/transformer", "typescript"]
+}

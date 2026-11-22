@@ -16,6 +16,7 @@ dependencyResolutionManagement {
     }
 }
 
+// Keep explicit includes reviewable. verifyModuleRegistry / CI checks both missing and stale entries.
 rootProject.name = "dstu-android"
 include(":app")
 if (providers.gradleProperty("dstu.benchmarkApp").orNull == "true") include(":benchmark:startup")

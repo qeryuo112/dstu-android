@@ -1,0 +1,3659 @@
+{
+  "formatVersion": 1,
+  "unit": "S0.16",
+  "delivery": {
+    "artifact": "config/baseline/legacy-export.json",
+    "contract": "config/legacy-import-contract.json",
+    "fixtures": [
+      "fixtures/legacy-mobile/legacy-mobile-standard-standard-v1.zip",
+      "fixtures/legacy-mobile/legacy-mobile-continuity-continuity-v1.zip",
+      "fixtures/legacy-mobile/legacy-mobile-continuity-continuity-v1.continuity.json",
+      "fixtures/legacy-mobile/legacy-mobile-expected.json"
+    ],
+    "consumer": "S2.12 旧移动包 Kotlin 导入",
+    "deliveryUnit": "S2.12",
+    "prerequisiteUnits": [
+      "S0.08",
+      "S0.10"
+    ],
+    "previous": "S0.08（schema/refinery 基线）、S0.10（同步协议/版本窗口）",
+    "sampleSchemaNote": "samples[].sourceDatabases/sourceFingerprints 是旧 ZIP 的 0222ccc 历史事实；samples[].databases/fingerprints 是临时复制迁移到 e6b2657f 后的目标事实。"
+  },
+  "environment": {
+    "sqlite": "3.53.4",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36 Edg/157.0.0.0",
+    "origin": "http://127.0.0.1:<ephemeral>",
+    "secureContext": true,
+    "opfsPoolDirectory": ".deep-student",
+    "migrationOrder": [
+      "vfs",
+      "llm_usage",
+      "chat_v2",
+      "mistakes"
+    ],
+    "appVersion": "0.20.0",
+    "fixtureClock": "manifest.snapshot_epoch 由固定 UUID 序列注入（5a0e16c0-...-000000000001/2），created_at 是真实墙钟。笔记/资源/用量行的 id 来自生产代码的 nanoid 与 randomUUID，settings.updated_at 来自真实时钟，所以每次 capture 的字节不同；verify 重放的是已落盘 ZIP，不重新导出。",
+    "browserVersion": "157.0.4341.60",
+    "workerBundleBytes": 2315480,
+    "harnessOriginKind": "temporary localhost origin (listen(0)), COOP/COEP, fresh browser context",
+    "originNote": "origin 的端口由 listen(0) 每次分配，已替换为 <ephemeral>；其余环境字段可对拍。",
+    "userProfileUsed": false,
+    "privateDatabasesRead": false,
+    "pool": {
+      "directory": ".deep-student"
+    },
+    "migration": {
+      "success": true,
+      "databases": [
+        {
+          "id": "vfs",
+          "fromVersion": 0,
+          "toVersion": 20261111,
+          "appliedCount": 72,
+          "success": true,
+          "error": null
+        },
+        {
+          "id": "llm_usage",
+          "fromVersion": 0,
+          "toVersion": 20260826,
+          "appliedCount": 8,
+          "success": true,
+          "error": null
+        },
+        {
+          "id": "chat_v2",
+          "fromVersion": 0,
+          "toVersion": 20261111,
+          "appliedCount": 30,
+          "success": true,
+          "error": null
+        },
+        {
+          "id": "mistakes",
+          "fromVersion": 0,
+          "toVersion": 20261005,
+          "appliedCount": 23,
+          "success": true,
+          "error": null
+        }
+      ]
+    },
+    "versions": {
+      "vfs": 20261111,
+      "chat_v2": 20261111,
+      "mistakes": 20261005,
+      "llm_usage": 20260826
+    },
+    "captureMode": "frozen-fixture-replay",
+    "zipRewritten": false
+  },
+  "schemaValidation": {
+    "historicalPackage": {
+      "commit": "0222ccc",
+      "resolvedCommit": "0222cccafe4cd5243785ee930d26ef53b2c2c9eb",
+      "artifact": "config/baseline/schema.json",
+      "databases": {
+        "vfs": {
+          "version": 20261111,
+          "history": 72,
+          "fingerprint": "b807a28417167a8e62fb7378b237e671b640e54dea63e077b8641a2bec84e0a6"
+        },
+        "chat_v2": {
+          "version": 20261111,
+          "history": 30,
+          "fingerprint": "2a29bf29771c7381db4cac8cdbad325cddad8d86bc06795a369176e4654e8b7a"
+        },
+        "mistakes": {
+          "version": 20261005,
+          "history": 23,
+          "fingerprint": "d3888182592592c3f6a44b5df024e176e846015f264d87daab03ac2e277f49ba"
+        },
+        "llm_usage": {
+          "version": 20260826,
+          "history": 8,
+          "fingerprint": "ed69ae106103c3b48460d898be47fdfe12124e26f392e4636d1fe7816beb6245"
+        }
+      },
+      "note": "旧 ZIP 由 145bb387 的移动端生成；其 refinery 行、指纹与 0222ccc 的 schema 基线逐行对拍，不要求等于当前桌面 head。"
+    },
+    "target": {
+      "desktopCommit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+      "artifact": "config/baseline/schema.json",
+      "databases": {
+        "vfs": {
+          "version": 20261115,
+          "history": 73,
+          "fingerprint": "c3da4956b07fa60548a8c848a4e7f60fd7f05d10ac936d2396f0fa1920b98d23"
+        },
+        "chat_v2": {
+          "version": 20261111,
+          "history": 30,
+          "fingerprint": "2a29bf29771c7381db4cac8cdbad325cddad8d86bc06795a369176e4654e8b7a"
+        },
+        "mistakes": {
+          "version": 20261005,
+          "history": 23,
+          "fingerprint": "d3888182592592c3f6a44b5df024e176e846015f264d87daab03ac2e277f49ba"
+        },
+        "llm_usage": {
+          "version": 20260826,
+          "history": 8,
+          "fingerprint": "ed69ae106103c3b48460d898be47fdfe12124e26f392e4636d1fe7816beb6245"
+        }
+      },
+      "mode": "临时槽复制旧库 → 生产 MigrationCoordinator → 行/资产/审计保持 → review_plans 七列默认",
+      "note": "旧包本身不重导出；迁移只发生在临时复制上，目标 vfs 为 20261115。"
+    }
+  },
+  "source": {
+    "provenance": {
+      "commit": "145bb3879164c58d1cd5ff39daa94a3daa9fe874",
+      "kind": "historical-public-package-generation",
+      "historicalArtifact": {
+        "commit": "0222ccc",
+        "file": "config/baseline/legacy-export.json"
+      },
+      "files": {
+        "backup": {
+          "path": "host/platform/storage-mobile/backup.ts",
+          "commit": "145bb3879164c58d1cd5ff39daa94a3daa9fe874",
+          "sha256": "72e9a4d4fa3bcaad5ffd64b72f55a82f5fbb8749fa8d666f3ce40b8fa2f1e039",
+          "bytes": 33578
+        },
+        "index": {
+          "path": "host/platform/storage-mobile/index.ts",
+          "commit": "145bb3879164c58d1cd5ff39daa94a3daa9fe874",
+          "sha256": "c676d02af636e42582d1b6d9a2622283d829e878873d621488899b8595bcea59",
+          "bytes": 32218
+        },
+        "shell": {
+          "path": "mobile/src/main.ts",
+          "commit": "145bb3879164c58d1cd5ff39daa94a3daa9fe874",
+          "sha256": "e32f699637015b0b168f9a257b63c556bea1dd5ff85356361a5deadf762c9ab1",
+          "bytes": 18106
+        },
+        "build": {
+          "path": "mobile/scripts/build-apk.mjs",
+          "commit": "145bb3879164c58d1cd5ff39daa94a3daa9fe874",
+          "sha256": "fefbe40a46e7670cfdcb3d7fa74fcabafcabc473e5c2154e937b2ab241d5a8fd",
+          "bytes": 17449
+        },
+        "dashboard": {
+          "path": "src/features/settings/components/DataGovernanceDashboard.tsx",
+          "commit": "145bb3879164c58d1cd5ff39daa94a3daa9fe874",
+          "sha256": "9bc052eca02347c6dd705e963b56a770028276933f66a8386680cb8074d2eab6",
+          "bytes": 76986
+        }
+      },
+      "note": "All source facts are read from the requested 145bb387 commit with exact git blobs; no fallback to the current mobile source and no ZIP re-export."
+    },
+    "exportEntry": {
+      "service": "host/platform/storage-mobile/backup.ts",
+      "symbol": "MobileBackupService.exportBackup",
+      "line": 325,
+      "command": "data_governance_export_zip",
+      "commandLine": 476,
+      "backupAndExportLine": 481
+    },
+    "saveChannel": {
+      "hostRequest": "mobile:save-backup",
+      "hostLine": 302,
+      "implementation": "mobile/src/main.ts::saveBackupToSystem",
+      "implementationLine": 244,
+      "methods": [
+        "share",
+        "save-picker",
+        "download"
+      ],
+      "uiEntry": "src/features/settings/components/DataGovernanceDashboard.tsx:8 (BackupTab)",
+      "uiSaveDialog": {
+        "file": "src/features/settings/components/DataGovernanceDashboard.tsx",
+        "line": 1176
+      }
+    },
+    "captureTools": {
+      "tools/baseline/legacy-export.mjs": "d13ce7e506a55d6cc93101ded63f205f58c24a5c6bac6440eb9d933a94ce2155",
+      "tools/baseline/legacy-export/fixtures.mjs": "3a6bdc98cc5bf60692bd1332822fccb776117a80420a03523b0810d853cf572e",
+      "tools/baseline/legacy-export/harness/worker.ts": "ed396f9148b0efe32270f7edcf680431ba1aba59eac4367d393d1a6f59207b32",
+      "tools/baseline/legacy-export/harness/run-harness.mjs": "5c8c0099428752bdba41a98defee49e142327d42987d2359672feee84e73ba1e",
+      "tools/baseline/legacy-export/harness/sql-glob.mjs": "9a2a434355797e55f4ba881ca7c792e3ca0d62b91497036fe41fe86528a898f0",
+      "tools/baseline/legacy-export/identity.mjs": "f4d3684ba22b314988c7a1ec8e3405a146e13e20485ae54fd3935a5a0459d653",
+      "tools/baseline/legacy-export/package.mjs": "b7fbc093e643386e05860518c0b47aa8976dd3e87aad1b658d342c3a19279406",
+      "tools/baseline/legacy-export/upgrade.mjs": "60d5eb50d9aefec5f938036a95a02ecd069fef2f7ccd1db6cea624e70908e2e4",
+      "tools/baseline/legacy-export/one-shot/build.mjs": "0ae20f05a54f3e5762477e0b79760b45898579a59f7238c72679b679293d025b",
+      "tools/baseline/legacy-export/one-shot/page.html": "ec2fc72f9b3fc7d5289b0462ab0454897145b5befbcb8f026339133247fdedce",
+      "tools/baseline/legacy-export/one-shot/worker.ts": "aea2a8b99afe1d2ee8fc49ec92df939b0ecb6a5b3acb65787dcbd4e21c67613d",
+      "tools/baseline/legacy-export/one-shot/delivery.mjs": "898ec6ff6f81017ffa493c90c8fb8d89819478564eba6963d25067f655f7866b",
+      "tools/baseline/legacy-export/one-shot/verify-delivery.mjs": "50719c4688af6a7dd8f81f7162f6b93bcb24262102a7bd3f987d8dd6debfc9cb",
+      "tools/baseline/legacy-export/one-shot/LegacyExportPlugin.java": "73d764e0a720b20385dbb78bcb07aea48727e89e63fab702b25a2031714a8186"
+    },
+    "capabilityFiles": {
+      "backupService": {
+        "path": "host/platform/storage-mobile/backup.ts",
+        "commit": "145bb3879164c58d1cd5ff39daa94a3daa9fe874",
+        "sha256": "72e9a4d4fa3bcaad5ffd64b72f55a82f5fbb8749fa8d666f3ce40b8fa2f1e039",
+        "bytes": 33578
+      },
+      "storageService": {
+        "path": "host/platform/storage-mobile/service.ts",
+        "commit": "145bb3879164c58d1cd5ff39daa94a3daa9fe874",
+        "sha256": "d8ec5ce4d61174955cc7079a7595e39a3a79267631a1e6ea5f75e73fd76adb76",
+        "bytes": 19528
+      },
+      "workerRuntime": {
+        "path": "mobile/src/worker/sqlite-runtime.ts",
+        "commit": "145bb3879164c58d1cd5ff39daa94a3daa9fe874",
+        "sha256": "ad16d87f03571fe6f842f20944c6f6a830c855ce56785c8871380de6eaaad625",
+        "bytes": 8221
+      },
+      "shell": {
+        "path": "mobile/src/main.ts",
+        "commit": "145bb3879164c58d1cd5ff39daa94a3daa9fe874",
+        "sha256": "e32f699637015b0b168f9a257b63c556bea1dd5ff85356361a5deadf762c9ab1",
+        "bytes": 18106
+      },
+      "opfs": {
+        "path": "host/platform/files/opfs.ts",
+        "commit": "145bb3879164c58d1cd5ff39daa94a3daa9fe874",
+        "sha256": "501ca2273555af3841a6677c00db28ddafe1c94b160d1ff0d524ac6826191115",
+        "bytes": 38869
+      },
+      "mobileLocalRuntime": {
+        "path": "host/platform/files/mobile-local-runtime.ts",
+        "commit": "145bb3879164c58d1cd5ff39daa94a3daa9fe874",
+        "sha256": "1f0d3a748d07f18c706d66c561fa6a5d97d71b19f51f9d0689ef5ec3b6a18148",
+        "bytes": 41382
+      },
+      "syncState": {
+        "path": "host/plugins/sync/repository/state.ts",
+        "commit": "145bb3879164c58d1cd5ff39daa94a3daa9fe874",
+        "sha256": "a56fd1845fd82b0360564e3b17c5a723ef81c4c04385e8eebb53cbd6d07fc80e",
+        "bytes": 13851
+      },
+      "activeSyncState": {
+        "path": "host/plugins/sync-support/src/state.ts",
+        "commit": "145bb3879164c58d1cd5ff39daa94a3daa9fe874",
+        "sha256": "6431524af7433687578ac6c8cc7f5fd113d4b18ef05b270217089fcf56a9a90d",
+        "bytes": 12131
+      },
+      "restoreCommands": {
+        "path": "host/plugins/backup/src/restore-commands.ts",
+        "commit": "145bb3879164c58d1cd5ff39daa94a3daa9fe874",
+        "sha256": "1a33779725af4cd7283b9a03f815aac4c9dac376fd25959ae48f616d35322b55",
+        "bytes": 37170
+      },
+      "manifestModel": {
+        "path": "host/plugins/backup/src/manifest-model.ts",
+        "commit": "145bb3879164c58d1cd5ff39daa94a3daa9fe874",
+        "sha256": "df1b61c2ae680a67718269afa52bb7343d6e98c5a27b20824032827d0516aad9",
+        "bytes": 36393
+      }
+    },
+    "installation": {
+      "file": "mobile/scripts/build-apk.mjs",
+      "sha256": "fefbe40a46e7670cfdcb3d7fa74fcabafcabc473e5c2154e937b2ab241d5a8fd",
+      "applicationId": {
+        "value": "com.deepstudent.app",
+        "expression": "'com.deepstudent.app'",
+        "line": 190
+      },
+      "appName": {
+        "value": "Deep Student",
+        "expression": "'Deep Student'",
+        "line": 191
+      },
+      "versionName": {
+        "value": "0.20.0",
+        "expression": "'0.20.0'",
+        "line": 192
+      },
+      "versionCode": {
+        "value": 1114586,
+        "expression": "1114586",
+        "line": 194
+      }
+    },
+    "capacitor": {
+      "version": "8.6.0",
+      "packageJson": "mobile/node_modules/@capacitor/android/package.json",
+      "hasBridgeSource": true,
+      "setsDownloadListener": false,
+      "implementsNavigatorShare": false,
+      "showsFileChooser": true,
+      "overridesUrlLoading": true,
+      "downloadReachesSystem": false,
+      "provenance": {
+        "commit": "0222ccc",
+        "artifact": "config/baseline/legacy-export.json",
+        "note": "frozen historical fact; the current node_modules tree is not read"
+      }
+    }
+  },
+  "fixtures": {
+    "file": "fixtures/legacy-mobile/legacy-mobile-expected.json",
+    "sha256": "030a4621633ec496c9442a4a0d8dea27b083c42a0b6162b7181bfcf402454269",
+    "seeds": {
+      "noteIds": [
+        "note_EUX0uLPRD4",
+        "note_6eezX7uPIP"
+      ],
+      "noteTitles": [
+        "迁移示例笔记",
+        "迁移示例笔记二"
+      ],
+      "noteContents": [
+        "# 迁移示例\n\n这是公开 fixture 笔记，用于验证旧包导入。\n\n参见 [[迁移示例笔记二]]。\n",
+        "## 代码块\n\n```ts\nconst answer = 42;\n```\n\n- 列表项一\n- 列表项二\n"
+      ],
+      "noteHashes": [
+        "6fab517871fd70145f9b43a9b257f5775084196a4dc7adca0b94fee947dbc91a",
+        "3ffaa79b54dac1b256faea636a39023110b9a08ecc77fc7afca85efa4af4ca5c"
+      ],
+      "folderId": "fld_legacy_demo",
+      "fileSha256": "254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a",
+      "fileBytes": 70,
+      "fileText": "Deep Student legacy export fixture.\n公开样本，无用户数据。\n",
+      "fileId": "file_CDUjXdTa6Z",
+      "blobHash": "254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a",
+      "blobRelativePath": "25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt",
+      "sessionId": "sess_legacy_demo",
+      "messageIds": [
+        "msg_legacy_user",
+        "msg_legacy_assistant"
+      ],
+      "blockId": "blk_legacy_answer",
+      "mistakeId": "mistake_legacy_demo",
+      "ankiCardId": "card_legacy_demo",
+      "documentTaskId": "task_legacy_demo",
+      "usageId": "usage_214c4eab-7996-406e-a09d-d35b07135c4e",
+      "auditId": "audit_legacy_demo",
+      "settingsKeys": [
+        "appearance.theme",
+        "notes.default_folder"
+      ]
+    },
+    "notes": "所有文本均为公开示例；设备号是 fixture 标识；无密钥材料。"
+  },
+  "samples": {
+    "standard": {
+      "mode": "standard",
+      "file": "fixtures/legacy-mobile/legacy-mobile-standard-standard-v1.zip",
+      "bytes": 3987747,
+      "sha256": "3bcecfdd5ec02b0d3b8ee110f2649b6edc136bc9bb6d41b2a5673061ec932eba",
+      "manifest": {
+        "backup_id": "legacy-standard-fixture",
+        "snapshot_epoch": "5a0e16c0-0000-4000-8000-000000000001",
+        "created_at": "2026-11-15T12:59:18.836Z",
+        "app_version": "0.20.0",
+        "schema_versions": {
+          "vfs": 20261111,
+          "llm_usage": 20260826,
+          "chat_v2": 20261111,
+          "mistakes": 20261005
+        },
+        "snapshot_kind": "full",
+        "key_policy": "not_present"
+      },
+      "slotRestore": {
+        "ok": true,
+        "error": null
+      },
+      "coverage": {
+        "version": 1,
+        "snapshotKind": "full",
+        "keyPolicy": "not_present",
+        "requiredComponents": [
+          "agents",
+          "asset-root:audio",
+          "asset-root:documents",
+          "asset-root:images",
+          "asset-root:notes_assets",
+          "asset-root:pdf_ocr_sessions",
+          "asset-root:subjects",
+          "asset-root:textbooks",
+          "asset-root:vfs_blobs",
+          "asset-root:videos",
+          "asset-root:workspaces",
+          "audit",
+          "crypto",
+          "custom-grading-modes",
+          "database:chat_v2",
+          "database:llm_usage",
+          "database:mistakes",
+          "database:vfs",
+          "user-skills",
+          "webview-settings",
+          "workspaces-root"
+        ],
+        "includedComponents": [
+          "agents",
+          "asset-root:audio",
+          "asset-root:documents",
+          "asset-root:images",
+          "asset-root:notes_assets",
+          "asset-root:pdf_ocr_sessions",
+          "asset-root:subjects",
+          "asset-root:textbooks",
+          "asset-root:vfs_blobs",
+          "asset-root:videos",
+          "asset-root:workspaces",
+          "audit",
+          "crypto",
+          "custom-grading-modes",
+          "database:chat_v2",
+          "database:llm_usage",
+          "database:mistakes",
+          "database:vfs",
+          "user-skills",
+          "webview-settings",
+          "workspaces-root"
+        ],
+        "domains": {
+          "database:vfs": {
+            "status": "complete",
+            "paths": [
+              "vfs.db"
+            ],
+            "fileCount": 1,
+            "totalSize": 2244608
+          },
+          "database:llm_usage": {
+            "status": "complete",
+            "paths": [
+              "llm_usage.db"
+            ],
+            "fileCount": 1,
+            "totalSize": 192512
+          },
+          "database:chat_v2": {
+            "status": "complete",
+            "paths": [
+              "chat_v2.db"
+            ],
+            "fileCount": 1,
+            "totalSize": 802816
+          },
+          "database:mistakes": {
+            "status": "complete",
+            "paths": [
+              "mistakes.db"
+            ],
+            "fileCount": 1,
+            "totalSize": 720896
+          },
+          "workspaces-root": {
+            "status": "absent",
+            "paths": [],
+            "fileCount": 0,
+            "totalSize": 0
+          },
+          "asset-root:images": {
+            "status": "absent",
+            "paths": [],
+            "fileCount": 0,
+            "totalSize": 0
+          },
+          "asset-root:notes_assets": {
+            "status": "absent",
+            "paths": [],
+            "fileCount": 0,
+            "totalSize": 0
+          },
+          "asset-root:documents": {
+            "status": "absent",
+            "paths": [],
+            "fileCount": 0,
+            "totalSize": 0
+          },
+          "asset-root:vfs_blobs": {
+            "status": "complete",
+            "paths": [
+              "assets/vfs_blobs/25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt"
+            ],
+            "fileCount": 1,
+            "totalSize": 70
+          },
+          "asset-root:subjects": {
+            "status": "absent",
+            "paths": [],
+            "fileCount": 0,
+            "totalSize": 0
+          },
+          "asset-root:workspaces": {
+            "status": "absent",
+            "paths": [],
+            "fileCount": 0,
+            "totalSize": 0
+          },
+          "asset-root:audio": {
+            "status": "absent",
+            "paths": [],
+            "fileCount": 0,
+            "totalSize": 0
+          },
+          "asset-root:videos": {
+            "status": "absent",
+            "paths": [],
+            "fileCount": 0,
+            "totalSize": 0
+          },
+          "asset-root:textbooks": {
+            "status": "absent",
+            "paths": [],
+            "fileCount": 0,
+            "totalSize": 0
+          },
+          "asset-root:pdf_ocr_sessions": {
+            "status": "absent",
+            "paths": [],
+            "fileCount": 0,
+            "totalSize": 0
+          },
+          "crypto": {
+            "status": "absent",
+            "paths": [],
+            "fileCount": 0,
+            "totalSize": 0
+          },
+          "audit": {
+            "status": "complete",
+            "paths": [
+              "databases/audit.db"
+            ],
+            "fileCount": 1,
+            "totalSize": 24576
+          },
+          "webview-settings": {
+            "status": "absent",
+            "paths": [],
+            "fileCount": 0,
+            "totalSize": 0
+          },
+          "custom-grading-modes": {
+            "status": "absent",
+            "paths": [],
+            "fileCount": 0,
+            "totalSize": 0
+          },
+          "agents": {
+            "status": "absent",
+            "paths": [],
+            "fileCount": 0,
+            "totalSize": 0
+          },
+          "user-skills": {
+            "status": "absent",
+            "paths": [],
+            "fileCount": 0,
+            "totalSize": 0
+          }
+        },
+        "complete": [
+          "asset-root:vfs_blobs",
+          "audit",
+          "database:chat_v2",
+          "database:llm_usage",
+          "database:mistakes",
+          "database:vfs"
+        ],
+        "absent": [
+          "agents",
+          "asset-root:audio",
+          "asset-root:documents",
+          "asset-root:images",
+          "asset-root:notes_assets",
+          "asset-root:pdf_ocr_sessions",
+          "asset-root:subjects",
+          "asset-root:textbooks",
+          "asset-root:videos",
+          "asset-root:workspaces",
+          "crypto",
+          "custom-grading-modes",
+          "user-skills",
+          "webview-settings",
+          "workspaces-root"
+        ],
+        "empty": []
+      },
+      "entries": [
+        {
+          "name": "vfs.db",
+          "size": 2244608,
+          "compression": "stored",
+          "crc32": 1782086024,
+          "isDirectory": false,
+          "sha256": "73706ef8747809aef34e3f37a90b379693766150de795b49c19cad3be5fa6e26"
+        },
+        {
+          "name": "llm_usage.db",
+          "size": 192512,
+          "compression": "stored",
+          "crc32": 1291878566,
+          "isDirectory": false,
+          "sha256": "540126c76b2e287dec43e42ea58586114869b10500c64e17ea730bae7518ff00"
+        },
+        {
+          "name": "chat_v2.db",
+          "size": 802816,
+          "compression": "stored",
+          "crc32": 4249093492,
+          "isDirectory": false,
+          "sha256": "de5c299a136ec90160a783dbdc3acf6d047f0f70891aba99b2222fbf63bd370c"
+        },
+        {
+          "name": "mistakes.db",
+          "size": 720896,
+          "compression": "stored",
+          "crc32": 2621481664,
+          "isDirectory": false,
+          "sha256": "18058406b0a1995f4e57aa5c559503844bdcc0d6f1979180a0afe5a106bf1792"
+        },
+        {
+          "name": "databases/audit.db",
+          "size": 24576,
+          "compression": "stored",
+          "crc32": 581901240,
+          "isDirectory": false,
+          "sha256": "8c60f12c6b370c5c21956d9a4769518a440a3c9cbddcb1257d0460b380b622e5"
+        },
+        {
+          "name": "assets/vfs_blobs/25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt",
+          "size": 70,
+          "compression": "deflated",
+          "crc32": 286135773,
+          "isDirectory": false,
+          "sha256": "254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a"
+        },
+        {
+          "name": "manifest.json",
+          "size": 10176,
+          "compression": "deflated",
+          "crc32": 239839820,
+          "isDirectory": false,
+          "sha256": "ad54613526e409e0fbfa9afa68bb05946aad9887e70a635738f27f012659104c"
+        }
+      ],
+      "sourceDatabases": {
+        "vfs": {
+          "version": 20261111,
+          "history": 72,
+          "last": {
+            "version": 20261111,
+            "name": "study_space_profiles_and_mounts",
+            "checksum": "16502010308443774003"
+          },
+          "tables": 94,
+          "indexes": 323,
+          "triggers": 147,
+          "integrity": "ok",
+          "foreignKeyViolations": 0
+        },
+        "llm_usage": {
+          "version": 20260826,
+          "history": 8,
+          "last": {
+            "version": 20260826,
+            "name": "add_stream_identity",
+            "checksum": "3538657643559729633"
+          },
+          "tables": 4,
+          "indexes": 35,
+          "triggers": 4,
+          "integrity": "ok",
+          "foreignKeyViolations": 0
+        },
+        "chat_v2": {
+          "version": 20261111,
+          "history": 30,
+          "last": {
+            "version": 20261111,
+            "name": "session_group_root_folder",
+            "checksum": "3274148009639221350"
+          },
+          "tables": 31,
+          "indexes": 123,
+          "triggers": 35,
+          "integrity": "ok",
+          "foreignKeyViolations": 0
+        },
+        "mistakes": {
+          "version": 20261005,
+          "history": 23,
+          "last": {
+            "version": 20261005,
+            "name": "fsrs_learning_step",
+            "checksum": "15009873917906083320"
+          },
+          "tables": 26,
+          "indexes": 110,
+          "triggers": 35,
+          "integrity": "ok",
+          "foreignKeyViolations": 0
+        }
+      },
+      "sourceFingerprints": {
+        "vfs": {
+          "version": 20261111,
+          "migrations": 72,
+          "fingerprint": "b807a28417167a8e62fb7378b237e671b640e54dea63e077b8641a2bec84e0a6",
+          "canonicalSchemaSha256": "b807a28417167a8e62fb7378b237e671b640e54dea63e077b8641a2bec84e0a6",
+          "scope": {
+            "tables": 93,
+            "indexes": 323,
+            "triggers": 147
+          }
+        },
+        "llm_usage": {
+          "version": 20260826,
+          "migrations": 8,
+          "fingerprint": "ed69ae106103c3b48460d898be47fdfe12124e26f392e4636d1fe7816beb6245",
+          "canonicalSchemaSha256": "ed69ae106103c3b48460d898be47fdfe12124e26f392e4636d1fe7816beb6245",
+          "scope": {
+            "tables": 3,
+            "indexes": 35,
+            "triggers": 4
+          }
+        },
+        "chat_v2": {
+          "version": 20261111,
+          "migrations": 30,
+          "fingerprint": "2a29bf29771c7381db4cac8cdbad325cddad8d86bc06795a369176e4654e8b7a",
+          "canonicalSchemaSha256": "2a29bf29771c7381db4cac8cdbad325cddad8d86bc06795a369176e4654e8b7a",
+          "scope": {
+            "tables": 30,
+            "indexes": 123,
+            "triggers": 35
+          }
+        },
+        "mistakes": {
+          "version": 20261005,
+          "migrations": 23,
+          "fingerprint": "d3888182592592c3f6a44b5df024e176e846015f264d87daab03ac2e277f49ba",
+          "canonicalSchemaSha256": "d3888182592592c3f6a44b5df024e176e846015f264d87daab03ac2e277f49ba",
+          "scope": {
+            "tables": 24,
+            "indexes": 107,
+            "triggers": 35
+          }
+        }
+      },
+      "databases": {
+        "vfs": {
+          "version": 20261115,
+          "history": 73,
+          "last": {
+            "version": 20261115,
+            "name": "review_plans_fsrs",
+            "checksum": "12050512011832493113"
+          },
+          "tables": 95,
+          "indexes": 323,
+          "triggers": 147,
+          "integrity": "ok",
+          "foreignKeyViolations": 0
+        },
+        "llm_usage": {
+          "version": 20260826,
+          "history": 8,
+          "last": {
+            "version": 20260826,
+            "name": "add_stream_identity",
+            "checksum": "3538657643559729633"
+          },
+          "tables": 5,
+          "indexes": 35,
+          "triggers": 4,
+          "integrity": "ok",
+          "foreignKeyViolations": 0
+        },
+        "chat_v2": {
+          "version": 20261111,
+          "history": 30,
+          "last": {
+            "version": 20261111,
+            "name": "session_group_root_folder",
+            "checksum": "3274148009639221350"
+          },
+          "tables": 32,
+          "indexes": 123,
+          "triggers": 35,
+          "integrity": "ok",
+          "foreignKeyViolations": 0
+        },
+        "mistakes": {
+          "version": 20261005,
+          "history": 23,
+          "last": {
+            "version": 20261005,
+            "name": "fsrs_learning_step",
+            "checksum": "15009873917906083320"
+          },
+          "tables": 27,
+          "indexes": 110,
+          "triggers": 35,
+          "integrity": "ok",
+          "foreignKeyViolations": 0
+        }
+      },
+      "fingerprints": {
+        "vfs": {
+          "version": 20261115,
+          "migrations": 73,
+          "fingerprint": "c3da4956b07fa60548a8c848a4e7f60fd7f05d10ac936d2396f0fa1920b98d23",
+          "canonicalSchemaSha256": "c3da4956b07fa60548a8c848a4e7f60fd7f05d10ac936d2396f0fa1920b98d23",
+          "scope": {
+            "tables": 93,
+            "indexes": 323,
+            "triggers": 147
+          }
+        },
+        "llm_usage": {
+          "version": 20260826,
+          "migrations": 8,
+          "fingerprint": "ed69ae106103c3b48460d898be47fdfe12124e26f392e4636d1fe7816beb6245",
+          "canonicalSchemaSha256": "ed69ae106103c3b48460d898be47fdfe12124e26f392e4636d1fe7816beb6245",
+          "scope": {
+            "tables": 3,
+            "indexes": 35,
+            "triggers": 4
+          }
+        },
+        "chat_v2": {
+          "version": 20261111,
+          "migrations": 30,
+          "fingerprint": "2a29bf29771c7381db4cac8cdbad325cddad8d86bc06795a369176e4654e8b7a",
+          "canonicalSchemaSha256": "2a29bf29771c7381db4cac8cdbad325cddad8d86bc06795a369176e4654e8b7a",
+          "scope": {
+            "tables": 30,
+            "indexes": 123,
+            "triggers": 35
+          }
+        },
+        "mistakes": {
+          "version": 20261005,
+          "migrations": 23,
+          "fingerprint": "d3888182592592c3f6a44b5df024e176e846015f264d87daab03ac2e277f49ba",
+          "canonicalSchemaSha256": "d3888182592592c3f6a44b5df024e176e846015f264d87daab03ac2e277f49ba",
+          "scope": {
+            "tables": 24,
+            "indexes": 107,
+            "triggers": 35
+          }
+        }
+      },
+      "targetMigration": {
+        "mode": "copy-to-temporary-slot-then-production-coordinator",
+        "migrationsDir": "resources/app/migrations（冻结桌面 e6b2657f）",
+        "slotLayout": {
+          "vfs": "databases/vfs.db",
+          "llm_usage": "llm_usage.db",
+          "chat_v2": "chat_v2.db",
+          "mistakes": "mistakes.db"
+        },
+        "sourceVersions": {
+          "vfs": 20261111,
+          "llm_usage": 20260826,
+          "chat_v2": 20261111,
+          "mistakes": 20261005
+        },
+        "targetVersions": {
+          "vfs": 20261115,
+          "llm_usage": 20260826,
+          "chat_v2": 20261111,
+          "mistakes": 20261005
+        },
+        "migration": {
+          "success": true,
+          "databases": [
+            {
+              "id": "vfs",
+              "fromVersion": 20261111,
+              "toVersion": 20261115,
+              "appliedCount": 1,
+              "success": true
+            },
+            {
+              "id": "llm_usage",
+              "fromVersion": 20260826,
+              "toVersion": 20260826,
+              "appliedCount": 0,
+              "success": true
+            },
+            {
+              "id": "chat_v2",
+              "fromVersion": 20261111,
+              "toVersion": 20261111,
+              "appliedCount": 0,
+              "success": true
+            },
+            {
+              "id": "mistakes",
+              "fromVersion": 20261005,
+              "toVersion": 20261005,
+              "appliedCount": 0,
+              "success": true
+            }
+          ]
+        },
+        "restart": {
+          "success": true,
+          "databases": [
+            {
+              "id": "vfs",
+              "fromVersion": 20261115,
+              "toVersion": 20261115,
+              "appliedCount": 0,
+              "success": true
+            },
+            {
+              "id": "llm_usage",
+              "fromVersion": 20260826,
+              "toVersion": 20260826,
+              "appliedCount": 0,
+              "success": true
+            },
+            {
+              "id": "chat_v2",
+              "fromVersion": 20261111,
+              "toVersion": 20261111,
+              "appliedCount": 0,
+              "success": true
+            },
+            {
+              "id": "mistakes",
+              "fromVersion": 20261005,
+              "toVersion": 20261005,
+              "appliedCount": 0,
+              "success": true
+            }
+          ]
+        },
+        "preserved": {
+          "businessRows": true,
+          "rows": {
+            "vfs": {
+              "rowsBefore": {
+                "__asset_deletion_queue": 0,
+                "__blob_deletion_queue": 0,
+                "__change_log": 23,
+                "__file_deletion_journal": 0,
+                "__lance_orphan_queue": 0,
+                "answer_submissions": 0,
+                "automation_todo_deliveries": 0,
+                "blobs": 1,
+                "essay_sessions": 0,
+                "essays": 0,
+                "exam_sheets": 2,
+                "files": 1,
+                "folder_items": 3,
+                "folders": 1,
+                "insight_events": 0,
+                "insight_evidence": 0,
+                "insight_fts": 0,
+                "insight_fts_config": 1,
+                "insight_fts_data": 2,
+                "insight_fts_docsize": 0,
+                "insight_fts_idx": 0,
+                "insight_jobs": 0,
+                "insight_relations": 0,
+                "insight_revisions": 0,
+                "insights": 0,
+                "mastery_events": 0,
+                "mastery_states": 0,
+                "media_progress": 0,
+                "media_transcript_segments": 0,
+                "memory_audit_log": 0,
+                "memory_config": 4,
+                "memory_write_idempotency": 0,
+                "mindmap_versions": 0,
+                "mindmaps": 0,
+                "note_document_formats": 2,
+                "note_document_revisions": 2,
+                "note_editor_lease_acks": 0,
+                "note_editor_lease_notes": 0,
+                "note_editor_leases": 0,
+                "note_editor_participants": 0,
+                "note_editor_write_grants": 0,
+                "note_history_retention": 1,
+                "note_learning_relations": 0,
+                "note_links": 1,
+                "note_review_save_operations": 0,
+                "note_review_save_receipts": 0,
+                "note_state": 0,
+                "note_tags": 3,
+                "note_transfer_operations": 0,
+                "notes": 2,
+                "notes_fts": 2,
+                "notes_fts_config": 1,
+                "notes_fts_data": 4,
+                "notes_fts_docsize": 2,
+                "notes_fts_idx": 2,
+                "path_cache": 0,
+                "pomodoro_records": 0,
+                "qbank_generation_tasks": 0,
+                "qbank_group_materials": 0,
+                "qbank_groups": 0,
+                "qbank_import_jobs": 0,
+                "qbank_materials": 0,
+                "qbank_papers": 0,
+                "qbank_practice_attempts": 0,
+                "qbank_practice_drafts": 0,
+                "qbank_practice_jobs": 0,
+                "qbank_sources": 0,
+                "question_bank_stats": 0,
+                "question_history": 0,
+                "question_sync_conflicts": 0,
+                "question_sync_logs": 0,
+                "questions": 2,
+                "questions_fts": 2,
+                "questions_fts_config": 1,
+                "questions_fts_data": 4,
+                "questions_fts_docsize": 2,
+                "questions_fts_idx": 2,
+                "resources": 3,
+                "review_history": 0,
+                "review_plans": 2,
+                "review_stats": 0,
+                "study_time_daily": 0,
+                "todo_items": 0,
+                "todo_lists": 0,
+                "translations": 0,
+                "vfs_anchor_edges": 0,
+                "vfs_embedding_dims": 0,
+                "vfs_index_profiles": 0,
+                "vfs_index_segments": 0,
+                "vfs_index_units": 0,
+                "vfs_indexing_config": 15,
+                "vfs_space_mounts": 0,
+                "vfs_study_space_profiles": 0
+              },
+              "rowsAfter": {
+                "__asset_deletion_queue": 0,
+                "__blob_deletion_queue": 0,
+                "__change_log": 23,
+                "__file_deletion_journal": 0,
+                "__lance_orphan_queue": 0,
+                "answer_submissions": 0,
+                "automation_todo_deliveries": 0,
+                "blobs": 1,
+                "essay_sessions": 0,
+                "essays": 0,
+                "exam_sheets": 2,
+                "files": 1,
+                "folder_items": 3,
+                "folders": 1,
+                "insight_events": 0,
+                "insight_evidence": 0,
+                "insight_fts": 0,
+                "insight_fts_config": 1,
+                "insight_fts_data": 2,
+                "insight_fts_docsize": 0,
+                "insight_fts_idx": 0,
+                "insight_jobs": 0,
+                "insight_relations": 0,
+                "insight_revisions": 0,
+                "insights": 0,
+                "mastery_events": 0,
+                "mastery_states": 0,
+                "media_progress": 0,
+                "media_transcript_segments": 0,
+                "memory_audit_log": 0,
+                "memory_config": 4,
+                "memory_write_idempotency": 0,
+                "mindmap_versions": 0,
+                "mindmaps": 0,
+                "note_document_formats": 2,
+                "note_document_revisions": 2,
+                "note_editor_lease_acks": 0,
+                "note_editor_lease_notes": 0,
+                "note_editor_leases": 0,
+                "note_editor_participants": 0,
+                "note_editor_write_grants": 0,
+                "note_history_retention": 1,
+                "note_learning_relations": 0,
+                "note_links": 1,
+                "note_review_save_operations": 0,
+                "note_review_save_receipts": 0,
+                "note_state": 0,
+                "note_tags": 3,
+                "note_transfer_operations": 0,
+                "notes": 2,
+                "notes_fts": 2,
+                "notes_fts_config": 1,
+                "notes_fts_data": 4,
+                "notes_fts_docsize": 2,
+                "notes_fts_idx": 2,
+                "path_cache": 0,
+                "pomodoro_records": 0,
+                "qbank_generation_tasks": 0,
+                "qbank_group_materials": 0,
+                "qbank_groups": 0,
+                "qbank_import_jobs": 0,
+                "qbank_materials": 0,
+                "qbank_papers": 0,
+                "qbank_practice_attempts": 0,
+                "qbank_practice_drafts": 0,
+                "qbank_practice_jobs": 0,
+                "qbank_sources": 0,
+                "question_bank_stats": 0,
+                "question_history": 0,
+                "question_sync_conflicts": 0,
+                "question_sync_logs": 0,
+                "questions": 2,
+                "questions_fts": 2,
+                "questions_fts_config": 1,
+                "questions_fts_data": 4,
+                "questions_fts_docsize": 2,
+                "questions_fts_idx": 2,
+                "resources": 3,
+                "review_history": 0,
+                "review_plans": 2,
+                "review_stats": 0,
+                "study_time_daily": 0,
+                "todo_items": 0,
+                "todo_lists": 0,
+                "translations": 0,
+                "vfs_anchor_edges": 0,
+                "vfs_embedding_dims": 0,
+                "vfs_index_profiles": 0,
+                "vfs_index_segments": 0,
+                "vfs_index_units": 0,
+                "vfs_indexing_config": 15,
+                "vfs_space_mounts": 0,
+                "vfs_study_space_profiles": 0
+              },
+              "unchanged": true
+            },
+            "llm_usage": {
+              "rowsBefore": {
+                "__change_log": 1,
+                "llm_usage_daily": 1,
+                "llm_usage_logs": 1
+              },
+              "rowsAfter": {
+                "__change_log": 1,
+                "llm_usage_daily": 1,
+                "llm_usage_logs": 1
+              },
+              "unchanged": true
+            },
+            "chat_v2": {
+              "rowsBefore": {
+                "__change_log": 4,
+                "__file_deletion_journal": 0,
+                "__workspace_deletion_queue": 0,
+                "budget_snapshots": 0,
+                "chat_v2_attachments": 0,
+                "chat_v2_blocks": 1,
+                "chat_v2_compactions": 0,
+                "chat_v2_content_fts": 1,
+                "chat_v2_content_fts_config": 1,
+                "chat_v2_content_fts_content": 1,
+                "chat_v2_content_fts_data": 3,
+                "chat_v2_content_fts_docsize": 1,
+                "chat_v2_content_fts_idx": 1,
+                "chat_v2_goals": 0,
+                "chat_v2_messages": 2,
+                "chat_v2_session_groups": 0,
+                "chat_v2_session_mistakes": 0,
+                "chat_v2_session_state": 0,
+                "chat_v2_session_tags": 0,
+                "chat_v2_sessions": 1,
+                "chat_v2_todo_lists": 0,
+                "completion_outbox": 0,
+                "connector_operations": 0,
+                "resources": 0,
+                "revocation_epochs": 0,
+                "skill_candidates": 0,
+                "skill_usage": 0,
+                "sleep_block": 0,
+                "subagent_task": 0,
+                "workspace_index": 0
+              },
+              "rowsAfter": {
+                "__change_log": 4,
+                "__file_deletion_journal": 0,
+                "__workspace_deletion_queue": 0,
+                "budget_snapshots": 0,
+                "chat_v2_attachments": 0,
+                "chat_v2_blocks": 1,
+                "chat_v2_compactions": 0,
+                "chat_v2_content_fts": 1,
+                "chat_v2_content_fts_config": 1,
+                "chat_v2_content_fts_content": 1,
+                "chat_v2_content_fts_data": 3,
+                "chat_v2_content_fts_docsize": 1,
+                "chat_v2_content_fts_idx": 1,
+                "chat_v2_goals": 0,
+                "chat_v2_messages": 2,
+                "chat_v2_session_groups": 0,
+                "chat_v2_session_mistakes": 0,
+                "chat_v2_session_state": 0,
+                "chat_v2_session_tags": 0,
+                "chat_v2_sessions": 1,
+                "chat_v2_todo_lists": 0,
+                "completion_outbox": 0,
+                "connector_operations": 0,
+                "resources": 0,
+                "revocation_epochs": 0,
+                "skill_candidates": 0,
+                "skill_usage": 0,
+                "sleep_block": 0,
+                "subagent_task": 0,
+                "workspace_index": 0
+              },
+              "unchanged": true
+            },
+            "mistakes": {
+              "rowsBefore": {
+                "__change_log": 5,
+                "anki_cards": 1,
+                "anki_decks": 1,
+                "automation_definitions": 0,
+                "automation_runs": 0,
+                "chat_messages": 1,
+                "custom_anki_templates": 0,
+                "document_control_states": 0,
+                "document_tasks": 1,
+                "exam_sheet_sessions": 0,
+                "fsrs_card_states": 0,
+                "fsrs_review_logs": 0,
+                "migration_progress": 0,
+                "mistakes": 1,
+                "pending_memory_candidates": 0,
+                "rag_configurations": 0,
+                "rag_sub_libraries": 0,
+                "review_analyses": 0,
+                "review_chat_messages": 0,
+                "review_session_mistakes": 0,
+                "review_sessions": 0,
+                "search_logs": 0,
+                "settings": 2,
+                "temp_sessions": 0,
+                "vectorized_data": 0
+              },
+              "rowsAfter": {
+                "__change_log": 5,
+                "anki_cards": 1,
+                "anki_decks": 1,
+                "automation_definitions": 0,
+                "automation_runs": 0,
+                "chat_messages": 1,
+                "custom_anki_templates": 0,
+                "document_control_states": 0,
+                "document_tasks": 1,
+                "exam_sheet_sessions": 0,
+                "fsrs_card_states": 0,
+                "fsrs_review_logs": 0,
+                "migration_progress": 0,
+                "mistakes": 1,
+                "pending_memory_candidates": 0,
+                "rag_configurations": 0,
+                "rag_sub_libraries": 0,
+                "review_analyses": 0,
+                "review_chat_messages": 0,
+                "review_session_mistakes": 0,
+                "review_sessions": 0,
+                "search_logs": 0,
+                "settings": 2,
+                "temp_sessions": 0,
+                "vectorized_data": 0
+              },
+              "unchanged": true
+            }
+          },
+          "assets": [
+            {
+              "hash": "254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a",
+              "size": 70,
+              "relativePath": "25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt"
+            }
+          ],
+          "auditRows": 1,
+          "tableChecks": {
+            "vfs": {
+              "fromVersion": 20261111,
+              "toVersion": 20261115,
+              "historyBefore": 72,
+              "historyAfter": 73,
+              "tablesBefore": 93,
+              "tablesAfter": 95
+            },
+            "llm_usage": {
+              "fromVersion": 20260826,
+              "toVersion": 20260826,
+              "historyBefore": 8,
+              "historyAfter": 8,
+              "tablesBefore": 3,
+              "tablesAfter": 5
+            },
+            "chat_v2": {
+              "fromVersion": 20261111,
+              "toVersion": 20261111,
+              "historyBefore": 30,
+              "historyAfter": 30,
+              "tablesBefore": 30,
+              "tablesAfter": 32
+            },
+            "mistakes": {
+              "fromVersion": 20261005,
+              "toVersion": 20261005,
+              "historyBefore": 23,
+              "historyAfter": 23,
+              "tablesBefore": 25,
+              "tablesAfter": 27
+            }
+          }
+        },
+        "fsrs": {
+          "columns": [
+            {
+              "name": "fsrs_stability",
+              "type": "REAL",
+              "dflt_value": null,
+              "notnull": 0
+            },
+            {
+              "name": "fsrs_difficulty",
+              "type": "REAL",
+              "dflt_value": null,
+              "notnull": 0
+            },
+            {
+              "name": "fsrs_phase",
+              "type": "TEXT",
+              "dflt_value": null,
+              "notnull": 0
+            },
+            {
+              "name": "fsrs_learning_step",
+              "type": "INTEGER",
+              "dflt_value": "0",
+              "notnull": 0
+            },
+            {
+              "name": "fsrs_lapses",
+              "type": "INTEGER",
+              "dflt_value": "0",
+              "notnull": 0
+            },
+            {
+              "name": "fsrs_due_at",
+              "type": "INTEGER",
+              "dflt_value": null,
+              "notnull": 0
+            },
+            {
+              "name": "fsrs_last_review_at",
+              "type": "INTEGER",
+              "dflt_value": null,
+              "notnull": 0
+            }
+          ],
+          "expectedColumns": [
+            {
+              "name": "fsrs_stability",
+              "type": "REAL",
+              "defaultValue": null,
+              "notNull": 0
+            },
+            {
+              "name": "fsrs_difficulty",
+              "type": "REAL",
+              "defaultValue": null,
+              "notNull": 0
+            },
+            {
+              "name": "fsrs_phase",
+              "type": "TEXT",
+              "defaultValue": null,
+              "notNull": 0
+            },
+            {
+              "name": "fsrs_learning_step",
+              "type": "INTEGER",
+              "defaultValue": "0",
+              "notNull": 0
+            },
+            {
+              "name": "fsrs_lapses",
+              "type": "INTEGER",
+              "defaultValue": "0",
+              "notNull": 0
+            },
+            {
+              "name": "fsrs_due_at",
+              "type": "INTEGER",
+              "defaultValue": null,
+              "notNull": 0
+            },
+            {
+              "name": "fsrs_last_review_at",
+              "type": "INTEGER",
+              "defaultValue": null,
+              "notNull": 0
+            }
+          ],
+          "reviewPlanRows": 2,
+          "legacyRows": [
+            {
+              "id": "legacy_review_plan_probe_due",
+              "ease_factor": 2.3,
+              "interval_days": 6,
+              "repetitions": 3,
+              "next_review_date": "2020-01-01",
+              "last_review_date": "2019-12-20",
+              "status": "reviewing"
+            },
+            {
+              "id": "legacy_review_plan_probe_future",
+              "ease_factor": 2.5,
+              "interval_days": 30,
+              "repetitions": 8,
+              "next_review_date": "2099-12-31",
+              "last_review_date": "2026-10-01",
+              "status": "graduated"
+            }
+          ],
+          "allLegacyRowsDefaulted": true
+        }
+      },
+      "rows": {
+        "notes": [
+          {
+            "id": "note_6eezX7uPIP",
+            "resource_id": "res_QRdGfLEjpg",
+            "title": "迁移示例笔记二",
+            "tags": "[\"fixture\"]"
+          },
+          {
+            "id": "note_EUX0uLPRD4",
+            "resource_id": "res_p0TpRWaI3e",
+            "title": "迁移示例笔记",
+            "tags": "[\"fixture\",\"迁移\"]"
+          }
+        ],
+        "noteFormats": [
+          {
+            "note_id": "note_6eezX7uPIP",
+            "content_format": "markdown-legacy",
+            "format_version": 1,
+            "serializer_version": "markdown-v1"
+          },
+          {
+            "note_id": "note_EUX0uLPRD4",
+            "content_format": "markdown-legacy",
+            "format_version": 1,
+            "serializer_version": "markdown-v1"
+          }
+        ],
+        "revisions": [
+          {
+            "version_id": "nrev_428a334aef8c4bf695dca44c183087a9",
+            "note_id": "note_EUX0uLPRD4",
+            "source": "created",
+            "content_format": "markdown-legacy"
+          },
+          {
+            "version_id": "nrev_63ac1c6adac34358b6134d97848f9bc1",
+            "note_id": "note_6eezX7uPIP",
+            "source": "created",
+            "content_format": "markdown-legacy"
+          }
+        ],
+        "resources": [
+          {
+            "id": "res_QRdGfLEjpg",
+            "hash": "3ffaa79b54dac1b256faea636a39023110b9a08ecc77fc7afca85efa4af4ca5c",
+            "type": "note",
+            "source_id": "note_6eezX7uPIP",
+            "source_table": "notes",
+            "storage_mode": "inline",
+            "ref_count": 0
+          },
+          {
+            "id": "res_p0TpRWaI3e",
+            "hash": "6fab517871fd70145f9b43a9b257f5775084196a4dc7adca0b94fee947dbc91a",
+            "type": "note",
+            "source_id": "note_EUX0uLPRD4",
+            "source_table": "notes",
+            "storage_mode": "inline",
+            "ref_count": 0
+          },
+          {
+            "id": "res_waconSxsaX",
+            "hash": "254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a",
+            "type": "file",
+            "source_id": "file_CDUjXdTa6Z",
+            "source_table": "files",
+            "storage_mode": "inline",
+            "ref_count": 0
+          }
+        ],
+        "resourceData": [
+          {
+            "id": "res_QRdGfLEjpg",
+            "data": "## 代码块\n\n```ts\nconst answer = 42;\n```\n\n- 列表项一\n- 列表项二\n"
+          },
+          {
+            "id": "res_p0TpRWaI3e",
+            "data": "# 迁移示例\n\n这是公开 fixture 笔记，用于验证旧包导入。\n\n参见 [[迁移示例笔记二]]。\n"
+          }
+        ],
+        "blobs": [
+          {
+            "hash": "254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a",
+            "relative_path": "25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt",
+            "size": 70,
+            "mime_type": "text/plain",
+            "ref_count": 1
+          }
+        ],
+        "files": [
+          {
+            "id": "file_CDUjXdTa6Z",
+            "resource_id": "res_waconSxsaX",
+            "blob_hash": "254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a",
+            "sha256": "254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a",
+            "file_name": "legacy-sample.txt",
+            "size": 70,
+            "file_type": "document",
+            "mime_type": "text/plain"
+          }
+        ],
+        "folders": [
+          {
+            "id": "fld_legacy_demo",
+            "title": "旧设备示例"
+          }
+        ],
+        "folderItems": [
+          {
+            "folder_id": "fld_legacy_demo",
+            "item_type": "file",
+            "item_id": "file_CDUjXdTa6Z"
+          },
+          {
+            "folder_id": "fld_legacy_demo",
+            "item_type": "note",
+            "item_id": "note_6eezX7uPIP"
+          },
+          {
+            "folder_id": "fld_legacy_demo",
+            "item_type": "note",
+            "item_id": "note_EUX0uLPRD4"
+          }
+        ],
+        "chatSessions": [
+          {
+            "id": "sess_legacy_demo",
+            "mode": "analysis",
+            "title": "旧设备会话",
+            "persist_status": "active",
+            "created_at": "2026-10-01T00:00:00+00:00",
+            "updated_at": "2026-10-01T00:00:01+00:00"
+          }
+        ],
+        "chatMessages": [
+          {
+            "id": "msg_legacy_assistant",
+            "session_id": "sess_legacy_demo",
+            "role": "assistant",
+            "block_ids_json": "[\"blk_legacy_answer\"]",
+            "timestamp": 1790000001000,
+            "parent_id": "msg_legacy_user"
+          },
+          {
+            "id": "msg_legacy_user",
+            "session_id": "sess_legacy_demo",
+            "role": "user",
+            "block_ids_json": "[]",
+            "timestamp": 1790000000000,
+            "parent_id": null
+          }
+        ],
+        "chatBlocks": [
+          {
+            "id": "blk_legacy_answer",
+            "message_id": "msg_legacy_assistant",
+            "block_type": "content",
+            "status": "success",
+            "block_index": 0,
+            "content": "这是旧设备上的公开示例回答。"
+          }
+        ],
+        "mistakes": [
+          {
+            "id": "mistake_legacy_demo",
+            "mistake_type": "math",
+            "status": "completed",
+            "ocr_text": "示例识别文本"
+          }
+        ],
+        "mistakeMessages": [
+          {
+            "mistake_id": "mistake_legacy_demo",
+            "role": "user",
+            "content": "这是公开 fixture 的错题消息。",
+            "timestamp": "2026-10-01T00:00:00.000Z"
+          }
+        ],
+        "documentTasks": [
+          {
+            "id": "task_legacy_demo",
+            "document_id": "doc_legacy_demo",
+            "status": "Completed",
+            "segment_index": 0
+          }
+        ],
+        "ankiCards": [
+          {
+            "id": "card_legacy_demo",
+            "task_id": "task_legacy_demo",
+            "front": "示例问题",
+            "back": "示例答案",
+            "tags_json": "[\"fixture\"]",
+            "source_type": "document",
+            "source_id": "doc_legacy_demo"
+          }
+        ],
+        "settings": [
+          {
+            "key": "appearance.theme",
+            "value": "system",
+            "updated_at": "2026-11-15T12:59:18.516334960+00:00"
+          },
+          {
+            "key": "notes.default_folder",
+            "value": "fld_legacy_demo",
+            "updated_at": "2026-11-15T12:59:18.517534912+00:00"
+          }
+        ],
+        "usageLogs": [
+          {
+            "id": "usage_214c4eab-7996-406e-a09d-d35b07135c4e",
+            "provider": "deepseek",
+            "model": "deepseek-chat",
+            "caller_type": "chat_v2",
+            "prompt_tokens": 120,
+            "completion_tokens": 80,
+            "total_tokens": 200,
+            "status": "success"
+          }
+        ],
+        "usageDaily": [
+          {
+            "date": "2026-10-01",
+            "caller_type": "chat_v2",
+            "model": "deepseek-chat",
+            "provider": "deepseek",
+            "request_count": 1,
+            "total_tokens": 200
+          }
+        ],
+        "audit": [
+          {
+            "id": "audit_legacy_demo",
+            "operation_type": "Migration",
+            "target": "vfs",
+            "status": "Completed"
+          }
+        ]
+      },
+      "sidecar": null,
+      "checks": {
+        "failures": 0
+      }
+    },
+    "continuity": {
+      "mode": "continuity",
+      "file": "fixtures/legacy-mobile/legacy-mobile-continuity-continuity-v1.zip",
+      "bytes": 3987749,
+      "sha256": "774b1aea192eaec9f991c127aa275689b624b6679724e6ac6dea1316f5a13924",
+      "manifest": {
+        "backup_id": "legacy-continuity-fixture",
+        "snapshot_epoch": "5a0e16c0-0000-4000-8000-000000000002",
+        "created_at": "2026-11-15T12:59:19.282Z",
+        "app_version": "0.20.0",
+        "schema_versions": {
+          "vfs": 20261111,
+          "llm_usage": 20260826,
+          "chat_v2": 20261111,
+          "mistakes": 20261005
+        },
+        "snapshot_kind": "full",
+        "key_policy": "not_present"
+      },
+      "slotRestore": {
+        "ok": true,
+        "error": null
+      },
+      "coverage": {
+        "version": 1,
+        "snapshotKind": "full",
+        "keyPolicy": "not_present",
+        "requiredComponents": [
+          "agents",
+          "asset-root:audio",
+          "asset-root:documents",
+          "asset-root:images",
+          "asset-root:notes_assets",
+          "asset-root:pdf_ocr_sessions",
+          "asset-root:subjects",
+          "asset-root:textbooks",
+          "asset-root:vfs_blobs",
+          "asset-root:videos",
+          "asset-root:workspaces",
+          "audit",
+          "crypto",
+          "custom-grading-modes",
+          "database:chat_v2",
+          "database:llm_usage",
+          "database:mistakes",
+          "database:vfs",
+          "user-skills",
+          "webview-settings",
+          "workspaces-root"
+        ],
+        "includedComponents": [
+          "agents",
+          "asset-root:audio",
+          "asset-root:documents",
+          "asset-root:images",
+          "asset-root:notes_assets",
+          "asset-root:pdf_ocr_sessions",
+          "asset-root:subjects",
+          "asset-root:textbooks",
+          "asset-root:vfs_blobs",
+          "asset-root:videos",
+          "asset-root:workspaces",
+          "audit",
+          "crypto",
+          "custom-grading-modes",
+          "database:chat_v2",
+          "database:llm_usage",
+          "database:mistakes",
+          "database:vfs",
+          "user-skills",
+          "webview-settings",
+          "workspaces-root"
+        ],
+        "domains": {
+          "database:vfs": {
+            "status": "complete",
+            "paths": [
+              "vfs.db"
+            ],
+            "fileCount": 1,
+            "totalSize": 2244608
+          },
+          "database:llm_usage": {
+            "status": "complete",
+            "paths": [
+              "llm_usage.db"
+            ],
+            "fileCount": 1,
+            "totalSize": 192512
+          },
+          "database:chat_v2": {
+            "status": "complete",
+            "paths": [
+              "chat_v2.db"
+            ],
+            "fileCount": 1,
+            "totalSize": 802816
+          },
+          "database:mistakes": {
+            "status": "complete",
+            "paths": [
+              "mistakes.db"
+            ],
+            "fileCount": 1,
+            "totalSize": 720896
+          },
+          "workspaces-root": {
+            "status": "absent",
+            "paths": [],
+            "fileCount": 0,
+            "totalSize": 0
+          },
+          "asset-root:images": {
+            "status": "absent",
+            "paths": [],
+            "fileCount": 0,
+            "totalSize": 0
+          },
+          "asset-root:notes_assets": {
+            "status": "absent",
+            "paths": [],
+            "fileCount": 0,
+            "totalSize": 0
+          },
+          "asset-root:documents": {
+            "status": "absent",
+            "paths": [],
+            "fileCount": 0,
+            "totalSize": 0
+          },
+          "asset-root:vfs_blobs": {
+            "status": "complete",
+            "paths": [
+              "assets/vfs_blobs/25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt"
+            ],
+            "fileCount": 1,
+            "totalSize": 70
+          },
+          "asset-root:subjects": {
+            "status": "absent",
+            "paths": [],
+            "fileCount": 0,
+            "totalSize": 0
+          },
+          "asset-root:workspaces": {
+            "status": "absent",
+            "paths": [],
+            "fileCount": 0,
+            "totalSize": 0
+          },
+          "asset-root:audio": {
+            "status": "absent",
+            "paths": [],
+            "fileCount": 0,
+            "totalSize": 0
+          },
+          "asset-root:videos": {
+            "status": "absent",
+            "paths": [],
+            "fileCount": 0,
+            "totalSize": 0
+          },
+          "asset-root:textbooks": {
+            "status": "absent",
+            "paths": [],
+            "fileCount": 0,
+            "totalSize": 0
+          },
+          "asset-root:pdf_ocr_sessions": {
+            "status": "absent",
+            "paths": [],
+            "fileCount": 0,
+            "totalSize": 0
+          },
+          "crypto": {
+            "status": "absent",
+            "paths": [],
+            "fileCount": 0,
+            "totalSize": 0
+          },
+          "audit": {
+            "status": "complete",
+            "paths": [
+              "databases/audit.db"
+            ],
+            "fileCount": 1,
+            "totalSize": 24576
+          },
+          "webview-settings": {
+            "status": "absent",
+            "paths": [],
+            "fileCount": 0,
+            "totalSize": 0
+          },
+          "custom-grading-modes": {
+            "status": "absent",
+            "paths": [],
+            "fileCount": 0,
+            "totalSize": 0
+          },
+          "agents": {
+            "status": "absent",
+            "paths": [],
+            "fileCount": 0,
+            "totalSize": 0
+          },
+          "user-skills": {
+            "status": "absent",
+            "paths": [],
+            "fileCount": 0,
+            "totalSize": 0
+          }
+        },
+        "complete": [
+          "asset-root:vfs_blobs",
+          "audit",
+          "database:chat_v2",
+          "database:llm_usage",
+          "database:mistakes",
+          "database:vfs"
+        ],
+        "absent": [
+          "agents",
+          "asset-root:audio",
+          "asset-root:documents",
+          "asset-root:images",
+          "asset-root:notes_assets",
+          "asset-root:pdf_ocr_sessions",
+          "asset-root:subjects",
+          "asset-root:textbooks",
+          "asset-root:videos",
+          "asset-root:workspaces",
+          "crypto",
+          "custom-grading-modes",
+          "user-skills",
+          "webview-settings",
+          "workspaces-root"
+        ],
+        "empty": []
+      },
+      "entries": [
+        {
+          "name": "vfs.db",
+          "size": 2244608,
+          "compression": "stored",
+          "crc32": 1782086024,
+          "isDirectory": false,
+          "sha256": "73706ef8747809aef34e3f37a90b379693766150de795b49c19cad3be5fa6e26"
+        },
+        {
+          "name": "llm_usage.db",
+          "size": 192512,
+          "compression": "stored",
+          "crc32": 1291878566,
+          "isDirectory": false,
+          "sha256": "540126c76b2e287dec43e42ea58586114869b10500c64e17ea730bae7518ff00"
+        },
+        {
+          "name": "chat_v2.db",
+          "size": 802816,
+          "compression": "stored",
+          "crc32": 4249093492,
+          "isDirectory": false,
+          "sha256": "de5c299a136ec90160a783dbdc3acf6d047f0f70891aba99b2222fbf63bd370c"
+        },
+        {
+          "name": "mistakes.db",
+          "size": 720896,
+          "compression": "stored",
+          "crc32": 2621481664,
+          "isDirectory": false,
+          "sha256": "18058406b0a1995f4e57aa5c559503844bdcc0d6f1979180a0afe5a106bf1792"
+        },
+        {
+          "name": "databases/audit.db",
+          "size": 24576,
+          "compression": "stored",
+          "crc32": 581901240,
+          "isDirectory": false,
+          "sha256": "8c60f12c6b370c5c21956d9a4769518a440a3c9cbddcb1257d0460b380b622e5"
+        },
+        {
+          "name": "assets/vfs_blobs/25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt",
+          "size": 70,
+          "compression": "deflated",
+          "crc32": 286135773,
+          "isDirectory": false,
+          "sha256": "254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a"
+        },
+        {
+          "name": "manifest.json",
+          "size": 10178,
+          "compression": "deflated",
+          "crc32": 1858217079,
+          "isDirectory": false,
+          "sha256": "2d975fcb1804dfe2375e4c8b4b4b5267c21fcf33b5b0e9e4d9d85780948fe2ad"
+        }
+      ],
+      "sourceDatabases": {
+        "vfs": {
+          "version": 20261111,
+          "history": 72,
+          "last": {
+            "version": 20261111,
+            "name": "study_space_profiles_and_mounts",
+            "checksum": "16502010308443774003"
+          },
+          "tables": 94,
+          "indexes": 323,
+          "triggers": 147,
+          "integrity": "ok",
+          "foreignKeyViolations": 0
+        },
+        "llm_usage": {
+          "version": 20260826,
+          "history": 8,
+          "last": {
+            "version": 20260826,
+            "name": "add_stream_identity",
+            "checksum": "3538657643559729633"
+          },
+          "tables": 4,
+          "indexes": 35,
+          "triggers": 4,
+          "integrity": "ok",
+          "foreignKeyViolations": 0
+        },
+        "chat_v2": {
+          "version": 20261111,
+          "history": 30,
+          "last": {
+            "version": 20261111,
+            "name": "session_group_root_folder",
+            "checksum": "3274148009639221350"
+          },
+          "tables": 31,
+          "indexes": 123,
+          "triggers": 35,
+          "integrity": "ok",
+          "foreignKeyViolations": 0
+        },
+        "mistakes": {
+          "version": 20261005,
+          "history": 23,
+          "last": {
+            "version": 20261005,
+            "name": "fsrs_learning_step",
+            "checksum": "15009873917906083320"
+          },
+          "tables": 26,
+          "indexes": 110,
+          "triggers": 35,
+          "integrity": "ok",
+          "foreignKeyViolations": 0
+        }
+      },
+      "sourceFingerprints": {
+        "vfs": {
+          "version": 20261111,
+          "migrations": 72,
+          "fingerprint": "b807a28417167a8e62fb7378b237e671b640e54dea63e077b8641a2bec84e0a6",
+          "canonicalSchemaSha256": "b807a28417167a8e62fb7378b237e671b640e54dea63e077b8641a2bec84e0a6",
+          "scope": {
+            "tables": 93,
+            "indexes": 323,
+            "triggers": 147
+          }
+        },
+        "llm_usage": {
+          "version": 20260826,
+          "migrations": 8,
+          "fingerprint": "ed69ae106103c3b48460d898be47fdfe12124e26f392e4636d1fe7816beb6245",
+          "canonicalSchemaSha256": "ed69ae106103c3b48460d898be47fdfe12124e26f392e4636d1fe7816beb6245",
+          "scope": {
+            "tables": 3,
+            "indexes": 35,
+            "triggers": 4
+          }
+        },
+        "chat_v2": {
+          "version": 20261111,
+          "migrations": 30,
+          "fingerprint": "2a29bf29771c7381db4cac8cdbad325cddad8d86bc06795a369176e4654e8b7a",
+          "canonicalSchemaSha256": "2a29bf29771c7381db4cac8cdbad325cddad8d86bc06795a369176e4654e8b7a",
+          "scope": {
+            "tables": 30,
+            "indexes": 123,
+            "triggers": 35
+          }
+        },
+        "mistakes": {
+          "version": 20261005,
+          "migrations": 23,
+          "fingerprint": "d3888182592592c3f6a44b5df024e176e846015f264d87daab03ac2e277f49ba",
+          "canonicalSchemaSha256": "d3888182592592c3f6a44b5df024e176e846015f264d87daab03ac2e277f49ba",
+          "scope": {
+            "tables": 24,
+            "indexes": 107,
+            "triggers": 35
+          }
+        }
+      },
+      "databases": {
+        "vfs": {
+          "version": 20261115,
+          "history": 73,
+          "last": {
+            "version": 20261115,
+            "name": "review_plans_fsrs",
+            "checksum": "12050512011832493113"
+          },
+          "tables": 95,
+          "indexes": 323,
+          "triggers": 147,
+          "integrity": "ok",
+          "foreignKeyViolations": 0
+        },
+        "llm_usage": {
+          "version": 20260826,
+          "history": 8,
+          "last": {
+            "version": 20260826,
+            "name": "add_stream_identity",
+            "checksum": "3538657643559729633"
+          },
+          "tables": 5,
+          "indexes": 35,
+          "triggers": 4,
+          "integrity": "ok",
+          "foreignKeyViolations": 0
+        },
+        "chat_v2": {
+          "version": 20261111,
+          "history": 30,
+          "last": {
+            "version": 20261111,
+            "name": "session_group_root_folder",
+            "checksum": "3274148009639221350"
+          },
+          "tables": 32,
+          "indexes": 123,
+          "triggers": 35,
+          "integrity": "ok",
+          "foreignKeyViolations": 0
+        },
+        "mistakes": {
+          "version": 20261005,
+          "history": 23,
+          "last": {
+            "version": 20261005,
+            "name": "fsrs_learning_step",
+            "checksum": "15009873917906083320"
+          },
+          "tables": 27,
+          "indexes": 110,
+          "triggers": 35,
+          "integrity": "ok",
+          "foreignKeyViolations": 0
+        }
+      },
+      "fingerprints": {
+        "vfs": {
+          "version": 20261115,
+          "migrations": 73,
+          "fingerprint": "c3da4956b07fa60548a8c848a4e7f60fd7f05d10ac936d2396f0fa1920b98d23",
+          "canonicalSchemaSha256": "c3da4956b07fa60548a8c848a4e7f60fd7f05d10ac936d2396f0fa1920b98d23",
+          "scope": {
+            "tables": 93,
+            "indexes": 323,
+            "triggers": 147
+          }
+        },
+        "llm_usage": {
+          "version": 20260826,
+          "migrations": 8,
+          "fingerprint": "ed69ae106103c3b48460d898be47fdfe12124e26f392e4636d1fe7816beb6245",
+          "canonicalSchemaSha256": "ed69ae106103c3b48460d898be47fdfe12124e26f392e4636d1fe7816beb6245",
+          "scope": {
+            "tables": 3,
+            "indexes": 35,
+            "triggers": 4
+          }
+        },
+        "chat_v2": {
+          "version": 20261111,
+          "migrations": 30,
+          "fingerprint": "2a29bf29771c7381db4cac8cdbad325cddad8d86bc06795a369176e4654e8b7a",
+          "canonicalSchemaSha256": "2a29bf29771c7381db4cac8cdbad325cddad8d86bc06795a369176e4654e8b7a",
+          "scope": {
+            "tables": 30,
+            "indexes": 123,
+            "triggers": 35
+          }
+        },
+        "mistakes": {
+          "version": 20261005,
+          "migrations": 23,
+          "fingerprint": "d3888182592592c3f6a44b5df024e176e846015f264d87daab03ac2e277f49ba",
+          "canonicalSchemaSha256": "d3888182592592c3f6a44b5df024e176e846015f264d87daab03ac2e277f49ba",
+          "scope": {
+            "tables": 24,
+            "indexes": 107,
+            "triggers": 35
+          }
+        }
+      },
+      "targetMigration": {
+        "mode": "copy-to-temporary-slot-then-production-coordinator",
+        "migrationsDir": "resources/app/migrations（冻结桌面 e6b2657f）",
+        "slotLayout": {
+          "vfs": "databases/vfs.db",
+          "llm_usage": "llm_usage.db",
+          "chat_v2": "chat_v2.db",
+          "mistakes": "mistakes.db"
+        },
+        "sourceVersions": {
+          "vfs": 20261111,
+          "llm_usage": 20260826,
+          "chat_v2": 20261111,
+          "mistakes": 20261005
+        },
+        "targetVersions": {
+          "vfs": 20261115,
+          "llm_usage": 20260826,
+          "chat_v2": 20261111,
+          "mistakes": 20261005
+        },
+        "migration": {
+          "success": true,
+          "databases": [
+            {
+              "id": "vfs",
+              "fromVersion": 20261111,
+              "toVersion": 20261115,
+              "appliedCount": 1,
+              "success": true
+            },
+            {
+              "id": "llm_usage",
+              "fromVersion": 20260826,
+              "toVersion": 20260826,
+              "appliedCount": 0,
+              "success": true
+            },
+            {
+              "id": "chat_v2",
+              "fromVersion": 20261111,
+              "toVersion": 20261111,
+              "appliedCount": 0,
+              "success": true
+            },
+            {
+              "id": "mistakes",
+              "fromVersion": 20261005,
+              "toVersion": 20261005,
+              "appliedCount": 0,
+              "success": true
+            }
+          ]
+        },
+        "restart": {
+          "success": true,
+          "databases": [
+            {
+              "id": "vfs",
+              "fromVersion": 20261115,
+              "toVersion": 20261115,
+              "appliedCount": 0,
+              "success": true
+            },
+            {
+              "id": "llm_usage",
+              "fromVersion": 20260826,
+              "toVersion": 20260826,
+              "appliedCount": 0,
+              "success": true
+            },
+            {
+              "id": "chat_v2",
+              "fromVersion": 20261111,
+              "toVersion": 20261111,
+              "appliedCount": 0,
+              "success": true
+            },
+            {
+              "id": "mistakes",
+              "fromVersion": 20261005,
+              "toVersion": 20261005,
+              "appliedCount": 0,
+              "success": true
+            }
+          ]
+        },
+        "preserved": {
+          "businessRows": true,
+          "rows": {
+            "vfs": {
+              "rowsBefore": {
+                "__asset_deletion_queue": 0,
+                "__blob_deletion_queue": 0,
+                "__change_log": 23,
+                "__file_deletion_journal": 0,
+                "__lance_orphan_queue": 0,
+                "answer_submissions": 0,
+                "automation_todo_deliveries": 0,
+                "blobs": 1,
+                "essay_sessions": 0,
+                "essays": 0,
+                "exam_sheets": 2,
+                "files": 1,
+                "folder_items": 3,
+                "folders": 1,
+                "insight_events": 0,
+                "insight_evidence": 0,
+                "insight_fts": 0,
+                "insight_fts_config": 1,
+                "insight_fts_data": 2,
+                "insight_fts_docsize": 0,
+                "insight_fts_idx": 0,
+                "insight_jobs": 0,
+                "insight_relations": 0,
+                "insight_revisions": 0,
+                "insights": 0,
+                "mastery_events": 0,
+                "mastery_states": 0,
+                "media_progress": 0,
+                "media_transcript_segments": 0,
+                "memory_audit_log": 0,
+                "memory_config": 4,
+                "memory_write_idempotency": 0,
+                "mindmap_versions": 0,
+                "mindmaps": 0,
+                "note_document_formats": 2,
+                "note_document_revisions": 2,
+                "note_editor_lease_acks": 0,
+                "note_editor_lease_notes": 0,
+                "note_editor_leases": 0,
+                "note_editor_participants": 0,
+                "note_editor_write_grants": 0,
+                "note_history_retention": 1,
+                "note_learning_relations": 0,
+                "note_links": 1,
+                "note_review_save_operations": 0,
+                "note_review_save_receipts": 0,
+                "note_state": 0,
+                "note_tags": 3,
+                "note_transfer_operations": 0,
+                "notes": 2,
+                "notes_fts": 2,
+                "notes_fts_config": 1,
+                "notes_fts_data": 4,
+                "notes_fts_docsize": 2,
+                "notes_fts_idx": 2,
+                "path_cache": 0,
+                "pomodoro_records": 0,
+                "qbank_generation_tasks": 0,
+                "qbank_group_materials": 0,
+                "qbank_groups": 0,
+                "qbank_import_jobs": 0,
+                "qbank_materials": 0,
+                "qbank_papers": 0,
+                "qbank_practice_attempts": 0,
+                "qbank_practice_drafts": 0,
+                "qbank_practice_jobs": 0,
+                "qbank_sources": 0,
+                "question_bank_stats": 0,
+                "question_history": 0,
+                "question_sync_conflicts": 0,
+                "question_sync_logs": 0,
+                "questions": 2,
+                "questions_fts": 2,
+                "questions_fts_config": 1,
+                "questions_fts_data": 4,
+                "questions_fts_docsize": 2,
+                "questions_fts_idx": 2,
+                "resources": 3,
+                "review_history": 0,
+                "review_plans": 2,
+                "review_stats": 0,
+                "study_time_daily": 0,
+                "todo_items": 0,
+                "todo_lists": 0,
+                "translations": 0,
+                "vfs_anchor_edges": 0,
+                "vfs_embedding_dims": 0,
+                "vfs_index_profiles": 0,
+                "vfs_index_segments": 0,
+                "vfs_index_units": 0,
+                "vfs_indexing_config": 15,
+                "vfs_space_mounts": 0,
+                "vfs_study_space_profiles": 0
+              },
+              "rowsAfter": {
+                "__asset_deletion_queue": 0,
+                "__blob_deletion_queue": 0,
+                "__change_log": 23,
+                "__file_deletion_journal": 0,
+                "__lance_orphan_queue": 0,
+                "answer_submissions": 0,
+                "automation_todo_deliveries": 0,
+                "blobs": 1,
+                "essay_sessions": 0,
+                "essays": 0,
+                "exam_sheets": 2,
+                "files": 1,
+                "folder_items": 3,
+                "folders": 1,
+                "insight_events": 0,
+                "insight_evidence": 0,
+                "insight_fts": 0,
+                "insight_fts_config": 1,
+                "insight_fts_data": 2,
+                "insight_fts_docsize": 0,
+                "insight_fts_idx": 0,
+                "insight_jobs": 0,
+                "insight_relations": 0,
+                "insight_revisions": 0,
+                "insights": 0,
+                "mastery_events": 0,
+                "mastery_states": 0,
+                "media_progress": 0,
+                "media_transcript_segments": 0,
+                "memory_audit_log": 0,
+                "memory_config": 4,
+                "memory_write_idempotency": 0,
+                "mindmap_versions": 0,
+                "mindmaps": 0,
+                "note_document_formats": 2,
+                "note_document_revisions": 2,
+                "note_editor_lease_acks": 0,
+                "note_editor_lease_notes": 0,
+                "note_editor_leases": 0,
+                "note_editor_participants": 0,
+                "note_editor_write_grants": 0,
+                "note_history_retention": 1,
+                "note_learning_relations": 0,
+                "note_links": 1,
+                "note_review_save_operations": 0,
+                "note_review_save_receipts": 0,
+                "note_state": 0,
+                "note_tags": 3,
+                "note_transfer_operations": 0,
+                "notes": 2,
+                "notes_fts": 2,
+                "notes_fts_config": 1,
+                "notes_fts_data": 4,
+                "notes_fts_docsize": 2,
+                "notes_fts_idx": 2,
+                "path_cache": 0,
+                "pomodoro_records": 0,
+                "qbank_generation_tasks": 0,
+                "qbank_group_materials": 0,
+                "qbank_groups": 0,
+                "qbank_import_jobs": 0,
+                "qbank_materials": 0,
+                "qbank_papers": 0,
+                "qbank_practice_attempts": 0,
+                "qbank_practice_drafts": 0,
+                "qbank_practice_jobs": 0,
+                "qbank_sources": 0,
+                "question_bank_stats": 0,
+                "question_history": 0,
+                "question_sync_conflicts": 0,
+                "question_sync_logs": 0,
+                "questions": 2,
+                "questions_fts": 2,
+                "questions_fts_config": 1,
+                "questions_fts_data": 4,
+                "questions_fts_docsize": 2,
+                "questions_fts_idx": 2,
+                "resources": 3,
+                "review_history": 0,
+                "review_plans": 2,
+                "review_stats": 0,
+                "study_time_daily": 0,
+                "todo_items": 0,
+                "todo_lists": 0,
+                "translations": 0,
+                "vfs_anchor_edges": 0,
+                "vfs_embedding_dims": 0,
+                "vfs_index_profiles": 0,
+                "vfs_index_segments": 0,
+                "vfs_index_units": 0,
+                "vfs_indexing_config": 15,
+                "vfs_space_mounts": 0,
+                "vfs_study_space_profiles": 0
+              },
+              "unchanged": true
+            },
+            "llm_usage": {
+              "rowsBefore": {
+                "__change_log": 1,
+                "llm_usage_daily": 1,
+                "llm_usage_logs": 1
+              },
+              "rowsAfter": {
+                "__change_log": 1,
+                "llm_usage_daily": 1,
+                "llm_usage_logs": 1
+              },
+              "unchanged": true
+            },
+            "chat_v2": {
+              "rowsBefore": {
+                "__change_log": 4,
+                "__file_deletion_journal": 0,
+                "__workspace_deletion_queue": 0,
+                "budget_snapshots": 0,
+                "chat_v2_attachments": 0,
+                "chat_v2_blocks": 1,
+                "chat_v2_compactions": 0,
+                "chat_v2_content_fts": 1,
+                "chat_v2_content_fts_config": 1,
+                "chat_v2_content_fts_content": 1,
+                "chat_v2_content_fts_data": 3,
+                "chat_v2_content_fts_docsize": 1,
+                "chat_v2_content_fts_idx": 1,
+                "chat_v2_goals": 0,
+                "chat_v2_messages": 2,
+                "chat_v2_session_groups": 0,
+                "chat_v2_session_mistakes": 0,
+                "chat_v2_session_state": 0,
+                "chat_v2_session_tags": 0,
+                "chat_v2_sessions": 1,
+                "chat_v2_todo_lists": 0,
+                "completion_outbox": 0,
+                "connector_operations": 0,
+                "resources": 0,
+                "revocation_epochs": 0,
+                "skill_candidates": 0,
+                "skill_usage": 0,
+                "sleep_block": 0,
+                "subagent_task": 0,
+                "workspace_index": 0
+              },
+              "rowsAfter": {
+                "__change_log": 4,
+                "__file_deletion_journal": 0,
+                "__workspace_deletion_queue": 0,
+                "budget_snapshots": 0,
+                "chat_v2_attachments": 0,
+                "chat_v2_blocks": 1,
+                "chat_v2_compactions": 0,
+                "chat_v2_content_fts": 1,
+                "chat_v2_content_fts_config": 1,
+                "chat_v2_content_fts_content": 1,
+                "chat_v2_content_fts_data": 3,
+                "chat_v2_content_fts_docsize": 1,
+                "chat_v2_content_fts_idx": 1,
+                "chat_v2_goals": 0,
+                "chat_v2_messages": 2,
+                "chat_v2_session_groups": 0,
+                "chat_v2_session_mistakes": 0,
+                "chat_v2_session_state": 0,
+                "chat_v2_session_tags": 0,
+                "chat_v2_sessions": 1,
+                "chat_v2_todo_lists": 0,
+                "completion_outbox": 0,
+                "connector_operations": 0,
+                "resources": 0,
+                "revocation_epochs": 0,
+                "skill_candidates": 0,
+                "skill_usage": 0,
+                "sleep_block": 0,
+                "subagent_task": 0,
+                "workspace_index": 0
+              },
+              "unchanged": true
+            },
+            "mistakes": {
+              "rowsBefore": {
+                "__change_log": 5,
+                "anki_cards": 1,
+                "anki_decks": 1,
+                "automation_definitions": 0,
+                "automation_runs": 0,
+                "chat_messages": 1,
+                "custom_anki_templates": 0,
+                "document_control_states": 0,
+                "document_tasks": 1,
+                "exam_sheet_sessions": 0,
+                "fsrs_card_states": 0,
+                "fsrs_review_logs": 0,
+                "migration_progress": 0,
+                "mistakes": 1,
+                "pending_memory_candidates": 0,
+                "rag_configurations": 0,
+                "rag_sub_libraries": 0,
+                "review_analyses": 0,
+                "review_chat_messages": 0,
+                "review_session_mistakes": 0,
+                "review_sessions": 0,
+                "search_logs": 0,
+                "settings": 2,
+                "temp_sessions": 0,
+                "vectorized_data": 0
+              },
+              "rowsAfter": {
+                "__change_log": 5,
+                "anki_cards": 1,
+                "anki_decks": 1,
+                "automation_definitions": 0,
+                "automation_runs": 0,
+                "chat_messages": 1,
+                "custom_anki_templates": 0,
+                "document_control_states": 0,
+                "document_tasks": 1,
+                "exam_sheet_sessions": 0,
+                "fsrs_card_states": 0,
+                "fsrs_review_logs": 0,
+                "migration_progress": 0,
+                "mistakes": 1,
+                "pending_memory_candidates": 0,
+                "rag_configurations": 0,
+                "rag_sub_libraries": 0,
+                "review_analyses": 0,
+                "review_chat_messages": 0,
+                "review_session_mistakes": 0,
+                "review_sessions": 0,
+                "search_logs": 0,
+                "settings": 2,
+                "temp_sessions": 0,
+                "vectorized_data": 0
+              },
+              "unchanged": true
+            }
+          },
+          "assets": [
+            {
+              "hash": "254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a",
+              "size": 70,
+              "relativePath": "25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt"
+            }
+          ],
+          "auditRows": 1,
+          "tableChecks": {
+            "vfs": {
+              "fromVersion": 20261111,
+              "toVersion": 20261115,
+              "historyBefore": 72,
+              "historyAfter": 73,
+              "tablesBefore": 93,
+              "tablesAfter": 95
+            },
+            "llm_usage": {
+              "fromVersion": 20260826,
+              "toVersion": 20260826,
+              "historyBefore": 8,
+              "historyAfter": 8,
+              "tablesBefore": 3,
+              "tablesAfter": 5
+            },
+            "chat_v2": {
+              "fromVersion": 20261111,
+              "toVersion": 20261111,
+              "historyBefore": 30,
+              "historyAfter": 30,
+              "tablesBefore": 30,
+              "tablesAfter": 32
+            },
+            "mistakes": {
+              "fromVersion": 20261005,
+              "toVersion": 20261005,
+              "historyBefore": 23,
+              "historyAfter": 23,
+              "tablesBefore": 25,
+              "tablesAfter": 27
+            }
+          }
+        },
+        "fsrs": {
+          "columns": [
+            {
+              "name": "fsrs_stability",
+              "type": "REAL",
+              "dflt_value": null,
+              "notnull": 0
+            },
+            {
+              "name": "fsrs_difficulty",
+              "type": "REAL",
+              "dflt_value": null,
+              "notnull": 0
+            },
+            {
+              "name": "fsrs_phase",
+              "type": "TEXT",
+              "dflt_value": null,
+              "notnull": 0
+            },
+            {
+              "name": "fsrs_learning_step",
+              "type": "INTEGER",
+              "dflt_value": "0",
+              "notnull": 0
+            },
+            {
+              "name": "fsrs_lapses",
+              "type": "INTEGER",
+              "dflt_value": "0",
+              "notnull": 0
+            },
+            {
+              "name": "fsrs_due_at",
+              "type": "INTEGER",
+              "dflt_value": null,
+              "notnull": 0
+            },
+            {
+              "name": "fsrs_last_review_at",
+              "type": "INTEGER",
+              "dflt_value": null,
+              "notnull": 0
+            }
+          ],
+          "expectedColumns": [
+            {
+              "name": "fsrs_stability",
+              "type": "REAL",
+              "defaultValue": null,
+              "notNull": 0
+            },
+            {
+              "name": "fsrs_difficulty",
+              "type": "REAL",
+              "defaultValue": null,
+              "notNull": 0
+            },
+            {
+              "name": "fsrs_phase",
+              "type": "TEXT",
+              "defaultValue": null,
+              "notNull": 0
+            },
+            {
+              "name": "fsrs_learning_step",
+              "type": "INTEGER",
+              "defaultValue": "0",
+              "notNull": 0
+            },
+            {
+              "name": "fsrs_lapses",
+              "type": "INTEGER",
+              "defaultValue": "0",
+              "notNull": 0
+            },
+            {
+              "name": "fsrs_due_at",
+              "type": "INTEGER",
+              "defaultValue": null,
+              "notNull": 0
+            },
+            {
+              "name": "fsrs_last_review_at",
+              "type": "INTEGER",
+              "defaultValue": null,
+              "notNull": 0
+            }
+          ],
+          "reviewPlanRows": 2,
+          "legacyRows": [
+            {
+              "id": "legacy_review_plan_probe_due",
+              "ease_factor": 2.3,
+              "interval_days": 6,
+              "repetitions": 3,
+              "next_review_date": "2020-01-01",
+              "last_review_date": "2019-12-20",
+              "status": "reviewing"
+            },
+            {
+              "id": "legacy_review_plan_probe_future",
+              "ease_factor": 2.5,
+              "interval_days": 30,
+              "repetitions": 8,
+              "next_review_date": "2099-12-31",
+              "last_review_date": "2026-10-01",
+              "status": "graduated"
+            }
+          ],
+          "allLegacyRowsDefaulted": true
+        }
+      },
+      "rows": {
+        "notes": [
+          {
+            "id": "note_6eezX7uPIP",
+            "resource_id": "res_QRdGfLEjpg",
+            "title": "迁移示例笔记二",
+            "tags": "[\"fixture\"]"
+          },
+          {
+            "id": "note_EUX0uLPRD4",
+            "resource_id": "res_p0TpRWaI3e",
+            "title": "迁移示例笔记",
+            "tags": "[\"fixture\",\"迁移\"]"
+          }
+        ],
+        "noteFormats": [
+          {
+            "note_id": "note_6eezX7uPIP",
+            "content_format": "markdown-legacy",
+            "format_version": 1,
+            "serializer_version": "markdown-v1"
+          },
+          {
+            "note_id": "note_EUX0uLPRD4",
+            "content_format": "markdown-legacy",
+            "format_version": 1,
+            "serializer_version": "markdown-v1"
+          }
+        ],
+        "revisions": [
+          {
+            "version_id": "nrev_428a334aef8c4bf695dca44c183087a9",
+            "note_id": "note_EUX0uLPRD4",
+            "source": "created",
+            "content_format": "markdown-legacy"
+          },
+          {
+            "version_id": "nrev_63ac1c6adac34358b6134d97848f9bc1",
+            "note_id": "note_6eezX7uPIP",
+            "source": "created",
+            "content_format": "markdown-legacy"
+          }
+        ],
+        "resources": [
+          {
+            "id": "res_QRdGfLEjpg",
+            "hash": "3ffaa79b54dac1b256faea636a39023110b9a08ecc77fc7afca85efa4af4ca5c",
+            "type": "note",
+            "source_id": "note_6eezX7uPIP",
+            "source_table": "notes",
+            "storage_mode": "inline",
+            "ref_count": 0
+          },
+          {
+            "id": "res_p0TpRWaI3e",
+            "hash": "6fab517871fd70145f9b43a9b257f5775084196a4dc7adca0b94fee947dbc91a",
+            "type": "note",
+            "source_id": "note_EUX0uLPRD4",
+            "source_table": "notes",
+            "storage_mode": "inline",
+            "ref_count": 0
+          },
+          {
+            "id": "res_waconSxsaX",
+            "hash": "254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a",
+            "type": "file",
+            "source_id": "file_CDUjXdTa6Z",
+            "source_table": "files",
+            "storage_mode": "inline",
+            "ref_count": 0
+          }
+        ],
+        "resourceData": [
+          {
+            "id": "res_QRdGfLEjpg",
+            "data": "## 代码块\n\n```ts\nconst answer = 42;\n```\n\n- 列表项一\n- 列表项二\n"
+          },
+          {
+            "id": "res_p0TpRWaI3e",
+            "data": "# 迁移示例\n\n这是公开 fixture 笔记，用于验证旧包导入。\n\n参见 [[迁移示例笔记二]]。\n"
+          }
+        ],
+        "blobs": [
+          {
+            "hash": "254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a",
+            "relative_path": "25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt",
+            "size": 70,
+            "mime_type": "text/plain",
+            "ref_count": 1
+          }
+        ],
+        "files": [
+          {
+            "id": "file_CDUjXdTa6Z",
+            "resource_id": "res_waconSxsaX",
+            "blob_hash": "254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a",
+            "sha256": "254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a",
+            "file_name": "legacy-sample.txt",
+            "size": 70,
+            "file_type": "document",
+            "mime_type": "text/plain"
+          }
+        ],
+        "folders": [
+          {
+            "id": "fld_legacy_demo",
+            "title": "旧设备示例"
+          }
+        ],
+        "folderItems": [
+          {
+            "folder_id": "fld_legacy_demo",
+            "item_type": "file",
+            "item_id": "file_CDUjXdTa6Z"
+          },
+          {
+            "folder_id": "fld_legacy_demo",
+            "item_type": "note",
+            "item_id": "note_6eezX7uPIP"
+          },
+          {
+            "folder_id": "fld_legacy_demo",
+            "item_type": "note",
+            "item_id": "note_EUX0uLPRD4"
+          }
+        ],
+        "chatSessions": [
+          {
+            "id": "sess_legacy_demo",
+            "mode": "analysis",
+            "title": "旧设备会话",
+            "persist_status": "active",
+            "created_at": "2026-10-01T00:00:00+00:00",
+            "updated_at": "2026-10-01T00:00:01+00:00"
+          }
+        ],
+        "chatMessages": [
+          {
+            "id": "msg_legacy_assistant",
+            "session_id": "sess_legacy_demo",
+            "role": "assistant",
+            "block_ids_json": "[\"blk_legacy_answer\"]",
+            "timestamp": 1790000001000,
+            "parent_id": "msg_legacy_user"
+          },
+          {
+            "id": "msg_legacy_user",
+            "session_id": "sess_legacy_demo",
+            "role": "user",
+            "block_ids_json": "[]",
+            "timestamp": 1790000000000,
+            "parent_id": null
+          }
+        ],
+        "chatBlocks": [
+          {
+            "id": "blk_legacy_answer",
+            "message_id": "msg_legacy_assistant",
+            "block_type": "content",
+            "status": "success",
+            "block_index": 0,
+            "content": "这是旧设备上的公开示例回答。"
+          }
+        ],
+        "mistakes": [
+          {
+            "id": "mistake_legacy_demo",
+            "mistake_type": "math",
+            "status": "completed",
+            "ocr_text": "示例识别文本"
+          }
+        ],
+        "mistakeMessages": [
+          {
+            "mistake_id": "mistake_legacy_demo",
+            "role": "user",
+            "content": "这是公开 fixture 的错题消息。",
+            "timestamp": "2026-10-01T00:00:00.000Z"
+          }
+        ],
+        "documentTasks": [
+          {
+            "id": "task_legacy_demo",
+            "document_id": "doc_legacy_demo",
+            "status": "Completed",
+            "segment_index": 0
+          }
+        ],
+        "ankiCards": [
+          {
+            "id": "card_legacy_demo",
+            "task_id": "task_legacy_demo",
+            "front": "示例问题",
+            "back": "示例答案",
+            "tags_json": "[\"fixture\"]",
+            "source_type": "document",
+            "source_id": "doc_legacy_demo"
+          }
+        ],
+        "settings": [
+          {
+            "key": "appearance.theme",
+            "value": "system",
+            "updated_at": "2026-11-15T12:59:18.516334960+00:00"
+          },
+          {
+            "key": "notes.default_folder",
+            "value": "fld_legacy_demo",
+            "updated_at": "2026-11-15T12:59:18.517534912+00:00"
+          }
+        ],
+        "usageLogs": [
+          {
+            "id": "usage_214c4eab-7996-406e-a09d-d35b07135c4e",
+            "provider": "deepseek",
+            "model": "deepseek-chat",
+            "caller_type": "chat_v2",
+            "prompt_tokens": 120,
+            "completion_tokens": 80,
+            "total_tokens": 200,
+            "status": "success"
+          }
+        ],
+        "usageDaily": [
+          {
+            "date": "2026-10-01",
+            "caller_type": "chat_v2",
+            "model": "deepseek-chat",
+            "provider": "deepseek",
+            "request_count": 1,
+            "total_tokens": 200
+          }
+        ],
+        "audit": [
+          {
+            "id": "audit_legacy_demo",
+            "operation_type": "Migration",
+            "target": "vfs",
+            "status": "Completed"
+          }
+        ]
+      },
+      "sidecar": {
+        "file": "fixtures/legacy-mobile/legacy-mobile-continuity-continuity-v1.continuity.json",
+        "sha256": "9c6b0fa1c3b93b8677514e6add0f0aecec4521e4ee4289cbe2d1f38a09bcadb6",
+        "format": "dstu.legacy.mobile.continuity",
+        "version": 1,
+        "status": "new-contract-in-this-unit"
+      },
+      "checks": {
+        "failures": 0
+      }
+    }
+  },
+  "identity": {
+    "standard": {
+      "rotationMethod": "SyncStateStore.recordDeviceRotation",
+      "source": "host/plugins/sync-support/src/state.ts:238",
+      "devices": {
+        "old": "device-7f3a91c2",
+        "peer": "device-91bc4de0",
+        "next": "device-2c55a8f1"
+      },
+      "before": {
+        "deviceHistory": {
+          "before": [],
+          "after": [
+            {
+              "old_device_id": "device-7f3a91c2",
+              "new_device_id": "device-2c55a8f1",
+              "reason": "backup_restore_activation"
+            }
+          ]
+        },
+        "consumeCursor": {
+          "before": [
+            {
+              "instance_id": "default",
+              "uploader_device_id": "device-91bc4de0",
+              "last_seq": 12
+            }
+          ],
+          "after": [
+            {
+              "instance_id": "default",
+              "uploader_device_id": "device-91bc4de0",
+              "last_seq": 0
+            }
+          ]
+        },
+        "legacyProcessedKey": {
+          "before": [
+            {
+              "instance_id": "default",
+              "object_key": "legacy/object/one"
+            }
+          ],
+          "after": []
+        },
+        "tombstoneWatermark": {
+          "before": [
+            {
+              "instance_id": "default",
+              "source_device_id": "device-91bc4de0",
+              "kind": "blob",
+              "last_applied_offset": 3
+            },
+            {
+              "instance_id": "default",
+              "source_device_id": "device-91bc4de0",
+              "kind": "row",
+              "last_applied_offset": 7
+            }
+          ],
+          "after": []
+        },
+        "uploadSeq": {
+          "before": [
+            {
+              "instance_id": "default",
+              "device_id": "device-7f3a91c2",
+              "last_seq": 5
+            }
+          ],
+          "after": [
+            {
+              "instance_id": "default",
+              "device_id": "device-7f3a91c2",
+              "last_seq": 5
+            }
+          ]
+        },
+        "tombstoneEventPublish": {
+          "before": [
+            {
+              "instance_id": "default",
+              "device_id": "device-7f3a91c2",
+              "kind": "blob",
+              "operation_id": "op-legacy-1",
+              "seq": 4
+            }
+          ],
+          "after": [
+            {
+              "instance_id": "default",
+              "device_id": "device-7f3a91c2",
+              "kind": "blob",
+              "operation_id": "op-legacy-1",
+              "seq": 4
+            }
+          ]
+        }
+      },
+      "after": {
+        "instanceBinding": [
+          {
+            "instance_id": "default",
+            "provider": "local",
+            "endpoint_hint": "file:///deep-student/local/sync"
+          }
+        ],
+        "uploadSeq": [
+          {
+            "instance_id": "default",
+            "device_id": "device-7f3a91c2",
+            "last_seq": 5
+          }
+        ],
+        "consumeCursor": [
+          {
+            "instance_id": "default",
+            "uploader_device_id": "device-91bc4de0",
+            "last_seq": 0
+          }
+        ],
+        "tombstoneWatermark": [],
+        "tombstoneEventPublish": [
+          {
+            "instance_id": "default",
+            "device_id": "device-7f3a91c2",
+            "kind": "blob",
+            "operation_id": "op-legacy-1",
+            "seq": 4
+          }
+        ],
+        "legacyProcessedKey": [],
+        "deviceHistory": [
+          {
+            "old_device_id": "device-7f3a91c2",
+            "new_device_id": "device-2c55a8f1",
+            "reason": "backup_restore_activation"
+          }
+        ]
+      },
+      "assertions": {
+        "deviceHistoryWritten": true,
+        "consumeCursorReset": true,
+        "legacyProcessedKeyCleared": true,
+        "tombstoneWatermarkCleared": true,
+        "uploadSeqPreserved": true,
+        "tombstoneEventPublishPreserved": true
+      }
+    },
+    "continuity": {
+      "format": "dstu.legacy.mobile.continuity",
+      "version": 1,
+      "status": "new-contract-in-this-unit",
+      "note": "旧版移动端没有 continuity sidecar；这是本轮为 S2.15 定义并验证的平台无关合同。",
+      "sidecar": {
+        "file": "fixtures/legacy-mobile/legacy-mobile-continuity-continuity-v1.continuity.json",
+        "sha256": "9c6b0fa1c3b93b8677514e6add0f0aecec4521e4ee4289cbe2d1f38a09bcadb6"
+      },
+      "first": {
+        "accepted": true,
+        "reason": null,
+        "receipt": {
+          "snapshot_epoch": "5a0e16c0-0000-4000-8000-000000000002",
+          "zip_sha256": "774b1aea192eaec9f991c127aa275689b624b6679724e6ac6dea1316f5a13924",
+          "instance_id": "default",
+          "writer_device_id": "device-7f3a91c2",
+          "takeover_key": "continuity-takeover/5a0e16c0-0000-4000-8000-000000000002/774b1aea192eaec9f991c127aa275689b624b6679724e6ac6dea1316f5a13924",
+          "state": {
+            "instanceBinding": [
+              {
+                "instance_id": "default",
+                "provider": "local",
+                "endpoint_hint": "file:///deep-student/local/sync"
+              }
+            ],
+            "uploadSeq": [
+              {
+                "instance_id": "default",
+                "device_id": "device-7f3a91c2",
+                "last_seq": 5
+              }
+            ],
+            "consumeCursor": [
+              {
+                "instance_id": "default",
+                "uploader_device_id": "device-91bc4de0",
+                "last_seq": 12
+              }
+            ],
+            "tombstoneWatermark": [
+              {
+                "instance_id": "default",
+                "source_device_id": "device-91bc4de0",
+                "kind": "blob",
+                "last_applied_offset": 3
+              },
+              {
+                "instance_id": "default",
+                "source_device_id": "device-91bc4de0",
+                "kind": "row",
+                "last_applied_offset": 7
+              }
+            ],
+            "tombstoneEventPublish": [
+              {
+                "instance_id": "default",
+                "device_id": "device-7f3a91c2",
+                "kind": "blob",
+                "operation_id": "op-legacy-1",
+                "seq": 4
+              }
+            ],
+            "legacyProcessedKey": [
+              {
+                "instance_id": "default",
+                "object_key": "continuity-takeover/5a0e16c0-0000-4000-8000-000000000002/774b1aea192eaec9f991c127aa275689b624b6679724e6ac6dea1316f5a13924"
+              },
+              {
+                "instance_id": "default",
+                "object_key": "legacy/object/one"
+              }
+            ],
+            "deviceHistory": []
+          }
+        }
+      },
+      "duplicate": {
+        "accepted": false,
+        "reason": "同一快照已被接管过（legacy_processed_key 命中）\n\ntrue !== false\n"
+      },
+      "tamperedSnapshot": {
+        "accepted": false,
+        "reason": "snapshot SHA-256 mismatch\n+ actual - expected\n\n+ '774b1aea192eaec9f991c127aa275689b624b6679724e6ac6dea1316f5a13924'\n- 'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'\n"
+      },
+      "expectedState": {
+        "instanceBinding": [
+          {
+            "instance_id": "default",
+            "provider": "local",
+            "endpoint_hint": "file:///deep-student/local/sync"
+          }
+        ],
+        "uploadSeq": [
+          {
+            "instance_id": "default",
+            "device_id": "device-7f3a91c2",
+            "last_seq": 5
+          }
+        ],
+        "consumeCursor": [
+          {
+            "instance_id": "default",
+            "uploader_device_id": "device-91bc4de0",
+            "last_seq": 12
+          }
+        ],
+        "tombstoneWatermark": [
+          {
+            "instance_id": "default",
+            "source_device_id": "device-91bc4de0",
+            "kind": "blob",
+            "last_applied_offset": 3
+          },
+          {
+            "instance_id": "default",
+            "source_device_id": "device-91bc4de0",
+            "kind": "row",
+            "last_applied_offset": 7
+          }
+        ],
+        "tombstoneEventPublish": [
+          {
+            "instance_id": "default",
+            "device_id": "device-7f3a91c2",
+            "kind": "blob",
+            "operation_id": "op-legacy-1",
+            "seq": 4
+          }
+        ],
+        "legacyProcessedKey": [
+          {
+            "instance_id": "default",
+            "object_key": "continuity-takeover/5a0e16c0-0000-4000-8000-000000000002/774b1aea192eaec9f991c127aa275689b624b6679724e6ac6dea1316f5a13924"
+          },
+          {
+            "instance_id": "default",
+            "object_key": "legacy/object/one"
+          }
+        ],
+        "deviceHistory": []
+      },
+      "atomicity": "BEGIN IMMEDIATE covers binding, state restoration and takeover receipt; any error rolls back the full state",
+      "negatives": [
+        {
+          "id": "snapshot-hash",
+          "accepted": false,
+          "stateUnchanged": true
+        },
+        {
+          "id": "snapshot-epoch",
+          "accepted": false,
+          "stateUnchanged": true
+        },
+        {
+          "id": "source-installation",
+          "accepted": false,
+          "stateUnchanged": true
+        },
+        {
+          "id": "source-package",
+          "accepted": false,
+          "stateUnchanged": true
+        },
+        {
+          "id": "identity-instance",
+          "accepted": false,
+          "stateUnchanged": true
+        },
+        {
+          "id": "state-instance",
+          "accepted": false,
+          "stateUnchanged": true
+        },
+        {
+          "id": "writer-id",
+          "accepted": false,
+          "stateUnchanged": true
+        },
+        {
+          "id": "integer-range",
+          "accepted": false,
+          "stateUnchanged": true
+        },
+        {
+          "id": "active-source-writer",
+          "accepted": false,
+          "stateUnchanged": true
+        },
+        {
+          "id": "existing-endpoint",
+          "accepted": false,
+          "stateUnchanged": true
+        },
+        {
+          "id": "mid-apply-rollback",
+          "accepted": false,
+          "stateUnchanged": true
+        }
+      ],
+      "diskReplay": {
+        "database": "sync_state.db（better-sqlite3 真实文件，生产 SyncStateStore 建表/写入/重开读回）",
+        "matches": true,
+        "state": {
+          "instanceBinding": [
+            {
+              "instance_id": "default",
+              "provider": "local",
+              "endpoint_hint": "file:///deep-student/local/sync"
+            }
+          ],
+          "uploadSeq": [
+            {
+              "instance_id": "default",
+              "device_id": "device-7f3a91c2",
+              "last_seq": 5
+            }
+          ],
+          "consumeCursor": [
+            {
+              "instance_id": "default",
+              "uploader_device_id": "device-91bc4de0",
+              "last_seq": 12
+            }
+          ],
+          "tombstoneWatermark": [
+            {
+              "instance_id": "default",
+              "source_device_id": "device-91bc4de0",
+              "kind": "blob",
+              "last_applied_offset": 3
+            },
+            {
+              "instance_id": "default",
+              "source_device_id": "device-91bc4de0",
+              "kind": "row",
+              "last_applied_offset": 7
+            }
+          ],
+          "tombstoneEventPublish": [
+            {
+              "instance_id": "default",
+              "device_id": "device-7f3a91c2",
+              "kind": "blob",
+              "operation_id": "op-legacy-1",
+              "seq": 4
+            }
+          ],
+          "legacyProcessedKey": [
+            {
+              "instance_id": "default",
+              "object_key": "legacy/object/one"
+            }
+          ],
+          "deviceHistory": []
+        }
+      }
+    }
+  },
+  "channelFacts": {
+    "transferChecks": {
+      "cases": 5,
+      "chunks": 3,
+      "maxChunkBytes": 65536,
+      "dataRoundTrip": true,
+      "failureAbort": true,
+      "cancelledWithoutWrite": true,
+      "wrongReceiptRejected": true,
+      "capacitorNativePromiseRoundTrip": true,
+      "nativeAndroidExecuted": false
+    },
+    "command": "data_governance_export_zip / data_governance_backup_and_export_zip",
+    "hostSaveRequest": "mobile:save-backup",
+    "implementation": "mobile/src/main.ts::saveBackupToSystem",
+    "attempts": [
+      "navigator.share (files)",
+      "showSaveFilePicker",
+      "<a download>"
+    ],
+    "observedReturn": null,
+    "observedReturnNote": "未执行系统保存 API；harness 的 shell adapter 只记录能力推导值。桌面文件选择器、Android 系统保存与用户手势分别在实际交付设备验收。",
+    "predictedMethod": "save-picker",
+    "predictionOnly": true,
+    "saveCapabilities": {
+      "hasCanShare": false,
+      "canShareFiles": false,
+      "hasShare": false,
+      "hasShowSaveFilePicker": true,
+      "hasAnchorDownload": true,
+      "isSecureContext": true,
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36 Edg/157.0.0.0"
+    },
+    "deliverCalls": [
+      {
+        "sample": "standard",
+        "deliverMethod": "save-picker",
+        "source": "由页面能力快照按 saveBackupToSystem 分支顺序推导（非真机实测）"
+      },
+      {
+        "sample": "continuity",
+        "deliverMethod": "save-picker",
+        "source": "由页面能力快照按 saveBackupToSystem 分支顺序推导（非真机实测）"
+      }
+    ],
+    "androidReality": {
+      "capacitorVersion": "8.6.0",
+      "setsDownloadListener": false,
+      "implementsNavigatorShare": false,
+      "showsFileChooser": true,
+      "overridesUrlLoading": true,
+      "branchOnAndroid": "share（无）→ save-picker（无）→ download（WebView 无 DownloadListener，不落盘）",
+      "downloadReachesSystem": false,
+      "conclusion": "Capacitor 8.6.0 的 Bridge 没有 setDownloadListener，也没有实现 navigator.share；`showSaveFilePicker` 在 Android WebView 中不存在。因此 saveBackupToSystem 在 Android 上只剩 `<a download>`（href 是 blob: URL），WebView 没有下载监听时不会落盘到系统下载目录。这是按 Capacitor 源码与 WebView 行为推断的结论，未在真机上执行；请在旧设备上用一次性导出源码核对。",
+      "inference": true,
+      "inferenceNote": "未在 Android 真机/模拟器执行；结论依据 Capacitor 8.6.0 Java 源码与 WebView 无 DownloadListener 时的既有行为。",
+      "evidence": [
+        "mobile/node_modules/@capacitor/android/capacitor/src/main/java/com/getcapacitor/Bridge.java",
+        "mobile/node_modules/@capacitor/android/capacitor/src/main/java/com/getcapacitor/BridgeWebChromeClient.java",
+        "mobile/node_modules/@capacitor/android/capacitor/src/main/java/com/getcapacitor/BridgeWebViewClient.java"
+      ]
+    },
+    "uiEntry": "src/features/settings/components/DataGovernanceDashboard.tsx:8 (BackupTab)",
+    "uiSaveDialog": {
+      "file": "src/features/settings/components/DataGovernanceDashboard.tsx",
+      "line": 1176
+    },
+    "missingOnMobile": [
+      "移动端没有 plugin:dialog（host/platform/storage-mobile/index.ts:389 注释），UI 的 save() 对话框在 Android 上不可用；命令本身可用 outputPath=null 走应用内备份目录。"
+    ],
+    "deliveryWorkaround": {
+      "kind": "one-shot-source-in-this-repo",
+      "note": "本项目提供一次性导出源码，Worker 只导出、不种数据、不迁移；页面在同 origin 读取 OPFS ZIP 并通过LegacyExport 插件写入用户选择的系统文档 URI。原生桥真实落盘在旧设备验收，OPFS 导出与页面 Blob 交接在本单元验证。",
+      "files": [
+        "tools/baseline/legacy-export/one-shot/build.mjs（生成静态资源）",
+        "tools/baseline/legacy-export/one-shot/worker.ts（生产导出，不 runAll）",
+        "tools/baseline/legacy-export/one-shot/page.html（进度页）",
+        "tools/baseline/legacy-export/one-shot/delivery.mjs（OPFS Blob 与有界传输）",
+        "tools/baseline/legacy-export/one-shot/LegacyExportPlugin.java（系统文档选择器与原生写入）"
+      ],
+      "buildCommand": "node tools/baseline/legacy-export/one-shot/build.mjs",
+      "output": "tools/baseline/legacy-export/one-shot/build/（页面、worker、delivery、原生插件源码及SQLite资源；build/已忽略，验收后清理）",
+      "probe": {
+        "zip": {
+          "bytes": 3987751,
+          "sha256": "fc16377fb656fec0b2743a60d4f6347937a3802fbea177a1cc4ffcce73d092d9",
+          "path": "/deep-student/recovery/backups/one-shot-fixture-probe.zip",
+          "archive": {
+            "entries": 7,
+            "backupId": "one-shot-fixture-probe",
+            "snapshotEpoch": "2e2589d5-f247-41c3-a069-70d85cfb4a7c",
+            "keyPolicy": "not_present",
+            "snapshotKind": "full",
+            "slotRestore": {
+              "ok": true,
+              "error": null
+            },
+            "failures": 0
+          }
+        },
+        "exported": [
+          {
+            "sample": "probe",
+            "bytes": 3987751,
+            "sha256": "fc16377fb656fec0b2743a60d4f6347937a3802fbea177a1cc4ffcce73d092d9",
+            "delivered": {
+              "method": "opfs",
+              "path": "/deep-student/recovery/backups/one-shot-fixture-probe.zip"
+            }
+          }
+        ],
+        "environment": {
+          "sqlite": "3.53.4",
+          "origin": "http://127.0.0.1:<ephemeral>",
+          "secureContext": true,
+          "appVersion": "0.20.0",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36 Edg/157.0.0.0"
+        },
+        "note": "沿用前一次真实 OPFS 采集记录：一次性 Worker 只调用 exportBackup，导出成功且没有调用 migrations.runAll()。",
+        "reusedFrom": "previous capture; 本轮 frozen-fixture-replay 不重跑浏览器 harness，也不重导出旧 ZIP",
+        "verifiedBy": "verify:legacy-export 只读样本 ZIP，不重跑浏览器；这条路径的记录保留在 capture 的 artifact 里。"
+      },
+      "modes": [
+        "http（仅新建测试环境向采集端回传）",
+        "opfs（应用内部归档逻辑路径）",
+        "LegacyExport 原生插件（用户选择的系统文档 URI，旧设备待验收）"
+      ],
+      "nativeDelivery": {
+        "plugin": "LegacyExportPlugin.java（基于已有 Capacitor 8.6.0 Plugin API）",
+        "source": "tools/baseline/legacy-export/one-shot/LegacyExportPlugin.java",
+        "target": "用户通过 ACTION_CREATE_DOCUMENT 选择的系统文档 URI",
+        "origin": "保持旧 Capacitor 应用的 origin 与 applicationId；旧 Worker 停止后独占 sahpool",
+        "permission": "系统文件选择器的单文件 URI 授权，不请求全盘存储权限",
+        "completion": "原生输出流校验大小/SHA-256 并关闭后返回 URI；取消或失败清理系统端半成品",
+        "executedOnAndroid": false
+      }
+    }
+  },
+  "userSteps": {
+    "scope": "旧设备（dstu-node mobile 0.20.0 构建）上的操作步骤；本轮没有新增 APK，也没有在真机上执行。",
+    "steps": [
+      "在旧设备打开 Deep Student → 设置 → 数据治理 → 备份（BackupTab）。",
+      "选择“导出备份”：勾选需要的层级（默认核心层包含四库；vfs_blobs 需要 important 层 + 包含资产文件）。",
+      "点击导出按钮（BackupTab.tsx:822 → DataGovernanceDashboard.backupAndExportZip）。",
+      "桌面端会先弹出保存对话框（@tauri-apps/plugin-dialog save()）；移动端没有该插件，这一步在 Android 上失败或不可见。",
+      "Host 侧真正执行 data_governance_backup_and_export_zip → MobileBackupService.exportBackup，产物在应用内 /deep-student/recovery/backups/<backup-id>.zip。",
+      "保存通道调用 mobile:save-backup → saveBackupToSystem；Android 分支按源码推断为 <a download>，系统实际落盘仍须原生回执。",
+      "执行 node tools/baseline/legacy-export/one-shot/build.mjs 生成一次性页面与 Worker；在保留 applicationId、WebView origin、原签名且 versionCode 递增的过渡包中接入LegacyExport 原生插件，不卸载旧应用。",
+      "停止原 Host Worker 后打开一次性页面，点击“导出到系统文档”；Worker 经 VACUUM INTO/exportFile 生成 ZIP，页面从 OPFS 逻辑路径读取 Blob，经 LegacyExport 原生插件写入用户选择的系统文档 URI。",
+      "确认页面给出的原生 URI、文件大小和 SHA-256；用系统文件应用复制该 ZIP。OPFS 路径不是 Android 物理文件路径，不按逻辑名使用 adb pull。",
+      "将 ZIP 交给 S2.12 Kotlin 导入器；按 hash/coverage/schema/引用回读确认后再决定旧数据源退役。"
+    ],
+    "expectedHostResult": "现有 harness 仅推导保存分支（predictedMethod），不产生系统保存回执；一次性页面以 LegacyExport 插件的原生 URI + 输出字节数/SHA-256 作为交付完成凭据。",
+    "androidDeliveryStatus": "一次性原生桥源码已提供；真实 Android 过渡包签名/安装/系统保存未执行。"
+  },
+  "verification": {
+    "packageChecks": [
+      "zip 条目集合与 manifest.files 一一对应",
+      "四库与 audit 的 SQLite 文件头、512 对齐、大小、sha256",
+      "manifest 解析 + validateForSlotRestore",
+      "coverage ledger 与 key_policy",
+      "refinery_schema_history 与 0222ccc 历史基线逐行对拍（旧包版本 20261111）",
+      "桌面 computeSchemaFingerprint 对导出库文件按 manifest 声明版本重算并与 0222ccc 指纹对拍",
+      "临时复制数据库由生产 MigrationCoordinator 迁移到 e6b2657f（vfs 20261115），逐表行/资产/审计保持",
+      "review_plans 七个 FSRS 列存在且默认值为 NULL/0，legacy SM-2 列不变",
+      "业务行（笔记/资源/blob/文件/会话/消息/块/错题/卡片/设置/用量/审计）",
+      "资源引用：blobs.relative_path ↔ assets/vfs_blobs/<relative> 的 sha256 与大小，files.sha256/blob_hash ↔ blobs.hash，resources.hash = sha256(noteId:content)"
+    ],
+    "identityChecks": [
+      "普通恢复：真实 recordDeviceRotation 写入 device_history、清 consume_cursor/legacy_processed_key/tombstone_watermark、保留 upload_seq 与 tombstone_event_publish",
+      "continuity：真实 SyncStateStore 接管后状态等于 sidecar.expected.state",
+      "continuity 重复接管被 legacy_processed_key 拒绝",
+      "continuity 快照 hash 不匹配被拒绝"
+    ],
+    "notVerified": [
+      "未在 Android 真机/模拟器上执行旧版 UI 导出流程（本单元不要求新增 APK，且不构建 Gradle）。",
+      "未验证旧版加密（DSBK）备份：移动端导出固定 key_policy=not_present。",
+      "未验证桌面 → 移动端反向导入；本单元只覆盖旧移动端导出包。"
+    ]
+  },
+  "checks": {
+    "samples": 2,
+    "sampleBytes": 7975496,
+    "failures": 0,
+    "schemaBaseline": "config/baseline/schema.json",
+    "historicalSchemaBaselineCommit": "0222ccc",
+    "targetDesktopCommit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+    "fingerprintsMatchS008": true,
+    "sourceFingerprintsMatchHistorical": true,
+    "targetMigrationRowAssetIdentityPreserved": true,
+    "fsrsSevenColumnsDefaulted": true,
+    "slotRestorePassed": true,
+    "entriesPerSample": {
+      "standard": 7,
+      "continuity": 7
+    },
+    "identityModes": [
+      "standard",
+      "continuity"
+    ],
+    "oneShotProbe": true,
+    "liveSlotMatchesArchive": true,
+    "sidecarBoundToSnapshot": true,
+    "duplicateTakeoverRejected": true
+  }
+}

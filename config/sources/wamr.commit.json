@@ -1,0 +1,35 @@
+{
+  "sha": "ffc22889948b1f063d7258d34d4e636ee0914925",
+  "node_id": "C_kwDOCwGZ2toAKGZmYzIyODg5OTQ4YjFmMDYzZDcyNThkMzRkNGU2MzZlZTA5MTQ5MjU",
+  "url": "https://api.github.com/repos/wasm-micro-runtime/wasm-micro-runtime/git/commits/ffc22889948b1f063d7258d34d4e636ee0914925",
+  "html_url": "https://github.com/wasm-micro-runtime/wasm-micro-runtime/commit/ffc22889948b1f063d7258d34d4e636ee0914925",
+  "author": {
+    "name": "liang.he",
+    "email": "liang.he@intel.com",
+    "date": "2026-11-06T05:39:09Z"
+  },
+  "committer": {
+    "name": "GitHub",
+    "email": "noreply@github.com",
+    "date": "2026-11-06T05:39:09Z"
+  },
+  "tree": {
+    "sha": "7c210ea36cb06cc62f097c3b68bad7faf98ef107",
+    "url": "https://api.github.com/repos/wasm-micro-runtime/wasm-micro-runtime/git/trees/7c210ea36cb06cc62f097c3b68bad7faf98ef107"
+  },
+  "message": "feat(ba-issues): add runs, honor -i, drop dedup (#5201)\n\nOne wasm with several exports needed a config entry per export, and\nthe same id could only run once. Add an item-level `runs` list, one\nentry per iwasm invocation with its own options, argument and expected\nreturn. Shared compile runs once per (item, id).\n\n-i/--issues now filters build and run, not only the summary. Duplicate\nids across items all run; the old dedup silently skipped them.",
+  "parents": [
+    {
+      "sha": "3a6fb9a8e7871f20471c48592390b9d2342287b1",
+      "url": "https://api.github.com/repos/wasm-micro-runtime/wasm-micro-runtime/git/commits/3a6fb9a8e7871f20471c48592390b9d2342287b1",
+      "html_url": "https://github.com/wasm-micro-runtime/wasm-micro-runtime/commit/3a6fb9a8e7871f20471c48592390b9d2342287b1"
+    }
+  ],
+  "verification": {
+    "verified": true,
+    "reason": "valid",
+    "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJq7Wf9CRC1aQ7uu5UhlAAADbEQAKi3mIY07NKTNlcVYY5jiFfr\nUuMDIgRhw+SQteAVu/rVN83HsVyBXZ2i81tRSKyP/BCMA5H2Z/iBTerU5es+guI0\nthl1TIWKDfmlUyA7UgOrLiNdGv2K7J5Qi8V+/r6S2frJVBYavy0dkhBNWg06BIsN\n00JLw0lUZt0hvdz8YyuTSurzUWplm81LT2Fpgodt4hmlItg2MP1bMxGHPojVtU+0\nImsCuA3qQTeqUsJMiHHvAXYGEDStLnF7jtoQYwyrcQuwCnoqdxCc7vJVBqwEsrnl\nr6es8J3iFgDHLS6tL3JlIW+Pv7RQiOqHQkWnDH4JdfN4gJTDo+DBT23udgPQjR5X\n7e/ndytRzzH+MDczWc834I6/ChTyXtldCKa5tEAB6p4+uuC36HTJUtk+w98uVF74\nOS5aIhk7G/NZDDKCxH621it14KagnPKmjaGTjghDw2QrhKBSjIQDuWuhFXWE8sjF\nCBdJz//HIeU6zfbXR+4TDLjaFIo8Tn25R+ZWlFVnTgeioUtFDRz6FuX/a3MP0RtT\ni7VxkoHadxge0+fnRlMmtf6gEICf3Atu2ARajlaza5CeAK/6XiD06rRKaBz7A7PW\nXYzq29X4xKtW+DOl08ulozRTkLg9Af+gKvzD9mhLeXrMtQMBgHyIRWz7aacP7Cf1\n+et0SpqwbHIL8ObdiPql\n=qwAc\n-----END PGP SIGNATURE-----\n",
+    "payload": "tree 7c210ea36cb06cc62f097c3b68bad7faf98ef107\nparent 3a6fb9a8e7871f20471c48592390b9d2342287b1\nauthor liang.he <liang.he@intel.com> 1793943549 +0800\ncommitter GitHub <noreply@github.com> 1793943549 +0800\n\nfeat(ba-issues): add runs, honor -i, drop dedup (#5201)\n\nOne wasm with several exports needed a config entry per export, and\nthe same id could only run once. Add an item-level `runs` list, one\nentry per iwasm invocation with its own options, argument and expected\nreturn. Shared compile runs once per (item, id).\n\n-i/--issues now filters build and run, not only the summary. Duplicate\nids across items all run; the old dedup silently skipped them.",
+    "verified_at": "2026-11-06T05:39:10Z"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "unit": "S1.13",
+  "parser": {
+    "coordinate": "org.jetbrains:markdown-jvm:0.7.3",
+    "source": "https://github.com/JetBrains/markdown",
+    "artifact": "https://repo.maven.apache.org/maven2/org/jetbrains/markdown-jvm/0.7.3/markdown-jvm-0.7.3.jar",
+    "sha256": "893abb31f15b6216f74dc704c0c6bf1e567dcf2b62cca29cf42e4f53153637ac",
+    "license": "Apache-2.0",
+    "licenseEvidence": "Maven POM licenses; no license text is bundled in the JAR",
+    "releaseLicenseTextRequired": true
+  },
+  "frozenDesktop": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+  "fixtures": ["config/content-inputs.json", "config/baseline/content.json", "config/baseline/corpus.json"],
+  "scope": "GFM parsing behind original-source snapshots; unsupported directives remain opaque and unchanged. This does not sign S5 dialect editing or release license clearance."
+}

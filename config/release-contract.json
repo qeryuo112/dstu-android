@@ -1,0 +1,536 @@
+{
+  "formatVersion": 1,
+  "unit": "S0.15",
+  "title": "dstu Android 平台与发布合同",
+  "delivery": {
+    "platformBaseline": "config/baseline/platform.json",
+    "versionSource": "tools/baseline/version.mjs",
+    "plan": "docs/plans/2026-11-15-mobile-full-feature-refactor.md",
+    "next": "S0.16"
+  },
+  "identity": {
+    "applicationId": "com.deepstudent.app",
+    "applicationLabel": "Deep Student",
+    "packageChange": "never",
+    "packageChangeReason": "存量用户的安装身份、Keystore 授权与数据目录均绑定该包名；改名会造成不可覆盖升级并要求卸载重装。",
+    "legacy": {
+      "applicationId": "com.deepstudent.app",
+      "appName": "Deep Student",
+      "versionName": "0.20.0",
+      "versionCode": 1114586,
+      "source": "dstu-node/mobile/scripts/build-apk.mjs:190-194",
+      "commit": "145bb3879164c58d1cd5ff39daa94a3daa9fe874",
+      "classification": "legacy-evidence",
+      "adoptedForNewBuilds": false
+    },
+    "current": {
+      "versionName": "0.21.0",
+      "versionCode": 2100000,
+      "status": "frozen"
+    },
+    "upstreamMobile": {
+      "fixedCommit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+      "mobileVersion": "0.20.1",
+      "adopted": false,
+      "classification": "upstream-mobile-version-observation"
+    },
+    "tauriIdentifier": "com.deepstudent.app",
+    "capacitorAppId": "com.deepstudent.app",
+    "note": "三条旧链（Tauri 标识、Capacitor appId、移动打包脚本常量）与实包 manifest 使用同一包名；新 Gradle 工程沿用该包名，不引入 applicationIdSuffix。legacy 版本/code 是旧发布包的历史身份，固定桌面提交中的 mobile 0.20.1 只是上游观察，不改写该身份，也不作为 Android 发布版本。"
+  },
+  "platform": {
+    "compileSdk": 36,
+    "targetSdk": 36,
+    "minSdk": 26,
+    "buildTools": {
+      "version": "36.0.0",
+      "zipalign": "zipalign -c -P 16 -v 4 <apk>",
+      "apksigner": "apksigner verify --print-certs <apk>",
+      "aapt2": "aapt2 dump badging <apk>"
+    },
+    "minSdkBasis": [
+      "Operit app、terminal、quickjs、llama、mnn、showerclient、avator 模块全部声明 minSdk 26；移植 terminal 与引擎时统一为 26 避免各库各自抬高。",
+      "桌面包 0.20.0 实包为 minSdk 24；计划 §12.1 明确 API 24/25 支持需要单独源码适配与安装运行测试，本轮不承诺。",
+      "本机 Gradle 模块缓存内全部 AAR manifest 实测最高 minSdk 为 24（Cordova framework 14.0.1），未出现高于 26 的依赖。",
+      "本机缓存缺少 Compose BOM 2026.02.01 / core-ktx 1.18.0 / activity-compose 1.8.2 等应用依赖，其真实 minSdk 未观察；S1.01 拉取后必须重跑本单元校验，若实测高于 26 则按实测抬高并回写本文件。"
+    ],
+    "targetSdkBasis": [
+      "桌面包 0.20.0 已经 targetSdk 36，并与新包共用同一批用户设备。",
+      "Operit 当前 targetSdk 34；抬升到 36 会引入 Android 15/16 行为变化，必须在 S9 做权限、前台服务与存储回归。"
+    ],
+    "unobserved": [
+      {
+        "coordinate": "androidx.core:core-ktx:1.18.0",
+        "observed": false,
+        "why": "本机 Gradle 模块缓存只有 core-ktx 1.12.0/1.13.0/1.17.0，没有 1.18.0",
+        "action": "S1.01 拉取依赖后重跑 verify:platform 并据实更新 minSdk"
+      },
+      {
+        "coordinate": "androidx.compose.ui:ui:1.10.4",
+        "observed": false,
+        "why": "缓存内没有 androidx.compose 组",
+        "action": "同上"
+      },
+      {
+        "coordinate": "androidx.compose:compose-bom:2026.02.01",
+        "observed": false,
+        "why": "缓存内没有 androidx.compose 组",
+        "action": "同上"
+      },
+      {
+        "coordinate": "androidx.activity:activity-compose:1.8.2",
+        "observed": false,
+        "why": "缓存只有 androidx.activity:activity 1.8.0/1.11.0",
+        "action": "同上"
+      }
+    ]
+  },
+  "abi": {
+    "shipped": [
+      "arm64-v8a"
+    ],
+    "withheld": [
+      "x86_64"
+    ],
+    "withheldBasis": [
+      "全部 Operit 移植模块（含 terminal）与 dstu 旧链都只打包 arm64-v8a；terminal 的 proot/bash/busybox/loader 只有 arm64 构建产物。",
+      "x86_64 需要额外构建 native 与 rootfs 资源，当前没有真实运行证据；合同不空承诺，等 S6 有真机/模拟器运行记录后再加入。"
+    ],
+    "pageSize": {
+      "requiredLoadAlign": 16384,
+      "zipAlignFlag": "-P 16",
+      "useLegacyPackaging": true,
+      "note": "16 KiB 页是加载与打包两项要求之和：ELF PT_LOAD p_align ≥ 0x4000，且 APK 中未压缩条目按 16 KiB 对齐；终端执行资源仍需实体文件目录，故保留 useLegacyPackaging = true。"
+    }
+  },
+  "version": {
+    "initialVersionReason": "新链首个版本必须高于所有旧链已产出的码：观察到的 0.20.0 实包为 1114586，旧 generator 对 0.20.1/0.21.0 分别给出 1114587/1214586。纯 semver 公式把 0.20.0 映射为 2000000、把 0.20.1 映射为 2000001，虽然数值更大，但会让同一 versionName 在两条链上有不同码，升级对比容易误判；因此新链从 0.21.0 起步（2100000），0.20.x 保持旧链专属并被 releaseVersion() 拒绝。本轮不建 Gradle（S1.01）、不发布该版本。",
+    "requiredMatrix": [
+      {
+        "version": "0.20.0",
+        "pureCode": 2000000,
+        "legacyCode": 1114586,
+        "publishable": false,
+        "verdict": "旧链已发布版本；纯公式码更高，但新链拒绝该 versionName，避免同版本双码。"
+      },
+      {
+        "version": "0.20.1",
+        "pureCode": 2000001,
+        "legacyCode": 1114587,
+        "publishable": false,
+        "verdict": "同 0.20.0；旧链若发布 0.20.1，其码 1114587 仍低于新链起点 2100000。"
+      },
+      {
+        "version": "0.21.0",
+        "pureCode": 2100000,
+        "legacyCode": 1214586,
+        "publishable": true,
+        "verdict": "新链首个版本；高于旧链同版本的 1214586，也高于观察到的 1114586。"
+      },
+      {
+        "version": "1.0.0",
+        "pureCode": 10000000,
+        "legacyCode": 9114586,
+        "publishable": true,
+        "verdict": "高于旧链 9114586；纯公式在任意合法 semver 上恒比旧链高 885414。"
+      }
+    ],
+    "mapping": {
+      "file": "tools/baseline/version.mjs",
+      "formula": "major * 10000000 + minor * 100000 + patch",
+      "majorStride": 10000000,
+      "minorStride": 100000,
+      "maxMinor": 99,
+      "maxPatch": 99999,
+      "maxVersionCode": 2100000000,
+      "offset": 0,
+      "inputs": [
+        "stable semver versionName（无前导零、无 prerelease、无 build metadata）"
+      ],
+      "excludedInputs": [
+        "Git 提交数/构建序号",
+        "共享 schema 版本",
+        "wire 协议版本",
+        "桌面应用版本"
+      ]
+    },
+    "initial": {
+      "version": "0.21.0",
+      "versionCode": 2100000,
+      "reasonRef": "initialVersionReason",
+      "frozen": true
+    },
+    "legacy": {
+      "mobileBuildScript": {
+        "file": "dstu-node/mobile/scripts/build-apk.mjs",
+        "commit": "145bb3879164c58d1cd5ff39daa94a3daa9fe874",
+        "classification": "legacy-evidence",
+        "adoptedForNewBuilds": false,
+        "line": 194,
+        "constant": 1114586,
+        "kind": "旧发布包的手写常量，与 versionName 无函数关系；当前固定桌面提交已改为从 package.json 解析 0.20.1，该路径不采用"
+      },
+      "versionGenerator": {
+        "file": "dstu-node/scripts/generate-version.mjs",
+        "commit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+        "classification": "legacy-evidence",
+        "adoptedForNewBuilds": false,
+        "resolverLine": 72,
+        "anchor": {
+          "version": "0.9.55",
+          "versionCode": 14641,
+          "publishedVersionCode": 14640,
+          "buildNumberBase": 14638
+        },
+        "kind": "semver ordinal + 固定 offset：code = semverOrdinal(version) - 885414，minor ≥ 100 或 patch ≥ 100000 直接拒绝"
+      },
+      "comparison": {
+        "0.9.55": 14641,
+        "0.20.0": 1114586,
+        "0.20.1": 1114587,
+        "0.21.0": 1214586,
+        "0.99.99": 9014685,
+        "1.0.0": 9114586
+      },
+      "comparisonNote": "comparison 中的值由本单元实际执行 generate-version.mjs 导出函数得到；纯 semver 公式在每个版本上都比旧链高 885414，因此新链不可能低于旧链已发布码。"
+    },
+    "buildOrdinalInVersionCode": false,
+    "sameVersionRepublish": "rejected",
+    "rejectionRules": [
+      "非法 semver（前导零、缺段、prerelease、build metadata、空串、非字符串）",
+      "minor > 99 或 patch > 99999",
+      "映射结果 > 2100000000",
+      "versionName 低于新链起点 0.21.0",
+      "APK 实包 versionCode 与公式不一致（含同版本退码）"
+    ],
+    "desktopSchemaSeparation": "桌面 tauri.conf.json 的 bundle.android.versionCode 与 generate-version.mjs 服务 Tauri/Capacitor 旧链，不属于本表；本表只约束 dstu-android 的 Gradle versionCode。",
+    "lowerBoundRule": {
+      "statement": "单调映射必须不低于所有已观察实包与两条旧脚本的已知值；比较按同一 versionName 进行，而不是要求首个版本的码高于旧链未来版本的假设码。",
+      "observedPackage": {
+        "version": "0.20.0",
+        "versionCode": 1114586
+      },
+      "legacyAnchor": {
+        "version": "0.9.55",
+        "versionCode": 14641
+      },
+      "legacyMobileConstant": {
+        "version": "0.20.0",
+        "versionCode": 1114586
+      },
+      "perVersion": {
+        "0.9.55": {
+          "pure": 900055,
+          "legacy": 14641
+        },
+        "0.20.0": {
+          "pure": 2000000,
+          "legacy": 1114586,
+          "publishable": false
+        },
+        "0.20.1": {
+          "pure": 2000001,
+          "legacy": 1114587,
+          "publishable": false
+        },
+        "0.21.0": {
+          "pure": 2100000,
+          "legacy": 1214586
+        },
+        "0.99.99": {
+          "pure": 9900099,
+          "legacy": 9014685
+        },
+        "1.0.0": {
+          "pure": 10000000,
+          "legacy": 9114586
+        }
+      },
+      "note": "旧链对 1.0.0 的假设值 9114586 高于新链起点 2100000，但新链真正发布 1.0.0 时码为 10000000，仍高于旧链同版本值；升级比较始终发生在同一 versionName 上。"
+    }
+  },
+  "signing": {
+    "releaseCertificateSha256": "3acac9413cf2abace04f98e39921822625dbd7ef4b87e3d34bdb1fbd0270e769",
+    "releaseCertificateSource": {
+      "file": "dstu-node/resources/app/android/release-signing-cert.sha256",
+      "line": 8
+    },
+    "debugCertificateSha256": "0180040010aee59d86c47c107a343f52570420f90f2ca3e831c67d57e9c8bb42",
+    "requiredSchemes": [
+      "v2",
+      "v3"
+    ],
+    "rotation": "forbidden",
+    "rotationReason": "证书变更会使全部已安装用户无法覆盖升级（系统报包冲突），必须卸载重装并丢失本地数据。",
+    "keystorePolicy": "合同、工具与日志只读取 APK 内的公开证书信息；任何 keystore、别名、密码与环境秘密都不读取、不记录、不写入配置。签名动作不在本单元执行。",
+    "releasePackageObserved": false,
+    "note": "工作区内唯一的 dstu 包是 debug 签名（Android Debug 证书）；正式证书只在旧链的公开指纹文件以及 build-apk.mjs 的校验逻辑中出现，没有可核的正式实包。",
+    "observedPackageSchemes": {
+      "debugPackage": "artifacts/deep-student-0.20.0/deep-student-debug.apk",
+      "schemes": {
+        "v1": false,
+        "v2": true,
+        "v3": false,
+        "v3.1": false,
+        "v4": false
+      },
+      "note": "观察到的 debug 包只有 v2；requiredSchemes 是新 release 的发布要求，必须由 S9.15 对正式包实测确认。"
+    }
+  },
+  "packages": {
+    "source": "config/baseline/platform.json",
+    "enumeration": "工作区 artifacts 目录 + dstu-node/Operit/dstu-android 三仓 git ls-files 的 *.apk/*.aab",
+    "observed": [
+      {
+        "path": "artifacts/deep-student-0.20.0/deep-student-debug.apk",
+        "repo": null,
+        "packageName": "com.deepstudent.app",
+        "versionName": "0.20.0",
+        "versionCode": 1114586,
+        "minSdk": 24,
+        "targetSdk": 36,
+        "sha256": "9df34b4d65e0afdac20f1c3d9eb5828a9752941df5b453846e8ee31463f978e2",
+        "certificateSha256": "0180040010aee59d86c47c107a343f52570420f90f2ca3e831c67d57e9c8bb42",
+        "signed": "debug"
+      },
+      {
+        "path": "app/src/main/assets/accessibility.apk",
+        "repo": "operit",
+        "packageName": "com.ai.assistance.operit.provider",
+        "versionName": "1.5",
+        "versionCode": 4,
+        "minSdk": 26,
+        "targetSdk": 34,
+        "sha256": "b6bac271c33a41b6cc39840d122286488cebc57be2e74b39aed5bb0d0b1c5212",
+        "certificateSha256": "d7ccd870912d42fa761890df41cdf6c78cdcf13a619fb316bae9d24df5e15191",
+        "signed": "third-party-bundled"
+      },
+      {
+        "path": "app/src/main/assets/desktop.apk",
+        "repo": "operit",
+        "packageName": "com.ai.assistance.operit.desktop",
+        "versionName": "1.0",
+        "versionCode": 1,
+        "minSdk": 24,
+        "targetSdk": 36,
+        "sha256": "76f6eb10db6e909ce4274f8738ee6fe25320fa35a46aa7ba911069b5e433320e",
+        "certificateSha256": "d7ccd870912d42fa761890df41cdf6c78cdcf13a619fb316bae9d24df5e15191",
+        "signed": "third-party-bundled"
+      },
+      {
+        "path": "app/src/main/assets/shizuku.apk",
+        "repo": "operit",
+        "packageName": "moe.shizuku.privileged.api",
+        "versionName": "13.6.0.r1086.2650830c",
+        "versionCode": 1086,
+        "minSdk": 24,
+        "targetSdk": 36,
+        "sha256": "6e273ab0e991c4e79bc8b1bbb9b9dd739ccac1a8712a541a214078886b7b790f",
+        "certificateSha256": "268b5590e868fb08bae7e0ac413564cd1ff88f5ccff74af9dbd0dc918e30db30",
+        "signed": "third-party-bundled"
+      }
+    ],
+    "notObserved": [
+      "正式签名的 dstu APK/AAB（如 deep-student-release.apk）在工作区内不存在",
+      "0.9.x–0.20.x 的历史发行包不在工作区，未下载远端发行包"
+    ]
+  },
+  "releasePackage": {
+    "observed": false,
+    "reason": "no release-signed APK exists in the workspace",
+    "detail": "唯一 dstu 包为 debug 构建，证书是 Android Debug；正式证书 3acac941… 只存在于旧链公开指纹文件，无法在本轮核验正式实包。",
+    "debugSigned": [
+      "artifacts/deep-student-0.20.0/deep-student-debug.apk"
+    ],
+    "nextVerification": "S9.15",
+    "nextVerificationSteps": [
+      "对新 Gradle 产出的 release APK 执行 apksigner verify --print-certs，SHA-256 必须等于 releaseCertificateSha256。",
+      "对同一 APK 执行 zipalign -c -P 16 -v 4 与 aapt2 dump badging，核对 versionCode 与公式、minSdk/targetSdk、native-code。",
+      "在装有旧 mobile 包的设备上做原位覆盖升级，确认签名一致且版本递增。"
+    ]
+  },
+  "native16k": {
+    "source": "config/runtime-assets.json 的 page16k.fail（S0.14 实测）",
+    "tasks": [
+      {
+        "assetId": "operit-shell-exec",
+        "path": "app/src/main/assets/operit_shell_exec",
+        "deliveryUnit": "S6.21",
+        "issue": "PT_LOAD p_align = 0x1000，低于 16 KiB 要求"
+      },
+      {
+        "assetId": "aapt2-arm64",
+        "path": "app/src/main/assets/templates/android/tools/aapt2/aapt2-arm64-v8a",
+        "deliveryUnit": "S6.15",
+        "issue": "PT_LOAD p_align = 0x1000，低于 16 KiB 要求"
+      },
+      {
+        "assetId": "aapt2-arm64",
+        "path": "app/src/main/assets/templates/flutter/android/tools/aapt2/aapt2-arm64-v8a",
+        "deliveryUnit": "S6.15",
+        "issue": "PT_LOAD p_align = 0x1000，低于 16 KiB 要求"
+      }
+    ],
+    "requirements": {
+      "rebuild": "从固定来源与 NDK 重建，链接参数包含 -Wl,-z,max-page-size=16384 -Wl,-z,common-page-size=16384；禁止直接改字节。",
+      "zipAlignment": "release APK 必须通过 zipalign -c -P 16 -v 4 检查：未压缩条目按 16 KiB 对齐。AGP 版本是否产出 16 KiB 对齐的 .so 由该命令实测判定，不按版本号假设；不通过则调整打包参数或改用显式 zipalign 步骤。",
+      "legacyPackaging": "app 与 terminal 模块声明 packaging.jniLibs.useLegacyPackaging = true，安装后 nativeLibraryDir 中是实体 .so 文件。",
+      "nativeLibraryDir": "TerminalManager 与 LocalTerminalProvider 从 applicationInfo.nativeLibraryDir 创建 bash/busybox/proot/loader 软链接，并设置 LD_LIBRARY_PATH 与 PROOT_LOADER。",
+      "abi": "只对 arm64-v8a 提供 native 与执行资源；其他 ABI 不打包。"
+    },
+    "acceptance": {
+      "hostStatic": [
+        {
+          "id": "elf-load-align",
+          "command": "readelf -lW <elf> | awk '$1==\"LOAD\"{print $NF}'",
+          "expect": "每个 LOAD p_align ≥ 0x4000",
+          "runsInThisUnit": false,
+          "execution": "host",
+          "executedInThisUnit": false
+        },
+        {
+          "id": "zip-alignment",
+          "command": "$ANDROID_HOME/build-tools/36.0.0/zipalign -c -P 16 -v 4 <apk>",
+          "expect": "退出码 0 且 Verification successful",
+          "runsInThisUnit": false,
+          "execution": "host",
+          "executedInThisUnit": false
+        },
+        {
+          "id": "packaged-native",
+          "command": "tmp=$(mktemp -d) && trap 'rm -rf \"$tmp\"' EXIT && unzip -o -q <apk> 'lib/arm64-v8a/<lib>.so' -d \"$tmp\" && readelf -lW \"$tmp/lib/arm64-v8a/<lib>.so\"",
+          "expect": "打包后 arm64 库仍保持 16 KiB LOAD 对齐；readelf 读取解出的文件，不使用 stdin",
+          "runsInThisUnit": false,
+          "execution": "host",
+          "executedInThisUnit": false
+        },
+        {
+          "id": "legacy-packaging",
+          "command": "grep -n 'useLegacyPackaging = true' app/build.gradle.kts terminal/build.gradle.kts",
+          "expect": "terminal 执行资源保持解压，紧邻 nativeLibraryDir",
+          "runsInThisUnit": false,
+          "execution": "host",
+          "executedInThisUnit": false
+        }
+      ],
+      "debug": {
+        "appliesTo": "仅 debug 变体；adb run-as 要求 android:debuggable=true",
+        "commands": [
+          {
+            "id": "debug-extracted-files",
+            "command": "adb shell run-as com.deepstudent.app ls -l files/terminal/usr/bin",
+            "expect": "bash、busybox、proot、loader 实体或软链且可执行",
+            "execution": "adb-debug"
+          },
+          {
+            "id": "debug-native-dir",
+            "command": "adb shell run-as com.deepstudent.app sh -c 'ls -l /data/app/*/com.deepstudent.app*/lib/arm64'",
+            "expect": "已安装 nativeLibraryDir 内存在解压出的 .so 文件",
+            "execution": "adb-debug"
+          }
+        ],
+        "note": "run-as 只用于 debuggable 包的目录与文件核对；它启动独立 shell，读到的环境变量不是终端会话进程的环境，不能作为 PROOT_LOADER/LD_LIBRARY_PATH 证据。",
+        "executedInThisUnit": false
+      },
+      "release": {
+        "appliesTo": "release APK；包不可调试，adb run-as 不可用",
+        "commands": [
+          {
+            "id": "release-execution-profile",
+            "command": "应用内诊断导出 ExecutionProfile（由真实终端启动进程采集）",
+            "expect": "导出 nativeLibraryDir、PROOT_LOADER、LD_LIBRARY_PATH、cwd 与实际 UID",
+            "execution": "in-app-diagnostic"
+          },
+          {
+            "id": "release-profile-verify",
+            "command": "读取导出的 ExecutionProfile 并逐字段核对",
+            "expect": "nativeLibraryDir 为实际安装库目录，PROOT_LOADER 指向 files/terminal/usr/bin/loader，LD_LIBRARY_PATH 覆盖 nativeLibraryDir，cwd 与 UID 与运行身份一致",
+            "execution": "in-app-diagnostic"
+          }
+        ],
+        "requiredFields": [
+          "nativeLibraryDir",
+          "PROOT_LOADER",
+          "LD_LIBRARY_PATH",
+          "cwd",
+          "uid"
+        ],
+        "owners": [
+          "S6.01",
+          "S9.13"
+        ],
+        "note": "ExecutionProfile 由应用诊断出口导出（计划 §5 执行配置），不依赖 adb 调试通道，也不读取任何环境秘密。",
+        "executedInThisUnit": false
+      },
+      "deviceRuntime": {
+        "commands": [
+          {
+            "id": "page-size-device",
+            "command": "adb shell getconf PAGE_SIZE",
+            "expect": "16 KiB 页测试设备返回 16384",
+            "execution": "device-runtime"
+          },
+          {
+            "id": "runtime-forkpty",
+            "command": "在目标设备实际启动终端会话并执行 forkpty 探针",
+            "expect": "forkpty 成功，PTY 可读写",
+            "execution": "device-runtime"
+          },
+          {
+            "id": "runtime-proot",
+            "command": "在目标设备实际运行 proot、bash、busybox 与 loader",
+            "expect": "四者按 PROOT_LOADER 与 LD_LIBRARY_PATH 启动并返回预期输出",
+            "execution": "device-runtime"
+          }
+        ],
+        "executedInThisUnit": false,
+        "note": "真机页大小与运行检查只在具备 16 KiB 页设备时执行；S0.15 只登记步骤，未连接设备、未运行，不声称已通过。"
+      }
+    },
+    "currentStatus": "S0.15 只登记重建任务与验收渠道，未执行任何重建、安装或真机检查；三项失败仍为 open。"
+  },
+  "exclusions": {
+    "desktopApk": "not-adopted",
+    "desktopApkReason": "Operit app/src/main/assets/desktop.apk 在 app 与 terminal 源码中没有被打开或安装；唯一相关引用是 PhoneAgent.kt:1003 通过 Shower 启动包名 com.ai.assistance.operit.desktop。该资产不进入 dstu 产品范围。",
+    "exampleJars": "not-shipped",
+    "exampleJarsReason": "Operit examples/ 不是 settings.gradle.kts 的 included 模块，dstu-android 当前没有任何 jar；apktool 运行时 jar 只是分析工具，不随产品分发。",
+    "subpackKeystores": "not-reused",
+    "subpackKeystoresReason": "jks.jks 与 pkcs12.keystore 是 Operit 子包运行时密钥库（KeyStoreHelper.kt:180 从 assets 加载），不是发布签名材料；本轮不读取其字节、不复用、不打包。",
+    "operitAssets": "read-only",
+    "operitAssetsReason": "Operit 资产只做只读检查，工作树保持干净；任何复用都在后续单元按来源与许可重新登记。"
+  },
+  "followUps": [
+    {
+      "unit": "S1.01",
+      "action": "Gradle 工程按本合同的 applicationId、minSdk 26、compileSdk/targetSdk 36、arm64-v8a、版本函数落地；versionCode 由 tools/baseline/version.mjs 同源实现并在构建时校验。"
+    },
+    {
+      "unit": "S1.01",
+      "action": "拉取 Compose/core-ktx 等真实依赖后重跑 verify:platform；若 AAR 实测 minSdk 高于 26，按实测抬高并更新本合同。"
+    },
+    {
+      "unit": "S6.01",
+      "action": "落地实体 nativeLibraryDir、软链接与启动环境，并以应用诊断 ExecutionProfile 导出 nativeLibraryDir、PROOT_LOADER、LD_LIBRARY_PATH、cwd、实际 UID 供 release 通道核对；debug 通道只用 run-as 核目录。"
+    },
+    {
+      "unit": "S6.15",
+      "action": "重建两份 aapt2-arm64-v8a 并记录 NDK、命令与输出 hash。"
+    },
+    {
+      "unit": "S6.21",
+      "action": "重建 operit_shell_exec 为 16 KiB 对齐版本。"
+    },
+    {
+      "unit": "S9.13",
+      "action": "对正式 APK 复跑 ABI、native 来源与 16 KiB 打包检查，并复核 release ExecutionProfile 导出字段；真机 PAGE_SIZE、forkpty、proot/bash/busybox/loader 实际运行只在该单元按 deviceRuntime 步骤执行。"
+    },
+    {
+      "unit": "S9.15",
+      "action": "执行 releasePackage.nextVerificationSteps：证书、版本、原位升级三步一起验收。"
+    },
+    {
+      "unit": "S0.20",
+      "action": "版本矩阵中把应用版本与共享 schema/wire 版本分开表达；本合同的 versionCode 只描述应用版本。"
+    }
+  ]
+}

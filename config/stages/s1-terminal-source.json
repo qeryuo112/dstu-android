@@ -1,0 +1,93 @@
+{
+  "unit": "S1.20",
+  "repository": "https://github.com/AAswordman/OperitTerminalCore.git",
+  "operitCommit": "7a39941bad80209973c535046a18195c5da9e647",
+  "terminalCommit": "e4646680663789002b43bbfffa6e69e65c35e614",
+  "terminalTree": "bb5420c2fd21040878c25240607996aed6afbd77",
+  "upstreamRoot": "../Operit/terminal",
+  "vendorRoot": "third_party/operit/terminal",
+  "license": "LGPL-3.0; original license and copyright preserved; distribution obligations require S9.14 review",
+  "supplementalLicense": {
+    "path": "third_party/operit/terminal/GPL-3.0.txt",
+    "source": "/usr/share/common-licenses/GPL-3 (GNU GPL version 3 verbatim text)",
+    "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+  },
+  "files": {
+    "LICENSE": "ec6e36db2faaaf8eb41db2013d41a77de9b5252ce354c5bed4cbe161205b0d58",
+    "src/main/jni/pty.c": "b5d7448b06d30c4c61f376352029385725ef123490ac852d2585e15f9d384215",
+    "src/main/java/com/ai/assistance/operit/terminal/PtyIo.kt": "d4a8daf3a86c79ef9517d63f65cdf0246de4a3a2fa3ae51a5f72d02ef83ddd38",
+    "src/main/java/com/ai/assistance/operit/terminal/view/domain/ansi/AnsiColorUtils.kt": "03b404ed247d2086e549d8e53a1e5aece352541f27ee53fc4e79acd6b0a49066",
+    "src/main/java/com/ai/assistance/operit/terminal/view/domain/ansi/AnsiScanner.kt": "2e7e256f1d6ca4c4892a7cc53cefa076e89b9f14cec9aff372565016ce27fbfb",
+    "src/main/java/com/ai/assistance/operit/terminal/view/domain/ansi/AnsiSequence.kt": "f18ebd3d8a66326b572158c2625adc613debb7c2eec4d27dfe49ca620b8df1d0",
+    "src/main/java/com/ai/assistance/operit/terminal/view/domain/ansi/AnsiTerminalEmulator.kt": "c0e937cef348de2c7332a4980038225c3ea5de995e8c68a25ce10079056d3187"
+  },
+  "localFiles": {
+    "engines/terminal/src/main/cpp/CMakeLists.txt": "3b23bed915fc029d554322709bb66e788d66b3fce841f30c3b38473c30378c25",
+    "engines/terminal/src/main/cpp/pty_owner.c": "4ba3bc63149d85d6d68ddd0ced1a72b684e3110727132136989d826b9a612e79",
+    "engines/terminal/src/main/kotlin/com/ai/assistance/operit/terminal/Pty.kt": "8c70414b7f5d04315dc346a1ff968088a3758b867b6d41b9a3e2f7646d1da81c",
+    "tools/s1/terminal-build.mjs": "c30036bfb3970b3d30752c135b73444bc0f09a40d53d9b320353a8d1a9a269da",
+    "tools/s1/terminal-prepare.mjs": "05e8caa73ce69b5055e69023b862400c42c5a3b288f45af09fd0ec93882e353e"
+  },
+  "patches": [
+    {
+      "file": "src/main/java/com/ai/assistance/operit/terminal/view/domain/ansi/AnsiTerminalEmulator.kt",
+      "kind": "generated-source",
+      "description": "Remove upstream Log calls that include OSC/DCS/unknown user output. Scanner, emulator and buffer semantics remain byte-identical in vendorRoot.",
+      "script": "tools/s1/terminal-prepare.mjs",
+      "expectedRemovals": 10
+    }
+  ],
+  "adaptations": [
+    "Operit pty.c is compiled unchanged with an explicit -D rename; pty_owner.c wraps forkpty to reclaim the child and master fd if JNI array allocation fails.",
+    "PtyIo uses nonblocking Android Os.read/Os.write and JNI fcntl because Os.fcntlInt starts at API 30.",
+    "Complete-sequence framing is only transport buffering; ANSI interpretation is exclusively Operit AnsiScanner and AnsiTerminalEmulator.",
+    "Wide characters occupy two Operit cells; snapshots combine UTF-16 surrogate pairs and expose immutable continuation cells to the typed API.",
+    "The shell is /system/bin/sh in the app sandbox. No PRoot, rootfs, installation or prebuilt Operit native library is included."
+  ],
+  "excluded": [
+    "TerminalManager",
+    "SessionManager",
+    "PRoot",
+    "rootfs",
+    "installation",
+    "SSH",
+    "FTP",
+    "prebuilt native libraries",
+    "Operit Compose UI"
+  ],
+  "complexityReview": {
+    "status": "accepted-main-thread-exact-derived-files",
+    "scope": "five exact compiled derived file paths in config/architecture/complexity.json; original vendor is retained as immutable provenance, no global exemption",
+    "exceptionConfiguration": "config/architecture/complexity.json",
+    "files": [
+      {
+        "path": "third_party/operit/terminal/src/main/java/com/ai/assistance/operit/terminal/view/domain/ansi/AnsiTerminalEmulator.kt",
+        "reason": "verbatim mature ANSI emulator; splitting would break direct-source hash provenance",
+        "sourceLines": 946,
+        "owner": "main-thread",
+        "reviewUnit": "S1.20"
+      },
+      {
+        "path": "third_party/operit/terminal/src/main/java/com/ai/assistance/operit/terminal/view/domain/ansi/AnsiScanner.kt",
+        "reason": "verbatim ANSI scanner; several upstream parsing branches exceed cyclomatic/nesting thresholds",
+        "sourceLines": 357,
+        "owner": "main-thread",
+        "reviewUnit": "S1.20"
+      },
+      {
+        "path": "third_party/operit/terminal/src/main/java/com/ai/assistance/operit/terminal/view/domain/ansi/AnsiSequence.kt",
+        "reason": "verbatim ANSI sequence types; upstream TextAttributes has ten constructor parameters",
+        "sourceLines": 170,
+        "owner": "main-thread",
+        "reviewUnit": "S1.20"
+      }
+    ]
+  },
+  "target": {
+    "abi": "arm64-v8a",
+    "minSdk": 26,
+    "compileSdk": 36,
+    "pageAlignment": 16384,
+    "ndk": "29.0.13846066-beta3"
+  }
+}

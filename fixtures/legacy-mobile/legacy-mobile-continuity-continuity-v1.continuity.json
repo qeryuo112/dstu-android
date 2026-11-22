@@ -1,0 +1,172 @@
+{
+  "format": "dstu.legacy.mobile.continuity",
+  "formatVersion": 1,
+  "status": "new-contract-in-this-unit",
+  "note": "本轮新定义的平台无关导入合同；旧版移动端只产出 manifest.json，没有这个 sidecar。",
+  "created_at": "2026-11-15T12:59:19.282Z",
+  "generator": {
+    "tool": "tools/baseline/legacy-export.mjs",
+    "unit": "S0.16",
+    "runtime": "SQLite 3.53.4 / Edge headless / OPFS opfs-sahpool (.deep-student)",
+    "seed": "public fixtures written through production repositories (notes, vfs-repos, chat, anki, settings, llm_usage)"
+  },
+  "snapshot": {
+    "backup_id": "legacy-continuity-fixture",
+    "snapshot_epoch": "5a0e16c0-0000-4000-8000-000000000002",
+    "manifest_created_at": "2026-11-15T12:59:19.282Z",
+    "zip_sha256": "774b1aea192eaec9f991c127aa275689b624b6679724e6ac6dea1316f5a13924",
+    "zip_bytes": 3987749,
+    "manifest_version": "3.0.0",
+    "app_version": "0.20.0",
+    "schema_versions": {
+      "vfs": 20261111,
+      "llm_usage": 20260826,
+      "chat_v2": 20261111,
+      "mistakes": 20261005
+    },
+    "key_policy": "not_present"
+  },
+  "source_installation": {
+    "applicationId": "com.deepstudent.app",
+    "appName": "Deep Student",
+    "versionName": "0.20.0",
+    "versionCode": 1114586,
+    "identitySource": {
+      "file": "mobile/scripts/build-apk.mjs",
+      "sha256": "fefbe40a46e7670cfdcb3d7fa74fcabafcabc473e5c2154e937b2ab241d5a8fd",
+      "lines": {
+        "applicationId": 190,
+        "appName": 191,
+        "versionName": 192,
+        "versionCode": 194
+      }
+    },
+    "artifact": "deep-student-debug.apk（S0.15 observedPackage：debug 签名，不是 release 包）",
+    "packageNote": "兼容性断言：manifest.app_version 与 versionName 一致；本轮没有新增或重新打包 APK。",
+    "installationId": "installation-legacy-mobile-demo"
+  },
+  "identity": {
+    "mode": "continuity",
+    "instance_id": "default",
+    "device_id": "device-7f3a91c2",
+    "reason": "same-device-continuity"
+  },
+  "state": {
+    "instanceBinding": [
+      {
+        "instance_id": "default",
+        "provider": "local",
+        "endpoint_hint": "file:///deep-student/local/sync"
+      }
+    ],
+    "uploadSeq": [
+      {
+        "instance_id": "default",
+        "device_id": "device-7f3a91c2",
+        "last_seq": 5
+      }
+    ],
+    "consumeCursor": [
+      {
+        "instance_id": "default",
+        "uploader_device_id": "device-91bc4de0",
+        "last_seq": 12
+      }
+    ],
+    "tombstoneWatermark": [
+      {
+        "instance_id": "default",
+        "source_device_id": "device-91bc4de0",
+        "kind": "blob",
+        "last_applied_offset": 3
+      },
+      {
+        "instance_id": "default",
+        "source_device_id": "device-91bc4de0",
+        "kind": "row",
+        "last_applied_offset": 7
+      }
+    ],
+    "tombstoneEventPublish": [
+      {
+        "instance_id": "default",
+        "device_id": "device-7f3a91c2",
+        "kind": "blob",
+        "operation_id": "op-legacy-1",
+        "seq": 4
+      }
+    ],
+    "legacyProcessedKey": [
+      {
+        "instance_id": "default",
+        "object_key": "legacy/object/one"
+      }
+    ],
+    "deviceHistory": []
+  },
+  "expected": {
+    "state": {
+      "instanceBinding": [
+        {
+          "instance_id": "default",
+          "provider": "local",
+          "endpoint_hint": "file:///deep-student/local/sync"
+        }
+      ],
+      "uploadSeq": [
+        {
+          "instance_id": "default",
+          "device_id": "device-7f3a91c2",
+          "last_seq": 5
+        }
+      ],
+      "consumeCursor": [
+        {
+          "instance_id": "default",
+          "uploader_device_id": "device-91bc4de0",
+          "last_seq": 12
+        }
+      ],
+      "tombstoneWatermark": [
+        {
+          "instance_id": "default",
+          "source_device_id": "device-91bc4de0",
+          "kind": "blob",
+          "last_applied_offset": 3
+        },
+        {
+          "instance_id": "default",
+          "source_device_id": "device-91bc4de0",
+          "kind": "row",
+          "last_applied_offset": 7
+        }
+      ],
+      "tombstoneEventPublish": [
+        {
+          "instance_id": "default",
+          "device_id": "device-7f3a91c2",
+          "kind": "blob",
+          "operation_id": "op-legacy-1",
+          "seq": 4
+        }
+      ],
+      "legacyProcessedKey": [
+        {
+          "instance_id": "default",
+          "object_key": "continuity-takeover/5a0e16c0-0000-4000-8000-000000000002/774b1aea192eaec9f991c127aa275689b624b6679724e6ac6dea1316f5a13924"
+        },
+        {
+          "instance_id": "default",
+          "object_key": "legacy/object/one"
+        }
+      ],
+      "deviceHistory": []
+    },
+    "duplicate_rejected": true
+  },
+  "key_policy": {
+    "material_in_archive": false,
+    "manifest": "not_present",
+    "explanation": "移动端备份不包含密钥材料；installationId/deviceId 为公开 fixture 标识。"
+  }
+}

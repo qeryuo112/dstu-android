@@ -10,7 +10,29 @@ val releaseIdentity = providers.exec {
 }.standardOutput.asText.get().trim().split(":")
 val benchmarkApp = providers.gradleProperty("dstu.benchmarkApp").orNull == "true"
 
+// Only a protected CI job supplies these values. Never use the debug key as a release fallback.
+val releaseSigningEnvironment = listOf(
+    "DSTU_RELEASE_KEYSTORE",
+    "DSTU_RELEASE_STORE_PASSWORD",
+    "DSTU_RELEASE_KEY_ALIAS",
+    "DSTU_RELEASE_KEY_PASSWORD",
+).associateWith { providers.environmentVariable(it).orNull }
+val hasReleaseSigning = releaseSigningEnvironment.values.any { it != null }
+check(!hasReleaseSigning || releaseSigningEnvironment.values.all { !it.isNullOrBlank() }) {
+    "Incomplete release signing environment; refusing unsigned/debug fallback"
+}
+
 android {
+    if (hasReleaseSigning) {
+        val ciSigning = signingConfigs.create("ciRelease") {
+            storeFile = file(checkNotNull(releaseSigningEnvironment["DSTU_RELEASE_KEYSTORE"]))
+            check(storeFile?.isFile == true) { "Release keystore is missing" }
+            storePassword = releaseSigningEnvironment["DSTU_RELEASE_STORE_PASSWORD"]
+            keyAlias = releaseSigningEnvironment["DSTU_RELEASE_KEY_ALIAS"]
+            keyPassword = releaseSigningEnvironment["DSTU_RELEASE_KEY_PASSWORD"]
+        }
+        buildTypes.named("release") { signingConfig = ciSigning }
+    }
     namespace = "com.deepstudent.app"
     defaultConfig {
         applicationId = "com.deepstudent.app"

@@ -1,0 +1,95 @@
+{
+  "formatVersion": 1,
+  "unit": "S0.21",
+  "results": [
+    {
+      "encrypted": false,
+      "upload": {
+        "uploaded": 2,
+        "failed": 0
+      },
+      "download": {
+        "downloaded": 2,
+        "failed": 0
+      },
+      "plaintextSha256": "747d8fce1ef5f0ab4717f7563e1c337064a1374369f0dc126449d6e65c87c395",
+      "objectCount": 1,
+      "deletedWithTombstone": true,
+      "retainedOtherReference": true,
+      "restoredByteHash": "747d8fce1ef5f0ab4717f7563e1c337064a1374369f0dc126449d6e65c87c395",
+      "restoreDownloadCount": 1,
+      "linkedFileAndDirectoryExcluded": true,
+      "tamperedObjectRejectedWithoutLanding": true,
+      "keyPolicy": "plaintext-content-addressed"
+    },
+    {
+      "encrypted": true,
+      "upload": {
+        "uploaded": 2,
+        "failed": 0
+      },
+      "download": {
+        "downloaded": 2,
+        "failed": 0
+      },
+      "plaintextSha256": "747d8fce1ef5f0ab4717f7563e1c337064a1374369f0dc126449d6e65c87c395",
+      "objectCount": 2,
+      "deletedWithTombstone": true,
+      "retainedOtherReference": true,
+      "restoredByteHash": "747d8fce1ef5f0ab4717f7563e1c337064a1374369f0dc126449d6e65c87c395",
+      "restoreDownloadCount": 1,
+      "linkedFileAndDirectoryExcluded": true,
+      "tamperedObjectRejectedWithoutLanding": true,
+      "keyPolicy": "ciphertext-addressed"
+    }
+  ],
+  "checks": {
+    "transportCases": 2,
+    "encryptionModes": [
+      "plain",
+      "DSBK"
+    ],
+    "tombstoneDeleteRestore": true,
+    "sharedPlaintextObjectKept": true,
+    "upstreamVfsApplied": true,
+    "templateMigrationApplied": true
+  },
+  "migrations": {
+    "heads": {
+      "vfs": {
+        "version": 20261115,
+        "count": 73
+      },
+      "llm_usage": {
+        "version": 20260826,
+        "count": 8
+      },
+      "chat_v2": {
+        "version": 20261111,
+        "count": 30
+      },
+      "mistakes": {
+        "version": 20261006,
+        "count": 24
+      }
+    },
+    "prepared": {
+      "upstream": {
+        "file": "vfs/V20261115__review_plans_fsrs.sql",
+        "sha256": "483b242fbf76ded1755644dbb0c6ad9391a91f73af1b32f5d7407a2614faa7d1"
+      },
+      "template": {
+        "file": "mistakes/V20261006__portable_anki_templates.sql",
+        "sha256": "205f7da3f916b65c56b20bdd1472213837dcf359cc25cfe2697a6a3bbf6646d9"
+      }
+    },
+    "rule": "prepareTemplateMigrations copies the locked upstream migrations plus the S0.21 template SQL only"
+  },
+  "testKdf": {
+    "mCost": 8,
+    "tCost": 1,
+    "pCost": 1,
+    "scope": "fixture-only; production parameters unchanged"
+  },
+  "implementation": "production syncAssetsWithTombstones/syncAssetDirectories/codec/SqliteSyncStateStore plus source increment asset allowlist"
+}

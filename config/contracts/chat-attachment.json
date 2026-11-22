@@ -1,0 +1,55 @@
+{
+  "formatVersion": 1,
+  "unit": "S0.21",
+  "receipt": {
+    "attachmentId": "attachment",
+    "storagePath": "active/chat_attachments/attachment/efa1f375d76194fa51a3556a97e641e61685f914d446979da50a551a4333ffd7",
+    "sha256": "efa1f375d76194fa51a3556a97e641e61685f914d446979da50a551a4333ffd7",
+    "size": 6,
+    "reused": false,
+    "executable": false
+  },
+  "metadata": {
+    "storage_path": "active/chat_attachments/attachment/efa1f375d76194fa51a3556a97e641e61685f914d446979da50a551a4333ffd7",
+    "content_hash": "efa1f375d76194fa51a3556a97e641e61685f914d446979da50a551a4333ffd7",
+    "status": "ready"
+  },
+  "checks": {
+    "persisted": true,
+    "hashMatched": true,
+    "reuse": true,
+    "badHashRejected": true,
+    "badSizeRejected": true,
+    "traversalRejected": true,
+    "failedMetadataLeavesOriginalBytes": true,
+    "linkedDirectoryRejected": true,
+    "executesContent": false,
+    "upstreamVfsApplied": true
+  },
+  "migrations": {
+    "heads": {
+      "vfs": {
+        "version": 20261115,
+        "count": 73
+      },
+      "llm_usage": {
+        "version": 20260826,
+        "count": 8
+      },
+      "chat_v2": {
+        "version": 20261111,
+        "count": 30
+      },
+      "mistakes": {
+        "version": 20261005,
+        "count": 23
+      }
+    },
+    "upstreamVfs": {
+      "file": "config/schema/history/vfs/V20261115__review_plans_fsrs.sql",
+      "sha256": "483b242fbf76ded1755644dbb0c6ad9391a91f73af1b32f5d7407a2614faa7d1"
+    },
+    "rule": "chat attachment regression migrates frozen upstream history snapshots only"
+  },
+  "scope": "callable desktop persistence adapter over production chat table; UI send-flow wiring belongs to S3.13"
+}

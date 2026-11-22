@@ -1,0 +1,23 @@
+{
+  "format": "dstu-s1-content-sources/v1",
+  "desktopRevision": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+  "packages": [
+    { "name": "katex", "version": "0.16.47", "integrity": "sha512-Eeo8Ys1doU1z+x8AZsPpQu+p/QcZBI5PeOo7QGQdy2x2m0MU/hYagBbGOmXwr5KVbEfVuWv9LpnQWeehogurjg==" },
+    { "name": "mermaid", "version": "11.15.0", "integrity": "sha512-pTMbcf3rWdtLiYGpmoTjHEpeY8seiy6sR+9nD7LOs8KfUbHE4lOUAprTRqRAcWSQ6MQpdX+YEsxShtGsINtPtw==" }
+  ],
+  "embeddedComponents": { "count": 59, "sha256": "96eca6d0c81c7eb1d64d5f466865c521c7f8c357234e9dc09369cbd4cbe580de" },
+  "embeddedLicenseOverrides": [
+    { "name": "dompurify", "version": "3.4.0", "integrity": "sha512-nolgK9JcaUXMSmW+j1yaSvaEaoXYHwWyGJlkoCTghc97KgGDDSnpoU/PlEnw63Ah+TGKFOyY+X5LnxaWbCSfXg==", "licenseSha256": "1b02e03c3fb4f87d476c128f0eb9def1f5a1709d28b180465228bd41574623b7" },
+    { "name": "d3-format", "version": "3.1.0", "integrity": "sha512-YyUI6AEuY/Wpt8KWLgZHsIU86atmikuoOmCfommt0LYHiQSPjvX2AcFc38PX0CBpr2RCyZhjex+NS/LPOv6YqA==", "licenseSha256": "e008c5e25a6be382593089c29bfabbc553c6378eee02895aec46ce396cc404ee" },
+    { "name": "cytoscape", "version": "3.33.1", "integrity": "sha512-iJc4TwyANnOGR1OmWhsS9ayRS3s+XQ185FmuHObThD+5AeJCakAAbWv8KimMTt08xCCLNgneQwFp+JRJOr9qGQ==", "licenseSha256": "e4b62495bacaefaf330f38f226e20d1d60d658d444998ba7406a191f96a2e701" },
+    { "name": "d3-array", "version": "2.12.1", "integrity": "sha512-B0ErZK/66mHtEsR1TkPEEkwdy+WDesimkM5gpZr5Dsg54BiTA5RXtYW5qTLIAcekaS9xfZrzBLF/OAkB3Qn1YQ==", "licenseSha256": "0747bebeb06b10954913149be9b9a8bdf6fad3e6fdcbd9f9524e7a94c13d2cea" },
+    { "name": "d3-path", "version": "1.0.9", "integrity": "sha512-VLaYcn81dtHVTjEHd8B+pbe9yHWpXKZUC87PzoFmsFrJqgFwDe/qxfp5MlfsfM1V5E/iVt0MmEbWQ7FVIXh/bg==", "licenseSha256": "b8265327ab678f554800e71188b1cc6b1ff57522e292d2b1c0be66f27cf328b6" },
+    { "name": "d3-shape", "version": "1.3.7", "integrity": "sha512-EUkvKjqPFUAZyOlhY5gzCxCeI0Aep04LwIRpsZ/mLFelJiUfnK56jo5JMDSE7yyP2kLSb6LtF+S5chMk7uqPqw==", "licenseSha256": "7eea8533ea92bd8c32a901e89ecb0305890905bb12711449565ddff96891146d" }
+  ],
+  "groups": {
+    "scripts": { "count": 3, "sha256": "744a4c2af2a6276e76cec9b226b2b445d88b38303809367702493e24dded0f73" },
+    "fonts": { "count": 60, "sha256": "2686d672aa84b56721654aa1e56a24eea80a6e4efcfa267e59c3d308414c1922" },
+    "licenses": { "count": 55, "sha256": "5860c87743cf7211c4d35be221bdc3da3092936538a7db2ba3afaa672f67284d" },
+    "sourceMap": { "count": 1, "sha256": "9daea22b2e8cf61cc3a066698c0b7d5fe2edb262b52b6afbd223e90844d0d4c6" }
+  }
+}

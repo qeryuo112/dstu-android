@@ -1,0 +1,4 @@
+identity 29 com.deepstudent.services.backup.data.BackupIdentityAndroidTest
+app 3 com.deepstudent.app.backup.OrdinaryBackupIdentityDeviceTest
+app 12 com.deepstudent.app.backup.ManagedContinuityDeviceTest
+app 1 com.deepstudent.app.backup.ContinuityRestoreUiDeviceTest

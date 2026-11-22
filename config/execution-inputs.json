@@ -1,0 +1,2505 @@
+{
+  "formatVersion": 1,
+  "unit": "S0.25",
+  "planFile": "docs/plans/2026-11-15-mobile-full-feature-refactor.md",
+  "expected": {
+    "mainUnits": 302,
+    "stageExits": 10,
+    "stages": [
+      "S0",
+      "S1",
+      "S2",
+      "S3",
+      "S4",
+      "S5",
+      "S6",
+      "S7",
+      "S8",
+      "S9"
+    ],
+    "stageUnitCounts": {
+      "S0": 25,
+      "S1": 27,
+      "S2": 28,
+      "S3": 29,
+      "S4": 32,
+      "S5": 34,
+      "S6": 44,
+      "S7": 38,
+      "S8": 26,
+      "S9": 19
+    }
+  },
+  "baseline": {
+    "desktopCommit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+    "desktopTree": "3bee0f058851b9eb113bdc036d9f60433ed29944",
+    "operitCommit": "7a39941bad80209973c535046a18195c5da9e647",
+    "terminalCommit": "e4646680663789002b43bbfffa6e69e65c35e614",
+    "upstreamMobileChain": "not-adopted",
+    "contractStateNote": "S0.22/23/24 reported stable; S0.24 final3 SQL/vfs20261117; S0.20 final capture may change hashes once. Hashes remain provisional until main-thread final capture."
+  },
+  "hashPolicy": {
+    "frozen": true,
+    "finalCaptureAfter": "S0.24",
+    "verifyMode": "persistent-input-flag",
+    "provisionalReason": "Frozen after main-thread full-run and registry/release re-capture; recapture only if inputs or S0 artifacts change.",
+    "freezeFlag": "EXECUTION_PLAN_FREEZE_HASHES remains optional and is not required"
+  },
+  "schedule": {
+    "startDate": "2026-11-16",
+    "futureStartDate": "2026-11-17",
+    "historicalStage": "S0",
+    "actualCompletedDate": "2026-11-16",
+    "actualWorkDays": "unknown",
+    "recalibrateAt": "S1.G",
+    "timezone": "Asia/Shanghai",
+    "workWeekDays": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "holidayCalendar": null,
+    "estimateOnly": true,
+    "actualS0Days": "unknown",
+    "disclaimer": "M0 is actual-completed at 2026-11-16 with unknown actual days. S1+ dates are projections from 2026-11-17 on a five-day week; total historical model estimate and remaining estimate are reported separately. Estimates are not commitments and are recalibrated at S1.G."
+  },
+  "executor": {
+    "implementerRole": "dedicated-unit-subagent",
+    "reviewerRole": "main-thread",
+    "cardRole": "dedicated implementation + main review",
+    "rule": "one agent owns one unit only; main thread reviews, tests, signs and integrates"
+  },
+  "workdays": {
+    "stageDefaults": {
+      "S0": 1.5,
+      "S1": 2,
+      "S2": 2,
+      "S3": 2,
+      "S4": 2,
+      "S5": 2,
+      "S6": 2,
+      "S7": 2,
+      "S8": 2,
+      "S9": 2
+    },
+    "complexKeywords": [
+      "同步",
+      "迁移",
+      "恢复",
+      "安全",
+      "加密",
+      "provider",
+      "引擎",
+      "Agent",
+      "工作台",
+      "编辑器",
+      "插件",
+      "终端",
+      "Shizuku",
+      "权限",
+      "性能",
+      "备份",
+      "冲突",
+      "资产",
+      "导入",
+      "导出",
+      "宿主",
+      "协议",
+      "矩阵",
+      "全量",
+      "发布",
+      "签收"
+    ],
+    "veryComplexKeywords": [
+      "全量签收",
+      "跨端",
+      "双向同步",
+      "发布链",
+      "旧链退役"
+    ],
+    "parameterizedSetupDays": 1,
+    "setupOverrides": {
+      "S4.01": 1.5,
+      "S5.19": 1.5,
+      "S7.35": 2,
+      "S7.37": 2
+    },
+    "operationDays": {
+      "request": 0.5,
+      "stream": 0.5,
+      "error-cancel": 0.5,
+      "source-lock": 1,
+      "build-origin": 1,
+      "adapter": 0.5,
+      "conformance": 0.5,
+      "budget": 0.5,
+      "states": 0.5,
+      "input-a11y": 0.5,
+      "render": 0.5,
+      "edit": 0.5,
+      "roundtrip": 0.5,
+      "host": 1,
+      "interaction": 1,
+      "golden-budget": 1,
+      "action-stream": 0.5,
+      "open-close": 0.5,
+      "draft-snapshot": 0.5,
+      "cross-device": 0.5,
+      "import": 0.5,
+      "export": 0.5,
+      "persist-effect": 0.5,
+      "scope-sync": 0.5,
+      "install-probe": 0.5,
+      "failure-resume": 0.5,
+      "remove-reset": 0.5,
+      "execute": 0.5,
+      "permission-cancel": 0.5,
+      "api-map": 0.5,
+      "port-install": 0.5,
+      "data-ui-lifecycle": 0.5,
+      "graph-model": 0.5,
+      "node-execution": 0.5,
+      "schedule-agent": 0.5,
+      "ui-roundtrip": 0.5
+    }
+  },
+  "parameterized": [
+    {
+      "unit": "S3.04",
+      "dimensions": [
+        {
+          "kind": "provider",
+          "memberSource": "providers",
+          "ids": [
+            "siliconflow",
+            "qwen",
+            "zhipu",
+            "doubao",
+            "minimax",
+            "moonshot",
+            "nvidia",
+            "mimo",
+            "ernie",
+            "mistral"
+          ],
+          "operations": [
+            "request",
+            "stream",
+            "error-cancel"
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S3.05",
+      "dimensions": [
+        {
+          "kind": "provider",
+          "memberSource": "providers",
+          "ids": [
+            "openai",
+            "openai_codex",
+            "deepseek",
+            "grok",
+            "xai"
+          ],
+          "operations": [
+            "request",
+            "stream",
+            "error-cancel"
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S3.06",
+      "dimensions": [
+        {
+          "kind": "provider",
+          "memberSource": "providers",
+          "ids": [
+            "anthropic"
+          ],
+          "operations": [
+            "request",
+            "stream",
+            "error-cancel"
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S3.07",
+      "dimensions": [
+        {
+          "kind": "provider",
+          "memberSource": "providers",
+          "ids": [
+            "google",
+            "gemini"
+          ],
+          "operations": [
+            "request",
+            "stream",
+            "error-cancel"
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S3.08",
+      "dimensions": [
+        {
+          "kind": "provider",
+          "memberSource": "providers",
+          "ids": [
+            "custom",
+            "general",
+            "opencode_go",
+            "openrouter",
+            "ollama"
+          ],
+          "operations": [
+            "request",
+            "stream",
+            "error-cancel"
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S3.25",
+      "dimensions": [
+        {
+          "kind": "workflow",
+          "memberSource": "operit-workflow",
+          "operations": [
+            "graph-model",
+            "node-execution",
+            "schedule-agent",
+            "ui-roundtrip"
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S4.01",
+      "dimensions": [
+        {
+          "kind": "engine",
+          "memberSource": "explicit",
+          "operations": [
+            "source-lock",
+            "build-origin"
+          ],
+          "members": [
+            {
+              "id": "pdfium",
+              "evidence": {
+                "source": "desktop",
+                "file": "package.json",
+                "pointer": "dependencies.@embedpdf/pdfium"
+              }
+            },
+            {
+              "id": "ffmpeg-kit",
+              "evidence": {
+                "source": "root",
+                "file": "config/runtime-assets.json",
+                "pointer": "assets[id=ffmpeg-kit-local-aar]"
+              }
+            },
+            {
+              "id": "mlkit-text-recognition",
+              "evidence": {
+                "source": "operit",
+                "file": "app/src/main/java/com/ai/assistance/operit/util/OCRUtils.kt",
+                "pointer": "TextRecognition.getClient"
+              }
+            },
+            {
+              "id": "sherpa-ncnn",
+              "evidence": {
+                "source": "root",
+                "file": "config/source-lock.json",
+                "pointer": "engines[id=sherpa-ncnn]"
+              }
+            },
+            {
+              "id": "ncnn",
+              "evidence": {
+                "source": "root",
+                "file": "config/source-lock.json",
+                "pointer": "engines[id=ncnn]"
+              }
+            },
+            {
+              "id": "openfst",
+              "evidence": {
+                "source": "root",
+                "file": "config/runtime-assets.json",
+                "pointer": "assets[id=openfst-source-declaration]"
+              }
+            },
+            {
+              "id": "llama-cpp",
+              "evidence": {
+                "source": "root",
+                "file": "config/source-lock.json",
+                "pointer": "engines[id=llama-cpp]"
+              }
+            },
+            {
+              "id": "mnn",
+              "evidence": {
+                "source": "root",
+                "file": "config/source-lock.json",
+                "pointer": "engines[id=mnn]"
+              }
+            },
+            {
+              "id": "kleidiai",
+              "evidence": {
+                "source": "root",
+                "file": "config/source-lock.json",
+                "pointer": "engines[id=kleidiai]"
+              }
+            },
+            {
+              "id": "lancedb",
+              "evidence": {
+                "source": "desktop",
+                "file": "package.json",
+                "pointer": "dependencies.@lancedb/lancedb"
+              }
+            },
+            {
+              "id": "ts-fsrs",
+              "evidence": {
+                "source": "desktop",
+                "file": "package.json",
+                "pointer": "dependencies.ts-fsrs"
+              }
+            },
+            {
+              "id": "open-spaced-repetition-binding",
+              "evidence": {
+                "source": "desktop",
+                "file": "package.json",
+                "pointer": "dependencies.@open-spaced-repetition/binding"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S4.07",
+      "dimensions": [
+        {
+          "kind": "format",
+          "memberSource": "explicit",
+          "operations": [
+            "adapter",
+            "conformance",
+            "budget"
+          ],
+          "members": [
+            {
+              "id": "docx",
+              "evidence": {
+                "source": "desktop",
+                "file": "package.json",
+                "pointer": "dependencies.docx"
+              }
+            },
+            {
+              "id": "xlsx",
+              "evidence": {
+                "source": "desktop",
+                "file": "package.json",
+                "pointer": "dependencies.exceljs"
+              }
+            },
+            {
+              "id": "pptx",
+              "evidence": {
+                "source": "desktop",
+                "file": "package.json",
+                "pointer": "dependencies.pptxgenjs"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S4.08",
+      "dimensions": [
+        {
+          "kind": "format",
+          "memberSource": "explicit",
+          "operations": [
+            "adapter",
+            "conformance",
+            "budget"
+          ],
+          "members": [
+            {
+              "id": "docx",
+              "evidence": {
+                "source": "desktop",
+                "file": "package.json",
+                "pointer": "dependencies.docx"
+              }
+            },
+            {
+              "id": "xlsx",
+              "evidence": {
+                "source": "desktop",
+                "file": "package.json",
+                "pointer": "dependencies.exceljs"
+              }
+            },
+            {
+              "id": "pptx",
+              "evidence": {
+                "source": "desktop",
+                "file": "package.json",
+                "pointer": "dependencies.pptxgenjs"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S4.09",
+      "dimensions": [
+        {
+          "kind": "format",
+          "memberSource": "explicit",
+          "operations": [
+            "adapter",
+            "conformance",
+            "budget"
+          ],
+          "members": [
+            {
+              "id": "epub",
+              "evidence": {
+                "source": "plan",
+                "file": "docs/plans/2026-11-15-mobile-full-feature-refactor.md",
+                "pointer": "S4.09"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S4.10",
+      "dimensions": [
+        {
+          "kind": "format",
+          "memberSource": "explicit",
+          "operations": [
+            "adapter",
+            "conformance",
+            "budget"
+          ],
+          "members": [
+            {
+              "id": "png",
+              "evidence": {
+                "source": "desktop",
+                "file": "package.json",
+                "pointer": "dependencies.sharp"
+              }
+            },
+            {
+              "id": "jpeg",
+              "evidence": {
+                "source": "desktop",
+                "file": "package.json",
+                "pointer": "dependencies.sharp"
+              }
+            },
+            {
+              "id": "heic",
+              "evidence": {
+                "source": "plan",
+                "file": "docs/plans/2026-11-15-mobile-full-feature-refactor.md",
+                "pointer": "S4.10"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S4.11",
+      "dimensions": [
+        {
+          "kind": "engine",
+          "memberSource": "explicit",
+          "operations": [
+            "adapter",
+            "conformance",
+            "budget"
+          ],
+          "members": [
+            {
+              "id": "mlkit-text-recognition",
+              "evidence": {
+                "source": "operit",
+                "file": "app/src/main/java/com/ai/assistance/operit/util/OCRUtils.kt",
+                "pointer": "TextRecognition.getClient"
+              }
+            },
+            {
+              "id": "system_ocr",
+              "evidence": {
+                "source": "desktop",
+                "file": "host/plugins/llm-providers/src/ocr/system.ts",
+                "pointer": "engineType system_ocr"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S4.12",
+      "dimensions": [
+        {
+          "kind": "engine",
+          "memberSource": "explicit",
+          "operations": [
+            "adapter",
+            "conformance",
+            "budget"
+          ],
+          "members": [
+            {
+              "id": "deepseek_ocr",
+              "evidence": {
+                "source": "desktop",
+                "file": "host/plugins/llm-providers/src/ocr/deepseek.ts",
+                "pointer": "engineType deepseek_ocr"
+              }
+            },
+            {
+              "id": "paddle_ocr_vl",
+              "evidence": {
+                "source": "desktop",
+                "file": "host/plugins/llm-providers/src/ocr/paddle.ts",
+                "pointer": "PaddleOcrVlAdapter"
+              }
+            },
+            {
+              "id": "paddle_ocr_vl_v1",
+              "evidence": {
+                "source": "desktop",
+                "file": "host/plugins/llm-providers/src/ocr/paddle.ts",
+                "pointer": "PaddleOcrVlAdapter"
+              }
+            },
+            {
+              "id": "glm4v_ocr",
+              "evidence": {
+                "source": "desktop",
+                "file": "host/plugins/llm-providers/src/ocr/generic.ts",
+                "pointer": "Glm4vOcrAdapter"
+              }
+            },
+            {
+              "id": "generic_vlm",
+              "evidence": {
+                "source": "desktop",
+                "file": "host/plugins/llm-providers/src/ocr/generic.ts",
+                "pointer": "GenericVlmAdapter"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S4.14",
+      "dimensions": [
+        {
+          "kind": "format",
+          "memberSource": "explicit",
+          "operations": [
+            "adapter",
+            "conformance",
+            "budget"
+          ],
+          "members": [
+            {
+              "id": "zstd",
+              "evidence": {
+                "source": "plan",
+                "file": "docs/plans/2026-11-15-mobile-full-feature-refactor.md",
+                "pointer": "S4.14"
+              }
+            },
+            {
+              "id": "gzip",
+              "evidence": {
+                "source": "plan",
+                "file": "docs/plans/2026-11-15-mobile-full-feature-refactor.md",
+                "pointer": "S4.14"
+              }
+            },
+            {
+              "id": "zip",
+              "evidence": {
+                "source": "desktop",
+                "file": "package.json",
+                "pointer": "dependencies.jszip"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S4.15",
+      "dimensions": [
+        {
+          "kind": "format",
+          "memberSource": "explicit",
+          "operations": [
+            "adapter",
+            "conformance",
+            "budget"
+          ],
+          "members": [
+            {
+              "id": "anki21b",
+              "evidence": {
+                "source": "plan",
+                "file": "docs/plans/2026-11-15-mobile-full-feature-refactor.md",
+                "pointer": "S4.15"
+              }
+            },
+            {
+              "id": "legacy-apkg",
+              "evidence": {
+                "source": "desktop",
+                "file": "host/plugins/anki/src/apkg-import-archive.ts",
+                "pointer": "collection.anki21 collection.anki21b collection.anki2"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S4.16",
+      "dimensions": [
+        {
+          "kind": "format",
+          "memberSource": "explicit",
+          "operations": [
+            "adapter",
+            "conformance",
+            "budget"
+          ],
+          "members": [
+            {
+              "id": "apkg-media",
+              "evidence": {
+                "source": "root",
+                "file": "config/contracts/templates-assets.json",
+                "pointer": "assets.references"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S4.17",
+      "dimensions": [
+        {
+          "kind": "engine",
+          "memberSource": "explicit",
+          "operations": [
+            "adapter",
+            "conformance",
+            "budget"
+          ],
+          "members": [
+            {
+              "id": "ffmpeg-kit",
+              "evidence": {
+                "source": "root",
+                "file": "config/runtime-assets.json",
+                "pointer": "assets[id=ffmpeg-kit-local-aar]"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S4.18",
+      "dimensions": [
+        {
+          "kind": "engine",
+          "memberSource": "explicit",
+          "operations": [
+            "adapter",
+            "conformance",
+            "budget"
+          ],
+          "members": [
+            {
+              "id": "sherpa-ncnn-vad",
+              "evidence": {
+                "source": "root",
+                "file": "config/runtime-assets.json",
+                "pointer": "assets[id=stt-models]"
+              }
+            },
+            {
+              "id": "sherpa-mnn-jni",
+              "evidence": {
+                "source": "root",
+                "file": "config/runtime-assets.json",
+                "pointer": "assets[id=sherpa-mnn-jni]"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S4.19",
+      "dimensions": [
+        {
+          "kind": "engine",
+          "memberSource": "explicit",
+          "operations": [
+            "adapter",
+            "conformance",
+            "budget"
+          ],
+          "members": [
+            {
+              "id": "sherpa-ncnn-asr",
+              "evidence": {
+                "source": "root",
+                "file": "config/runtime-assets.json",
+                "pointer": "assets[id=stt-models]"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S4.20",
+      "dimensions": [
+        {
+          "kind": "engine",
+          "memberSource": "explicit",
+          "operations": [
+            "adapter",
+            "conformance",
+            "budget"
+          ],
+          "members": [
+            {
+              "id": "simple-tts",
+              "evidence": {
+                "source": "operit",
+                "file": "app/src/main/java/com/ai/assistance/operit/api/voice/VoiceServiceFactory.kt",
+                "pointer": "SIMPLE_TTS"
+              }
+            },
+            {
+              "id": "http-tts",
+              "evidence": {
+                "source": "operit",
+                "file": "app/src/main/java/com/ai/assistance/operit/api/voice/VoiceServiceFactory.kt",
+                "pointer": "HTTP_TTS"
+              }
+            },
+            {
+              "id": "openai-realtime-tts",
+              "evidence": {
+                "source": "operit",
+                "file": "app/src/main/java/com/ai/assistance/operit/api/voice/VoiceServiceFactory.kt",
+                "pointer": "OPENAI_WS_TTS"
+              }
+            },
+            {
+              "id": "siliconflow-tts",
+              "evidence": {
+                "source": "operit",
+                "file": "app/src/main/java/com/ai/assistance/operit/api/voice/VoiceServiceFactory.kt",
+                "pointer": "SILICONFLOW_TTS"
+              }
+            },
+            {
+              "id": "minimax-tts",
+              "evidence": {
+                "source": "operit",
+                "file": "app/src/main/java/com/ai/assistance/operit/api/voice/VoiceServiceFactory.kt",
+                "pointer": "MINIMAX_TTS"
+              }
+            },
+            {
+              "id": "mimo-tts",
+              "evidence": {
+                "source": "operit",
+                "file": "app/src/main/java/com/ai/assistance/operit/api/voice/VoiceServiceFactory.kt",
+                "pointer": "MIMO_TTS"
+              }
+            },
+            {
+              "id": "doubao-tts",
+              "evidence": {
+                "source": "operit",
+                "file": "app/src/main/java/com/ai/assistance/operit/api/voice/VoiceServiceFactory.kt",
+                "pointer": "DOUBAO_TTS"
+              }
+            },
+            {
+              "id": "openai-tts",
+              "evidence": {
+                "source": "operit",
+                "file": "app/src/main/java/com/ai/assistance/operit/api/voice/VoiceServiceFactory.kt",
+                "pointer": "OPENAI_TTS"
+              }
+            },
+            {
+              "id": "vits-tts",
+              "evidence": {
+                "source": "operit",
+                "file": "app/src/main/java/com/ai/assistance/operit/api/voice/VoiceServiceFactory.kt",
+                "pointer": "VITS_TTS"
+              }
+            },
+            {
+              "id": "deepseek-tts",
+              "evidence": {
+                "source": "desktop",
+                "file": "host/plugins/media/src/deepseek-tts.ts",
+                "pointer": "synthesizeDeepseek"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S4.21",
+      "dimensions": [
+        {
+          "kind": "engine",
+          "memberSource": "explicit",
+          "operations": [
+            "adapter",
+            "conformance",
+            "budget"
+          ],
+          "members": [
+            {
+              "id": "llama-cpp",
+              "evidence": {
+                "source": "root",
+                "file": "config/source-lock.json",
+                "pointer": "engines[id=llama-cpp]"
+              }
+            },
+            {
+              "id": "mnn",
+              "evidence": {
+                "source": "root",
+                "file": "config/source-lock.json",
+                "pointer": "engines[id=mnn]"
+              }
+            },
+            {
+              "id": "kleidiai",
+              "evidence": {
+                "source": "root",
+                "file": "config/source-lock.json",
+                "pointer": "engines[id=kleidiai]"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S4.22",
+      "dimensions": [
+        {
+          "kind": "engine",
+          "memberSource": "explicit",
+          "operations": [
+            "adapter",
+            "conformance",
+            "budget"
+          ],
+          "members": [
+            {
+              "id": "llm-text-embedding-config",
+              "evidence": {
+                "source": "desktop",
+                "file": "host/plugins/llm/src/embedding_transport.ts",
+                "pointer": "embedding.default_text_model_config_id"
+              },
+              "metadata": {
+                "modelSource": "runtime-configured",
+                "settingKey": "embedding.default_text_model_config_id"
+              }
+            },
+            {
+              "id": "llm-multimodal-embedding-config",
+              "evidence": {
+                "source": "desktop",
+                "file": "host/plugins/llm/src/embedding_defaults.ts",
+                "pointer": "getVlEmbeddingModelConfig"
+              },
+              "metadata": {
+                "modelSource": "runtime-configured",
+                "settingKey": "embedding.default_multimodal_model_config_id"
+              }
+            },
+            {
+              "id": "llama-cpp-local-embedding",
+              "evidence": {
+                "source": "root",
+                "file": "config/source-lock.json",
+                "pointer": "engines[id=llama-cpp]"
+              },
+              "metadata": {
+                "modelSource": "runtime-configured",
+                "engine": "llama-cpp"
+              }
+            },
+            {
+              "id": "mnn-local-embedding",
+              "evidence": {
+                "source": "root",
+                "file": "config/source-lock.json",
+                "pointer": "engines[id=mnn]"
+              },
+              "metadata": {
+                "modelSource": "runtime-configured",
+                "engine": "mnn"
+              }
+            },
+            {
+              "id": "lance-vector-store",
+              "evidence": {
+                "source": "desktop",
+                "file": "package.json",
+                "pointer": "dependencies.@lancedb/lancedb"
+              },
+              "metadata": {
+                "modelSource": "runtime-configured",
+                "store": "lance"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S5.02",
+      "dimensions": [
+        {
+          "kind": "component",
+          "memberSource": "explicit",
+          "operations": [
+            "states",
+            "input-a11y"
+          ],
+          "members": [
+            {
+              "id": "button",
+              "evidence": {
+                "source": "desktop",
+                "file": "src/components/ui/DsButton.tsx",
+                "pointer": "DsButton"
+              }
+            },
+            {
+              "id": "input",
+              "evidence": {
+                "source": "desktop",
+                "file": "src/components/ui/shad/Input.tsx",
+                "pointer": "Input"
+              }
+            },
+            {
+              "id": "switch",
+              "evidence": {
+                "source": "desktop",
+                "file": "src/components/ui/shad/Switch.tsx",
+                "pointer": "Switch"
+              }
+            },
+            {
+              "id": "segmented",
+              "evidence": {
+                "source": "desktop",
+                "file": "src/components/ui/SegmentedControl.tsx",
+                "pointer": "SegmentedControl"
+              }
+            },
+            {
+              "id": "progress",
+              "evidence": {
+                "source": "desktop",
+                "file": "src/components/ui/shad/Progress.tsx",
+                "pointer": "Progress"
+              }
+            },
+            {
+              "id": "badge",
+              "evidence": {
+                "source": "desktop",
+                "file": "src/components/ui/shad/Badge.tsx",
+                "pointer": "Badge"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S5.03",
+      "dimensions": [
+        {
+          "kind": "component",
+          "memberSource": "explicit",
+          "operations": [
+            "states",
+            "input-a11y"
+          ],
+          "members": [
+            {
+              "id": "dialog",
+              "evidence": {
+                "source": "desktop",
+                "file": "src/components/ui/DsDialog.tsx",
+                "pointer": "DsDialog"
+              }
+            },
+            {
+              "id": "sheet",
+              "evidence": {
+                "source": "desktop",
+                "file": "src/components/ui/shad/Sheet.tsx",
+                "pointer": "Sheet"
+              }
+            },
+            {
+              "id": "menu",
+              "evidence": {
+                "source": "desktop",
+                "file": "src/components/ui/app-menu/AppMenu.tsx",
+                "pointer": "AppMenu"
+              }
+            },
+            {
+              "id": "sidebar",
+              "evidence": {
+                "source": "desktop",
+                "file": "src/components/ui/unified-sidebar/UnifiedSidebar.tsx",
+                "pointer": "UnifiedSidebar"
+              }
+            },
+            {
+              "id": "list",
+              "evidence": {
+                "source": "desktop",
+                "file": "src/components/ui/AnimatedListRow.tsx",
+                "pointer": "AnimatedListRow"
+              }
+            },
+            {
+              "id": "empty-state",
+              "evidence": {
+                "source": "desktop",
+                "file": "src/features/chat/components/ui/ThreadEmptyStateShell.tsx",
+                "pointer": "ThreadEmptyStateShell"
+              }
+            },
+            {
+              "id": "error-state",
+              "evidence": {
+                "source": "desktop",
+                "file": "src/components/ViewErrorFallback.tsx",
+                "pointer": "ViewErrorFallback"
+              }
+            },
+            {
+              "id": "skeleton",
+              "evidence": {
+                "source": "desktop",
+                "file": "src/components/ui/skeleton.tsx",
+                "pointer": "SkeletonReveal"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S5.14",
+      "dimensions": [
+        {
+          "kind": "editor-block",
+          "memberSource": "explicit",
+          "operations": [
+            "render",
+            "edit",
+            "roundtrip"
+          ],
+          "members": [
+            {
+              "id": "paragraph",
+              "evidence": {
+                "source": "root",
+                "file": "config/baseline/content.json",
+                "pointer": "markdown[id=commonmark-gfm]"
+              }
+            },
+            {
+              "id": "heading",
+              "evidence": {
+                "source": "root",
+                "file": "config/baseline/content.json",
+                "pointer": "markdown[id=commonmark-gfm]"
+              }
+            },
+            {
+              "id": "list",
+              "evidence": {
+                "source": "root",
+                "file": "config/baseline/content.json",
+                "pointer": "markdown[id=commonmark-gfm]"
+              }
+            },
+            {
+              "id": "task-list",
+              "evidence": {
+                "source": "root",
+                "file": "config/baseline/content.json",
+                "pointer": "markdown[id=commonmark-gfm]"
+              }
+            },
+            {
+              "id": "blockquote",
+              "evidence": {
+                "source": "root",
+                "file": "config/baseline/content.json",
+                "pointer": "markdown[id=commonmark-gfm]"
+              }
+            },
+            {
+              "id": "horizontal-rule",
+              "evidence": {
+                "source": "root",
+                "file": "config/baseline/content.json",
+                "pointer": "markdown[id=commonmark-gfm]"
+              }
+            },
+            {
+              "id": "code-block",
+              "evidence": {
+                "source": "root",
+                "file": "config/baseline/content.json",
+                "pointer": "markdown[id=commonmark-gfm]"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S5.15",
+      "dimensions": [
+        {
+          "kind": "editor-block",
+          "memberSource": "explicit",
+          "operations": [
+            "render",
+            "edit",
+            "roundtrip"
+          ],
+          "members": [
+            {
+              "id": "table",
+              "evidence": {
+                "source": "root",
+                "file": "config/baseline/content.json",
+                "pointer": "markdown[id=commonmark-gfm]"
+              }
+            },
+            {
+              "id": "math-inline",
+              "evidence": {
+                "source": "root",
+                "file": "config/baseline/content.json",
+                "pointer": "markdown[id=math]"
+              }
+            },
+            {
+              "id": "math-block",
+              "evidence": {
+                "source": "root",
+                "file": "config/baseline/content.json",
+                "pointer": "markdown[id=math-diagrams]"
+              }
+            },
+            {
+              "id": "image",
+              "evidence": {
+                "source": "root",
+                "file": "config/baseline/content.json",
+                "pointer": "contentLanguages[language=svg]"
+              }
+            },
+            {
+              "id": "media",
+              "evidence": {
+                "source": "root",
+                "file": "config/baseline/content.json",
+                "pointer": "anki[id=sound]"
+              }
+            },
+            {
+              "id": "pdf-ref",
+              "evidence": {
+                "source": "root",
+                "file": "config/baseline/content.json",
+                "pointer": "registrations[id=editor:pdf-ref]"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S5.16",
+      "dimensions": [
+        {
+          "kind": "editor-block",
+          "memberSource": "explicit",
+          "operations": [
+            "render",
+            "edit",
+            "roundtrip"
+          ],
+          "members": [
+            {
+              "id": "callout",
+              "evidence": {
+                "source": "root",
+                "file": "config/baseline/content.json",
+                "pointer": "markdown[id=callout]"
+              }
+            },
+            {
+              "id": "toggle",
+              "evidence": {
+                "source": "root",
+                "file": "config/baseline/content.json",
+                "pointer": "markdown[id=toggle]"
+              }
+            },
+            {
+              "id": "columns",
+              "evidence": {
+                "source": "root",
+                "file": "config/baseline/content.json",
+                "pointer": "markdown[id=columns]"
+              }
+            },
+            {
+              "id": "wikilink",
+              "evidence": {
+                "source": "root",
+                "file": "config/baseline/content.json",
+                "pointer": "markdown[id=wiki-mention-reference]"
+              }
+            },
+            {
+              "id": "mention",
+              "evidence": {
+                "source": "root",
+                "file": "config/baseline/content.json",
+                "pointer": "markdown[id=wiki-mention-reference]"
+              }
+            },
+            {
+              "id": "inline-card",
+              "evidence": {
+                "source": "root",
+                "file": "config/baseline/content.json",
+                "pointer": "inlineCards"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S5.18",
+      "dimensions": [
+        {
+          "kind": "content-engine",
+          "memberSource": "content-languages",
+          "ids": [
+            "mermaid",
+            "dot",
+            "vega-lite",
+            "vega",
+            "abc",
+            "wavedrom",
+            "molecule-2d",
+            "molecule-3d",
+            "geojson",
+            "mindmap"
+          ],
+          "operations": [
+            "host",
+            "interaction",
+            "golden-budget"
+          ]
+        },
+        {
+          "kind": "content-engine",
+          "memberSource": "explicit",
+          "operations": [
+            "host",
+            "interaction",
+            "golden-budget"
+          ],
+          "members": [
+            {
+              "id": "canvas-host",
+              "evidence": {
+                "source": "plan",
+                "file": "docs/plans/2026-11-15-mobile-full-feature-refactor.md",
+                "pointer": "S5.18 line 798"
+              },
+              "metadata": {
+                "plannedByPlan": true,
+                "desktopRegistration": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S5.19",
+      "dimensions": [
+        {
+          "kind": "chat-block",
+          "memberSource": "chat-blocks",
+          "operations": [
+            "render",
+            "action-stream"
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S5.30",
+      "dimensions": [
+        {
+          "kind": "app",
+          "memberSource": "workbench-apps",
+          "ids": [
+            "chat",
+            "chat-session",
+            "notes"
+          ],
+          "operations": [
+            "open-close",
+            "draft-snapshot",
+            "cross-device"
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S6.12",
+      "dimensions": [
+        {
+          "kind": "recipe",
+          "memberSource": "operit-package-items",
+          "ids": [
+            "ssh",
+            "sshpass",
+            "openssh-server"
+          ],
+          "operations": [
+            "install-probe",
+            "failure-resume",
+            "remove-reset"
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S6.13",
+      "dimensions": [
+        {
+          "kind": "recipe",
+          "memberSource": "operit-package-items",
+          "ids": [
+            "python-is-python3",
+            "python3-venv",
+            "python3-pip",
+            "uv"
+          ],
+          "operations": [
+            "install-probe",
+            "failure-resume",
+            "remove-reset"
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S6.14",
+      "dimensions": [
+        {
+          "kind": "recipe",
+          "memberSource": "operit-package-items",
+          "ids": [
+            "nodejs",
+            "pnpm"
+          ],
+          "operations": [
+            "install-probe",
+            "failure-resume",
+            "remove-reset"
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S6.15",
+      "dimensions": [
+        {
+          "kind": "recipe",
+          "memberSource": "operit-package-items",
+          "ids": [
+            "openjdk-17",
+            "gradle",
+            "rust",
+            "go"
+          ],
+          "operations": [
+            "install-probe",
+            "failure-resume",
+            "remove-reset"
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S6.22",
+      "dimensions": [
+        {
+          "kind": "system-action",
+          "memberSource": "operit-tool-schema",
+          "ids": [
+            "install_app",
+            "uninstall_app",
+            "list_installed_apps",
+            "start_app",
+            "stop_app",
+            "modify_system_setting",
+            "get_system_setting",
+            "get_notifications",
+            "get_device_location",
+            "app_launch",
+            "get_page_info"
+          ],
+          "operations": [
+            "execute",
+            "permission-cancel"
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S6.38",
+      "dimensions": [
+        {
+          "kind": "browser-action",
+          "memberSource": "operit-tool-schema",
+          "ids": [
+            "browser_snapshot",
+            "browser_click",
+            "browser_type",
+            "browser_select_option",
+            "browser_fill_form",
+            "browser_hover",
+            "browser_drag",
+            "browser_press_key",
+            "browser_evaluate",
+            "browser_run_code",
+            "browser_wait_for",
+            "browser_file_upload",
+            "browser_take_screenshot",
+            "browser_network_requests",
+            "browser_console_messages",
+            "browser_handle_dialog",
+            "browser_resize"
+          ],
+          "operations": [
+            "execute",
+            "permission-cancel"
+          ]
+        },
+        {
+          "kind": "browser-action",
+          "memberSource": "explicit",
+          "operations": [
+            "execute",
+            "permission-cancel"
+          ],
+          "members": [
+            {
+              "id": "browser_scroll",
+              "evidence": {
+                "source": "plan",
+                "file": "docs/plans/2026-11-15-mobile-full-feature-refactor.md",
+                "pointer": "S6.38 line 903"
+              },
+              "metadata": {
+                "plannedAction": true,
+                "aliases": [
+                  "browser_press_key",
+                  "browser_evaluate"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S6.42",
+      "dimensions": [
+        {
+          "kind": "device-action",
+          "memberSource": "operit-tool-schema",
+          "ids": [
+            "capture_screenshot",
+            "tap",
+            "click_element",
+            "set_input_text",
+            "press_key",
+            "swipe",
+            "long_press",
+            "double_tap"
+          ],
+          "operations": [
+            "execute",
+            "permission-cancel"
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S6.43",
+      "dimensions": [
+        {
+          "kind": "app",
+          "memberSource": "workbench-apps",
+          "ids": [
+            "sandbox",
+            "browser"
+          ],
+          "operations": [
+            "open-close",
+            "draft-snapshot",
+            "cross-device"
+          ]
+        },
+        {
+          "kind": "dynamic-view-family",
+          "memberSource": "dynamic-plugin-view",
+          "operations": [
+            "open-close",
+            "draft-snapshot",
+            "cross-device"
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S7.01",
+      "dimensions": [
+        {
+          "kind": "app",
+          "memberSource": "workbench-apps",
+          "ids": [
+            "files"
+          ],
+          "operations": [
+            "open-close",
+            "draft-snapshot",
+            "cross-device"
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S7.02",
+      "dimensions": [
+        {
+          "kind": "app",
+          "memberSource": "workbench-apps",
+          "ids": [
+            "image",
+            "file"
+          ],
+          "operations": [
+            "open-close",
+            "draft-snapshot",
+            "cross-device"
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S7.05",
+      "dimensions": [
+        {
+          "kind": "format",
+          "memberSource": "explicit",
+          "operations": [
+            "import",
+            "export",
+            "roundtrip"
+          ],
+          "members": [
+            {
+              "id": "markdown",
+              "evidence": {
+                "source": "root",
+                "file": "config/baseline/content.json",
+                "pointer": "markdown[id=commonmark-gfm]"
+              }
+            },
+            {
+              "id": "html",
+              "evidence": {
+                "source": "root",
+                "file": "config/baseline/content.json",
+                "pointer": "contentLanguages[language=html]"
+              }
+            },
+            {
+              "id": "pdf",
+              "evidence": {
+                "source": "desktop",
+                "file": "package.json",
+                "pointer": "dependencies.pdf-lib"
+              }
+            },
+            {
+              "id": "docx",
+              "evidence": {
+                "source": "desktop",
+                "file": "package.json",
+                "pointer": "dependencies.docx"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S7.06",
+      "dimensions": [
+        {
+          "kind": "app",
+          "memberSource": "workbench-apps",
+          "ids": [
+            "textbook",
+            "file-preview"
+          ],
+          "operations": [
+            "open-close",
+            "draft-snapshot",
+            "cross-device"
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S7.08",
+      "dimensions": [
+        {
+          "kind": "app",
+          "memberSource": "workbench-apps",
+          "ids": [
+            "taskDashboard"
+          ],
+          "operations": [
+            "open-close",
+            "draft-snapshot",
+            "cross-device"
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S7.09",
+      "dimensions": [
+        {
+          "kind": "app",
+          "memberSource": "workbench-apps",
+          "ids": [
+            "templates"
+          ],
+          "operations": [
+            "open-close",
+            "draft-snapshot",
+            "cross-device"
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S7.12",
+      "dimensions": [
+        {
+          "kind": "app",
+          "memberSource": "workbench-apps",
+          "ids": [
+            "flashcards"
+          ],
+          "operations": [
+            "open-close",
+            "draft-snapshot",
+            "cross-device"
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S7.18",
+      "dimensions": [
+        {
+          "kind": "app",
+          "memberSource": "workbench-apps",
+          "ids": [
+            "exam"
+          ],
+          "operations": [
+            "open-close",
+            "draft-snapshot",
+            "cross-device"
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S7.19",
+      "dimensions": [
+        {
+          "kind": "format",
+          "memberSource": "explicit",
+          "operationSets": {
+            "csv": [
+              "import",
+              "export",
+              "roundtrip"
+            ],
+            "docx": [
+              "import",
+              "export",
+              "roundtrip"
+            ],
+            "pdf": [
+              "import",
+              "export",
+              "roundtrip"
+            ],
+            "zip": [
+              "import"
+            ],
+            "json": [
+              "import"
+            ],
+            "markdown": [
+              "export"
+            ]
+          },
+          "members": [
+            {
+              "id": "csv",
+              "evidence": {
+                "source": "desktop",
+                "file": "host/plugins/qbank/src/csv-import.ts",
+                "pointer": "importCsv"
+              }
+            },
+            {
+              "id": "docx",
+              "evidence": {
+                "source": "desktop",
+                "file": "host/plugins/qbank/src/paper-docx.ts",
+                "pointer": "exportPaperDocx"
+              }
+            },
+            {
+              "id": "pdf",
+              "evidence": {
+                "source": "desktop",
+                "file": "host/plugins/qbank/src/pdf-inspection.ts",
+                "pointer": "inspectPdfText"
+              }
+            },
+            {
+              "id": "zip",
+              "evidence": {
+                "source": "desktop",
+                "file": "host/plugins/qbank/src/question-import-service.ts",
+                "pointer": "prepare_document zip"
+              }
+            },
+            {
+              "id": "json",
+              "evidence": {
+                "source": "desktop",
+                "file": "host/plugins/qbank/src/question-import-service.ts",
+                "pointer": "prepare_document json"
+              }
+            },
+            {
+              "id": "markdown",
+              "evidence": {
+                "source": "desktop",
+                "file": "host/plugins/qbank/src/tools/qbank-tools-export.ts",
+                "pointer": "parseExportFormat"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S7.23",
+      "dimensions": [
+        {
+          "kind": "app",
+          "memberSource": "workbench-apps",
+          "ids": [
+            "essay"
+          ],
+          "operations": [
+            "open-close",
+            "draft-snapshot",
+            "cross-device"
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S7.25",
+      "dimensions": [
+        {
+          "kind": "app",
+          "memberSource": "workbench-apps",
+          "ids": [
+            "todo"
+          ],
+          "operations": [
+            "open-close",
+            "draft-snapshot",
+            "cross-device"
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S7.28",
+      "dimensions": [
+        {
+          "kind": "app",
+          "memberSource": "workbench-apps",
+          "ids": [
+            "pomodoro"
+          ],
+          "operations": [
+            "open-close",
+            "draft-snapshot",
+            "cross-device"
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S7.31",
+      "dimensions": [
+        {
+          "kind": "app",
+          "memberSource": "workbench-apps",
+          "ids": [
+            "media"
+          ],
+          "operations": [
+            "open-close",
+            "draft-snapshot",
+            "cross-device"
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S7.32",
+      "dimensions": [
+        {
+          "kind": "app",
+          "memberSource": "workbench-apps",
+          "ids": [
+            "translation"
+          ],
+          "operations": [
+            "open-close",
+            "draft-snapshot",
+            "cross-device"
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S7.34",
+      "dimensions": [
+        {
+          "kind": "app",
+          "memberSource": "workbench-apps",
+          "ids": [
+            "aiDashboard"
+          ],
+          "operations": [
+            "open-close",
+            "draft-snapshot",
+            "cross-device"
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S7.35",
+      "dimensions": [
+        {
+          "kind": "setting",
+          "memberSource": "settings-unique",
+          "operations": [
+            "persist-effect",
+            "scope-sync"
+          ]
+        },
+        {
+          "kind": "app",
+          "memberSource": "workbench-apps",
+          "ids": [
+            "settings"
+          ],
+          "operations": [
+            "open-close",
+            "draft-snapshot",
+            "cross-device"
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "S7.37",
+      "dimensions": [
+        {
+          "kind": "plugin",
+          "memberSource": "plugins",
+          "idPrefix": "host:",
+          "operations": [
+            "api-map",
+            "port-install",
+            "data-ui-lifecycle"
+          ]
+        },
+        {
+          "kind": "official-ui",
+          "memberSource": "official-ui",
+          "idPrefix": "ui:",
+          "operations": [
+            "api-map",
+            "port-install",
+            "data-ui-lifecycle"
+          ]
+        },
+        {
+          "kind": "example",
+          "memberSource": "examples",
+          "idPrefix": "example:",
+          "operations": [
+            "api-map",
+            "port-install",
+            "data-ui-lifecycle"
+          ]
+        }
+      ]
+    }
+  ],
+  "stageExits": [
+    {
+      "id": "S0.G",
+      "stage": "S0",
+      "days": 2,
+      "milestone": "M0"
+    },
+    {
+      "id": "S1.G",
+      "stage": "S1",
+      "days": 2,
+      "milestone": "M1"
+    },
+    {
+      "id": "S2.G",
+      "stage": "S2",
+      "days": 2,
+      "milestone": "M2"
+    },
+    {
+      "id": "S3.G",
+      "stage": "S3",
+      "days": 2,
+      "milestone": null
+    },
+    {
+      "id": "S4.G",
+      "stage": "S4",
+      "days": 2,
+      "milestone": null
+    },
+    {
+      "id": "S5.G",
+      "stage": "S5",
+      "days": 2,
+      "milestone": null
+    },
+    {
+      "id": "S6.G",
+      "stage": "S6",
+      "days": 2,
+      "milestone": null
+    },
+    {
+      "id": "S7.G",
+      "stage": "S7",
+      "days": 2,
+      "milestone": "M3"
+    },
+    {
+      "id": "S8.G",
+      "stage": "S8",
+      "days": 2,
+      "milestone": null
+    },
+    {
+      "id": "S9.G",
+      "stage": "S9",
+      "days": 2,
+      "milestone": "M4"
+    }
+  ],
+  "signoff": {
+    "finalAuthority": "main-thread + S0.G",
+    "rows": [
+      {
+        "unit": "S0.01",
+        "artifacts": [
+          "config/source-lock.json",
+          "config/upstream-impact.json"
+        ],
+        "verifyEntry": "verify:sources",
+        "status": "signed",
+        "ref": "handoff 2026-11-16T03:40:07+08:00"
+      },
+      {
+        "unit": "S0.02",
+        "artifacts": [
+          "config/baseline/navigation.json"
+        ],
+        "verifyEntry": "verify:navigation",
+        "status": "signed",
+        "ref": "handoff 2026-11-16T03:40:07+08:00"
+      },
+      {
+        "unit": "S0.03",
+        "artifacts": [
+          "config/baseline/entries.json"
+        ],
+        "verifyEntry": "verify:entries",
+        "status": "signed",
+        "ref": "handoff 2026-11-16T03:40:07+08:00"
+      },
+      {
+        "unit": "S0.04",
+        "artifacts": [
+          "config/baseline/workbench.json"
+        ],
+        "verifyEntry": "verify:workbench",
+        "status": "signed",
+        "ref": "handoff 2026-11-16T03:40:07+08:00"
+      },
+      {
+        "unit": "S0.05",
+        "artifacts": [
+          "config/baseline/domains.json"
+        ],
+        "verifyEntry": "verify:domains",
+        "status": "signed",
+        "ref": "handoff 2026-11-16T03:40:07+08:00"
+      },
+      {
+        "unit": "S0.06",
+        "artifacts": [
+          "config/baseline/contributions.json"
+        ],
+        "verifyEntry": "verify:contributions",
+        "status": "signed",
+        "ref": "handoff 2026-11-16T03:40:07+08:00"
+      },
+      {
+        "unit": "S0.07",
+        "artifacts": [
+          "config/baseline/content.json"
+        ],
+        "verifyEntry": "verify:content",
+        "status": "signed",
+        "ref": "handoff 2026-11-16T03:40:07+08:00"
+      },
+      {
+        "unit": "S0.08",
+        "artifacts": [
+          "config/baseline/schema.json",
+          "config/baseline/schema-upgrade.json"
+        ],
+        "verifyEntry": "verify:schema",
+        "status": "signed",
+        "ref": "handoff 2026-11-16T03:40:07+08:00"
+      },
+      {
+        "unit": "S0.09",
+        "artifacts": [
+          "config/baseline/classification.json"
+        ],
+        "verifyEntry": "verify:classification",
+        "status": "signed",
+        "ref": "handoff 2026-11-16T03:40:07+08:00"
+      },
+      {
+        "unit": "S0.10",
+        "artifacts": [
+          "config/baseline/protocol.json"
+        ],
+        "verifyEntry": "verify:protocol",
+        "status": "signed",
+        "ref": "handoff 2026-11-16T03:40:07+08:00"
+      },
+      {
+        "unit": "S0.11",
+        "artifacts": [
+          "config/design/tokens.baseline.json"
+        ],
+        "verifyEntry": "verify:design",
+        "status": "signed",
+        "ref": "handoff 2026-11-16T03:40:07+08:00"
+      },
+      {
+        "unit": "S0.12",
+        "artifacts": [
+          "config/design/brand.baseline.json"
+        ],
+        "verifyEntry": "verify:brand",
+        "status": "signed",
+        "ref": "handoff 2026-11-16T03:40:07+08:00"
+      },
+      {
+        "unit": "S0.13",
+        "artifacts": [
+          "config/operit-adoption.json"
+        ],
+        "verifyEntry": "verify:adoption",
+        "status": "signed",
+        "ref": "handoff 2026-11-16T03:40:07+08:00"
+      },
+      {
+        "unit": "S0.14",
+        "artifacts": [
+          "config/runtime-assets.json",
+          "config/runtime-notices.json"
+        ],
+        "verifyEntry": "verify:assets",
+        "status": "signed",
+        "ref": "handoff 2026-11-16T03:40:07+08:00"
+      },
+      {
+        "unit": "S0.15",
+        "artifacts": [
+          "config/baseline/platform.json",
+          "config/release-contract.json"
+        ],
+        "verifyEntry": "verify:platform",
+        "status": "signed",
+        "ref": "handoff 2026-11-16T03:40:07+08:00"
+      },
+      {
+        "unit": "S0.16",
+        "artifacts": [
+          "config/baseline/legacy-export.json",
+          "config/legacy-import-contract.json"
+        ],
+        "verifyEntry": "verify:legacy-export",
+        "status": "signed",
+        "ref": "handoff 2026-11-16T03:40:07+08:00"
+      },
+      {
+        "unit": "S0.17",
+        "artifacts": [
+          "config/baseline/test-foundation.json"
+        ],
+        "verifyEntry": "verify:test-foundation",
+        "status": "signed",
+        "ref": "handoff 2026-11-16T03:40:07+08:00"
+      },
+      {
+        "unit": "S0.18",
+        "artifacts": [
+          "config/baseline/sync-golden.json",
+          "config/baseline/crypto-golden.json",
+          "config/baseline/file-golden.json",
+          "config/baseline/sync-formats.json"
+        ],
+        "verifyEntry": "verify:sync-formats",
+        "status": "signed",
+        "ref": "handoff 2026-11-16T03:40:07+08:00"
+      },
+      {
+        "unit": "S0.19",
+        "artifacts": [
+          "config/sync-registry-contract.json"
+        ],
+        "verifyEntry": "verify:registry-contract",
+        "status": "signed",
+        "ref": "handoff 2026-11-16T03:40:07+08:00"
+      },
+      {
+        "unit": "S0.20",
+        "artifacts": [
+          "config/sync-release-window.json"
+        ],
+        "verifyEntry": "verify:release-window",
+        "status": "signed",
+        "ref": "handoff 2026-11-16T03:40:07+08:00"
+      },
+      {
+        "unit": "S0.21",
+        "artifacts": [
+          "config/contracts/templates-assets.json",
+          "config/contracts/asset-transport.json",
+          "config/contracts/chat-attachment.json"
+        ],
+        "verifyEntry": "verify:templates-assets + verify:asset-transport + verify:chat-attachment",
+        "status": "signed",
+        "ref": "handoff 2026-11-16T03:40:07+08:00"
+      },
+      {
+        "unit": "S0.22",
+        "artifacts": [
+          "config/contracts/media-time.json"
+        ],
+        "verifyEntry": "verify:media-time + media-audit",
+        "status": "signed",
+        "ref": "handoff 2026-11-16T03:40:07+08:00"
+      },
+      {
+        "unit": "S0.23",
+        "artifacts": [
+          "config/contracts/portable-config.json"
+        ],
+        "verifyEntry": "verify:portable-config + config-audit",
+        "status": "signed",
+        "ref": "handoff 2026-11-16T03:40:07+08:00"
+      },
+      {
+        "unit": "S0.24",
+        "artifacts": [
+          "config/contracts/plugin-data.json"
+        ],
+        "verifyEntry": "verify:plugin-data + plugin-audit",
+        "status": "signed",
+        "ref": "handoff 2026-11-16T03:40:07+08:00"
+      }
+    ]
+  },
+  "userAddedPlan": [
+    {
+      "id": "qbank-fsrs-unification",
+      "units": [
+        "S1.18",
+        "S4.28",
+        "S4.29",
+        "S4.32",
+        "S7.24"
+      ],
+      "planPointer": "§7.4 line 403",
+      "testType": "fsrs-vector",
+      "acceptance": "qbank ReviewPlan uses the same FSRS scheduler; legacy SM-2 rows convert lazily; four preview ratings equal formal ratings."
+    },
+    {
+      "id": "plugin-owner-secrets-notify-schedule",
+      "units": [
+        "S6.35",
+        "S7.36",
+        "S7.27"
+      ],
+      "planPointer": "§9.1 line 482",
+      "testType": "security-owner-isolation",
+      "acceptance": "pluginSecrets/pluginNotify/pluginSchedule/studyData are owner-isolated; scheduling uses task ledger; cross-device data excludes install/trust."
+    },
+    {
+      "id": "plugin-workshop-content-approval",
+      "units": [
+        "S6.35",
+        "S6.36"
+      ],
+      "planPointer": "§9.1 line 484",
+      "testType": "approval-audit",
+      "acceptance": "content-digest-bound approval re-prompts when bytes change for the same id/version."
+    },
+    {
+      "id": "external-taint-reapproval",
+      "units": [
+        "S3.17"
+      ],
+      "planPointer": "S3.17 line 706",
+      "testType": "security-taint",
+      "acceptance": "external tool results carry taint and a subsequent high-sensitivity call re-approves."
+    },
+    {
+      "id": "desktop-full-trust-not-android-execution",
+      "units": [
+        "S6.36"
+      ],
+      "planPointer": "S6.36 line 896",
+      "testType": "security-boundary",
+      "acceptance": "desktop full trust never grants Android APP/LINUX/SHIZUKU/ROOT execution."
+    },
+    {
+      "id": "desktop-frozen-no-mobile-chain",
+      "units": [
+        "S0.01",
+        "S0.04",
+        "S0.15"
+      ],
+      "planPointer": "§1.1 frozen desktop and not-adopted mobile chain",
+      "testType": "source-boundary",
+      "acceptance": "desktop only at e6b2657f; upstream mobile/Capacitor chain is not adopted; legacy export remains evidence only."
+    },
+    {
+      "id": "single-302-unit-queue",
+      "units": [
+        "S0.25",
+        "S0.G"
+      ],
+      "planPointer": "§10.1 line 530",
+      "testType": "queue-uniqueness",
+      "acceptance": "302 main units and 10 stage exits form the only integration queue."
+    },
+    {
+      "id": "media-plugin-schema-coordination",
+      "units": [
+        "S0.20",
+        "S0.22",
+        "S0.24",
+        "S0.G"
+      ],
+      "planPointer": "S0.20–S0.24 rows",
+      "testType": "cross-version-schema",
+      "acceptance": "vfs 20261115 then media 20261116 then plugin 20261117 coordinate; old clients keep pending."
+    }
+  ],
+  "unresolved": [],
+  "expectedCoverage": {
+    "navigation.views": 17,
+    "navigation.items": 9,
+    "workbench.apps": 22,
+    "workbench.dynamicFamily": 1,
+    "entries.commands": 96,
+    "entries.menus": 57,
+    "entries.debugPanels": 45,
+    "entries.externalEntries": 5,
+    "ipc.contracts": 24,
+    "domains.toolsUnique": 127,
+    "domains.services": 435,
+    "domains.commands": 1064,
+    "domains.backgroundTasks": 227,
+    "contributions.sections": 18,
+    "contributions.settingsUnique": 336,
+    "contributions.settingUsagePoints": 573,
+    "contributions.dynamicSettingKeys": 139,
+    "contributions.controls": 156,
+    "contributions.contributions": 24,
+    "contributions.slotTypes": 28,
+    "contributions.slotSurfaces": 11,
+    "content.dialect": 9,
+    "content.markdown": 9,
+    "content.anki": 9,
+    "content.inlineCards": 4,
+    "content.languages": 15,
+    "content.registrations": 49,
+    "content.generativeTypes": 18,
+    "content.generativeSamples": 4,
+    "operit.adopted": 21,
+    "operit.runtimeAssets": 41,
+    "operit.sourcePackages": 35,
+    "operit.engines": 11,
+    "operit.officialUiPackages": 19,
+    "operit.examplePackages": 4,
+    "sync.registry": 124,
+    "sync.gapTasks": 5,
+    "sync.providers": 3,
+    "sync.schemaMatrix": 4,
+    "sync.scenarios": 2,
+    "visual.keyPages": 12,
+    "visual.operitPages": 13,
+    "visual.navigationIcons": 9,
+    "visual.palettes": 10,
+    "visual.variants": 17,
+    "visual.buttonVariants": 13,
+    "userAddedPlan": 8,
+    "contributions.slotDeclarations": 28
+  },
+  "operationAliases": {
+    "browser_scroll": [
+      "browser_press_key",
+      "browser_evaluate"
+    ]
+  }
+}

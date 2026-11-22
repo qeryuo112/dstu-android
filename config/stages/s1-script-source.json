@@ -1,0 +1,90 @@
+{
+  "formatVersion": 1,
+  "unit": "S1.19",
+  "desktop": {
+    "commit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+    "tree": "3bee0f058851b9eb113bdc036d9f60433ed29944",
+    "semantics": [
+      {
+        "file": "host/plugins/agent-skills/src/tools/ptc-runtime.ts",
+        "sha256": "0a71df1af7b184ed4b4ef501bb70c053000488be491b4c6f372b922d3a8918fc"
+      },
+      {
+        "file": "host/plugins/agent-skills/src/tools/ptc-executor.ts",
+        "sha256": "5b08999a152fb7a8ce2d7712145b3639aa183a4863fd9be03964a8ab00cbfec1"
+      },
+      {
+        "file": "host/kernel/agent-tool-descriptors.ts",
+        "sha256": "af042b9b7e448e729a3794a2fcbeb1e5544ae0483f79a935375009198a5444ad"
+      }
+    ],
+    "skill": {
+      "file": "src/features/chat/skills/builtin-tools/ptc-run.ts",
+      "sha256": "be92f24155b0937f4b27a619a91db73860a279622e269fd32b1cd7554c1151ca"
+    }
+  },
+  "operit": {
+    "commit": "7a39941bad80209973c535046a18195c5da9e647",
+    "tree": "1c74219f7b7fdebebd07e99830877559e2dcd3e6",
+    "declaration": {
+      "file": "quickjs/src/main/cpp/CMakeLists.txt",
+      "sha256": "d4bf11b97a0db82341d28fdae7fc056a79c8f0bafcc8bde5958a24d088bdd903"
+    },
+    "jni": {
+      "file": "quickjs/src/main/cpp/quickjs_jni.cpp",
+      "sha256": "88a031bb3d8620422f1f3444c2cb19164fda0874bf9c4527c2b8b88e051243af"
+    }
+  },
+  "engine": {
+    "id": "quickjs",
+    "repository": "https://github.com/bellard/quickjs.git",
+    "commit": "e585640ffa2cf88ce7c2d587583c6fe15928ec2f",
+    "tree": "5b914b9a114100ef1935d689c7009a40794b26f0",
+    "version": "2026-06-04",
+    "path": "../build-tools/s1-script-work/quickjs",
+    "include": "quickjs.h",
+    "sourceObject": {
+      "path": "config/sources/quickjs.commit.json",
+      "sha256": "e28e2ce3057dcb809799b5019108481d0763e14342200bdcfbafcbeda871e2a4"
+    },
+    "files": {
+      "LICENSE": "598fd7fc928e4350abce36e337ba5a1346923c5c692f5be92c3d8e29ddd7c18d",
+      "VERSION": "234057c4079458cba9862d4bbb6f8a059ac2e4a194947673da0ad38ca16a37fd",
+      "quickjs.h": "15960c0c31480e4bda8d8d52c6b7c755385f5f7a353d82b43212cb9a5e234e8a",
+      "quickjs.c": "0a3fa616cafb40f5a2b02a2bf102c4d841d39dea0759b09acedf093319b21cdc",
+      "cutils.c": "b73a403a59da30726257ddbdf5e399298941c1def997782ee0d4d33f796a80a2",
+      "dtoa.c": "af5abd68fa9806d1a19bdd5f2daef00d5fd0990ae56311382dfed4700343f074",
+      "libregexp.c": "b588a514fb2717cc088d44f5fafbb874c9a4eb52aeca9b82bee851173bb77a28",
+      "libunicode.c": "ccfed51868dae0ee619d474d36bd2f7f084bf08220a580d4e566500473d24245"
+    }
+  },
+  "build": {
+    "ndk": "29.0.13846066",
+    "abi": "arm64-v8a",
+    "minSdk": 26,
+    "pageAlignment": 16384,
+    "library": "libdstu_quickjs.so",
+    "output": "engines/quickjs/build/generated/script-jni/arm64-v8a/libdstu_quickjs.so"
+  },
+  "limits": {
+    "maxSourceBytes": 65536,
+    "defaultMaxToolCalls": 50,
+    "maxToolCalls": 200,
+    "defaultWallTimeMillis": 120000,
+    "maxWallTimeMillis": 600000,
+    "maxMemoryBytes": 33554432,
+    "maxStackBytes": 524288,
+    "maxEngineTicks": 1000,
+    "maxResultBytes": 262144
+  },
+  "fixtureTools": [
+    "builtin-script_echo",
+    "builtin-script_add"
+  ],
+  "fixtures": [
+    "fixtures/script/ptc-two-tools.js",
+    "fixtures/script/ptc-tool-failure.js",
+    "fixtures/script/ptc-deny.js",
+    "fixtures/script/ptc-over-budget.js"
+  ]
+}

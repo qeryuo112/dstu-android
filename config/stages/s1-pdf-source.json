@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "desktopPackage": "@embedpdf/pdfium@2.15.1",
+  "desktopPackageIntegrity": "sha512-qDH4gEkGSQT0iM+07Hpm3LyvoB7PEFbW3Qyk6+LPkEYLJYfHagkHM1OzYlDq2EDOhJRguykTkzdMOT3/w27x5Q==",
+  "desktopPackageRelease": "https://github.com/embedpdf/embed-pdf-viewer/commit/eb14d5ae4bdb0626fa8c63ffead6d9e0d74ce2bc",
+  "pdfium": {
+    "url": "https://github.com/embedpdf/pdfium.git",
+    "commit": "73a041a5c1aaffa09ebb64f1981ff501cb91a41c",
+    "tree": "c66f95aa1d5f92bf5d0b79535823e42bfd6496af",
+    "depsSha256": "f456f116824717cde93a32fa9cb2df1bae776226dadfa225a211dd5686ed05f1",
+    "licenseSha256": "1fe9dea718fbd75cf149adaf4d8a22a4335604d964ddb76d1b45383dec8668c9"
+  },
+  "depotTools": {
+    "url": "https://chromium.googlesource.com/chromium/tools/depot_tools.git",
+    "commit": "6235028c6b18b73e68f5414f935ec537a25ea51a",
+    "tree": "0b08d0dbc2f75f2b44fb0b46ae7133e9bceb9e44"
+  },
+  "gclientConfigSha256": "fbe19e51c8c552e64a4cb3d05036008ca12c5a39afca9b80371b245a1dd189ee",
+  "simdutf": {
+    "url": "https://chromium.googlesource.com/chromium/src/third_party/simdutf",
+    "commit": "f7356eed293f8208c40b3c1b344a50bd70971983",
+    "note": "GN resolves test targets even in a minimal no-V8 build; this dependency is not linked."
+  },
+  "ndk": "29.0.13846066-beta3",
+  "toolHashes": {
+    "gn": "f1a4546385818b08c8c792ce5cb5c46bfd5f46d663e8b2734c7307c4a5c6da7e",
+    "ninja": "09f0e5a8a2cf762b24b4d3ed464ffb2529e650d2efc36bab31da36aa93791efc",
+    "chromiumClang": "841fd88c234ac9e4dd346c99ba21137a8cd62f0d0e243b8b6a29cc84cbe2784a",
+    "ndkClang": "8a380f6bb33db6b84d4248684feef33133d1cddf4ee4a3402a9c25beb2e4b0e6",
+    "ndkNotice": "faf0dc52cf6ce9ab09a04b0c074a378dd2565ee1ed9bc1179d83793bcdba012e",
+    "ndkSysrootNotice": "2905ac5c59628352af990c748a8f4c3675a04f36eca7914612e3068661d2c6a6"
+  },
+  "dependencies": {
+    "build": "06d247cb917bb5fac3103b1b7dccb75368a553ce",
+    "buildtools": "6a18683f555b4ac8b05ac8395c29c84483ac9588",
+    "base/allocator/partition_allocator": "baaa6670c23c19485d0a5a538bc43d3332def328",
+    "third_party/abseil-cpp": "675d3d37ecbec78fd51378c6774c45715b1e4382",
+    "third_party/cpu_features/src": "936b9ab5515dead115606559502e3864958f7f6e",
+    "third_party/fast_float/src": "cb1d42aaa1e14b09e1452cfdef373d051b8c02a4",
+    "third_party/freetype/src": "b91f75bd02db43b06d634591eb286d3eb0ce3b65",
+    "third_party/icu": "a86a32e67b8d1384b33f8fa48c83a6079b86f8cd",
+    "third_party/libjpeg_turbo": "6bb85251a8382b5e07f635a981ac685cc5ab5053",
+    "third_party/libpng": "172f83835c98264e6eefdbe8ae82dc08be337ad0",
+    "third_party/zlib": "980253c1cc835c893c57b5cfc10c5b942e10bc46",
+    "tools/memory": "16429092be4bb5160bed0ad763bd4c13f1f52990",
+    "tools/clang": "a1542f2952bcc47640d5cfbc39bb8f6926a1bf6a",
+    "tools/code_coverage": "fc75c61d3a98a78ff83940366aeba83ddeb28179",
+    "third_party/markupsafe": "4256084ae14175d38a3ff7d739dca83ae49ccec6",
+    "third_party/jinja2": "c3027d884967773057bf74b957e3fea87e5df4d7",
+    "third_party/catapult": "8ce759d4b71fd2dac753a603ca50d7d98067a585",
+    "third_party/nasm": "af5eeeb054bebadfbb79c7bcd100a95e2ad4525f",
+    "third_party/clang-format/script": "c2725e0622e1a86d55f14514f2177a39efea4a0e",
+    "third_party/instrumented_libs": "e8cb570a9a2ee9128e2214c73417ad2a3c47780b",
+    "third_party/llvm-libc/src": "603c242115079d3a208638a6e56f842c0801d0bd",
+    "third_party/libunwind/src": "ba19d93d6d4f467fba11ff20fe2fc7c056f79345",
+    "third_party/libc++/src": "7ab65651aed6802d2599dcb7a73b1f82d5179d05",
+    "third_party/brotli": "ac16a36bc55c4c896135084e878f0d6a2f9b347e",
+    "third_party/depot_tools": "6235028c6b18b73e68f5414f935ec537a25ea51a",
+    "third_party/googletest/src": "4fe3307fb2d9f86d19777c7eb0e4809e9694dde7",
+    "third_party/libc++abi/src": "8f11bb1d4438d0239d0dfc1bd9456a9f31629dda",
+    "third_party/fp16/src": "3d2de1816307bac63c16a297e8c4dc501b4076df",
+    "third_party/harfbuzz-ng/src": "fa2908bf16d2ccd6623f4d575455fea72a1a722b",
+    "third_party/test_fonts": "7f51783942943e965cd56facf786544ccfc07713"
+  },
+  "gn": "git_revision:bd3356ac13f411b521b16b11da12cec5150e917c",
+  "ninja": "version:3@1.12.1.chromium.4",
+  "target": { "abi": "arm64-v8a", "minSdk": 26, "pageAlignment": 16384 },
+  "features": { "v8": false, "xfa": false, "skia": false, "partitionAlloc": false },
+  "fixtures": {
+    "bug_420508260.pdf": "861be735ac8215468dba2cd8bfe25ce6ad494e4ef32a1c5eef0eb19493f1e041",
+    "bug_431824298.pdf": "11e8798830cb8bd9c27f0acb1424ed36bdaf78715886013834c626e70d964e0c",
+    "bug_1229106.pdf": "c5f7b7246ff404f19a4b5d864df2b45e3c108eeb004e1b19d38dd0f0613fbb57",
+    "rotated_text_90.pdf": "861824e46c3a2b6b1aa3a1d57900b25c7181c3f2f95e5cb98a387138d74f29ea",
+    "encrypted.pdf": "cbbead7185d9cd46daecaf60165a9aa7b9f2daceb3623218c328cb015ae862d5",
+    "rotated_image.pdf": "f6075428fdfb0335e267299c755ff4c00cc5133cb062a90432fa4215dca11b0b",
+    "hello_world.pdf": "1e06a6e12329f0c3760680a70baea126e040e66e0bf34d3b14a71863096ee1e3"
+  },
+  "desktopFixture": {
+    "path": "host/plugins/media/equivalence/fixtures/corrupt-body.pdf",
+    "sha256": "c079c1103475687056f0740f5485ccbb93758b5da26edbea01fd226406500be5",
+    "desktopCommit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87"
+  },
+  "licenseFiles": [
+    "LICENSE", "third_party/agg23/copying", "third_party/abseil-cpp/LICENSE",
+    "third_party/cpu_features/src/LICENSE", "third_party/fast_float/src/LICENSE-MIT",
+    "third_party/freetype/FTL.TXT", "third_party/icu/LICENSE",
+    "third_party/lcms/LICENSE", "third_party/libopenjpeg/LICENSE",
+    "third_party/libjpeg_turbo/LICENSE.md", "third_party/libjpeg_turbo/README.ijg",
+    "third_party/libpng/LICENSE", "third_party/zlib/LICENSE"
+  ]
+}

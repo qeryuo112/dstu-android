@@ -1,0 +1,35 @@
+{
+  "sha": "84796ece210fbf736c2c51236f4690e0b8812861",
+  "node_id": "C_kwDONuhZSNoAKDg0Nzk2ZWNlMjEwZmJmNzM2YzJjNTEyMzZmNDY5MGUwYjg4MTI4NjE",
+  "url": "https://api.github.com/repos/ARM-software/kleidiai/git/commits/84796ece210fbf736c2c51236f4690e0b8812861",
+  "html_url": "https://github.com/ARM-software/kleidiai/commit/84796ece210fbf736c2c51236f4690e0b8812861",
+  "author": {
+    "name": "Cathal Lawlor",
+    "email": "cathal.lawlor@arm.com",
+    "date": "2025-10-31T16:00:05Z"
+  },
+  "committer": {
+    "name": "Cathal Lawlor",
+    "email": "cathal.lawlor@arm.com",
+    "date": "2025-10-31T16:00:05Z"
+  },
+  "tree": {
+    "sha": "4439f0dabb407cbe4c32b1b4846368beb4f95950",
+    "url": "https://api.github.com/repos/ARM-software/kleidiai/git/trees/4439f0dabb407cbe4c32b1b4846368beb4f95950"
+  },
+  "message": "Add indirect matrix multiplication (imatmul) benchmarking support\n\n- Introduced operator flags to `kleidiai_benchmark` to run matmul and imatmul micro-kernels separately.\n- Added imatmul benchmark runner alongside 6 imatmul micro-kernels to the benchmarking suite.\n- Updated README and main.cpp for usage instructions and examples.\n\nSigned-off-by: Cathal Lawlor <cathal.lawlor@arm.com>\n\nReviewed-by: Emil Ohlsson <emil.ohlsson@arm.com>\nReviewed-by: Anton Bondarenko <anton.bondarenko@arm.com>\nApproved-by: Anton Bondarenko <anton.bondarenko@arm.com>",
+  "parents": [
+    {
+      "sha": "a1cfbba723a9ff04b47128572296317182b62b84",
+      "url": "https://api.github.com/repos/ARM-software/kleidiai/git/commits/a1cfbba723a9ff04b47128572296317182b62b84",
+      "html_url": "https://github.com/ARM-software/kleidiai/commit/a1cfbba723a9ff04b47128572296317182b62b84"
+    }
+  ],
+  "verification": {
+    "verified": false,
+    "reason": "unsigned",
+    "signature": null,
+    "payload": null,
+    "verified_at": null
+  }
+}

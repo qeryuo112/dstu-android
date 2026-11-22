@@ -1,0 +1,975 @@
+{
+  "stage": "S1",
+  "reviewer": "main-thread",
+  "s1GateAccepted": true,
+  "frozenQueue": "config/execution-plan.json",
+  "policy": "Unit receipts are separate from the main S1.G/M1 review. Neither changes the frozen S0 queue or waives release blockers.",
+  "units": [
+    {
+      "id": "S1.01",
+      "card": "S1.01/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-16T05:46:50+08:00",
+      "dependsOn": [
+        "S0.G"
+      ],
+      "review": "docs/archive/handoff-s1.md",
+      "evidence": [
+        "logs/s1-01-verified-clean-final.log",
+        "logs/s1-01-tooling-final-review.log",
+        "logs/s1-01-node-tests.log",
+        "logs/s1-01-resolved-aars.json",
+        "logs/s1-01-apk-verified.log",
+        "logs/s1-01-install.log",
+        "logs/s1-01-launch.log",
+        "logs/s1-01-device-smoke-pass.log",
+        "logs/s1-01-bootstrap-device.png",
+        "logs/s1-01-s0-snapshot-isolated.log",
+        "logs/s1-01-frozen-inputs-main.log"
+      ]
+    },
+    {
+      "id": "S1.02",
+      "card": "S1.02/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-16T06:04:10+08:00",
+      "dependsOn": [
+        "S1.01",
+        "S0.G"
+      ],
+      "review": "docs/archive/handoff-s1.md",
+      "evidence": [
+        "logs/s1-02-lifecycle-harness-build.log",
+        "logs/s1-02-device-lifecycle-final.log",
+        "logs/s1-02-full-tooling-check.log",
+        "logs/s1-02-apk-final.log"
+      ]
+    },
+    {
+      "id": "S1.03",
+      "card": "S1.03/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-16T06:20:19+08:00",
+      "dependsOn": [
+        "S1.02",
+        "S1.01",
+        "S0.G"
+      ],
+      "review": "docs/archive/handoff-s1.md",
+      "evidence": [
+        "logs/s1-03-independent-rerun.log",
+        "logs/s1-03-tooling-uri-regression.log",
+        "logs/s1-03-progress-verifier-tests.log"
+      ]
+    },
+    {
+      "id": "S1.04",
+      "card": "S1.04/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-16T06:28:10+08:00",
+      "dependsOn": [
+        "S1.01",
+        "S1.02",
+        "S1.03",
+        "S0.G"
+      ],
+      "review": "docs/archive/handoff-s1.md",
+      "evidence": [
+        "logs/s1-04-timing-regression.log",
+        "logs/s1-04-device-timed-final.log",
+        "logs/s1-04-device-timing-audit.log",
+        "logs/s1-04-native-timed-final.log",
+        "logs/s1-04-resolved-aars.json",
+        "logs/s1-04-process-final-regression.log",
+        "logs/s1-04-current-regression.log",
+        "logs/s1-04-s0-frozen-regression.log",
+        "logs/s1-04-final-current-accepted.log",
+        "logs/s1-04-workspace-cleanup.log",
+        "logs/s1-04-after-cleanup-freeze.log",
+        "logs/s1-04-device-test-cleanup.log"
+      ]
+    },
+    {
+      "id": "S1.05",
+      "card": "S1.05/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-16T07:12:00+08:00",
+      "dependsOn": [
+        "S1.04",
+        "S1.01",
+        "S1.02",
+        "S1.03",
+        "S0.G"
+      ],
+      "review": "docs/archive/handoff-s1.md",
+      "evidence": [
+        "logs/s1-05-main-final-rerun.log",
+        "logs/s1-05-main-device-final.log",
+        "logs/s1-05-main-clean-index.log",
+        "logs/s1-05-10-preflight-s0-replay.log",
+        "logs/s1-05-10-tooling-regression.log"
+      ]
+    },
+    {
+      "id": "S1.06",
+      "card": "S1.06/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-16T07:38:44+08:00",
+      "dependsOn": [
+        "S1.03",
+        "S1.05",
+        "S1.01",
+        "S1.02",
+        "S1.04",
+        "S0.G"
+      ],
+      "review": "docs/archive/handoff-s1.md",
+      "evidence": [
+        "logs/s1-06-main-clean-index.log",
+        "logs/s1-06-main-atomic-publish-build.log",
+        "logs/s1-06-main-notes-device-fixed.log",
+        "logs/s1-06-main-device-publish-fixed.log",
+        "logs/s1-06-main-assets-device-fixed.log",
+        "logs/s1-06-main-process-write.log",
+        "logs/s1-06-main-force-stop.log",
+        "logs/s1-06-main-process-read.log"
+      ]
+    },
+    {
+      "id": "S1.07",
+      "card": "S1.07/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-16T07:46:30+08:00",
+      "dependsOn": [
+        "S1.03",
+        "S1.01",
+        "S1.02",
+        "S1.04",
+        "S1.05",
+        "S1.06",
+        "S0.G"
+      ],
+      "review": "docs/archive/handoff-s1.md",
+      "evidence": [
+        "logs/s1-07-main-final-build.log",
+        "logs/s1-07-main-device-final.log",
+        "logs/s1-07-main-composed-final.log",
+        "logs/s1-07-main-apk-evidence.log",
+        "logs/s1-07-main-clean-index.log"
+      ]
+    },
+    {
+      "id": "S1.08",
+      "card": "S1.08/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-16T08:01:59+08:00",
+      "dependsOn": [
+        "S1.03",
+        "S1.06",
+        "S1.01",
+        "S1.02",
+        "S1.04",
+        "S1.05",
+        "S1.07",
+        "S0.G"
+      ],
+      "review": "docs/archive/handoff-s1.md",
+      "evidence": [
+        "logs/s1-08-main-clean-index-final.log",
+        "logs/s1-08-main-runtime-final-build.log",
+        "logs/s1-08-main-device-note-task.log",
+        "logs/s1-08-main-device-ledger.log"
+      ]
+    },
+    {
+      "id": "S1.09",
+      "card": "S1.09/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-16T08:14:23+08:00",
+      "dependsOn": [
+        "S1.08",
+        "S1.01",
+        "S1.02",
+        "S1.03",
+        "S1.04",
+        "S1.05",
+        "S1.06",
+        "S1.07",
+        "S0.G"
+      ],
+      "review": "docs/archive/handoff-s1.md",
+      "evidence": [
+        "logs/s1-09-main-clean-index.log",
+        "logs/s1-09-main-fgs-final-build.log",
+        "logs/s1-09-main-fgs-device-final.log",
+        "logs/s1-09-main-notification-device.log"
+      ]
+    },
+    {
+      "id": "S1.10",
+      "card": "S1.10/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-16T08:38:03+08:00",
+      "dependsOn": [
+        "S1.08",
+        "S1.09",
+        "S1.01",
+        "S1.02",
+        "S1.03",
+        "S1.04",
+        "S1.05",
+        "S1.06",
+        "S1.07",
+        "S0.G"
+      ],
+      "review": "docs/archive/handoff-s1.md",
+      "evidence": [
+        "logs/s1-10-main-clean-index-final.log",
+        "logs/s1-10-main-final-current.log",
+        "logs/s1-10-main-final-engineering.log",
+        "logs/s1-10-main-last-regressions.log",
+        "logs/s1-10-main-test-counts.log",
+        "logs/s1-10-main-final-device-suite.log",
+        "logs/s1-10-main-final-fgs-proof.log",
+        "logs/s1-10-main-final-recovery-write.log",
+        "logs/s1-10-main-final-recovery-force-stop.log",
+        "logs/s1-10-main-final-recovery-read.log",
+        "logs/s1-10-main-s0-final-preserved.log",
+        "logs/s1-10-main-apk-final.log"
+      ]
+    },
+    {
+      "id": "S1.11",
+      "card": "S1.11/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-16T09:37:33+08:00",
+      "dependsOn": [
+        "S1.01",
+        "S1.02",
+        "S1.03",
+        "S1.04",
+        "S1.05",
+        "S1.06",
+        "S1.07",
+        "S1.08",
+        "S1.09",
+        "S1.10",
+        "S0.G"
+      ],
+      "review": "docs/archive/handoff-s1.md",
+      "evidence": [
+        "logs/s1-11-main-design-browser.log",
+        "logs/s1-11-main-generator-final.log",
+        "logs/s1-11-main-tooling-generated-roots.log",
+        "logs/s1-11-main-clean-verified.log",
+        "logs/s1-11-main-design-device-precise.log",
+        "logs/s1-11-main-board-light.png",
+        "logs/s1-11-main-board-dark.png",
+        "logs/s1-11-main-final-apk.log"
+      ]
+    },
+    {
+      "id": "S1.12",
+      "card": "S1.12/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-16T09:59:59+08:00",
+      "dependsOn": [
+        "S1.06",
+        "S1.11",
+        "S1.01",
+        "S1.02",
+        "S1.03",
+        "S1.04",
+        "S1.05",
+        "S1.07",
+        "S1.08",
+        "S1.09",
+        "S1.10",
+        "S0.G"
+      ],
+      "review": "docs/archive/handoff-s1.md",
+      "evidence": [
+        "logs/s1-12-main-clean-final.log",
+        "logs/s1-12-main-fake-ui-dark-final.log",
+        "logs/s1-12-main-final-ui-write.log",
+        "logs/s1-12-main-final-force-stop.log",
+        "logs/s1-12-main-final-ui-read.log",
+        "logs/s1-12-main-phone-light-final.png",
+        "logs/s1-12-main-phone-dark-fixed.png",
+        "logs/s1-12-main-tablet-light-final.png",
+        "logs/s1-12-main-tablet-dark-fixed.png",
+        "logs/s1-12-main-desktop-phone-comparison.png",
+        "logs/s1-12-main-desktop-tablet-comparison.png",
+        "logs/s1-12-main-apk-final.log",
+        "logs/s1-12-main-entry-smoke.log"
+      ]
+    },
+    {
+      "id": "S1.13",
+      "card": "S1.13/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-16T10:04:21+08:00",
+      "dependsOn": [
+        "S1.03",
+        "S1.06",
+        "S1.01",
+        "S1.02",
+        "S1.04",
+        "S1.05",
+        "S1.07",
+        "S1.08",
+        "S1.09",
+        "S1.10",
+        "S1.11",
+        "S1.12",
+        "S0.G"
+      ],
+      "review": "docs/archive/handoff-s1.md",
+      "evidence": [
+        "logs/s1-13-main-clean-parser.log",
+        "logs/s1-11-16-main-preflight-freeze.log"
+      ]
+    },
+    {
+      "id": "S1.14",
+      "card": "S1.14/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-16T11:18:01+08:00",
+      "dependsOn": [
+        "S1.13",
+        "S1.01",
+        "S1.02",
+        "S1.03",
+        "S1.04",
+        "S1.05",
+        "S1.06",
+        "S1.07",
+        "S1.08",
+        "S1.09",
+        "S1.10",
+        "S1.11",
+        "S1.12",
+        "S0.G"
+      ],
+      "review": "docs/archive/handoff-s1.md",
+      "evidence": [
+        "logs/s1-14-main-clean-final.log",
+        "logs/s1-14-main-input-final.log",
+        "logs/s1-14-main-fake-ui-final.log",
+        "logs/s1-14-main-apk-final.log",
+        "logs/s1-14-main-icu-provenance.log",
+        "logs/s1-14-main-settings-restored.log"
+      ]
+    },
+    {
+      "id": "S1.15",
+      "card": "S1.15/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-16T11:44:16+08:00",
+      "dependsOn": [
+        "S1.11",
+        "S1.12",
+        "S1.01",
+        "S1.02",
+        "S1.03",
+        "S1.04",
+        "S1.05",
+        "S1.06",
+        "S1.07",
+        "S1.08",
+        "S1.09",
+        "S1.10",
+        "S1.13",
+        "S1.14",
+        "S0.G"
+      ],
+      "review": "docs/archive/handoff-s1.md",
+      "evidence": [
+        "logs/s1-15-main-clean-final.log",
+        "logs/s1-15-main-asset-verification.log",
+        "logs/s1-15-main-content-bounded-proof.log",
+        "logs/s1-15-main-browser-history-proof.log",
+        "logs/s1-15-main-content-fake-ui.log",
+        "logs/s1-15-main-browser-ui-device.log",
+        "logs/s1-15-main-final-entries-visual.log",
+        "logs/s1-15-main-final-visual-build.log",
+        "logs/s1-15-main-apk-final.log",
+        "logs/s1-15-main-formula.png",
+        "logs/s1-15-main-diagram.png",
+        "logs/s1-15-main-card-dark-painted.png"
+      ]
+    },
+    {
+      "id": "S1.16",
+      "card": "S1.16/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-16T11:56:14+08:00",
+      "dependsOn": [
+        "S1.01",
+        "S1.02",
+        "S1.03",
+        "S1.04",
+        "S1.05",
+        "S1.06",
+        "S1.07",
+        "S1.08",
+        "S1.09",
+        "S1.10",
+        "S1.11",
+        "S1.12",
+        "S1.13",
+        "S1.14",
+        "S1.15",
+        "S0.G"
+      ],
+      "review": "docs/archive/handoff-s1.md",
+      "evidence": [
+        "logs/s1-16-main-clean-final.log",
+        "logs/s1-16-main-source-build.log",
+        "logs/s1-16-main-pdf-final-device.log",
+        "logs/s1-16-main-native-budget-device.log",
+        "logs/s1-16-main-native-probe.log",
+        "logs/s1-16-main-desktop-oracle.log",
+        "logs/s1-16-main-apk-final.log",
+        "logs/s1-11-16-main-final-current.log",
+        "logs/s1-11-16-main-final-s0.log",
+        "logs/s1-11-16-main-final-app-device.log",
+        "logs/s1-11-16-main-test-counts.log"
+      ]
+    },
+    {
+      "id": "S1.17",
+      "card": "S1.17/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-17T00:43:35+08:00",
+      "dependsOn": [
+        "S1.07",
+        "S1.08",
+        "S1.12",
+        "S1.15",
+        "S1.16",
+        "S1.01",
+        "S1.02",
+        "S1.03",
+        "S1.04",
+        "S1.05",
+        "S1.06",
+        "S1.09",
+        "S1.10",
+        "S1.11",
+        "S1.13",
+        "S1.14",
+        "S0.G"
+      ],
+      "review": "docs/archive/handoff-s1.md",
+      "evidence": [
+        "logs/s1-17-main-clean-candidate.log",
+        "logs/s1-17-main-backend-final-tests.log",
+        "logs/s1-17-main-final-device-suite.log",
+        "logs/s1-17-main-final-restart-write.log",
+        "logs/s1-17-main-final-force-stop.log",
+        "logs/s1-17-main-final-restart-read.log",
+        "logs/s1-17-main-final-apk.log",
+        "logs/s1-17-main-tool-tests.log",
+        "logs/s1-17-main-phone-light.png",
+        "logs/s1-17-main-tablet-dark.png",
+        "logs/s1-17-20-main-s0-readonly.log"
+      ]
+    },
+    {
+      "id": "S1.18",
+      "card": "S1.18/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-17T01:17:46+08:00",
+      "dependsOn": [
+        "S1.03",
+        "S1.05",
+        "S1.01",
+        "S1.02",
+        "S1.04",
+        "S1.06",
+        "S1.07",
+        "S1.08",
+        "S1.09",
+        "S1.10",
+        "S1.11",
+        "S1.12",
+        "S1.13",
+        "S1.14",
+        "S1.15",
+        "S1.16",
+        "S1.17",
+        "S0.G"
+      ],
+      "review": "docs/archive/handoff-s1.md",
+      "evidence": [
+        "logs/s1-18-main-final-candidate.log",
+        "logs/s1-18-main-oracle-verified.log",
+        "logs/s1-18-main-final-fsrs-device.log",
+        "logs/s1-18-main-final-apk.log"
+      ]
+    },
+    {
+      "id": "S1.19",
+      "card": "S1.19/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-17T01:32:00+08:00",
+      "dependsOn": [
+        "S1.03",
+        "S1.08",
+        "S1.01",
+        "S1.02",
+        "S1.04",
+        "S1.05",
+        "S1.06",
+        "S1.07",
+        "S1.09",
+        "S1.10",
+        "S1.11",
+        "S1.12",
+        "S1.13",
+        "S1.14",
+        "S1.15",
+        "S1.16",
+        "S1.17",
+        "S1.18",
+        "S0.G"
+      ],
+      "review": "docs/archive/handoff-s1.md",
+      "evidence": [
+        "logs/s1-19-main-clean-candidate.log",
+        "logs/s1-19-main-final-engine-device.log",
+        "logs/s1-19-main-final-runtime-device.log",
+        "logs/s1-19-main-final-apk.log",
+        "logs/s1-19-main-native-host-probe.log"
+      ]
+    },
+    {
+      "id": "S1.20",
+      "card": "S1.20/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-17T02:09:55+08:00",
+      "dependsOn": [
+        "S1.01",
+        "S1.02",
+        "S1.03",
+        "S1.04",
+        "S1.05",
+        "S1.06",
+        "S1.07",
+        "S1.08",
+        "S1.09",
+        "S1.10",
+        "S1.11",
+        "S1.12",
+        "S1.13",
+        "S1.14",
+        "S1.15",
+        "S1.16",
+        "S1.17",
+        "S1.18",
+        "S1.19",
+        "S0.G"
+      ],
+      "review": "docs/archive/handoff-s1.md",
+      "evidence": [
+        "logs/s1-20-main-clean-candidate.log",
+        "logs/s1-20-main-final-pty-device.log",
+        "logs/s1-20-main-final-ui-device.log",
+        "logs/s1-20-main-final-entry-device.log",
+        "logs/s1-20-main-final-apk.log",
+        "logs/s1-20-main-terminal-entry.png",
+        "logs/s1-20-main-current-final-pass.log",
+        "logs/s1-20-main-test-counts.log",
+        "logs/s1-20-main-tooling-reviewed.log",
+        "logs/s1-20-main-native-host.log",
+        "logs/s1-17-20-main-final-business-device.log",
+        "logs/s1-17-20-main-final-s0.log"
+      ]
+    },
+    {
+      "id": "S1.21",
+      "card": "S1.21/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-18T00:07:51+08:00",
+      "dependsOn": [
+        "S1.20",
+        "S1.01",
+        "S1.02",
+        "S1.03",
+        "S1.04",
+        "S1.05",
+        "S1.06",
+        "S1.07",
+        "S1.08",
+        "S1.09",
+        "S1.10",
+        "S1.11",
+        "S1.12",
+        "S1.13",
+        "S1.14",
+        "S1.15",
+        "S1.16",
+        "S1.17",
+        "S1.18",
+        "S1.19",
+        "S0.G"
+      ],
+      "review": "docs/archive/handoff-s1.md",
+      "evidence": [
+        "logs/s1-21-main-clean-candidate.log",
+        "logs/s1-21-main-source-review.log",
+        "logs/s1-21-main-cold-install-device.log",
+        "logs/s1-21-main-staged-native-device.log",
+        "logs/s1-21-main-staged-entry-device.log",
+        "logs/s1-21-main-staged-ui-device.log",
+        "logs/s1-21-main-running-candidate-equivalence.log",
+        "logs/s1-21-main-final-apk.log",
+        "logs/s1-21-main-environments-entry.png",
+        "logs/s1-21-main-unit-summary.log"
+      ]
+    },
+    {
+      "id": "S1.22",
+      "card": "S1.22/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-18T00:38:31+08:00",
+      "dependsOn": [
+        "S1.01",
+        "S1.02",
+        "S1.03",
+        "S1.04",
+        "S1.05",
+        "S1.06",
+        "S1.07",
+        "S1.08",
+        "S1.09",
+        "S1.10",
+        "S1.11",
+        "S1.12",
+        "S1.13",
+        "S1.14",
+        "S1.15",
+        "S1.16",
+        "S1.17",
+        "S1.18",
+        "S1.19",
+        "S1.20",
+        "S1.21",
+        "S0.G"
+      ],
+      "review": "docs/archive/handoff-s1.md",
+      "evidence": [
+        "logs/s1-22-main-clean-candidate.log",
+        "logs/s1-22-main-final-candidate.log",
+        "logs/s1-22-main-staged-execution-device.log",
+        "logs/s1-22-main-staged-ui-device.log",
+        "logs/s1-22-main-staged-entry-device.log",
+        "logs/s1-22-main-host-unit-summary.log",
+        "logs/s1-22-main-final-apk.log",
+        "logs/s1-22-main-device-events.log",
+        "logs/s1-22-main-entry.png"
+      ]
+    },
+    {
+      "id": "S1.23",
+      "card": "S1.23/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-18T00:45:23+08:00",
+      "dependsOn": [
+        "S1.01",
+        "S1.03",
+        "S1.02",
+        "S1.04",
+        "S1.05",
+        "S1.06",
+        "S1.07",
+        "S1.08",
+        "S1.09",
+        "S1.10",
+        "S1.11",
+        "S1.12",
+        "S1.13",
+        "S1.14",
+        "S1.15",
+        "S1.16",
+        "S1.17",
+        "S1.18",
+        "S1.19",
+        "S1.20",
+        "S1.21",
+        "S1.22",
+        "S0.G"
+      ],
+      "review": "docs/archive/handoff-s1.md",
+      "evidence": [
+        "logs/s1-23-main-clean-candidate.log",
+        "logs/s1-23-main-staged-security-device.log",
+        "logs/s1-23-main-staged-app-device.log",
+        "logs/s1-23-main-fixture-check.log",
+        "logs/s1-23-main-desktop-roundtrip.log",
+        "logs/s1-23-main-unit-summary.log",
+        "logs/s1-23-main-audit-scan.log",
+        "logs/s1-23-main-final-apk.log",
+        "logs/s1-21-23-main-test-counts.log",
+        "logs/s1-21-23-main-final-frozen.log"
+      ]
+    },
+    {
+      "id": "S1.24",
+      "card": "S1.24/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-18T07:41:19+08:00",
+      "dependsOn": ["S0.18", "S0.19", "S0.20", "S1.07", "S1.23", "S1.01", "S1.02", "S1.03", "S1.04", "S1.05", "S1.06", "S1.08", "S1.09", "S1.10", "S1.11", "S1.12", "S1.13", "S1.14", "S1.15", "S1.16", "S1.17", "S1.18", "S1.19", "S1.20", "S1.21", "S1.22", "S0.G"],
+      "review": "docs/archive/handoff-s1.md",
+      "evidence": [
+        "logs/s1-24-main-clean-candidate.log",
+        "logs/s1-24-main-staged-app-device.log",
+        "logs/s1-24-main-staged-ui-device.log",
+        "logs/s1-24-main-staged-data-device.log",
+        "logs/s1-24-main-staged-provider-device.log",
+        "logs/s1-24-main-staged-apk.log",
+        "logs/s1-24-main-frozen-tools.log",
+        "logs/s1-24-main-frozen-inputs.log"
+      ]
+    },
+    {
+      "id": "S1.25",
+      "card": "S1.25/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-18T13:03:06+08:00",
+      "dependsOn": ["S1.06", "S1.24", "S1.01", "S1.02", "S1.03", "S1.04", "S1.05", "S1.07", "S1.08", "S1.09", "S1.10", "S1.11", "S1.12", "S1.13", "S1.14", "S1.15", "S1.16", "S1.17", "S1.18", "S1.19", "S1.20", "S1.21", "S1.22", "S1.23", "S0.G"],
+      "review": "docs/archive/handoff-s1.md",
+      "evidence": [
+        "logs/s1-25-main-deliverable-standard.log",
+        "logs/s1-25-main-final-owner-candidate.log",
+        "logs/s1-25-main-final-test-counts.log",
+        "logs/s1-25-main-signed-candidate-notes.log",
+        "logs/s1-25-main-signed-candidate-app.log",
+        "logs/s1-25-main-signed-candidate-ui.log",
+        "logs/s1-25-main-signed-candidate-zstd.log",
+        "logs/s1-25-main-signed-candidate-apk.log",
+        "logs/s1-25-main-zstd-desktop-decode.log",
+        "logs/s1-24-25-main-s0-regression.log"
+      ]
+    },
+    {
+      "id": "S1.26",
+      "card": "S1.26/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-18T18:14:57+08:00",
+      "dependsOn": ["S1.23", "S1.25", "S1.01", "S1.02", "S1.03", "S1.04", "S1.05", "S1.06", "S1.07", "S1.08", "S1.09", "S1.10", "S1.11", "S1.12", "S1.13", "S1.14", "S1.15", "S1.16", "S1.17", "S1.18", "S1.19", "S1.20", "S1.21", "S1.22", "S1.24", "S0.G"],
+      "review": "docs/archive/handoff-s1.md",
+      "evidence": [
+        "logs/s1-26-main-candidate.log",
+        "logs/s1-26-main-staged-encrypted.log",
+        "logs/s1-26-main-staged-plain.log",
+        "logs/s1-26-main-staged-ui.log",
+        "logs/s1-26-main-staged-entry.log"
+      ]
+    },
+    {
+      "id": "S1.27",
+      "card": "S1.27/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-18T19:28:23+08:00",
+      "dependsOn": ["S1.12", "S1.20", "S1.26", "S1.01", "S1.02", "S1.03", "S1.04", "S1.05", "S1.06", "S1.07", "S1.08", "S1.09", "S1.10", "S1.11", "S1.13", "S1.14", "S1.15", "S1.16", "S1.17", "S1.18", "S1.19", "S1.21", "S1.22", "S1.23", "S1.24", "S1.25", "S0.G"],
+      "review": "docs/archive/handoff-s1.md",
+      "evidence": [
+        "logs/s1-27-main-tablet-summary.json",
+        "logs/s1-27-main-two-device-functional.json",
+        "logs/s1-27-main-two-device-host.log",
+        "logs/s1-27-main-phone-measurement.log",
+        "logs/s1-27-main-two-device-cleanup.log",
+        "logs/s1-27-main-phone-sync-diagnosis.log",
+        "logs/s1-27-main-two-device-functional-rerun.json"
+      ]
+    }
+  ],
+  "stageGate": {
+    "id": "S1.G",
+    "status": "accepted",
+    "reviewer": "main-thread",
+    "acceptedAt": "2026-11-18T20:54:27+08:00",
+    "milestone": "M1",
+    "candidateApk": {
+      "manifest": "logs/s1-g-main-candidate.json",
+      "manifestSha256": "da49d93d9997cad51a9534c5da761854565530a3b85697e0aa037bf28dec1bb6",
+      "sha256": "6b44c0f2d0c5a46f37ccf99f7a648f679602872e62fbf53e8b17e591057d2154",
+      "evidence": [
+        "logs/s1-g-main-candidate.json",
+        "logs/s1-g-main-host.log"
+      ]
+    },
+    "verticalSlices": {
+      "data": {
+        "status": "passed",
+        "evidence": [
+          "logs/s1-g-main-phone.log",
+          "logs/s1-g-main-tablet.log"
+        ],
+        "apkSha256": "6b44c0f2d0c5a46f37ccf99f7a648f679602872e62fbf53e8b17e591057d2154"
+      },
+      "editor": {
+        "status": "passed",
+        "evidence": [
+          "logs/s1-g-main-phone.log"
+        ],
+        "apkSha256": "6b44c0f2d0c5a46f37ccf99f7a648f679602872e62fbf53e8b17e591057d2154"
+      },
+      "content": {
+        "status": "passed",
+        "evidence": [
+          "logs/s1-g-main-phone.log",
+          "logs/s1-g-main-tablet.log"
+        ],
+        "apkSha256": "6b44c0f2d0c5a46f37ccf99f7a648f679602872e62fbf53e8b17e591057d2154"
+      },
+      "tasks": {
+        "status": "passed",
+        "evidence": [
+          "logs/s1-g-main-phone.log"
+        ],
+        "apkSha256": "6b44c0f2d0c5a46f37ccf99f7a648f679602872e62fbf53e8b17e591057d2154"
+      },
+      "workspace": {
+        "status": "passed",
+        "evidence": [
+          "logs/s1-g-main-phone.log",
+          "logs/s1-g-main-tablet.log"
+        ],
+        "apkSha256": "6b44c0f2d0c5a46f37ccf99f7a648f679602872e62fbf53e8b17e591057d2154"
+      },
+      "algorithms": {
+        "status": "passed",
+        "evidence": [
+          "logs/s1-g-main-phone.log"
+        ],
+        "apkSha256": "6b44c0f2d0c5a46f37ccf99f7a648f679602872e62fbf53e8b17e591057d2154"
+      },
+      "terminalShizuku": {
+        "status": "passed",
+        "evidence": [
+          "logs/s1-g-main-phone.log",
+          "logs/s1-g-main-tablet.log"
+        ],
+        "apkSha256": "6b44c0f2d0c5a46f37ccf99f7a648f679602872e62fbf53e8b17e591057d2154"
+      },
+      "productShell": {
+        "status": "passed",
+        "evidence": [
+          "logs/s1-g-main-phone.log",
+          "logs/s1-g-main-tablet.log"
+        ],
+        "apkSha256": "6b44c0f2d0c5a46f37ccf99f7a648f679602872e62fbf53e8b17e591057d2154"
+      },
+      "sync": {
+        "status": "passed",
+        "evidence": [
+          "logs/s1-g-main-phone.log"
+        ],
+        "apkSha256": "6b44c0f2d0c5a46f37ccf99f7a648f679602872e62fbf53e8b17e591057d2154"
+      }
+    },
+    "roundTrips": {
+      "plaintext": {
+        "status": "passed",
+        "evidence": [
+          "logs/s1-g-main-phone.log"
+        ],
+        "apkSha256": "6b44c0f2d0c5a46f37ccf99f7a648f679602872e62fbf53e8b17e591057d2154",
+        "directions": [
+          "desktop-to-android",
+          "android-to-desktop"
+        ]
+      },
+      "encrypted": {
+        "status": "passed",
+        "evidence": [
+          "logs/s1-g-main-phone.log"
+        ],
+        "apkSha256": "6b44c0f2d0c5a46f37ccf99f7a648f679602872e62fbf53e8b17e591057d2154",
+        "directions": [
+          "desktop-to-android",
+          "android-to-desktop"
+        ]
+      }
+    },
+    "devices": {
+      "iPA2475": {
+        "status": "passed",
+        "evidence": [
+          "logs/s1-g-main-tablet.log"
+        ],
+        "apkSha256": "6b44c0f2d0c5a46f37ccf99f7a648f679602872e62fbf53e8b17e591057d2154",
+        "deviceId": "46fb8f38a60cd5ce8cc9db837dab7f1cea2e41c567966fa465332bf550773510",
+        "physical": true,
+        "visual": {
+          "status": "passed",
+          "evidence": [
+            "logs/s1-g-main-tablet-workspace.png",
+            "logs/s1-g-main-tablet-execution.png"
+          ],
+          "apkSha256": "6b44c0f2d0c5a46f37ccf99f7a648f679602872e62fbf53e8b17e591057d2154"
+        }
+      },
+      "V2232A": {
+        "status": "passed",
+        "evidence": [
+          "logs/s1-g-main-phone.log"
+        ],
+        "apkSha256": "6b44c0f2d0c5a46f37ccf99f7a648f679602872e62fbf53e8b17e591057d2154",
+        "deviceId": "2a274ae8946f51dc55fa11676471b90b9dd176b66683f46b5e6e7bd7bb3593af",
+        "physical": true,
+        "visual": {
+          "status": "passed",
+          "evidence": [
+            "logs/s1-g-main-phone-product.png"
+          ],
+          "apkSha256": "6b44c0f2d0c5a46f37ccf99f7a648f679602872e62fbf53e8b17e591057d2154"
+        }
+      }
+    },
+    "checks": {
+      "acyclicModules": {
+        "status": "passed",
+        "evidence": [
+          "logs/s1-g-main-architecture.json",
+          "logs/s1-g-main-host.log"
+        ]
+      },
+      "complexity": {
+        "status": "passed",
+        "evidence": [
+          "logs/s1-g-main-complexity.json",
+          "logs/s1-g-main-host.log"
+        ]
+      },
+      "pureKotlin": {
+        "status": "passed",
+        "evidence": [
+          "logs/s1-g-main-host.log"
+        ]
+      },
+      "fakeUi": {
+        "status": "passed",
+        "evidence": [
+          "logs/s1-g-main-phone.log"
+        ]
+      },
+      "processIsolation": {
+        "status": "passed",
+        "evidence": [
+          "logs/s1-g-main-phone.log",
+          "logs/s1-g-main-tablet.log"
+        ]
+      },
+      "scheduleCalibration": {
+        "status": "passed",
+        "evidence": [
+          "logs/s1-g-main-schedule.json"
+        ]
+      }
+    }
+  }
+}

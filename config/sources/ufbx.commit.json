@@ -1,0 +1,40 @@
+{
+  "sha": "5955c5c0b042ac2dc6f32955ab206aaec0620cfc",
+  "node_id": "C_kwDOC2FawtoAKDU5NTVjNWMwYjA0MmFjMmRjNmYzMjk1NWFiMjA2YWFlYzA2MjBjZmM",
+  "url": "https://api.github.com/repos/ufbx/ufbx/git/commits/5955c5c0b042ac2dc6f32955ab206aaec0620cfc",
+  "html_url": "https://github.com/ufbx/ufbx/commit/5955c5c0b042ac2dc6f32955ab206aaec0620cfc",
+  "author": {
+    "name": "Samuli",
+    "email": "bqqbarbhg@users.noreply.github.com",
+    "date": "2026-10-01T23:13:10Z"
+  },
+  "committer": {
+    "name": "GitHub",
+    "email": "noreply@github.com",
+    "date": "2026-10-01T23:13:10Z"
+  },
+  "tree": {
+    "sha": "a3728a5cb214bf231b13260c64cfe78550b7bede",
+    "url": "https://api.github.com/repos/ufbx/ufbx/git/trees/a3728a5cb214bf231b13260c64cfe78550b7bede"
+  },
+  "message": "Merge pull request #272 from ufbx/integration\n\nFix viewer blend shape texture width",
+  "parents": [
+    {
+      "sha": "26a482ae66871d7de36eb722aa060bce95bce274",
+      "url": "https://api.github.com/repos/ufbx/ufbx/git/commits/26a482ae66871d7de36eb722aa060bce95bce274",
+      "html_url": "https://github.com/ufbx/ufbx/commit/26a482ae66871d7de36eb722aa060bce95bce274"
+    },
+    {
+      "sha": "1d097696e33b367bb3152b175aeb2d95193f9b6e",
+      "url": "https://api.github.com/repos/ufbx/ufbx/git/commits/1d097696e33b367bb3152b175aeb2d95193f9b6e",
+      "html_url": "https://github.com/ufbx/ufbx/commit/1d097696e33b367bb3152b175aeb2d95193f9b6e"
+    }
+  ],
+  "verification": {
+    "verified": true,
+    "reason": "valid",
+    "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqvukGCRC1aQ7uu5UhlAAAk0wQAFDhBxcQ0oXWumRVtvBVDgfG\nNXx2Zb9/r9EwwpMMy4TGMwR69bx2P3/n4cNsm7vSqfHyqBw3i6Eyb5bp2J49mExR\njil2X/+iYydSo0w0eCUaZvoiSJXMtIKhqDMg6JU2jj+T+/+Gi7Z5pIww3qVZTW2q\neZGODO9nqLH8pKwlcUiI1c09iIPc/Z1yvLLkqgOr9q2UghFVssITw0Ke8Qi+PzHp\nwUmmgaATOkRp6XSiizDmWo9hVng5PYRw1PAnn9lZqj//9/AUI3wIniFiT7fPtskx\nyhRh+25v03NZOlBGQcMOuwDw0ZifXA5W+OhqJvwyU1Tt4ZKkoXRy8ajXfSZdnZhI\nCc296Og4zKQL7ar9KjYxVjXiCOrvRdl00OTUxSPpOblFoA22p0GGOdbvvYyqtBLe\n4JPvhcH6nACUAfchxyVJU7nYvaOb0u47SpmCeHFjjG8iY8Oxg5j71P05lCmaNbH/\nRnEX9+0VhoOwmV6EfhGxO5kzv70ARoH2+Uu0HCe7TrFB0sPYKVJwCNAYL6oTSJSC\naozXx1jn+3aI85jhiXpPyUD063Xp2OSsfTgyEfBUsGpl0IgKGt0k1DnBfcpmL35b\nZOHDhY3iVk3+cy2yvr5fNICRZ78aYXKY2k4QpAUlbYLe7hHcHwAZdDmpS4YjfcHb\nnrqnLTmQhSrJxjKR3PGX\n=117I\n-----END PGP SIGNATURE-----\n",
+    "payload": "tree a3728a5cb214bf231b13260c64cfe78550b7bede\nparent 26a482ae66871d7de36eb722aa060bce95bce274\nparent 1d097696e33b367bb3152b175aeb2d95193f9b6e\nauthor Samuli <bqqbarbhg@users.noreply.github.com> 1790896390 +0300\ncommitter GitHub <noreply@github.com> 1790896390 +0300\n\nMerge pull request #272 from ufbx/integration\n\nFix viewer blend shape texture width",
+    "verified_at": "2026-10-01T23:13:11Z"
+  }
+}

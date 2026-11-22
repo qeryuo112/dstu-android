@@ -1,0 +1,63 @@
+name: Frozen Android build environment
+description: Set up the locked JDK/SDK, frozen source inputs, and optional native dependencies.
+inputs:
+  native:
+    description: Fetch and verify native-engine build inputs
+    default: 'false'
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v4
+      with:
+        repository: helixnow/dstu-node
+        ref: e6b2657fd59014a73f5bbb1d14c2db732cf23e87
+        path: dstu-node
+        persist-credentials: false
+    - uses: actions/checkout@v4
+      with:
+        repository: AAswordman/Operit
+        ref: 7a39941bad80209973c535046a18195c5da9e647
+        path: Operit
+        submodules: recursive
+        persist-credentials: false
+    - uses: actions/setup-java@v4
+      with:
+        distribution: zulu
+        java-version: |
+          17
+          21
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+    - uses: android-actions/setup-android@v3
+    - uses: gradle/actions/setup-gradle@v4
+      with:
+        cache-read-only: ${{ github.event_name == 'pull_request' }}
+    - name: Install locked Android platform
+      shell: bash
+      run: |
+        sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
+        mkdir -p dstu-android/logs "${GRADLE_USER_HOME:-$HOME/.gradle}"
+        # Bound memory so the emulator and Kotlin compiler can coexist on hosted runners.
+        printf '%s\n' 'org.gradle.jvmargs=-Xmx3g -XX:MaxMetaspaceSize=768m -Dfile.encoding=UTF-8' 'kotlin.daemon.jvmargs=-Xmx1g' >> "${GRADLE_USER_HOME:-$HOME/.gradle}/gradle.properties"
+    - name: Prepare frozen desktop assets
+      shell: bash
+      working-directory: dstu-android
+      run: |
+        npm ci --ignore-scripts --prefix ../dstu-node
+        node tools/s1/content-fetch.mjs
+    - name: Prepare native build inputs
+      if: inputs.native == 'true'
+      shell: bash
+      working-directory: dstu-android
+      run: |
+        sdkmanager 'ndk;29.0.13846066' --channel=3
+        export ANDROID_NDK_HOME="$ANDROID_HOME/ndk/29.0.13846066"
+        echo "ANDROID_NDK_HOME=$ANDROID_NDK_HOME" >> "$GITHUB_ENV"
+        sudo apt-get update
+        sudo apt-get install -y build-essential pkg-config ninja-build autoconf automake libtool
+        rustup toolchain install 1.99.0 --profile minimal --target aarch64-linux-android
+        rustup default 1.99.0
+        node tools/ci/native-inputs.mjs
+        node tools/s1/pdf-fetch.mjs
+        node ../dstu-node/node_modules/playwright/cli.js install --with-deps chromium

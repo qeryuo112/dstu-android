@@ -1,0 +1,171 @@
+{
+  "formatVersion": 1,
+  "unit": "S0.22",
+  "fixtureClock": {
+    "studyA": "2026-11-15T08:00:00Z",
+    "studyB": "2026-11-15T08:00:01Z",
+    "resumeA": "2026-11-15T08:01:00Z",
+    "resumeB": "2026-11-15T08:02:00Z",
+    "subtitleA": "2026-11-15T08:03:00Z",
+    "subtitleB": "2026-11-15T08:03:01Z"
+  },
+  "resourceId": "public-media-resource",
+  "logicalDate": "2026-11-15",
+  "events": [
+    {
+      "event_id": "s022-study-a",
+      "device_id": "device-a",
+      "kind": "study",
+      "resource_id": "public-media-resource",
+      "logical_date": "2026-11-15",
+      "seconds": 90,
+      "observed_at": "2026-11-15T08:00:00Z",
+      "data": {
+        "surface": "player"
+      }
+    },
+    {
+      "event_id": "s022-study-b",
+      "device_id": "device-b",
+      "kind": "study",
+      "resource_id": "public-media-resource",
+      "logical_date": "2026-11-15",
+      "seconds": 30,
+      "observed_at": "2026-11-15T08:00:01Z",
+      "data": {
+        "surface": "player"
+      }
+    },
+    {
+      "event_id": "s022-resume-a",
+      "device_id": "device-a",
+      "kind": "resume",
+      "resource_id": "public-media-resource",
+      "logical_date": "2026-11-15",
+      "position_ms": 90000,
+      "duration_ms": 100000,
+      "observed_at": "2026-11-15T08:01:00Z",
+      "data": {}
+    },
+    {
+      "event_id": "s022-resume-b",
+      "device_id": "device-b",
+      "kind": "resume",
+      "resource_id": "public-media-resource",
+      "logical_date": "2026-11-15",
+      "position_ms": 12000,
+      "duration_ms": 100000,
+      "observed_at": "2026-11-15T08:02:00Z",
+      "data": {}
+    },
+    {
+      "event_id": "s022-subtitle-a",
+      "device_id": "device-a",
+      "kind": "subtitle",
+      "resource_id": "public-media-resource",
+      "logical_date": "2026-11-15",
+      "position_ms": 1000,
+      "duration_ms": 2500,
+      "observed_at": "2026-11-15T08:03:00Z",
+      "data": {
+        "plan_id": "public-media-plan",
+        "version": 2,
+        "index": 0,
+        "text": "Second device subtitle"
+      }
+    },
+    {
+      "event_id": "s022-subtitle-b",
+      "device_id": "device-b",
+      "kind": "subtitle",
+      "resource_id": "public-media-resource",
+      "logical_date": "2026-11-15",
+      "position_ms": 1000,
+      "duration_ms": 2500,
+      "observed_at": "2026-11-15T08:03:01Z",
+      "data": {
+        "plan_id": "public-media-plan",
+        "version": 2,
+        "index": 0,
+        "text": "First device subtitle"
+      }
+    }
+  ],
+  "expectedSummary": {
+    "resource_id": "public-media-resource",
+    "logical_date": "2026-11-15",
+    "seconds": 120,
+    "position": 12000,
+    "position_ms": 12000,
+    "duration_ms": 100000,
+    "resume_event_id": "s022-resume-b",
+    "resume_observed_at": "2026-11-15T08:02:00Z",
+    "by_device": [
+      {
+        "device_id": "device-a",
+        "seconds": 90,
+        "events": 3
+      },
+      {
+        "device_id": "device-b",
+        "seconds": 30,
+        "events": 3
+      }
+    ],
+    "subtitles": [
+      {
+        "plan_id": "public-media-plan",
+        "version": 2,
+        "index": 0,
+        "text": "First device subtitle",
+        "start_ms": 1000,
+        "end_ms": 2500,
+        "event_id": "s022-subtitle-b"
+      }
+    ],
+    "latest_plan_versions": [
+      {
+        "plan_id": "public-media-plan",
+        "version": 2
+      }
+    ],
+    "event_count": 6
+  },
+  "conflictVector": {
+    "subtitleSlot": {
+      "plan_id": "public-media-plan",
+      "version": 2,
+      "index": 0
+    },
+    "losingEventId": "s022-subtitle-a",
+    "winningEventId": "s022-subtitle-b",
+    "winnerText": "First device subtitle"
+  },
+  "negatives": [
+    "negative seconds",
+    "seconds over 86400",
+    "invalid logical_date",
+    "negative position",
+    "position beyond duration",
+    "inverted cue range",
+    "non-numeric plan version",
+    "missing text",
+    "invalid timestamp",
+    "normalized invalid day"
+  ],
+  "databaseConstraints": [
+    "remote invalid observed date",
+    "remote invalid logical date",
+    "remote resume null position",
+    "remote subtitle version text"
+  ],
+  "legacy": {
+    "tables": [
+      "media_progress",
+      "media_transcript_segments",
+      "study_time_daily"
+    ],
+    "rowSync": false,
+    "localStateUntouched": true
+  }
+}

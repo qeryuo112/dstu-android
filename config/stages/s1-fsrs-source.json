@@ -1,0 +1,99 @@
+{
+  "format": "dstu-s1-fsrs-source/v1",
+  "desktopOracle": {
+    "repository": "dstu-node",
+    "commit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+    "tree": "3bee0f058851b9eb113bdc036d9f60433ed29944",
+    "version": "0.20.1",
+    "readOnly": true,
+    "files": [
+      {
+        "path": "host/plugins/review/src/fsrs-scheduler.ts",
+        "sha256": "260e052f995390c91f023cf614bb7ef299cba5b2a3e6a8f5acd29eab7e7d7549"
+      },
+      {
+        "path": "host/plugins/review/src/review-plan-fsrs.ts",
+        "sha256": "cc2bf80ad0de2dacec7ecdd2f7aba060b0b179847bac3482bc01857ea9213040"
+      },
+      {
+        "path": "host/platform/native/fsrs/model.ts",
+        "sha256": "39384a74613673816a4b7bc3c5f87a6b45a27ec7ce9a71e38078c4b6fb1aaa97"
+      },
+      {
+        "path": "host/platform/native/fsrs/parameters.ts",
+        "sha256": "ed82af32b74eff55c3ab455c67ed5d33737b4ba8d0e71084e456853c076b0109"
+      },
+      {
+        "path": "host/platform/native/fsrs/core.ts",
+        "sha256": "fe159e89925747b347799c58a6b7c5a1ac374191160c992a63243f66e07b49cc"
+      },
+      {
+        "path": "host/platform/native/tests/fsrs-optimizer.test.ts",
+        "sha256": "93bcd8bedcda9f9d9d80b2665f1b9dfe44f3d7d660ec52186dc59b3fd7573fd8"
+      }
+    ]
+  },
+  "engine": {
+    "crate": "fsrs",
+    "version": "6.6.2",
+    "source": "https://crates.io/crates/fsrs/6.6.2",
+    "checksum": "89836c0a26b347b585b23824034600b69bfc7f0b0112d0cd656791799eb3a717",
+    "license": "BSD-3-Clause",
+    "jni": "0.21.1",
+    "jniLicense": "MIT OR Apache-2.0",
+    "adoption": "direct JNI to the crate; no Kotlin optimizer or synthetic loss",
+    "crateSourceSha256": "b78607268ed0e9781604a8097207cfec61a2af744281d03593e1eadf36f5780c",
+    "sourceFiles": {
+      "src/model.rs": "8e39b1bb892df4d8eaeda96fe465fc38c65524a47b2b8ef4f792d22bef1ce3d3",
+      "src/inference.rs": "cea5682359e6542f7e8086fd8ffc4c2cfdadd8b26ba48efc7b19e4ca5e4046d9",
+      "src/training.rs": "07fcde0698ade20ea36e5bafaf92bc1c94803614aad78a609809fdc5833b3a78",
+      "src/dataset.rs": "1887dac19e0e82bf1963f4f1bef1fdf7627e12adac9fd98d2a20e45fc020b876",
+      "src/error.rs": "1c91be6989fd584c2a7f336a779c821ed006177aae731a9ae5eeb0f0def9cfdb",
+      "src/parameter_clipper.rs": "9ffa4b539494e31f7c6a9eebc04a6123fb8dd6db283becb0c4c597940b08aee3"
+    }
+  },
+  "dependencyPins": {
+    "rand": "0.10.2",
+    "getrandom": "0.4.1",
+    "rayon": "1.12.0",
+    "ndarray": "0.17.2",
+    "priority-queue": "2.7.0",
+    "itertools": "0.15.0",
+    "snafu": "0.9.2",
+    "strum": "0.28.0",
+    "serde": "1.0.228"
+  },
+  "cargo": {
+    "offline": true,
+    "locked": true,
+    "home": "../build-tools/s1-cargo-home",
+    "lockSha256": "255c0877f1ed689216d6b1f9b00c6fe9bf94ae38ff72306f8bf27bc641ed75ca",
+    "manifestSha256": "df27be2d6e1d2de72a4333c11643e18a3a27cc4ad2a6dc8acff3d77142443ca6",
+    "bridgeSha256": "d6b5062e3546d05dd040408bd6f55a9bd55b8b684b195fcf23e508ae3d110bee",
+    "libSourceSha256": "0ef706d62d36ddf98f267dbb412d3ff9eff95cd61389dc298b0b9cf397646957"
+  },
+  "android": {
+    "abi": "arm64-v8a",
+    "androidApi": 26,
+    "pageSize": 16384,
+    "ndk": "29.0.13846066-beta3",
+    "ndkPath": "/home/xutao/Android/Sdk/ndk/29.0.13846066",
+    "target": "aarch64-linux-android",
+    "linkerSha256": "c9ec0ccdc82aede75e6724738b833603707c0990061e05a1484860249f7520d5",
+    "readelfSha256": "f5065278c146659a872e64e15543834e0fc4dd1dde277ab266a8662ace06b657"
+  },
+  "outputs": {
+    "library": "libdstu_fsrs.so",
+    "exports": [
+      "Java_com_deepstudent_engines_fsrs_FsrsNative_nextStates",
+      "Java_com_deepstudent_engines_fsrs_FsrsNative_memoryState",
+      "Java_com_deepstudent_engines_fsrs_FsrsNative_evaluate",
+      "Java_com_deepstudent_engines_fsrs_FsrsNative_optimize",
+      "Java_com_deepstudent_engines_fsrs_FsrsNative_createCancelToken",
+      "Java_com_deepstudent_engines_fsrs_FsrsNative_cancelToken",
+      "Java_com_deepstudent_engines_fsrs_FsrsNative_destroyCancelToken",
+      "Java_com_deepstudent_engines_fsrs_FsrsNative_normalizeParameters",
+      "Java_com_deepstudent_engines_fsrs_FsrsNative_version"
+    ]
+  }
+}

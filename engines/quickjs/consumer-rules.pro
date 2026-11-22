@@ -1,0 +1,1 @@
+-keep class com.deepstudent.engines.quickjs.QuickJsNative { *; }

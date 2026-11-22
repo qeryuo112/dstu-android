@@ -1,0 +1,602 @@
+{
+  "formatVersion": 1,
+  "unit": "S0.17",
+  "format": "dstu.model-recordings.v1",
+  "corpus": {
+    "directory": "fixtures/model-streams/openai-python-v1.109.1",
+    "repository": "https://github.com/openai/openai-python",
+    "tag": "v1.109.1",
+    "commit": "a1493f92a7cd4399d57046aadc943aeadda5b8e7",
+    "license": {
+      "spdx": "Apache-2.0",
+      "file": "LICENSE",
+      "sha256": "d711ed37bb19ae7249af8d093b8fc6ea758fd3554b92ac61500c1ad3cc0e3fb9"
+    },
+    "testFile": "tests/lib/chat/test_completions_streaming.py",
+    "testFileSha256": "1f4b71f04632425350b85ef0ac128f7976c58dcef11725d8babd1eeee321d9f1",
+    "testFileCopy": "test_completions_streaming.py",
+    "testFileCopyBytes": 37830,
+    "testFileEvidence": {
+      "line": 39,
+      "text": "# all the snapshots in this file are auto-generated from the live API"
+    },
+    "archiveSha256": "cf7b1184608c2c7f0c3042fb60700d26e9615a2fc9d26895afac8806b4582823",
+    "captureEvidence": "The upstream test source says: all the snapshots in this file are auto-generated from the live API.",
+    "genuineUpstream": true,
+    "fixtureCount": 3,
+    "totalBytes": 17344
+  },
+  "implementation": {
+    "sse": "dstu-node/host/platform/util/sse-buffer.ts::SseEventBuffer",
+    "adapter": "dstu-node/host/plugins/llm-providers/src/providers/openai-chat.ts::OpenAIAdapter",
+    "loader": "tools/baseline/desktop-module.mjs",
+    "splitBytes": [
+      null,
+      1,
+      7
+    ],
+    "requiredSplits": [
+      "whole",
+      "bytes-1",
+      "bytes-7"
+    ],
+    "assertion": "byte-identical event block sequence and deep-equal adapter events across every split"
+  },
+  "checks": {
+    "fixtures": 3,
+    "splitRuns": 9,
+    "eventEquality": true,
+    "terminalDone": true,
+    "textHashes": true,
+    "toolArgumentHashes": true,
+    "corruptionMutations": 12,
+    "corruptionRejected": true,
+    "noCredentials": true,
+    "paidApiCalls": 0
+  },
+  "recordings": [
+    {
+      "id": "openai-python:test_parse_nothing",
+      "source": {
+        "file": "fixtures/model-streams/openai-python-v1.109.1/e2aad469b71d1d4894ff833ea147020a9d875eb7ce644a0ff355581690a4cbfd.sse",
+        "sha256": "e2aad469b71d1d4894ff833ea147020a9d875eb7ce644a0ff355581690a4cbfd",
+        "bytes": 8761,
+        "upstreamFile": ".inline-snapshot/external/e2aad469b71d1d4894ff833ea147020a9d875eb7ce644a0ff355581690a4cbfd.bin",
+        "upstreamTest": "test_parse_nothing"
+      },
+      "contentKind": "assistant-text",
+      "expected": {
+        "eventTypes": [
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "Usage",
+          "Done"
+        ],
+        "text": "I'm unable to provide real-time weather updates. To get the current weather in San Francisco, I recommend checking a reliable weather website or a weather app.",
+        "reasoning": "",
+        "toolArguments": "",
+        "usage": {
+          "prompt_tokens": 14,
+          "completion_tokens": 30,
+          "total_tokens": 44,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "doneCount": 1,
+        "terminalDone": true,
+        "textSha256": "c8fffa3408ca8cdd0641db2340e5f985d98d5d2510dc869eb4dfd14f1d473d5b",
+        "toolArgumentsSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "observed": {
+        "eventTypes": [
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "Usage",
+          "Done"
+        ],
+        "text": "I'm unable to provide real-time weather updates. To get the current weather in San Francisco, I recommend checking a reliable weather website or a weather app.",
+        "reasoning": "",
+        "toolNames": [],
+        "toolIds": [],
+        "toolArguments": [],
+        "toolArgumentsJoined": "",
+        "usage": {
+          "prompt_tokens": 14,
+          "completion_tokens": 30,
+          "total_tokens": 44,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "doneCount": 1,
+        "terminalDone": true,
+        "textSha256": "c8fffa3408ca8cdd0641db2340e5f985d98d5d2510dc869eb4dfd14f1d473d5b",
+        "toolArgumentsSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "toolCallsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "eventsSha256": "265aab3f0c1f01e8564f58dbb2782571a560705b785d1ccc100f6756f201f41c"
+      },
+      "splits": [
+        {
+          "split": "whole",
+          "chunkBytes": null,
+          "chunks": 1,
+          "events": 33,
+          "blocks": 34,
+          "blocksSha256": "2934b98045c5ad3aadc402ef89cce4f63526cd42f3f8496a74ffb59c04704b3f",
+          "doneCount": 1,
+          "terminalDone": true,
+          "eventsSha256": "265aab3f0c1f01e8564f58dbb2782571a560705b785d1ccc100f6756f201f41c"
+        },
+        {
+          "split": "bytes-1",
+          "chunkBytes": 1,
+          "chunks": 8761,
+          "events": 33,
+          "blocks": 34,
+          "blocksSha256": "2934b98045c5ad3aadc402ef89cce4f63526cd42f3f8496a74ffb59c04704b3f",
+          "doneCount": 1,
+          "terminalDone": true,
+          "eventsSha256": "265aab3f0c1f01e8564f58dbb2782571a560705b785d1ccc100f6756f201f41c"
+        },
+        {
+          "split": "bytes-7",
+          "chunkBytes": 7,
+          "chunks": 1252,
+          "events": 33,
+          "blocks": 34,
+          "blocksSha256": "2934b98045c5ad3aadc402ef89cce4f63526cd42f3f8496a74ffb59c04704b3f",
+          "doneCount": 1,
+          "terminalDone": true,
+          "eventsSha256": "265aab3f0c1f01e8564f58dbb2782571a560705b785d1ccc100f6756f201f41c"
+        }
+      ],
+      "corruptionRejection": [
+        {
+          "mutation": "sse-prefix",
+          "rejected": true,
+          "verifier": "verifyFixtureEnvelope(header)",
+          "reason": "openai-python:test_parse_nothing: not an upstream SSE data frame"
+        },
+        {
+          "mutation": "json-byte",
+          "rejected": true,
+          "verifier": "verifyFixtureBytes(SHA-256)",
+          "reason": "openai-python:test_parse_nothing: SHA-256 drift\n+ actual - expected\n\n+ 'c2c05d49689f5a0d865516de767ccc7fe6a0720c352e2d9eb5c26288f1a30c81'\n- 'e2aad469b71d1d4894ff833ea147020a9d875eb7ce644a0ff355581690a4cbfd'\n"
+        },
+        {
+          "mutation": "done-marker",
+          "rejected": true,
+          "verifier": "verifyFixtureEnvelope(DONE-tail)",
+          "reason": "openai-python:test_parse_nothing: missing canonical upstream DONE tail"
+        },
+        {
+          "mutation": "truncated-tail",
+          "rejected": true,
+          "verifier": "verifyFixtureBytes(byte-count)",
+          "reason": "openai-python:test_parse_nothing: byte count drift\n\n8751 !== 8761\n"
+        }
+      ],
+      "parserBehavior": {
+        "doneMarkerChanged": {
+          "terminalDone": true,
+          "doneCount": 1,
+          "eventTypesMatchCanonical": true
+        },
+        "tailTruncated": {
+          "terminalDone": true,
+          "doneCount": 1,
+          "eventTypesMatchCanonical": true
+        },
+        "jsonByteChanged": {
+          "terminalDone": true,
+          "doneCount": 1,
+          "eventTypesMatchCanonical": false
+        }
+      }
+    },
+    {
+      "id": "openai-python:test_parse_pydantic_model",
+      "source": {
+        "file": "fixtures/model-streams/openai-python-v1.109.1/7e5ea4d12e7cc064399b6631415e65923f182256b6e6b752950a3aaa2ad2320a.sse",
+        "sha256": "7e5ea4d12e7cc064399b6631415e65923f182256b6e6b752950a3aaa2ad2320a",
+        "bytes": 4537,
+        "upstreamFile": ".inline-snapshot/external/7e5ea4d12e7cc064399b6631415e65923f182256b6e6b752950a3aaa2ad2320a.bin",
+        "upstreamTest": "test_parse_pydantic_model"
+      },
+      "contentKind": "json-text",
+      "expected": {
+        "eventTypes": [
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "Usage",
+          "Done"
+        ],
+        "text": "{\"city\":\"San Francisco\",\"temperature\":61,\"units\":\"f\"}",
+        "reasoning": "",
+        "toolArguments": "",
+        "usage": {
+          "prompt_tokens": 79,
+          "completion_tokens": 14,
+          "total_tokens": 93,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "doneCount": 1,
+        "terminalDone": true,
+        "textSha256": "652849b5dd35ecd06a09c13fe7c43219b3217c3ea5123f68617bfcf075f66b69",
+        "toolArgumentsSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "observed": {
+        "eventTypes": [
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "ContentChunk",
+          "Usage",
+          "Done"
+        ],
+        "text": "{\"city\":\"San Francisco\",\"temperature\":61,\"units\":\"f\"}",
+        "reasoning": "",
+        "toolNames": [],
+        "toolIds": [],
+        "toolArguments": [],
+        "toolArgumentsJoined": "",
+        "usage": {
+          "prompt_tokens": 79,
+          "completion_tokens": 14,
+          "total_tokens": 93,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "doneCount": 1,
+        "terminalDone": true,
+        "textSha256": "652849b5dd35ecd06a09c13fe7c43219b3217c3ea5123f68617bfcf075f66b69",
+        "toolArgumentsSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "toolCallsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "eventsSha256": "642b41891ced84ed5584e8e39e544c9c3bec429d7b0744707c441e3d004b323e"
+      },
+      "splits": [
+        {
+          "split": "whole",
+          "chunkBytes": null,
+          "chunks": 1,
+          "events": 17,
+          "blocks": 18,
+          "blocksSha256": "0ff43186b9f8c42114fe7f6bdbb04e2f6d52fa303e05fbb54c2a7a4d1f4b04da",
+          "doneCount": 1,
+          "terminalDone": true,
+          "eventsSha256": "642b41891ced84ed5584e8e39e544c9c3bec429d7b0744707c441e3d004b323e"
+        },
+        {
+          "split": "bytes-1",
+          "chunkBytes": 1,
+          "chunks": 4537,
+          "events": 17,
+          "blocks": 18,
+          "blocksSha256": "0ff43186b9f8c42114fe7f6bdbb04e2f6d52fa303e05fbb54c2a7a4d1f4b04da",
+          "doneCount": 1,
+          "terminalDone": true,
+          "eventsSha256": "642b41891ced84ed5584e8e39e544c9c3bec429d7b0744707c441e3d004b323e"
+        },
+        {
+          "split": "bytes-7",
+          "chunkBytes": 7,
+          "chunks": 649,
+          "events": 17,
+          "blocks": 18,
+          "blocksSha256": "0ff43186b9f8c42114fe7f6bdbb04e2f6d52fa303e05fbb54c2a7a4d1f4b04da",
+          "doneCount": 1,
+          "terminalDone": true,
+          "eventsSha256": "642b41891ced84ed5584e8e39e544c9c3bec429d7b0744707c441e3d004b323e"
+        }
+      ],
+      "corruptionRejection": [
+        {
+          "mutation": "sse-prefix",
+          "rejected": true,
+          "verifier": "verifyFixtureEnvelope(header)",
+          "reason": "openai-python:test_parse_pydantic_model: not an upstream SSE data frame"
+        },
+        {
+          "mutation": "json-byte",
+          "rejected": true,
+          "verifier": "verifyFixtureBytes(SHA-256)",
+          "reason": "openai-python:test_parse_pydantic_model: SHA-256 drift\n+ actual - expected\n\n+ '0c1ed4bddc4334240b6b3921e047384b9b2447b62e80a3a6616ad9d349c0f123'\n- '7e5ea4d12e7cc064399b6631415e65923f182256b6e6b752950a3aaa2ad2320a'\n"
+        },
+        {
+          "mutation": "done-marker",
+          "rejected": true,
+          "verifier": "verifyFixtureEnvelope(DONE-tail)",
+          "reason": "openai-python:test_parse_pydantic_model: missing canonical upstream DONE tail"
+        },
+        {
+          "mutation": "truncated-tail",
+          "rejected": true,
+          "verifier": "verifyFixtureBytes(byte-count)",
+          "reason": "openai-python:test_parse_pydantic_model: byte count drift\n\n4527 !== 4537\n"
+        }
+      ],
+      "parserBehavior": {
+        "doneMarkerChanged": {
+          "terminalDone": true,
+          "doneCount": 1,
+          "eventTypesMatchCanonical": true
+        },
+        "tailTruncated": {
+          "terminalDone": true,
+          "doneCount": 1,
+          "eventTypesMatchCanonical": true
+        },
+        "jsonByteChanged": {
+          "terminalDone": true,
+          "doneCount": 1,
+          "eventTypesMatchCanonical": false
+        }
+      }
+    },
+    {
+      "id": "openai-python:test_parse_strict_tools",
+      "source": {
+        "file": "fixtures/model-streams/openai-python-v1.109.1/a247c49c5fcd492bfb7a02a3306ad615ed8d8f649888ebfddfbc3ee151f44d46.sse",
+        "sha256": "a247c49c5fcd492bfb7a02a3306ad615ed8d8f649888ebfddfbc3ee151f44d46",
+        "bytes": 4046,
+        "upstreamFile": ".inline-snapshot/external/a247c49c5fcd492bfb7a02a3306ad615ed8d8f649888ebfddfbc3ee151f44d46.bin",
+        "upstreamTest": "test_parse_strict_tools"
+      },
+      "contentKind": "tool-call",
+      "expected": {
+        "eventTypes": [
+          "ToolCall",
+          "ToolCall",
+          "ToolCall",
+          "ToolCall",
+          "ToolCall",
+          "ToolCall",
+          "ToolCall",
+          "ToolCall",
+          "ToolCall",
+          "ToolCall",
+          "ToolCall",
+          "Usage",
+          "Done"
+        ],
+        "text": "",
+        "reasoning": "",
+        "toolArguments": "{\"city\":\"San Francisco\",\"state\":\"CA\"}",
+        "usage": {
+          "prompt_tokens": 48,
+          "completion_tokens": 19,
+          "total_tokens": 67,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "doneCount": 1,
+        "terminalDone": true,
+        "textSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "toolArgumentsSha256": "79357621abcea61229271bf6cc656edd366554f8dd5497556d041a7f17cb03e4"
+      },
+      "observed": {
+        "eventTypes": [
+          "ToolCall",
+          "ToolCall",
+          "ToolCall",
+          "ToolCall",
+          "ToolCall",
+          "ToolCall",
+          "ToolCall",
+          "ToolCall",
+          "ToolCall",
+          "ToolCall",
+          "ToolCall",
+          "Usage",
+          "Done"
+        ],
+        "text": "",
+        "reasoning": "",
+        "toolNames": [
+          "get_weather"
+        ],
+        "toolIds": [
+          "call_CTf1nWJLqSeRgDqaCG27xZ74"
+        ],
+        "toolArguments": [
+          "{\"",
+          "city",
+          "\":\"",
+          "San",
+          " Francisco",
+          "\",\"",
+          "state",
+          "\":\"",
+          "CA",
+          "\"}"
+        ],
+        "toolArgumentsJoined": "{\"city\":\"San Francisco\",\"state\":\"CA\"}",
+        "usage": {
+          "prompt_tokens": 48,
+          "completion_tokens": 19,
+          "total_tokens": 67,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "doneCount": 1,
+        "terminalDone": true,
+        "textSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "toolArgumentsSha256": "79357621abcea61229271bf6cc656edd366554f8dd5497556d041a7f17cb03e4",
+        "toolCallsSha256": "a31385d482e1e9c3aac30ce2924a11657235f4d8588f14da54a86d216744fc02",
+        "eventsSha256": "00066788ee4c77c868c503e8fd5c8066c027a3d443ab4c3bca8f233267584ef7"
+      },
+      "splits": [
+        {
+          "split": "whole",
+          "chunkBytes": null,
+          "chunks": 1,
+          "events": 13,
+          "blocks": 14,
+          "blocksSha256": "9b6a0a54726eeed37c97990d23bd4fb2459e3e0153d6a125101acf099336219e",
+          "doneCount": 1,
+          "terminalDone": true,
+          "eventsSha256": "00066788ee4c77c868c503e8fd5c8066c027a3d443ab4c3bca8f233267584ef7"
+        },
+        {
+          "split": "bytes-1",
+          "chunkBytes": 1,
+          "chunks": 4046,
+          "events": 13,
+          "blocks": 14,
+          "blocksSha256": "9b6a0a54726eeed37c97990d23bd4fb2459e3e0153d6a125101acf099336219e",
+          "doneCount": 1,
+          "terminalDone": true,
+          "eventsSha256": "00066788ee4c77c868c503e8fd5c8066c027a3d443ab4c3bca8f233267584ef7"
+        },
+        {
+          "split": "bytes-7",
+          "chunkBytes": 7,
+          "chunks": 578,
+          "events": 13,
+          "blocks": 14,
+          "blocksSha256": "9b6a0a54726eeed37c97990d23bd4fb2459e3e0153d6a125101acf099336219e",
+          "doneCount": 1,
+          "terminalDone": true,
+          "eventsSha256": "00066788ee4c77c868c503e8fd5c8066c027a3d443ab4c3bca8f233267584ef7"
+        }
+      ],
+      "corruptionRejection": [
+        {
+          "mutation": "sse-prefix",
+          "rejected": true,
+          "verifier": "verifyFixtureEnvelope(header)",
+          "reason": "openai-python:test_parse_strict_tools: not an upstream SSE data frame"
+        },
+        {
+          "mutation": "json-byte",
+          "rejected": true,
+          "verifier": "verifyFixtureBytes(SHA-256)",
+          "reason": "openai-python:test_parse_strict_tools: SHA-256 drift\n+ actual - expected\n\n+ '48d4ae09f30df94412a9ee75706b76a843b6c3d97e3eea11b9946a269a66bb7f'\n- 'a247c49c5fcd492bfb7a02a3306ad615ed8d8f649888ebfddfbc3ee151f44d46'\n"
+        },
+        {
+          "mutation": "done-marker",
+          "rejected": true,
+          "verifier": "verifyFixtureEnvelope(DONE-tail)",
+          "reason": "openai-python:test_parse_strict_tools: missing canonical upstream DONE tail"
+        },
+        {
+          "mutation": "truncated-tail",
+          "rejected": true,
+          "verifier": "verifyFixtureBytes(byte-count)",
+          "reason": "openai-python:test_parse_strict_tools: byte count drift\n\n4036 !== 4046\n"
+        }
+      ],
+      "parserBehavior": {
+        "doneMarkerChanged": {
+          "terminalDone": true,
+          "doneCount": 1,
+          "eventTypesMatchCanonical": true
+        },
+        "tailTruncated": {
+          "terminalDone": true,
+          "doneCount": 1,
+          "eventTypesMatchCanonical": true
+        },
+        "jsonByteChanged": {
+          "terminalDone": true,
+          "doneCount": 1,
+          "eventTypesMatchCanonical": false
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "Recordings exercise OpenAI Chat Completions text, structured JSON text and strict tool-call SSE; they do not cover reasoning, refusal or logprobs streams.",
+    "The corpus was downloaded from public upstream test snapshots; no OpenAI endpoint was contacted by this verifier.",
+    "Parser behavior on altered DONE markers or truncated tails is recorded separately from fixture-integrity rejection; finishStream may legitimately emit Done at EOF after a finish_reason.",
+    "Passing this harness verifies the desktop TypeScript parser/adapter behavior, not Android runtime or Kotlin parity."
+  ]
+}

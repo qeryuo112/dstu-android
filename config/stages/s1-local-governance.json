@@ -1,0 +1,25 @@
+{
+  "formatVersion": 1,
+  "owner": "S1.08",
+  "policy": "Android-local execution metadata; not a change to the frozen desktop registry, shared SQL, or wire contract.",
+  "databases": [
+    {
+      "file": "active/databases/runtime.db",
+      "schemaVersion": 2,
+      "category": "LocalRuntime",
+      "tables": ["runtime_schema", "runtime_tasks", "runtime_events"],
+      "rowSync": false,
+      "portableExecution": false
+    },
+    {
+      "file": "active/databases/vfs.db",
+      "owner": "features/notes/data",
+      "schemaVersion": 1,
+      "category": "LocalRuntime",
+      "tables": ["__android_notes_task_schema", "__android_notes_task_facts", "__android_notes_task_ack", "__android_notes_task_cancel", "__android_notes_task_cancel_ack"],
+      "rowSync": false,
+      "managedSharedFingerprint": false,
+      "backupPolicy": "Preserve only as local database recovery metadata; never import as permission or execute a restored task automatically."
+    }
+  ]
+}

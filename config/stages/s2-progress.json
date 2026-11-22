@@ -1,0 +1,1343 @@
+{
+  "stage": "S2",
+  "reviewer": "main-thread",
+  "s2GateAccepted": false,
+  "frozenQueue": "config/execution-plan.json",
+  "units": [
+    {
+      "id": "S2.01",
+      "card": "S2.01/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-19T05:55:47+08:00",
+      "dependsOn": [
+        "S1.04",
+        "S1.G"
+      ],
+      "review": "docs/handoff-s2.md",
+      "evidence": [
+        "logs/s2-01-main-host.log",
+        "logs/s2-01-main-tablet.log",
+        "logs/s2-02-main-tablet.log",
+        "logs/s2-02-main-phone.log"
+      ]
+    },
+    {
+      "id": "S2.02",
+      "card": "S2.02/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-19T05:55:47+08:00",
+      "dependsOn": [
+        "S1.05",
+        "S2.01",
+        "S1.G"
+      ],
+      "review": "docs/handoff-s2.md",
+      "evidence": [
+        "logs/s2-02-main-host.log",
+        "logs/s2-02-main-tablet.log",
+        "logs/s2-02-main-phone.log"
+      ]
+    },
+    {
+      "id": "S2.03",
+      "card": "S2.03/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-19T20:33:18+08:00",
+      "dependsOn": [
+        "S2.02",
+        "S2.01",
+        "S1.G"
+      ],
+      "review": "docs/handoff-s2.md",
+      "evidence": [
+        "logs/s2-03-main-host.log",
+        "logs/s2-03-main-tablet.log",
+        "logs/s2-03-main-phone.log"
+      ]
+    },
+    {
+      "id": "S2.04",
+      "card": "S2.04/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-20T19:15:00+08:00",
+      "dependsOn": [
+        "S0.19",
+        "S0.20",
+        "S0.21",
+        "S0.22",
+        "S0.23",
+        "S0.24",
+        "S2.02",
+        "S2.01",
+        "S2.03",
+        "S1.G"
+      ],
+      "review": "docs/handoff-s2.md",
+      "evidence": [
+        "logs/s2-04-05-repair-main-host.log",
+        "logs/s2-04-05-repair-main-tablet.log",
+        "logs/s2-04-05-repair-main-phone.log"
+      ]
+    },
+    {
+      "id": "S2.05",
+      "card": "S2.05/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-20T19:15:00+08:00",
+      "dependsOn": [
+        "S2.04",
+        "S2.01",
+        "S2.02",
+        "S2.03",
+        "S1.G"
+      ],
+      "review": "docs/handoff-s2.md",
+      "evidence": [
+        "logs/s2-04-05-repair-main-host.log",
+        "logs/s2-04-05-repair-main-tablet.log",
+        "logs/s2-04-05-repair-main-phone.log"
+      ]
+    },
+    {
+      "id": "S2.06",
+      "card": "S2.06/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-21T00:36:30+08:00",
+      "dependsOn": [
+        "S1.06",
+        "S2.01",
+        "S2.02",
+        "S2.03",
+        "S2.04",
+        "S2.05",
+        "S1.G"
+      ],
+      "review": "docs/handoff-s2.md",
+      "evidence": [
+        "logs/s2-06-main-host.log",
+        "logs/s2-06-main-tablet.log",
+        "logs/s2-06-main-phone.log"
+      ]
+    },
+    {
+      "id": "S2.07",
+      "card": "S2.07/implementation",
+      "status": "accepted",
+      "phoneAcceptedAt": "2026-11-21T01:41:58+08:00",
+      "acceptanceScope": {
+        "models": [
+          "V2232A",
+          "iPA2475"
+        ],
+        "sameCandidate": true
+      },
+      "dependsOn": [
+        "S2.06",
+        "S2.01",
+        "S2.02",
+        "S2.03",
+        "S2.04",
+        "S2.05",
+        "S1.G"
+      ],
+      "review": "docs/handoff-s2.md",
+      "evidence": [
+        "logs/s2-07-phone-signoff-host.log",
+        "logs/s2-07-phone-signoff-device.log",
+        "logs/s2-07-freezer-main-phone.log",
+        "logs/s2-07-freezer-main-tablet.log",
+        "logs/s2-07-main-tablet.log"
+      ],
+      "acceptedAt": "2026-11-21T02:08:35+08:00"
+    },
+    {
+      "id": "S2.08",
+      "card": "S2.08/implementation",
+      "status": "accepted",
+      "phoneAcceptedAt": "2026-11-21T01:46:14+08:00",
+      "acceptanceScope": {
+        "models": [
+          "V2232A",
+          "iPA2475"
+        ],
+        "sameCandidate": true
+      },
+      "dependsOn": [
+        "S2.05",
+        "S2.06",
+        "S2.01",
+        "S2.02",
+        "S2.03",
+        "S2.04",
+        "S2.07",
+        "S1.G"
+      ],
+      "review": "docs/handoff-s2.md",
+      "evidence": [
+        "logs/s2-08-phone-signoff-host.log",
+        "logs/s2-08-phone-signoff-device.log",
+        "logs/s2-08-main-tablet.log"
+      ],
+      "acceptedAt": "2026-11-21T02:09:43+08:00"
+    },
+    {
+      "id": "S2.09",
+      "card": "S2.09/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-22T12:33:35+08:00",
+      "dependsOn": [
+        "S2.02",
+        "S2.06",
+        "S2.01",
+        "S2.03",
+        "S2.04",
+        "S2.05",
+        "S2.07",
+        "S2.08",
+        "S1.G"
+      ],
+      "review": "docs/handoff-s2.md",
+      "evidence": [
+        "logs/s2-09-main-host.log",
+        "logs/s2-09-main-tablet.log",
+        "logs/s2-09-main-phone.log"
+      ]
+    },
+    {
+      "id": "S2.10",
+      "card": "S2.10/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-22T12:45:40+08:00",
+      "dependsOn": [
+        "S2.09",
+        "S2.01",
+        "S2.02",
+        "S2.03",
+        "S2.04",
+        "S2.05",
+        "S2.06",
+        "S2.07",
+        "S2.08",
+        "S1.G"
+      ],
+      "review": "docs/handoff-s2.md",
+      "evidence": [
+        "logs/s2-10-main-host.log",
+        "logs/s2-10-main-tablet.log",
+        "logs/s2-10-main-phone.log"
+      ]
+    },
+    {
+      "id": "S2.11",
+      "card": "S2.11/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-22T13:13:20+08:00",
+      "dependsOn": [
+        "S2.10",
+        "S2.01",
+        "S2.02",
+        "S2.03",
+        "S2.04",
+        "S2.05",
+        "S2.06",
+        "S2.07",
+        "S2.08",
+        "S2.09",
+        "S1.G"
+      ],
+      "review": "docs/handoff-s2.md",
+      "evidence": [
+        "logs/s2-11-main-host.log",
+        "logs/s2-11-main-tablet.log",
+        "logs/s2-11-main-phone.log"
+      ]
+    },
+    {
+      "id": "S2.12",
+      "card": "S2.12/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-22T20:44:22+08:00",
+      "dependsOn": [
+        "S0.16",
+        "S2.11",
+        "S2.01",
+        "S2.02",
+        "S2.03",
+        "S2.04",
+        "S2.05",
+        "S2.06",
+        "S2.07",
+        "S2.08",
+        "S2.09",
+        "S2.10",
+        "S1.G"
+      ],
+      "review": "docs/handoff-s2.md",
+      "evidence": [
+        "logs/s2-12-main-host.log",
+        "logs/s2-12-main-tablet.log",
+        "logs/s2-12-main-phone.log"
+      ]
+    },
+    {
+      "id": "S2.13",
+      "card": "S2.13/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-22T23:39:20+08:00",
+      "dependsOn": [
+        "S1.23",
+        "S2.06",
+        "S2.01",
+        "S2.02",
+        "S2.03",
+        "S2.04",
+        "S2.05",
+        "S2.07",
+        "S2.08",
+        "S2.09",
+        "S2.10",
+        "S2.11",
+        "S2.12",
+        "S1.G"
+      ],
+      "review": "docs/handoff-s2.md",
+      "evidence": [
+        "logs/s2-13-main-host.log",
+        "logs/s2-13-main-phone.log",
+        "logs/s2-13-main-tablet.log"
+      ]
+    },
+    {
+      "id": "S2.14",
+      "card": "S2.14/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-23T00:26:09+08:00",
+      "dependsOn": [
+        "S2.11",
+        "S2.13",
+        "S2.01",
+        "S2.02",
+        "S2.03",
+        "S2.04",
+        "S2.05",
+        "S2.06",
+        "S2.07",
+        "S2.08",
+        "S2.09",
+        "S2.10",
+        "S2.12",
+        "S1.G"
+      ],
+      "review": "docs/handoff-s2.md",
+      "evidence": [
+        "logs/s2-14-audit-main-host.log",
+        "logs/s2-14-audit-main-tablet.log",
+        "logs/s2-14-audit-main-phone.log"
+      ]
+    },
+    {
+      "id": "S2.15",
+      "card": "S2.15/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-23T00:30:04+08:00",
+      "dependsOn": [
+        "S2.11",
+        "S2.14",
+        "S2.01",
+        "S2.02",
+        "S2.03",
+        "S2.04",
+        "S2.05",
+        "S2.06",
+        "S2.07",
+        "S2.08",
+        "S2.09",
+        "S2.10",
+        "S2.12",
+        "S2.13",
+        "S1.G"
+      ],
+      "review": "docs/handoff-s2.md",
+      "evidence": [
+        "logs/s2-15-audit-main-host.log",
+        "logs/s2-15-audit-main-tablet.log",
+        "logs/s2-15-audit-main-phone.log"
+      ]
+    }
+  ],
+  "previousCandidates": {
+    "S2.02": {
+      "applicationId": "com.deepstudent.app",
+      "versionName": "0.21.0",
+      "buildType": "debug",
+      "abi": "arm64-v8a",
+      "appSha256": "7b1a89f02b09ea1ac0e8e0ebb02aa580144c210ad2ff48caad1388ded333ab1a",
+      "appTestSha256": "deeaec3403e7f93818895bfb8c570ad88bb979d9a9c91c709590ce304427f961",
+      "databaseTestSha256": "e8e0d867a5641ce0d3c2b6632858ee0a018b7be47a2db2806b1ec74fd32af911",
+      "desktopOldVfsSha256": "9ec17e1c32e9a1c7faaea4c58f1c1f181775ee2431a1808a061bd9c77460b91b",
+      "devices": [
+        {
+          "model": "iPA2475",
+          "api": 36,
+          "databasePassed": 20,
+          "appPassed": 8,
+          "skipped": 0,
+          "evidence": "logs/s2-02-main-tablet.log"
+        },
+        {
+          "model": "V2232A",
+          "api": 36,
+          "databasePassed": 20,
+          "appPassed": 8,
+          "skipped": 0,
+          "evidence": "logs/s2-02-main-phone.log"
+        }
+      ]
+    },
+    "S2.03": {
+      "unit": "S2.03",
+      "implementationCommit": "2948000065205b05dfb072b0779c660c2750d559",
+      "firstDeviceReviewedAt": "2026-11-19T19:19:35+08:00",
+      "applicationId": "com.deepstudent.app",
+      "versionName": "0.21.0",
+      "buildType": "debug",
+      "abi": "arm64-v8a",
+      "appSha256": "2dd744b916d200359c8fbe6bc5fe2e480b3ddd1106be8826872a464042783418",
+      "appTestSha256": "7926ef61021039976deb9e6d03a78b8a631f73ef1a0eb2e7751246880036ced4",
+      "databaseTestSha256": "781c253b00450bab79248058d2344de1deeabb4a49fb9df0f86e9471e20a4ced",
+      "desktopOldVfsSha256": "aeaaef4cfdb220bfd34978ad487ee754ad35a30f4bd85497ef7fc3454982a0f6",
+      "host": {
+        "jvmPassed": 668,
+        "architectureModules": 73,
+        "frozenInputsVerified": 535,
+        "evidence": "logs/s2-03-main-host.log"
+      },
+      "devices": [
+        {
+          "model": "iPA2475",
+          "api": 36,
+          "databasePassed": 20,
+          "appPassed": 10,
+          "commitDeathsRecovered": 144,
+          "skipped": 0,
+          "evidence": "logs/s2-03-main-tablet.log"
+        },
+        {
+          "model": "V2232A",
+          "api": 36,
+          "databasePassed": 20,
+          "appPassed": 10,
+          "commitDeathsRecovered": 144,
+          "skipped": 0,
+          "evidence": "logs/s2-03-main-phone.log"
+        }
+      ]
+    },
+    "S2.04-S2.05-unrepaired": {
+      "units": [
+        "S2.04",
+        "S2.05"
+      ],
+      "status": "blocked-frozen-trigger",
+      "reviewedAt": "2026-11-20T14:38:55+08:00",
+      "unitState": {
+        "S2.04": "implemented-not-accepted",
+        "S2.05": "implemented-awaiting-S2.04-and-phone"
+      },
+      "implementationCommits": {
+        "S2.04": "0dca58ccbfb1be638509835d45f8125a49341bf1",
+        "S2.05": "25b11ff48501decd63941e8ba5c249d0d5346157"
+      },
+      "blockedBy": {
+        "diagnostic": "OPERATION_COMPILE_FAILED",
+        "database": "vfs",
+        "table": "portable_plugin_records",
+        "trigger": "trg__change_log_portable_plugin_records_delete",
+        "operation": "DELETE",
+        "source": "config/schema/coordinated/vfs/V20261117__plugin_skill_data_contract.sql",
+        "frozenOperationsCompiled": 182,
+        "frozenOperationsChecked": 183
+      },
+      "applicationId": "com.deepstudent.app",
+      "versionName": "0.21.0",
+      "buildType": "debug",
+      "abi": "arm64-v8a",
+      "appSha256": "1c290e795196f04f2b28ddb56a291f9779670b073c3bbb843da238ad70e9d994",
+      "appTestSha256": "bb6691aa19a95207d746ffa0a5b0218edbf7858cb17dfa48a18005eef335c914",
+      "syncDataTestSha256": "c401c43672a02927bc656d113d2e8c27fd2043d4ccf53e5451b91053a9c495e5",
+      "desktopChangeOracleSha256": "9d420deb5cd15f543a4c1bfd2a63b54a17041d048843f56cdccfadd68af493df",
+      "host": {
+        "jvmPassed": 694,
+        "architectureModules": 73,
+        "frozenInputsVerified": 535,
+        "evidence": "logs/s2-04-05-main-host.log"
+      },
+      "devices": [
+        {
+          "model": "iPA2475",
+          "api": 36,
+          "captureDiagnosticTestsPassed": 12,
+          "appPassed": 5,
+          "skipped": 0,
+          "desktopOracleChangesMatched": 11,
+          "plainNotesRoundtrip": true,
+          "encryptedNotesRoundtrip": true,
+          "evidence": "logs/s2-04-05-main-tablet.log"
+        }
+      ],
+      "pendingDevices": [
+        "V2232A"
+      ]
+    },
+    "S2.04-S2.05": {
+      "units": [
+        "S2.04",
+        "S2.05"
+      ],
+      "status": "accepted",
+      "acceptedAt": "2026-11-20T19:15:00+08:00",
+      "firstDeviceReviewedAt": "2026-11-20T18:10:14+08:00",
+      "implementationCommits": {
+        "S2.04": "0dca58ccbfb1be638509835d45f8125a49341bf1",
+        "S2.05": "25b11ff48501decd63941e8ba5c249d0d5346157",
+        "S2.04-repair": "aeb1940827b8274ad19d03dc213c4120072d4235"
+      },
+      "approvedRepair": {
+        "lock": "config/schema/s2-04-repair.json",
+        "lockSha256": "ec1ce53307dd93c45584c55b7fc38c6e52a3b28b3a7fa5f0514b56c78f0b283c",
+        "migration": "config/schema/coordinated/vfs/V20261120__fix_plugin_delete_trigger.sql",
+        "fromVersion": 20261117,
+        "toVersion": 20261120,
+        "originalFrozenInputsPreserved": true,
+        "desktopIncrement": "desktop-increment/s2-capture-repair.mjs",
+        "captureOperationsCompiled": 183,
+        "captureOperationsChecked": 183
+      },
+      "applicationId": "com.deepstudent.app",
+      "versionName": "0.21.0",
+      "buildType": "debug",
+      "abi": "arm64-v8a",
+      "candidateDirectory": "/home/xutao/.cache/dstu-android/candidates/s2-04-05-repair-aeb1940",
+      "candidateSha256": "d928020cabf39691935455fc7e0e7ec8c665f2f98118d2a24d61c84048fb8f5f",
+      "appSha256": "7066420ee14e88b09cd1bf17ebc432749ca288886228c86135a09a1edffe3c79",
+      "appTestSha256": "74ac026ff122e5138250ec0418d7852bfb8345eb04769134176ee26c397154c1",
+      "syncDataTestSha256": "c20cdbe50c401e6a9c14cd1b38ddd699a03334b0fde52bda5cbe9e70ad191b0b",
+      "databaseTestSha256": "7ba75590c3f4d4a0936857e3e274d63ec1b4c28d9698ee77cb3a88c746b5abbf",
+      "desktopChangeOracleSha256": "39ffa6cac796392544a051030980f6adc3981e5ddba2336babe583fddfa3400d",
+      "desktopOldVfsSha256": "cbbd156f3d835c3c30b77e01c4c2b399acde6f2babb022d770d8e681b03eba14",
+      "host": {
+        "jvmPassed": 703,
+        "architectureModules": 73,
+        "frozenInputsVerified": 535,
+        "evidence": "logs/s2-04-05-repair-main-host.log"
+      },
+      "devices": [
+        {
+          "model": "iPA2475",
+          "api": 36,
+          "repairDatabasePassed": 4,
+          "captureTestsPassed": 16,
+          "appPassed": 7,
+          "regressionDatabasePassed": 20,
+          "regressionAppPassed": 10,
+          "skipped": 0,
+          "desktopOracleChangesMatched": 18,
+          "commitDeathsRecovered": 146,
+          "commitDeathScopes": 5,
+          "zeroMigrationHeadReopens": 9,
+          "plainNotesRoundtrip": true,
+          "encryptedNotesRoundtrip": true,
+          "externalForceStopAttemptsNotCounted": 4,
+          "evidence": "logs/s2-04-05-repair-main-tablet.log"
+        },
+        {
+          "model": "V2232A",
+          "api": 36,
+          "repairDatabasePassed": 4,
+          "captureTestsPassed": 16,
+          "appPassed": 7,
+          "regressionDatabasePassed": 20,
+          "regressionAppPassed": 10,
+          "skipped": 0,
+          "desktopOracleChangesMatched": 18,
+          "commitDeathsRecovered": 146,
+          "commitDeathScopes": 5,
+          "zeroMigrationHeadReopens": 9,
+          "plainNotesRoundtrip": true,
+          "encryptedNotesRoundtrip": true,
+          "externalForceStopAttemptsNotCounted": 0,
+          "preflightAttemptsNotCounted": 1,
+          "evidence": "logs/s2-04-05-repair-main-phone.log"
+        }
+      ]
+    },
+    "S2.07-host-timeout": {
+      "unit": "S2.07",
+      "status": "awaiting-grant-and-tablet",
+      "reviewedAt": "2026-11-21T01:13:59+08:00",
+      "implementationCommit": "fd74d068bbc2aebefb72f189425271f784f7e392",
+      "applicationId": "com.deepstudent.app",
+      "versionName": "0.21.0",
+      "buildType": "debug",
+      "abi": "arm64-v8a",
+      "candidateDirectory": "/home/xutao/.cache/dstu-android/candidates/s2-07-fd74d06",
+      "candidateSha256": "14adcef893ce8f119e58d5f12bf4b2cdc6e1a247412e6f4f1619c876632c9504",
+      "appSha256": "3e7a51919f746bfdf2748984334f3767ba3eba3d45cf97cac73f92722c07f591",
+      "appTestSha256": "ad7fd5a10243271225af34f8a9dbd8fb7cb521bfba55ac1d7af76d567370129a",
+      "resourcesTestSha256": "e578d465bd52af74a44f05baecd9168271e0276a4ca4ec8ff245e1e76a587f3a",
+      "caseSelection": "tools/s2/s2-07-cases.tsv",
+      "caseSelectionSha256": "dcd293f71c365d4e497518e2a41b2823a118842279ce211ee00e2450803a4311",
+      "expectedDeviceCases": 36,
+      "host": {
+        "jvmPassed": 764,
+        "toolTestsPassed": 7,
+        "architectureModules": 73,
+        "frozenInputsVerified": 535,
+        "evidence": "logs/s2-07-main-host.log"
+      },
+      "devices": [
+        {
+          "model": "V2232A",
+          "api": 36,
+          "fixtureCorePassed": 17,
+          "appCompositionPassed": 9,
+          "grantCasesPassed": 0,
+          "systemPickerCasesPassed": 0,
+          "crossUidHostTimeoutsInPinnedRun": 1,
+          "notRunAfterTimeout": 9,
+          "lastHostMarker": "host.start/dispatched",
+          "evidence": "logs/s2-07-main-phone.log"
+        }
+      ],
+      "pendingDevices": [
+        "V2232A",
+        "iPA2475"
+      ],
+      "pendingChecks": [
+        "V2232A cross-UID URI grants and actual DocumentsUI results",
+        "iPA2475 full same-candidate verification"
+      ]
+    },
+    "S2.06": {
+      "unit": "S2.06",
+      "status": "accepted",
+      "implementationCommit": "f75944e4bbf1b67830ea85131d687f6a455cc9f0",
+      "applicationId": "com.deepstudent.app",
+      "versionName": "0.21.0",
+      "buildType": "debug",
+      "abi": "arm64-v8a",
+      "candidateDirectory": "/home/xutao/.cache/dstu-android/candidates/s2-06-f75944e",
+      "candidateSha256": "f61f600cb528d30d96cd747999d873a2c64cb4139823d25e5234f221794b96cf",
+      "appSha256": "2dbf9c9e5d5584b6d73d9d3d67188f70644fcac1873bdf6b94211f7ff175b0b3",
+      "appTestSha256": "c8f2a3a8ca2cf3d06c9da564271fde41e1f11c8b07ae0b53cd7b9278391a8c92",
+      "resourcesTestSha256": "71c251ccda4e231c69fad90ac8ab6e8786648606a0fdc22f1c908989488e09e2",
+      "caseSelection": "tools/s2/s2-06-cases.tsv",
+      "caseSelectionSha256": "9765b3d1f460b133c4f120cf04766bac739777a1052881dcbc1dd52e2ee0fec4",
+      "host": {
+        "jvmPassed": 729,
+        "toolTestsPassed": 18,
+        "architectureModules": 73,
+        "frozenInputsVerified": 535,
+        "frozenSnapshotUnitsVerified": 25,
+        "evidence": "logs/s2-06-main-host.log"
+      },
+      "devices": [
+        {
+          "model": "iPA2475",
+          "api": 36,
+          "resourceSpecializedPassed": 13,
+          "resourcesRegressionPassed": 1,
+          "appPassed": 4,
+          "skipped": 0,
+          "plainNotesRoundtrip": true,
+          "encryptedNotesRoundtrip": true,
+          "publicationAndCorruptionLogsAudited": true,
+          "evidence": "logs/s2-06-main-tablet.log"
+        },
+        {
+          "model": "V2232A",
+          "api": 36,
+          "resourceSpecializedPassed": 13,
+          "resourcesRegressionPassed": 1,
+          "appPassed": 4,
+          "skipped": 0,
+          "plainNotesRoundtrip": true,
+          "encryptedNotesRoundtrip": true,
+          "publicationAndCorruptionLogsAudited": true,
+          "logAuditReplayCasesNotCounted": 2,
+          "evidence": "logs/s2-06-main-phone.log"
+        }
+      ],
+      "acceptedAt": "2026-11-21T00:36:30+08:00",
+      "firstDeviceReviewedAt": "2026-11-21T00:09:29+08:00"
+    },
+    "S2.07": {
+      "unit": "S2.07",
+      "status": "accepted",
+      "implementationCommit": "22b3caf7ed3fc06686feaa035ff813aae247f078",
+      "applicationId": "com.deepstudent.app",
+      "versionName": "0.21.0",
+      "buildType": "debug",
+      "abi": "arm64-v8a",
+      "candidateDirectory": "/home/xutao/.cache/dstu-android/candidates/s2-07-22b3caf",
+      "candidateSha256": "8acb779b4b54a939b661e6bae258bbd5d96e52ad34a762ebbd8930a3d71d84d7",
+      "appSha256": "d366164ac3a645c3fee51bc954995d3e66b611c6f137aea73c8d002e8f203dfc",
+      "appTestSha256": "b15abd6deb0aef14b1d9c275729c4a525ad644f6c1ccb1c99420f19e8eeb90d5",
+      "resourcesTestSha256": "b6b5b01e8982e6ab098be3290d90030f91d6df01b377996ef503be3e0db12756",
+      "caseSelection": "tools/s2/s2-07-cases.tsv",
+      "caseSelectionSha256": "dcd293f71c365d4e497518e2a41b2823a118842279ce211ee00e2450803a4311",
+      "expectedDeviceCases": 36,
+      "host": {
+        "jvmPassed": 764,
+        "frozenInputsVerified": 535,
+        "architectureModules": 73,
+        "evidence": "logs/s2-07-phone-signoff-host.log"
+      },
+      "devices": [
+        {
+          "model": "V2232A",
+          "api": 36,
+          "status": "accepted",
+          "passed": 36,
+          "skipped": 0,
+          "evidence": "logs/s2-07-phone-signoff-device.log",
+          "fixtureCorePassed": 17,
+          "appCompositionPassed": 9,
+          "grantCasesPassed": 8,
+          "systemPickerCasesPassed": 2,
+          "systemPickerInput": "host-assisted in system DocumentsUI"
+        },
+        {
+          "model": "iPA2475",
+          "api": 36,
+          "status": "accepted",
+          "passed": 36,
+          "skipped": 0,
+          "evidence": "logs/s2-07-main-tablet.log",
+          "fixtureCorePassed": 17,
+          "appCompositionPassed": 9,
+          "grantCasesPassed": 8,
+          "systemPickerCasesPassed": 2,
+          "systemPickerInput": "host-assisted in system DocumentsUI",
+          "logAuditPassed": true,
+          "realHttpFixtureVerified": true,
+          "freezeDiagnosisEvidence": "logs/s2-07-freezer-main-tablet.log"
+        }
+      ],
+      "firstDeviceReviewedAt": "2026-11-21T01:41:58+08:00",
+      "acceptedAt": "2026-11-21T02:08:35+08:00"
+    },
+    "S2.08": {
+      "unit": "S2.08",
+      "status": "accepted",
+      "implementationCommit": "908a4cb138a50a7f4a111e21080a013ad70fa117",
+      "applicationId": "com.deepstudent.app",
+      "versionName": "0.21.0",
+      "buildType": "debug",
+      "abi": "arm64-v8a",
+      "candidateDirectory": "/home/xutao/.cache/dstu-android/candidates/s2-08-908a4cb",
+      "candidateSha256": "445dea756d19964c5bf2ec6bb48908bd45f270822a0f4cfbcaf6a0e4989cd63e",
+      "appSha256": "5f0fc7b67477a38069c1451a270718664e1a21c2f7379be318b8f20e2d8cbea5",
+      "appTestSha256": "be00935f0639ee56388436b5d9c1ad67d7ec74fb87dd6830da676dbff5df6fee",
+      "resourcesTestSha256": "283711218df93917d693d8df6674f4e3a5fef61d93a19e27aaa008140e6c54ea",
+      "caseSelection": "tools/s2/s2-08-cases.tsv",
+      "caseSelectionSha256": "92f4eab675c6aac6ddd53cd364a0be48214965dbc569cf55c472c86450de3f83",
+      "expectedDeviceCases": 9,
+      "host": {
+        "jvmPassed": 788,
+        "frozenInputsVerified": 535,
+        "architectureModules": 73,
+        "evidence": "logs/s2-08-phone-signoff-host.log"
+      },
+      "devices": [
+        {
+          "model": "V2232A",
+          "api": 36,
+          "status": "accepted",
+          "passed": 9,
+          "skipped": 0,
+          "evidence": "logs/s2-08-phone-signoff-device.log",
+          "ledgerCasesPassed": 7,
+          "s207RegressionPassed": 2
+        },
+        {
+          "model": "iPA2475",
+          "api": 36,
+          "status": "accepted",
+          "passed": 9,
+          "skipped": 0,
+          "evidence": "logs/s2-08-main-tablet.log",
+          "ledgerCasesPassed": 7,
+          "s207RegressionPassed": 2,
+          "logAuditPassed": true
+        }
+      ],
+      "firstDeviceReviewedAt": "2026-11-21T01:46:14+08:00",
+      "acceptedAt": "2026-11-21T02:09:43+08:00"
+    },
+    "S2.09": {
+      "unit": "S2.09",
+      "status": "accepted",
+      "implementationCommit": "81961e9aeea100ea3d44932d64fb3250b6d400b4",
+      "applicationId": "com.deepstudent.app",
+      "versionName": "0.21.0",
+      "buildType": "debug",
+      "abi": "arm64-v8a",
+      "candidateDirectory": "/home/xutao/.cache/dstu-android/candidates/s2-09-81961e9",
+      "candidateSha256": "28a8ea15dd708549bca2287fe5a51b04fa28ff53666db9c813b93631b1ef888a",
+      "appSha256": "dd9a36be9aa9406e5cf0e031c825e742626b867d87ad178f2aa38a90f28bb739",
+      "appTestSha256": "6a6bb270cd54975a2e453bf2f420777459c2e70121bde8124bba841e512d75a7",
+      "storageTestSha256": "0972130d5ccb2e85111e6ac7396df13abfaaf05cc0e32524e289ef1017490782",
+      "caseSelection": "tools/s2/s2-09-cases.tsv",
+      "caseSelectionSha256": "2eabc0e5950840bff8e4235d07535903dd41407cdcb8226bf6576a6fe78bd5ab",
+      "expectedInstrumentCases": 22,
+      "expectedHardDeathReopens": 7,
+      "host": {
+        "jvmPassed": 802,
+        "platformStorageJvmPassed": 14,
+        "frozenInputsVerified": 535,
+        "architectureModules": 74,
+        "evidence": "logs/s2-09-main-host.log"
+      },
+      "devices": [
+        {
+          "model": "iPA2475",
+          "api": 36,
+          "status": "accepted",
+          "instrumentCasesPassed": 22,
+          "hardDeathReopensPassed": 7,
+          "skipped": 0,
+          "logAuditPassed": true,
+          "evidence": "logs/s2-09-main-tablet.log"
+        },
+        {
+          "model": "V2232A",
+          "api": 36,
+          "status": "accepted",
+          "instrumentCasesPassed": 22,
+          "hardDeathReopensPassed": 7,
+          "skipped": 0,
+          "logAuditPassed": true,
+          "evidence": "logs/s2-09-main-phone.log"
+        }
+      ],
+      "firstDeviceReviewedAt": "2026-11-22T12:25:39+08:00",
+      "acceptedAt": "2026-11-22T12:33:35+08:00"
+    },
+    "S2.10": {
+      "unit": "S2.10",
+      "status": "accepted",
+      "implementationCommit": "55c0bdf9ef42e0f586853f15341a93b998b07479",
+      "applicationId": "com.deepstudent.app",
+      "versionName": "0.21.0",
+      "buildType": "debug",
+      "abi": "arm64-v8a",
+      "candidateDirectory": "/home/xutao/.cache/dstu-android/candidates/s2-10-55c0bdf",
+      "candidateSha256": "7bc781ed27c5072cd7b755f8ec06305c60dd1d94aa0fca5171d5ced1037a5b41",
+      "appSha256": "da3f4dfc1ce7b97093d4992443037a0463f93dc86588adb56f3f276af88f6df1",
+      "appTestSha256": "d41c20cfd44fbe6d337ec86f52b3ae4e991ebed1cb4906a8ebd0c99f21207a11",
+      "caseSelection": "tools/s2/s2-10-cases.tsv",
+      "caseSelectionSha256": "9ac061f461cb483bfd54c5d1f969c507d4376c135d0a1e54ebf8779631b94b77",
+      "expectedDeviceCases": 6,
+      "host": {
+        "jvmPassed": 826,
+        "backupPlannerJvmPassed": 15,
+        "zipJvmPassed": 9,
+        "architectureModules": 77,
+        "frozenInputsVerified": 535,
+        "evidence": "logs/s2-10-main-host.log"
+      },
+      "devices": [
+        {
+          "model": "V2232A",
+          "api": 36,
+          "status": "accepted",
+          "passed": 6,
+          "skipped": 0,
+          "logAuditPassed": true,
+          "evidence": "logs/s2-10-main-phone.log"
+        },
+        {
+          "model": "iPA2475",
+          "api": 36,
+          "status": "accepted",
+          "passed": 6,
+          "skipped": 0,
+          "logAuditPassed": true,
+          "evidence": "logs/s2-10-main-tablet.log"
+        }
+      ],
+      "firstDeviceReviewedAt": "2026-11-22T12:42:36+08:00",
+      "acceptedAt": "2026-11-22T12:45:40+08:00"
+    },
+    "S2.11": {
+      "unit": "S2.11",
+      "status": "accepted",
+      "implementationCommit": "0da36cf03c38f0360683189af7d65975d6c01506",
+      "applicationId": "com.deepstudent.app",
+      "versionName": "0.21.0",
+      "buildType": "debug",
+      "abi": "arm64-v8a",
+      "candidateDirectory": "/home/xutao/.cache/dstu-android/candidates/s2-11-0da36cf",
+      "candidateSha256": "ddd300d8813ef53e1e044a287eaa1714bd68e0378d6f129f279a41f9d8819d04",
+      "appSha256": "ef433a1ac5950bf5880591380c88af2e5b0f60f30fa224e133835601cd140ca1",
+      "appTestSha256": "b09b19a798c560c2436c8775813bf6cc72d97756ddc24f7817e7960e7794037d",
+      "backupDataTestSha256": "5eb0f2c6a9f3ed83ad8c5a35cf1165c3c2360971a8fd4c7e947625252c71b165",
+      "caseSelection": "tools/s2/s2-11-cases.tsv",
+      "caseSelectionSha256": "53a224a653902c1c102cc784c81eb0cf8d67f6a63b7d3a13c77a7d9ea039352c",
+      "expectedInstrumentCases": 9,
+      "expectedHardDeathReopens": 3,
+      "host": {
+        "jvmPassed": 836,
+        "restoreServiceJvmPassed": 10,
+        "architectureModules": 78,
+        "frozenInputsVerified": 535,
+        "evidence": "logs/s2-11-main-host.log"
+      },
+      "devices": [
+        {
+          "model": "iPA2475",
+          "api": 36,
+          "status": "accepted",
+          "instrumentCasesPassed": 9,
+          "hardDeathReopensPassed": 3,
+          "skipped": 0,
+          "logAuditPassed": true,
+          "evidence": "logs/s2-11-main-tablet.log"
+        },
+        {
+          "model": "V2232A",
+          "api": 36,
+          "status": "accepted",
+          "instrumentCasesPassed": 9,
+          "hardDeathReopensPassed": 3,
+          "skipped": 0,
+          "logAuditPassed": true,
+          "evidence": "logs/s2-11-main-phone.log"
+        }
+      ],
+      "firstDeviceReviewedAt": "2026-11-22T13:01:58+08:00",
+      "acceptedAt": "2026-11-22T13:13:20+08:00"
+    },
+    "S2.12": {
+      "unit": "S2.12",
+      "status": "accepted",
+      "implementationCommit": "803df52ed5dd54b9d6c9611d1c6a0f3822eae5f3",
+      "applicationId": "com.deepstudent.app",
+      "versionName": "0.21.0",
+      "buildType": "debug",
+      "abi": "arm64-v8a",
+      "candidateDirectory": "/home/xutao/.cache/dstu-android/candidates/s2-12-803df52",
+      "candidateSha256": "f1488288a9f391a1266ff937a2bab791ae0eab03f9d640d3185b327b4568a707",
+      "appSha256": "43aac89d76a2ff873a4991f67672a1ecc8b39bcd8beb7923254aa892e45b5259",
+      "appTestSha256": "a50ea8dfb05e0d253b1e37dcf76bf75501c6ee9afa370d5887a917af9f70f5b8",
+      "backupDataTestSha256": "05109909dd3d796eb88eaf4b750b03c20574b76307127acdcf8f17a4dbf05650",
+      "caseSelection": "tools/s2/s2-12-cases.tsv",
+      "caseSelectionSha256": "910050634752da1158f83af42a019204f79a9365809b05c54715f7f4bb13ddc2",
+      "expectedInstrumentCases": 19,
+      "expectedLegacyImportCases": 8,
+      "expectedHardDeathReopens": 3,
+      "host": {
+        "jvmPassed": 853,
+        "legacyMobilePreflightJvmPassed": 15,
+        "backupPlannerJvmPassed": 30,
+        "restoreServiceJvmPassed": 12,
+        "legacyFrozenPackagesVerified": 2,
+        "architectureModules": 78,
+        "frozenInputsVerified": 535,
+        "planningTestsPassed": 26,
+        "evidence": "logs/s2-12-main-host.log"
+      },
+      "devices": [
+        {
+          "model": "iPA2475",
+          "api": 36,
+          "status": "accepted",
+          "instrumentCasesPassed": 19,
+          "legacyImportCasesPassed": 8,
+          "hardDeathReopensPassed": 3,
+          "frozenLegacyPackagesReadBack": 2,
+          "skipped": 0,
+          "logAuditPassed": true,
+          "evidence": "logs/s2-12-main-tablet.log"
+        },
+        {
+          "model": "V2232A",
+          "api": 36,
+          "status": "accepted",
+          "instrumentCasesPassed": 19,
+          "legacyImportCasesPassed": 8,
+          "hardDeathReopensPassed": 3,
+          "frozenLegacyPackagesReadBack": 2,
+          "skipped": 0,
+          "logAuditPassed": true,
+          "evidence": "logs/s2-12-main-phone.log"
+        }
+      ],
+      "firstDeviceReviewedAt": "2026-11-22T20:35:18+08:00",
+      "acceptedAt": "2026-11-22T20:44:22+08:00"
+    },
+    "S2.13": {
+      "unit": "S2.13",
+      "status": "accepted",
+      "implementationCommit": "d09f34fd69638beed13c4c8d918e89521b90351e",
+      "instrumentationCommit": "a42a4d33366f9851d482fefdcb2f3fd6ad5c8d95",
+      "verifierCommit": "fd363199e9e908cadf1447aa710ca46012c56e62",
+      "applicationId": "com.deepstudent.app",
+      "versionName": "0.21.0",
+      "buildType": "debug",
+      "abi": "arm64-v8a",
+      "candidateDirectory": "/home/xutao/.cache/dstu-android/candidates/s2-13-a42a4d3",
+      "candidateSha256": "c069eecc09354e902ae94e33ce3e80777d026c0423d29679172aac1ec53ffcf8",
+      "appSha256": "c70c4a47db752c817aa16741ada46d3d95ac02d39b9ebc08546095bac42589ad",
+      "appTestSha256": "71a287fd6c95bf30caf932b188ac5c8788edf8462efffb1536578387d1e12402",
+      "securityTestSha256": "3a08c506bf96ad6ae223620e0a5d8d19ba6f70fc06fcb6d1b85cf9260f0132c6",
+      "syncUiTestSha256": "fd0b26c365c696fb2e8bde68423f49217991aabe3492caaf257e364bc646a495",
+      "caseSelection": "tools/s2/s2-13-cases.tsv",
+      "caseSelectionSha256": "1dfe9d8065e17399bc6ea1dbedfc1ec9bcee525fa2c4fe912ad6bda18c6b7b5c",
+      "expectedInstrumentCases": 23,
+      "host": {
+        "jvmPassed": 868,
+        "platformSecurityJvmPassed": 67,
+        "architectureModules": 78,
+        "frozenInputsVerified": 535,
+        "planningTestsPassed": 26,
+        "desktopVectorDirectionsVerified": 2,
+        "evidence": "logs/s2-13-main-host.log"
+      },
+      "devices": [
+        {
+          "model": "V2232A",
+          "api": 36,
+          "status": "accepted",
+          "instrumentCasesPassed": 23,
+          "skipped": 0,
+          "logAuditPassed": true,
+          "evidence": "logs/s2-13-main-phone.log"
+        },
+        {
+          "model": "iPA2475",
+          "api": 36,
+          "status": "accepted",
+          "instrumentCasesPassed": 23,
+          "skipped": 0,
+          "logAuditPassed": true,
+          "priorAppRetainedInPlace": true,
+          "evidence": "logs/s2-13-main-tablet.log"
+        }
+      ],
+      "firstDeviceReviewedAt": "2026-11-22T21:41:07+08:00",
+      "acceptedAt": "2026-11-22T23:39:20+08:00"
+    },
+    "S2.14-original-withdrawn": {
+      "unit": "S2.14",
+      "status": "dual-device-tests-passed-remediation-required",
+      "implementationCommit": "b5c8f39a36c519f38c5d5cc1f771e421084300ea",
+      "branch": "staging/s2-14-20261122",
+      "candidateCommit": "b5c8f39a36c519f38c5d5cc1f771e421084300ea",
+      "candidateDirectory": "/home/xutao/.cache/dstu-android/candidates/s2-14-b5c8f39",
+      "candidateSha256": "8e2d8741e1345c133346a2a1f0612f8b83e50f47650c0746d0f181860ab4d27a",
+      "applicationId": "com.deepstudent.app",
+      "versionName": "0.21.0",
+      "buildType": "debug",
+      "abi": "arm64-v8a",
+      "caseSelection": "tools/s2/s2-14-cases.tsv",
+      "caseSelectionSha256": "771ac316395f9ffeb3f28198f9c88f1fdb99a65c90a6e5676366dd559cc80554",
+      "sha256ByFile": {
+        "app-debug.apk": "6b90f2cea23f1e9ae65c979ce1a6ea5356664da28f07d6e180eaee1bde6b8478",
+        "app-debug-androidTest.apk": "dac4b9d0c727d0f23507076b9e16ceff2d7c000fb179eb643ae574fecafeb5b1",
+        "cases.tsv": "771ac316395f9ffeb3f28198f9c88f1fdb99a65c90a6e5676366dd559cc80554",
+        "controlled-full.zip": "90dab0074dd34947f159c03bf983a5e2d9464c558cd540d86be913e297a70dac",
+        "desktop-portable-v2.zip": "4056ce0b653851996568d793969c05451424ba687457f086e698eb7dce90ce3c",
+        "desktop-portable-v1-converted.zip": "5880e402a34ade8f0d03655e8fb63cd32859576edf2aeb4172f77a2790e181da",
+        "oracle.json": "884ac9a98e5ecffd3fef0754addb1359e903e43ddf12c930f46df3009bc88dbe"
+      },
+      "expectedInstrumentCases": 18,
+      "host": {
+        "jvmPassed": 891,
+        "architectureModules": 78,
+        "evidence": "logs/s2-14-main-host.log",
+        "frozenInputsVerified": 535,
+        "desktopInteropTestsPassed": 13
+      },
+      "devices": [
+        {
+          "model": "V2232A",
+          "api": 36,
+          "status": "accepted",
+          "instrumentCasesPassed": 18,
+          "skipped": 0,
+          "logAuditPassed": true,
+          "evidence": "logs/s2-14-main-phone.log",
+          "desktopZipImportVerified": true,
+          "desktopCanonicalSha256": "472ef87a16776e7901ed2cbb327e871088bc4434009831f934879795100e506f",
+          "androidExportSha256": "3a039d5e2100fb618f293a2370aec311ba37f4e64463cf882653c1436ea5126d",
+          "desktopSlotRestoreVerified": false
+        },
+        {
+          "model": "iPA2475",
+          "api": 36,
+          "status": "accepted",
+          "instrumentCasesPassed": 18,
+          "skipped": 0,
+          "logAuditPassed": true,
+          "priorAppRetainedInPlace": true,
+          "evidence": "logs/s2-14-main-tablet.log",
+          "desktopZipImportVerified": true,
+          "desktopCanonicalSha256": "472ef87a16776e7901ed2cbb327e871088bc4434009831f934879795100e506f",
+          "androidExportSha256": "115c13075ef66f65c30683ab23c419fe3ceb8f3c7fd43194b91cab7df8cfa8cc",
+          "desktopSlotRestoreVerified": false
+        }
+      ],
+      "firstDeviceReviewedAt": "2026-11-22T22:37:48+08:00",
+      "initialAcceptedAt": "2026-11-22T23:44:57+08:00",
+      "acceptanceWithdrawnAt": "2026-11-22T23:47:12+08:00",
+      "remediationRequired": [
+        "convert-large-desktop-portable-v1-zip",
+        "correlate-authentication-with-queue-and-activation",
+        "dedicated-encrypted-backup-ui-evidence"
+      ],
+      "supersededByCandidateCommit": "89c5a2cfa7556ec8d05b9193dd96fdb80213fb90"
+    },
+    "S2.14": {
+      "unit": "S2.14",
+      "status": "accepted",
+      "candidateCommit": "89c5a2cfa7556ec8d05b9193dd96fdb80213fb90",
+      "candidateDirectory": "/home/xutao/.cache/dstu-android/candidates/s2-14-audit-89c5a2c",
+      "candidateSha256": "4bb6f55b5b37177b72907bb5c648da29602181c91b3cb1768103e12bb7cc7078",
+      "sha256ByFile": {
+        "app-debug.apk": "ad220759dd0b4728f84640a750cb08f7a511ecfd80fa01ecaf45d2e0f6109a44",
+        "app-debug-androidTest.apk": "683ef1d4fe46369703ca01f659aa236796b1dd81d774d24b8138b78afee09e99",
+        "cases.tsv": "a2a0413f0d47ff938b4bfcac83fb313ab32d7bb3bbbbeaf73d2aa41599d1ac1b",
+        "controlled-full.zip": "90dab0074dd34947f159c03bf983a5e2d9464c558cd540d86be913e297a70dac",
+        "desktop-portable-v2.zip": "4056ce0b653851996568d793969c05451424ba687457f086e698eb7dce90ce3c",
+        "desktop-portable-v1-converted.zip": "5880e402a34ade8f0d03655e8fb63cd32859576edf2aeb4172f77a2790e181da",
+        "desktop-portable-v1-to-v2.zip": "a5a6b3f97fc8efff945b01afdcbc55d70a101bc33f1ab8a4d6cc656c752d85d4",
+        "oracle.json": "884ac9a98e5ecffd3fef0754addb1359e903e43ddf12c930f46df3009bc88dbe"
+      },
+      "expectedInstrumentCases": 28,
+      "host": {
+        "jvmPassed": 899,
+        "architectureModules": 78,
+        "evidence": "logs/s2-14-audit-main-host.log"
+      },
+      "devices": [
+        {
+          "model": "iPA2475",
+          "api": 36,
+          "status": "accepted",
+          "instrumentCasesPassed": 28,
+          "skipped": 0,
+          "logAuditPassed": true,
+          "evidence": "logs/s2-14-audit-main-tablet.log",
+          "correlatedActivations": 4,
+          "desktopZipImportVerified": true,
+          "desktopSlotRestoreVerified": false,
+          "desktopCanonicalSha256": "472ef87a16776e7901ed2cbb327e871088bc4434009831f934879795100e506f",
+          "androidExportSha256": "c59a367f8f0e4333ae803c88ce8020d5b3939183856f1803421a254cc182f648"
+        },
+        {
+          "model": "V2232A",
+          "api": 36,
+          "status": "accepted",
+          "instrumentCasesPassed": 28,
+          "skipped": 0,
+          "logAuditPassed": true,
+          "evidence": "logs/s2-14-audit-main-phone.log",
+          "correlatedActivations": 4,
+          "desktopZipImportVerified": true,
+          "desktopSlotRestoreVerified": false,
+          "desktopCanonicalSha256": "472ef87a16776e7901ed2cbb327e871088bc4434009831f934879795100e506f",
+          "androidExportSha256": "ab9da04be0462da00cdb4892377a8c58abf848f1301669bb12d3031538fbf2d0",
+          "priorAppRetainedInPlace": false
+        }
+      ],
+      "reviewedAt": "2026-11-23T00:13:30+08:00",
+      "desktopSlotRestoreVerified": false,
+      "acceptedAt": "2026-11-23T00:26:09+08:00",
+      "firstDeviceReviewedAt": "2026-11-23T00:13:30+08:00",
+      "implementationCommit": "89c5a2cfa7556ec8d05b9193dd96fdb80213fb90",
+      "applicationId": "com.deepstudent.app",
+      "versionName": "0.21.0",
+      "buildType": "debug",
+      "abi": "arm64-v8a",
+      "caseSelection": "tools/s2/s2-14-cases.tsv",
+      "caseSelectionSha256": "a2a0413f0d47ff938b4bfcac83fb313ab32d7bb3bbbbeaf73d2aa41599d1ac1b",
+      "appSha256": "ad220759dd0b4728f84640a750cb08f7a511ecfd80fa01ecaf45d2e0f6109a44",
+      "appTestSha256": "683ef1d4fe46369703ca01f659aa236796b1dd81d774d24b8138b78afee09e99"
+    },
+    "S2.15-isolated-before-remediation": {
+      "status": "dual-device-tests-passed-awaiting-prerequisite-and-recomposition",
+      "branch": "staging/s2-15-20261122",
+      "candidateCommit": "bcaf26b98a631625ce68abb94e1e972e9b0e46a2",
+      "candidateDirectory": "/home/xutao/.cache/dstu-android/candidates/s2-15-bcaf26b",
+      "candidateSha256": "6884bd0d55a624c9379e711a38ba1930aa0195d95865c22c7bcd04d1c7a45f72",
+      "sha256ByFile": {
+        "app-debug.apk": "44cfeaed69270f9551ffa86325348b4f16d919148826bb888f8bfff69c7ac427",
+        "app-debug-androidTest.apk": "4363b6891c7e2ac9e4be45ad350db6b8cea79e7104726034dca1dde523fef095",
+        "backup-data-debug-androidTest.apk": "3547e888c9301bc754a97cda469de8254fb3e4cf434a74ad129ea37f3fd7a988",
+        "cases.tsv": "4133a309a2eb59fe3fdefd95b7bf5ecb5134bdf5e0061d85cb6d2272a9dd70e3",
+        "fixture-tls.p12": "a65d4b0e6785a1a67e5fd3502b1247bd257a8e27fb3092f0e7b58bf9be516614"
+      },
+      "hostJvmPassed": 1000,
+      "managementToolTestsPassed": 4,
+      "planningTestsPassed": 26,
+      "frozenInputsVerified": 535,
+      "phoneCasesPassed": 38,
+      "phoneSkipped": 0,
+      "phoneModel": "V2232A",
+      "reviewedAt": "2026-11-22T23:32:42+08:00",
+      "hostEvidence": "logs/s2-15-managed-main-host.log",
+      "phoneEvidence": "logs/s2-15-managed-main-phone.log",
+      "verifiedScope": [
+        "ordinary-restore-and-writer-rotation",
+        "sqlite-identity-contract",
+        "signed-authority-verified",
+        "controlled-tls-webdav-claim-and-old-account-rejection",
+        "cold-slot-restore-and-same-writer-next-publication",
+        "duplicate-expiry-and-sequence-drift-rejection",
+        "post-commit-publication-fault-reentry"
+      ],
+      "managedContinuityPathImplemented": true,
+      "managedWebDavFixtureVerified": true,
+      "productionContinuityVerified": false,
+      "previousLimitedCandidate": {
+        "candidateCommit": "8dcc1f466cc18c66574afb0c270a54a3f0ba41f6",
+        "candidateDirectory": "/home/xutao/.cache/dstu-android/candidates/s2-15-8dcc1f4",
+        "candidateSha256": "33e5574a7a9a64fa6e2f8abf2469de6b5214c0f9635c84a0984dc31ef832e860",
+        "hostEvidence": "logs/s2-15-main-host.log",
+        "phoneEvidence": "logs/s2-15-main-phone.log"
+      },
+      "tabletModel": "iPA2475",
+      "tabletCasesPassed": 38,
+      "tabletSkipped": 0,
+      "tabletReviewedAt": "2026-11-22T23:49:51+08:00",
+      "tabletEvidence": "logs/s2-15-managed-main-tablet.log",
+      "supersededByCandidateCommit": "26420d91a726aa6bc822aee9353d6d3362c3ae05"
+    }
+  },
+  "candidate": {
+    "unit": "S2.15",
+    "status": "accepted",
+    "candidateCommit": "26420d91a726aa6bc822aee9353d6d3362c3ae05",
+    "candidateDirectory": "/home/xutao/.cache/dstu-android/candidates/s2-15-audit-26420d9",
+    "candidateSha256": "9f3b08cd08a043798f8bbc169aafa7ead3c0d6b623fc10101a23f84e0ee9ef52",
+    "sha256ByFile": {
+      "app-debug.apk": "a4f097fddd325a3b57bff161106e474338bdff61d328e4ce24ae922d3957968f",
+      "app-debug-androidTest.apk": "75db02158dc394e183fb2c20f4e88e94fdad0fac0290db98c1ae52d2075b1dfb",
+      "backup-data-debug-androidTest.apk": "d0f7f14ef84b675c705165a1d8cf6c0efec1397c83d61e8fe268fd05a0e13b93",
+      "cases.tsv": "bf5895c95f0bf21b956c0ba4bf59dc3ce4ea37655d77ddf0fd404196f7232daf",
+      "fixture-tls.p12": "a65d4b0e6785a1a67e5fd3502b1247bd257a8e27fb3092f0e7b58bf9be516614"
+    },
+    "expectedInstrumentCases": 45,
+    "host": {
+      "jvmPassed": 1013,
+      "architectureModules": 78,
+      "evidence": "logs/s2-15-audit-main-host.log"
+    },
+    "devices": [
+      {
+        "model": "iPA2475",
+        "api": 36,
+        "status": "accepted",
+        "instrumentCasesPassed": 45,
+        "skipped": 0,
+        "logAuditPassed": true,
+        "evidence": "logs/s2-15-audit-main-tablet.log",
+        "managedWebDavFixtureVerified": true,
+        "ordinaryRepairPairVerified": true,
+        "restoredWriterSequence": 5,
+        "nextPublishedWriterSequence": 6,
+        "independentInProcessReaderSequences": [
+          5,
+          6
+        ],
+        "productionRepositoryTested": false
+      },
+      {
+        "model": "V2232A",
+        "api": 36,
+        "status": "accepted",
+        "instrumentCasesPassed": 45,
+        "skipped": 0,
+        "logAuditPassed": true,
+        "evidence": "logs/s2-15-audit-main-phone.log",
+        "managedWebDavFixtureVerified": true,
+        "ordinaryRepairPairVerified": true,
+        "restoredWriterSequence": 5,
+        "nextPublishedWriterSequence": 6,
+        "independentInProcessReaderSequences": [
+          5,
+          6
+        ],
+        "productionRepositoryTested": false,
+        "priorAppRetainedInPlace": false
+      }
+    ],
+    "reviewedAt": "2026-11-23T00:15:09+08:00",
+    "branch": "staging/s2-15-audit-20261122",
+    "productionContinuityVerified": false,
+    "acceptedAt": "2026-11-23T00:30:04+08:00",
+    "firstDeviceReviewedAt": "2026-11-23T00:15:09+08:00",
+    "implementationCommit": "26420d91a726aa6bc822aee9353d6d3362c3ae05",
+    "applicationId": "com.deepstudent.app",
+    "versionName": "0.21.0",
+    "buildType": "debug",
+    "abi": "arm64-v8a",
+    "caseSelection": "tools/s2/s2-15-cases.tsv",
+    "caseSelectionSha256": "bf5895c95f0bf21b956c0ba4bf59dc3ce4ea37655d77ddf0fd404196f7232daf",
+    "appSha256": "a4f097fddd325a3b57bff161106e474338bdff61d328e4ce24ae922d3957968f",
+    "appTestSha256": "75db02158dc394e183fb2c20f4e88e94fdad0fac0290db98c1ae52d2075b1dfb",
+    "backupDataTestSha256": "d0f7f14ef84b675c705165a1d8cf6c0efec1397c83d61e8fe268fd05a0e13b93",
+    "managedWebDavFixtureVerified": true
+  },
+  "next": "S2.16",
+  "planRevision": "2026-11-23-s2-desktop-compatibility",
+  "currentPlan": "config/planning/active-plan.json",
+  "nextName": "修复普通恢复四库同步基线",
+  "plannedRemediations": [
+    {
+      "id": "S2.16",
+      "name": "修复普通恢复四库同步基线",
+      "status": "awaiting-device",
+      "dependsOn": [
+        "S2.15",
+        "S2.05",
+        "S2.11"
+      ],
+      "repairs": [
+        "S2.15"
+      ],
+      "reason": "普通恢复后旧待上传日志仍被读取，需与冻结桌面重建基线一致"
+    },
+    {
+      "id": "S2.17",
+      "name": "修复恢复资源引用兼容",
+      "status": "awaiting-device",
+      "dependsOn": [
+        "S2.16",
+        "S2.08",
+        "S2.14"
+      ],
+      "repairs": [
+        "S2.14"
+      ],
+      "reason": "零引用且无真实引用的缺失blob不应拒绝整个恢复"
+    },
+    {
+      "id": "S2.18",
+      "name": "兼容旧版加密仓库 marker",
+      "status": "awaiting-device",
+      "dependsOn": [
+        "S2.17",
+        "S2.13",
+        "S1.24",
+        "S1.26"
+      ],
+      "repairs": [
+        "S2.13"
+      ],
+      "reason": "DSBK文件版本与仓库marker版本不同，补旧标记密码验证和升级加入"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "formatVersion": 2,
+  "format": "dstu-s0.18-sync-formats/v2",
+  "unit": "S0.18",
+  "artifacts": [
+    {
+      "file": "config/baseline/sync-golden.json",
+      "sha256": "e60f7b7aecdaffb8b8c4a05f0e73ad773a0dd261f82862d63288a836a71eb904"
+    },
+    {
+      "file": "config/baseline/crypto-golden.json",
+      "sha256": "28482c4a6daca0b4558451882096dcc8028bc1f90ca3a2ce729a07ddec7aac9f"
+    },
+    {
+      "file": "config/baseline/file-golden.json",
+      "sha256": "6b9406a0bcdce8d0c584a17057bdca6c9ea486bbabe0262e4b5579ec02861950"
+    }
+  ],
+  "source": [
+    {
+      "file": "config/baseline/sync-golden.json",
+      "format": "dstu-s0.18-sync-golden/v2",
+      "unit": "S0.18"
+    },
+    {
+      "file": "config/baseline/crypto-golden.json",
+      "format": "dstu.crypto-golden.v1",
+      "unit": "S0.18"
+    },
+    {
+      "file": "config/baseline/file-golden.json",
+      "format": "dstu-s0.18-file-golden/v2",
+      "unit": "S0.18"
+    }
+  ],
+  "binding": {
+    "desktopCommit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+    "desktopOnly": true,
+    "legacyFixtureReused": "config/baseline/file-golden.json#sourceBinding.fixture",
+    "v5Production": "inactive: runSyncV5 is not registered; format v4/min_reader v3 is the writable window"
+  },
+  "rules": {
+    "hashedBytes": "exact encoded bytes, not reserialized JSON; no Unicode/newline normalization",
+    "semantic": "lossless numbers, explicit optional/null behavior, current reader boundaries",
+    "cryptoRandomness": "fixed salt/nonces only in public test vectors; production RNG remains unchanged",
+    "applicationRuntime": "desktop golden inputs; Android codecs/apply implemented in S1/S2",
+    "unknownColumns": "unknown fields retain exact values and original field versions; rehydrate only columns that exist",
+    "v5": "v5 parses for diagnostics, is rejected by format negotiation, and has no registered production command"
+  }
+}

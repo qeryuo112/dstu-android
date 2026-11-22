@@ -1,0 +1,11 @@
+{
+  "unit": "S1.14",
+  "coordinate": "com.ibm.icu:icu4j:76.1",
+  "sha256": "732cdf18121b1642899da1f5e37e52cc7f48e3ec07fa737105d4603976781b33",
+  "bytes": 14621879,
+  "license": "Unicode-3.0",
+  "licenseEvidence": "Maven POM and https://github.com/unicode-org/icu/blob/release-76-1/LICENSE",
+  "releaseLicenseTextRequired": true,
+  "reason": "Identical Unicode grapheme segmentation on JVM and Android; no platform ICU version divergence.",
+  "deviceEvidence": "Real Android InputConnection composition, commit, selection, cross-block paste and undo/redo; OEM candidate UI is not signed by this receipt."
+}

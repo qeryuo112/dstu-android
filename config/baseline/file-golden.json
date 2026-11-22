@@ -1,0 +1,4813 @@
+{
+  "formatVersion": 2,
+  "format": "dstu-s0.18-file-golden/v2",
+  "unit": "S0.18",
+  "sourceHashes": [
+    {
+      "file": "host/plugins/sync-support/src/tombstone-model.ts",
+      "sha256": "e5d0c3ec855820a0121e25dedd475715af8fcb89558376629b82ee469ce5de2f"
+    },
+    {
+      "file": "host/plugins/sync/src/file-manifest.ts",
+      "sha256": "89e73ebc4b600995319ac2bdbaeb2e5a033a943571404b22debec4829d988c2d"
+    },
+    {
+      "file": "host/plugins/backup/src/manifest-model.ts",
+      "sha256": "df1b61c2ae680a67718269afa52bb7343d6e98c5a27b20824032827d0516aad9"
+    },
+    {
+      "file": "host/plugins/sync/src/asset-filenames.ts",
+      "sha256": "7d4af08386fc9e4e1b8fee2b82dfcb12e9bda754ce98b9314e3f3dcd80f63f9f"
+    }
+  ],
+  "vectors": [
+    {
+      "id": "tombstone-event-payload-hash",
+      "input": {
+        "format_version": 4,
+        "device_id": "golden-device-01",
+        "seq": {
+          "decimal": "18446744073709551615"
+        },
+        "operation_id": "9a940424fd2c7045adf4f7e5547b7b48d8171e1a3e2acb3d74627355b29527b3",
+        "kind": "asset",
+        "object_id": "active/notes_assets/public-fixture.txt",
+        "deleted_at": "2026-11-15T00:00:00Z",
+        "size": {
+          "decimal": "9007199254740993"
+        },
+        "relative_path": null,
+        "payload_hash": "999bced31708adb77e306b2bc2e8a6f26987406fc4258435a14ebf6ee9fc7314"
+      },
+      "expected": {
+        "hash": "999bced31708adb77e306b2bc2e8a6f26987406fc4258435a14ebf6ee9fc7314",
+        "key": "data_governance/tombstone-events/asset/08816ae009bb5581/18446744073709551615-9a940424fd2c7045adf4f7e5547b7b48d8171e1a3e2acb3d74627355b29527b3.json",
+        "legacyKey": "data_governance/tombstone-events/asset/golden-device-01/18446744073709551615-9a940424fd2c7045adf4f7e5547b7b48d8171e1a3e2acb3d74627355b29527b3.json",
+        "keyMatches": true,
+        "seqFromKey": {
+          "decimal": "18446744073709551615"
+        }
+      },
+      "expectedSha256": "fe572888bc549ca9c2c54aa4fd3d92cc0a82a9eec08376338953175e85f020c7",
+      "comparison": "semantic output exact; decimal objects represent lossless integers"
+    },
+    {
+      "id": "tombstone-hash-binds-size",
+      "input": {
+        "format_version": 4,
+        "device_id": "golden-device-01",
+        "seq": {
+          "decimal": "18446744073709551615"
+        },
+        "operation_id": "9a940424fd2c7045adf4f7e5547b7b48d8171e1a3e2acb3d74627355b29527b3",
+        "kind": "asset",
+        "object_id": "active/notes_assets/public-fixture.txt",
+        "deleted_at": "2026-11-15T00:00:00Z",
+        "size": {
+          "decimal": "9007199254740993"
+        },
+        "relative_path": null,
+        "payload_hash": "999bced31708adb77e306b2bc2e8a6f26987406fc4258435a14ebf6ee9fc7314"
+      },
+      "expected": {
+        "before": "999bced31708adb77e306b2bc2e8a6f26987406fc4258435a14ebf6ee9fc7314",
+        "after": "5a7d9c08b583e7bbe893b8cfd80d2013a177b33c0c1952c4dd14ea30eb751ebc"
+      },
+      "expectedSha256": "d2231061934f3545889356044b50a98d8ce554d81c1144cc6f57b1a8314c075d",
+      "comparison": "semantic output exact; decimal objects represent lossless integers"
+    },
+    {
+      "id": "tombstone-event-parse-max-u64",
+      "input": {
+        "format_version": 4,
+        "device_id": "golden-device-01",
+        "seq": {
+          "decimal": "18446744073709551615"
+        },
+        "operation_id": "9a940424fd2c7045adf4f7e5547b7b48d8171e1a3e2acb3d74627355b29527b3",
+        "kind": "asset",
+        "object_id": "active/notes_assets/public-fixture.txt",
+        "deleted_at": "2026-11-15T00:00:00Z",
+        "size": {
+          "decimal": "9007199254740993"
+        },
+        "relative_path": null,
+        "payload_hash": "999bced31708adb77e306b2bc2e8a6f26987406fc4258435a14ebf6ee9fc7314"
+      },
+      "expected": {
+        "format_version": 4,
+        "device_id": "golden-device-01",
+        "seq": {
+          "decimal": "18446744073709551615"
+        },
+        "operation_id": "9a940424fd2c7045adf4f7e5547b7b48d8171e1a3e2acb3d74627355b29527b3",
+        "kind": "asset",
+        "object_id": "active/notes_assets/public-fixture.txt",
+        "deleted_at": "2026-11-15T00:00:00Z",
+        "size": {
+          "decimal": "9007199254740993"
+        },
+        "relative_path": null,
+        "payload_hash": "999bced31708adb77e306b2bc2e8a6f26987406fc4258435a14ebf6ee9fc7314"
+      },
+      "expectedSha256": "7bc50ad359b9ec915f595b1c9f444061a6d27c92cc6ab03abc3c8e260f74387a",
+      "comparison": "semantic output exact; decimal objects represent lossless integers"
+    },
+    {
+      "id": "tombstone-seq--1",
+      "input": {
+        "format_version": 4,
+        "device_id": "golden-device-01",
+        "seq": {
+          "decimal": "-1"
+        },
+        "operation_id": "9a940424fd2c7045adf4f7e5547b7b48d8171e1a3e2acb3d74627355b29527b3",
+        "kind": "asset",
+        "object_id": "active/notes_assets/public-fixture.txt",
+        "deleted_at": "2026-11-15T00:00:00Z",
+        "size": {
+          "decimal": "9007199254740993"
+        },
+        "relative_path": null,
+        "payload_hash": "999bced31708adb77e306b2bc2e8a6f26987406fc4258435a14ebf6ee9fc7314"
+      },
+      "expected": {
+        "rejected": true,
+        "message": "Database error: invalid value: integer `-1`, expected u64"
+      }
+    },
+    {
+      "id": "tombstone-seq-18446744073709551616",
+      "input": {
+        "format_version": 4,
+        "device_id": "golden-device-01",
+        "seq": {
+          "decimal": "18446744073709551616"
+        },
+        "operation_id": "9a940424fd2c7045adf4f7e5547b7b48d8171e1a3e2acb3d74627355b29527b3",
+        "kind": "asset",
+        "object_id": "active/notes_assets/public-fixture.txt",
+        "deleted_at": "2026-11-15T00:00:00Z",
+        "size": {
+          "decimal": "9007199254740993"
+        },
+        "relative_path": null,
+        "payload_hash": "999bced31708adb77e306b2bc2e8a6f26987406fc4258435a14ebf6ee9fc7314"
+      },
+      "expected": {
+        "rejected": true,
+        "message": "Database error: invalid value: integer `18446744073709551616`, expected u64"
+      }
+    },
+    {
+      "id": "tombstone-seq-null",
+      "input": {
+        "format_version": 4,
+        "device_id": "golden-device-01",
+        "seq": null,
+        "operation_id": "9a940424fd2c7045adf4f7e5547b7b48d8171e1a3e2acb3d74627355b29527b3",
+        "kind": "asset",
+        "object_id": "active/notes_assets/public-fixture.txt",
+        "deleted_at": "2026-11-15T00:00:00Z",
+        "size": {
+          "decimal": "9007199254740993"
+        },
+        "relative_path": null,
+        "payload_hash": "999bced31708adb77e306b2bc2e8a6f26987406fc4258435a14ebf6ee9fc7314"
+      },
+      "expected": {
+        "rejected": true,
+        "message": "Database error: invalid type: null, expected u64"
+      }
+    },
+    {
+      "id": "tombstone-seq-1",
+      "input": {
+        "format_version": 4,
+        "device_id": "golden-device-01",
+        "seq": "1",
+        "operation_id": "9a940424fd2c7045adf4f7e5547b7b48d8171e1a3e2acb3d74627355b29527b3",
+        "kind": "asset",
+        "object_id": "active/notes_assets/public-fixture.txt",
+        "deleted_at": "2026-11-15T00:00:00Z",
+        "size": {
+          "decimal": "9007199254740993"
+        },
+        "relative_path": null,
+        "payload_hash": "999bced31708adb77e306b2bc2e8a6f26987406fc4258435a14ebf6ee9fc7314"
+      },
+      "expected": {
+        "rejected": true,
+        "message": "Database error: invalid type: string \"1\", expected u64"
+      }
+    },
+    {
+      "id": "blob-tombstone-bytes",
+      "input": {
+        "entries": {
+          "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439": {
+            "deleted_at": "2026-11-15T00:00:00Z",
+            "device_id": "golden-device-01",
+            "size": {
+              "decimal": "9007199254740993"
+            },
+            "relative_path": "67/6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439"
+          }
+        },
+        "updated_at": "2026-11-15T00:00:00Z",
+        "future_outer": "discarded"
+      },
+      "expected": {
+        "parsed": {
+          "entries": {
+            "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439": {
+              "deleted_at": "2026-11-15T00:00:00Z",
+              "device_id": "golden-device-01",
+              "size": {
+                "decimal": "9007199254740993"
+              },
+              "relative_path": "67/6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439"
+            }
+          },
+          "updated_at": "2026-11-15T00:00:00Z"
+        },
+        "text": "{\"entries\":{\"6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439\":{\"deleted_at\":\"2026-11-15T00:00:00Z\",\"device_id\":\"golden-device-01\",\"size\":9007199254740993,\"relative_path\":\"67/6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439\"}},\"updated_at\":\"2026-11-15T00:00:00Z\"}",
+        "utf8Hex": "7b22656e7472696573223a7b2236373033653236393330353264373864306534373137663438373038626563356431343137303466636162623235303431333233336336376564313832343339223a7b2264656c657465645f6174223a22323032362d31312d31355430303a30303a30305a222c226465766963655f6964223a22676f6c64656e2d6465766963652d3031222c2273697a65223a393030373139393235343734303939332c2272656c61746976655f70617468223a2236372f36373033653236393330353264373864306534373137663438373038626563356431343137303466636162623235303431333233336336376564313832343339227d7d2c22757064617465645f6174223a22323032362d31312d31355430303a30303a30305a227d",
+        "sha256": "fcd7ec06b88e2ac7913e2e933c158c4a7f39fc4f4a12bbce3b212c34bf239bf7"
+      },
+      "expectedSha256": "c1b317d599fd8e5facb1e0d1508f4e1bc35089e869d96e668c5e94a27f0955f8",
+      "comparison": "semantic output exact; decimal objects represent lossless integers"
+    },
+    {
+      "id": "blob-empty-defaults",
+      "input": {},
+      "expected": {
+        "entries": {},
+        "updated_at": ""
+      },
+      "expectedSha256": "7eefe6a21494a91ec62f2008d0d34317bb0bc24b12693dca1c715c0b3087dfd7",
+      "comparison": "semantic output exact; decimal objects represent lossless integers"
+    },
+    {
+      "id": "blob-null-map",
+      "input": {
+        "entries": null
+      },
+      "expected": {
+        "rejected": true,
+        "message": "Database error: invalid type: null, expected a map"
+      }
+    },
+    {
+      "id": "blob-missing-device",
+      "input": {
+        "entries": {
+          "x": {
+            "deleted_at": "2026-11-15T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "rejected": true,
+        "message": "Database error: missing field `device_id`"
+      }
+    },
+    {
+      "id": "asset-tombstone-bytes",
+      "input": {
+        "entries": {
+          "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439": {
+            "deleted_at": "2026-11-15T00:00:00Z",
+            "device_id": "golden-device-01",
+            "size": {
+              "decimal": "18446744073709551615"
+            }
+          }
+        },
+        "updated_at": "2026-11-15T00:00:00Z",
+        "future_outer": "discarded"
+      },
+      "expected": {
+        "parsed": {
+          "entries": {
+            "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439": {
+              "deleted_at": "2026-11-15T00:00:00Z",
+              "device_id": "golden-device-01",
+              "size": {
+                "decimal": "18446744073709551615"
+              }
+            }
+          },
+          "updated_at": "2026-11-15T00:00:00Z"
+        },
+        "text": "{\"entries\":{\"6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439\":{\"deleted_at\":\"2026-11-15T00:00:00Z\",\"device_id\":\"golden-device-01\",\"size\":18446744073709551615}},\"updated_at\":\"2026-11-15T00:00:00Z\"}",
+        "utf8Hex": "7b22656e7472696573223a7b2236373033653236393330353264373864306534373137663438373038626563356431343137303466636162623235303431333233336336376564313832343339223a7b2264656c657465645f6174223a22323032362d31312d31355430303a30303a30305a222c226465766963655f6964223a22676f6c64656e2d6465766963652d3031222c2273697a65223a31383434363734343037333730393535313631357d7d2c22757064617465645f6174223a22323032362d31312d31355430303a30303a30305a227d",
+        "sha256": "56ca288776931403015df7d37cf3bb701dc97b5cfcbda9a4479bb6518b068433"
+      },
+      "expectedSha256": "154fd723e573f02c969bf91ee1ddc4be7c7b6ccd216e5b346e5896e76334bc43",
+      "comparison": "semantic output exact; decimal objects represent lossless integers"
+    },
+    {
+      "id": "asset-empty-defaults",
+      "input": {},
+      "expected": {
+        "entries": {},
+        "updated_at": ""
+      },
+      "expectedSha256": "7eefe6a21494a91ec62f2008d0d34317bb0bc24b12693dca1c715c0b3087dfd7",
+      "comparison": "semantic output exact; decimal objects represent lossless integers"
+    },
+    {
+      "id": "asset-null-map",
+      "input": {
+        "entries": null
+      },
+      "expected": {
+        "rejected": true,
+        "message": "Database error: invalid type: null, expected a map"
+      }
+    },
+    {
+      "id": "asset-missing-device",
+      "input": {
+        "entries": {
+          "x": {
+            "deleted_at": "2026-11-15T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "rejected": true,
+        "message": "Database error: missing field `device_id`"
+      }
+    },
+    {
+      "id": "workspace-tombstone-bytes",
+      "input": {
+        "entries": {
+          "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439": {
+            "deleted_at": "2026-11-15T00:00:00Z",
+            "device_id": "golden-device-01"
+          }
+        },
+        "updated_at": "2026-11-15T00:00:00Z",
+        "future_outer": "discarded"
+      },
+      "expected": {
+        "parsed": {
+          "entries": {
+            "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439": {
+              "deleted_at": "2026-11-15T00:00:00Z",
+              "device_id": "golden-device-01"
+            }
+          },
+          "updated_at": "2026-11-15T00:00:00Z"
+        },
+        "text": "{\"entries\":{\"6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439\":{\"deleted_at\":\"2026-11-15T00:00:00Z\",\"device_id\":\"golden-device-01\"}},\"updated_at\":\"2026-11-15T00:00:00Z\"}",
+        "utf8Hex": "7b22656e7472696573223a7b2236373033653236393330353264373864306534373137663438373038626563356431343137303466636162623235303431333233336336376564313832343339223a7b2264656c657465645f6174223a22323032362d31312d31355430303a30303a30305a222c226465766963655f6964223a22676f6c64656e2d6465766963652d3031227d7d2c22757064617465645f6174223a22323032362d31312d31355430303a30303a30305a227d",
+        "sha256": "dd31d2c8197da3a92ec995538da6f93a5e2941f36a0591d3520373a5e2ed2a96"
+      },
+      "expectedSha256": "7df597441648704054627034c16dd62a65d851e0c5a8149bdbd28985ce1d607a",
+      "comparison": "semantic output exact; decimal objects represent lossless integers"
+    },
+    {
+      "id": "workspace-empty-defaults",
+      "input": {},
+      "expected": {
+        "entries": {},
+        "updated_at": ""
+      },
+      "expectedSha256": "7eefe6a21494a91ec62f2008d0d34317bb0bc24b12693dca1c715c0b3087dfd7",
+      "comparison": "semantic output exact; decimal objects represent lossless integers"
+    },
+    {
+      "id": "workspace-null-map",
+      "input": {
+        "entries": null
+      },
+      "expected": {
+        "rejected": true,
+        "message": "Database error: invalid type: null, expected a map"
+      }
+    },
+    {
+      "id": "workspace-missing-device",
+      "input": {
+        "entries": {
+          "x": {
+            "deleted_at": "2026-11-15T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "rejected": true,
+        "message": "Database error: missing field `device_id`"
+      }
+    },
+    {
+      "id": "blob-file-manifest",
+      "input": {
+        "entries": {
+          "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439": {
+            "relative_path": "67/6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439",
+            "size": {
+              "decimal": "18446744073709551615"
+            }
+          }
+        },
+        "unknown_outer": 1
+      },
+      "expected": {
+        "entries": {
+          "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439": {
+            "relative_path": "67/6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439",
+            "size": {
+              "decimal": "18446744073709551615"
+            },
+            "updated_at": "",
+            "cipher_sha256": null,
+            "cipher_size": null
+          }
+        },
+        "updated_at": ""
+      },
+      "expectedSha256": "ed1b22d6037b069ca788ce5a543ae675f86010a5e075ecc53662b2853ac26c8f",
+      "comparison": "semantic output exact; decimal objects represent lossless integers"
+    },
+    {
+      "id": "blob-invalid-size--1",
+      "input": {
+        "entries": {
+          "x": {
+            "relative_path": "67/6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439",
+            "size": -1
+          }
+        }
+      },
+      "expected": {
+        "rejected": true,
+        "message": "invalid value, expected u64 for `size`"
+      }
+    },
+    {
+      "id": "blob-invalid-size-1.5",
+      "input": {
+        "entries": {
+          "x": {
+            "relative_path": "67/6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439",
+            "size": 1.5
+          }
+        }
+      },
+      "expected": {
+        "rejected": true,
+        "message": "invalid type, expected u64 for `size`"
+      }
+    },
+    {
+      "id": "blob-invalid-size-1",
+      "input": {
+        "entries": {
+          "x": {
+            "relative_path": "67/6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439",
+            "size": "1"
+          }
+        }
+      },
+      "expected": {
+        "rejected": true,
+        "message": "invalid type, expected u64 for `size`"
+      }
+    },
+    {
+      "id": "blob-invalid-size-null",
+      "input": {
+        "entries": {
+          "x": {
+            "relative_path": "67/6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439",
+            "size": null
+          }
+        }
+      },
+      "expected": {
+        "rejected": true,
+        "message": "invalid type, expected u64 for `size`"
+      }
+    },
+    {
+      "id": "blob-invalid-size-18446744073709551616",
+      "input": {
+        "entries": {
+          "x": {
+            "relative_path": "67/6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439",
+            "size": {
+              "decimal": "18446744073709551616"
+            }
+          }
+        }
+      },
+      "expected": {
+        "rejected": true,
+        "message": "invalid value, expected u64 for `size`"
+      }
+    },
+    {
+      "id": "blob-invalid-utf8",
+      "input": "ff",
+      "expected": {
+        "rejected": true,
+        "message": "invalid utf-8 sequence of 1 bytes from index 0"
+      }
+    },
+    {
+      "id": "asset-file-manifest",
+      "input": {
+        "entries": {
+          "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439": {
+            "sha256": "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439",
+            "size": {
+              "decimal": "9007199254740993"
+            }
+          }
+        },
+        "unknown_outer": 1
+      },
+      "expected": {
+        "entries": {
+          "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439": {
+            "sha256": "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439",
+            "size": {
+              "decimal": "9007199254740993"
+            },
+            "updated_at": "",
+            "revision": {
+              "decimal": "0"
+            },
+            "object_key": null,
+            "base_sha256": null,
+            "device_id": null,
+            "cipher_sha256": null,
+            "cipher_size": null
+          }
+        },
+        "updated_at": ""
+      },
+      "expectedSha256": "bcc4a06f6c49e204130ceaae64f110be08a59bac5175e83172f32a059518cc55",
+      "comparison": "semantic output exact; decimal objects represent lossless integers"
+    },
+    {
+      "id": "asset-invalid-size--1",
+      "input": {
+        "entries": {
+          "x": {
+            "sha256": "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439",
+            "size": -1
+          }
+        }
+      },
+      "expected": {
+        "rejected": true,
+        "message": "invalid value, expected u64 for `size`"
+      }
+    },
+    {
+      "id": "asset-invalid-size-1.5",
+      "input": {
+        "entries": {
+          "x": {
+            "sha256": "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439",
+            "size": 1.5
+          }
+        }
+      },
+      "expected": {
+        "rejected": true,
+        "message": "invalid type, expected u64 for `size`"
+      }
+    },
+    {
+      "id": "asset-invalid-size-1",
+      "input": {
+        "entries": {
+          "x": {
+            "sha256": "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439",
+            "size": "1"
+          }
+        }
+      },
+      "expected": {
+        "rejected": true,
+        "message": "invalid type, expected u64 for `size`"
+      }
+    },
+    {
+      "id": "asset-invalid-size-null",
+      "input": {
+        "entries": {
+          "x": {
+            "sha256": "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439",
+            "size": null
+          }
+        }
+      },
+      "expected": {
+        "rejected": true,
+        "message": "invalid type, expected u64 for `size`"
+      }
+    },
+    {
+      "id": "asset-invalid-size-18446744073709551616",
+      "input": {
+        "entries": {
+          "x": {
+            "sha256": "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439",
+            "size": {
+              "decimal": "18446744073709551616"
+            }
+          }
+        }
+      },
+      "expected": {
+        "rejected": true,
+        "message": "invalid value, expected u64 for `size`"
+      }
+    },
+    {
+      "id": "asset-invalid-utf8",
+      "input": "ff",
+      "expected": {
+        "rejected": true,
+        "message": "invalid utf-8 sequence of 1 bytes from index 0"
+      }
+    },
+    {
+      "id": "workspace-file-manifest",
+      "input": {
+        "entries": {
+          "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439": {
+            "sha256": "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439",
+            "size": 0,
+            "updated_at": "2026-11-15T00:00:00Z"
+          }
+        },
+        "unknown_outer": 1
+      },
+      "expected": {
+        "entries": {
+          "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439": {
+            "sha256": "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439",
+            "size": {
+              "decimal": "0"
+            },
+            "updated_at": "2026-11-15T00:00:00Z",
+            "revision": {
+              "decimal": "0"
+            },
+            "source_sha256": null,
+            "object_key": null,
+            "base_sha256": null,
+            "device_id": null,
+            "cipher_sha256": null,
+            "cipher_size": null
+          }
+        },
+        "updated_at": ""
+      },
+      "expectedSha256": "0f77daaf01a22ffa7dffdb97ed4ca12dd929fa334cea9326082448097cb8a3ae",
+      "comparison": "semantic output exact; decimal objects represent lossless integers"
+    },
+    {
+      "id": "workspace-invalid-size--1",
+      "input": {
+        "entries": {
+          "x": {
+            "sha256": "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439",
+            "size": -1,
+            "updated_at": "2026-11-15T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "rejected": true,
+        "message": "invalid value, expected u64 for `size`"
+      }
+    },
+    {
+      "id": "workspace-invalid-size-1.5",
+      "input": {
+        "entries": {
+          "x": {
+            "sha256": "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439",
+            "size": 1.5,
+            "updated_at": "2026-11-15T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "rejected": true,
+        "message": "invalid type, expected u64 for `size`"
+      }
+    },
+    {
+      "id": "workspace-invalid-size-1",
+      "input": {
+        "entries": {
+          "x": {
+            "sha256": "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439",
+            "size": "1",
+            "updated_at": "2026-11-15T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "rejected": true,
+        "message": "invalid type, expected u64 for `size`"
+      }
+    },
+    {
+      "id": "workspace-invalid-size-null",
+      "input": {
+        "entries": {
+          "x": {
+            "sha256": "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439",
+            "size": null,
+            "updated_at": "2026-11-15T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "rejected": true,
+        "message": "invalid type, expected u64 for `size`"
+      }
+    },
+    {
+      "id": "workspace-invalid-size-18446744073709551616",
+      "input": {
+        "entries": {
+          "x": {
+            "sha256": "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439",
+            "size": {
+              "decimal": "18446744073709551616"
+            },
+            "updated_at": "2026-11-15T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "rejected": true,
+        "message": "invalid value, expected u64 for `size`"
+      }
+    },
+    {
+      "id": "workspace-invalid-utf8",
+      "input": "ff",
+      "expected": {
+        "rejected": true,
+        "message": "invalid utf-8 sequence of 1 bytes from index 0"
+      }
+    },
+    {
+      "id": "blob-relative-path-valid",
+      "input": {
+        "hash": "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439",
+        "path": "67/6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439.txt"
+      },
+      "expected": null,
+      "expectedSha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+      "comparison": "semantic output exact; decimal objects represent lossless integers"
+    },
+    {
+      "id": "blob-path-guard-0",
+      "input": {
+        "hash": "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439",
+        "path": "../secret"
+      },
+      "expected": "相对路径与条目 hash 不一致",
+      "expectedSha256": "86538d5806b80cefb7189d745b689b187e9fe3a674c628a5b94cf8978e58299d",
+      "comparison": "semantic output exact; decimal objects represent lossless integers"
+    },
+    {
+      "id": "blob-path-guard-1",
+      "input": {
+        "hash": "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439",
+        "path": "/etc/passwd"
+      },
+      "expected": "相对路径为空、是绝对路径，或含反斜杠、盘符、控制字符",
+      "expectedSha256": "823f8f8d707d04533b8df924bff29eb01c2b1783d4beca99b4c1f5aa4763224c",
+      "comparison": "semantic output exact; decimal objects represent lossless integers"
+    },
+    {
+      "id": "blob-path-guard-2",
+      "input": {
+        "hash": "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439",
+        "path": "aa/wrong"
+      },
+      "expected": "相对路径与条目 hash 不一致",
+      "expectedSha256": "86538d5806b80cefb7189d745b689b187e9fe3a674c628a5b94cf8978e58299d",
+      "comparison": "semantic output exact; decimal objects represent lossless integers"
+    },
+    {
+      "id": "blob-path-guard-3",
+      "input": {
+        "hash": "6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439",
+        "path": "67/6703e2693052d78d0e4717f48708bec5d141704fcabb250413233c67ed182439.a.b"
+      },
+      "expected": "相对路径与条目 hash 不一致",
+      "expectedSha256": "86538d5806b80cefb7189d745b689b187e9fe3a674c628a5b94cf8978e58299d",
+      "comparison": "semantic output exact; decimal objects represent lossless integers"
+    },
+    {
+      "id": "tombstone-mixed-writers",
+      "input": {
+        "key": "data_governance/tombstones/assets/08816ae009bb5581.json",
+        "devices": [
+          "golden-device-01",
+          "peer"
+        ]
+      },
+      "expected": {
+        "rejected": true,
+        "message": "Database error: tombstone 清单混有多台设备的 device_id，已停止同步且未推进水位: data_governance/tombstones/assets/08816ae009bb5581.json"
+      }
+    },
+    {
+      "id": "backup-manifest-v3-production-export",
+      "input": {
+        "version": "3.0.0",
+        "app_version": "0.20.0",
+        "created_at": "2026-11-15T12:59:18.836Z",
+        "platform": "mobile",
+        "schema_versions": {
+          "vfs": 20261111,
+          "llm_usage": 20260826,
+          "chat_v2": 20261111,
+          "mistakes": 20261005
+        },
+        "files": [
+          {
+            "path": "vfs.db",
+            "size": 2244608,
+            "sha256": "73706ef8747809aef34e3f37a90b379693766150de795b49c19cad3be5fa6e26",
+            "database_id": "vfs"
+          },
+          {
+            "path": "llm_usage.db",
+            "size": 192512,
+            "sha256": "540126c76b2e287dec43e42ea58586114869b10500c64e17ea730bae7518ff00",
+            "database_id": "llm_usage"
+          },
+          {
+            "path": "chat_v2.db",
+            "size": 802816,
+            "sha256": "de5c299a136ec90160a783dbdc3acf6d047f0f70891aba99b2222fbf63bd370c",
+            "database_id": "chat_v2"
+          },
+          {
+            "path": "mistakes.db",
+            "size": 720896,
+            "sha256": "18058406b0a1995f4e57aa5c559503844bdcc0d6f1979180a0afe5a106bf1792",
+            "database_id": "mistakes"
+          },
+          {
+            "path": "databases/audit.db",
+            "size": 24576,
+            "sha256": "8c60f12c6b370c5c21956d9a4769518a440a3c9cbddcb1257d0460b380b622e5"
+          },
+          {
+            "path": "assets/vfs_blobs/25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt",
+            "size": 70,
+            "sha256": "254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a"
+          }
+        ],
+        "is_incremental": false,
+        "incremental_base": null,
+        "backup_id": "legacy-standard-fixture",
+        "snapshot_kind": "full",
+        "snapshot_epoch": "5a0e16c0-0000-4000-8000-000000000001",
+        "required_components": [
+          "agents",
+          "asset-root:audio",
+          "asset-root:documents",
+          "asset-root:images",
+          "asset-root:notes_assets",
+          "asset-root:pdf_ocr_sessions",
+          "asset-root:subjects",
+          "asset-root:textbooks",
+          "asset-root:vfs_blobs",
+          "asset-root:videos",
+          "asset-root:workspaces",
+          "audit",
+          "crypto",
+          "custom-grading-modes",
+          "database:chat_v2",
+          "database:llm_usage",
+          "database:mistakes",
+          "database:vfs",
+          "user-skills",
+          "webview-settings",
+          "workspaces-root"
+        ],
+        "included_components": [
+          "agents",
+          "asset-root:audio",
+          "asset-root:documents",
+          "asset-root:images",
+          "asset-root:notes_assets",
+          "asset-root:pdf_ocr_sessions",
+          "asset-root:subjects",
+          "asset-root:textbooks",
+          "asset-root:vfs_blobs",
+          "asset-root:videos",
+          "asset-root:workspaces",
+          "audit",
+          "crypto",
+          "custom-grading-modes",
+          "database:chat_v2",
+          "database:llm_usage",
+          "database:mistakes",
+          "database:vfs",
+          "user-skills",
+          "webview-settings",
+          "workspaces-root"
+        ],
+        "key_policy": "not_present",
+        "coverage": {
+          "version": 1,
+          "domains": {
+            "database:vfs": {
+              "status": "complete",
+              "paths": [
+                "vfs.db"
+              ],
+              "file_count": 1,
+              "total_size": 2244608,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "databases/vfs.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "database:llm_usage": {
+              "status": "complete",
+              "paths": [
+                "llm_usage.db"
+              ],
+              "file_count": 1,
+              "total_size": 192512,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "llm_usage.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "database:chat_v2": {
+              "status": "complete",
+              "paths": [
+                "chat_v2.db"
+              ],
+              "file_count": 1,
+              "total_size": 802816,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "chat_v2.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "database:mistakes": {
+              "status": "complete",
+              "paths": [
+                "mistakes.db"
+              ],
+              "file_count": 1,
+              "total_size": 720896,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "mistakes.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "workspaces-root": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "workspaces",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:images": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "images",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:notes_assets": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "notes_assets",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:documents": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "documents",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:vfs_blobs": {
+              "status": "complete",
+              "paths": [
+                "assets/vfs_blobs/25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt"
+              ],
+              "file_count": 1,
+              "total_size": 70,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "vfs_blobs",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:subjects": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "subjects",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:workspaces": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "workspaces",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:audio": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "audio",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:videos": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "videos",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:textbooks": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "textbooks",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:pdf_ocr_sessions": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "pdf_ocr_sessions",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "crypto": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": true,
+              "restore_target": ".",
+              "restore_scope": "application_data",
+              "restore_trust": "explicit"
+            },
+            "audit": {
+              "status": "complete",
+              "paths": [
+                "databases/audit.db"
+              ],
+              "file_count": 1,
+              "total_size": 24576,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "databases/audit.db",
+              "restore_scope": "application_data",
+              "restore_trust": "explicit"
+            },
+            "webview-settings": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "webview_settings.json",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "custom-grading-modes": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "custom_grading_modes.json",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "agents": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": true,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "workspaces/agents",
+              "restore_scope": "active_data_space",
+              "restore_trust": "untrusted_executable"
+            },
+            "user-skills": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": true,
+              "optional": true,
+              "encrypted": true,
+              "restore_target": "~/.deep-student/skills",
+              "restore_scope": "user_home",
+              "restore_trust": "untrusted_executable"
+            }
+          }
+        }
+      },
+      "expected": {
+        "version": "3.0.0",
+        "app_version": "0.20.0",
+        "created_at": "2026-11-15T12:59:18.836Z",
+        "platform": "mobile",
+        "schema_versions": {
+          "vfs": 20261111,
+          "llm_usage": 20260826,
+          "chat_v2": 20261111,
+          "mistakes": 20261005
+        },
+        "files": [
+          {
+            "path": "vfs.db",
+            "size": 2244608,
+            "sha256": "73706ef8747809aef34e3f37a90b379693766150de795b49c19cad3be5fa6e26",
+            "database_id": "vfs"
+          },
+          {
+            "path": "llm_usage.db",
+            "size": 192512,
+            "sha256": "540126c76b2e287dec43e42ea58586114869b10500c64e17ea730bae7518ff00",
+            "database_id": "llm_usage"
+          },
+          {
+            "path": "chat_v2.db",
+            "size": 802816,
+            "sha256": "de5c299a136ec90160a783dbdc3acf6d047f0f70891aba99b2222fbf63bd370c",
+            "database_id": "chat_v2"
+          },
+          {
+            "path": "mistakes.db",
+            "size": 720896,
+            "sha256": "18058406b0a1995f4e57aa5c559503844bdcc0d6f1979180a0afe5a106bf1792",
+            "database_id": "mistakes"
+          },
+          {
+            "path": "databases/audit.db",
+            "size": 24576,
+            "sha256": "8c60f12c6b370c5c21956d9a4769518a440a3c9cbddcb1257d0460b380b622e5"
+          },
+          {
+            "path": "assets/vfs_blobs/25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt",
+            "size": 70,
+            "sha256": "254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a"
+          }
+        ],
+        "is_incremental": false,
+        "incremental_base": null,
+        "backup_id": "legacy-standard-fixture",
+        "snapshot_kind": "full",
+        "snapshot_epoch": "5a0e16c0-0000-4000-8000-000000000001",
+        "required_components": [
+          "agents",
+          "asset-root:audio",
+          "asset-root:documents",
+          "asset-root:images",
+          "asset-root:notes_assets",
+          "asset-root:pdf_ocr_sessions",
+          "asset-root:subjects",
+          "asset-root:textbooks",
+          "asset-root:vfs_blobs",
+          "asset-root:videos",
+          "asset-root:workspaces",
+          "audit",
+          "crypto",
+          "custom-grading-modes",
+          "database:chat_v2",
+          "database:llm_usage",
+          "database:mistakes",
+          "database:vfs",
+          "user-skills",
+          "webview-settings",
+          "workspaces-root"
+        ],
+        "included_components": [
+          "agents",
+          "asset-root:audio",
+          "asset-root:documents",
+          "asset-root:images",
+          "asset-root:notes_assets",
+          "asset-root:pdf_ocr_sessions",
+          "asset-root:subjects",
+          "asset-root:textbooks",
+          "asset-root:vfs_blobs",
+          "asset-root:videos",
+          "asset-root:workspaces",
+          "audit",
+          "crypto",
+          "custom-grading-modes",
+          "database:chat_v2",
+          "database:llm_usage",
+          "database:mistakes",
+          "database:vfs",
+          "user-skills",
+          "webview-settings",
+          "workspaces-root"
+        ],
+        "key_policy": "not_present",
+        "coverage": {
+          "version": 1,
+          "domains": {
+            "database:vfs": {
+              "status": "complete",
+              "paths": [
+                "vfs.db"
+              ],
+              "file_count": 1,
+              "total_size": 2244608,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "databases/vfs.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "database:llm_usage": {
+              "status": "complete",
+              "paths": [
+                "llm_usage.db"
+              ],
+              "file_count": 1,
+              "total_size": 192512,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "llm_usage.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "database:chat_v2": {
+              "status": "complete",
+              "paths": [
+                "chat_v2.db"
+              ],
+              "file_count": 1,
+              "total_size": 802816,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "chat_v2.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "database:mistakes": {
+              "status": "complete",
+              "paths": [
+                "mistakes.db"
+              ],
+              "file_count": 1,
+              "total_size": 720896,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "mistakes.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "workspaces-root": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "workspaces",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:images": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "images",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:notes_assets": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "notes_assets",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:documents": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "documents",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:vfs_blobs": {
+              "status": "complete",
+              "paths": [
+                "assets/vfs_blobs/25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt"
+              ],
+              "file_count": 1,
+              "total_size": 70,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "vfs_blobs",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:subjects": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "subjects",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:workspaces": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "workspaces",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:audio": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "audio",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:videos": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "videos",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:textbooks": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "textbooks",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:pdf_ocr_sessions": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "pdf_ocr_sessions",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "crypto": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": true,
+              "restore_target": ".",
+              "restore_scope": "application_data",
+              "restore_trust": "explicit"
+            },
+            "audit": {
+              "status": "complete",
+              "paths": [
+                "databases/audit.db"
+              ],
+              "file_count": 1,
+              "total_size": 24576,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "databases/audit.db",
+              "restore_scope": "application_data",
+              "restore_trust": "explicit"
+            },
+            "webview-settings": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "webview_settings.json",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "custom-grading-modes": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "custom_grading_modes.json",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "agents": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": true,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "workspaces/agents",
+              "restore_scope": "active_data_space",
+              "restore_trust": "untrusted_executable"
+            },
+            "user-skills": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": true,
+              "optional": true,
+              "encrypted": true,
+              "restore_target": "~/.deep-student/skills",
+              "restore_scope": "user_home",
+              "restore_trust": "untrusted_executable"
+            }
+          }
+        }
+      },
+      "expectedSha256": "1c18af07c732f8e37a3d91f7883a31e9df2a31c5aa5a9d0218d0fc6e60611242",
+      "comparison": "semantic output exact; decimal objects represent lossless integers"
+    },
+    {
+      "id": "backup-future-major",
+      "input": {
+        "version": "4.0.0",
+        "app_version": "0.20.0",
+        "created_at": "2026-11-15T12:59:18.836Z",
+        "platform": "mobile",
+        "schema_versions": {
+          "vfs": 20261111,
+          "llm_usage": 20260826,
+          "chat_v2": 20261111,
+          "mistakes": 20261005
+        },
+        "files": [
+          {
+            "path": "vfs.db",
+            "size": 2244608,
+            "sha256": "73706ef8747809aef34e3f37a90b379693766150de795b49c19cad3be5fa6e26",
+            "database_id": "vfs"
+          },
+          {
+            "path": "llm_usage.db",
+            "size": 192512,
+            "sha256": "540126c76b2e287dec43e42ea58586114869b10500c64e17ea730bae7518ff00",
+            "database_id": "llm_usage"
+          },
+          {
+            "path": "chat_v2.db",
+            "size": 802816,
+            "sha256": "de5c299a136ec90160a783dbdc3acf6d047f0f70891aba99b2222fbf63bd370c",
+            "database_id": "chat_v2"
+          },
+          {
+            "path": "mistakes.db",
+            "size": 720896,
+            "sha256": "18058406b0a1995f4e57aa5c559503844bdcc0d6f1979180a0afe5a106bf1792",
+            "database_id": "mistakes"
+          },
+          {
+            "path": "databases/audit.db",
+            "size": 24576,
+            "sha256": "8c60f12c6b370c5c21956d9a4769518a440a3c9cbddcb1257d0460b380b622e5"
+          },
+          {
+            "path": "assets/vfs_blobs/25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt",
+            "size": 70,
+            "sha256": "254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a"
+          }
+        ],
+        "is_incremental": false,
+        "incremental_base": null,
+        "backup_id": "legacy-standard-fixture",
+        "snapshot_kind": "full",
+        "snapshot_epoch": "5a0e16c0-0000-4000-8000-000000000001",
+        "required_components": [
+          "agents",
+          "asset-root:audio",
+          "asset-root:documents",
+          "asset-root:images",
+          "asset-root:notes_assets",
+          "asset-root:pdf_ocr_sessions",
+          "asset-root:subjects",
+          "asset-root:textbooks",
+          "asset-root:vfs_blobs",
+          "asset-root:videos",
+          "asset-root:workspaces",
+          "audit",
+          "crypto",
+          "custom-grading-modes",
+          "database:chat_v2",
+          "database:llm_usage",
+          "database:mistakes",
+          "database:vfs",
+          "user-skills",
+          "webview-settings",
+          "workspaces-root"
+        ],
+        "included_components": [
+          "agents",
+          "asset-root:audio",
+          "asset-root:documents",
+          "asset-root:images",
+          "asset-root:notes_assets",
+          "asset-root:pdf_ocr_sessions",
+          "asset-root:subjects",
+          "asset-root:textbooks",
+          "asset-root:vfs_blobs",
+          "asset-root:videos",
+          "asset-root:workspaces",
+          "audit",
+          "crypto",
+          "custom-grading-modes",
+          "database:chat_v2",
+          "database:llm_usage",
+          "database:mistakes",
+          "database:vfs",
+          "user-skills",
+          "webview-settings",
+          "workspaces-root"
+        ],
+        "key_policy": "not_present",
+        "coverage": {
+          "version": 1,
+          "domains": {
+            "database:vfs": {
+              "status": "complete",
+              "paths": [
+                "vfs.db"
+              ],
+              "file_count": 1,
+              "total_size": 2244608,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "databases/vfs.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "database:llm_usage": {
+              "status": "complete",
+              "paths": [
+                "llm_usage.db"
+              ],
+              "file_count": 1,
+              "total_size": 192512,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "llm_usage.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "database:chat_v2": {
+              "status": "complete",
+              "paths": [
+                "chat_v2.db"
+              ],
+              "file_count": 1,
+              "total_size": 802816,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "chat_v2.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "database:mistakes": {
+              "status": "complete",
+              "paths": [
+                "mistakes.db"
+              ],
+              "file_count": 1,
+              "total_size": 720896,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "mistakes.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "workspaces-root": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "workspaces",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:images": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "images",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:notes_assets": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "notes_assets",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:documents": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "documents",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:vfs_blobs": {
+              "status": "complete",
+              "paths": [
+                "assets/vfs_blobs/25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt"
+              ],
+              "file_count": 1,
+              "total_size": 70,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "vfs_blobs",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:subjects": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "subjects",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:workspaces": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "workspaces",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:audio": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "audio",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:videos": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "videos",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:textbooks": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "textbooks",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:pdf_ocr_sessions": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "pdf_ocr_sessions",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "crypto": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": true,
+              "restore_target": ".",
+              "restore_scope": "application_data",
+              "restore_trust": "explicit"
+            },
+            "audit": {
+              "status": "complete",
+              "paths": [
+                "databases/audit.db"
+              ],
+              "file_count": 1,
+              "total_size": 24576,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "databases/audit.db",
+              "restore_scope": "application_data",
+              "restore_trust": "explicit"
+            },
+            "webview-settings": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "webview_settings.json",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "custom-grading-modes": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "custom_grading_modes.json",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "agents": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": true,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "workspaces/agents",
+              "restore_scope": "active_data_space",
+              "restore_trust": "untrusted_executable"
+            },
+            "user-skills": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": true,
+              "optional": true,
+              "encrypted": true,
+              "restore_target": "~/.deep-student/skills",
+              "restore_scope": "user_home",
+              "restore_trust": "untrusted_executable"
+            }
+          }
+        }
+      },
+      "expected": {
+        "rejected": true,
+        "message": "不支持的备份清单版本: 4.0.0"
+      }
+    },
+    {
+      "id": "backup-coverage-missing",
+      "input": {
+        "version": "3.0.0",
+        "app_version": "0.20.0",
+        "created_at": "2026-11-15T12:59:18.836Z",
+        "platform": "mobile",
+        "schema_versions": {
+          "vfs": 20261111,
+          "llm_usage": 20260826,
+          "chat_v2": 20261111,
+          "mistakes": 20261005
+        },
+        "files": [
+          {
+            "path": "vfs.db",
+            "size": 2244608,
+            "sha256": "73706ef8747809aef34e3f37a90b379693766150de795b49c19cad3be5fa6e26",
+            "database_id": "vfs"
+          },
+          {
+            "path": "llm_usage.db",
+            "size": 192512,
+            "sha256": "540126c76b2e287dec43e42ea58586114869b10500c64e17ea730bae7518ff00",
+            "database_id": "llm_usage"
+          },
+          {
+            "path": "chat_v2.db",
+            "size": 802816,
+            "sha256": "de5c299a136ec90160a783dbdc3acf6d047f0f70891aba99b2222fbf63bd370c",
+            "database_id": "chat_v2"
+          },
+          {
+            "path": "mistakes.db",
+            "size": 720896,
+            "sha256": "18058406b0a1995f4e57aa5c559503844bdcc0d6f1979180a0afe5a106bf1792",
+            "database_id": "mistakes"
+          },
+          {
+            "path": "databases/audit.db",
+            "size": 24576,
+            "sha256": "8c60f12c6b370c5c21956d9a4769518a440a3c9cbddcb1257d0460b380b622e5"
+          },
+          {
+            "path": "assets/vfs_blobs/25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt",
+            "size": 70,
+            "sha256": "254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a"
+          }
+        ],
+        "is_incremental": false,
+        "incremental_base": null,
+        "backup_id": "legacy-standard-fixture",
+        "snapshot_kind": "full",
+        "snapshot_epoch": "5a0e16c0-0000-4000-8000-000000000001",
+        "required_components": [
+          "agents",
+          "asset-root:audio",
+          "asset-root:documents",
+          "asset-root:images",
+          "asset-root:notes_assets",
+          "asset-root:pdf_ocr_sessions",
+          "asset-root:subjects",
+          "asset-root:textbooks",
+          "asset-root:vfs_blobs",
+          "asset-root:videos",
+          "asset-root:workspaces",
+          "audit",
+          "crypto",
+          "custom-grading-modes",
+          "database:chat_v2",
+          "database:llm_usage",
+          "database:mistakes",
+          "database:vfs",
+          "user-skills",
+          "webview-settings",
+          "workspaces-root"
+        ],
+        "included_components": [
+          "agents",
+          "asset-root:audio",
+          "asset-root:documents",
+          "asset-root:images",
+          "asset-root:notes_assets",
+          "asset-root:pdf_ocr_sessions",
+          "asset-root:subjects",
+          "asset-root:textbooks",
+          "asset-root:vfs_blobs",
+          "asset-root:videos",
+          "asset-root:workspaces",
+          "audit",
+          "crypto",
+          "custom-grading-modes",
+          "database:chat_v2",
+          "database:llm_usage",
+          "database:mistakes",
+          "database:vfs",
+          "user-skills",
+          "webview-settings",
+          "workspaces-root"
+        ],
+        "key_policy": "not_present"
+      },
+      "expected": {
+        "rejected": true,
+        "message": "manifest v3 缺少 coverage ledger，拒绝按旧版候选加载"
+      }
+    },
+    {
+      "id": "backup-coverage-file-count",
+      "input": {
+        "version": "3.0.0",
+        "app_version": "0.20.0",
+        "created_at": "2026-11-15T12:59:18.836Z",
+        "platform": "mobile",
+        "schema_versions": {
+          "vfs": 20261111,
+          "llm_usage": 20260826,
+          "chat_v2": 20261111,
+          "mistakes": 20261005
+        },
+        "files": [
+          {
+            "path": "vfs.db",
+            "size": 2244608,
+            "sha256": "73706ef8747809aef34e3f37a90b379693766150de795b49c19cad3be5fa6e26",
+            "database_id": "vfs"
+          },
+          {
+            "path": "llm_usage.db",
+            "size": 192512,
+            "sha256": "540126c76b2e287dec43e42ea58586114869b10500c64e17ea730bae7518ff00",
+            "database_id": "llm_usage"
+          },
+          {
+            "path": "chat_v2.db",
+            "size": 802816,
+            "sha256": "de5c299a136ec90160a783dbdc3acf6d047f0f70891aba99b2222fbf63bd370c",
+            "database_id": "chat_v2"
+          },
+          {
+            "path": "mistakes.db",
+            "size": 720896,
+            "sha256": "18058406b0a1995f4e57aa5c559503844bdcc0d6f1979180a0afe5a106bf1792",
+            "database_id": "mistakes"
+          },
+          {
+            "path": "databases/audit.db",
+            "size": 24576,
+            "sha256": "8c60f12c6b370c5c21956d9a4769518a440a3c9cbddcb1257d0460b380b622e5"
+          },
+          {
+            "path": "assets/vfs_blobs/25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt",
+            "size": 70,
+            "sha256": "254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a"
+          }
+        ],
+        "is_incremental": false,
+        "incremental_base": null,
+        "backup_id": "legacy-standard-fixture",
+        "snapshot_kind": "full",
+        "snapshot_epoch": "5a0e16c0-0000-4000-8000-000000000001",
+        "required_components": [
+          "agents",
+          "asset-root:audio",
+          "asset-root:documents",
+          "asset-root:images",
+          "asset-root:notes_assets",
+          "asset-root:pdf_ocr_sessions",
+          "asset-root:subjects",
+          "asset-root:textbooks",
+          "asset-root:vfs_blobs",
+          "asset-root:videos",
+          "asset-root:workspaces",
+          "audit",
+          "crypto",
+          "custom-grading-modes",
+          "database:chat_v2",
+          "database:llm_usage",
+          "database:mistakes",
+          "database:vfs",
+          "user-skills",
+          "webview-settings",
+          "workspaces-root"
+        ],
+        "included_components": [
+          "agents",
+          "asset-root:audio",
+          "asset-root:documents",
+          "asset-root:images",
+          "asset-root:notes_assets",
+          "asset-root:pdf_ocr_sessions",
+          "asset-root:subjects",
+          "asset-root:textbooks",
+          "asset-root:vfs_blobs",
+          "asset-root:videos",
+          "asset-root:workspaces",
+          "audit",
+          "crypto",
+          "custom-grading-modes",
+          "database:chat_v2",
+          "database:llm_usage",
+          "database:mistakes",
+          "database:vfs",
+          "user-skills",
+          "webview-settings",
+          "workspaces-root"
+        ],
+        "key_policy": "not_present",
+        "coverage": {
+          "version": 1,
+          "domains": {
+            "database:vfs": {
+              "status": "complete",
+              "paths": [
+                "vfs.db"
+              ],
+              "file_count": 2,
+              "total_size": 2244608,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "databases/vfs.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "database:llm_usage": {
+              "status": "complete",
+              "paths": [
+                "llm_usage.db"
+              ],
+              "file_count": 1,
+              "total_size": 192512,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "llm_usage.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "database:chat_v2": {
+              "status": "complete",
+              "paths": [
+                "chat_v2.db"
+              ],
+              "file_count": 1,
+              "total_size": 802816,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "chat_v2.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "database:mistakes": {
+              "status": "complete",
+              "paths": [
+                "mistakes.db"
+              ],
+              "file_count": 1,
+              "total_size": 720896,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "mistakes.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "workspaces-root": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "workspaces",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:images": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "images",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:notes_assets": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "notes_assets",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:documents": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "documents",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:vfs_blobs": {
+              "status": "complete",
+              "paths": [
+                "assets/vfs_blobs/25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt"
+              ],
+              "file_count": 1,
+              "total_size": 70,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "vfs_blobs",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:subjects": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "subjects",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:workspaces": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "workspaces",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:audio": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "audio",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:videos": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "videos",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:textbooks": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "textbooks",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:pdf_ocr_sessions": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "pdf_ocr_sessions",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "crypto": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": true,
+              "restore_target": ".",
+              "restore_scope": "application_data",
+              "restore_trust": "explicit"
+            },
+            "audit": {
+              "status": "complete",
+              "paths": [
+                "databases/audit.db"
+              ],
+              "file_count": 1,
+              "total_size": 24576,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "databases/audit.db",
+              "restore_scope": "application_data",
+              "restore_trust": "explicit"
+            },
+            "webview-settings": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "webview_settings.json",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "custom-grading-modes": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "custom_grading_modes.json",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "agents": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": true,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "workspaces/agents",
+              "restore_scope": "active_data_space",
+              "restore_trust": "untrusted_executable"
+            },
+            "user-skills": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": true,
+              "optional": true,
+              "encrypted": true,
+              "restore_target": "~/.deep-student/skills",
+              "restore_scope": "user_home",
+              "restore_trust": "untrusted_executable"
+            }
+          }
+        }
+      },
+      "expected": {
+        "rejected": true,
+        "message": "持久域覆盖计数与状态不一致: database:vfs"
+      }
+    },
+    {
+      "id": "backup-coverage-trust",
+      "input": {
+        "version": "3.0.0",
+        "app_version": "0.20.0",
+        "created_at": "2026-11-15T12:59:18.836Z",
+        "platform": "mobile",
+        "schema_versions": {
+          "vfs": 20261111,
+          "llm_usage": 20260826,
+          "chat_v2": 20261111,
+          "mistakes": 20261005
+        },
+        "files": [
+          {
+            "path": "vfs.db",
+            "size": 2244608,
+            "sha256": "73706ef8747809aef34e3f37a90b379693766150de795b49c19cad3be5fa6e26",
+            "database_id": "vfs"
+          },
+          {
+            "path": "llm_usage.db",
+            "size": 192512,
+            "sha256": "540126c76b2e287dec43e42ea58586114869b10500c64e17ea730bae7518ff00",
+            "database_id": "llm_usage"
+          },
+          {
+            "path": "chat_v2.db",
+            "size": 802816,
+            "sha256": "de5c299a136ec90160a783dbdc3acf6d047f0f70891aba99b2222fbf63bd370c",
+            "database_id": "chat_v2"
+          },
+          {
+            "path": "mistakes.db",
+            "size": 720896,
+            "sha256": "18058406b0a1995f4e57aa5c559503844bdcc0d6f1979180a0afe5a106bf1792",
+            "database_id": "mistakes"
+          },
+          {
+            "path": "databases/audit.db",
+            "size": 24576,
+            "sha256": "8c60f12c6b370c5c21956d9a4769518a440a3c9cbddcb1257d0460b380b622e5"
+          },
+          {
+            "path": "assets/vfs_blobs/25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt",
+            "size": 70,
+            "sha256": "254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a"
+          }
+        ],
+        "is_incremental": false,
+        "incremental_base": null,
+        "backup_id": "legacy-standard-fixture",
+        "snapshot_kind": "full",
+        "snapshot_epoch": "5a0e16c0-0000-4000-8000-000000000001",
+        "required_components": [
+          "agents",
+          "asset-root:audio",
+          "asset-root:documents",
+          "asset-root:images",
+          "asset-root:notes_assets",
+          "asset-root:pdf_ocr_sessions",
+          "asset-root:subjects",
+          "asset-root:textbooks",
+          "asset-root:vfs_blobs",
+          "asset-root:videos",
+          "asset-root:workspaces",
+          "audit",
+          "crypto",
+          "custom-grading-modes",
+          "database:chat_v2",
+          "database:llm_usage",
+          "database:mistakes",
+          "database:vfs",
+          "user-skills",
+          "webview-settings",
+          "workspaces-root"
+        ],
+        "included_components": [
+          "agents",
+          "asset-root:audio",
+          "asset-root:documents",
+          "asset-root:images",
+          "asset-root:notes_assets",
+          "asset-root:pdf_ocr_sessions",
+          "asset-root:subjects",
+          "asset-root:textbooks",
+          "asset-root:vfs_blobs",
+          "asset-root:videos",
+          "asset-root:workspaces",
+          "audit",
+          "crypto",
+          "custom-grading-modes",
+          "database:chat_v2",
+          "database:llm_usage",
+          "database:mistakes",
+          "database:vfs",
+          "user-skills",
+          "webview-settings",
+          "workspaces-root"
+        ],
+        "key_policy": "not_present",
+        "coverage": {
+          "version": 1,
+          "domains": {
+            "database:vfs": {
+              "status": "complete",
+              "paths": [
+                "vfs.db"
+              ],
+              "file_count": 1,
+              "total_size": 2244608,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "databases/vfs.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "explicit"
+            },
+            "database:llm_usage": {
+              "status": "complete",
+              "paths": [
+                "llm_usage.db"
+              ],
+              "file_count": 1,
+              "total_size": 192512,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "llm_usage.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "database:chat_v2": {
+              "status": "complete",
+              "paths": [
+                "chat_v2.db"
+              ],
+              "file_count": 1,
+              "total_size": 802816,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "chat_v2.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "database:mistakes": {
+              "status": "complete",
+              "paths": [
+                "mistakes.db"
+              ],
+              "file_count": 1,
+              "total_size": 720896,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "mistakes.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "workspaces-root": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "workspaces",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:images": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "images",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:notes_assets": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "notes_assets",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:documents": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "documents",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:vfs_blobs": {
+              "status": "complete",
+              "paths": [
+                "assets/vfs_blobs/25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt"
+              ],
+              "file_count": 1,
+              "total_size": 70,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "vfs_blobs",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:subjects": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "subjects",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:workspaces": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "workspaces",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:audio": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "audio",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:videos": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "videos",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:textbooks": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "textbooks",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:pdf_ocr_sessions": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "pdf_ocr_sessions",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "crypto": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": true,
+              "restore_target": ".",
+              "restore_scope": "application_data",
+              "restore_trust": "explicit"
+            },
+            "audit": {
+              "status": "complete",
+              "paths": [
+                "databases/audit.db"
+              ],
+              "file_count": 1,
+              "total_size": 24576,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "databases/audit.db",
+              "restore_scope": "application_data",
+              "restore_trust": "explicit"
+            },
+            "webview-settings": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "webview_settings.json",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "custom-grading-modes": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "custom_grading_modes.json",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "agents": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": true,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "workspaces/agents",
+              "restore_scope": "active_data_space",
+              "restore_trust": "untrusted_executable"
+            },
+            "user-skills": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": true,
+              "optional": true,
+              "encrypted": true,
+              "restore_target": "~/.deep-student/skills",
+              "restore_scope": "user_home",
+              "restore_trust": "untrusted_executable"
+            }
+          }
+        }
+      },
+      "expected": {
+        "rejected": true,
+        "message": "持久域安全元数据与注册表不一致: database:vfs"
+      }
+    },
+    {
+      "id": "backup-traversal",
+      "input": {
+        "version": "3.0.0",
+        "app_version": "0.20.0",
+        "created_at": "2026-11-15T12:59:18.836Z",
+        "platform": "mobile",
+        "schema_versions": {
+          "vfs": 20261111,
+          "llm_usage": 20260826,
+          "chat_v2": 20261111,
+          "mistakes": 20261005
+        },
+        "files": [
+          {
+            "path": "../secret",
+            "size": 2244608,
+            "sha256": "73706ef8747809aef34e3f37a90b379693766150de795b49c19cad3be5fa6e26",
+            "database_id": "vfs"
+          },
+          {
+            "path": "llm_usage.db",
+            "size": 192512,
+            "sha256": "540126c76b2e287dec43e42ea58586114869b10500c64e17ea730bae7518ff00",
+            "database_id": "llm_usage"
+          },
+          {
+            "path": "chat_v2.db",
+            "size": 802816,
+            "sha256": "de5c299a136ec90160a783dbdc3acf6d047f0f70891aba99b2222fbf63bd370c",
+            "database_id": "chat_v2"
+          },
+          {
+            "path": "mistakes.db",
+            "size": 720896,
+            "sha256": "18058406b0a1995f4e57aa5c559503844bdcc0d6f1979180a0afe5a106bf1792",
+            "database_id": "mistakes"
+          },
+          {
+            "path": "databases/audit.db",
+            "size": 24576,
+            "sha256": "8c60f12c6b370c5c21956d9a4769518a440a3c9cbddcb1257d0460b380b622e5"
+          },
+          {
+            "path": "assets/vfs_blobs/25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt",
+            "size": 70,
+            "sha256": "254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a"
+          }
+        ],
+        "is_incremental": false,
+        "incremental_base": null,
+        "backup_id": "legacy-standard-fixture",
+        "snapshot_kind": "full",
+        "snapshot_epoch": "5a0e16c0-0000-4000-8000-000000000001",
+        "required_components": [
+          "agents",
+          "asset-root:audio",
+          "asset-root:documents",
+          "asset-root:images",
+          "asset-root:notes_assets",
+          "asset-root:pdf_ocr_sessions",
+          "asset-root:subjects",
+          "asset-root:textbooks",
+          "asset-root:vfs_blobs",
+          "asset-root:videos",
+          "asset-root:workspaces",
+          "audit",
+          "crypto",
+          "custom-grading-modes",
+          "database:chat_v2",
+          "database:llm_usage",
+          "database:mistakes",
+          "database:vfs",
+          "user-skills",
+          "webview-settings",
+          "workspaces-root"
+        ],
+        "included_components": [
+          "agents",
+          "asset-root:audio",
+          "asset-root:documents",
+          "asset-root:images",
+          "asset-root:notes_assets",
+          "asset-root:pdf_ocr_sessions",
+          "asset-root:subjects",
+          "asset-root:textbooks",
+          "asset-root:vfs_blobs",
+          "asset-root:videos",
+          "asset-root:workspaces",
+          "audit",
+          "crypto",
+          "custom-grading-modes",
+          "database:chat_v2",
+          "database:llm_usage",
+          "database:mistakes",
+          "database:vfs",
+          "user-skills",
+          "webview-settings",
+          "workspaces-root"
+        ],
+        "key_policy": "not_present",
+        "coverage": {
+          "version": 1,
+          "domains": {
+            "database:vfs": {
+              "status": "complete",
+              "paths": [
+                "vfs.db"
+              ],
+              "file_count": 1,
+              "total_size": 2244608,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "databases/vfs.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "database:llm_usage": {
+              "status": "complete",
+              "paths": [
+                "llm_usage.db"
+              ],
+              "file_count": 1,
+              "total_size": 192512,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "llm_usage.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "database:chat_v2": {
+              "status": "complete",
+              "paths": [
+                "chat_v2.db"
+              ],
+              "file_count": 1,
+              "total_size": 802816,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "chat_v2.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "database:mistakes": {
+              "status": "complete",
+              "paths": [
+                "mistakes.db"
+              ],
+              "file_count": 1,
+              "total_size": 720896,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "mistakes.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "workspaces-root": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "workspaces",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:images": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "images",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:notes_assets": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "notes_assets",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:documents": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "documents",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:vfs_blobs": {
+              "status": "complete",
+              "paths": [
+                "assets/vfs_blobs/25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt"
+              ],
+              "file_count": 1,
+              "total_size": 70,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "vfs_blobs",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:subjects": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "subjects",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:workspaces": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "workspaces",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:audio": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "audio",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:videos": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "videos",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:textbooks": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "textbooks",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:pdf_ocr_sessions": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "pdf_ocr_sessions",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "crypto": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": true,
+              "restore_target": ".",
+              "restore_scope": "application_data",
+              "restore_trust": "explicit"
+            },
+            "audit": {
+              "status": "complete",
+              "paths": [
+                "databases/audit.db"
+              ],
+              "file_count": 1,
+              "total_size": 24576,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "databases/audit.db",
+              "restore_scope": "application_data",
+              "restore_trust": "explicit"
+            },
+            "webview-settings": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "webview_settings.json",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "custom-grading-modes": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "custom_grading_modes.json",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "agents": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": true,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "workspaces/agents",
+              "restore_scope": "active_data_space",
+              "restore_trust": "untrusted_executable"
+            },
+            "user-skills": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": true,
+              "optional": true,
+              "encrypted": true,
+              "restore_target": "~/.deep-student/skills",
+              "restore_scope": "user_home",
+              "restore_trust": "untrusted_executable"
+            }
+          }
+        }
+      },
+      "expected": {
+        "rejected": true,
+        "message": "备份清单包含不安全路径: ../secret"
+      }
+    },
+    {
+      "id": "backup-invalid-hash",
+      "input": {
+        "version": "3.0.0",
+        "app_version": "0.20.0",
+        "created_at": "2026-11-15T12:59:18.836Z",
+        "platform": "mobile",
+        "schema_versions": {
+          "vfs": 20261111,
+          "llm_usage": 20260826,
+          "chat_v2": 20261111,
+          "mistakes": 20261005
+        },
+        "files": [
+          {
+            "path": "vfs.db",
+            "size": 2244608,
+            "sha256": "bad",
+            "database_id": "vfs"
+          },
+          {
+            "path": "llm_usage.db",
+            "size": 192512,
+            "sha256": "540126c76b2e287dec43e42ea58586114869b10500c64e17ea730bae7518ff00",
+            "database_id": "llm_usage"
+          },
+          {
+            "path": "chat_v2.db",
+            "size": 802816,
+            "sha256": "de5c299a136ec90160a783dbdc3acf6d047f0f70891aba99b2222fbf63bd370c",
+            "database_id": "chat_v2"
+          },
+          {
+            "path": "mistakes.db",
+            "size": 720896,
+            "sha256": "18058406b0a1995f4e57aa5c559503844bdcc0d6f1979180a0afe5a106bf1792",
+            "database_id": "mistakes"
+          },
+          {
+            "path": "databases/audit.db",
+            "size": 24576,
+            "sha256": "8c60f12c6b370c5c21956d9a4769518a440a3c9cbddcb1257d0460b380b622e5"
+          },
+          {
+            "path": "assets/vfs_blobs/25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt",
+            "size": 70,
+            "sha256": "254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a"
+          }
+        ],
+        "is_incremental": false,
+        "incremental_base": null,
+        "backup_id": "legacy-standard-fixture",
+        "snapshot_kind": "full",
+        "snapshot_epoch": "5a0e16c0-0000-4000-8000-000000000001",
+        "required_components": [
+          "agents",
+          "asset-root:audio",
+          "asset-root:documents",
+          "asset-root:images",
+          "asset-root:notes_assets",
+          "asset-root:pdf_ocr_sessions",
+          "asset-root:subjects",
+          "asset-root:textbooks",
+          "asset-root:vfs_blobs",
+          "asset-root:videos",
+          "asset-root:workspaces",
+          "audit",
+          "crypto",
+          "custom-grading-modes",
+          "database:chat_v2",
+          "database:llm_usage",
+          "database:mistakes",
+          "database:vfs",
+          "user-skills",
+          "webview-settings",
+          "workspaces-root"
+        ],
+        "included_components": [
+          "agents",
+          "asset-root:audio",
+          "asset-root:documents",
+          "asset-root:images",
+          "asset-root:notes_assets",
+          "asset-root:pdf_ocr_sessions",
+          "asset-root:subjects",
+          "asset-root:textbooks",
+          "asset-root:vfs_blobs",
+          "asset-root:videos",
+          "asset-root:workspaces",
+          "audit",
+          "crypto",
+          "custom-grading-modes",
+          "database:chat_v2",
+          "database:llm_usage",
+          "database:mistakes",
+          "database:vfs",
+          "user-skills",
+          "webview-settings",
+          "workspaces-root"
+        ],
+        "key_policy": "not_present",
+        "coverage": {
+          "version": 1,
+          "domains": {
+            "database:vfs": {
+              "status": "complete",
+              "paths": [
+                "vfs.db"
+              ],
+              "file_count": 1,
+              "total_size": 2244608,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "databases/vfs.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "database:llm_usage": {
+              "status": "complete",
+              "paths": [
+                "llm_usage.db"
+              ],
+              "file_count": 1,
+              "total_size": 192512,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "llm_usage.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "database:chat_v2": {
+              "status": "complete",
+              "paths": [
+                "chat_v2.db"
+              ],
+              "file_count": 1,
+              "total_size": 802816,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "chat_v2.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "database:mistakes": {
+              "status": "complete",
+              "paths": [
+                "mistakes.db"
+              ],
+              "file_count": 1,
+              "total_size": 720896,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "mistakes.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "workspaces-root": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "workspaces",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:images": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "images",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:notes_assets": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "notes_assets",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:documents": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "documents",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:vfs_blobs": {
+              "status": "complete",
+              "paths": [
+                "assets/vfs_blobs/25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt"
+              ],
+              "file_count": 1,
+              "total_size": 70,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "vfs_blobs",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:subjects": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "subjects",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:workspaces": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "workspaces",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:audio": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "audio",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:videos": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "videos",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:textbooks": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "textbooks",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:pdf_ocr_sessions": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "pdf_ocr_sessions",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "crypto": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": true,
+              "restore_target": ".",
+              "restore_scope": "application_data",
+              "restore_trust": "explicit"
+            },
+            "audit": {
+              "status": "complete",
+              "paths": [
+                "databases/audit.db"
+              ],
+              "file_count": 1,
+              "total_size": 24576,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "databases/audit.db",
+              "restore_scope": "application_data",
+              "restore_trust": "explicit"
+            },
+            "webview-settings": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "webview_settings.json",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "custom-grading-modes": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "custom_grading_modes.json",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "agents": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": true,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "workspaces/agents",
+              "restore_scope": "active_data_space",
+              "restore_trust": "untrusted_executable"
+            },
+            "user-skills": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": true,
+              "optional": true,
+              "encrypted": true,
+              "restore_target": "~/.deep-student/skills",
+              "restore_scope": "user_home",
+              "restore_trust": "untrusted_executable"
+            }
+          }
+        }
+      },
+      "expected": {
+        "rejected": true,
+        "message": "备份文件 SHA-256 格式无效: vfs.db"
+      }
+    },
+    {
+      "id": "backup-partial-slot",
+      "input": {
+        "version": "3.0.0",
+        "app_version": "0.20.0",
+        "created_at": "2026-11-15T12:59:18.836Z",
+        "platform": "mobile",
+        "schema_versions": {
+          "vfs": 20261111,
+          "llm_usage": 20260826,
+          "chat_v2": 20261111,
+          "mistakes": 20261005
+        },
+        "files": [
+          {
+            "path": "vfs.db",
+            "size": 2244608,
+            "sha256": "73706ef8747809aef34e3f37a90b379693766150de795b49c19cad3be5fa6e26",
+            "database_id": "vfs"
+          },
+          {
+            "path": "llm_usage.db",
+            "size": 192512,
+            "sha256": "540126c76b2e287dec43e42ea58586114869b10500c64e17ea730bae7518ff00",
+            "database_id": "llm_usage"
+          },
+          {
+            "path": "chat_v2.db",
+            "size": 802816,
+            "sha256": "de5c299a136ec90160a783dbdc3acf6d047f0f70891aba99b2222fbf63bd370c",
+            "database_id": "chat_v2"
+          },
+          {
+            "path": "mistakes.db",
+            "size": 720896,
+            "sha256": "18058406b0a1995f4e57aa5c559503844bdcc0d6f1979180a0afe5a106bf1792",
+            "database_id": "mistakes"
+          },
+          {
+            "path": "databases/audit.db",
+            "size": 24576,
+            "sha256": "8c60f12c6b370c5c21956d9a4769518a440a3c9cbddcb1257d0460b380b622e5"
+          },
+          {
+            "path": "assets/vfs_blobs/25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt",
+            "size": 70,
+            "sha256": "254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a"
+          }
+        ],
+        "is_incremental": false,
+        "incremental_base": null,
+        "backup_id": "legacy-standard-fixture",
+        "snapshot_kind": "partial_overlay",
+        "snapshot_epoch": "5a0e16c0-0000-4000-8000-000000000001",
+        "required_components": [
+          "agents",
+          "asset-root:audio",
+          "asset-root:documents",
+          "asset-root:images",
+          "asset-root:notes_assets",
+          "asset-root:pdf_ocr_sessions",
+          "asset-root:subjects",
+          "asset-root:textbooks",
+          "asset-root:vfs_blobs",
+          "asset-root:videos",
+          "asset-root:workspaces",
+          "audit",
+          "crypto",
+          "custom-grading-modes",
+          "database:chat_v2",
+          "database:llm_usage",
+          "database:mistakes",
+          "database:vfs",
+          "user-skills",
+          "webview-settings",
+          "workspaces-root"
+        ],
+        "included_components": [
+          "agents",
+          "asset-root:audio",
+          "asset-root:documents",
+          "asset-root:images",
+          "asset-root:notes_assets",
+          "asset-root:pdf_ocr_sessions",
+          "asset-root:subjects",
+          "asset-root:textbooks",
+          "asset-root:vfs_blobs",
+          "asset-root:videos",
+          "asset-root:workspaces",
+          "audit",
+          "crypto",
+          "custom-grading-modes",
+          "database:chat_v2",
+          "database:llm_usage",
+          "database:mistakes",
+          "database:vfs",
+          "user-skills",
+          "webview-settings",
+          "workspaces-root"
+        ],
+        "key_policy": "not_present",
+        "coverage": {
+          "version": 1,
+          "domains": {
+            "database:vfs": {
+              "status": "complete",
+              "paths": [
+                "vfs.db"
+              ],
+              "file_count": 1,
+              "total_size": 2244608,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "databases/vfs.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "database:llm_usage": {
+              "status": "complete",
+              "paths": [
+                "llm_usage.db"
+              ],
+              "file_count": 1,
+              "total_size": 192512,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "llm_usage.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "database:chat_v2": {
+              "status": "complete",
+              "paths": [
+                "chat_v2.db"
+              ],
+              "file_count": 1,
+              "total_size": 802816,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "chat_v2.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "database:mistakes": {
+              "status": "complete",
+              "paths": [
+                "mistakes.db"
+              ],
+              "file_count": 1,
+              "total_size": 720896,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "mistakes.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "workspaces-root": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "workspaces",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:images": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "images",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:notes_assets": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "notes_assets",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:documents": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "documents",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:vfs_blobs": {
+              "status": "complete",
+              "paths": [
+                "assets/vfs_blobs/25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt"
+              ],
+              "file_count": 1,
+              "total_size": 70,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "vfs_blobs",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:subjects": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "subjects",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:workspaces": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "workspaces",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:audio": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "audio",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:videos": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "videos",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:textbooks": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "textbooks",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:pdf_ocr_sessions": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "pdf_ocr_sessions",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "crypto": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": true,
+              "restore_target": ".",
+              "restore_scope": "application_data",
+              "restore_trust": "explicit"
+            },
+            "audit": {
+              "status": "complete",
+              "paths": [
+                "databases/audit.db"
+              ],
+              "file_count": 1,
+              "total_size": 24576,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "databases/audit.db",
+              "restore_scope": "application_data",
+              "restore_trust": "explicit"
+            },
+            "webview-settings": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "webview_settings.json",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "custom-grading-modes": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "custom_grading_modes.json",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "agents": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": true,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "workspaces/agents",
+              "restore_scope": "active_data_space",
+              "restore_trust": "untrusted_executable"
+            },
+            "user-skills": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": true,
+              "optional": true,
+              "encrypted": true,
+              "restore_target": "~/.deep-student/skills",
+              "restore_scope": "user_home",
+              "restore_trust": "untrusted_executable"
+            }
+          }
+        }
+      },
+      "expected": {
+        "rejected": true,
+        "message": "备份不是可替换数据槽的完整快照: partial_overlay"
+      }
+    },
+    {
+      "id": "backup-encrypted-key-policy",
+      "input": {
+        "version": "3.0.0",
+        "app_version": "0.20.0",
+        "created_at": "2026-11-15T12:59:18.836Z",
+        "platform": "mobile",
+        "schema_versions": {
+          "vfs": 20261111,
+          "llm_usage": 20260826,
+          "chat_v2": 20261111,
+          "mistakes": 20261005
+        },
+        "files": [
+          {
+            "path": "vfs.db",
+            "size": 2244608,
+            "sha256": "73706ef8747809aef34e3f37a90b379693766150de795b49c19cad3be5fa6e26",
+            "database_id": "vfs"
+          },
+          {
+            "path": "llm_usage.db",
+            "size": 192512,
+            "sha256": "540126c76b2e287dec43e42ea58586114869b10500c64e17ea730bae7518ff00",
+            "database_id": "llm_usage"
+          },
+          {
+            "path": "chat_v2.db",
+            "size": 802816,
+            "sha256": "de5c299a136ec90160a783dbdc3acf6d047f0f70891aba99b2222fbf63bd370c",
+            "database_id": "chat_v2"
+          },
+          {
+            "path": "mistakes.db",
+            "size": 720896,
+            "sha256": "18058406b0a1995f4e57aa5c559503844bdcc0d6f1979180a0afe5a106bf1792",
+            "database_id": "mistakes"
+          },
+          {
+            "path": "databases/audit.db",
+            "size": 24576,
+            "sha256": "8c60f12c6b370c5c21956d9a4769518a440a3c9cbddcb1257d0460b380b622e5"
+          },
+          {
+            "path": "assets/vfs_blobs/25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt",
+            "size": 70,
+            "sha256": "254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a"
+          }
+        ],
+        "is_incremental": false,
+        "incremental_base": null,
+        "backup_id": "legacy-standard-fixture",
+        "snapshot_kind": "full",
+        "snapshot_epoch": "5a0e16c0-0000-4000-8000-000000000001",
+        "required_components": [
+          "agents",
+          "asset-root:audio",
+          "asset-root:documents",
+          "asset-root:images",
+          "asset-root:notes_assets",
+          "asset-root:pdf_ocr_sessions",
+          "asset-root:subjects",
+          "asset-root:textbooks",
+          "asset-root:vfs_blobs",
+          "asset-root:videos",
+          "asset-root:workspaces",
+          "audit",
+          "crypto",
+          "custom-grading-modes",
+          "database:chat_v2",
+          "database:llm_usage",
+          "database:mistakes",
+          "database:vfs",
+          "user-skills",
+          "webview-settings",
+          "workspaces-root"
+        ],
+        "included_components": [
+          "agents",
+          "asset-root:audio",
+          "asset-root:documents",
+          "asset-root:images",
+          "asset-root:notes_assets",
+          "asset-root:pdf_ocr_sessions",
+          "asset-root:subjects",
+          "asset-root:textbooks",
+          "asset-root:vfs_blobs",
+          "asset-root:videos",
+          "asset-root:workspaces",
+          "audit",
+          "crypto",
+          "custom-grading-modes",
+          "database:chat_v2",
+          "database:llm_usage",
+          "database:mistakes",
+          "database:vfs",
+          "user-skills",
+          "webview-settings",
+          "workspaces-root"
+        ],
+        "key_policy": "included_encrypted",
+        "coverage": {
+          "version": 1,
+          "domains": {
+            "database:vfs": {
+              "status": "complete",
+              "paths": [
+                "vfs.db"
+              ],
+              "file_count": 1,
+              "total_size": 2244608,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "databases/vfs.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "database:llm_usage": {
+              "status": "complete",
+              "paths": [
+                "llm_usage.db"
+              ],
+              "file_count": 1,
+              "total_size": 192512,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "llm_usage.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "database:chat_v2": {
+              "status": "complete",
+              "paths": [
+                "chat_v2.db"
+              ],
+              "file_count": 1,
+              "total_size": 802816,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "chat_v2.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "database:mistakes": {
+              "status": "complete",
+              "paths": [
+                "mistakes.db"
+              ],
+              "file_count": 1,
+              "total_size": 720896,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "mistakes.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "workspaces-root": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "workspaces",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:images": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "images",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:notes_assets": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "notes_assets",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:documents": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "documents",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:vfs_blobs": {
+              "status": "complete",
+              "paths": [
+                "assets/vfs_blobs/25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt"
+              ],
+              "file_count": 1,
+              "total_size": 70,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "vfs_blobs",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:subjects": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "subjects",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:workspaces": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "workspaces",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:audio": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "audio",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:videos": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "videos",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:textbooks": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "textbooks",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:pdf_ocr_sessions": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "pdf_ocr_sessions",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "crypto": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": true,
+              "restore_target": ".",
+              "restore_scope": "application_data",
+              "restore_trust": "explicit"
+            },
+            "audit": {
+              "status": "complete",
+              "paths": [
+                "databases/audit.db"
+              ],
+              "file_count": 1,
+              "total_size": 24576,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "databases/audit.db",
+              "restore_scope": "application_data",
+              "restore_trust": "explicit"
+            },
+            "webview-settings": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "webview_settings.json",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "custom-grading-modes": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "custom_grading_modes.json",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "agents": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": true,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "workspaces/agents",
+              "restore_scope": "active_data_space",
+              "restore_trust": "untrusted_executable"
+            },
+            "user-skills": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": true,
+              "optional": true,
+              "encrypted": true,
+              "restore_target": "~/.deep-student/skills",
+              "restore_scope": "user_home",
+              "restore_trust": "untrusted_executable"
+            }
+          }
+        }
+      },
+      "expected": {
+        "rejected": true,
+        "message": "备份的敏感数据仍处于密码加密封存状态；请在导入 ZIP 时提供备份密码完成解封，再执行整槽恢复"
+      }
+    },
+    {
+      "id": "backup-empty-snapshot-epoch",
+      "input": {
+        "version": "3.0.0",
+        "app_version": "0.20.0",
+        "created_at": "2026-11-15T12:59:18.836Z",
+        "platform": "mobile",
+        "schema_versions": {
+          "vfs": 20261111,
+          "llm_usage": 20260826,
+          "chat_v2": 20261111,
+          "mistakes": 20261005
+        },
+        "files": [
+          {
+            "path": "vfs.db",
+            "size": 2244608,
+            "sha256": "73706ef8747809aef34e3f37a90b379693766150de795b49c19cad3be5fa6e26",
+            "database_id": "vfs"
+          },
+          {
+            "path": "llm_usage.db",
+            "size": 192512,
+            "sha256": "540126c76b2e287dec43e42ea58586114869b10500c64e17ea730bae7518ff00",
+            "database_id": "llm_usage"
+          },
+          {
+            "path": "chat_v2.db",
+            "size": 802816,
+            "sha256": "de5c299a136ec90160a783dbdc3acf6d047f0f70891aba99b2222fbf63bd370c",
+            "database_id": "chat_v2"
+          },
+          {
+            "path": "mistakes.db",
+            "size": 720896,
+            "sha256": "18058406b0a1995f4e57aa5c559503844bdcc0d6f1979180a0afe5a106bf1792",
+            "database_id": "mistakes"
+          },
+          {
+            "path": "databases/audit.db",
+            "size": 24576,
+            "sha256": "8c60f12c6b370c5c21956d9a4769518a440a3c9cbddcb1257d0460b380b622e5"
+          },
+          {
+            "path": "assets/vfs_blobs/25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt",
+            "size": 70,
+            "sha256": "254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a"
+          }
+        ],
+        "is_incremental": false,
+        "incremental_base": null,
+        "backup_id": "legacy-standard-fixture",
+        "snapshot_kind": "full",
+        "snapshot_epoch": "",
+        "required_components": [
+          "agents",
+          "asset-root:audio",
+          "asset-root:documents",
+          "asset-root:images",
+          "asset-root:notes_assets",
+          "asset-root:pdf_ocr_sessions",
+          "asset-root:subjects",
+          "asset-root:textbooks",
+          "asset-root:vfs_blobs",
+          "asset-root:videos",
+          "asset-root:workspaces",
+          "audit",
+          "crypto",
+          "custom-grading-modes",
+          "database:chat_v2",
+          "database:llm_usage",
+          "database:mistakes",
+          "database:vfs",
+          "user-skills",
+          "webview-settings",
+          "workspaces-root"
+        ],
+        "included_components": [
+          "agents",
+          "asset-root:audio",
+          "asset-root:documents",
+          "asset-root:images",
+          "asset-root:notes_assets",
+          "asset-root:pdf_ocr_sessions",
+          "asset-root:subjects",
+          "asset-root:textbooks",
+          "asset-root:vfs_blobs",
+          "asset-root:videos",
+          "asset-root:workspaces",
+          "audit",
+          "crypto",
+          "custom-grading-modes",
+          "database:chat_v2",
+          "database:llm_usage",
+          "database:mistakes",
+          "database:vfs",
+          "user-skills",
+          "webview-settings",
+          "workspaces-root"
+        ],
+        "key_policy": "not_present",
+        "coverage": {
+          "version": 1,
+          "domains": {
+            "database:vfs": {
+              "status": "complete",
+              "paths": [
+                "vfs.db"
+              ],
+              "file_count": 1,
+              "total_size": 2244608,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "databases/vfs.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "database:llm_usage": {
+              "status": "complete",
+              "paths": [
+                "llm_usage.db"
+              ],
+              "file_count": 1,
+              "total_size": 192512,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "llm_usage.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "database:chat_v2": {
+              "status": "complete",
+              "paths": [
+                "chat_v2.db"
+              ],
+              "file_count": 1,
+              "total_size": 802816,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "chat_v2.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "database:mistakes": {
+              "status": "complete",
+              "paths": [
+                "mistakes.db"
+              ],
+              "file_count": 1,
+              "total_size": 720896,
+              "executable": false,
+              "optional": false,
+              "encrypted": false,
+              "restore_target": "mistakes.db",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "workspaces-root": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "workspaces",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:images": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "images",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:notes_assets": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "notes_assets",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:documents": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "documents",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:vfs_blobs": {
+              "status": "complete",
+              "paths": [
+                "assets/vfs_blobs/25/254349debf613fe19e0aae72db11d40cf52f86a0269b6cca09675ab1c2fc340a.txt"
+              ],
+              "file_count": 1,
+              "total_size": 70,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "vfs_blobs",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:subjects": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "subjects",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:workspaces": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "workspaces",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:audio": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "audio",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:videos": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "videos",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:textbooks": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "textbooks",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "asset-root:pdf_ocr_sessions": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "pdf_ocr_sessions",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "crypto": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": true,
+              "restore_target": ".",
+              "restore_scope": "application_data",
+              "restore_trust": "explicit"
+            },
+            "audit": {
+              "status": "complete",
+              "paths": [
+                "databases/audit.db"
+              ],
+              "file_count": 1,
+              "total_size": 24576,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "databases/audit.db",
+              "restore_scope": "application_data",
+              "restore_trust": "explicit"
+            },
+            "webview-settings": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "webview_settings.json",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "custom-grading-modes": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": false,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "custom_grading_modes.json",
+              "restore_scope": "active_data_space",
+              "restore_trust": "data"
+            },
+            "agents": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": true,
+              "optional": true,
+              "encrypted": false,
+              "restore_target": "workspaces/agents",
+              "restore_scope": "active_data_space",
+              "restore_trust": "untrusted_executable"
+            },
+            "user-skills": {
+              "status": "absent",
+              "paths": [],
+              "file_count": 0,
+              "total_size": 0,
+              "executable": true,
+              "optional": true,
+              "encrypted": true,
+              "restore_target": "~/.deep-student/skills",
+              "restore_scope": "user_home",
+              "restore_trust": "untrusted_executable"
+            }
+          }
+        }
+      },
+      "expected": {
+        "rejected": true,
+        "message": "完整快照缺少 snapshot_epoch"
+      }
+    },
+    {
+      "id": "portable-path-0",
+      "input": "active/notes_assets/中文🙂.md",
+      "expected": {
+        "encoded": "active/notes_assets/中文🙂.md",
+        "decoded": "active/notes_assets/中文🙂.md",
+        "sha256": "36a8d055271fdf4aa41adac9f54c2803fc3f9b0a5d1ee5713b5d76a5dc372fcf"
+      },
+      "expectedSha256": "120134266b52bde62c9665470ca122e0c34cec24b09380121a9f6c248f584145",
+      "comparison": "semantic output exact; decimal objects represent lossless integers"
+    },
+    {
+      "id": "portable-path-1",
+      "input": "active/notes_assets/é.txt",
+      "expected": {
+        "encoded": "active/notes_assets/‛eh65cc812e747874",
+        "decoded": "active/notes_assets/é.txt",
+        "sha256": "a38384225190524d1f025b06eb8bc9b2a4736b991aee6f741129432db851ba6e"
+      },
+      "expectedSha256": "3bebd1f9782eab63ec1a7cbd8568afb19533de193b758a47ce26006c84f19240",
+      "comparison": "semantic output exact; decimal objects represent lossless integers"
+    },
+    {
+      "id": "portable-path-2",
+      "input": "active/documents/CON.txt",
+      "expected": {
+        "encoded": "active/documents/‛erCON.txt",
+        "decoded": "active/documents/CON.txt",
+        "sha256": "20ea15f7e68cf13d6a59120bb8551d32ded86b654b54d2aee9f95dbb8cde4fc1"
+      },
+      "expectedSha256": "e9bd43a152610c824f1b5b620a2e988d1895e59851816e67324e501c3dfa79c3",
+      "comparison": "semantic output exact; decimal objects represent lossless integers"
+    },
+    {
+      "id": "portable-path-3",
+      "input": "active/documents/a:b?.pdf",
+      "expected": {
+        "encoded": "active/documents/‛era：b？.pdf",
+        "decoded": "active/documents/a:b?.pdf",
+        "sha256": "5f0b810ac3777e8cdb51a20014693cb1e079095dd1b69dd76d9d404780dfaa18"
+      },
+      "expectedSha256": "31c122a0d83dc120b26c22bae6dc19a3ab3c7b5251750c911fc316002d8aa8cd",
+      "comparison": "semantic output exact; decimal objects represent lossless integers"
+    },
+    {
+      "id": "portable-path-4",
+      "input": "app_data/skills/name/trailing. ",
+      "expected": {
+        "encoded": "app_data/skills/name/‛ertrailing．␠",
+        "decoded": "app_data/skills/name/trailing. ",
+        "sha256": "5d681a52d638150de64e6b78025e05ceaea5103625d60367c26c9178e7ffa69d"
+      },
+      "expectedSha256": "a8f9ce6ef9f6dded3faf0fe2c6a88d6dea625e2a59bca1c11b232046253ddf40",
+      "comparison": "semantic output exact; decimal objects represent lossless integers"
+    },
+    {
+      "id": "portable-path-5",
+      "input": "active/images/quote‛.png",
+      "expected": {
+        "encoded": "active/images/‛erquote‛‛.png",
+        "decoded": "active/images/quote‛.png",
+        "sha256": "f7d289c980416a5e14e400eeefaa9de9cbc484c38230e0fa8e5f851df07f478e"
+      },
+      "expectedSha256": "bf044a093945d9c78e448aea04955adbab82553958b8e506508c2307f01934d1",
+      "comparison": "semantic output exact; decimal objects represent lossless integers"
+    },
+    {
+      "id": "portable-invalid-0",
+      "input": "active/images/../secret",
+      "expected": null,
+      "expectedSha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+      "comparison": "semantic output exact; decimal objects represent lossless integers"
+    },
+    {
+      "id": "portable-invalid-1",
+      "input": "active/images//file",
+      "expected": null,
+      "expectedSha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+      "comparison": "semantic output exact; decimal objects represent lossless integers"
+    },
+    {
+      "id": "portable-invalid-2",
+      "input": "/active/images/file",
+      "expected": null,
+      "expectedSha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+      "comparison": "semantic output exact; decimal objects represent lossless integers"
+    },
+    {
+      "id": "portable-invalid-3",
+      "input": "active/images/",
+      "expected": null,
+      "expectedSha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+      "comparison": "semantic output exact; decimal objects represent lossless integers"
+    }
+  ],
+  "sourceBinding": {
+    "commit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+    "head": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+    "fixture": {
+      "path": "fixtures/legacy-mobile/legacy-mobile-standard-standard-v1.zip",
+      "sha256": "3bcecfdd5ec02b0d3b8ee110f2649b6edc136bc9bb6d41b2a5673061ec932eba",
+      "bytes": 3987747
+    },
+    "parentSample": "S0.16 public legacy export; reused byte-for-byte, not regenerated against the frozen desktop source",
+    "parentManifest": {
+      "version": "3.0.0",
+      "snapshotKind": "full",
+      "keyPolicy": "not_present",
+      "files": 6
+    }
+  },
+  "checks": {
+    "vectors": 66,
+    "rejectionCases": 38,
+    "losslessSizeAndSeq": true,
+    "tombstoneHashBindsFields": true
+  },
+  "rules": {
+    "fileManifestUnknowns": "outer/entry unknown members discarded by current parser",
+    "tombstone": "full device identity for bookkeeping; current hash keys and legacy cleaned-device keys accepted",
+    "blobPath": "manifest parsing retains untrusted relative_path; filesystem consumer must call blobRelativePathProblem"
+  }
+}

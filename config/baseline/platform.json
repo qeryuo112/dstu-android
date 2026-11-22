@@ -1,0 +1,1378 @@
+{
+  "formatVersion": 1,
+  "unit": "S0.15",
+  "delivery": {
+    "platformBaseline": "config/baseline/platform.json",
+    "versionSource": "tools/baseline/version.mjs",
+    "contract": "config/release-contract.json",
+    "next": "S0.16"
+  },
+  "policy": {
+    "packages": "Packages are enumerated only from the workspace artifacts directory and git-tracked *.apk/*.aab in dstu-node, Operit and dstu-android. No user-disk search and no download.",
+    "releasePackage": "A package counts as release-verified only when apksigner reports the published certificate. The observed dstu package is debug-signed, so the release package is not observed.",
+    "signature": "Only public certificate data from apksigner --print-certs is read. No keystore, alias or password is opened; no signing, install or data operation is performed.",
+    "tools": "Absolute executables from the installed Android SDK build-tools 36.0.0 plus host readelf and unzip; paths and versions are recorded.",
+    "version": "The version mapping is a pure function in tools/baseline/version.mjs. Capture and verify both execute it, and the legacy generators are executed read-only for comparison."
+  },
+  "evidence": {
+    "plan": {
+      "file": "docs/plans/2026-11-15-mobile-full-feature-refactor.md",
+      "unitLine": 597,
+      "releaseSection": 1132,
+      "legacyComparisonLine": 1136,
+      "scheduleLine": 1095
+    },
+    "contract": {
+      "file": "config/release-contract.json",
+      "sha256": "414bdcd338d6095bbebddcfc78d57a43bf93895257d1f438dcfc18bee9ade75e"
+    },
+    "sourceLock": {
+      "file": "config/source-lock.json",
+      "sha256": "738677c72d82a4c50fa14c4711a2afe7c6130bfd52f6bb1d458c1a4ad084fc64",
+      "desktopCommit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+      "operitCommit": "7a39941bad80209973c535046a18195c5da9e647",
+      "operitTree": "1c74219f7b7fdebebd07e99830877559e2dcd3e6",
+      "terminalCommit": "e4646680663789002b43bbfffa6e69e65c35e614",
+      "terminalTree": "bb5420c2fd21040878c25240607996aed6afbd77"
+    },
+    "runtimeAssets": {
+      "file": "config/runtime-assets.json",
+      "sha256": "8fc7be2b5ba07faf002503e7ffbe7b8832d29bd9a2c42bbec414e046b50acccb",
+      "page16kFailures": [
+        {
+          "assetId": "operit-shell-exec",
+          "path": "app/src/main/assets/operit_shell_exec",
+          "minLoadAlign": 4096
+        },
+        {
+          "assetId": "aapt2-arm64",
+          "path": "app/src/main/assets/templates/android/tools/aapt2/aapt2-arm64-v8a",
+          "minLoadAlign": 4096
+        },
+        {
+          "assetId": "aapt2-arm64",
+          "path": "app/src/main/assets/templates/flutter/android/tools/aapt2/aapt2-arm64-v8a",
+          "minLoadAlign": 4096
+        }
+      ]
+    }
+  },
+  "tools": {
+    "sdk": {
+      "source": "home-default",
+      "isHomeDefault": true,
+      "platforms": [
+        "android-34",
+        "android-35",
+        "android-36"
+      ],
+      "buildTools": [
+        "35.0.0",
+        "36.0.0"
+      ],
+      "hasPlatform36": true
+    },
+    "buildTools": {
+      "version": "36.0.0",
+      "aapt2": {
+        "relativePath": "build-tools/36.0.0/aapt2",
+        "version": "Android Asset Packaging Tool (aapt) 2.20-13193326"
+      },
+      "apksigner": {
+        "relativePath": "build-tools/36.0.0/apksigner",
+        "version": "0.9"
+      },
+      "zipalign": {
+        "relativePath": "build-tools/36.0.0/zipalign",
+        "usage": "Usage: zipalign [-f] [-p] [-P <pagesize_kb>] [-v] [-z] <align> infile.zip outfile.zip"
+      }
+    },
+    "host": {
+      "java": {
+        "path": "/usr/lib/jvm/zulu21/bin/java",
+        "version": "21.0.13.0.3"
+      },
+      "node": {
+        "path": "/usr/bin/node",
+        "version": "v22.23.5"
+      },
+      "readelf": {
+        "path": "/usr/bin/readelf",
+        "version": "GNU readelf (GNU Binutils for Ubuntu) 2.46"
+      },
+      "unzip": {
+        "path": "/usr/bin/unzip",
+        "version": "UnZip 6.00 of 20 April 2009, by Debian. Original by Info-ZIP."
+      }
+    }
+  },
+  "legacy": {
+    "evidence": {
+      "classification": "legacy-evidence",
+      "commit": "145bb3879164c58d1cd5ff39daa94a3daa9fe874",
+      "upstreamFixedCommit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+      "adoptedForNewBuilds": false,
+      "note": "The historical publication identity is read from this pinned source file. Current upstream mobile paths and later mobile features are not adopted by the Android product.",
+      "file": "mobile/scripts/build-apk.mjs"
+    },
+    "fixedHead": {
+      "commit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+      "packageFile": "mobile/package.json",
+      "mobileVersion": "0.20.1",
+      "tauriVersion": "0.20.1",
+      "role": "source-version-observation",
+      "adoptedAsNativeIdentity": false
+    },
+    "upstreamMobileDelta": {
+      "currentMobile": "0.20.1",
+      "generationCommit": "145bb3879164c58d1cd5ff39daa94a3daa9fe874",
+      "publication": "0.20.0",
+      "currentMobileVersionAdopted": false,
+      "classification": "upstream-mobile-version-observation",
+      "note": "The fixed desktop commit carries a later upstream mobile version. It is recorded only as an upstream observation; the Android publication identity remains the historical 0.20.0/1114586 package."
+    },
+    "buildApk": {
+      "file": "mobile/scripts/build-apk.mjs",
+      "sha256": "fefbe40a46e7670cfdcb3d7fa74fcabafcabc473e5c2154e937b2ab241d5a8fd",
+      "commit": "145bb3879164c58d1cd5ff39daa94a3daa9fe874",
+      "classification": "legacy-evidence",
+      "adoptedForNewBuilds": false,
+      "identity": {
+        "applicationId": {
+          "value": "com.deepstudent.app",
+          "line": 190
+        },
+        "appName": {
+          "value": "Deep Student",
+          "line": 191
+        },
+        "versionName": {
+          "value": "0.20.0",
+          "line": 192
+        },
+        "versionCode": {
+          "value": 1114586,
+          "line": 194
+        }
+      },
+      "zipalign": {
+        "line": 144,
+        "args": [
+          "-P",
+          "16",
+          "-v",
+          "4"
+        ]
+      },
+      "signatureCheck": {
+        "line": 163,
+        "certificateLine": 90
+      },
+      "buildToolsVersionLine": 92
+    },
+    "generateVersion": {
+      "file": "scripts/generate-version.mjs",
+      "sha256": "98f37988d1f64291ed516c022561f4a3932755e7bd4f41d50986e6a03ea891a8",
+      "constants": {
+        "publishedAndroidVersionCode": {
+          "value": 14640,
+          "line": 22
+        },
+        "androidVersionCode": {
+          "value": 14641,
+          "line": 23
+        },
+        "baseAppVersion": {
+          "value": "0.9.55",
+          "line": 24
+        },
+        "buildNumberBase": {
+          "value": 14638,
+          "line": 25
+        },
+        "buildNumberBaseCommit": {
+          "value": "64edcb7735e5d4e6ccad6f13514b9ee0a8867c78",
+          "line": 26
+        },
+        "maxVersionCode": {
+          "value": 2100000000,
+          "line": 27
+        },
+        "majorStride": {
+          "value": 10000000,
+          "line": 28
+        },
+        "minorStride": {
+          "value": 100000,
+          "line": null
+        }
+      },
+      "resolverLine": 72
+    },
+    "tauri": {
+      "file": "resources/app/tauri.conf.json",
+      "commit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+      "identifier": "com.deepstudent.app",
+      "version": "0.20.1",
+      "androidVersionCode": 14641,
+      "versionCodeLine": 49
+    },
+    "mobile": {
+      "packageFile": "mobile/package.json",
+      "commit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+      "version": "0.20.1",
+      "versionRole": "upstream-observation",
+      "adoptedForNewBuilds": false,
+      "capacitorFile": "mobile/capacitor.config.json",
+      "capacitorCommit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+      "appId": "com.deepstudent.app",
+      "appName": "Deep Student"
+    },
+    "certificate": {
+      "file": "resources/app/android/release-signing-cert.sha256",
+      "repoPath": "dstu-node/resources/app/android/release-signing-cert.sha256",
+      "workspacePath": "dstu-node/resources/app/android/release-signing-cert.sha256",
+      "line": 8,
+      "value": "3acac9413cf2abace04f98e39921822625dbd7ef4b87e3d34bdb1fbd0270e769",
+      "sha256": "8322bfdaec74f0e6eb4431d0cb9f49e59ae53c0ccfae601039a65962a20c1115"
+    },
+    "mapping": {
+      "module": "scripts/generate-version.mjs",
+      "source": {
+        "commit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+        "sha256": "98f37988d1f64291ed516c022561f4a3932755e7bd4f41d50986e6a03ea891a8"
+      },
+      "mapped": {
+        "0.9.55": 14641,
+        "0.20.0": 1114586,
+        "0.20.1": 1114587,
+        "0.21.0": 1214586,
+        "0.99.99": 9014685,
+        "1.0.0": 9114586
+      },
+      "rejected": [
+        {
+          "version": "0.9.54",
+          "reason": "package.json version 0.9.54 predates Android baseline 0.9.55"
+        },
+        {
+          "version": "1.100.0",
+          "reason": "package.json version exceeds the supported Android version mapping"
+        },
+        {
+          "version": "1.0.100000",
+          "reason": "package.json version exceeds the supported Android version mapping"
+        },
+        {
+          "version": "1.0",
+          "reason": "package.json version must be a stable major.minor.patch semantic version"
+        },
+        {
+          "version": "1.0.0-beta",
+          "reason": "package.json version must be a stable major.minor.patch semantic version"
+        }
+      ],
+      "buildNumberBaseCommitPresent": false,
+      "buildNumberBaseCommit": "64edcb7735e5d4e6ccad6f13514b9ee0a8867c78",
+      "note": "Desktop clone is missing the build-number baseline commit, so resolveBuildNumber cannot run here; this unit does not use build numbers for versionCode."
+    }
+  },
+  "version": {
+    "source": "tools/baseline/version.mjs",
+    "mapping": {
+      "formula": "major * 10000000 + minor * 100000 + patch",
+      "majorStride": 10000000,
+      "minorStride": 100000,
+      "maxMinor": 99,
+      "maxPatch": 99999,
+      "maxVersionCode": 2100000000,
+      "offset": 0
+    },
+    "initial": {
+      "version": "0.21.0",
+      "versionCode": 2100000
+    },
+    "observedPackage": {
+      "version": "0.20.0",
+      "versionCode": 1114586
+    },
+    "legacyComparison": {
+      "0.9.55": 14641,
+      "0.20.0": 1114586,
+      "0.20.1": 1114587,
+      "0.21.0": 1214586,
+      "0.99.99": 9014685,
+      "1.0.0": 9114586
+    },
+    "monotonic": [
+      {
+        "version": "0.21.0",
+        "versionCode": 2100000
+      },
+      {
+        "version": "0.21.1",
+        "versionCode": 2100001
+      },
+      {
+        "version": "0.21.99",
+        "versionCode": 2100099
+      },
+      {
+        "version": "0.22.0",
+        "versionCode": 2200000
+      },
+      {
+        "version": "0.99.99",
+        "versionCode": 9900099
+      },
+      {
+        "version": "1.0.0",
+        "versionCode": 10000000
+      },
+      {
+        "version": "1.2.3",
+        "versionCode": 10200003
+      },
+      {
+        "version": "2.0.0",
+        "versionCode": 20000000
+      },
+      {
+        "version": "210.0.0",
+        "versionCode": 2100000000
+      }
+    ]
+  },
+  "platform": {
+    "gradle": {
+      "modules": [
+        {
+          "id": "app",
+          "path": "app",
+          "file": "app/build.gradle.kts",
+          "sha256": "ff2f6f249c0ed02cfefaa5a59a3f487128e3c473cdf76802056dd45fcc5c75bb",
+          "minSdk": 26,
+          "targetSdk": 34,
+          "compileSdk": 36,
+          "abiFilters": [
+            "arm64-v8a"
+          ],
+          "useLegacyPackaging": true
+        },
+        {
+          "id": "terminal",
+          "path": "terminal",
+          "file": "terminal/build.gradle.kts",
+          "sha256": "368fe137c381d14a2ef91f7dab0addcecebffb8f2d36263b5abb70cfad23660c",
+          "minSdk": 26,
+          "targetSdk": null,
+          "compileSdk": 36,
+          "abiFilters": [
+            "arm64-v8a"
+          ],
+          "useLegacyPackaging": true
+        },
+        {
+          "id": "quickjs",
+          "path": "quickjs",
+          "file": "quickjs/build.gradle.kts",
+          "sha256": "03cce83503401f4e3e2674826fda4112faa1777012b194caf675e64d74a4f936",
+          "minSdk": 26,
+          "targetSdk": null,
+          "compileSdk": 36,
+          "abiFilters": [
+            "arm64-v8a"
+          ],
+          "useLegacyPackaging": null
+        },
+        {
+          "id": "llama",
+          "path": "llm/llama",
+          "file": "llm/llama/build.gradle.kts",
+          "sha256": "b49d96f3231b635a19f3e242dcc41ee6666b62cf503fbfd33e660c6d4f811781",
+          "minSdk": 26,
+          "targetSdk": 34,
+          "compileSdk": 36,
+          "abiFilters": [
+            "arm64-v8a"
+          ],
+          "useLegacyPackaging": null
+        },
+        {
+          "id": "mnn",
+          "path": "llm/mnn",
+          "file": "llm/mnn/build.gradle.kts",
+          "sha256": "e0665e7703f4f2fdab1202094ac0fc93420c47ee233691a59053f359f0b19c18",
+          "minSdk": 26,
+          "targetSdk": 34,
+          "compileSdk": 36,
+          "abiFilters": [
+            "arm64-v8a"
+          ],
+          "useLegacyPackaging": null
+        },
+        {
+          "id": "showerclient",
+          "path": "showerclient",
+          "file": "showerclient/build.gradle.kts",
+          "sha256": "e3ce06dbf90ddd092c01b21e2b4d808b0173b3177708aed40f7248334e8b6635",
+          "minSdk": 26,
+          "targetSdk": null,
+          "compileSdk": 36,
+          "abiFilters": [],
+          "useLegacyPackaging": null
+        },
+        {
+          "id": "fbx",
+          "path": "avator/fbx",
+          "file": "avator/fbx/build.gradle.kts",
+          "sha256": "0fddcb434508a31090a1d7a24330e9902d803b4b97c4d039b1f58cc058ef5774",
+          "minSdk": 26,
+          "targetSdk": 34,
+          "compileSdk": 36,
+          "abiFilters": [
+            "arm64-v8a"
+          ],
+          "useLegacyPackaging": null
+        },
+        {
+          "id": "dragonbones",
+          "path": "avator/dragonbones",
+          "file": "avator/dragonbones/build.gradle.kts",
+          "sha256": "ac23ca0a62aa0c9bcad9c0a84c1b33617b21d7593da0233fa560ce07c4a18584",
+          "minSdk": 26,
+          "targetSdk": null,
+          "compileSdk": 36,
+          "abiFilters": [
+            "arm64-v8a"
+          ],
+          "useLegacyPackaging": null
+        },
+        {
+          "id": "mmd",
+          "path": "avator/mmd",
+          "file": "avator/mmd/build.gradle.kts",
+          "sha256": "0f774c5838630bccca155b5898ce5691d53c657626aa703f4f0bf861e0c9b3d3",
+          "minSdk": 26,
+          "targetSdk": 34,
+          "compileSdk": 36,
+          "abiFilters": [
+            "arm64-v8a"
+          ],
+          "useLegacyPackaging": null
+        }
+      ],
+      "catalog": {
+        "file": "gradle/libs.versions.toml",
+        "sha256": "f1a33af94925d8c59f901a84c8d0f26963da63cf576d815adce1a7c0e6527c4a",
+        "agp": "8.13.2",
+        "kotlin": "2.2.21",
+        "coreKtx": "1.18.0",
+        "composeBom": "2026.02.01",
+        "composeUi": "1.10.4",
+        "activityCompose": "1.8.2"
+      }
+    },
+    "aarFacts": {
+      "cache": "build-tools/android-gradle-home/caches/modules-2/files-2.1",
+      "aarCount": 42,
+      "parsedManifestCount": 42,
+      "maxDeclaredMinSdk": 24,
+      "maxDeclaredMinSdkCoordinates": [
+        "org.apache.cordova:framework:14.0.1"
+      ],
+      "minSdkHistogram": {
+        "14": 25,
+        "19": 3,
+        "21": 13,
+        "24": 1
+      },
+      "requestedArtifacts": [
+        {
+          "id": "coreKtx",
+          "coordinate": "androidx.core:core-ktx:1.18.0",
+          "observed": false
+        },
+        {
+          "id": "composeUi",
+          "coordinate": "androidx.compose.ui:ui:1.10.4",
+          "observed": false
+        },
+        {
+          "id": "composeBom",
+          "coordinate": "androidx.compose:compose-bom:2026.02.01",
+          "observed": false
+        },
+        {
+          "id": "activityCompose",
+          "coordinate": "androidx.activity:activity-compose:1.8.2",
+          "observed": false
+        }
+      ],
+      "unparsedManifests": [],
+      "note": "Only AAR manifests present in the local Gradle module cache are measured. Requested artifacts absent from the cache are recorded as not observed, not assumed."
+    },
+    "decision": {
+      "compileSdk": 36,
+      "targetSdk": 36,
+      "minSdk": 26,
+      "abi": [
+        "arm64-v8a"
+      ],
+      "withheldAbi": [
+        "x86_64"
+      ],
+      "minSdkBasis": [
+        "Operit app, terminal, quickjs, llama, mnn, showerclient and avator modules all declare minSdk 26 (measured above).",
+        "The desktop APK observed at 0.20.0 declares minSdk 24, but API 24/25 support would need separate source adaptation and device tests (plan section 12.1).",
+        "No locally measured AAR declares a minSdk above 26; the highest measured value is 24 (Cordova framework 14.0.1)."
+      ],
+      "targetSdkBasis": [
+        "Desktop APK 0.20.0 already targets 36 and is installed on the same users.",
+        "Operit targets 34; raising to 36 is recorded because Android 15/16 behavior changes must be tested in S9."
+      ]
+    },
+    "sdk": {
+      "source": "home-default",
+      "isHomeDefault": true,
+      "platforms": [
+        "android-34",
+        "android-35",
+        "android-36"
+      ],
+      "buildTools": [
+        "35.0.0",
+        "36.0.0"
+      ],
+      "hasPlatform36": true
+    }
+  },
+  "packages": [
+    {
+      "path": "app/src/main/assets/accessibility.apk",
+      "origin": {
+        "repo": "operit",
+        "tracked": true,
+        "source": "git ls-files of workspace repository"
+      },
+      "bytes": 2763980,
+      "sha256": "b6bac271c33a41b6cc39840d122286488cebc57be2e74b39aed5bb0d0b1c5212",
+      "badging": {
+        "packageName": "com.ai.assistance.operit.provider",
+        "versionCode": 4,
+        "versionName": "1.5",
+        "minSdk": 26,
+        "targetSdk": 34,
+        "compileSdk": 34,
+        "platformBuildVersionCode": 34,
+        "applicationLabel": "Accessibility Operit Support",
+        "nativeCode": [
+          "arm64-v8a",
+          "armeabi-v7a",
+          "x86",
+          "x86_64"
+        ],
+        "badgingSha256": "d63a6c86da9b597d8c615e72ab91135987608a086ff946e49a3388b7180932e6"
+      },
+      "manifestFlags": {
+        "extractNativeLibs": false,
+        "debuggable": null,
+        "allowBackup": true,
+        "usesCleartextTraffic": null
+      },
+      "signature": {
+        "verified": true,
+        "verifyError": null,
+        "schemes": {
+          "v1": false,
+          "v2": true,
+          "v3": false,
+          "v3.1": false,
+          "v4": false
+        },
+        "signerCount": 1,
+        "signerDn": "O=dec, OU=sw, CN=aa",
+        "signerSha256": "d7ccd870912d42fa761890df41cdf6c78cdcf13a619fb316bae9d24df5e15191"
+      },
+      "zipAlignment16k": {
+        "command": "zipalign -c -P 16 -v 4 <apk>",
+        "passed": true,
+        "summary": "Verification successful",
+        "checkedEntries": 209
+      },
+      "zip": {
+        "entries": 912,
+        "nativeEntries": 4,
+        "nativeAbis": [
+          "arm64-v8a",
+          "armeabi-v7a",
+          "x86",
+          "x86_64"
+        ],
+        "nativeMethods": {
+          "stored": 4
+        },
+        "arm64Entries": [
+          "lib/arm64-v8a/libandroidx.graphics.path.so"
+        ]
+      },
+      "arm64LoadAligns": [
+        {
+          "entry": "lib/arm64-v8a/libandroidx.graphics.path.so",
+          "bytes": 10096,
+          "loadAligns": [
+            16384
+          ],
+          "minLoadAlign": 16384,
+          "page16k": true
+        }
+      ],
+      "native16k": {
+        "checked": 1,
+        "pass": 1,
+        "allPass": true
+      },
+      "releaseCertificateMatch": false,
+      "debugSigned": false
+    },
+    {
+      "path": "app/src/main/assets/desktop.apk",
+      "origin": {
+        "repo": "operit",
+        "tracked": true,
+        "source": "git ls-files of workspace repository"
+      },
+      "bytes": 6489542,
+      "sha256": "76f6eb10db6e909ce4274f8738ee6fe25320fa35a46aa7ba911069b5e433320e",
+      "badging": {
+        "packageName": "com.ai.assistance.operit.desktop",
+        "versionCode": 1,
+        "versionName": "1.0",
+        "minSdk": 24,
+        "targetSdk": 36,
+        "compileSdk": 36,
+        "platformBuildVersionCode": 36,
+        "applicationLabel": "Operit Desktop",
+        "nativeCode": [
+          "arm64-v8a",
+          "armeabi-v7a",
+          "x86",
+          "x86_64"
+        ],
+        "badgingSha256": "e06c16b606ca13a3f261a4db8cb2144981115460e058b8d1ab5d45ec96f7b4cb"
+      },
+      "manifestFlags": {
+        "extractNativeLibs": false,
+        "debuggable": null,
+        "allowBackup": true,
+        "usesCleartextTraffic": null
+      },
+      "signature": {
+        "verified": true,
+        "verifyError": null,
+        "schemes": {
+          "v1": false,
+          "v2": true,
+          "v3": false,
+          "v3.1": false,
+          "v4": false
+        },
+        "signerCount": 1,
+        "signerDn": "O=dec, OU=sw, CN=aa",
+        "signerSha256": "d7ccd870912d42fa761890df41cdf6c78cdcf13a619fb316bae9d24df5e15191"
+      },
+      "zipAlignment16k": {
+        "command": "zipalign -c -P 16 -v 4 <apk>",
+        "passed": true,
+        "summary": "Verification successful",
+        "checkedEntries": 112
+      },
+      "zip": {
+        "entries": 160,
+        "nativeEntries": 4,
+        "nativeAbis": [
+          "arm64-v8a",
+          "armeabi-v7a",
+          "x86",
+          "x86_64"
+        ],
+        "nativeMethods": {
+          "stored": 4
+        },
+        "arm64Entries": [
+          "lib/arm64-v8a/libandroidx.graphics.path.so"
+        ]
+      },
+      "arm64LoadAligns": [
+        {
+          "entry": "lib/arm64-v8a/libandroidx.graphics.path.so",
+          "bytes": 10096,
+          "loadAligns": [
+            16384
+          ],
+          "minLoadAlign": 16384,
+          "page16k": true
+        }
+      ],
+      "native16k": {
+        "checked": 1,
+        "pass": 1,
+        "allPass": true
+      },
+      "releaseCertificateMatch": false,
+      "debugSigned": false
+    },
+    {
+      "path": "app/src/main/assets/shizuku.apk",
+      "origin": {
+        "repo": "operit",
+        "tracked": true,
+        "source": "git ls-files of workspace repository"
+      },
+      "bytes": 2571773,
+      "sha256": "6e273ab0e991c4e79bc8b1bbb9b9dd739ccac1a8712a541a214078886b7b790f",
+      "badging": {
+        "packageName": "moe.shizuku.privileged.api",
+        "versionCode": 1086,
+        "versionName": "13.6.0.r1086.2650830c",
+        "minSdk": 24,
+        "targetSdk": 36,
+        "compileSdk": 36,
+        "platformBuildVersionCode": 36,
+        "applicationLabel": "Shizuku",
+        "nativeCode": [
+          "arm64-v8a",
+          "armeabi-v7a",
+          "x86",
+          "x86_64"
+        ],
+        "badgingSha256": "b1805d44dca76849d2ce9b6e827eba69624a1c0caa8c43a94851d541b4448ec7"
+      },
+      "manifestFlags": {
+        "extractNativeLibs": true,
+        "debuggable": null,
+        "allowBackup": true,
+        "usesCleartextTraffic": null
+      },
+      "signature": {
+        "verified": true,
+        "verifyError": null,
+        "schemes": {
+          "v1": false,
+          "v2": true,
+          "v3": false,
+          "v3.1": false,
+          "v4": false
+        },
+        "signerCount": 1,
+        "signerDn": "CN=Rikka",
+        "signerSha256": "268b5590e868fb08bae7e0ac413564cd1ff88f5ccff74af9dbd0dc918e30db30"
+      },
+      "zipAlignment16k": {
+        "command": "zipalign -c -P 16 -v 4 <apk>",
+        "passed": true,
+        "summary": "Verification successful",
+        "checkedEntries": 182
+      },
+      "zip": {
+        "entries": 934,
+        "nativeEntries": 12,
+        "nativeAbis": [
+          "arm64-v8a",
+          "armeabi-v7a",
+          "x86",
+          "x86_64"
+        ],
+        "nativeMethods": {
+          "deflated": 12
+        },
+        "arm64Entries": [
+          "lib/arm64-v8a/libadb.so",
+          "lib/arm64-v8a/librish.so",
+          "lib/arm64-v8a/libshizuku.so"
+        ]
+      },
+      "arm64LoadAligns": [
+        {
+          "entry": "lib/arm64-v8a/libadb.so",
+          "bytes": 90792,
+          "loadAligns": [
+            16384
+          ],
+          "minLoadAlign": 16384,
+          "page16k": true
+        },
+        {
+          "entry": "lib/arm64-v8a/librish.so",
+          "bytes": 21512,
+          "loadAligns": [
+            16384
+          ],
+          "minLoadAlign": 16384,
+          "page16k": true
+        },
+        {
+          "entry": "lib/arm64-v8a/libshizuku.so",
+          "bytes": 16680,
+          "loadAligns": [
+            16384
+          ],
+          "minLoadAlign": 16384,
+          "page16k": true
+        }
+      ],
+      "native16k": {
+        "checked": 3,
+        "pass": 3,
+        "allPass": true
+      },
+      "releaseCertificateMatch": false,
+      "debugSigned": false
+    },
+    {
+      "path": "artifacts/deep-student-0.20.0/deep-student-debug.apk",
+      "origin": {
+        "repo": null,
+        "tracked": false,
+        "source": "workspace artifacts directory"
+      },
+      "bytes": 40788315,
+      "sha256": "9df34b4d65e0afdac20f1c3d9eb5828a9752941df5b453846e8ee31463f978e2",
+      "badging": {
+        "packageName": "com.deepstudent.app",
+        "versionCode": 1114586,
+        "versionName": "0.20.0",
+        "minSdk": 24,
+        "targetSdk": 36,
+        "compileSdk": 36,
+        "platformBuildVersionCode": 36,
+        "applicationLabel": "Deep Student",
+        "nativeCode": [],
+        "badgingSha256": "a25165fee0817abdece2b21f7360b69df4865bda11e01f4435cce7d19a3aa0b0"
+      },
+      "manifestFlags": {
+        "extractNativeLibs": false,
+        "debuggable": true,
+        "allowBackup": true,
+        "usesCleartextTraffic": true
+      },
+      "signature": {
+        "verified": true,
+        "verifyError": null,
+        "schemes": {
+          "v1": false,
+          "v2": true,
+          "v3": false,
+          "v3.1": false,
+          "v4": false
+        },
+        "signerCount": 1,
+        "signerDn": "C=US, O=Android, CN=Android Debug",
+        "signerSha256": "0180040010aee59d86c47c107a343f52570420f90f2ca3e831c67d57e9c8bb42"
+      },
+      "zipAlignment16k": {
+        "command": "zipalign -c -P 16 -v 4 <apk>",
+        "passed": true,
+        "summary": "Verification successful",
+        "checkedEntries": 231
+      },
+      "zip": {
+        "entries": 1997,
+        "nativeEntries": 0,
+        "nativeAbis": [],
+        "nativeMethods": {},
+        "arm64Entries": []
+      },
+      "arm64LoadAligns": [],
+      "native16k": {
+        "checked": 0,
+        "pass": 0,
+        "allPass": true
+      },
+      "releaseCertificateMatch": false,
+      "debugSigned": true
+    }
+  ],
+  "workspace": {
+    "dstuAndroid": {
+      "gradleProjectMarkers": [],
+      "hasGradleProject": false
+    },
+    "heads": {
+      "desktop": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+      "operit": "7a39941bad80209973c535046a18195c5da9e647",
+      "terminal": "e4646680663789002b43bbfffa6e69e65c35e614"
+    },
+    "trackedChanges": {
+      "desktop": "",
+      "operit": "",
+      "terminal": ""
+    },
+    "note": "dstu-android HEAD is intentionally not recorded: it changes with each commit of this unit and is not a platform fact. Source repositories are pinned by config/source-lock.json."
+  },
+  "exclusions": {
+    "desktopApk": {
+      "path": "app/src/main/assets/desktop.apk",
+      "sha256": "76f6eb10db6e909ce4274f8738ee6fe25320fa35a46aa7ba911069b5e433320e",
+      "packageName": "com.ai.assistance.operit.desktop",
+      "versionName": "1.0",
+      "versionCode": 1,
+      "assetReads": [],
+      "packageLaunchReferences": [
+        "app/src/main/java/com/ai/assistance/operit/core/tools/agent/PhoneAgent.kt:1003:                            val desktopPackage = \"com.ai.assistance.operit.desktop\""
+      ],
+      "decision": "not-adopted",
+      "reason": "No tracked source opens or installs app/src/main/assets/desktop.apk; the only reference launches the com.ai.assistance.operit.desktop package through Shower. The asset itself has no consumer in the adopted product scope."
+    },
+    "exampleJars": {
+      "files": [
+        {
+          "path": "examples/apktool/resources/apktool/android-framework.jar",
+          "bytes": 4488013,
+          "sha256": "5dd984016ed5a5eb0eef866e2c6e8cd352e1427828ec23adb18005cf5648f3d7"
+        },
+        {
+          "path": "examples/apktool/resources/apktool/apk-reverse-helper-runtime-android.jar",
+          "bytes": 3185571,
+          "sha256": "4897cf70560afbbc386e5d904c77da99fc4f3602045c6bdb83bd9da4b6c09295"
+        },
+        {
+          "path": "examples/apktool/resources/apktool/apktool-runtime-android.jar",
+          "bytes": 5190028,
+          "sha256": "181362517591737685bdcdc9b3a7b4eeb532d7adf2625f6ad277ed9315282740"
+        },
+        {
+          "path": "examples/apktool/resources/apktool/jadx-runtime-android.jar",
+          "bytes": 14332003,
+          "sha256": "297017dc998926a48f732dba118d5f9472ab0825e471a068ad534f334062fcd3"
+        }
+      ],
+      "includedInOperitSettings": false,
+      "dstuAndroidJars": [],
+      "decision": "not-shipped",
+      "reason": "Operit examples/ is not an included Gradle module and dstu-android contains no jars; the apktool runtime jars are authoring aids, not product payload."
+    },
+    "subpackKeystores": {
+      "files": [
+        {
+          "path": "app/src/main/assets/jks.jks",
+          "bytes": 2656,
+          "bytesRead": false
+        },
+        {
+          "path": "app/src/main/assets/pkcs12.keystore",
+          "bytes": 2688,
+          "bytesRead": false
+        }
+      ],
+      "consumer": "Operit app/src/main/java/com/ai/assistance/operit/core/subpack/KeyStoreHelper.kt:180",
+      "decision": "not-reused",
+      "reason": "These are Operit subpack runtime keystores loaded by KeyStoreHelper. They are not release signing material; bytes stay unread and they are excluded from dstu packaging."
+    },
+    "operitAssets": {
+      "trackedPackages": [
+        {
+          "path": "app/src/main/assets/accessibility.apk",
+          "sha256": "b6bac271c33a41b6cc39840d122286488cebc57be2e74b39aed5bb0d0b1c5212"
+        },
+        {
+          "path": "app/src/main/assets/desktop.apk",
+          "sha256": "76f6eb10db6e909ce4274f8738ee6fe25320fa35a46aa7ba911069b5e433320e"
+        },
+        {
+          "path": "app/src/main/assets/shizuku.apk",
+          "sha256": "6e273ab0e991c4e79bc8b1bbb9b9dd739ccac1a8712a541a214078886b7b790f"
+        }
+      ],
+      "decision": "read-only",
+      "reason": "Operit assets are inspected without modification; the working tree must stay clean."
+    }
+  },
+  "native16k": {
+    "tasks": [
+      {
+        "assetId": "operit-shell-exec",
+        "path": "app/src/main/assets/operit_shell_exec",
+        "observedMinLoadAlign": 4096,
+        "deliveryUnit": "S6.21",
+        "status": "open",
+        "rebuild": {
+          "requirement": "Rebuild from pinned source with 16 KiB maximum and common page size; do not patch bytes in place.",
+          "command": "<ndk>/toolchains/llvm/prebuilt/<host>/bin/aarch64-linux-android26-clang -Wl,-z,max-page-size=16384 -Wl,-z,common-page-size=16384",
+          "record": [
+            "NDK version",
+            "full command line",
+            "output SHA-256",
+            "PT_LOAD alignment of the rebuilt file"
+          ]
+        },
+        "acceptance": {
+          "hostStatic": [
+            {
+              "id": "elf-load-align",
+              "command": "readelf -lW <elf> | awk '$1==\"LOAD\"{print $NF}'",
+              "expect": "每个 LOAD p_align ≥ 0x4000",
+              "runsInThisUnit": false,
+              "execution": "host",
+              "executedInThisUnit": false
+            },
+            {
+              "id": "zip-alignment",
+              "command": "$ANDROID_HOME/build-tools/36.0.0/zipalign -c -P 16 -v 4 <apk>",
+              "expect": "退出码 0 且 Verification successful",
+              "runsInThisUnit": false,
+              "execution": "host",
+              "executedInThisUnit": false
+            },
+            {
+              "id": "packaged-native",
+              "command": "tmp=$(mktemp -d) && trap 'rm -rf \"$tmp\"' EXIT && unzip -o -q <apk> 'lib/arm64-v8a/<lib>.so' -d \"$tmp\" && readelf -lW \"$tmp/lib/arm64-v8a/<lib>.so\"",
+              "expect": "打包后 arm64 库仍保持 16 KiB LOAD 对齐；readelf 读取解出的文件，不使用 stdin",
+              "runsInThisUnit": false,
+              "execution": "host",
+              "executedInThisUnit": false
+            },
+            {
+              "id": "legacy-packaging",
+              "command": "grep -n 'useLegacyPackaging = true' app/build.gradle.kts terminal/build.gradle.kts",
+              "expect": "terminal 执行资源保持解压，紧邻 nativeLibraryDir",
+              "runsInThisUnit": false,
+              "execution": "host",
+              "executedInThisUnit": false
+            }
+          ],
+          "debug": {
+            "appliesTo": "仅 debug 变体；adb run-as 要求 android:debuggable=true",
+            "commands": [
+              {
+                "id": "debug-extracted-files",
+                "command": "adb shell run-as com.deepstudent.app ls -l files/terminal/usr/bin",
+                "expect": "bash、busybox、proot、loader 实体或软链且可执行",
+                "execution": "adb-debug"
+              },
+              {
+                "id": "debug-native-dir",
+                "command": "adb shell run-as com.deepstudent.app sh -c 'ls -l /data/app/*/com.deepstudent.app*/lib/arm64'",
+                "expect": "已安装 nativeLibraryDir 内存在解压出的 .so 文件",
+                "execution": "adb-debug"
+              }
+            ],
+            "note": "run-as 只用于 debuggable 包的目录与文件核对；它启动独立 shell，读到的环境变量不是终端会话进程的环境，不能作为 PROOT_LOADER/LD_LIBRARY_PATH 证据。",
+            "executedInThisUnit": false
+          },
+          "release": {
+            "appliesTo": "release APK；包不可调试，adb run-as 不可用",
+            "commands": [
+              {
+                "id": "release-execution-profile",
+                "command": "应用内诊断导出 ExecutionProfile（由真实终端启动进程采集）",
+                "expect": "导出 nativeLibraryDir、PROOT_LOADER、LD_LIBRARY_PATH、cwd 与实际 UID",
+                "execution": "in-app-diagnostic"
+              },
+              {
+                "id": "release-profile-verify",
+                "command": "读取导出的 ExecutionProfile 并逐字段核对",
+                "expect": "nativeLibraryDir 为实际安装库目录，PROOT_LOADER 指向 files/terminal/usr/bin/loader，LD_LIBRARY_PATH 覆盖 nativeLibraryDir，cwd 与 UID 与运行身份一致",
+                "execution": "in-app-diagnostic"
+              }
+            ],
+            "requiredFields": [
+              "nativeLibraryDir",
+              "PROOT_LOADER",
+              "LD_LIBRARY_PATH",
+              "cwd",
+              "uid"
+            ],
+            "owners": [
+              "S6.01",
+              "S9.13"
+            ],
+            "note": "ExecutionProfile 由应用诊断出口导出（计划 §5 执行配置），不依赖 adb 调试通道，也不读取任何环境秘密。",
+            "executedInThisUnit": false
+          },
+          "deviceRuntime": {
+            "commands": [
+              {
+                "id": "page-size-device",
+                "command": "adb shell getconf PAGE_SIZE",
+                "expect": "16 KiB 页测试设备返回 16384",
+                "execution": "device-runtime"
+              },
+              {
+                "id": "runtime-forkpty",
+                "command": "在目标设备实际启动终端会话并执行 forkpty 探针",
+                "expect": "forkpty 成功，PTY 可读写",
+                "execution": "device-runtime"
+              },
+              {
+                "id": "runtime-proot",
+                "command": "在目标设备实际运行 proot、bash、busybox 与 loader",
+                "expect": "四者按 PROOT_LOADER 与 LD_LIBRARY_PATH 启动并返回预期输出",
+                "execution": "device-runtime"
+              }
+            ],
+            "executedInThisUnit": false,
+            "note": "真机页大小与运行检查只在具备 16 KiB 页设备时执行；S0.15 只登记步骤，未连接设备、未运行，不声称已通过。"
+          }
+        }
+      },
+      {
+        "assetId": "aapt2-arm64",
+        "path": "app/src/main/assets/templates/android/tools/aapt2/aapt2-arm64-v8a",
+        "observedMinLoadAlign": 4096,
+        "deliveryUnit": "S6.15",
+        "status": "open",
+        "rebuild": {
+          "requirement": "Rebuild from pinned source with 16 KiB maximum and common page size; do not patch bytes in place.",
+          "command": "<ndk>/toolchains/llvm/prebuilt/<host>/bin/aarch64-linux-android26-clang -Wl,-z,max-page-size=16384 -Wl,-z,common-page-size=16384",
+          "record": [
+            "NDK version",
+            "full command line",
+            "output SHA-256",
+            "PT_LOAD alignment of the rebuilt file"
+          ]
+        },
+        "acceptance": {
+          "hostStatic": [
+            {
+              "id": "elf-load-align",
+              "command": "readelf -lW <elf> | awk '$1==\"LOAD\"{print $NF}'",
+              "expect": "每个 LOAD p_align ≥ 0x4000",
+              "runsInThisUnit": false,
+              "execution": "host",
+              "executedInThisUnit": false
+            },
+            {
+              "id": "zip-alignment",
+              "command": "$ANDROID_HOME/build-tools/36.0.0/zipalign -c -P 16 -v 4 <apk>",
+              "expect": "退出码 0 且 Verification successful",
+              "runsInThisUnit": false,
+              "execution": "host",
+              "executedInThisUnit": false
+            },
+            {
+              "id": "packaged-native",
+              "command": "tmp=$(mktemp -d) && trap 'rm -rf \"$tmp\"' EXIT && unzip -o -q <apk> 'lib/arm64-v8a/<lib>.so' -d \"$tmp\" && readelf -lW \"$tmp/lib/arm64-v8a/<lib>.so\"",
+              "expect": "打包后 arm64 库仍保持 16 KiB LOAD 对齐；readelf 读取解出的文件，不使用 stdin",
+              "runsInThisUnit": false,
+              "execution": "host",
+              "executedInThisUnit": false
+            },
+            {
+              "id": "legacy-packaging",
+              "command": "grep -n 'useLegacyPackaging = true' app/build.gradle.kts terminal/build.gradle.kts",
+              "expect": "terminal 执行资源保持解压，紧邻 nativeLibraryDir",
+              "runsInThisUnit": false,
+              "execution": "host",
+              "executedInThisUnit": false
+            }
+          ],
+          "debug": {
+            "appliesTo": "仅 debug 变体；adb run-as 要求 android:debuggable=true",
+            "commands": [
+              {
+                "id": "debug-extracted-files",
+                "command": "adb shell run-as com.deepstudent.app ls -l files/terminal/usr/bin",
+                "expect": "bash、busybox、proot、loader 实体或软链且可执行",
+                "execution": "adb-debug"
+              },
+              {
+                "id": "debug-native-dir",
+                "command": "adb shell run-as com.deepstudent.app sh -c 'ls -l /data/app/*/com.deepstudent.app*/lib/arm64'",
+                "expect": "已安装 nativeLibraryDir 内存在解压出的 .so 文件",
+                "execution": "adb-debug"
+              }
+            ],
+            "note": "run-as 只用于 debuggable 包的目录与文件核对；它启动独立 shell，读到的环境变量不是终端会话进程的环境，不能作为 PROOT_LOADER/LD_LIBRARY_PATH 证据。",
+            "executedInThisUnit": false
+          },
+          "release": {
+            "appliesTo": "release APK；包不可调试，adb run-as 不可用",
+            "commands": [
+              {
+                "id": "release-execution-profile",
+                "command": "应用内诊断导出 ExecutionProfile（由真实终端启动进程采集）",
+                "expect": "导出 nativeLibraryDir、PROOT_LOADER、LD_LIBRARY_PATH、cwd 与实际 UID",
+                "execution": "in-app-diagnostic"
+              },
+              {
+                "id": "release-profile-verify",
+                "command": "读取导出的 ExecutionProfile 并逐字段核对",
+                "expect": "nativeLibraryDir 为实际安装库目录，PROOT_LOADER 指向 files/terminal/usr/bin/loader，LD_LIBRARY_PATH 覆盖 nativeLibraryDir，cwd 与 UID 与运行身份一致",
+                "execution": "in-app-diagnostic"
+              }
+            ],
+            "requiredFields": [
+              "nativeLibraryDir",
+              "PROOT_LOADER",
+              "LD_LIBRARY_PATH",
+              "cwd",
+              "uid"
+            ],
+            "owners": [
+              "S6.01",
+              "S9.13"
+            ],
+            "note": "ExecutionProfile 由应用诊断出口导出（计划 §5 执行配置），不依赖 adb 调试通道，也不读取任何环境秘密。",
+            "executedInThisUnit": false
+          },
+          "deviceRuntime": {
+            "commands": [
+              {
+                "id": "page-size-device",
+                "command": "adb shell getconf PAGE_SIZE",
+                "expect": "16 KiB 页测试设备返回 16384",
+                "execution": "device-runtime"
+              },
+              {
+                "id": "runtime-forkpty",
+                "command": "在目标设备实际启动终端会话并执行 forkpty 探针",
+                "expect": "forkpty 成功，PTY 可读写",
+                "execution": "device-runtime"
+              },
+              {
+                "id": "runtime-proot",
+                "command": "在目标设备实际运行 proot、bash、busybox 与 loader",
+                "expect": "四者按 PROOT_LOADER 与 LD_LIBRARY_PATH 启动并返回预期输出",
+                "execution": "device-runtime"
+              }
+            ],
+            "executedInThisUnit": false,
+            "note": "真机页大小与运行检查只在具备 16 KiB 页设备时执行；S0.15 只登记步骤，未连接设备、未运行，不声称已通过。"
+          }
+        }
+      },
+      {
+        "assetId": "aapt2-arm64",
+        "path": "app/src/main/assets/templates/flutter/android/tools/aapt2/aapt2-arm64-v8a",
+        "observedMinLoadAlign": 4096,
+        "deliveryUnit": "S6.15",
+        "status": "open",
+        "rebuild": {
+          "requirement": "Rebuild from pinned source with 16 KiB maximum and common page size; do not patch bytes in place.",
+          "command": "<ndk>/toolchains/llvm/prebuilt/<host>/bin/aarch64-linux-android26-clang -Wl,-z,max-page-size=16384 -Wl,-z,common-page-size=16384",
+          "record": [
+            "NDK version",
+            "full command line",
+            "output SHA-256",
+            "PT_LOAD alignment of the rebuilt file"
+          ]
+        },
+        "acceptance": {
+          "hostStatic": [
+            {
+              "id": "elf-load-align",
+              "command": "readelf -lW <elf> | awk '$1==\"LOAD\"{print $NF}'",
+              "expect": "每个 LOAD p_align ≥ 0x4000",
+              "runsInThisUnit": false,
+              "execution": "host",
+              "executedInThisUnit": false
+            },
+            {
+              "id": "zip-alignment",
+              "command": "$ANDROID_HOME/build-tools/36.0.0/zipalign -c -P 16 -v 4 <apk>",
+              "expect": "退出码 0 且 Verification successful",
+              "runsInThisUnit": false,
+              "execution": "host",
+              "executedInThisUnit": false
+            },
+            {
+              "id": "packaged-native",
+              "command": "tmp=$(mktemp -d) && trap 'rm -rf \"$tmp\"' EXIT && unzip -o -q <apk> 'lib/arm64-v8a/<lib>.so' -d \"$tmp\" && readelf -lW \"$tmp/lib/arm64-v8a/<lib>.so\"",
+              "expect": "打包后 arm64 库仍保持 16 KiB LOAD 对齐；readelf 读取解出的文件，不使用 stdin",
+              "runsInThisUnit": false,
+              "execution": "host",
+              "executedInThisUnit": false
+            },
+            {
+              "id": "legacy-packaging",
+              "command": "grep -n 'useLegacyPackaging = true' app/build.gradle.kts terminal/build.gradle.kts",
+              "expect": "terminal 执行资源保持解压，紧邻 nativeLibraryDir",
+              "runsInThisUnit": false,
+              "execution": "host",
+              "executedInThisUnit": false
+            }
+          ],
+          "debug": {
+            "appliesTo": "仅 debug 变体；adb run-as 要求 android:debuggable=true",
+            "commands": [
+              {
+                "id": "debug-extracted-files",
+                "command": "adb shell run-as com.deepstudent.app ls -l files/terminal/usr/bin",
+                "expect": "bash、busybox、proot、loader 实体或软链且可执行",
+                "execution": "adb-debug"
+              },
+              {
+                "id": "debug-native-dir",
+                "command": "adb shell run-as com.deepstudent.app sh -c 'ls -l /data/app/*/com.deepstudent.app*/lib/arm64'",
+                "expect": "已安装 nativeLibraryDir 内存在解压出的 .so 文件",
+                "execution": "adb-debug"
+              }
+            ],
+            "note": "run-as 只用于 debuggable 包的目录与文件核对；它启动独立 shell，读到的环境变量不是终端会话进程的环境，不能作为 PROOT_LOADER/LD_LIBRARY_PATH 证据。",
+            "executedInThisUnit": false
+          },
+          "release": {
+            "appliesTo": "release APK；包不可调试，adb run-as 不可用",
+            "commands": [
+              {
+                "id": "release-execution-profile",
+                "command": "应用内诊断导出 ExecutionProfile（由真实终端启动进程采集）",
+                "expect": "导出 nativeLibraryDir、PROOT_LOADER、LD_LIBRARY_PATH、cwd 与实际 UID",
+                "execution": "in-app-diagnostic"
+              },
+              {
+                "id": "release-profile-verify",
+                "command": "读取导出的 ExecutionProfile 并逐字段核对",
+                "expect": "nativeLibraryDir 为实际安装库目录，PROOT_LOADER 指向 files/terminal/usr/bin/loader，LD_LIBRARY_PATH 覆盖 nativeLibraryDir，cwd 与 UID 与运行身份一致",
+                "execution": "in-app-diagnostic"
+              }
+            ],
+            "requiredFields": [
+              "nativeLibraryDir",
+              "PROOT_LOADER",
+              "LD_LIBRARY_PATH",
+              "cwd",
+              "uid"
+            ],
+            "owners": [
+              "S6.01",
+              "S9.13"
+            ],
+            "note": "ExecutionProfile 由应用诊断出口导出（计划 §5 执行配置），不依赖 adb 调试通道，也不读取任何环境秘密。",
+            "executedInThisUnit": false
+          },
+          "deviceRuntime": {
+            "commands": [
+              {
+                "id": "page-size-device",
+                "command": "adb shell getconf PAGE_SIZE",
+                "expect": "16 KiB 页测试设备返回 16384",
+                "execution": "device-runtime"
+              },
+              {
+                "id": "runtime-forkpty",
+                "command": "在目标设备实际启动终端会话并执行 forkpty 探针",
+                "expect": "forkpty 成功，PTY 可读写",
+                "execution": "device-runtime"
+              },
+              {
+                "id": "runtime-proot",
+                "command": "在目标设备实际运行 proot、bash、busybox 与 loader",
+                "expect": "四者按 PROOT_LOADER 与 LD_LIBRARY_PATH 启动并返回预期输出",
+                "execution": "device-runtime"
+              }
+            ],
+            "executedInThisUnit": false,
+            "note": "真机页大小与运行检查只在具备 16 KiB 页设备时执行；S0.15 只登记步骤，未连接设备、未运行，不声称已通过。"
+          }
+        }
+      }
+    ],
+    "failureCount": 3
+  },
+  "checks": {
+    "cases": 34,
+    "pass": 34
+  }
+}

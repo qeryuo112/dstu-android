@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Deep Student 旧数据一次性导出</title>
+  <style>body{font-family:system-ui,sans-serif;margin:24px;line-height:1.6}pre{white-space:pre-wrap;font-size:13px}button{padding:12px}</style>
+</head>
+<body>
+  <h1>旧数据一次性导出</h1>
+  <p>在原应用的 WebView origin 内导出活动槽，使用系统文件选择器保存 ZIP。原 Host Worker 须先停止。</p>
+  <button id="start">导出并选择系统保存位置</button>
+  <p id="status">等待开始</p>
+  <pre id="log"></pre>
+  <script type="module">
+    import { readOpfsArchive, transferArchive } from './delivery.mjs';
+    const start = document.getElementById('start');
+    const status = document.getElementById('status');
+    const log = document.getElementById('log');
+    const write = message => { log.textContent += `${new Date().toISOString()} ${message}\n`; };
+    start.onclick = async () => {
+      start.disabled = true;
+      try {
+        if (!window.Capacitor?.isNativePlatform()) throw new Error('此页面需要旧应用中的 LegacyExport 原生插件');
+        const bridge = Object.fromEntries(['create', 'append', 'finish', 'abort'].map(method => [method, args => window.Capacitor.nativePromise('LegacyExport', method, args ?? {})]));
+        status.textContent = '正在导出 OPFS 数据';
+        const result = await new Promise((resolve, reject) => {
+          const worker = new Worker('./worker.js', { type: 'module' });
+          worker.onmessage = event => {
+            if (event.data?.progress) { write(event.data.progress); return; }
+            worker.terminate();
+            if (event.data?.ok) resolve(event.data.result);
+            else reject(new Error(event.data?.error ?? '导出失败'));
+          };
+          worker.onerror = event => { worker.terminate(); reject(new Error(event.message)); };
+          worker.postMessage({ samples: ['legacy'], delivery: 'opfs' });
+        });
+        const sample = result.exported[0];
+        const blob = await readOpfsArchive(sample.zipPath);
+        if (blob.size !== sample.bytes) throw new Error('OPFS 归档大小不一致');
+        status.textContent = '请选择系统保存位置';
+        const receipt = await transferArchive(blob, `${sample.backupId}.zip`, sample.sha256, bridge);
+        if (receipt.cancelled) { status.textContent = '已取消系统保存；OPFS 原归档保留'; return; }
+        write(JSON.stringify(receipt));
+        status.textContent = '系统保存完成，原生 SHA-256 与大小验证通过';
+      } catch (error) {
+        console.error('legacy-export.delivery', error);
+        status.textContent = '导出未完成';
+        write(error.stack ?? String(error));
+      } finally { start.disabled = false; }
+    };
+  </script>
+</body>
+</html>

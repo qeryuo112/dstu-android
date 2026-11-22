@@ -1,0 +1,93 @@
+name: Android release
+
+on:
+  push:
+    tags: ['v*']
+  # Select an existing version tag in the UI; branch dispatches fail validation.
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: android-release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      version: ${{ steps.identity.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - id: identity
+        run: node tools/ci/release.mjs
+
+  checks:
+    needs: validate
+    uses: ./.github/workflows/android.yml
+
+  package:
+    name: Signed release (protected environment)
+    needs: [validate, checks]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    environment: android-release
+    permissions:
+      contents: write
+    defaults:
+      run:
+        shell: bash
+        working-directory: dstu-android
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: dstu-android
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: ./dstu-android/.github/actions/android-environment
+        with:
+          native: 'true'
+      - name: Build and verify signed APK and AAB
+        env:
+          VERSION: ${{ needs.validate.outputs.version }}
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          DSTU_RELEASE_KEYSTORE: ${{ runner.temp }}/dstu-release.keystore
+          DSTU_RELEASE_STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          DSTU_RELEASE_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          DSTU_RELEASE_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          set -euo pipefail
+          : "${KEYSTORE_BASE64:?Missing signing secret}"
+          : "${DSTU_RELEASE_STORE_PASSWORD:?Missing signing secret}"
+          : "${DSTU_RELEASE_KEY_ALIAS:?Missing signing secret}"
+          : "${DSTU_RELEASE_KEY_PASSWORD:?Missing signing secret}"
+          umask 077
+          trap 'rm -f "$DSTU_RELEASE_KEYSTORE"' EXIT
+          printf '%s' "$KEYSTORE_BASE64" | base64 --decode > "$DSTU_RELEASE_KEYSTORE"
+          unset KEYSTORE_BASE64
+          ./gradlew :app:assembleRelease :app:bundleRelease -Pdstu.version="$VERSION" --stacktrace
+          "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --verbose app/build/outputs/apk/release/app-release.apk
+          node tools/s1/verify-apk.mjs app/build/outputs/apk/release/app-release.apk "$VERSION"
+          LC_ALL=C jarsigner -verify app/build/outputs/bundle/release/app-release.aab > build/aab-signature.txt
+          grep -F 'jar verified.' build/aab-signature.txt
+          mkdir -p build/release
+          cp app/build/outputs/apk/release/app-release.apk "build/release/deepstudent-$VERSION.apk"
+          cp app/build/outputs/bundle/release/app-release.aab "build/release/deepstudent-$VERSION.aab"
+          (cd build/release && sha256sum -- *.apk *.aab > SHA256SUMS)
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android-release-${{ needs.validate.outputs.version }}
+          path: dstu-android/build/release/
+          if-no-files-found: error
+          retention-days: 30
+      - name: Create draft release (human review before publication)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ github.ref_name }}
+        run: gh release create "$TAG" build/release/* --verify-tag --draft --title "DeepStudent $TAG" --generate-notes

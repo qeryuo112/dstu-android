@@ -1,0 +1,58 @@
+{
+  "formatVersion": 1,
+  "detekt": {
+    "version": "1.23.8",
+    "configFile": "config/architecture/detekt.yml",
+    "maxIssues": 0
+  },
+  "thresholds": {
+    "functionEffectiveLines": 60,
+    "classEffectiveLines": 300,
+    "fileEffectiveLines": 500,
+    "cyclomaticComplexity": 10,
+    "nestedBlockDepth": 4,
+    "constructorParameters": 8
+  },
+  "exceptions": [
+    {
+      "path": "engines/terminal/src/operit/kotlin/com/ai/assistance/operit/terminal/PtyIo.kt",
+      "kind": "vendor",
+      "reason": "Frozen Operit PtyIo verbatim; upstream writeBytes cyclomatic 10. Hash and byte provenance checked by terminal-prepare; host wrapper is fully scanned.",
+      "owner": "main-thread",
+      "reviewUnit": "S6.02",
+      "test": "node tools/s1/terminal-source.mjs; TerminalSessionsDeviceTest"
+    },
+    {
+      "path": "engines/terminal/src/operit/kotlin/com/ai/assistance/operit/terminal/view/domain/ansi/AnsiColorUtils.kt",
+      "kind": "vendor",
+      "reason": "Frozen Operit fixed ANSI palettes, getAnsiColor/getAnsiBrightColor cyclomatic 10; exact source bytes checked, no host logic exempted.",
+      "owner": "main-thread",
+      "reviewUnit": "S6.03",
+      "test": "node tools/s1/terminal-source.mjs; OperitTerminalScreenTest"
+    },
+    {
+      "path": "engines/terminal/src/operit/kotlin/com/ai/assistance/operit/terminal/view/domain/ansi/AnsiScanner.kt",
+      "kind": "vendor",
+      "reason": "Frozen mature Operit scanner; upstream cyclomatic up to 16 and nesting 5. Exact derived bytes checked; not a package-wide exemption.",
+      "owner": "main-thread",
+      "reviewUnit": "S6.03",
+      "test": "node tools/s1/terminal-source.mjs; OperitTerminalScreenTest"
+    },
+    {
+      "path": "engines/terminal/src/operit/kotlin/com/ai/assistance/operit/terminal/view/domain/ansi/AnsiSequence.kt",
+      "kind": "vendor",
+      "reason": "Frozen Operit TextAttributes has 10 constructor parameters; source hash and exact derived bytes checked, all application DTOs remain constrained.",
+      "owner": "main-thread",
+      "reviewUnit": "S6.03",
+      "test": "node tools/s1/terminal-source.mjs; TerminalDrawingDeviceTest"
+    },
+    {
+      "path": "engines/terminal/src/operit/kotlin/com/ai/assistance/operit/terminal/view/domain/ansi/AnsiTerminalEmulator.kt",
+      "kind": "vendor",
+      "reason": "Frozen mature emulator with only 10 privacy log calls removed; class 642 logical lines, handleCSI 89 and cyclomatic 41. Derivation byte-checked; host adapters fully scanned.",
+      "owner": "main-thread",
+      "reviewUnit": "S6.03",
+      "test": "node tools/s1/terminal-source.mjs; OperitTerminalScreenTest; TerminalSessionsDeviceTest"
+    }
+  ]
+}

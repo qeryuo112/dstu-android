@@ -1,0 +1,8 @@
+app 2 com.deepstudent.app.backup.ColdBackupRestoreDeviceTest
+app 1 com.deepstudent.app.backup.BackupRestoreStatusUiDeviceTest
+app 4 com.deepstudent.app.backup.BackupPreviewDeviceTest
+restore 1 com.deepstudent.services.backup.data.RestoreSqliteAndroidTest
+restore 1 com.deepstudent.services.backup.data.RestoreZipContractAndroidTest
+death ENTRY_WRITTEN old
+death STAGING_DURABLE old
+death POINTER_REPLACED new

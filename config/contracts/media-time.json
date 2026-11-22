@@ -1,0 +1,377 @@
+{
+  "formatVersion": 1,
+  "unit": "S0.22",
+  "status": {
+    "sourceIncrement": "callable on locked desktop checkout",
+    "packaging": "not claimed",
+    "distribution": "not claimed"
+  },
+  "api": {
+    "install": "installMediaTimeIncrement()",
+    "migrations": "prepareMediaTimeMigrations(parent)",
+    "append": "appendMediaEvent(db, event)",
+    "summary": "mediaSummary(db, resource_id, logical_date)",
+    "normalize": "normalizeMediaEvent(event)",
+    "legacy": "migrateLegacyMedia(db, device_id)"
+  },
+  "event": {
+    "table": "portable_media_events",
+    "primaryKey": "event_id",
+    "classification": {
+      "database": "vfs",
+      "table_name": "portable_media_events",
+      "primary_key": "event_id",
+      "category": "RowSync",
+      "conflict_policy": "Lww",
+      "business_unique_keys": "",
+      "has_json_blobs": true,
+      "merge_notes": "S0.22: immutable media observations deduplicated by event_id; aggregates are recomputed per device and then globally"
+    },
+    "fields": [
+      "event_id",
+      "device_id",
+      "kind",
+      "resource_id",
+      "logical_date",
+      "position_ms",
+      "duration_ms",
+      "seconds",
+      "observed_at",
+      "data",
+      "local_version",
+      "updated_at",
+      "deleted_at"
+    ],
+    "kinds": [
+      "study",
+      "resume",
+      "subtitle"
+    ],
+    "canonicalTimestamp": "accepts RFC3339 Z or numeric offset; stores canonical UTC seconds precision; ordering by parsed epoch",
+    "millisecondDomain": [
+      0,
+      9007199254740991
+    ],
+    "requiredByKind": {
+      "study": {
+        "seconds": "0..86400",
+        "position_ms": null,
+        "duration_ms": null
+      },
+      "resume": {
+        "seconds": null,
+        "position_ms": "0..safe max",
+        "duration_ms": "0..safe max"
+      },
+      "subtitle": {
+        "seconds": null,
+        "position_ms": "0..safe max",
+        "duration_ms": "0..safe max",
+        "data": [
+          "plan_id",
+          "version",
+          "index",
+          "text"
+        ]
+      }
+    },
+    "immutable": [
+      "event_id",
+      "device_id",
+      "kind",
+      "resource_id",
+      "logical_date",
+      "position_ms",
+      "duration_ms",
+      "seconds",
+      "observed_at",
+      "data",
+      "deleted_at"
+    ],
+    "transportMutable": [
+      "local_version",
+      "updated_at"
+    ],
+    "deletion": "rejected by database trigger",
+    "collision": "identical payload no-op; different payload rejected by adapter and immutable trigger"
+  },
+  "summary": {
+    "study": "dedupe event_id, sum per device, then global; cap 86400",
+    "resume": "max(observed epoch, device_id UTF-8, event_id UTF-8); rewinds allowed",
+    "subtitle": "winner per resource/plan/version/index by observation epoch/device/id; latest plan version explicit; losing event retained",
+    "legacy": "local tables stay non-RowSync; explicit migrateLegacyMedia skips existing stable per-device event IDs"
+  },
+  "migration": {
+    "coordinatedFile": "config/schema/coordinated/vfs/V20261116__portable_media_progress.sql",
+    "version": 20261116,
+    "baselineVersion": 20261115,
+    "previousReservation": {
+      "version": 20261114,
+      "path": "vfs/V20261114__portable_media_progress.sql"
+    },
+    "sha256": "1beeb57d996340270b2f8acfe3fe6608a7432fda5c4178aca6034abaad00d116"
+  },
+  "evidence": {
+    "sourceHashes": {
+      "host/plugins/sync/src/classification-registry.ts": "34494175370479849f94e80790ae43a30bc68209699902a6d28936ba6a12287a",
+      "host/platform/storage/migration/definitions/vfs.ts": "714c6bce5313baf493f2705319d46765ae3de51a1e5ece9c1f89d38a68d62d5e",
+      "host/plugins/sync/src/collect-sync-changes.ts": "ad6072d591d4f1ed20bcb509cd2e4140d492f7d72143bf8f9eb927978295215c",
+      "host/plugins/sync/repository/apply-databases.ts": "ae95653d6c75cd8967701ae31098e4628627c966f41ed176271e3aeb8340ddee",
+      "host/plugins/vfs-repos/repository/media-transcripts.ts": "048db8dc0f41b888413e6be44ceffb29d3905e696627ab2307ca682603bae821"
+    },
+    "classification": {
+      "database": "vfs",
+      "table_name": "portable_media_events",
+      "primary_key": "event_id",
+      "category": "RowSync",
+      "conflict_policy": "Lww",
+      "business_unique_keys": "",
+      "has_json_blobs": true,
+      "merge_notes": "S0.22: immutable media observations deduplicated by event_id; aggregates are recomputed per device and then globally"
+    },
+    "migrationRow": {
+      "version": 20261116,
+      "name": "portable_media_progress"
+    },
+    "upgrade": {
+      "fromVersion": 20261115,
+      "toVersion": 20261116,
+      "applied": [
+        20261116
+      ],
+      "restartApplied": 0,
+      "migrationRow": {
+        "version": 20261116,
+        "name": "portable_media_progress"
+      }
+    },
+    "freshAndRestart": {
+      "device-a": {
+        "freshVfs": {
+          "id": "vfs",
+          "fromVersion": 0,
+          "toVersion": 20261116,
+          "appliedCount": 74,
+          "success": true,
+          "error": null
+        },
+        "restartVfs": {
+          "id": "vfs",
+          "fromVersion": 20261116,
+          "toVersion": 20261116,
+          "appliedCount": 0,
+          "success": true,
+          "error": null
+        }
+      },
+      "device-b": {
+        "freshVfs": {
+          "id": "vfs",
+          "fromVersion": 0,
+          "toVersion": 20261116,
+          "appliedCount": 74,
+          "success": true,
+          "error": null
+        },
+        "restartVfs": {
+          "id": "vfs",
+          "fromVersion": 20261116,
+          "toVersion": 20261116,
+          "appliedCount": 0,
+          "success": true,
+          "error": null
+        }
+      }
+    },
+    "collectedChanges": 6,
+    "wireBytes": 3103,
+    "offsetNormalization": {
+      "input": "2026-11-15T16:00:00+08:00",
+      "stored": "2026-11-15T08:00:00Z",
+      "sameEventIdDeduplicated": true
+    },
+    "targetSummary": {
+      "resource_id": "public-media-resource",
+      "logical_date": "2026-11-15",
+      "seconds": 120,
+      "position": 12000,
+      "position_ms": 12000,
+      "duration_ms": 100000,
+      "resume_event_id": "s022-resume-b",
+      "resume_observed_at": "2026-11-15T08:02:00Z",
+      "by_device": [
+        {
+          "device_id": "device-a",
+          "seconds": 90,
+          "events": 3
+        },
+        {
+          "device_id": "device-b",
+          "seconds": 30,
+          "events": 3
+        }
+      ],
+      "subtitles": [
+        {
+          "plan_id": "public-media-plan",
+          "version": 2,
+          "index": 0,
+          "text": "First device subtitle",
+          "start_ms": 1000,
+          "end_ms": 2500,
+          "event_id": "s022-subtitle-b"
+        }
+      ],
+      "latest_plan_versions": [
+        {
+          "plan_id": "public-media-plan",
+          "version": 2
+        }
+      ],
+      "event_count": 6
+    },
+    "replaySummary": {
+      "resource_id": "public-media-resource",
+      "logical_date": "2026-11-15",
+      "seconds": 120,
+      "position": 12000,
+      "position_ms": 12000,
+      "duration_ms": 100000,
+      "resume_event_id": "s022-resume-b",
+      "resume_observed_at": "2026-11-15T08:02:00Z",
+      "by_device": [
+        {
+          "device_id": "device-a",
+          "seconds": 90,
+          "events": 3
+        },
+        {
+          "device_id": "device-b",
+          "seconds": 30,
+          "events": 3
+        }
+      ],
+      "subtitles": [
+        {
+          "plan_id": "public-media-plan",
+          "version": 2,
+          "index": 0,
+          "text": "First device subtitle",
+          "start_ms": 1000,
+          "end_ms": 2500,
+          "event_id": "s022-subtitle-b"
+        }
+      ],
+      "latest_plan_versions": [
+        {
+          "plan_id": "public-media-plan",
+          "version": 2
+        }
+      ],
+      "event_count": 6
+    },
+    "localStateUnchanged": {
+      "segments": 0
+    },
+    "negatives": [
+      {
+        "name": "negative seconds",
+        "rejected": true,
+        "detail": "media event n-seconds: seconds out of range"
+      },
+      {
+        "name": "seconds over 86400",
+        "rejected": true,
+        "detail": "media event n-over: seconds out of range"
+      },
+      {
+        "name": "invalid logical_date",
+        "rejected": true,
+        "detail": "media event: invalid logical_date 2026-11-31"
+      },
+      {
+        "name": "negative position",
+        "rejected": true,
+        "detail": "media event n-position: position_ms out of range"
+      },
+      {
+        "name": "position beyond duration",
+        "rejected": true,
+        "detail": "resume position exceeds duration"
+      },
+      {
+        "name": "inverted cue range",
+        "rejected": true,
+        "detail": "subtitle range is inverted"
+      },
+      {
+        "name": "non-numeric plan version",
+        "rejected": true,
+        "detail": "media event n-version: version must be an integer"
+      },
+      {
+        "name": "missing text",
+        "rejected": true,
+        "detail": "subtitle event missing data.text"
+      },
+      {
+        "name": "invalid timestamp",
+        "rejected": true,
+        "detail": "media event time: invalid observed_at"
+      },
+      {
+        "name": "normalized invalid day",
+        "rejected": true,
+        "detail": "media event: invalid logical_date 2026-02-30"
+      }
+    ],
+    "collision": "media event_id reused with different payload: s022-study-b",
+    "triggerUpdate": "portable_media_events are immutable",
+    "triggerDelete": "portable_media_events are immutable",
+    "databaseConstraints": [
+      {
+        "name": "remote invalid observed date",
+        "rejected": true,
+        "detail": "CHECK constraint failed: typeof(observed_at) = 'text'\n           AND (observed_at GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]T[0-9][0-9]:[0-9][0-9]:[0-9][0-9]Z'\n             OR observed_at GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]T[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9][0-9]Z'\n             OR observed_at GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]T[0-9][0-9]:[0-9][0-9]:[0-9][0-9][+-][0-9][0-9]:[0-9][0-9]'\n             OR observed_at GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]T[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9][0-9][+-][0-9][0-9]:[0-9][0-9]')\n           AND substr(observed_at, 12, 2) BETWEEN '00' AND '23'\n           AND substr(observed_at, 15, 2) BETWEEN '00' AND '59'\n           AND substr(observed_at, 18, 2) BETWEEN '00' AND '59'\n           AND date(substr(observed_at, 1, 10)) = substr(observed_at, 1, 10)\n           AND (substr(observed_at, -1) = 'Z'\n                OR (substr(observed_at, -5, 2) BETWEEN '00' AND '23'\n                    AND substr(observed_at, -2, 2) BETWEEN '00' AND '59'))"
+      },
+      {
+        "name": "remote invalid logical date",
+        "rejected": true,
+        "detail": "CHECK constraint failed: logical_date GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'\n           AND date(logical_date) = logical_date"
+      },
+      {
+        "name": "remote resume null position",
+        "rejected": true,
+        "detail": "CHECK constraint failed: (kind = 'study' AND typeof(seconds) = 'integer'\n            AND seconds IS NOT NULL AND seconds BETWEEN 0 AND 86400\n            AND position_ms IS NULL AND duration_ms IS NULL)\n        OR (kind = 'resume' AND seconds IS NULL\n            AND typeof(position_ms) = 'integer' AND position_ms IS NOT NULL\n            AND typeof(duration_ms) = 'integer' AND duration_ms IS NOT NULL\n            AND position_ms BETWEEN 0 AND 9007199254740991\n            AND duration_ms BETWEEN 0 AND 9007199254740991\n            AND (duration_ms = 0 OR position_ms <= duration_ms))\n        OR (kind = 'subtitle' AND seconds IS NULL\n            AND typeof(position_ms) = 'integer' AND position_ms IS NOT NULL\n            AND typeof(duration_ms) = 'integer' AND duration_ms IS NOT NULL\n            AND position_ms BETWEEN 0 AND 9007199254740991\n            AND duration_ms BETWEEN position_ms AND 9007199254740991)"
+      },
+      {
+        "name": "remote subtitle version text",
+        "rejected": true,
+        "detail": "CHECK constraint failed: kind <> 'subtitle'\n           OR (json_type(data, '$.plan_id') = 'text'\n               AND json_type(data, '$.version') = 'integer'\n               AND json_type(data, '$.index') = 'integer'\n               AND json_type(data, '$.text') = 'text')"
+      }
+    ],
+    "rollback": {
+      "failed": 1,
+      "stateUnchanged": true
+    }
+  },
+  "checks": {
+    "migrationAppended": true,
+    "s021AndS022Composed": true,
+    "actualCollectWireApply": true,
+    "reorderedIdempotent": true,
+    "replayedIdempotent": true,
+    "studySeconds120": true,
+    "resumeRewindWins": true,
+    "subtitleSlotWinner": true,
+    "localLegacyUntouched": true,
+    "collisionsRejected": true,
+    "invalidInputsRejected": true,
+    "immutableTrigger": true,
+    "databaseConstraintsRejected": true,
+    "rollbackPreservedState": true,
+    "sourceStillReadOnly": true,
+    "upstreamHeadUpgrade": true,
+    "freshAndRestart": true
+  }
+}

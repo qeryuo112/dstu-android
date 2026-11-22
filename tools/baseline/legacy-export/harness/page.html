@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>S0.16 legacy export harness</title>
+  </head>
+  <body>
+    <p>Deep Student S0.16 legacy export harness (temporary localhost origin).</p>
+    <script type="module">
+      // 采集端由 `run-harness.mjs` 注入：Worker 里跑生产 Host 存储代码，结果回传后由 Node 侧写盘。
+      globalThis.__runHarness = payload => new Promise((resolve, reject) => {
+        const worker = new Worker('/harness/worker.js', { type: 'module' });
+        worker.onmessage = event => {
+          if (event.data && event.data.progress) {
+            console.log(`harness.progress ${event.data.progress}`);
+            return;
+          }
+          worker.terminate();
+          if (event.data && event.data.ok) resolve(event.data.result);
+          else reject(new Error(event.data && event.data.error ? event.data.error : 'worker failed'));
+        };
+        worker.onerror = event => {
+          worker.terminate();
+          reject(new Error(`worker error: ${event.message}`));
+        };
+        worker.postMessage(payload);
+      });
+      // 一次性过渡版本（`one-shot/worker.ts`）在同一个 origin 上再跑一遍“只导出”的路径。
+      globalThis.__runOneShot = payload => new Promise((resolve, reject) => {
+        const worker = new Worker('/harness/one-shot.js', { type: 'module' });
+        worker.onmessage = event => {
+          if (event.data && event.data.progress) {
+            console.log(`one-shot.progress ${event.data.progress}`);
+            return;
+          }
+          worker.terminate();
+          if (event.data && event.data.ok) resolve(event.data.result);
+          else reject(new Error(event.data && event.data.error ? event.data.error : 'one-shot worker failed'));
+        };
+        worker.onerror = event => {
+          worker.terminate();
+          reject(new Error(`one-shot worker error: ${event.message}`));
+        };
+        worker.postMessage(payload);
+      });
+      globalThis.__runOneShotReady = true;
+      // 真实能力探针：在**实际执行环境**里测，不靠推断。`saveBackupToSystem` 的分支就按这三个能力选。
+      globalThis.__saveCapabilities = () => {
+        const probeFile = new File([new Uint8Array(4)], 'probe.zip', { type: 'application/zip' });
+        const nav = navigator;
+        return {
+          hasCanShare: typeof nav.canShare === 'function',
+          canShareFiles: typeof nav.canShare === 'function' ? nav.canShare({ files: [probeFile] }) === true : false,
+          hasShare: typeof nav.share === 'function',
+          hasShowSaveFilePicker: typeof window.showSaveFilePicker === 'function',
+          hasAnchorDownload: 'download' in document.createElement('a'),
+          isSecureContext: globalThis.isSecureContext,
+          userAgent: navigator.userAgent,
+        };
+      };
+      globalThis.__harnessReady = true;
+    </script>
+  </body>
+</html>

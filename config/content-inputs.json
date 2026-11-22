@@ -1,0 +1,32 @@
+{
+  "formatVersion": 1,
+  "markdown": [
+    { "id": "commonmark-gfm", "text": "# 标题\n\n中文 **粗体** 与 *斜体*、~~删除~~、`x`。\n\n- [x] 已完成\n- [ ] 待办\n\n| A | B |\n| :-- | --: |\n| 1 | 2 |\n\n[链接](https://example.org \"标题\") ![图](asset://image.png)\n", "contract": "heading/inline/list/task/table/link/image AST and source ranges" },
+    { "id": "callout", "text": "> [!note]+ 标题\n>\n> 正文 **重点**\n", "contract": "calloutType/title/collapsed and children" },
+    { "id": "toggle", "text": "> [!toggle]- 折叠标题\n> 正文 **重点**\n", "contract": "toggle title/open and retained inline AST" },
+    { "id": "columns", "text": ":::ds-columns{version=1 layout=cornell}\n\n:::column\n\n左栏\n\n:::end-column\n\n:::column\n\n右栏\n\n:::end-column\n\n:::end-ds-columns\n", "contract": "root-only two-column versioned grammar" },
+    { "id": "columns-escaped", "text": "\\:::ds-columns{version=1 layout=equal}\n\n正文\n", "contract": "escaped marker remains text" },
+    { "id": "wiki-mention-reference", "text": "[[note_1|标题]] @笔记 [PDF](pdfref://pdf_1?page=2) [媒体](mediaref://audio_1?time=01:23)\n", "contract": "wiki target/label and internal resource URI preserve identity" },
+    { "id": "math-diagrams", "text": "$x^2$\n\n$$\na+b=c\n$$\n\n```mermaid\ngraph TD; A-->B;\n```\n", "contract": "math and fenced content source preserved with language" },
+    { "id": "unknown-future-node", "text": ":::future-widget{data=α}\n\n未知内容\n\n:::end-future-widget\n", "contract": "unknown syntax and properties retained byte-for-byte outside edited range" },
+    { "id": "unicode-crlf", "text": "# 中文👩‍💻\r\n\r\né 与 é\r\n", "contract": "UTF-16 source offsets, UTF-8 byte boundaries and unchanged line endings" }
+  ],
+  "anki": [
+    { "id": "basic-front", "template": "<b>{{Front}}</b>", "fields": { "Front": "<i>问题</i>", "Back": "答案" }, "options": { "side": "front" } },
+    { "id": "frontside-back", "template": "{{FrontSide}}<hr>{{Back}}", "fields": { "Back": "答案" }, "options": { "side": "back", "frontSide": "<b>问题</b>" } },
+    { "id": "conditional", "template": "{{#Extra}}有{{Extra}}{{/Extra}}{{^Empty}}空{{/Empty}}", "fields": { "Extra": "值", "Empty": "" }, "options": { "side": "front" } },
+    { "id": "cloze-front", "template": "{{cloze:Text}}", "fields": { "Text": "记住 {{c1::原理::提示}} 和 {{c2::结论}}" }, "options": { "side": "front", "clozeOrdinal": 1 } },
+    { "id": "cloze-back", "template": "{{cloze:Text}}", "fields": { "Text": "记住 {{c1::原理::提示}} 和 {{c2::结论}}" }, "options": { "side": "back", "clozeOrdinal": 1 } },
+    { "id": "sound", "template": "{{Audio}}", "fields": { "Audio": "[sound:声音.mp3]" }, "options": { "side": "front", "soundStrategy": "keep" } },
+    { "id": "hint-text", "template": "{{hint:Extra}} {{text:Front}}", "fields": { "Extra": "提示", "Front": "<b>正文</b>" }, "options": { "side": "front" } },
+    { "id": "malformed", "template": "{{#Extra}}未关闭", "fields": { "Extra": "x" }, "options": { "side": "front" } },
+    { "id": "custom-html", "template": "<style>.card{color:red}</style><div class=card>{{Front}}</div><script>window.userCard=true</script>", "fields": { "Front": "内容" }, "options": { "side": "front" } }
+  ],
+  "generative": [
+    { "id": "grid-v11", "input": { "version": "1.1", "layout": { "mode": "grid", "columns": 2 }, "blocks": [{ "id": "stats", "type": "stat-card", "span": 1, "props": { "title": "掌握度", "value": "80%" } }, { "id": "future", "type": "future-widget", "props": { "opaque": { "x": null } } }] } },
+    { "id": "missing-version", "input": { "blocks": [{ "type": "text", "props": { "body": "正文" } }] } },
+    { "id": "invalid-version", "input": { "version": "9", "blocks": [] } },
+    { "id": "invalid-block", "input": { "blocks": [{ "type": "", "props": {} }] } }
+  ],
+  "exactJson": ["{\"i64\":9223372036854775807,\"u64\":18446744073709551615,\"min\":-9223372036854775808}", "{\"missingVsNull\":null,\"unknown\":{\"future\":[1,true,null]},\"text\":\"中文👩‍💻\"}", "{\"duplicate\":1,\"duplicate\":2,\"decimal\":1.2300,\"exponent\":1e1000}"]
+}

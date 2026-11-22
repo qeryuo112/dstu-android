@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Android 11+ package visibility; this is never the ordinary user APK. -->
+    <queries>
+        <package android:name="com.deepstudent.app.benchmark" />
+    </queries>
+</manifest>

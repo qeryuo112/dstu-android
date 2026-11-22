@@ -1,0 +1,887 @@
+{
+  "formatVersion": 2,
+  "unit": "S0.20",
+  "planContract": {
+    "file": "docs/plans/2026-11-15-mobile-full-feature-refactor.md",
+    "line": 602
+  },
+  "capture": {
+    "state": "validated-source-contract",
+    "reviewPlansSyncParsed": true,
+    "reviewPlanParity": {
+      "registered": true,
+      "category": "RowSync",
+      "incrementalSync": true,
+      "captureTriggers": true,
+      "sourceMatchesTarget": true,
+      "syncParsed": true,
+      "fsrsColumns": [
+        "fsrs_stability",
+        "fsrs_difficulty",
+        "fsrs_phase",
+        "fsrs_learning_step",
+        "fsrs_lapses",
+        "fsrs_due_at",
+        "fsrs_last_review_at"
+      ],
+      "wire": {
+        "bytes": 856,
+        "changes": 2,
+        "operation": "Update"
+      },
+      "unknownTarget": {
+        "seededBeforeSync": [
+          "fsrs_future_rating",
+          "future_note",
+          "future_rating"
+        ],
+        "collected": [
+          "future_note",
+          "future_rating"
+        ],
+        "parsed": [
+          "future_note",
+          "future_rating"
+        ],
+        "targetRecord": [
+          "future_note",
+          "future_rating"
+        ],
+        "targetVault": [
+          "fsrs_future_rating",
+          "future_note",
+          "future_rating"
+        ],
+        "valuesRetained": true,
+        "canonicalSha256": "bbe4fca218828f3af34288637641e61b534e388706c14c8aaf0475c2602d5e7b",
+        "sourceTargetCanonicalEqual": true
+      }
+    },
+    "sourceContractState": "ready",
+    "note": "This is the final S0.20 source-contract capture. Actual coordinated delivery is observed separately by release-audit.mjs."
+  },
+  "sources": {
+    "schema": "config/baseline/schema.json",
+    "protocol": "config/baseline/protocol.json",
+    "registry": "config/sync-registry-contract.json",
+    "syncFormats": "config/baseline/sync-formats.json",
+    "release": "config/release-contract.json",
+    "platform": "config/baseline/platform.json",
+    "migrationLock": "dstu-node/resources/app/migrations/migration-lock.json",
+    "desktop": {
+      "commit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+      "tree": "3bee0f058851b9eb113bdc036d9f60433ed29944",
+      "packageVersion": "0.20.1",
+      "frozen": true,
+      "releaseClaimed": false
+    },
+    "hashes": {
+      "host/plugins/sync/src/remote-format.ts": "5f2af3683dcab64d6f9aab2544c8595094240d346bdeaa05b96b8f9312553bee",
+      "host/plugins/sync/src/manifest-upload.ts": "278ffce36353f8059390842d0a1b6f29449505383c4799062062c3fb952fd01a",
+      "host/plugins/sync/src/detect-conflicts.ts": "afcd6d55de103cfa17b771eb55b27145bd20ea294f1fe29bfa56464c002731a7",
+      "host/plugins/sync/src/merge.ts": "1542fcf163a503d7f16fc10a5c70d4ec6afbba76271bfcf63ef007c7191ddf35",
+      "host/plugins/sync/src/run-sync.ts": "b5135ff77a927d432d29920639d1f4e79581e675e434d4c79d71f7aad42a632c",
+      "host/plugins/sync-providers/src/sync_lease.ts": "f3c224f19575d68e1cff2a70fa14fcadc93fd4e8b6c575393ac8796304e3f0b5",
+      "host/plugins/sync-providers/src/lease.ts": "880fa6c6bb4e26d24a46da97bdad1da5d632a62a3eb5130e2aa70000ddf94024",
+      "host/plugins/sync-providers/src/config.ts": "7b3cea96f8feac4eeeae188b8540e1beff425e10ff0ed0a8432a5d0b412a8a39",
+      "host/plugins/sync-providers/mobile.ts": "f3af259c51a99aa5f0710742a7bb7957a45e4a13c80cbd6caea423f7585cc4ea",
+      "host/plugins/sync-providers/src/desktop-platform.ts": "d4965baef950efc9e25e36bee358b41a4a89f78c9af3dcb2ff017761f5b116a6",
+      "config/baseline/schema.json": "c2a50d2d063177fc9d1a59ac43bc28924b4d415bdcdf38d928bdb63a057f96d6",
+      "config/baseline/protocol.json": "c75201a7956aa4255fe0c8d6d9d5e4882dc56936b5ff70d9f40c0c57a96994eb",
+      "config/baseline/sync-formats.json": "0a012c7f5667dd72758898042abd9c5026164568b7223cd78cc536e4626963eb",
+      "config/sync-registry-contract.json": "6b5887596e1ecfd035d1f9c37d82e53b02f49d166f168273f7ffafc973bc7267",
+      "config/release-contract.json": "414bdcd338d6095bbebddcfc78d57a43bf93895257d1f438dcfc18bee9ade75e",
+      "config/baseline/platform.json": "866f84bda6bfd62ae7d05eeded13b20e3d4009180118f50e4e1225a0974143e3",
+      "dstu-node/resources/app/migrations/migration-lock.json": "1d21338ded468243fc0dbe2593f5cd0b3cb1a259930f77be56c625dd32205445"
+    }
+  },
+  "schema": {
+    "sharedDatabases": [
+      {
+        "database": "vfs",
+        "schemaVersion": 20261115,
+        "migrationCount": 73,
+        "fingerprint": "c3da4956b07fa60548a8c848a4e7f60fd7f05d10ac936d2396f0fa1920b98d23",
+        "path": "databases/vfs.db",
+        "migrationHead": {
+          "version": 20261115,
+          "name": "review_plans_fsrs",
+          "file": "vfs/V20261115__review_plans_fsrs.sql",
+          "sha256": "483b242fbf76ded1755644dbb0c6ad9391a91f73af1b32f5d7407a2614faa7d1"
+        },
+        "scope": {
+          "tables": 93,
+          "indexes": 323,
+          "triggers": 147
+        },
+        "rowSync": 36,
+        "productionIterationIndex": 0,
+        "wireRole": [
+          "manifest databases[]",
+          "change payload database_name",
+          "change key not per-database"
+        ]
+      },
+      {
+        "database": "llm_usage",
+        "schemaVersion": 20260826,
+        "migrationCount": 8,
+        "fingerprint": "ed69ae106103c3b48460d898be47fdfe12124e26f392e4636d1fe7816beb6245",
+        "path": "llm_usage.db",
+        "migrationHead": {
+          "version": 20260826,
+          "name": "add_stream_identity",
+          "file": "llm_usage/V20260826__add_stream_identity.sql",
+          "sha256": "b3d1239a6e664a140c772afb2fc6d211c5a91c89b1689dfb42798e417d781f81"
+        },
+        "scope": {
+          "tables": 3,
+          "indexes": 35,
+          "triggers": 4
+        },
+        "rowSync": 1,
+        "productionIterationIndex": 1,
+        "wireRole": [
+          "manifest databases[]",
+          "change payload database_name",
+          "change key not per-database"
+        ]
+      },
+      {
+        "database": "chat_v2",
+        "schemaVersion": 20261111,
+        "migrationCount": 30,
+        "fingerprint": "2a29bf29771c7381db4cac8cdbad325cddad8d86bc06795a369176e4654e8b7a",
+        "path": "chat_v2.db",
+        "migrationHead": {
+          "version": 20261111,
+          "name": "session_group_root_folder",
+          "file": "chat_v2/V20261111__session_group_root_folder.sql",
+          "sha256": "bb9397f3983294db05087413d34adad3afe3375355605e72f2438acc63f0874c"
+        },
+        "scope": {
+          "tables": 30,
+          "indexes": 123,
+          "triggers": 35
+        },
+        "rowSync": 10,
+        "productionIterationIndex": 2,
+        "wireRole": [
+          "manifest databases[]",
+          "change payload database_name",
+          "change key not per-database"
+        ]
+      },
+      {
+        "database": "mistakes",
+        "schemaVersion": 20261005,
+        "migrationCount": 23,
+        "fingerprint": "d3888182592592c3f6a44b5df024e176e846015f264d87daab03ac2e277f49ba",
+        "path": "mistakes.db",
+        "migrationHead": {
+          "version": 20261005,
+          "name": "fsrs_learning_step",
+          "file": "mistakes/V20261005__fsrs_learning_step.sql",
+          "sha256": "2e9308cca6547a3cc66154560f98840d094e075549bd14d7d53db6299275c798"
+        },
+        "scope": {
+          "tables": 24,
+          "indexes": 107,
+          "triggers": 35
+        },
+        "rowSync": 11,
+        "productionIterationIndex": 3,
+        "wireRole": [
+          "manifest databases[]",
+          "change payload database_name",
+          "change key not per-database"
+        ]
+      }
+    ],
+    "deviceLocal": [
+      "audit",
+      "browser",
+      "sync_state"
+    ],
+    "nativeBaseline": {
+      "vfs": 20261115,
+      "mistakes": 20261005,
+      "historicalSqlFiles": 135,
+      "vfsSqlFiles": 73,
+      "upstreamVfsMigration": "V20261115__review_plans_fsrs.sql"
+    },
+    "incrementTarget": {
+      "vfs": 20261117,
+      "mistakes": 20261006,
+      "separate": true,
+      "source": "config/schema/coordinated; not the locked historical baseline and not the upstream migration lock"
+    },
+    "fingerprintRule": "UTF-8 sorted scope; cid order; raw index/trigger DDL; SHA-256 lower hex; governance/history excluded from managed scope",
+    "sqliteRule": "schema canonical and FTS shadow layout compared on pinned driver; Kotlin bundled engine conformance in S1.04/S1.05",
+    "coordinatedMigrationRule": "Shared databases use identical version/raw SQL on both sides; append only after both installers are available, then enter the coordinated upgrade window.",
+    "finalSnapshot": "The native baseline stays at vfs 20261115. Coordinated vfs 20261116/20261117 and mistakes 20261006 are fixed target contracts; S0.G independently assembles and freezes the actual delivered set.",
+    "attachmentMediaRoots": {
+      "existing": [
+        "active/vfs_blobs"
+      ],
+      "candidateAssetRoots": [
+        "active/anki_media",
+        "active/attachments"
+      ],
+      "schemaChange": "not required by this unit; asset roots and reference policy are S0.21 contracts"
+    }
+  },
+  "wire": {
+    "current": 4,
+    "minimumReader": 3,
+    "compatibilityLeaseDays": 30,
+    "formatKey": "data_governance/format.json",
+    "v5": {
+      "state": "inactive",
+      "registered": false,
+      "reason": "requires cloud_sync.v5_root secret; no plugin command or service method calls it",
+      "wire": "sync-v2/ (keyring/packs/segments), not format.json"
+    },
+    "formatCases": [
+      {
+        "label": "v3-read",
+        "input": {
+          "format_version": 3
+        },
+        "willWrite": false,
+        "expected": "accept",
+        "accepted": true,
+        "descriptor": {
+          "format_version": 3,
+          "min_reader_version": 3
+        },
+        "error": null,
+        "writesUnchanged": true
+      },
+      {
+        "label": "v3-write",
+        "input": {
+          "format_version": 3
+        },
+        "willWrite": true,
+        "expected": "accept-and-upgrade",
+        "accepted": true,
+        "descriptor": {
+          "format_version": 4,
+          "min_reader_version": 3
+        },
+        "error": null,
+        "writesUnchanged": false
+      },
+      {
+        "label": "v4-min3-write",
+        "input": {
+          "format_version": 4,
+          "min_client": 3
+        },
+        "willWrite": true,
+        "expected": "accept",
+        "accepted": true,
+        "descriptor": {
+          "format_version": 4,
+          "min_reader_version": 3
+        },
+        "error": null,
+        "writesUnchanged": false
+      },
+      {
+        "label": "v4-min4-write",
+        "input": {
+          "format_version": 4,
+          "min_client": 4
+        },
+        "willWrite": true,
+        "expected": "accept",
+        "accepted": true,
+        "descriptor": {
+          "format_version": 4,
+          "min_reader_version": 4
+        },
+        "error": null,
+        "writesUnchanged": true
+      },
+      {
+        "label": "v5-write",
+        "input": {
+          "format_version": 5
+        },
+        "willWrite": true,
+        "expected": "reject",
+        "accepted": false,
+        "descriptor": null,
+        "error": {
+          "name": "SyncError",
+          "message": "Database error: 远端同步格式 v5（最低 reader v3）高于当前客户端 v4；为避免旧客户端破坏数据，已在写入前拒绝同步",
+          "mismatches": null
+        },
+        "writesUnchanged": true
+      },
+      {
+        "label": "v2-read",
+        "input": {
+          "format_version": 2
+        },
+        "willWrite": false,
+        "expected": "reject",
+        "accepted": false,
+        "descriptor": null,
+        "error": {
+          "name": "SyncError",
+          "message": "Database error: 远端同步格式 v2 过旧，当前客户端仅兼容 v3-v4",
+          "mismatches": null
+        },
+        "writesUnchanged": true
+      }
+    ],
+    "distinction": "validateUploadSchemaCompatibility rejects only cloud schema > local; detectConflicts/schemaMismatchError later reports any unequal schema in either direction"
+  },
+  "application": {
+    "initialVersion": "0.21.0",
+    "versionCode": 2100000,
+    "independent": true,
+    "desktopReleaseClaimed": false,
+    "scope": "Application version labels are independent; they are not written into wire/manifest and do not prove different binary execution.",
+    "versionCases": [
+      {
+        "version": "0.20.0",
+        "accepted": false,
+        "reason": "legacy line is not publishable from the new source",
+        "result": {
+          "rejected": "version 0.20.0 predates the new release line 0.21.0; legacy versions are not publishable from the new source"
+        }
+      },
+      {
+        "version": "0.21.0",
+        "accepted": true,
+        "versionCode": 2100000,
+        "result": {
+          "version": "0.21.0",
+          "versionCode": 2100000
+        }
+      },
+      {
+        "version": "0.21.00",
+        "accepted": false,
+        "reason": "leading zero is not stable semver",
+        "result": {
+          "rejected": "version \"0.21.00\" must be a stable major.minor.patch semantic version without leading zeros, prerelease or build metadata"
+        }
+      }
+    ],
+    "installation": {
+      "applicationId": "com.deepstudent.app",
+      "minSdk": 26,
+      "targetSdk": 36,
+      "compileSdk": 36,
+      "abi": [
+        "arm64-v8a"
+      ],
+      "sameInstallIdentity": true,
+      "releasePackageObserved": false
+    }
+  },
+  "capabilities": [
+    {
+      "platform": "desktop",
+      "provider": "webdav",
+      "desktop": true,
+      "legacyMobile": null,
+      "nativeAndroid": "not-built",
+      "observed": {
+        "accepted": true,
+        "providerName": "WebDAV",
+        "bindingHint": "webdav|endpoint=https://sync.invalid/dav|user=<redacted>|root=deep-student-sync"
+      }
+    },
+    {
+      "platform": "desktop",
+      "provider": "s3",
+      "desktop": true,
+      "legacyMobile": null,
+      "nativeAndroid": "not-built",
+      "observed": {
+        "accepted": true,
+        "providerName": "S3",
+        "bindingHint": "s3|endpoint=https://s3.invalid|bucket=b|root=deep-student-sync"
+      }
+    },
+    {
+      "platform": "desktop",
+      "provider": "ftp",
+      "desktop": true,
+      "legacyMobile": null,
+      "nativeAndroid": "not-built",
+      "observed": {
+        "accepted": true,
+        "providerName": "FTP",
+        "bindingHint": "ftp|host=ftp.invalid|port=21|user=<redacted>|tls=true|root=deep-student-sync"
+      }
+    },
+    {
+      "platform": "legacy-mobile",
+      "provider": "webdav",
+      "desktop": null,
+      "legacyMobile": true,
+      "nativeAndroid": "not-built",
+      "observed": {
+        "accepted": true,
+        "providerName": "WebDAV",
+        "bindingHint": "webdav|endpoint=https://sync.invalid/dav|user=<redacted>|root=deep-student-sync"
+      }
+    },
+    {
+      "platform": "legacy-mobile",
+      "provider": "s3",
+      "desktop": null,
+      "legacyMobile": false,
+      "nativeAndroid": "not-built",
+      "observed": {
+        "accepted": false,
+        "code": "E_S3_UNSUPPORTED_IN_BUILD",
+        "type": "CommandError",
+        "message": "当前安装包不支持 S3 兼容存储，请改用 WebDAV。"
+      }
+    },
+    {
+      "platform": "legacy-mobile",
+      "provider": "ftp",
+      "desktop": null,
+      "legacyMobile": false,
+      "nativeAndroid": "not-built",
+      "observed": {
+        "accepted": false,
+        "code": "E_FTP_UNSUPPORTED_ON_ANDROID",
+        "type": "CommandError",
+        "message": "FTP/FTPS storage is not available on Android."
+      }
+    }
+  ],
+  "lease": {
+    "format_version": 1,
+    "target": "data_governance",
+    "holder_device_id": "device-s020-local",
+    "activation_committed": true,
+    "keyPrefix": "data_governance/locks/sync-target/",
+    "released": true,
+    "ttlMs": 600000,
+    "namespace": "data_governance/locks/sync-target"
+  },
+  "schemaGates": [
+    {
+      "scenario": "cloud-newer-local-older",
+      "cloud": 20261115,
+      "local": 20261027,
+      "expected": "reject",
+      "accepted": false,
+      "error": {
+        "name": "SchemaMismatchError",
+        "message": "Schema mismatch: vfs (local=20261027, cloud=20261115)：本端数据库版本过旧，请升级当前客户端后再同步；已阻止上传以避免降级云端数据",
+        "mismatches": [
+          {
+            "database_name": "vfs",
+            "local": 20261027,
+            "cloud": 20261115
+          }
+        ]
+      },
+      "writesUnchanged": true,
+      "seedWrites": 1,
+      "writesDuringGate": 0
+    },
+    {
+      "scenario": "cloud-older-local-newer",
+      "cloud": 20261027,
+      "local": 20261115,
+      "expected": "accept-at-upload-gate",
+      "accepted": true,
+      "error": null,
+      "writesUnchanged": true,
+      "seedWrites": 1,
+      "writesDuringGate": 0
+    },
+    {
+      "scenario": "equal-schema",
+      "cloud": 20261115,
+      "local": 20261115,
+      "expected": "accept",
+      "accepted": true,
+      "error": null,
+      "writesUnchanged": true,
+      "seedWrites": 1,
+      "writesDuringGate": 0
+    },
+    {
+      "scenario": "missing-local-database",
+      "cloud": 20261005,
+      "local": 0,
+      "expected": "reject-as-local-zero",
+      "accepted": false,
+      "error": {
+        "name": "SchemaMismatchError",
+        "message": "Schema mismatch: vfs (local=0, cloud=20261005)：本端数据库版本过旧，请升级当前客户端后再同步；已阻止上传以避免降级云端数据",
+        "mismatches": [
+          {
+            "database_name": "vfs",
+            "local": 0,
+            "cloud": 20261005
+          }
+        ]
+      },
+      "writesUnchanged": true,
+      "seedWrites": 1,
+      "writesDuringGate": 0
+    },
+    {
+      "scenario": "per-database-cloud-newer",
+      "cloud": 20261115,
+      "local": 20261027,
+      "expected": "reject",
+      "accepted": false,
+      "error": {
+        "name": "SchemaMismatchError",
+        "message": "Schema mismatch: chat_v2 (local=20261027, cloud=20261115)：本端数据库版本过旧，请升级当前客户端后再同步；已阻止上传以避免降级云端数据",
+        "mismatches": [
+          {
+            "database_name": "chat_v2",
+            "local": 20261027,
+            "cloud": 20261115
+          }
+        ]
+      },
+      "writesUnchanged": true,
+      "seedWrites": 1,
+      "writesDuringGate": 0
+    },
+    {
+      "scenario": "per-database-cloud-older",
+      "cloud": 20261027,
+      "local": 20261115,
+      "expected": "accept-at-upload-gate",
+      "accepted": true,
+      "error": null,
+      "writesUnchanged": true,
+      "seedWrites": 1,
+      "writesDuringGate": 0
+    }
+  ],
+  "laterDetector": {
+    "source": "host/plugins/sync/src/detect-conflicts.ts and merge.ts",
+    "cloudNewer": {
+      "conflict_type": "SchemaMismatch",
+      "needs_migration": true,
+      "schemaMismatch": [
+        {
+          "database_name": "vfs",
+          "local": 20261027,
+          "cloud": 20261115
+        }
+      ]
+    },
+    "cloudOlder": {
+      "conflict_type": "SchemaMismatch",
+      "needs_migration": true,
+      "schemaMismatch": [
+        {
+          "database_name": "vfs",
+          "local": 20261115,
+          "cloud": 20261027
+        }
+      ]
+    },
+    "distinction": "validateUploadSchemaCompatibility rejects only cloud schema > local; detectConflicts/schemaMismatchError later reports any unequal schema in either direction"
+  },
+  "frozenEvidence": {
+    "protocolArtifactSha256": "c75201a7956aa4255fe0c8d6d9d5e4882dc56936b5ff70d9f40c0c57a96994eb",
+    "sameSchema": {
+      "passed": true,
+      "schemaVersion": 20261115,
+      "applicationVersionLabels": {
+        "device-s010-a": "0.20.0",
+        "device-s010-b": "0.21.0"
+      },
+      "applicationVersionScope": "文档标签：两设备使用同一生产 sync 代码；wire/manifest 中没有应用版本字段，因此本场景不证明跨应用二进制兼容",
+      "cloudKeys": [
+        "data_governance/changes/b98d8d9a2efc6f77/000000000001-<epochSeconds>-<uuid>.json.zst",
+        "data_governance/changes/f0752acd93a07dfa/000000000001-<epochSeconds>-<uuid>.json.zst",
+        "data_governance/format.json",
+        "data_governance/instance.json",
+        "data_governance/manifests/b98d8d9a2efc6f77.json",
+        "data_governance/manifests/f0752acd93a07dfa.json",
+        "data_governance/preferences/device-s010-a.json",
+        "data_governance/preferences/device-s010-b.json"
+      ]
+    },
+    "mismatch": {
+      "rejectionPassed": true,
+      "publicationWriteCount": 0,
+      "pendingUnchanged": true,
+      "localRowsUnchanged": true,
+      "controlPlaneWrites": [
+        {
+          "key": "control:targetLease data_governance/locks/sync-target/<operationId>.json",
+          "count": 2
+        }
+      ],
+      "upgradePassed": true,
+      "sameDirectorySameDeviceId": true,
+      "originalPendingCarried": true,
+      "dataReinserted": false,
+      "schemaFrom": 20261111,
+      "schemaTo": 20261115
+    },
+    "note": "Reused S0.10 real runSync evidence; S0.19 FSRS production roundtrip is parsed and validated in this final capture."
+  },
+  "migrationPlan": {
+    "format": "dstu-s0.20-migration-contract/v2",
+    "status": "target-contract-fixed",
+    "nativeBaselineHeads": {
+      "vfs": {
+        "version": 20261115,
+        "name": "review_plans_fsrs",
+        "file": "vfs/V20261115__review_plans_fsrs.sql",
+        "sha256": "483b242fbf76ded1755644dbb0c6ad9391a91f73af1b32f5d7407a2614faa7d1"
+      },
+      "llm_usage": {
+        "version": 20260826,
+        "name": "add_stream_identity",
+        "file": "llm_usage/V20260826__add_stream_identity.sql",
+        "sha256": "b3d1239a6e664a140c772afb2fc6d211c5a91c89b1689dfb42798e417d781f81"
+      },
+      "chat_v2": {
+        "version": 20261111,
+        "name": "session_group_root_folder",
+        "file": "chat_v2/V20261111__session_group_root_folder.sql",
+        "sha256": "bb9397f3983294db05087413d34adad3afe3375355605e72f2438acc63f0874c"
+      },
+      "mistakes": {
+        "version": 20261005,
+        "name": "fsrs_learning_step",
+        "file": "mistakes/V20261005__fsrs_learning_step.sql",
+        "sha256": "2e9308cca6547a3cc66154560f98840d094e075549bd14d7d53db6299275c798"
+      }
+    },
+    "increments": {
+      "vfs": {
+        "baseline": 20261115,
+        "target": 20261117
+      },
+      "mistakes": {
+        "baseline": 20261005,
+        "target": 20261006
+      }
+    },
+    "entries": [
+      {
+        "unit": "S0.21",
+        "id": "portable-anki-templates",
+        "database": "mistakes",
+        "targetVersion": 20261006,
+        "targetPath": "mistakes/V20261006__portable_anki_templates.sql",
+        "previousReservation": {
+          "version": 20261006,
+          "path": "mistakes/V20261006__portable_anki_templates.sql"
+        },
+        "sourceContract": "ready",
+        "schemaContract": "delivered",
+        "assembly": "S0.G",
+        "reservationDisposition": "delivered",
+        "schemaRequired": true,
+        "reason": "Delivered by S0.21 as a coordinated mistakes migration."
+      },
+      {
+        "unit": "S0.21",
+        "id": "portable-attachment-roots",
+        "database": "vfs",
+        "targetVersion": null,
+        "targetPath": null,
+        "previousReservation": {
+          "version": 20261113,
+          "path": "vfs/V20261113__portable_attachment_roots.sql"
+        },
+        "sourceContract": "ready",
+        "schemaContract": "not-required",
+        "assembly": "S0.G",
+        "reservationDisposition": "not-required",
+        "schemaRequired": false,
+        "reason": "S0.21 uses vfs_blobs, active/anki_media and active/chat_attachments with existing tables; no SQL was delivered."
+      },
+      {
+        "unit": "S0.22",
+        "id": "portable-media-progress",
+        "database": "vfs",
+        "targetVersion": 20261116,
+        "targetPath": "vfs/V20261116__portable_media_progress.sql",
+        "previousReservation": {
+          "version": 20261114,
+          "path": "vfs/V20261114__portable_media_progress.sql"
+        },
+        "sourceContract": "ready",
+        "schemaContract": "target-fixed",
+        "assembly": "S0.G",
+        "reservationDisposition": "superseded",
+        "schemaRequired": true,
+        "reason": "The old 20261114 reservation is below the upstream 20261115 vfs head and cannot be appended; the contract target is 20261116."
+      },
+      {
+        "unit": "S0.23",
+        "id": "portable-theme-configuration",
+        "database": "vfs",
+        "targetVersion": null,
+        "targetPath": null,
+        "previousReservation": {
+          "version": 20261115,
+          "path": "vfs/V20261115__portable_theme_configuration.sql"
+        },
+        "sourceContract": "ready",
+        "schemaContract": "not-required",
+        "assembly": "S0.G",
+        "reservationDisposition": "superseded",
+        "schemaRequired": false,
+        "reason": "S0.23 reuses portable settings transport. Upstream already owns vfs 20261115 for review_plans_fsrs, and no theme SQL is required."
+      },
+      {
+        "unit": "S0.24",
+        "id": "plugin-skill-data-contract",
+        "database": "vfs",
+        "targetVersion": 20261117,
+        "targetPath": "vfs/V20261117__plugin_skill_data_contract.sql",
+        "previousReservation": {
+          "version": 20261116,
+          "path": "vfs/V20261116__plugin_skill_data_contract.sql"
+        },
+        "sourceContract": "ready",
+        "schemaContract": "target-fixed",
+        "assembly": "S0.G",
+        "reservationDisposition": "superseded",
+        "schemaRequired": true,
+        "reason": "The old 20261116 reservation is displaced by media; the contract target is 20261117."
+      }
+    ],
+    "reconciliation": {
+      "template": "20261006 target contract; delivery observed by release-audit",
+      "attachment": "20261113 not-required; no SQL",
+      "media": "20261114 superseded and below the 20261115 upstream head; 20261116 target contract",
+      "theme": "20261115 superseded by upstream review_plans_fsrs; no theme SQL",
+      "plugin": "20261116 superseded; 20261117 target contract"
+    },
+    "reservationBasis": "The previous reservations were conditional heads-plus-index guesses and are removed. The fixed contract now records source-contract readiness, not file delivery.",
+    "rule": "The native baseline and increment targets are separate. Do not append a coordinated migration at or below the upstream head, and do not invent SQL for a not-required contract.",
+    "deliveryReport": "release-audit.mjs derives current target/stale file presence and hashes from config/schema/coordinated; delivery transitions belong to the S0.G report.",
+    "snapshotPolicy": "S0.G independently assembles and freezes the delivered coordinated set. This artifact stores only fixed target-contract inputs so later rebases do not drift S0.20 verify."
+  },
+  "claims": {
+    "kotlinHostImplemented": false,
+    "hostInstallationComplete": false,
+    "desktopReleasePublished": false,
+    "s0gFinalAssemblyComplete": false
+  },
+  "consumers": {
+    "desktop": [
+      "host/plugins/sync/src/remote-format.ts",
+      "host/plugins/sync/src/manifest-upload.ts",
+      "host/plugins/sync/src/detect-conflicts.ts"
+    ],
+    "android": [
+      {
+        "unit": "S1.05",
+        "task": "Kotlin migration runner and fingerprint parity"
+      },
+      {
+        "unit": "S1.24",
+        "task": "WebDAV, independent device id, manifest/object keys/codec"
+      },
+      {
+        "unit": "S2.02",
+        "task": "migration and fingerprint upgrade reports"
+      },
+      {
+        "unit": "S2.26",
+        "task": "pending publication reservation and verified replay"
+      },
+      {
+        "unit": "S2.27",
+        "task": "download apply and post-commit cursor"
+      },
+      {
+        "unit": "S8.05",
+        "task": "provider lease and verified publish conformance"
+      },
+      {
+        "unit": "S8.16",
+        "task": "real-package schema/wire matrix"
+      }
+    ],
+    "installation": "S1.01 Gradle identity; S1.05 migration runner; S1.24 provider; S8.16 real-package matrix"
+  },
+  "checks": {
+    "sharedDatabases": 4,
+    "schemaFingerprintsMatchBaseline": true,
+    "applicationVersionsIndependent": true,
+    "versionRejectedLegacy": true,
+    "versionRejectedMalformed": true,
+    "formatCurrent": 4,
+    "formatMinimum": 3,
+    "v5Inactive": true,
+    "formatNegativeCases": 2,
+    "uploadGateNegativeCases": 3,
+    "laterUnequalSchemaDetected": true,
+    "leaseAcquireRelease": true,
+    "legacyMobileWebdavOnly": true,
+    "nativeAndroidProvidersClaimed": 0,
+    "historicalSqlFiles": 135,
+    "schemaBaselineVfs": 20261115,
+    "schemaBaselineMistakes": 20261005,
+    "vfsIncrementTarget": 20261117,
+    "mistakesIncrementTarget": 20261006,
+    "migrationEntriesReconciled": 5,
+    "sourceContractsReady": 5,
+    "deliveredSchemaContracts": 1,
+    "notRequiredSchemaContracts": 2,
+    "targetFixedSchemaContracts": 2,
+    "supersededReservations": 3,
+    "s021TemplateTarget": true,
+    "s018GoldenV2Stable": true,
+    "desktopFrozenCommit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+    "desktopReleaseClaimed": false,
+    "kotlinHostImplemented": false,
+    "hostInstallationComplete": false,
+    "frozenPendingUpgradeEvidence": true,
+    "reviewPlansSyncParsed": true,
+    "sourceContractReady": true
+  },
+  "evidence": {
+    "sourceHashes": {
+      "source": "desktop",
+      "file": "host/plugins/sync/src/manifest-upload.ts",
+      "line": 46,
+      "symbol": "validateUploadSchemaCompatibility",
+      "text": "export async function validateUploadSchemaCompatibility("
+    },
+    "conflictSource": {
+      "source": "desktop",
+      "file": "host/plugins/sync/src/merge.ts",
+      "line": 91,
+      "symbol": "detectConflicts",
+      "text": "export function detectConflicts(localManifest: SyncManifest, cloudManifest: SyncManifest): ConflictDetectionResult {"
+    },
+    "leaseSource": {
+      "source": "desktop",
+      "file": "host/plugins/sync-providers/src/sync_lease.ts",
+      "line": 141,
+      "symbol": "acquireSyncTargetLeaseWithTtl",
+      "text": "export async function acquireSyncTargetLeaseWithTtl("
+    },
+    "schemaSource": {
+      "source": "desktop",
+      "file": "host/plugins/sync/src/remote-format.ts",
+      "line": 39,
+      "symbol": "CURRENT_FORMAT_VERSION",
+      "text": "export const CURRENT_FORMAT_VERSION = 4;"
+    }
+  }
+}

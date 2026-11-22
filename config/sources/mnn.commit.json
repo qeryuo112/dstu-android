@@ -1,0 +1,35 @@
+{
+  "sha": "d407447ed56c4121a11ccbd266dc184ca1ead0c2",
+  "node_id": "C_kwDOCtCBf9oAKGQ0MDc0NDdlZDU2YzQxMjFhMTFjY2JkMjY2ZGMxODRjYTFlYWQwYzI",
+  "url": "https://api.github.com/repos/alibaba/MNN/git/commits/d407447ed56c4121a11ccbd266dc184ca1ead0c2",
+  "html_url": "https://github.com/alibaba/MNN/commit/d407447ed56c4121a11ccbd266dc184ca1ead0c2",
+  "author": {
+    "name": "王召德",
+    "email": "zhaode.wzd@alibaba-inc.com",
+    "date": "2026-07-22T11:24:05Z"
+  },
+  "committer": {
+    "name": "GitHub",
+    "email": "noreply@github.com",
+    "date": "2026-07-22T11:24:05Z"
+  },
+  "tree": {
+    "sha": "33df4af812ff1960795dd11b53ceccf3a7187d93",
+    "url": "https://api.github.com/repos/alibaba/MNN/git/trees/33df4af812ff1960795dd11b53ceccf3a7187d93"
+  },
+  "message": "[Infra:Release] Update PyMNN packaging for 3.6.1 release (#4657)",
+  "parents": [
+    {
+      "sha": "4235054233cca4a1d08f620c432ba99ed891c3c8",
+      "url": "https://api.github.com/repos/alibaba/MNN/git/commits/4235054233cca4a1d08f620c432ba99ed891c3c8",
+      "html_url": "https://github.com/alibaba/MNN/commit/4235054233cca4a1d08f620c432ba99ed891c3c8"
+    }
+  ],
+  "verification": {
+    "verified": true,
+    "reason": "valid",
+    "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqYKhVCRC1aQ7uu5UhlAAA3NUQAHHzGGRsYAVxdxOmd4dOZT3i\nDitgOcOJIiLuRYfls6YMW7pHZ5+JcRg+hJG8z9kckUHtmFNLNxVJTIuxdghdWV3K\nH7pr0DSWX7wYJtI1fE52QXQTUfyZv4+NRtB9H5KP9G4PprZTUj6lSPqRLCJBEQZh\n+eN8+e8Cvstp0Ue5vRT0QgW5p5F05QO+efZF32/8Z2QI4lbolXHGoIc74pB/hMKY\n48yqHXjgyEUPfjeTrpKWRU9Y35rJsk9kt8pbOSeNk4qMzoZ6rqgaRcCXJqeU+ZmJ\nqMILhiGKpgbv2ZdRCmmCjcigckN8Kkasu2y85mGPlFL/SE59oGb+EI9OCySmh1Jl\nJQ6U2dVrhUZoDXUaudIWl7TriHFCo4iCFxd2hx5oA5pb4eBxwbETst5NAM6SpYkn\nVSOm/DLpEzBg9VNxbzbz3oqg4K4/Z1zAKJU63HoIwIvAFj3FuVhjX2Vk06TbP/C5\nCHfOus8/pkJgtVYDoEt4j7l06TzaslM9IMIlh+0FoNqezL1DDLSKFX/ePd+nPiGp\nOgTOR0QjcFYF9StPTM0bdIawzQ8zXQN5/WXRvCWiLoixq2RSsI6F4TM216Gq/zuB\n/pWbQv9+tbwdaoBBLaBKQPxYhsMU+25KYn6d6d3AAL96Ln3UL8QJ4ZoLGIM3bWXn\nCBUGQBbNe2liPw/88iY4\n=P+jk\n-----END PGP SIGNATURE-----\n",
+    "payload": "tree 33df4af812ff1960795dd11b53ceccf3a7187d93\nparent 4235054233cca4a1d08f620c432ba99ed891c3c8\nauthor 王召德 <zhaode.wzd@alibaba-inc.com> 1784719445 +0800\ncommitter GitHub <noreply@github.com> 1784719445 +0800\n\n[Infra:Release] Update PyMNN packaging for 3.6.1 release (#4657)",
+    "verified_at": "2026-07-22T11:24:06Z"
+  }
+}

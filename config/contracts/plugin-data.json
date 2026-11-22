@@ -1,0 +1,155 @@
+{
+  "formatVersion": 1,
+  "unit": "S0.24",
+  "status": {
+    "sourceIncrement": "installed on locked desktop checkout",
+    "packaging": "not claimed",
+    "distribution": "not claimed"
+  },
+  "api": {
+    "install": "installPluginDataIncrement()",
+    "store": "createPluginDataStore(db, capability, options)",
+    "apply": "production applyDownloadedChangesToDatabases with serialized sync changes",
+    "migrations": "preparePluginDataMigrations(parent)"
+  },
+  "schema": {
+    "table": "portable_plugin_records",
+    "migration": "V20261117__plugin_skill_data_contract.sql",
+    "logicalId": "canonical JSON array [owner_id, namespace, record_id]",
+    "rowFields": [
+      "owner_id",
+      "owner_kind",
+      "namespace",
+      "record_id",
+      "package_version",
+      "source_hash",
+      "schema_version",
+      "min_writer_schema",
+      "data_json",
+      "unknown_json",
+      "deleted_at",
+      "device_id",
+      "local_version",
+      "updated_at"
+    ],
+    "classification": {
+      "database": "vfs",
+      "table_name": "portable_plugin_records",
+      "primary_key": "id",
+      "category": "RowSync",
+      "conflict_policy": "Lww",
+      "business_unique_keys": "",
+      "has_json_blobs": true,
+      "merge_notes": "S0.24: portable plugin/skill data by canonical [owner,namespace,recordId] id; row LWW; install and trust stay local"
+    },
+    "constraints": [
+      "id equals json_array(owner, namespace, record_id)",
+      "identity and min_writer cannot decrease",
+      "record depth <= 16",
+      "record bytes <= 65536",
+      "live owner quota 2000 rows / 5 MiB"
+    ]
+  },
+  "migration": {
+    "coordinatedFile": "config/schema/coordinated/vfs/V20261117__plugin_skill_data_contract.sql",
+    "version": 20261117,
+    "name": "plugin_skill_data_contract",
+    "baselineVersion": 20261115,
+    "mediaVersion": 20261116,
+    "previousReservation": {
+      "version": 20261116,
+      "path": "vfs/V20261116__plugin_skill_data_contract.sql"
+    },
+    "sha256": "e0c9ba13527bf4ae0d1409dadc890b6af63a4cc86017b8b3b2a051289742ee38",
+    "preparedInputs": [
+      {
+        "unit": "S0.21",
+        "file": "mistakes/V20261006__portable_anki_templates.sql",
+        "sha256": "205f7da3f916b65c56b20bdd1472213837dcf359cc25cfe2697a6a3bbf6646d9"
+      },
+      {
+        "unit": "S0.22",
+        "file": "vfs/V20261116__portable_media_progress.sql",
+        "sha256": "1beeb57d996340270b2f8acfe3fe6608a7432fda5c4178aca6034abaad00d116"
+      },
+      {
+        "unit": "S0.24",
+        "file": "vfs/V20261117__plugin_skill_data_contract.sql",
+        "sha256": "e0c9ba13527bf4ae0d1409dadc890b6af63a4cc86017b8b3b2a051289742ee38"
+      }
+    ],
+    "preparedOrder": [
+      "V20261006__portable_anki_templates.sql",
+      "V20261116__portable_media_progress.sql",
+      "V20261117__plugin_skill_data_contract.sql"
+    ]
+  },
+  "ownership": {
+    "capability": "trusted injected identity copied at store creation",
+    "arbitraryPayloadOwnerIgnored": true,
+    "ownerIsolation": true
+  },
+  "separation": {
+    "data": [
+      "portable_plugin_records"
+    ],
+    "localServices": {
+      "pluginSecrets": {
+        "storage": "local secure store",
+        "keyPattern": "secret.plugin.<owner>.<key>",
+        "portable": false,
+        "synced": false
+      },
+      "pluginSchedule": {
+        "storage": "local settings",
+        "keyPattern": "plugin.schedule.<owner>.<job>",
+        "portable": false,
+        "synced": false
+      },
+      "pluginNotify": {
+        "storage": "local device notification policy",
+        "portable": false
+      },
+      "studyData": {
+        "route": "existing repositories and domain sync",
+        "portablePluginRecords": false
+      }
+    },
+    "installAndTrust": "callable local policy adapter only; not synchronized and not a reserved table; app lifecycle not claimed",
+    "fullTrust": "local-only; remote content cannot install, enable, trust, or grant full trust",
+    "remoteContent": {
+      "installs": false,
+      "enables": false,
+      "trusts": false,
+      "fullTrust": false,
+      "executes": false
+    },
+    "uninstallDefault": "remove local install state and retain synced data",
+    "explicitDelete": "owner tombstones retained for replay"
+  },
+  "sourceHashes": {
+    "host/plugins/sync/src/classification-registry.ts": "34494175370479849f94e80790ae43a30bc68209699902a6d28936ba6a12287a",
+    "host/platform/storage/migration/definitions/vfs.ts": "714c6bce5313baf493f2705319d46765ae3de51a1e5ece9c1f89d38a68d62d5e",
+    "host/plugins/sync/src/collect-sync-changes.ts": "ad6072d591d4f1ed20bcb509cd2e4140d492f7d72143bf8f9eb927978295215c",
+    "host/plugins/sync/src/change-payload.ts": "6b0bb9ca47a98c6f788cde3949486af9011e8fea9a9a053c067a2a1fd675f0ac",
+    "host/plugins/sync/repository/apply-databases.ts": "ae95653d6c75cd8967701ae31098e4628627c966f41ed176271e3aeb8340ddee",
+    "host/plugins/sync/repository/apply-record.ts": "441152f112f3568202d8bdd91600fcc0855c18521678ad01e0fbd0bdfbafcd7a",
+    "host/plugins/plugin-services/api.ts": "e171b0f27297b5b3cd20b9d25a1aa06e0a5edccfbd890721bd86e5ad1b250cc4",
+    "host/plugins/plugin-services/src/secrets.ts": "065b26b30eee8c56a3fd46fd51b8154d0fa9e828a4e1767329ee3ff65a1f13ae",
+    "host/plugins/plugin-services/src/schedule.ts": "5014694d76ef774b8ea7b3347e80f65516fd98db6096cd555c87d73431ce19d2",
+    "host/platform/secrets/sensitive-key.ts": "5aa427f12a1621b286524dbb63e84ee7ca23d701f9524f83cf79bab2f61aedfa"
+  },
+  "observed": {
+    "recordsCollected": 6,
+    "wireBytes": 4068,
+    "recordsApplied": 5,
+    "unknownRetained": true,
+    "tombstoneReplay": true,
+    "forgedTupleRejected": true,
+    "sourceHashNotOutputAuthority": true,
+    "pluginServicesLocal": true,
+    "remoteFullTrustRejected": true,
+    "freshAndRestart": true,
+    "upstreamMediaPluginUpgrade": true
+  }
+}

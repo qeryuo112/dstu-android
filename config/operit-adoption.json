@@ -1,0 +1,4643 @@
+{
+  "formatVersion": 1,
+  "unit": "S0.13",
+  "delivery": {
+    "adoption": "S0.13",
+    "assets": "S0.14",
+    "platform": "S0.15"
+  },
+  "evidence": {
+    "plan": {
+      "file": "docs/plans/2026-11-15-mobile-full-feature-refactor.md",
+      "unitLine": 595,
+      "sections": {
+        "section31": 96,
+        "section32": 113,
+        "section33": 129
+      }
+    },
+    "sourceLock": {
+      "file": "config/source-lock.json",
+      "desktopCommit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+      "desktopTree": "3bee0f058851b9eb113bdc036d9f60433ed29944",
+      "operitCommit": "7a39941bad80209973c535046a18195c5da9e647",
+      "operitTree": "1c74219f7b7fdebebd07e99830877559e2dcd3e6",
+      "terminalCommit": "e4646680663789002b43bbfffa6e69e65c35e614",
+      "terminalTree": "bb5420c2fd21040878c25240607996aed6afbd77"
+    },
+    "brandPages": {
+      "file": "config/design/brand.baseline.json",
+      "count": 13
+    },
+    "domains": {
+      "file": "config/baseline/domains.json",
+      "count": 30
+    },
+    "classification": {
+      "file": "config/baseline/classification.json",
+      "tables": 124
+    }
+  },
+  "desktopSeams": [
+    {
+      "id": "desktop-plugin-services",
+      "owner": "integrations",
+      "ownershipBasis": "community plugin service facade and external integration boundary; plugin-services is not a terminal/dependency-install dependency",
+      "relatedUnits": [
+        "S6.34",
+        "S6.35",
+        "S6.36",
+        "S3.17",
+        "S5.07",
+        "S7.08",
+        "S7.18",
+        "S4.29",
+        "S2.01",
+        "S2.13"
+      ],
+      "services": [
+        {
+          "name": "pluginSecrets",
+          "id": "plugin-services/PluginSecretsService",
+          "kind": "public",
+          "contractUnit": "S6.35",
+          "adapterOwner": "integrations",
+          "dependency": "S2.13"
+        },
+        {
+          "name": "pluginNotify",
+          "id": "plugin-services/PluginNotifyService",
+          "kind": "public",
+          "contractUnit": "S6.35",
+          "adapterOwner": "integrations",
+          "dependency": null
+        },
+        {
+          "name": "pluginSchedule",
+          "id": "plugin-services/PluginScheduleService",
+          "kind": "public",
+          "contractUnit": "S6.35",
+          "adapterOwner": "integrations",
+          "dependency": null
+        },
+        {
+          "name": "studyData",
+          "id": "plugin-services/StudyDataService",
+          "kind": "public",
+          "contractUnit": "S6.35",
+          "adapterOwner": "integrations",
+          "dependency": null
+        },
+        {
+          "name": "pluginServices",
+          "id": "plugin-services:provide:host/plugins/plugin-services/index.ts:47",
+          "kind": "registration",
+          "contractUnit": "S6.35",
+          "adapterOwner": "integrations",
+          "dependency": null
+        },
+        {
+          "name": "resolver",
+          "id": "plugin-services/Services",
+          "kind": "internal",
+          "contractUnit": "S6.35",
+          "adapterOwner": "integrations",
+          "dependency": "S5.07/S7.08/S7.18/S4.29/S2.01"
+        }
+      ],
+      "sources": [
+        {
+          "file": "host/plugins/plugin-services/index.ts",
+          "sha256": "3c3538e0aa6b07bc95a43fbe3d9b178a2e3a6f41b4cbc6d2a336306c673b1e57"
+        },
+        {
+          "file": "host/plugins/plugin-services/api.ts",
+          "sha256": "e171b0f27297b5b3cd20b9d25a1aa06e0a5edccfbd890721bd86e5ad1b250cc4"
+        },
+        {
+          "file": "host/plugins/plugin-services/src/secrets.ts",
+          "sha256": "065b26b30eee8c56a3fd46fd51b8154d0fa9e828a4e1767329ee3ff65a1f13ae"
+        },
+        {
+          "file": "host/plugins/plugin-services/src/notify.ts",
+          "sha256": "2d08f75f1817d0950bf86e6dbf011aebcf01a47908ddc5b3e3098b55ff871a43"
+        },
+        {
+          "file": "host/plugins/plugin-services/src/schedule.ts",
+          "sha256": "5014694d76ef774b8ea7b3347e80f65516fd98db6096cd555c87d73431ce19d2"
+        },
+        {
+          "file": "host/plugins/plugin-services/src/study-data-types.ts",
+          "sha256": "2158092bab06aa1cffaf0d190d022f48c49227315cc8a6f70dc7b47b1eb7195c"
+        },
+        {
+          "file": "host/plugins/plugin-services/src/study-data.ts",
+          "sha256": "2b3f327330b4b670fc1846dccfc645c0b3035e408dd96d5b8bccc19813c92bdb"
+        }
+      ],
+      "android": "future native adapters: S6.35 builds AppGraph/CapabilityBroker-backed owner-isolated secrets, notifications, scheduling and study-data surfaces; S6.34 consumes views/theme variants, S6.36 refreshes the workshop after install/lifecycle events; the Kotlin seam is not built yet and the upstream mobile.ts or Capacitor chain is not copied"
+    },
+    {
+      "id": "desktop-workbench-plugin-view",
+      "owner": "compose-dsl",
+      "ownershipBasis": "compose-dsl delivers S6.34; S6.43 and S7.37 remain later plan responsibilities rather than adopted units",
+      "relatedUnits": [
+        "S6.34",
+        "S6.43",
+        "S7.37"
+      ],
+      "services": [],
+      "sources": [
+        {
+          "file": "src/features/workbench/apps/plugin-views/register.tsx",
+          "sha256": "44124eeff785c4a500b267deaf031f27b9647e7f31e748d72a0228574a5ba5a1"
+        },
+        {
+          "file": "src/features/workbench/apps/plugin-views/PluginViewAppWindow.tsx",
+          "sha256": "e40f46a68cf35d34c05bcfd174bfecdfecd5907bee2bf804fb4595b0eab08bc5"
+        }
+      ],
+      "android": "future native adapters: S6.34 owns the dynamic contribution tree and slot revocation, S6.43 the formal workbench window/focus/beside host, S7.37 per-package install/run evidence; typeId remains plugin-view.<viewKey>, single instance, owner follows slot entry revocation; the upstream mobile chain is not adopted"
+    }
+  ],
+  "workbenchSeam": {
+    "id": "plugin-view",
+    "prefix": "plugin-view.",
+    "file": "config/baseline/workbench.json",
+    "staticGoldenMembership": false,
+    "singleton": {
+      "instanceMode": "single",
+      "scope": "one window per plugin-view.<viewKey> typeId; distinct community views may coexist",
+      "instanceKey": null
+    },
+    "source": {
+      "file": "src/features/workbench/apps/plugin-views/register.tsx",
+      "line": 26,
+      "text": "export const PLUGIN_VIEW_APP_PREFIX = 'plugin-view.';",
+      "sha256": "44124eeff785c4a500b267deaf031f27b9647e7f31e748d72a0228574a5ba5a1"
+    },
+    "hostOwner": "compose-dsl",
+    "nativeDelivery": [
+      {
+        "unit": "S6.34",
+        "responsibility": "dynamic plugin view rendering, owner scope, slot/view/lifecycle removal",
+        "owner": "compose-dsl",
+        "adopted": true,
+        "internalObligation": false
+      },
+      {
+        "unit": "S6.43",
+        "responsibility": "formal workbench panel host, layout, focus and close integration",
+        "owner": null,
+        "adopted": false,
+        "internalObligation": true
+      },
+      {
+        "unit": "S7.37",
+        "responsibility": "per-package installation/run/update/revoke evidence, including official UI contribution coverage",
+        "owner": null,
+        "adopted": false,
+        "internalObligation": true
+      }
+    ],
+    "notAdopted": {
+      "origin": "upstream",
+      "chain": "dstu-node mobile profile / Capacitor / mobile.ts",
+      "rule": "the frozen desktop profile and the host workbench are the adoption target; the upstream mobile chain is evidence only"
+    }
+  },
+  "brandPageEvidence": {
+    "file": "config/design/brand.baseline.json",
+    "count": 13,
+    "snapshotUnit": "S0.12",
+    "sourceHashesIncluded": false,
+    "rule": "page identity, copy, route and owning adoption unit are checked; brand hash values are owned by S0.12 and are not copied here",
+    "pages": [
+      {
+        "id": "terminal",
+        "zh": "终端",
+        "en": "Terminal",
+        "route": "terminal/session/{sessionId}",
+        "deliveryUnit": "S6.03",
+        "owner": "terminal-ui",
+        "ownerUnit": "S6.03",
+        "aliases": [
+          "terminal-kernel"
+        ],
+        "source": "app/src/main/java/com/ai/assistance/operit/ui/features/toolbox/screens/ToolboxScreen.kt"
+      },
+      {
+        "id": "terminal-setup",
+        "zh": "终端初始化",
+        "en": "Terminal setup",
+        "route": "terminal/setup",
+        "deliveryUnit": "S6.09",
+        "owner": "dependency-mirror",
+        "ownerUnit": "S6.09",
+        "aliases": [],
+        "source": "app/src/main/java/com/ai/assistance/operit/ui/main/screens/OperitScreens.kt"
+      },
+      {
+        "id": "terminal-auto-config",
+        "zh": "终端自动配置",
+        "en": "Terminal Auto Configuration",
+        "route": "terminal/setup/auto",
+        "deliveryUnit": "S6.16",
+        "owner": "dependency-mirror",
+        "ownerUnit": "S6.16",
+        "aliases": [],
+        "source": "app/src/main/java/com/ai/assistance/operit/ui/main/screens/OperitScreens.kt"
+      },
+      {
+        "id": "install-center",
+        "zh": "包管理器",
+        "en": "Package Manager",
+        "route": "system/packages",
+        "deliveryUnit": "S6.11",
+        "owner": "dependency-mirror",
+        "ownerUnit": "S6.11",
+        "aliases": [
+          "toolpkg"
+        ],
+        "source": "app/src/main/java/com/ai/assistance/operit/ui/features/packages/screens/PackageManagerScreen.kt"
+      },
+      {
+        "id": "shizuku-permissions",
+        "zh": "权限授予",
+        "en": "Permissions",
+        "route": "system/shizuku",
+        "deliveryUnit": "S6.18",
+        "owner": "shizuku",
+        "ownerUnit": "S6.18",
+        "aliases": [
+          "root-standard-exec"
+        ],
+        "source": "app/src/main/java/com/ai/assistance/operit/ui/main/screens/OperitScreens.kt"
+      },
+      {
+        "id": "shizuku-install",
+        "zh": "安装 Shizuku",
+        "en": "Install Shizuku",
+        "route": "system/shizuku/install",
+        "deliveryUnit": "S6.18",
+        "owner": "shizuku",
+        "ownerUnit": "S6.18",
+        "aliases": [],
+        "source": "app/src/main/java/com/ai/assistance/operit/ui/features/demo/wizards/ShizukuWizardCard.kt"
+      },
+      {
+        "id": "permission-guide",
+        "zh": "权限引导",
+        "en": "Permission guide",
+        "route": "system/permissions/guide",
+        "deliveryUnit": "S2.21",
+        "owner": "shower",
+        "ownerUnit": "S2.21",
+        "aliases": [],
+        "source": "app/src/main/java/com/ai/assistance/operit/ui/features/permission/screens/PermissionGuideScreen.kt"
+      },
+      {
+        "id": "tool-permissions",
+        "zh": "工具权限设置",
+        "en": "Tool Permission Settings",
+        "route": "settings/tool-permissions",
+        "deliveryUnit": "S7.35",
+        "owner": "root-standard-exec",
+        "ownerUnit": "S7.35",
+        "aliases": [],
+        "source": "app/src/main/java/com/ai/assistance/operit/ui/features/settings/screens/ToolPermissionSettingsScreen.kt"
+      },
+      {
+        "id": "app-permissions",
+        "zh": "应用权限管理",
+        "en": "App Permissions Manager",
+        "route": "system/app-permissions",
+        "deliveryUnit": "S6.22",
+        "owner": "root-standard-exec",
+        "ownerUnit": "S6.22",
+        "aliases": [],
+        "source": "app/src/main/java/com/ai/assistance/operit/ui/main/screens/OperitScreens.kt"
+      },
+      {
+        "id": "background-keepalive",
+        "zh": "后台保活",
+        "en": "Background keep-alive",
+        "route": "settings/background",
+        "deliveryUnit": "S2.21",
+        "owner": "foreground-service",
+        "ownerUnit": "S2.21",
+        "aliases": [],
+        "source": "app/src/main/java/com/ai/assistance/operit/data/preferences/DisplayPreferencesManager.kt"
+      },
+      {
+        "id": "floating-window",
+        "zh": "浮窗",
+        "en": "Floating window",
+        "route": "workspace/floating/{taskId}",
+        "deliveryUnit": "S6.40",
+        "owner": "floating-window",
+        "ownerUnit": "S6.40",
+        "aliases": [],
+        "source": "app/src/main/java/com/ai/assistance/operit/services/FloatingChatService.kt"
+      },
+      {
+        "id": "mcp-config",
+        "zh": "MCP工具",
+        "en": "MCP Tools",
+        "route": "settings/mcp/servers",
+        "deliveryUnit": "S6.28",
+        "owner": "mcp",
+        "ownerUnit": "S6.28",
+        "aliases": [
+          "integrations"
+        ],
+        "source": "app/src/main/java/com/ai/assistance/operit/ui/features/packages/screens/MCPConfigScreen.kt"
+      },
+      {
+        "id": "toolpkg-host",
+        "zh": "插件",
+        "en": "Plugins",
+        "route": "workspace/toolpkg/{containerPackageName}/{uiModuleId}",
+        "deliveryUnit": "S6.44",
+        "owner": "quickjs",
+        "ownerUnit": "S6.44",
+        "aliases": [
+          "toolpkg",
+          "compose-dsl"
+        ],
+        "source": "app/src/main/java/com/ai/assistance/operit/ui/common/composedsl/ToolPkgComposeDslScreen.kt"
+      }
+    ]
+  },
+  "domainCoverage": {
+    "file": "config/baseline/domains.json",
+    "total": 30,
+    "owned": 19,
+    "unowned": 11,
+    "unownedIds": [
+      "agent-workspace",
+      "anki",
+      "backup",
+      "chatanki",
+      "llm-providers",
+      "plugin-services",
+      "qbank",
+      "review",
+      "sync",
+      "sync-providers",
+      "vfs-repos"
+    ],
+    "rule": "adoption units own only domains with a direct Operit seam; the remaining desktop domains stay outside the Operit adoption catalog"
+  },
+  "adopted": [
+    {
+      "id": "terminal-kernel",
+      "section": "3.1",
+      "capability": "终端内核",
+      "sourcePath": "terminal/src/main/java/com/ai/assistance/operit/terminal/",
+      "method": "direct-port",
+      "primaryUnit": "S1.20",
+      "deliveryUnit": "S6.02",
+      "secondaryUnits": [
+        "S6.01",
+        "S6.04",
+        "S6.05",
+        "S6.07"
+      ],
+      "source": {
+        "commit": "7a39941bad80209973c535046a18195c5da9e647",
+        "terminalCommit": "e4646680663789002b43bbfffa6e69e65c35e614",
+        "module": "terminal"
+      },
+      "evidence": [
+        {
+          "file": "terminal/src/main/java/com/ai/assistance/operit/terminal/TerminalManager.kt",
+          "line": 47,
+          "symbol": "class TerminalManager",
+          "text": "class TerminalManager private constructor(",
+          "sha256": "72e0a6c86a30fa34360cf11b058ff75fc453d2635892e78b3c520ff64dcb78b9"
+        },
+        {
+          "file": "terminal/src/main/java/com/ai/assistance/operit/terminal/SessionManager.kt",
+          "line": 16,
+          "symbol": "class SessionManager",
+          "text": "class SessionManager(private val terminalManager: TerminalManager) {",
+          "sha256": "69c6561592e16a237bb434aafeceed9930dfb54c291c805e83cffbc4c5a33bee"
+        },
+        {
+          "file": "terminal/src/main/java/com/ai/assistance/operit/terminal/SessionInputRouter.kt",
+          "line": 33,
+          "symbol": "object SessionInputRouter",
+          "text": "internal object SessionInputRouter {",
+          "sha256": "514e4969c3eca8b29a89c1e91c115b344b48c6de692369f65a7ccc189f367dfb"
+        },
+        {
+          "file": "terminal/src/main/java/com/ai/assistance/operit/terminal/Pty.kt",
+          "line": 11,
+          "symbol": "open class Pty",
+          "text": "open class Pty(",
+          "sha256": "61f850b6739a3eab5d935d3e105f3115a6567de48e1bd23382e0dc11e5a67695"
+        },
+        {
+          "file": "terminal/src/main/java/com/ai/assistance/operit/terminal/PtyIo.kt",
+          "line": 25,
+          "symbol": "class PtyIo",
+          "text": "internal class PtyIo(",
+          "sha256": "d4a8daf3a86c79ef9517d63f65cdf0246de4a3a2fa3ae51a5f72d02ef83ddd38"
+        },
+        {
+          "file": "terminal/src/main/java/com/ai/assistance/operit/terminal/PtyChildProcess.kt",
+          "line": 10,
+          "symbol": "class PtyChildProcess",
+          "text": "internal class PtyChildProcess(",
+          "sha256": "69304cc69baa4ca6e52c2f56d466dc0aabf262fcb2b0d090fa1e4e522def97d9"
+        },
+        {
+          "file": "terminal/src/main/java/com/ai/assistance/operit/terminal/TrackedCommandProtocol.kt",
+          "line": 4,
+          "symbol": "object TrackedCommandProtocol",
+          "text": "object TrackedCommandProtocol {",
+          "sha256": "478223b549a77d7ccd3c4139d673b244742eaa7297f96cf866371d0fa7c9525a"
+        },
+        {
+          "file": "terminal/src/main/java/com/ai/assistance/operit/terminal/provider/type/LocalTerminalProvider.kt",
+          "line": 34,
+          "symbol": "class LocalTerminalProvider",
+          "text": "class LocalTerminalProvider(",
+          "sha256": "4dd5b94a33fa6fbc6885bd11ca25ad5c0b6f42b1f5acdcfa64f0432ab859c1f4"
+        },
+        {
+          "file": "terminal/src/main/java/com/ai/assistance/operit/terminal/provider/type/TerminalProvider.kt",
+          "line": 35,
+          "symbol": "interface TerminalProvider",
+          "text": "interface TerminalProvider {",
+          "sha256": "c9c1740c0354280fc96609286d7207112010a912c9536f4b758e269d41efd4a4"
+        }
+      ],
+      "callChain": [
+        "caller: app/src/main/java/com/ai/assistance/operit/core/tools/ToolRegistration.kt:327 execute_in_terminal_session 工具注册",
+        "service: app/src/main/java/com/ai/assistance/operit/core/tools/defaultTool/standard/StandardTerminalCommandExecutor.kt:126 StandardTerminalCommandExecutor.executeCommandInSession",
+        "facade: app/src/main/java/com/ai/assistance/operit/core/tools/system/Terminal.kt:179 Terminal.executeCommandFlow",
+        "kernel: terminal/src/main/java/com/ai/assistance/operit/terminal/TerminalManager.kt:319 TerminalManager.sendCommandToSession",
+        "kernel: terminal/src/main/java/com/ai/assistance/operit/terminal/TerminalManager.kt:360 TerminalManager.handleRegularCommand",
+        "pty-io: terminal/src/main/java/com/ai/assistance/operit/terminal/PtyIo.kt:95 PtyIo.writeBytes",
+        "jni: terminal/src/main/java/com/ai/assistance/operit/terminal/Pty.kt:103 Pty.createSubprocess",
+        "executor: terminal/src/main/jni/pty.c:98 forkpty"
+      ],
+      "callChainSteps": [
+        {
+          "stage": "caller",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/ToolRegistration.kt",
+          "line": 327,
+          "symbol": "execute_in_terminal_session 工具注册",
+          "text": "terminalTool.executeCommandInSession(tool)",
+          "sha256": "819061caccf5dd2e2dad024e09088e4f84ccc26ff1d235b604ffabe973ecfe39"
+        },
+        {
+          "stage": "service",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/defaultTool/standard/StandardTerminalCommandExecutor.kt",
+          "line": 126,
+          "symbol": "StandardTerminalCommandExecutor.executeCommandInSession",
+          "text": "val outputFlow = terminal.executeCommandFlow(sessionId, command)",
+          "sha256": "66965d59fb26adb6fc37941b0c498afbc36249910ceedc07fd702b6187d4a37e"
+        },
+        {
+          "stage": "facade",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/system/Terminal.kt",
+          "line": 179,
+          "symbol": "Terminal.executeCommandFlow",
+          "text": "terminalManager.sendCommandToSession(sessionId, command, commandId)",
+          "sha256": "e00b51c8fb2cf05ce3a67717c878c96aa378b6604c65336f9b1d227abe39cfe7"
+        },
+        {
+          "stage": "kernel",
+          "file": "terminal/src/main/java/com/ai/assistance/operit/terminal/TerminalManager.kt",
+          "line": 319,
+          "symbol": "TerminalManager.sendCommandToSession",
+          "text": "executeCommandInternal(command, session, actualCommandId, tracksExitStatus = true)",
+          "sha256": "72e0a6c86a30fa34360cf11b058ff75fc453d2635892e78b3c520ff64dcb78b9"
+        },
+        {
+          "stage": "kernel",
+          "file": "terminal/src/main/java/com/ai/assistance/operit/terminal/TerminalManager.kt",
+          "line": 360,
+          "symbol": "TerminalManager.handleRegularCommand",
+          "text": "writeInputToKernel(session, fullInput, \"command\")",
+          "sha256": "72e0a6c86a30fa34360cf11b058ff75fc453d2635892e78b3c520ff64dcb78b9"
+        },
+        {
+          "stage": "pty-io",
+          "file": "terminal/src/main/java/com/ai/assistance/operit/terminal/PtyIo.kt",
+          "line": 95,
+          "symbol": "PtyIo.writeBytes",
+          "text": "Os.write(descriptor, buffer, offset + written, length - written)",
+          "sha256": "d4a8daf3a86c79ef9517d63f65cdf0246de4a3a2fa3ae51a5f72d02ef83ddd38"
+        },
+        {
+          "stage": "jni",
+          "file": "terminal/src/main/java/com/ai/assistance/operit/terminal/Pty.kt",
+          "line": 103,
+          "symbol": "Pty.createSubprocess",
+          "text": "private external fun createSubprocess(cmdArray: Array<String>, envArray: Array<String>, workingDir: String): IntArray",
+          "sha256": "61f850b6739a3eab5d935d3e105f3115a6567de48e1bd23382e0dc11e5a67695"
+        },
+        {
+          "stage": "executor",
+          "file": "terminal/src/main/jni/pty.c",
+          "line": 98,
+          "symbol": "forkpty",
+          "text": "pid = forkpty(&master_fd, NULL, &tt, &ws);",
+          "sha256": "b5d7448b06d30c4c61f376352029385725ef123490ac852d2585e15f9d384215"
+        }
+      ],
+      "value": "提供真实 PTY 与多会话后台命令，是 Agent 执行、依赖安装与本地 MCP 的基础",
+      "adapters": [
+        "AppGraph",
+        "TaskSupervisor",
+        "CapabilityBroker",
+        "ResourceStore"
+      ],
+      "dependencies": [
+        "S0.14 PTY/proot/bash/busybox/loader 资源登记",
+        "S1.01 Gradle 与 CMake/JNI 构建",
+        "S1.02 AppGraph"
+      ],
+      "persistence": "local: files/terminal/environments/<environmentId> 与 runtime.db tasks/events；会话历史按设备归属",
+      "executionIdentity": "APP/LINUX（应用 UID 承载的 PRoot Ubuntu）；创建会话时固定 target、实际 UID、cwd 与环境",
+      "owner": "main-channel: 终端纵切负责人（S1.20 建立，S6.02 完善）",
+      "acceptance": "stty size/resize、中文与 emoji 列宽、Ctrl+C、多会话输出隔离、退出码与命令回执；stdout/stderr 同时大量输出与进程组取消",
+      "risks": [
+        "TerminalManager 单例持有 Context 与 filesDir，需改为 AppGraph 注入的独立文件根",
+        "PTY 单流语义与四目标分流元数据需在 ProcessSupervisor 对齐"
+      ],
+      "brandPages": [
+        "terminal"
+      ],
+      "domains": [
+        "vfs",
+        "sync-support"
+      ]
+    },
+    {
+      "id": "terminal-ui",
+      "section": "3.1",
+      "capability": "终端界面",
+      "sourcePath": "terminal/src/main/java/com/ai/assistance/operit/terminal/",
+      "method": "direct-port",
+      "primaryUnit": "S1.20",
+      "deliveryUnit": "S6.03",
+      "secondaryUnits": [
+        "S5.06"
+      ],
+      "source": {
+        "commit": "7a39941bad80209973c535046a18195c5da9e647",
+        "terminalCommit": "e4646680663789002b43bbfffa6e69e65c35e614",
+        "module": "terminal"
+      },
+      "evidence": [
+        {
+          "file": "terminal/src/main/java/com/ai/assistance/operit/terminal/TerminalEnv.kt",
+          "line": 81,
+          "symbol": "fun rememberTerminalEnv",
+          "text": "fun rememberTerminalEnv(terminalManager: TerminalManager, forceShowSetup: Boolean = false): TerminalEnv {",
+          "sha256": "b849b0f52b9f6deec5285828fb56b17190e1bd64905d1ded254e2ae0d6b224c6"
+        }
+      ],
+      "callChain": [
+        "caller: app/src/main/java/com/ai/assistance/operit/ui/main/screens/OperitScreens.kt:1270 Terminal 视图入口",
+        "host: app/src/main/java/com/ai/assistance/operit/ui/features/toolbox/screens/ToolboxScreen.kt:206 TerminalToolScreen",
+        "screen: terminal/src/main/java/com/ai/assistance/operit/terminal/main/TerminalScreen.kt:55 TerminalScreen",
+        "screen: terminal/src/main/java/com/ai/assistance/operit/terminal/ui/TerminalHome.kt:308 TerminalHome",
+        "render: terminal/src/main/java/com/ai/assistance/operit/terminal/view/canvas/CanvasTerminalCompose.kt:14 CanvasTerminalScreen",
+        "emulator: terminal/src/main/java/com/ai/assistance/operit/terminal/view/domain/ansi/AnsiTerminalEmulator.kt:51 AnsiTerminalEmulator",
+        "executor: terminal/src/main/java/com/ai/assistance/operit/terminal/view/domain/ansi/AnsiScanner.kt:7 AnsiScanner"
+      ],
+      "callChainSteps": [
+        {
+          "stage": "caller",
+          "file": "app/src/main/java/com/ai/assistance/operit/ui/main/screens/OperitScreens.kt",
+          "line": 1270,
+          "symbol": "Terminal 视图入口",
+          "text": "TerminalToolScreen(navController = navController)",
+          "sha256": "837ad4fa3cfd1eefa8b70fa6b11828131538918822d9521d8b1c434879ebae69"
+        },
+        {
+          "stage": "host",
+          "file": "app/src/main/java/com/ai/assistance/operit/ui/features/toolbox/screens/ToolboxScreen.kt",
+          "line": 206,
+          "symbol": "TerminalToolScreen",
+          "text": "fun TerminalToolScreen(navController: NavController, forceShowSetup: Boolean = false) {",
+          "sha256": "4375583dd4be2aa211332ed28e305cdc4d0fe823ffb7cd2a95d84a00a9beaa5f"
+        },
+        {
+          "stage": "screen",
+          "file": "terminal/src/main/java/com/ai/assistance/operit/terminal/main/TerminalScreen.kt",
+          "line": 55,
+          "symbol": "TerminalScreen",
+          "text": "fun TerminalScreen(",
+          "sha256": "f2203e1f77dcca2a19c53ead56c54d13168dd3b2dbced2c1e36717b611c41ab9"
+        },
+        {
+          "stage": "screen",
+          "file": "terminal/src/main/java/com/ai/assistance/operit/terminal/ui/TerminalHome.kt",
+          "line": 308,
+          "symbol": "TerminalHome",
+          "text": "CanvasTerminalScreen(",
+          "sha256": "42aea2e57840fe26a63fd8db4debb79f6b0010a72cc446ebf38a055e60066ac9"
+        },
+        {
+          "stage": "render",
+          "file": "terminal/src/main/java/com/ai/assistance/operit/terminal/view/canvas/CanvasTerminalCompose.kt",
+          "line": 14,
+          "symbol": "CanvasTerminalScreen",
+          "text": "fun CanvasTerminalScreen(",
+          "sha256": "351b56d180aa5bd36668053c7f8101ed92f799a61f963f199f63c0de59aef3cc"
+        },
+        {
+          "stage": "emulator",
+          "file": "terminal/src/main/java/com/ai/assistance/operit/terminal/view/domain/ansi/AnsiTerminalEmulator.kt",
+          "line": 51,
+          "symbol": "AnsiTerminalEmulator",
+          "text": "class AnsiTerminalEmulator(",
+          "sha256": "c0e937cef348de2c7332a4980038225c3ea5de995e8c68a25ce10079056d3187"
+        },
+        {
+          "stage": "executor",
+          "file": "terminal/src/main/java/com/ai/assistance/operit/terminal/view/domain/ansi/AnsiScanner.kt",
+          "line": 7,
+          "symbol": "AnsiScanner",
+          "text": "class AnsiScanner(private val input: String) {",
+          "sha256": "2e7e256f1d6ca4c4892a7cc53cefa076e89b9f14cec9aff372565016ce27fbfb"
+        }
+      ],
+      "value": "让终端在手机上可交互并复用桌面视觉语言，承载输出、选区与 IME",
+      "adapters": [
+        "AppGraph",
+        "DstuTheme"
+      ],
+      "dependencies": [
+        "S5.06 Operit 宿主主题适配层",
+        "S1.20 终端内核",
+        "S1.11 DstuTheme"
+      ],
+      "persistence": "local: 字体/字号/键盘偏好进入本机设置，不进入同步行",
+      "executionIdentity": "不执行命令；渲染对应会话的 target 与身份标签",
+      "owner": "main-channel: 终端界面负责人（S6.03，主题受 S5.06 合同约束）",
+      "acceptance": "ANSI 序列夹具逐字节一致、真彩与滚动区、选区/复制、IME 与 inset、DstuTheme 亮暗对照",
+      "risks": [
+        "Canvas 渲染直接消费 Operit 调色与字体，需替换为 DstuTheme token",
+        "TerminalScreen 自带 NavHost，需并入 dstu 导航与返回守卫"
+      ],
+      "brandPages": [
+        "terminal"
+      ],
+      "domains": [
+        "notes",
+        "chat"
+      ]
+    },
+    {
+      "id": "dependency-mirror",
+      "section": "3.1",
+      "capability": "依赖与镜像",
+      "sourcePath": "terminal/src/main/java/com/ai/assistance/operit/terminal/ui/SetupScreen.kt",
+      "method": "adapter",
+      "primaryUnit": "S1.21",
+      "deliveryUnit": "S6.11",
+      "secondaryUnits": [
+        "S6.09",
+        "S6.12",
+        "S6.16"
+      ],
+      "source": {
+        "commit": "7a39941bad80209973c535046a18195c5da9e647",
+        "terminalCommit": "e4646680663789002b43bbfffa6e69e65c35e614",
+        "module": "terminal"
+      },
+      "evidence": [
+        {
+          "file": "terminal/src/main/java/com/ai/assistance/operit/terminal/ui/SetupScreen.kt",
+          "line": 86,
+          "symbol": "PackageItem pnpm",
+          "text": "PackageItem(\"pnpm\", context.getString(com.ai.assistance.operit.terminal.R.string.package_pnpm_name), \"typescript\", context.getString(com.ai.assistance.operit.terminal.R.string.package_pnpm_desc))",
+          "sha256": "55e91e33e144418e16d82c334bb8e309ff9098d59a31a82d616e0d5979de3641"
+        },
+        {
+          "file": "terminal/src/main/java/com/ai/assistance/operit/terminal/ui/SetupScreen.kt",
+          "line": 437,
+          "symbol": "npm install -g pnpm",
+          "text": "commands.add(\"npm install -g pnpm\")",
+          "sha256": "55e91e33e144418e16d82c334bb8e309ff9098d59a31a82d616e0d5979de3641"
+        },
+        {
+          "file": "terminal/src/main/java/com/ai/assistance/operit/terminal/ui/SetupScreen.kt",
+          "line": 646,
+          "symbol": "pnpm probe",
+          "text": "\"pnpm\" -> \"test -f \\\"\\$(npm prefix -g)/bin/pnpm\\\" && echo FOUND_PNPM\"",
+          "sha256": "55e91e33e144418e16d82c334bb8e309ff9098d59a31a82d616e0d5979de3641"
+        },
+        {
+          "file": "terminal/src/main/java/com/ai/assistance/operit/terminal/TerminalManager.kt",
+          "line": 121,
+          "symbol": "UBUNTU_FILENAME",
+          "text": "private const val UBUNTU_FILENAME = \"ubuntu-noble-aarch64-pd-v4.18.0.tar.xz\"",
+          "sha256": "72e0a6c86a30fa34360cf11b058ff75fc453d2635892e78b3c520ff64dcb78b9"
+        }
+      ],
+      "callChain": [
+        "caller: app/src/main/java/com/ai/assistance/operit/ui/main/screens/OperitScreens.kt:1286 TerminalSetup 视图",
+        "route: terminal/src/main/java/com/ai/assistance/operit/terminal/main/TerminalScreen.kt:124 TerminalScreen SETUP_ROUTE",
+        "screen: terminal/src/main/java/com/ai/assistance/operit/terminal/ui/SetupScreen.kt:62 SetupScreen",
+        "session: terminal/src/main/java/com/ai/assistance/operit/terminal/ui/SetupScreen.kt:158 SetupScreen 建会话",
+        "command: terminal/src/main/java/com/ai/assistance/operit/terminal/ui/SetupScreen.kt:700 executeCommandAndGetOutput",
+        "apt-source: terminal/src/main/java/com/ai/assistance/operit/terminal/TerminalManager.kt:1097 configure_sources",
+        "executor: terminal/src/main/java/com/ai/assistance/operit/terminal/utils/SourceManager.kt:17 SourceManager APT 镜像"
+      ],
+      "callChainSteps": [
+        {
+          "stage": "caller",
+          "file": "app/src/main/java/com/ai/assistance/operit/ui/main/screens/OperitScreens.kt",
+          "line": 1286,
+          "symbol": "TerminalSetup 视图",
+          "text": "TerminalToolScreen(navController = navController, forceShowSetup = true)",
+          "sha256": "837ad4fa3cfd1eefa8b70fa6b11828131538918822d9521d8b1c434879ebae69"
+        },
+        {
+          "stage": "route",
+          "file": "terminal/src/main/java/com/ai/assistance/operit/terminal/main/TerminalScreen.kt",
+          "line": 124,
+          "symbol": "TerminalScreen SETUP_ROUTE",
+          "text": "SetupScreen(",
+          "sha256": "f2203e1f77dcca2a19c53ead56c54d13168dd3b2dbced2c1e36717b611c41ab9"
+        },
+        {
+          "stage": "screen",
+          "file": "terminal/src/main/java/com/ai/assistance/operit/terminal/ui/SetupScreen.kt",
+          "line": 62,
+          "symbol": "SetupScreen",
+          "text": "fun SetupScreen(",
+          "sha256": "55e91e33e144418e16d82c334bb8e309ff9098d59a31a82d616e0d5979de3641"
+        },
+        {
+          "stage": "session",
+          "file": "terminal/src/main/java/com/ai/assistance/operit/terminal/ui/SetupScreen.kt",
+          "line": 158,
+          "symbol": "SetupScreen 建会话",
+          "text": "val session = terminalManager.createNewSession(\"setup-check\")",
+          "sha256": "55e91e33e144418e16d82c334bb8e309ff9098d59a31a82d616e0d5979de3641"
+        },
+        {
+          "stage": "command",
+          "file": "terminal/src/main/java/com/ai/assistance/operit/terminal/ui/SetupScreen.kt",
+          "line": 700,
+          "symbol": "executeCommandAndGetOutput",
+          "text": "terminalManager.sendCommand(command, commandId)",
+          "sha256": "55e91e33e144418e16d82c334bb8e309ff9098d59a31a82d616e0d5979de3641"
+        },
+        {
+          "stage": "apt-source",
+          "file": "terminal/src/main/java/com/ai/assistance/operit/terminal/TerminalManager.kt",
+          "line": 1097,
+          "symbol": "configure_sources",
+          "text": "deb ${aptSource.url} noble main restricted universe multiverse",
+          "sha256": "72e0a6c86a30fa34360cf11b058ff75fc453d2635892e78b3c520ff64dcb78b9"
+        },
+        {
+          "stage": "executor",
+          "file": "terminal/src/main/java/com/ai/assistance/operit/terminal/utils/SourceManager.kt",
+          "line": 17,
+          "symbol": "SourceManager APT 镜像",
+          "text": "MirrorSource(\"tuna_apt\", \"清华源\", \"https://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/\", true),",
+          "sha256": "99dc4a11c3c195830680ca4c2d66ccebf674ec1803c43f9a8551bb600958adb0"
+        }
+      ],
+      "value": "把 Ubuntu 环境与语言包安装变成可审批、可重入的产品能力",
+      "adapters": [
+        "AppGraph",
+        "TaskSupervisor",
+        "CapabilityBroker",
+        "ResourceStore",
+        "DstuTheme"
+      ],
+      "dependencies": [
+        "S1.21 PRoot 纵切",
+        "S6.09 rootfs 安装",
+        "S0.14 rootfs 资源与许可"
+      ],
+      "persistence": "local: 源与代理按设备保存；安装回执进 runtime.db，包版本进入环境 manifest",
+      "executionIdentity": "LINUX（PRoot guest root）；APT 与语言包不在 SHIZUKU/ROOT 执行",
+      "owner": "main-channel: 环境与依赖负责人（S1.21 纵切，S6.11 安装中心）",
+      "acceptance": "apt/pip/npm/rust 实际访问选定源；pnpm 真实安装并按 npm prefix 探测（修正 SetupScreen.kt:86 的 typescript 误映射）；rootfs 解包后重读代号与 apt 源一致；中断/低空间/重入状态机",
+      "risks": [
+        "SetupScreen.kt:86 pnpm 项 recipe 为 \"typescript\"，与 :437 实际 npm install -g pnpm 及 :646 npm prefix 探测不一致，必须修正",
+        "rootfs 实际代号已核实为 noble/24.04（lsb-release、内置 apt 源、安装脚本三者一致）；S6.09 仍须在解包后重读 lsb-release 而非沿用文件名",
+        "dpkg 状态与版本探测需机器可读输出"
+      ],
+      "brandPages": [
+        "terminal-setup",
+        "terminal-auto-config",
+        "install-center"
+      ],
+      "domains": [
+        "plugin-workshop",
+        "mcp"
+      ]
+    },
+    {
+      "id": "shizuku",
+      "section": "3.1",
+      "capability": "Shizuku",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/core/tools/system/ShizukuAuthorizer.kt",
+      "method": "direct-port",
+      "primaryUnit": "S1.22",
+      "deliveryUnit": "S6.19",
+      "secondaryUnits": [
+        "S6.18",
+        "S6.23"
+      ],
+      "source": {
+        "commit": "7a39941bad80209973c535046a18195c5da9e647",
+        "terminalCommit": "e4646680663789002b43bbfffa6e69e65c35e614",
+        "module": "app"
+      },
+      "evidence": [
+        {
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/system/ShizukuAuthorizer.kt",
+          "line": 15,
+          "symbol": "class ShizukuAuthorizer",
+          "text": "class ShizukuAuthorizer {",
+          "sha256": "e8878f4126ba6214783fbe846d0a660a1846e4e2e80a5b8a972cf0a82290e101"
+        },
+        {
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/system/ShizukuAuthorizer.kt",
+          "line": 158,
+          "symbol": "getOrResolveShizukuConnection",
+          "text": "internal fun getOrResolveShizukuConnection(): ShizukuConnectionInfo? {",
+          "sha256": "e8878f4126ba6214783fbe846d0a660a1846e4e2e80a5b8a972cf0a82290e101"
+        },
+        {
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/system/shell/DebuggerShellExecutor.kt",
+          "line": 29,
+          "symbol": "class DebuggerShellExecutor",
+          "text": "class DebuggerShellExecutor(private val context: Context) : ShellExecutor {",
+          "sha256": "388e3be210af708ef879da4ced1c797fe2bedbfdde91d957d1d55cfb07cab4be"
+        }
+      ],
+      "callChain": [
+        "caller: app/src/main/java/com/ai/assistance/operit/core/tools/ToolRegistration.kt:277 execute_shell 工具注册",
+        "service: app/src/main/java/com/ai/assistance/operit/core/tools/defaultTool/standard/StandardShellToolExecutor.kt:42 StandardShellToolExecutor.invoke",
+        "router: app/src/main/java/com/ai/assistance/operit/core/tools/system/AndroidShellExecutor.kt:95 AndroidShellExecutor.executeShellCommand",
+        "factory: app/src/main/java/com/ai/assistance/operit/core/tools/system/shell/ShellExecutorFactory.kt:22 ShellExecutorFactory.getExecutor",
+        "authorizer: app/src/main/java/com/ai/assistance/operit/core/tools/system/shell/DebuggerShellExecutor.kt:457 DebuggerShellExecutor.getShizukuService",
+        "binder: app/src/main/java/com/ai/assistance/operit/core/tools/system/shell/DebuggerShellExecutor.kt:230 IShizukuService.newProcess",
+        "executor: app/src/main/java/com/ai/assistance/operit/core/tools/system/shell/DebuggerShellExecutor.kt:243 PFD stdout"
+      ],
+      "callChainSteps": [
+        {
+          "stage": "caller",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/ToolRegistration.kt",
+          "line": 277,
+          "symbol": "execute_shell 工具注册",
+          "text": "val adbTool = ToolGetter.getShellToolExecutor(context)",
+          "sha256": "819061caccf5dd2e2dad024e09088e4f84ccc26ff1d235b604ffabe973ecfe39"
+        },
+        {
+          "stage": "service",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/defaultTool/standard/StandardShellToolExecutor.kt",
+          "line": 42,
+          "symbol": "StandardShellToolExecutor.invoke",
+          "text": "val result = runBlocking { AndroidShellExecutor.executeShellCommand(command) }",
+          "sha256": "31f1d76e638535729bf79b06b31eee7d1030732289f4e231be13970e566261eb"
+        },
+        {
+          "stage": "router",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/system/AndroidShellExecutor.kt",
+          "line": 95,
+          "symbol": "AndroidShellExecutor.executeShellCommand",
+          "text": "val preferredExecutor = ShellExecutorFactory.getExecutor(ctx, actualLevel)",
+          "sha256": "9a404641e56d9f7b7903ed88dab69e8b0b620bee0d879a06d80e5d7c322adf25"
+        },
+        {
+          "stage": "factory",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/system/shell/ShellExecutorFactory.kt",
+          "line": 22,
+          "symbol": "ShellExecutorFactory.getExecutor",
+          "text": "fun getExecutor(context: Context, permissionLevel: AndroidPermissionLevel): ShellExecutor {",
+          "sha256": "92967a9af1ed1d0de0049b45bcd55bbb67f9c6defb99f9ec2b074d57404fcfe8"
+        },
+        {
+          "stage": "authorizer",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/system/shell/DebuggerShellExecutor.kt",
+          "line": 457,
+          "symbol": "DebuggerShellExecutor.getShizukuService",
+          "text": "private fun getShizukuService(): IShizukuService? {",
+          "sha256": "388e3be210af708ef879da4ced1c797fe2bedbfdde91d957d1d55cfb07cab4be"
+        },
+        {
+          "stage": "binder",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/system/shell/DebuggerShellExecutor.kt",
+          "line": 230,
+          "symbol": "IShizukuService.newProcess",
+          "text": "process = service.newProcess(commandParts, null, null)",
+          "sha256": "388e3be210af708ef879da4ced1c797fe2bedbfdde91d957d1d55cfb07cab4be"
+        },
+        {
+          "stage": "executor",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/system/shell/DebuggerShellExecutor.kt",
+          "line": 243,
+          "symbol": "PFD stdout",
+          "text": "processClass.getMethod(\"getInputStream\").invoke(process) as",
+          "sha256": "388e3be210af708ef879da4ced1c797fe2bedbfdde91d957d1d55cfb07cab4be"
+        }
+      ],
+      "value": "在无 root 设备上获得系统身份，支撑 pm/settings/input 与设备操作",
+      "adapters": [
+        "AppGraph",
+        "TaskSupervisor",
+        "CapabilityBroker"
+      ],
+      "dependencies": [
+        "S0.14 Shizuku 依赖版本",
+        "S1.22 授权纵切",
+        "S2.23 CapabilityBroker"
+      ],
+      "persistence": "local: 授权状态与 UID 只存本机；命令审计进 runtime.db audit",
+      "executionIdentity": "SHIZUKU（Shizuku/Sui 系统身份；后端报告的 2000/0 按实际值记录）",
+      "owner": "main-channel: 系统执行身份负责人（S1.22 纵切，S6.18–S6.24）",
+      "acceptance": "未安装/未启动/未授权/已授权/撤权/Binder 死亡状态准确；id 与后端实际 UID 一致；stdout/stderr 灌满不阻塞",
+      "risks": [
+        "DebuggerShellExecutor 先串行读 stdout 再读 stderr（:243 起），需并发排空避免管道写满死锁",
+        "反射 PFD 与 newProcess 依赖固定 IShizukuService API 版本，需登记版本窗口"
+      ],
+      "brandPages": [
+        "shizuku-permissions",
+        "shizuku-install"
+      ],
+      "domains": [
+        "mobile-compat",
+        "integration"
+      ]
+    },
+    {
+      "id": "root-standard-exec",
+      "section": "3.1",
+      "capability": "Root/标准执行",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/core/tools/system/AndroidShellExecutor.kt",
+      "method": "direct-port",
+      "primaryUnit": "S2.24",
+      "deliveryUnit": "S6.21",
+      "secondaryUnits": [
+        "S6.20"
+      ],
+      "source": {
+        "commit": "7a39941bad80209973c535046a18195c5da9e647",
+        "terminalCommit": "e4646680663789002b43bbfffa6e69e65c35e614",
+        "module": "app"
+      },
+      "evidence": [
+        {
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/system/shell/ShellExecutor.kt",
+          "line": 7,
+          "symbol": "interface ShellExecutor",
+          "text": "interface ShellExecutor {",
+          "sha256": "11bedca49f6a5628ee00edf1d1ebd879c19ea042714a142c2d762a8ea5ad8bab"
+        }
+      ],
+      "callChain": [
+        "caller: app/src/main/java/com/ai/assistance/operit/core/tools/ToolRegistration.kt:271 execute_shell 工具注册",
+        "router: app/src/main/java/com/ai/assistance/operit/core/tools/system/AndroidShellExecutor.kt:95 AndroidShellExecutor",
+        "factory: app/src/main/java/com/ai/assistance/operit/core/tools/system/shell/ShellExecutorFactory.kt:22 ShellExecutorFactory",
+        "app-executor: app/src/main/java/com/ai/assistance/operit/core/tools/system/shell/StandardShellExecutor.kt:54 StandardShellExecutor",
+        "root-executor: app/src/main/java/com/ai/assistance/operit/core/tools/system/shell/RootShellExecutor.kt:514 RootShellExecutor",
+        "identity: app/src/main/java/com/ai/assistance/operit/core/tools/system/AndroidShellExecutor.kt:139 ShellIdentity"
+      ],
+      "callChainSteps": [
+        {
+          "stage": "caller",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/ToolRegistration.kt",
+          "line": 271,
+          "symbol": "execute_shell 工具注册",
+          "text": "name = \"execute_shell\",",
+          "sha256": "819061caccf5dd2e2dad024e09088e4f84ccc26ff1d235b604ffabe973ecfe39"
+        },
+        {
+          "stage": "router",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/system/AndroidShellExecutor.kt",
+          "line": 95,
+          "symbol": "AndroidShellExecutor",
+          "text": "val preferredExecutor = ShellExecutorFactory.getExecutor(ctx, actualLevel)",
+          "sha256": "9a404641e56d9f7b7903ed88dab69e8b0b620bee0d879a06d80e5d7c322adf25"
+        },
+        {
+          "stage": "factory",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/system/shell/ShellExecutorFactory.kt",
+          "line": 22,
+          "symbol": "ShellExecutorFactory",
+          "text": "fun getExecutor(context: Context, permissionLevel: AndroidPermissionLevel): ShellExecutor {",
+          "sha256": "92967a9af1ed1d0de0049b45bcd55bbb67f9c6defb99f9ec2b074d57404fcfe8"
+        },
+        {
+          "stage": "app-executor",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/system/shell/StandardShellExecutor.kt",
+          "line": 54,
+          "symbol": "StandardShellExecutor",
+          "text": "val process = Runtime.getRuntime().exec(command)",
+          "sha256": "cf93a83a0591b9b3fc0a2f360bd41eacd143dddaf946642780a12e24024dbba6"
+        },
+        {
+          "stage": "root-executor",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/system/shell/RootShellExecutor.kt",
+          "line": 514,
+          "symbol": "RootShellExecutor",
+          "text": "Shell.cmd(command).to(stdoutCallbackList, stderrCallbackList).enqueue()",
+          "sha256": "c5ef850e35f5192e1d60aa17ff823492087037a75fe9242d41ad8004192e8f6f"
+        },
+        {
+          "stage": "identity",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/system/AndroidShellExecutor.kt",
+          "line": 139,
+          "symbol": "ShellIdentity",
+          "text": "enum class ShellIdentity {",
+          "sha256": "9a404641e56d9f7b7903ed88dab69e8b0b620bee0d879a06d80e5d7c322adf25"
+        }
+      ],
+      "value": "统一 APP/LINUX/SHIZUKU/ROOT 四目标路由与身份记录",
+      "adapters": [
+        "AppGraph",
+        "TaskSupervisor",
+        "CapabilityBroker"
+      ],
+      "dependencies": [
+        "S2.23 CapabilityBroker",
+        "S1.20/S1.21/S1.22 三目标纵切",
+        "S0.14 libsu 版本"
+      ],
+      "persistence": "local: 执行身份选择按设备保存；审计进 runtime.db audit",
+      "executionIdentity": "APP（StandardShellExecutor）、ROOT（libsu/RootShellExecutor）、SHIZUKU（DebuggerShellExecutor）显式路由",
+      "owner": "main-channel: 四目标 ShellRouter 负责人（S2.24）",
+      "acceptance": "四目标实跑并核对 UID；身份切换创建新会话；取消由进程所有者执行；并发双流无死锁",
+      "risks": [
+        "ShellExecutorFactory.getHighestAvailableExecutor 按 ROOT→STANDARD 降级，dstu 必须改为显式 target 选择",
+        "StandardShellExecutor 用 Runtime.exec 单流，需并发读与进程组取消"
+      ],
+      "brandPages": [
+        "shizuku-permissions",
+        "app-permissions",
+        "tool-permissions"
+      ],
+      "domains": [
+        "mobile-compat",
+        "integration"
+      ]
+    },
+    {
+      "id": "foreground-service",
+      "section": "3.1",
+      "capability": "前台服务",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/api/chat/AIForegroundService.kt",
+      "method": "adapter",
+      "primaryUnit": "S1.09",
+      "deliveryUnit": "S2.20",
+      "secondaryUnits": [
+        "S2.21"
+      ],
+      "source": {
+        "commit": "7a39941bad80209973c535046a18195c5da9e647",
+        "terminalCommit": "e4646680663789002b43bbfffa6e69e65c35e614",
+        "module": "app"
+      },
+      "evidence": [
+        {
+          "file": "app/src/main/java/com/ai/assistance/operit/api/chat/AIForegroundService.kt",
+          "line": 101,
+          "symbol": "class AIForegroundService",
+          "text": "class AIForegroundService : Service() {",
+          "sha256": "83e216e22b4361b7cfd64c7915a617d655370d51f7894bdc6f7ba9224b61aefb"
+        }
+      ],
+      "callChain": [
+        "caller: app/src/main/java/com/ai/assistance/operit/ui/features/settings/screens/GlobalDisplaySettingsScreen.kt:578 后台常驻设置",
+        "service: app/src/main/java/com/ai/assistance/operit/api/chat/AIForegroundService.kt:449 refreshBackgroundKeepAlive",
+        "fgs: app/src/main/java/com/ai/assistance/operit/api/chat/AIForegroundService.kt:936 onCreate startForeground",
+        "release: app/src/main/java/com/ai/assistance/operit/api/chat/AIForegroundService.kt:906 stopSelfIfIdle",
+        "internal-test: app/src/main/java/com/ai/assistance/operit/api/chat/AIForegroundService.kt:1490 keep-alive overlay",
+        "executor: app/src/main/java/com/ai/assistance/operit/api/chat/AIForegroundService.kt:1503 overlay alpha"
+      ],
+      "callChainSteps": [
+        {
+          "stage": "caller",
+          "file": "app/src/main/java/com/ai/assistance/operit/ui/features/settings/screens/GlobalDisplaySettingsScreen.kt",
+          "line": 578,
+          "symbol": "后台常驻设置",
+          "text": "AIForegroundService.refreshBackgroundKeepAlive(context)",
+          "sha256": "a33b2184ec848ad70eec776bde981db2c845109bcdae3397eeba8e3a977f4801"
+        },
+        {
+          "stage": "service",
+          "file": "app/src/main/java/com/ai/assistance/operit/api/chat/AIForegroundService.kt",
+          "line": 449,
+          "symbol": "refreshBackgroundKeepAlive",
+          "text": "fun refreshBackgroundKeepAlive(context: Context) {",
+          "sha256": "83e216e22b4361b7cfd64c7915a617d655370d51f7894bdc6f7ba9224b61aefb"
+        },
+        {
+          "stage": "fgs",
+          "file": "app/src/main/java/com/ai/assistance/operit/api/chat/AIForegroundService.kt",
+          "line": 936,
+          "symbol": "onCreate startForeground",
+          "text": "ForegroundServiceCompat.startForeground(",
+          "sha256": "83e216e22b4361b7cfd64c7915a617d655370d51f7894bdc6f7ba9224b61aefb"
+        },
+        {
+          "stage": "release",
+          "file": "app/src/main/java/com/ai/assistance/operit/api/chat/AIForegroundService.kt",
+          "line": 906,
+          "symbol": "stopSelfIfIdle",
+          "text": "private fun stopSelfIfIdle(ignoreAppForeground: Boolean = false) {",
+          "sha256": "83e216e22b4361b7cfd64c7915a617d655370d51f7894bdc6f7ba9224b61aefb"
+        },
+        {
+          "stage": "internal-test",
+          "file": "app/src/main/java/com/ai/assistance/operit/api/chat/AIForegroundService.kt",
+          "line": 1490,
+          "symbol": "keep-alive overlay",
+          "text": "val params = WindowManager.LayoutParams(",
+          "sha256": "83e216e22b4361b7cfd64c7915a617d655370d51f7894bdc6f7ba9224b61aefb"
+        },
+        {
+          "stage": "executor",
+          "file": "app/src/main/java/com/ai/assistance/operit/api/chat/AIForegroundService.kt",
+          "line": 1503,
+          "symbol": "overlay alpha",
+          "text": "alpha = 0f",
+          "sha256": "83e216e22b4361b7cfd64c7915a617d655370d51f7894bdc6f7ba9224b61aefb"
+        }
+      ],
+      "value": "保证长任务在 Activity 关闭后继续，并让用户可见可停",
+      "adapters": [
+        "AppGraph",
+        "TaskSupervisor"
+      ],
+      "dependencies": [
+        "S1.08 任务账本",
+        "S2.17 lease 与取消",
+        "S2.20 FGS 合同"
+      ],
+      "persistence": "local: 常驻开关与职责引用只在本机；任务账本 runtime.db",
+      "executionIdentity": "不执行命令；持有前台职责与通知，任务由 RuntimeController 归属",
+      "owner": "main-channel: 后台与任务负责人（S1.09、S2.20–S2.21）",
+      "acceptance": "Activity 关闭后任务推进；通知含 taskId 与停止动作；最后职责释放 stopForeground+stopSelf；常驻开关跨启动保存",
+      "risks": [
+        "AIForegroundService 混合语音监听/外部 HTTP/常驻职责，需拆为职责集合与通知合同",
+        "透明 1×1 overlay（:1490/:1503）仅列内测对照，不作为正式保活手段"
+      ],
+      "brandPages": [
+        "background-keepalive"
+      ],
+      "domains": [
+        "agent-orchestration",
+        "chat-pipeline"
+      ]
+    },
+    {
+      "id": "floating-window",
+      "section": "3.1",
+      "capability": "悬浮窗",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/services/FloatingChatService.kt",
+      "method": "direct-port",
+      "primaryUnit": "S6.40",
+      "deliveryUnit": "S6.40",
+      "secondaryUnits": [
+        "S2.20"
+      ],
+      "source": {
+        "commit": "7a39941bad80209973c535046a18195c5da9e647",
+        "terminalCommit": "e4646680663789002b43bbfffa6e69e65c35e614",
+        "module": "app"
+      },
+      "evidence": [
+        {
+          "file": "app/src/main/java/com/ai/assistance/operit/services/floating/FloatingWindowManager.kt",
+          "line": 97,
+          "symbol": "class FloatingWindowManager",
+          "text": "class FloatingWindowManager(",
+          "sha256": "dae38a2491f3bdbcedfd66c7a657f36ff1c02afdac660df006446ec41629abc1"
+        }
+      ],
+      "callChain": [
+        "caller: app/src/main/java/com/ai/assistance/operit/ui/features/chat/viewmodel/FloatingWindowDelegate.kt:130 FloatingWindowDelegate",
+        "service: app/src/main/java/com/ai/assistance/operit/services/FloatingChatService.kt:60 FloatingChatService",
+        "manager: app/src/main/java/com/ai/assistance/operit/services/FloatingChatService.kt:291 createWindowManager",
+        "window: app/src/main/java/com/ai/assistance/operit/services/floating/FloatingWindowManager.kt:187 FloatingWindowManager.show",
+        "content: app/src/main/java/com/ai/assistance/operit/ui/floating/FloatingChatWindow.kt:70 FloatingChatWindow",
+        "executor: app/src/main/java/com/ai/assistance/operit/services/FloatingChatService.kt:315 acquireWakeLock"
+      ],
+      "callChainSteps": [
+        {
+          "stage": "caller",
+          "file": "app/src/main/java/com/ai/assistance/operit/ui/features/chat/viewmodel/FloatingWindowDelegate.kt",
+          "line": 130,
+          "symbol": "FloatingWindowDelegate",
+          "text": "val intent = Intent(context, FloatingChatService::class.java)",
+          "sha256": "2d66d12976a22208d9238edde666c2b029e05f80053383ddda0c7a117cbb2d84"
+        },
+        {
+          "stage": "service",
+          "file": "app/src/main/java/com/ai/assistance/operit/services/FloatingChatService.kt",
+          "line": 60,
+          "symbol": "FloatingChatService",
+          "text": "class FloatingChatService : Service(), FloatingWindowCallback {",
+          "sha256": "48ff3c55ebfd29ec1b76f80743eb8d920b0f0f3dd56d3871ca3e741fb9341dec"
+        },
+        {
+          "stage": "manager",
+          "file": "app/src/main/java/com/ai/assistance/operit/services/FloatingChatService.kt",
+          "line": 291,
+          "symbol": "createWindowManager",
+          "text": "FloatingWindowManager(",
+          "sha256": "48ff3c55ebfd29ec1b76f80743eb8d920b0f0f3dd56d3871ca3e741fb9341dec"
+        },
+        {
+          "stage": "window",
+          "file": "app/src/main/java/com/ai/assistance/operit/services/floating/FloatingWindowManager.kt",
+          "line": 187,
+          "symbol": "FloatingWindowManager.show",
+          "text": "windowManager.addView(composeView, params)",
+          "sha256": "dae38a2491f3bdbcedfd66c7a657f36ff1c02afdac660df006446ec41629abc1"
+        },
+        {
+          "stage": "content",
+          "file": "app/src/main/java/com/ai/assistance/operit/ui/floating/FloatingChatWindow.kt",
+          "line": 70,
+          "symbol": "FloatingChatWindow",
+          "text": "fun FloatingChatWindow(",
+          "sha256": "9f16a3b1f566987310da72df932eff61888597abea30ce13070273621e25aa9c"
+        },
+        {
+          "stage": "executor",
+          "file": "app/src/main/java/com/ai/assistance/operit/services/FloatingChatService.kt",
+          "line": 315,
+          "symbol": "acquireWakeLock",
+          "text": "private fun acquireWakeLock() {",
+          "sha256": "48ff3c55ebfd29ec1b76f80743eb8d920b0f0f3dd56d3871ca3e741fb9341dec"
+        }
+      ],
+      "value": "让对话与终端在跨应用场景中保持可见",
+      "adapters": [
+        "AppGraph",
+        "TaskSupervisor",
+        "DstuTheme"
+      ],
+      "dependencies": [
+        "S2.20 FGS 合同",
+        "S6.04 多会话",
+        "S3.27 聊天页面"
+      ],
+      "persistence": "local: 浮窗位置/尺寸/皮肤本机保存；会话内容走聊天库",
+      "executionIdentity": "继承宿主会话身份，不自行提升权限",
+      "owner": "main-channel: 浮窗宿主负责人（S6.40）",
+      "acceptance": "授权/拖动/收起/关闭/返回；任务与浮窗动作独立；WakeLock 释放与崩溃计数停止",
+      "risks": [
+        "浮窗与聊天服务强耦合 ChatServiceCore，需改为任务/会话绑定",
+        "崩溃计数与 WakeLock 需接入统一任务账本与电耗记录"
+      ],
+      "brandPages": [
+        "floating-window"
+      ],
+      "domains": [
+        "chat",
+        "agent-orchestration"
+      ]
+    },
+    {
+      "id": "quickjs",
+      "section": "3.1",
+      "capability": "QuickJS",
+      "sourcePath": "quickjs/",
+      "method": "direct-port",
+      "primaryUnit": "S6.31",
+      "deliveryUnit": "S6.31",
+      "secondaryUnits": [
+        "S6.32"
+      ],
+      "source": {
+        "commit": "7a39941bad80209973c535046a18195c5da9e647",
+        "terminalCommit": "e4646680663789002b43bbfffa6e69e65c35e614",
+        "module": "quickjs"
+      },
+      "evidence": [
+        {
+          "file": "quickjs/src/main/java/com/ai/assistance/operit/core/tools/javascript/OperitQuickJsEngine.kt",
+          "line": 16,
+          "symbol": "class OperitQuickJsEngine",
+          "text": "class OperitQuickJsEngine : Closeable {",
+          "sha256": "61d3dc6031d1fcc99a9f5ad5070d0ba7a20c4cde57e9aa897a9fe16c0e3df9d1"
+        }
+      ],
+      "callChain": [
+        "caller: app/src/main/java/com/ai/assistance/operit/core/tools/packTool/ToolPkgManager.kt:26 ToolPkgManager 执行引擎",
+        "host: app/src/main/java/com/ai/assistance/operit/core/tools/javascript/JsEngine.kt:198 JsEngine 初始化",
+        "engine: quickjs/src/main/java/com/ai/assistance/operit/core/tools/javascript/OperitQuickJsEngine.kt:56 OperitQuickJsEngine.evaluate",
+        "runtime: quickjs/src/main/java/com/ai/assistance/operit/core/tools/javascript/QuickJsNativeRuntime.kt:66 QuickJsNativeRuntime.create",
+        "jni: quickjs/src/main/cpp/quickjs_jni.cpp:865 nativeEvaluate",
+        "executor: quickjs/src/main/cpp/quickjs_jni.cpp:339 JS_Eval"
+      ],
+      "callChainSteps": [
+        {
+          "stage": "caller",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/packTool/ToolPkgManager.kt",
+          "line": 26,
+          "symbol": "ToolPkgManager 执行引擎",
+          "text": "private val createExecutionEngine: () -> JsEngine = { JsEngine(context) }",
+          "sha256": "f706735e1365c5ce0f8747989d6d0c55e4d531c8723d51ef4a146ef0dd3f42c2"
+        },
+        {
+          "stage": "host",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/javascript/JsEngine.kt",
+          "line": 198,
+          "symbol": "JsEngine 初始化",
+          "text": "OperitQuickJsEngine().also {",
+          "sha256": "03ab8a008ab0d90044147356d4ecf48cfd851272fb7474f2850d835de22b9d15"
+        },
+        {
+          "stage": "engine",
+          "file": "quickjs/src/main/java/com/ai/assistance/operit/core/tools/javascript/OperitQuickJsEngine.kt",
+          "line": 56,
+          "symbol": "OperitQuickJsEngine.evaluate",
+          "text": "val result = runtime.eval(script, fileName)",
+          "sha256": "61d3dc6031d1fcc99a9f5ad5070d0ba7a20c4cde57e9aa897a9fe16c0e3df9d1"
+        },
+        {
+          "stage": "runtime",
+          "file": "quickjs/src/main/java/com/ai/assistance/operit/core/tools/javascript/QuickJsNativeRuntime.kt",
+          "line": 66,
+          "symbol": "QuickJsNativeRuntime.create",
+          "text": "fun create(hostBridge: HostBridge): QuickJsNativeRuntime {",
+          "sha256": "6b62d884ef3c41779323f070f08d4bb0e47f701f5d83630f11b6fe278d598825"
+        },
+        {
+          "stage": "jni",
+          "file": "quickjs/src/main/cpp/quickjs_jni.cpp",
+          "line": 865,
+          "symbol": "nativeEvaluate",
+          "text": "Java_com_ai_assistance_operit_core_tools_javascript_QuickJsNativeBridge_nativeEvaluate(",
+          "sha256": "88a031bb3d8620422f1f3444c2cb19164fda0874bf9c4527c2b8b88e051243af"
+        },
+        {
+          "stage": "executor",
+          "file": "quickjs/src/main/cpp/quickjs_jni.cpp",
+          "line": 339,
+          "symbol": "JS_Eval",
+          "text": "JSValue result = JS_Eval(",
+          "sha256": "88a031bb3d8620422f1f3444c2cb19164fda0874bf9c4527c2b8b88e051243af"
+        }
+      ],
+      "value": "为 ToolPkg、PTC 与声明式 UI 提供受限脚本执行",
+      "adapters": [
+        "AppGraph",
+        "TaskSupervisor",
+        "CapabilityBroker"
+      ],
+      "dependencies": [
+        "S0.14 QuickJS 上游提交与构建脚本",
+        "S1.19 PTC 最小执行链",
+        "S6.32 isolated 宿主"
+      ],
+      "persistence": "local: 引擎句柄与内存预算不持久；脚本产物经 ResourceStore 提交",
+      "executionIdentity": "isolated 脚本服务；能力调用逐次经 CapabilityBroker 校验调用者身份",
+      "owner": "main-channel: 脚本引擎负责人（S6.31–S6.32）",
+      "acceptance": "固定上游提交构建；死循环中断、内存预算、能力 RPC 越权拒绝；JNI 符号与 ABI 核验",
+      "risks": [
+        "QuickJS 由 CMake 在构建期从网络克隆（operit_git_source.cmake），需改为 S0.01 已锁定提交的离线来源",
+        "ABI 仅 arm64-v8a 且 minSdk 26，需按 S0.15 统一"
+      ],
+      "brandPages": [
+        "toolpkg-host"
+      ],
+      "domains": [
+        "plugin-workshop",
+        "agent-skills"
+      ]
+    },
+    {
+      "id": "toolpkg",
+      "section": "3.1",
+      "capability": "ToolPkg",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/core/tools/packTool/",
+      "method": "direct-port",
+      "primaryUnit": "S6.33",
+      "deliveryUnit": "S6.33",
+      "secondaryUnits": [
+        "S6.35"
+      ],
+      "source": {
+        "commit": "7a39941bad80209973c535046a18195c5da9e647",
+        "terminalCommit": "e4646680663789002b43bbfffa6e69e65c35e614",
+        "module": "app"
+      },
+      "evidence": [
+        {
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/packTool/ToolPkgParser.kt",
+          "line": 401,
+          "symbol": "ToolPkgArchiveParser",
+          "text": "internal object ToolPkgArchiveParser {",
+          "sha256": "2b56f4ca598ffb9e397121bab2d65ecb1eafacf3a22fd9646ebfa487656c0183"
+        },
+        {
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/packTool/ToolPkgLoader.kt",
+          "line": 10,
+          "symbol": "loadToolPkgFromExternalFile",
+          "text": "fun loadToolPkgFromExternalFile(",
+          "sha256": "63f9cfe1593f34fbd715b29d165af1d36619dd5c5107dc018a7d092f48cfc947"
+        },
+        {
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/packTool/ToolPkgApiVersion.kt",
+          "line": 5,
+          "symbol": "ToolPkgApiVersion",
+          "text": "internal data class ToolPkgApiVersion(",
+          "sha256": "f366641426ca1601626905398a6c9f9396fe62301e47d21fd5797908534cdac4"
+        }
+      ],
+      "callChain": [
+        "caller: app/src/main/java/com/ai/assistance/operit/core/tools/packTool/PackageManager.kt:2061 PackageManager 安装",
+        "loader: app/src/main/java/com/ai/assistance/operit/core/tools/packTool/ToolPkgLoader.kt:29 ToolPkgLoader",
+        "parser: app/src/main/java/com/ai/assistance/operit/core/tools/packTool/ToolPkgParser.kt:402 ToolPkgArchiveParser",
+        "resolver: app/src/main/java/com/ai/assistance/operit/core/tools/packTool/ToolPkgManager.kt:102 ToolPkgManager 加载顺序",
+        "executor: app/src/main/java/com/ai/assistance/operit/core/tools/packTool/ToolPkgLoadOrder.kt:30 ToolPkgLoadOrderResolver"
+      ],
+      "callChainSteps": [
+        {
+          "stage": "caller",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/packTool/PackageManager.kt",
+          "line": 2061,
+          "symbol": "PackageManager 安装",
+          "text": "ToolPkgLoader.loadToolPkgFromExternalFile(",
+          "sha256": "eb3450a55dfaf12efaea82ae359a0b8f1845ccbd62e279cd94c1c485cc8bcae6"
+        },
+        {
+          "stage": "loader",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/packTool/ToolPkgLoader.kt",
+          "line": 29,
+          "symbol": "ToolPkgLoader",
+          "text": "ToolPkgArchiveParser.parseToolPkgFromIndexedEntries(",
+          "sha256": "63f9cfe1593f34fbd715b29d165af1d36619dd5c5107dc018a7d092f48cfc947"
+        },
+        {
+          "stage": "parser",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/packTool/ToolPkgParser.kt",
+          "line": 402,
+          "symbol": "ToolPkgArchiveParser",
+          "text": "fun parseToolPkgFromIndexedEntries(",
+          "sha256": "2b56f4ca598ffb9e397121bab2d65ecb1eafacf3a22fd9646ebfa487656c0183"
+        },
+        {
+          "stage": "resolver",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/packTool/ToolPkgManager.kt",
+          "line": 102,
+          "symbol": "ToolPkgManager 加载顺序",
+          "text": "val result = ToolPkgLoadOrderResolver.resolve(",
+          "sha256": "f706735e1365c5ce0f8747989d6d0c55e4d531c8723d51ef4a146ef0dd3f42c2"
+        },
+        {
+          "stage": "executor",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/packTool/ToolPkgLoadOrder.kt",
+          "line": 30,
+          "symbol": "ToolPkgLoadOrderResolver",
+          "text": "fun resolve(",
+          "sha256": "ec146016ab2252e215aeb5194560b0356401471d000eef2b85509e9a15a0ead5"
+        }
+      ],
+      "value": "形成可安装、可版本化的工具包生态",
+      "adapters": [
+        "AppGraph",
+        "CapabilityBroker",
+        "ResourceStore"
+      ],
+      "dependencies": [
+        "S6.32 isolated 宿主",
+        "S0.24 插件 data 合同",
+        "S6.35 安装/升级/卸载"
+      ],
+      "persistence": "portable: 包清单与 API 版本随 S0.24 插件 data 合同；安装与信任本机",
+      "executionIdentity": "继承安装时包授权；工具执行经 ToolDispatcher 按 target 路由",
+      "owner": "main-channel: 包生态负责人（S6.33、S6.35）",
+      "acceptance": "真实包解析/加载；缺依赖与错版本明确结果；升级保留数据、卸载移除工具",
+      "risks": [
+        "安装未绑定签名/权限账本，需在 S6.35 补齐",
+        "解析器依赖 JsEngine 执行注册脚本，需在 isolated 服务内运行"
+      ],
+      "brandPages": [
+        "toolpkg-host",
+        "install-center"
+      ],
+      "domains": [
+        "plugin-workshop",
+        "integration"
+      ]
+    },
+    {
+      "id": "compose-dsl",
+      "section": "3.1",
+      "capability": "Compose 扩展",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/ui/common/composedsl/",
+      "method": "direct-port",
+      "primaryUnit": "S6.34",
+      "deliveryUnit": "S6.34",
+      "secondaryUnits": [
+        "S6.44"
+      ],
+      "source": {
+        "commit": "7a39941bad80209973c535046a18195c5da9e647",
+        "terminalCommit": "e4646680663789002b43bbfffa6e69e65c35e614",
+        "module": "app"
+      },
+      "evidence": [
+        {
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/packTool/ToolPkgComposeDslParser.kt",
+          "line": 20,
+          "symbol": "object ToolPkgComposeDslParser",
+          "text": "object ToolPkgComposeDslParser {",
+          "sha256": "7762b79f1a8e7b27b7c273e773337232db81facd6f008ece260667132e27a8a6"
+        }
+      ],
+      "callChain": [
+        "caller: app/src/main/java/com/ai/assistance/operit/ui/main/screens/OperitScreens.kt:1195 ToolPkgComposeDsl 视图",
+        "screen: app/src/main/java/com/ai/assistance/operit/ui/common/composedsl/ToolPkgComposeDslScreen.kt:703 ToolPkgComposeDslToolScreen",
+        "parser: app/src/main/java/com/ai/assistance/operit/core/tools/packTool/ToolPkgComposeDslParser.kt:21 ToolPkgComposeDslParser",
+        "registry: app/src/main/java/com/ai/assistance/operit/ui/common/composedsl/ToolPkgComposeDslScreen.kt:2131 renderer 查找",
+        "executor: app/src/main/java/com/ai/assistance/operit/ui/common/composedsl/ToolPkgComposeDslGeneratedRegistry.kt:7 生成注册表"
+      ],
+      "callChainSteps": [
+        {
+          "stage": "caller",
+          "file": "app/src/main/java/com/ai/assistance/operit/ui/main/screens/OperitScreens.kt",
+          "line": 1195,
+          "symbol": "ToolPkgComposeDsl 视图",
+          "text": "ToolPkgComposeDslToolScreen(",
+          "sha256": "837ad4fa3cfd1eefa8b70fa6b11828131538918822d9521d8b1c434879ebae69"
+        },
+        {
+          "stage": "screen",
+          "file": "app/src/main/java/com/ai/assistance/operit/ui/common/composedsl/ToolPkgComposeDslScreen.kt",
+          "line": 703,
+          "symbol": "ToolPkgComposeDslToolScreen",
+          "text": "fun ToolPkgComposeDslToolScreen(",
+          "sha256": "4588609876076c8ec1a109471dd8bbead315f2835d3e920b085aa167abfb3c5a"
+        },
+        {
+          "stage": "parser",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/packTool/ToolPkgComposeDslParser.kt",
+          "line": 21,
+          "symbol": "ToolPkgComposeDslParser",
+          "text": "fun parseRenderResult(rawResult: Any?): ToolPkgComposeDslRenderResult? {",
+          "sha256": "7762b79f1a8e7b27b7c273e773337232db81facd6f008ece260667132e27a8a6"
+        },
+        {
+          "stage": "registry",
+          "file": "app/src/main/java/com/ai/assistance/operit/ui/common/composedsl/ToolPkgComposeDslScreen.kt",
+          "line": 2131,
+          "symbol": "renderer 查找",
+          "text": "val renderer = composeDslGeneratedNodeRendererRegistry[normalizedType]",
+          "sha256": "4588609876076c8ec1a109471dd8bbead315f2835d3e920b085aa167abfb3c5a"
+        },
+        {
+          "stage": "executor",
+          "file": "app/src/main/java/com/ai/assistance/operit/ui/common/composedsl/ToolPkgComposeDslGeneratedRegistry.kt",
+          "line": 7,
+          "symbol": "生成注册表",
+          "text": "internal val composeDslGeneratedNodeRendererRegistry: Map<String, ComposeDslNodeRenderer> = mapOf(",
+          "sha256": "6b75aaa9e782ea6ae2cf559e4ce6d4ee4435230d568b95c74077be71ccbafd52"
+        }
+      ],
+      "value": "让包以声明式 UI 扩展页面而不编译进主包",
+      "adapters": [
+        "AppGraph",
+        "CapabilityBroker",
+        "DstuTheme"
+      ],
+      "dependencies": [
+        "S6.33 ToolPkg 解析",
+        "S1.11 DstuTheme",
+        "S5.03 容器组件"
+      ],
+      "persistence": "local: UI 贡献树由包声明；渲染状态不持久，导航栈进工作台快照",
+      "executionIdentity": "不执行；事件回调进入同一 CapabilityBroker 入口",
+      "owner": "main-channel: UI 贡献宿主负责人（S6.34、S6.44）",
+      "acceptance": "真实贡献树可操作；主题/授权 URI/文件选择/导航进统一边界；未知组件明确拒绝",
+      "risks": [
+        "生成注册表由 Python 工具产出，需纳入固定构建步骤",
+        "文件选择/相机/导航直接使用 Activity Result，需改为宿主端口"
+      ],
+      "brandPages": [
+        "toolpkg-host"
+      ],
+      "domains": [
+        "plugin-workshop",
+        "notes"
+      ]
+    },
+    {
+      "id": "mcp",
+      "section": "3.1",
+      "capability": "MCP",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/core/tools/mcp/McpRuntimeSession.kt",
+      "method": "adapter",
+      "primaryUnit": "S6.28",
+      "deliveryUnit": "S6.28",
+      "secondaryUnits": [
+        "S6.30"
+      ],
+      "source": {
+        "commit": "7a39941bad80209973c535046a18195c5da9e647",
+        "terminalCommit": "e4646680663789002b43bbfffa6e69e65c35e614",
+        "module": "app"
+      },
+      "evidence": [
+        {
+          "file": "app/src/main/java/com/ai/assistance/operit/data/mcp/plugins/RemoteMcpRuntimeSession.kt",
+          "line": 29,
+          "symbol": "class RemoteMcpRuntimeSession",
+          "text": "class RemoteMcpRuntimeSession(",
+          "sha256": "0c08d36ab6d776cd39eaac3f2977a7d2d367e3c42c7918dcaafc19644edcb293"
+        }
+      ],
+      "callChain": [
+        "caller: app/src/main/java/com/ai/assistance/operit/core/tools/mcp/MCPToolExecutor.kt:263 MCPToolExecutor.invoke",
+        "manager: app/src/main/java/com/ai/assistance/operit/core/tools/mcp/MCPToolExecutor.kt:279 会话获取",
+        "port: app/src/main/java/com/ai/assistance/operit/core/tools/mcp/McpRuntimeSession.kt:38 McpRuntimeSession",
+        "session: app/src/main/java/com/ai/assistance/operit/data/mcp/plugins/RemoteMcpRuntimeSession.kt:117 RemoteMcpRuntimeSession.callTool",
+        "executor: app/src/main/java/com/ai/assistance/operit/data/mcp/plugins/RemoteMcpRuntimeSession.kt:65 SSE transport"
+      ],
+      "callChainSteps": [
+        {
+          "stage": "caller",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/mcp/MCPToolExecutor.kt",
+          "line": 263,
+          "symbol": "MCPToolExecutor.invoke",
+          "text": "override fun invoke(tool: AITool): ToolResult {",
+          "sha256": "5b0136527a8c715197a21a03e30ee9253c80544c3b80c93d96d47c5914d244ca"
+        },
+        {
+          "stage": "manager",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/mcp/MCPToolExecutor.kt",
+          "line": 279,
+          "symbol": "会话获取",
+          "text": "val mcpClient = mcpManager.getOrCreateSession(serverName)",
+          "sha256": "5b0136527a8c715197a21a03e30ee9253c80544c3b80c93d96d47c5914d244ca"
+        },
+        {
+          "stage": "port",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/mcp/McpRuntimeSession.kt",
+          "line": 38,
+          "symbol": "McpRuntimeSession",
+          "text": "interface McpRuntimeSession {",
+          "sha256": "96d162ae4098cad8f35a4a59e1d28be49ee2c720269c7d20217042c1d6e53d8a"
+        },
+        {
+          "stage": "session",
+          "file": "app/src/main/java/com/ai/assistance/operit/data/mcp/plugins/RemoteMcpRuntimeSession.kt",
+          "line": 117,
+          "symbol": "RemoteMcpRuntimeSession.callTool",
+          "text": "override suspend fun callTool(",
+          "sha256": "0c08d36ab6d776cd39eaac3f2977a7d2d367e3c42c7918dcaafc19644edcb293"
+        },
+        {
+          "stage": "executor",
+          "file": "app/src/main/java/com/ai/assistance/operit/data/mcp/plugins/RemoteMcpRuntimeSession.kt",
+          "line": 65,
+          "symbol": "SSE transport",
+          "text": "\"sse\" -> SseClientTransport(",
+          "sha256": "0c08d36ab6d776cd39eaac3f2977a7d2d367e3c42c7918dcaafc19644edcb293"
+        }
+      ],
+      "value": "连接远端与本地 MCP 服务器，扩展 Agent 工具面",
+      "adapters": [
+        "AppGraph",
+        "TaskSupervisor",
+        "CapabilityBroker",
+        "ResourceStore"
+      ],
+      "dependencies": [
+        "S1.07 HTTP/SSE",
+        "S3.17 ToolDispatcher",
+        "S6.30 本地 stdio"
+      ],
+      "persistence": "local: 服务器配置与凭据按 secret/local 分类；工具结果经会话持久",
+      "executionIdentity": "远端为网络客户端身份；本地 stdio 经 LINUX target 启动",
+      "owner": "main-channel: MCP 与 Agent 工具负责人（S6.28–S6.30）",
+      "acceptance": "SSE 与 Streamable HTTP 真实 initialize/list/call；认证/取消/关闭；本地 stdio 的 stdout 协议与 stderr 日志分离",
+      "risks": [
+        "远端会话使用 Ktor 与官方 Kotlin SDK，需核版本与取消语义",
+        "本地 stdio 由 MCPStarter 经终端启动，需与 S6.30 的环境/日志合同合并"
+      ],
+      "brandPages": [
+        "mcp-config"
+      ],
+      "domains": [
+        "mcp",
+        "agent-orchestration"
+      ]
+    },
+    {
+      "id": "workflow",
+      "section": "3.1",
+      "capability": "工作流",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/core/workflow/",
+      "method": "direct-port",
+      "primaryUnit": "S3.25",
+      "deliveryUnit": "S3.25",
+      "secondaryUnits": [
+        "S3.25"
+      ],
+      "source": {
+        "commit": "7a39941bad80209973c535046a18195c5da9e647",
+        "terminalCommit": "e4646680663789002b43bbfffa6e69e65c35e614",
+        "module": "app"
+      },
+      "evidence": [
+        {
+          "file": "app/src/main/java/com/ai/assistance/operit/core/workflow/WorkflowExecutor.kt",
+          "line": 79,
+          "symbol": "class WorkflowExecutor",
+          "text": "class WorkflowExecutor(private val context: Context) {",
+          "sha256": "193b0e23aa3ebfabc560b1d086957843f90c4fd6180a0720cf471f5691a6b66c"
+        }
+      ],
+      "callChain": [
+        "caller: app/src/main/java/com/ai/assistance/operit/core/workflow/WorkflowWorker.kt:39 WorkflowWorker",
+        "repository: app/src/main/java/com/ai/assistance/operit/data/repository/WorkflowRepository.kt:635 WorkflowRepository",
+        "executor: app/src/main/java/com/ai/assistance/operit/core/workflow/WorkflowExecutor.kt:527 WorkflowExecutor.executeWorkflow",
+        "dispatcher: app/src/main/java/com/ai/assistance/operit/core/workflow/WorkflowExecutor.kt:1275 节点工具调用",
+        "tool-runtime: app/src/main/java/com/ai/assistance/operit/core/tools/AIToolHandler.kt:363 AIToolHandler.executeTool",
+        "scheduler: app/src/main/java/com/ai/assistance/operit/core/workflow/WorkflowScheduler.kt:54 WorkflowScheduler"
+      ],
+      "callChainSteps": [
+        {
+          "stage": "caller",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/workflow/WorkflowWorker.kt",
+          "line": 39,
+          "symbol": "WorkflowWorker",
+          "text": "val result = repository.triggerWorkflow(workflowId, triggerNodeId)",
+          "sha256": "ab9bd52310b734a05fd0b0e59754a9dad07d5ecc1c472be57d7b0cc5db10a79f"
+        },
+        {
+          "stage": "repository",
+          "file": "app/src/main/java/com/ai/assistance/operit/data/repository/WorkflowRepository.kt",
+          "line": 635,
+          "symbol": "WorkflowRepository",
+          "text": "val executor = WorkflowExecutor(context)",
+          "sha256": "ca149cb937d19088326bdd356df39e7a6242cf75e45ac1d6e21dbcaaf534f807"
+        },
+        {
+          "stage": "executor",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/workflow/WorkflowExecutor.kt",
+          "line": 527,
+          "symbol": "WorkflowExecutor.executeWorkflow",
+          "text": "suspend fun executeWorkflow(",
+          "sha256": "193b0e23aa3ebfabc560b1d086957843f90c4fd6180a0720cf471f5691a6b66c"
+        },
+        {
+          "stage": "dispatcher",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/workflow/WorkflowExecutor.kt",
+          "line": 1275,
+          "symbol": "节点工具调用",
+          "text": "val result = toolHandler.executeTool(tool)",
+          "sha256": "193b0e23aa3ebfabc560b1d086957843f90c4fd6180a0720cf471f5691a6b66c"
+        },
+        {
+          "stage": "tool-runtime",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/AIToolHandler.kt",
+          "line": 363,
+          "symbol": "AIToolHandler.executeTool",
+          "text": "fun executeTool(tool: AITool): ToolResult {",
+          "sha256": "a9fce39cbcf31fd83e48226748c0300d25c059356a03ac4021d91abecb6228b4"
+        },
+        {
+          "stage": "scheduler",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/workflow/WorkflowScheduler.kt",
+          "line": 54,
+          "symbol": "WorkflowScheduler",
+          "text": "fun scheduleWorkflow(workflow: Workflow): Boolean {",
+          "sha256": "9b739a4de599487487cf0c940642e1e942e4223fccfc78b0110671a2c73b66e8"
+        }
+      ],
+      "value": "把工具调用编排为可调度、可审计的自动化",
+      "adapters": [
+        "AppGraph",
+        "TaskSupervisor",
+        "CapabilityBroker"
+      ],
+      "dependencies": [
+        "S2.22 WorkManager 调度",
+        "S3.17 ToolDispatcher",
+        "S2.16 runtime.db"
+      ],
+      "persistence": "portable: 工作流图与节点定义进同步行；运行记录进 runtime.db（本机）",
+      "executionIdentity": "节点按声明 target 执行；写操作需审批",
+      "owner": "main-channel: 自动化与工作流负责人（S3.25）",
+      "acceptance": "图编辑/环检测/拓扑执行；触发/停用/取消；所有节点工具进入统一审批路径",
+      "risks": [
+        "WorkflowExecutor 直接 new AIToolHandler，需改为注入 ToolDispatcher",
+        "WorkflowScheduler 受 WorkManager 15 分钟最小间隔约束，需与 S2.22 对齐"
+      ],
+      "brandPages": [],
+      "domains": [
+        "agent-orchestration",
+        "chat-pipeline"
+      ]
+    },
+    {
+      "id": "browser",
+      "section": "3.2",
+      "capability": "原生浏览器",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/core/tools/defaultTool/websession/browser/",
+      "method": "direct-port",
+      "primaryUnit": "S6.37",
+      "deliveryUnit": "S6.37",
+      "secondaryUnits": [
+        "S6.38"
+      ],
+      "source": {
+        "commit": "7a39941bad80209973c535046a18195c5da9e647",
+        "terminalCommit": "e4646680663789002b43bbfffa6e69e65c35e614",
+        "module": "app"
+      },
+      "evidence": [
+        {
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/defaultTool/standard/StandardBrowserSessionTools.kt",
+          "line": 106,
+          "symbol": "class StandardBrowserSessionTools",
+          "text": "class StandardBrowserSessionTools(internal val context: Context) : ToolExecutor {",
+          "sha256": "94901598fe1f5e40b8dd45c032a9c2da95d4fda67fc7cfde1a766e300102249f"
+        }
+      ],
+      "callChain": [
+        "caller: app/src/main/java/com/ai/assistance/operit/core/tools/ToolRegistration.kt:1241 浏览器工具注册",
+        "factory: app/src/main/java/com/ai/assistance/operit/core/tools/defaultTool/ToolGetter.kt:111 ToolGetter",
+        "session: app/src/main/java/com/ai/assistance/operit/core/tools/defaultTool/standard/StandardBrowserSessionTools.kt:251 StandardBrowserSessionTools.invoke",
+        "host: app/src/main/java/com/ai/assistance/operit/core/tools/defaultTool/websession/browser/WebSessionWebViewHost.kt:26 WebSessionWebViewHost",
+        "executor: app/src/main/java/com/ai/assistance/operit/core/tools/defaultTool/websession/browser/BrowserWebViewSupport.kt:844 WebView 导航"
+      ],
+      "callChainSteps": [
+        {
+          "stage": "caller",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/ToolRegistration.kt",
+          "line": 1241,
+          "symbol": "浏览器工具注册",
+          "text": "executor = { tool -> ToolGetter.getBrowserSessionTools(context).invoke(tool) }",
+          "sha256": "819061caccf5dd2e2dad024e09088e4f84ccc26ff1d235b604ffabe973ecfe39"
+        },
+        {
+          "stage": "factory",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/defaultTool/ToolGetter.kt",
+          "line": 111,
+          "symbol": "ToolGetter",
+          "text": "fun getBrowserSessionTools(context: Context): StandardBrowserSessionTools {",
+          "sha256": "50f131eef005e50897e6786ba1699875fe2f88cb021db7208f8705e20ddb5042"
+        },
+        {
+          "stage": "session",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/defaultTool/standard/StandardBrowserSessionTools.kt",
+          "line": 251,
+          "symbol": "StandardBrowserSessionTools.invoke",
+          "text": "override fun invoke(tool: AITool): ToolResult {",
+          "sha256": "94901598fe1f5e40b8dd45c032a9c2da95d4fda67fc7cfde1a766e300102249f"
+        },
+        {
+          "stage": "host",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/defaultTool/websession/browser/WebSessionWebViewHost.kt",
+          "line": 26,
+          "symbol": "WebSessionWebViewHost",
+          "text": "fun attachContainer(target: FrameLayout) {",
+          "sha256": "e712246b317bbf58e82daf13ae259b668e7d51c3d48b6d10924488d94af2da6a"
+        },
+        {
+          "stage": "executor",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/defaultTool/websession/browser/BrowserWebViewSupport.kt",
+          "line": 844,
+          "symbol": "WebView 导航",
+          "text": "session.webView.loadUrl(targetUrl, headers)",
+          "sha256": "76c2a2cd63d997c48a558d9762cf652374c84861faa6b9ee3fda70b0ed683f2d"
+        }
+      ],
+      "value": "提供带登录态与 DOM 操作的浏览能力",
+      "adapters": [
+        "AppGraph",
+        "TaskSupervisor",
+        "CapabilityBroker",
+        "ResourceStore"
+      ],
+      "dependencies": [
+        "S1.15 内容与浏览器宿主",
+        "S3.17 ToolDispatcher",
+        "S2.06 内容寻址资源"
+      ],
+      "persistence": "local: 会话/登录态/历史按设备保存；下载产物经 ResourceStore",
+      "executionIdentity": "APP（WebView 进程内）；用户接管沿用同一会话",
+      "owner": "main-channel: 浏览器负责人（S6.37–S6.38）",
+      "acceptance": "登录态保持、导航/关闭/接管；DOM ref 过期与跨 origin 策略；下载产物经资源库读回 hash",
+      "risks": [
+        "WebView 宿主与工具执行器同进程，需确认渲染进程隔离与用户接管",
+        "下载与上传需接 ResourceStore，不得直接写应用私有目录"
+      ],
+      "brandPages": [],
+      "domains": [
+        "browser",
+        "memory"
+      ]
+    },
+    {
+      "id": "file-provider",
+      "section": "3.2",
+      "capability": "文件 Provider",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/provider/WorkspaceDocumentsProvider.kt",
+      "method": "adapter",
+      "primaryUnit": "S2.25",
+      "deliveryUnit": "S2.25",
+      "secondaryUnits": [
+        "S6.39"
+      ],
+      "source": {
+        "commit": "7a39941bad80209973c535046a18195c5da9e647",
+        "terminalCommit": "e4646680663789002b43bbfffa6e69e65c35e614",
+        "module": "app"
+      },
+      "evidence": [
+        {
+          "file": "app/src/main/java/com/ai/assistance/operit/provider/WorkspaceDocumentsProvider.kt",
+          "line": 134,
+          "symbol": "createDocument",
+          "text": "override fun createDocument(",
+          "sha256": "e5c990f6b3660db10a92feb67475b959f84bfc14f90eacca8dda1f54e3de6eff"
+        },
+        {
+          "file": "app/src/main/java/com/ai/assistance/operit/provider/WorkspaceDocumentsProvider.kt",
+          "line": 165,
+          "symbol": "deleteDocument",
+          "text": "override fun deleteDocument(documentId: String) {",
+          "sha256": "e5c990f6b3660db10a92feb67475b959f84bfc14f90eacca8dda1f54e3de6eff"
+        },
+        {
+          "file": "app/src/main/java/com/ai/assistance/operit/provider/OperitDataDocumentsProvider.kt",
+          "line": 14,
+          "symbol": "class OperitDataDocumentsProvider",
+          "text": "class OperitDataDocumentsProvider : DocumentsProvider() {",
+          "sha256": "62ecd26efac47505521c3157afddcb7298cc1d7450e0f96de35e7f9eb9787730"
+        },
+        {
+          "file": "app/src/main/java/com/ai/assistance/operit/provider/OperitDataDocumentsProvider.kt",
+          "line": 107,
+          "symbol": "data openDocument",
+          "text": "override fun openDocument(",
+          "sha256": "62ecd26efac47505521c3157afddcb7298cc1d7450e0f96de35e7f9eb9787730"
+        },
+        {
+          "file": "app/src/main/java/com/ai/assistance/operit/provider/MemoryDocumentsProvider.kt",
+          "line": 29,
+          "symbol": "class MemoryDocumentsProvider",
+          "text": "class MemoryDocumentsProvider : DocumentsProvider() {",
+          "sha256": "3a5739c2250e19341ea19ca8647c494d7eae3b61507aa6f2284b92a5ba66374b"
+        }
+      ],
+      "callChain": [
+        "registration: app/src/main/AndroidManifest.xml:168 Provider 声明",
+        "provider: app/src/main/java/com/ai/assistance/operit/provider/WorkspaceDocumentsProvider.kt:20 WorkspaceDocumentsProvider",
+        "entry: app/src/main/java/com/ai/assistance/operit/provider/WorkspaceDocumentsProvider.kt:119 openDocument",
+        "executor: app/src/main/java/com/ai/assistance/operit/provider/WorkspaceDocumentsProvider.kt:131 PFD 打开"
+      ],
+      "callChainSteps": [
+        {
+          "stage": "registration",
+          "file": "app/src/main/AndroidManifest.xml",
+          "line": 168,
+          "symbol": "Provider 声明",
+          "text": "android:name=\".provider.WorkspaceDocumentsProvider\"",
+          "sha256": "0124113eb9d26f78235377f6905ddf6c118dd2ca6be826a1cc34cb481973d38e"
+        },
+        {
+          "stage": "provider",
+          "file": "app/src/main/java/com/ai/assistance/operit/provider/WorkspaceDocumentsProvider.kt",
+          "line": 20,
+          "symbol": "WorkspaceDocumentsProvider",
+          "text": "class WorkspaceDocumentsProvider : DocumentsProvider() {",
+          "sha256": "e5c990f6b3660db10a92feb67475b959f84bfc14f90eacca8dda1f54e3de6eff"
+        },
+        {
+          "stage": "entry",
+          "file": "app/src/main/java/com/ai/assistance/operit/provider/WorkspaceDocumentsProvider.kt",
+          "line": 119,
+          "symbol": "openDocument",
+          "text": "override fun openDocument(",
+          "sha256": "e5c990f6b3660db10a92feb67475b959f84bfc14f90eacca8dda1f54e3de6eff"
+        },
+        {
+          "stage": "executor",
+          "file": "app/src/main/java/com/ai/assistance/operit/provider/WorkspaceDocumentsProvider.kt",
+          "line": 131,
+          "symbol": "PFD 打开",
+          "text": "return ParcelFileDescriptor.open(file, accessMode)",
+          "sha256": "e5c990f6b3660db10a92feb67475b959f84bfc14f90eacca8dda1f54e3de6eff"
+        }
+      ],
+      "value": "让外部应用在授权范围内读写工作区与附件",
+      "adapters": [
+        "AppGraph",
+        "ResourceStore"
+      ],
+      "dependencies": [
+        "S2.06 内容寻址",
+        "S2.07 SAF/PFD",
+        "S2.25 Provider 合同"
+      ],
+      "persistence": "local: documentId 与授权按设备；内容归 ResourceStore 内容寻址",
+      "executionIdentity": "APP；外部应用经 SAF 授权，写入经 ResourceStore 审核",
+      "owner": "main-channel: 资源与 Provider 负责人（S2.25、S6.39）",
+      "acceptance": "系统文件管理器读写经 ResourceStore 产生一次变更；撤权与越界拒绝；私有治理文件不可见",
+      "risks": [
+        "Provider authority 使用 ${applicationId} 前缀，需在 S0.15 固定 applicationId 后生成",
+        "openDocument 直接返回 PFD，写入路径需经 ResourceStore 审核"
+      ],
+      "brandPages": [],
+      "domains": [
+        "vfs",
+        "vfs-handlers"
+      ]
+    },
+    {
+      "id": "navigation",
+      "section": "3.2",
+      "capability": "手机/平板导航",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/ui/main/layout/",
+      "method": "reimplement",
+      "primaryUnit": "S5.05",
+      "deliveryUnit": "S5.05",
+      "secondaryUnits": [
+        "S5.06"
+      ],
+      "source": {
+        "commit": "7a39941bad80209973c535046a18195c5da9e647",
+        "terminalCommit": "e4646680663789002b43bbfffa6e69e65c35e614",
+        "module": "app"
+      },
+      "evidence": [],
+      "callChain": [
+        "caller: app/src/main/java/com/ai/assistance/operit/ui/main/OperitApp.kt:115 OperitApp 导航装配",
+        "catalog: app/src/main/java/com/ai/assistance/operit/ui/main/navigation/AppRouteCatalog.kt:16 AppRouteCatalog.build",
+        "registry: app/src/main/java/com/ai/assistance/operit/ui/main/navigation/AppRouteCatalog.kt:61 路由表装配",
+        "routes: app/src/main/java/com/ai/assistance/operit/ui/main/screens/ScreenRouteRegistry.kt:87 ScreenRouteRegistry",
+        "guard: app/src/main/java/com/ai/assistance/operit/ui/main/navigation/RouteBackGuard.kt:18 返回守卫",
+        "layout: app/src/main/java/com/ai/assistance/operit/ui/main/layout/PhoneLayout.kt:56 PhoneLayout",
+        "executor: app/src/main/java/com/ai/assistance/operit/ui/main/layout/TabletLayout.kt:39 TabletLayout"
+      ],
+      "callChainSteps": [
+        {
+          "stage": "caller",
+          "file": "app/src/main/java/com/ai/assistance/operit/ui/main/OperitApp.kt",
+          "line": 115,
+          "symbol": "OperitApp 导航装配",
+          "text": "val navigationModel = remember(context, configuration, navigationRevision) { AppRouteCatalog.build(context) }",
+          "sha256": "70da59bfb505ff08c39ceef31eee35bec05bbe8fc6a5098de119ac5a89f5b6bf"
+        },
+        {
+          "stage": "catalog",
+          "file": "app/src/main/java/com/ai/assistance/operit/ui/main/navigation/AppRouteCatalog.kt",
+          "line": 16,
+          "symbol": "AppRouteCatalog.build",
+          "text": "fun build(context: Context): AppNavigationModel {",
+          "sha256": "af1b6c6ef5dd09d5903b54a6eaea3b2fd2dca96af846c04481ef6e3af059cdcb"
+        },
+        {
+          "stage": "registry",
+          "file": "app/src/main/java/com/ai/assistance/operit/ui/main/navigation/AppRouteCatalog.kt",
+          "line": 61,
+          "symbol": "路由表装配",
+          "text": "routes = ScreenRouteRegistry.hostRouteSpecs(context) + toolPkgRoutes,",
+          "sha256": "af1b6c6ef5dd09d5903b54a6eaea3b2fd2dca96af846c04481ef6e3af059cdcb"
+        },
+        {
+          "stage": "routes",
+          "file": "app/src/main/java/com/ai/assistance/operit/ui/main/screens/ScreenRouteRegistry.kt",
+          "line": 87,
+          "symbol": "ScreenRouteRegistry",
+          "text": "object ScreenRouteRegistry {",
+          "sha256": "cb6f4d0450b89885990111ca908f9abb83d1be3a2ad6892979abc9c527c4b059"
+        },
+        {
+          "stage": "guard",
+          "file": "app/src/main/java/com/ai/assistance/operit/ui/main/navigation/RouteBackGuard.kt",
+          "line": 18,
+          "symbol": "返回守卫",
+          "text": "fun register(routeInstanceId: String, handler: suspend () -> Boolean): () -> Unit {",
+          "sha256": "b3f94a37d3b3bc570df676c47453c43c26f4f26a31d097ebe79afed4cea65894"
+        },
+        {
+          "stage": "layout",
+          "file": "app/src/main/java/com/ai/assistance/operit/ui/main/layout/PhoneLayout.kt",
+          "line": 56,
+          "symbol": "PhoneLayout",
+          "text": "fun PhoneLayout(",
+          "sha256": "a5ee34c8640f95c1e779685ce6978356d79a7f48551a2611a8eb4f61df1c8722"
+        },
+        {
+          "stage": "executor",
+          "file": "app/src/main/java/com/ai/assistance/operit/ui/main/layout/TabletLayout.kt",
+          "line": 39,
+          "symbol": "TabletLayout",
+          "text": "fun TabletLayout(",
+          "sha256": "ca4cf38d0d9f231a7e3de7750b65e2bbbede306df4851cd9a8bde0371220538c"
+        }
+      ],
+      "value": "提供手机/平板自适应导航与返回守卫的成熟实现参考",
+      "adapters": [
+        "AppGraph",
+        "DstuTheme"
+      ],
+      "dependencies": [
+        "S0.02 视图/导航清单",
+        "S5.03 容器组件",
+        "S5.05 全导航壳"
+      ],
+      "persistence": "local: 导航折叠与最近视图按设备，不进入同步",
+      "executionIdentity": "不执行",
+      "owner": "main-channel: 导航壳负责人（S5.05）",
+      "acceptance": "手机/平板重排、返回守卫、旋转与重启恢复；路由与 S0.02 清单一致",
+      "risks": [
+        "AppRouteCatalog 从 ScreenRouteRegistry 生成，Operit 路由需映射到 dstu 17 视图而非照搬",
+        "Phone/Tablet 以固定断点实现，需接入窗口尺寸类"
+      ],
+      "brandPages": [],
+      "domains": [
+        "notes",
+        "chat"
+      ]
+    },
+    {
+      "id": "stream-markdown",
+      "section": "3.2",
+      "capability": "流式内容",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/ui/common/markdown/StreamMarkdownRenderer.kt",
+      "method": "direct-port",
+      "primaryUnit": "S5.19",
+      "deliveryUnit": "S5.19",
+      "secondaryUnits": [
+        "S5.17"
+      ],
+      "source": {
+        "commit": "7a39941bad80209973c535046a18195c5da9e647",
+        "terminalCommit": "e4646680663789002b43bbfffa6e69e65c35e614",
+        "module": "app"
+      },
+      "evidence": [
+        {
+          "file": "app/src/main/java/com/ai/assistance/operit/util/streamnative/NativeMarkdownSplitter.kt",
+          "line": 59,
+          "symbol": "createBlockSession",
+          "text": "fun createBlockSession(): Session = Session(nativeCreateBlockSession())",
+          "sha256": "d269185ee1a625ecbb433ca6cd710a216e1f0dffa9f10906b65c2691a2657385"
+        },
+        {
+          "file": "app/src/main/java/com/ai/assistance/operit/ui/common/markdown/RenderBatchCoordinator.kt",
+          "line": 14,
+          "symbol": "class RenderBatchCoordinator",
+          "text": "internal class RenderBatchCoordinator(",
+          "sha256": "c57140ca1e124060223b7483ab62693f907f16fd1a210ad4c588d52eff73aa8b"
+        },
+        {
+          "file": "app/src/main/java/com/ai/assistance/operit/util/stream/RevisableTextStream.kt",
+          "line": 54,
+          "symbol": "interface RevisableTextStream",
+          "text": "interface RevisableTextStream : Stream<String>, TextStreamEventCarrier",
+          "sha256": "6d5ff64f53ffd3f443170f84152822348ad0fcbace82e3eeddb646c2376ea9f0"
+        }
+      ],
+      "callChain": [
+        "caller: app/src/main/java/com/ai/assistance/operit/ui/common/displays/MarkdownTextComposable.kt:37 MarkdownTextComposable",
+        "renderer: app/src/main/java/com/ai/assistance/operit/ui/common/markdown/StreamMarkdownRenderer.kt:381 StreamMarkdownRenderer",
+        "splitter: app/src/main/java/com/ai/assistance/operit/ui/common/markdown/MarkdownPlainTextRenderer.kt:116 原生 splitter 调用",
+        "jni: app/src/main/java/com/ai/assistance/operit/util/streamnative/NativeMarkdownSplitter.kt:41 NativeMarkdownSplitter",
+        "executor: app/src/main/java/com/ai/assistance/operit/util/streamnative/NativeMarkdownSplitter.kt:47 nativeCreateBlockSession"
+      ],
+      "callChainSteps": [
+        {
+          "stage": "caller",
+          "file": "app/src/main/java/com/ai/assistance/operit/ui/common/displays/MarkdownTextComposable.kt",
+          "line": 37,
+          "symbol": "MarkdownTextComposable",
+          "text": "StreamMarkdownRenderer(",
+          "sha256": "4e2281c98a9756022833e51b125852e267908ec18b512de47f5967005ba55ec9"
+        },
+        {
+          "stage": "renderer",
+          "file": "app/src/main/java/com/ai/assistance/operit/ui/common/markdown/StreamMarkdownRenderer.kt",
+          "line": 381,
+          "symbol": "StreamMarkdownRenderer",
+          "text": "fun StreamMarkdownRenderer(",
+          "sha256": "6c3273f0e00f440230955f0bf6d4885882485abe93be99e06b127f4ff74410e1"
+        },
+        {
+          "stage": "splitter",
+          "file": "app/src/main/java/com/ai/assistance/operit/ui/common/markdown/MarkdownPlainTextRenderer.kt",
+          "line": 116,
+          "symbol": "原生 splitter 调用",
+          "text": "val nodes = NativeMarkdownSplitter.parseInlineToStableNodes(raw)",
+          "sha256": "95b528d7d79fbf7dc1b591c69e18596e268e5c71e29f0026f9dec3f4b409c7d5"
+        },
+        {
+          "stage": "jni",
+          "file": "app/src/main/java/com/ai/assistance/operit/util/streamnative/NativeMarkdownSplitter.kt",
+          "line": 41,
+          "symbol": "NativeMarkdownSplitter",
+          "text": "object NativeMarkdownSplitter {",
+          "sha256": "d269185ee1a625ecbb433ca6cd710a216e1f0dffa9f10906b65c2691a2657385"
+        },
+        {
+          "stage": "executor",
+          "file": "app/src/main/java/com/ai/assistance/operit/util/streamnative/NativeMarkdownSplitter.kt",
+          "line": 47,
+          "symbol": "nativeCreateBlockSession",
+          "text": "private external fun nativeCreateBlockSession(): Long",
+          "sha256": "d269185ee1a625ecbb433ca6cd710a216e1f0dffa9f10906b65c2691a2657385"
+        }
+      ],
+      "value": "稳定块增量渲染，避免流式输出闪烁与重排",
+      "adapters": [
+        "AppGraph",
+        "DstuTheme"
+      ],
+      "dependencies": [
+        "S0.07 内容方言",
+        "S3.10 块增量",
+        "S5.19 聊天块渲染"
+      ],
+      "persistence": "local: 渲染缓存不持久；消息内容归聊天库",
+      "executionIdentity": "不执行",
+      "owner": "main-channel: 流式内容负责人（S5.19）",
+      "acceptance": "稳定块增量渲染；公式/代码/表格分段；中断与完成态一致；亮暗主题",
+      "risks": [
+        "原生 splitter 依赖 streamnative JNI 与 CMake 构建",
+        "渲染器使用 Operit 字阶与颜色，需换 DstuTheme"
+      ],
+      "brandPages": [],
+      "domains": [
+        "chat",
+        "notes"
+      ]
+    },
+    {
+      "id": "voice",
+      "section": "3.2",
+      "capability": "语音",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/api/voice/VoiceServiceFactory.kt",
+      "method": "adapter",
+      "primaryUnit": "S4.19",
+      "deliveryUnit": "S4.19",
+      "secondaryUnits": [
+        "S4.20"
+      ],
+      "source": {
+        "commit": "7a39941bad80209973c535046a18195c5da9e647",
+        "terminalCommit": "e4646680663789002b43bbfffa6e69e65c35e614",
+        "module": "app"
+      },
+      "evidence": [
+        {
+          "file": "app/src/main/java/com/ai/assistance/operit/api/speech/SpeechServiceFactory.kt",
+          "line": 11,
+          "symbol": "object SpeechServiceFactory",
+          "text": "object SpeechServiceFactory {",
+          "sha256": "e7bb052549a61986c3ccaca1810e75075a2a1f3826ab195682ce7b8da28be376"
+        }
+      ],
+      "callChain": [
+        "caller: app/src/main/java/com/ai/assistance/operit/ui/floating/voice/SpeechInteractionManager.kt:58 SpeechInteractionManager",
+        "factory: app/src/main/java/com/ai/assistance/operit/api/speech/SpeechServiceFactory.kt:181 SpeechServiceFactory.getInstance",
+        "selector: app/src/main/java/com/ai/assistance/operit/api/speech/SpeechServiceFactory.kt:134 本地 provider 选择",
+        "executor: app/src/main/java/com/ai/assistance/operit/api/speech/SherpaSpeechProvider.kt:188 SherpaNcnn 构造",
+        "vad: app/src/main/java/com/ai/assistance/operit/api/speech/OnnxSileroVad.kt:15 OnnxSileroVad",
+        "tts: app/src/main/java/com/ai/assistance/operit/api/voice/VoiceServiceFactory.kt:8 VoiceServiceFactory"
+      ],
+      "callChainSteps": [
+        {
+          "stage": "caller",
+          "file": "app/src/main/java/com/ai/assistance/operit/ui/floating/voice/SpeechInteractionManager.kt",
+          "line": 58,
+          "symbol": "SpeechInteractionManager",
+          "text": "val speechService = SpeechServiceFactory.getInstance(context)",
+          "sha256": "a95490af73d5dbecbfa6d4053d78ec13a6c8de7855bf827df42f71007637be5d"
+        },
+        {
+          "stage": "factory",
+          "file": "app/src/main/java/com/ai/assistance/operit/api/speech/SpeechServiceFactory.kt",
+          "line": 181,
+          "symbol": "SpeechServiceFactory.getInstance",
+          "text": "fun getInstance(",
+          "sha256": "e7bb052549a61986c3ccaca1810e75075a2a1f3826ab195682ce7b8da28be376"
+        },
+        {
+          "stage": "selector",
+          "file": "app/src/main/java/com/ai/assistance/operit/api/speech/SpeechServiceFactory.kt",
+          "line": 134,
+          "symbol": "本地 provider 选择",
+          "text": "SpeechServiceType.SHERPA_NCNN -> SherpaSpeechProvider(appContext)",
+          "sha256": "e7bb052549a61986c3ccaca1810e75075a2a1f3826ab195682ce7b8da28be376"
+        },
+        {
+          "stage": "executor",
+          "file": "app/src/main/java/com/ai/assistance/operit/api/speech/SherpaSpeechProvider.kt",
+          "line": 188,
+          "symbol": "SherpaNcnn 构造",
+          "text": "SherpaNcnn(",
+          "sha256": "4d0a19846f94553e456d2d7733363891abbe1499c8d077aea1f4e85af4d8c64c"
+        },
+        {
+          "stage": "vad",
+          "file": "app/src/main/java/com/ai/assistance/operit/api/speech/OnnxSileroVad.kt",
+          "line": 15,
+          "symbol": "OnnxSileroVad",
+          "text": "class OnnxSileroVad(",
+          "sha256": "59b3e956fad31482b72bbac63c398d696de3c5d3a51e3256e0fe4cd3b4fcf90d"
+        },
+        {
+          "stage": "tts",
+          "file": "app/src/main/java/com/ai/assistance/operit/api/voice/VoiceServiceFactory.kt",
+          "line": 8,
+          "symbol": "VoiceServiceFactory",
+          "text": "object VoiceServiceFactory {",
+          "sha256": "f8fe65a4ed0b576ea6023abe8ee9d7a894fe084c11ad24a1233bfb92f5c92382"
+        }
+      ],
+      "value": "提供 TTS/STT/VAD 与本地/云端 provider 的完整实现",
+      "adapters": [
+        "AppGraph",
+        "TaskSupervisor",
+        "CapabilityBroker"
+      ],
+      "dependencies": [
+        "S0.14 sherpa/ncnn 模型与许可",
+        "S4.17 音频管线",
+        "S0.22 媒体事件"
+      ],
+      "persistence": "local: TTS/STT provider 配置与密钥按 local/secret；播放进度按 S0.22 事件",
+      "executionIdentity": "APP；云端 provider 使用本机凭据",
+      "owner": "main-channel: 媒体与语音负责人（S4.19–S4.20）",
+      "acceptance": "TTS 队列不重叠、取消静音与焦点恢复；STT 分段与 VAD 时间轴；provider 切换释放旧实例",
+      "risks": [
+        "SpeechServiceFactory 对本地 provider 做单例与引用计数，需与任务取消合并",
+        "云端 provider 密钥需进入 secret 分类"
+      ],
+      "brandPages": [],
+      "domains": [
+        "media",
+        "translation"
+      ]
+    },
+    {
+      "id": "doc-ocr",
+      "section": "3.2",
+      "capability": "文档/OCR",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/util/OCRUtils.kt",
+      "method": "adapter",
+      "primaryUnit": "S4.11",
+      "deliveryUnit": "S4.11",
+      "secondaryUnits": [
+        "S4.07"
+      ],
+      "source": {
+        "commit": "7a39941bad80209973c535046a18195c5da9e647",
+        "terminalCommit": "e4646680663789002b43bbfffa6e69e65c35e614",
+        "module": "app"
+      },
+      "evidence": [
+        {
+          "file": "app/src/main/java/com/ai/assistance/operit/util/OCRUtils.kt",
+          "line": 28,
+          "symbol": "object OCRUtils",
+          "text": "object OCRUtils {",
+          "sha256": "d8199a010763983aed6e1c7036c4982eaf687d90ebaf432d92c18e65ede30b1d"
+        }
+      ],
+      "callChain": [
+        "caller: app/src/main/java/com/ai/assistance/operit/services/core/AttachmentDelegate.kt:642 附件 OCR 调用",
+        "api: app/src/main/java/com/ai/assistance/operit/util/OCRUtils.kt:242 OCRUtils.recognizeText",
+        "recognizer: app/src/main/java/com/ai/assistance/operit/util/OCRUtils.kt:54 getRecognizer",
+        "executor: app/src/main/java/com/ai/assistance/operit/util/OCRUtils.kt:223 ML Kit process",
+        "converter: app/src/main/java/com/ai/assistance/operit/util/DocumentConversionUtil.kt:35 DocumentConversionUtil"
+      ],
+      "callChainSteps": [
+        {
+          "stage": "caller",
+          "file": "app/src/main/java/com/ai/assistance/operit/services/core/AttachmentDelegate.kt",
+          "line": 642,
+          "symbol": "附件 OCR 调用",
+          "text": "val ocrText = OCRUtils.recognizeText(",
+          "sha256": "0ce532f955a02d5e8656b4bbdad8133c1e9bb946e436c3d7cff9ee50c7c07439"
+        },
+        {
+          "stage": "api",
+          "file": "app/src/main/java/com/ai/assistance/operit/util/OCRUtils.kt",
+          "line": 242,
+          "symbol": "OCRUtils.recognizeText",
+          "text": "suspend fun recognizeText(",
+          "sha256": "d8199a010763983aed6e1c7036c4982eaf687d90ebaf432d92c18e65ede30b1d"
+        },
+        {
+          "stage": "recognizer",
+          "file": "app/src/main/java/com/ai/assistance/operit/util/OCRUtils.kt",
+          "line": 54,
+          "symbol": "getRecognizer",
+          "text": "private fun getRecognizer(language: Language): TextRecognizer {",
+          "sha256": "d8199a010763983aed6e1c7036c4982eaf687d90ebaf432d92c18e65ede30b1d"
+        },
+        {
+          "stage": "executor",
+          "file": "app/src/main/java/com/ai/assistance/operit/util/OCRUtils.kt",
+          "line": 223,
+          "symbol": "ML Kit process",
+          "text": ".process(image)",
+          "sha256": "d8199a010763983aed6e1c7036c4982eaf687d90ebaf432d92c18e65ede30b1d"
+        },
+        {
+          "stage": "converter",
+          "file": "app/src/main/java/com/ai/assistance/operit/util/DocumentConversionUtil.kt",
+          "line": 35,
+          "symbol": "DocumentConversionUtil",
+          "text": "object DocumentConversionUtil {",
+          "sha256": "304b0c207b44e57f26b0e2643aea26bf3e7a2b1baeb295b3e45e89829f0dff54"
+        }
+      ],
+      "value": "提供本地 OCR 与文档格式转换，支撑资料导入",
+      "adapters": [
+        "AppGraph",
+        "TaskSupervisor",
+        "ResourceStore"
+      ],
+      "dependencies": [
+        "S0.14 ML Kit/模型来源",
+        "S4.05 PDF 渲染",
+        "S4.10 图像处理"
+      ],
+      "persistence": "local: OCR 结果与页面缓存为派生数据；原文归资源库",
+      "executionIdentity": "APP（ML Kit 本地识别），不联网",
+      "owner": "main-channel: 文档与识别负责人（S4.07、S4.11）",
+      "acceptance": "固定扫描集文字质量与框位置；损坏/加密文件分类；页面栅格化与资源释放",
+      "risks": [
+        "ML Kit 模型随 Play Services 下发，需登记离线可用性",
+        "OCR 结果属派生数据，需与 S4.13 队列合并"
+      ],
+      "brandPages": [],
+      "domains": [
+        "media",
+        "vfs-index"
+      ]
+    },
+    {
+      "id": "local-inference",
+      "section": "3.2",
+      "capability": "本地推理/嵌入",
+      "sourcePath": "llm/llama/",
+      "method": "direct-port",
+      "primaryUnit": "S4.21",
+      "deliveryUnit": "S4.21",
+      "secondaryUnits": [
+        "S4.22"
+      ],
+      "source": {
+        "commit": "7a39941bad80209973c535046a18195c5da9e647",
+        "terminalCommit": "e4646680663789002b43bbfffa6e69e65c35e614",
+        "module": "llm"
+      },
+      "evidence": [],
+      "callChain": [
+        "caller: app/src/main/java/com/ai/assistance/operit/api/chat/llmprovider/LlamaProvider.kt:118 LlamaProvider",
+        "session: llm/llama/src/main/java/com/ai/assistance/llama/LlamaSession.kt:43 LlamaSession",
+        "jni: llm/llama/src/main/java/com/ai/assistance/llama/LlamaNative.kt:3 LlamaNative",
+        "executor: llm/llama/src/main/cpp/llama_jni_stub.cpp:206 nativeCreateSession",
+        "mnn-caller: app/src/main/java/com/ai/assistance/operit/api/chat/llmprovider/MNNProvider.kt:192 MNNProvider",
+        "mnn-executor: llm/mnn/src/main/java/com/ai/assistance/mnn/MNNLlmSession.kt:11 MNNLlmSession"
+      ],
+      "callChainSteps": [
+        {
+          "stage": "caller",
+          "file": "app/src/main/java/com/ai/assistance/operit/api/chat/llmprovider/LlamaProvider.kt",
+          "line": 118,
+          "symbol": "LlamaProvider",
+          "text": "if (!LlamaSession.isAvailable()) {",
+          "sha256": "14a9974a819c950169d9b92b9870277319d642e335383f9282d3ca806637b96b"
+        },
+        {
+          "stage": "session",
+          "file": "llm/llama/src/main/java/com/ai/assistance/llama/LlamaSession.kt",
+          "line": 43,
+          "symbol": "LlamaSession",
+          "text": "return LlamaSession(ptr)",
+          "sha256": "7e58141f6e9104ccaac26e9e4b6f164bc8b34312d1276179e60b133fff765a2b"
+        },
+        {
+          "stage": "jni",
+          "file": "llm/llama/src/main/java/com/ai/assistance/llama/LlamaNative.kt",
+          "line": 3,
+          "symbol": "LlamaNative",
+          "text": "object LlamaNative {",
+          "sha256": "65148f6f362f55c789b3cbd881c8c6efa7544e96a22278147a74fd882d30e4ec"
+        },
+        {
+          "stage": "executor",
+          "file": "llm/llama/src/main/cpp/llama_jni_stub.cpp",
+          "line": 206,
+          "symbol": "nativeCreateSession",
+          "text": "Java_com_ai_assistance_llama_LlamaNative_nativeCreateSession(",
+          "sha256": "4f1fb3f09639344b8c4f672a1b7d0b2a019fa5c6798707ffabd436b56a9049c1"
+        },
+        {
+          "stage": "mnn-caller",
+          "file": "app/src/main/java/com/ai/assistance/operit/api/chat/llmprovider/MNNProvider.kt",
+          "line": 192,
+          "symbol": "MNNProvider",
+          "text": "llmSession = MNNLlmSession.create(",
+          "sha256": "bc620de2810df4cccff3c6610a628db10c8a43a5f86bf722fbbeb8e74ef61e9a"
+        },
+        {
+          "stage": "mnn-executor",
+          "file": "llm/mnn/src/main/java/com/ai/assistance/mnn/MNNLlmSession.kt",
+          "line": 11,
+          "symbol": "MNNLlmSession",
+          "text": "class MNNLlmSession private constructor(",
+          "sha256": "dc37fe4261fef188dea899a19ed89e314326bc8f0ffc6d6a15ca6988b16a4fd4"
+        }
+      ],
+      "value": "提供离线 llama/MNN 推理与嵌入能力",
+      "adapters": [
+        "AppGraph",
+        "TaskSupervisor",
+        "ResourceStore"
+      ],
+      "dependencies": [
+        "S0.14 llama.cpp/MNN 来源与 ABI",
+        "S3.02 provider 接口",
+        "S4.02 引擎宿主"
+      ],
+      "persistence": "local: 模型文件与下载状态按设备；对话内容归聊天库",
+      "executionIdentity": "APP 进程内 JNI；模型文件只读挂载",
+      "owner": "main-channel: 本地模型负责人（S4.21–S4.22）",
+      "acceptance": "固定模型真实生成、取消释放、错误来源可查；模型 hash/ABI/内存预算",
+      "risks": [
+        "llama.cpp 构建期从网络克隆固定提交，需改为离线来源",
+        "MNN 与 llama 双引擎需按 S4.21 明确默认与预算"
+      ],
+      "brandPages": [],
+      "domains": [
+        "llm",
+        "memory"
+      ]
+    },
+    {
+      "id": "shower",
+      "section": "3.2",
+      "capability": "虚拟屏/设备Agent",
+      "sourcePath": "showerclient/",
+      "method": "direct-port",
+      "primaryUnit": "S6.41",
+      "deliveryUnit": "S6.41",
+      "secondaryUnits": [
+        "S6.42"
+      ],
+      "source": {
+        "commit": "7a39941bad80209973c535046a18195c5da9e647",
+        "terminalCommit": "e4646680663789002b43bbfffa6e69e65c35e614",
+        "module": "showerclient"
+      },
+      "evidence": [
+        {
+          "file": "showerclient/src/main/java/com/ai/assistance/showerclient/ShowerController.kt",
+          "line": 22,
+          "symbol": "class ShowerController",
+          "text": "class ShowerController {",
+          "sha256": "02d0ced0015dbb7d3d116ba9090217c31e3f969e79e87c3696d7143f451a2fc4"
+        }
+      ],
+      "callChain": [
+        "caller: app/src/main/java/com/ai/assistance/operit/core/tools/agent/PhoneAgent.kt:196 PhoneAgent",
+        "server: showerclient/src/main/java/com/ai/assistance/showerclient/ShowerServerManager.kt:32 ShowerServerManager",
+        "client: app/src/main/java/com/ai/assistance/operit/core/tools/agent/PhoneAgent.kt:217 PhoneAgent 虚拟屏",
+        "binder: showerclient/src/main/java/com/ai/assistance/showerclient/ShowerController.kt:34 getBinder",
+        "executor: showerclient/src/main/java/com/ai/assistance/showerclient/ShowerController.kt:279 ensureDisplay"
+      ],
+      "callChainSteps": [
+        {
+          "stage": "caller",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/agent/PhoneAgent.kt",
+          "line": 196,
+          "symbol": "PhoneAgent",
+          "text": "ShowerServerManager.ensureServerStarted(context)",
+          "sha256": "d42ba5dce1f312fc54dce7368b7a18c5ff7064bc3c8e0e0d77de6748c93ea11a"
+        },
+        {
+          "stage": "server",
+          "file": "showerclient/src/main/java/com/ai/assistance/showerclient/ShowerServerManager.kt",
+          "line": 32,
+          "symbol": "ShowerServerManager",
+          "text": "suspend fun ensureServerStarted(context: Context): Boolean {",
+          "sha256": "af24a6f2dfc41baf5c1a8514b84697674cecd269ddfcfb734af129359ed64f9b"
+        },
+        {
+          "stage": "client",
+          "file": "app/src/main/java/com/ai/assistance/operit/core/tools/agent/PhoneAgent.kt",
+          "line": 217,
+          "symbol": "PhoneAgent 虚拟屏",
+          "text": "ShowerController.ensureDisplay(agentId, context, width, height, dpi, bitrateKbps = bitrateKbps)",
+          "sha256": "d42ba5dce1f312fc54dce7368b7a18c5ff7064bc3c8e0e0d77de6748c93ea11a"
+        },
+        {
+          "stage": "binder",
+          "file": "showerclient/src/main/java/com/ai/assistance/showerclient/ShowerController.kt",
+          "line": 34,
+          "symbol": "getBinder",
+          "text": "private suspend fun getBinder(context: Context? = null): IShowerService? = withContext(Dispatchers.IO) {",
+          "sha256": "02d0ced0015dbb7d3d116ba9090217c31e3f969e79e87c3696d7143f451a2fc4"
+        },
+        {
+          "stage": "executor",
+          "file": "showerclient/src/main/java/com/ai/assistance/showerclient/ShowerController.kt",
+          "line": 279,
+          "symbol": "ensureDisplay",
+          "text": "val id = service.ensureDisplay(targetWidth, targetHeight, dpi, bitrate)",
+          "sha256": "02d0ced0015dbb7d3d116ba9090217c31e3f969e79e87c3696d7143f451a2fc4"
+        }
+      ],
+      "value": "以 shell 身份创建虚拟显示，支撑设备 Agent 截图与触控",
+      "adapters": [
+        "AppGraph",
+        "TaskSupervisor",
+        "CapabilityBroker"
+      ],
+      "dependencies": [
+        "S0.14 shower 后端与 Binder",
+        "S6.23 ShellUserService 增强",
+        "S6.22 系统工具"
+      ],
+      "persistence": "local: 虚拟显示与后端进程不持久；设备动作审计进 runtime.db",
+      "executionIdentity": "SHIZUKU shell 启动后端服务，Binder 校验后创建虚拟显示",
+      "owner": "main-channel: 系统增强负责人（S6.41–S6.42）",
+      "acceptance": "shell 实际身份启动后端；截图/滑动/按键生效；后端死亡显式结束与重建",
+      "risks": [
+        "后端 APK/JAR 分发与 Binder 校验需在 S0.14 登记资源与许可",
+        "虚拟显示依赖 shell 身份，撤权后必须显式结束"
+      ],
+      "brandPages": [
+        "permission-guide"
+      ],
+      "domains": [
+        "mobile-compat",
+        "integration"
+      ]
+    },
+    {
+      "id": "integrations",
+      "section": "3.2",
+      "capability": "ToolPkg外部集成",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/integrations/",
+      "method": "adapter",
+      "primaryUnit": "S6.36",
+      "deliveryUnit": "S6.36",
+      "secondaryUnits": [
+        "S7.04"
+      ],
+      "source": {
+        "commit": "7a39941bad80209973c535046a18195c5da9e647",
+        "terminalCommit": "e4646680663789002b43bbfffa6e69e65c35e614",
+        "module": "app"
+      },
+      "evidence": [
+        {
+          "file": "app/src/main/java/com/ai/assistance/operit/integrations/intent/ExternalChatReceiver.kt",
+          "line": 14,
+          "symbol": "class ExternalChatReceiver",
+          "text": "class ExternalChatReceiver : BroadcastReceiver() {",
+          "sha256": "8780ab14a575f07c6f241e2868e8b022f6566dbec445f74fba1b4c7bdce3dc95"
+        }
+      ],
+      "callChain": [
+        "caller: app/src/main/java/com/ai/assistance/operit/integrations/intent/ExternalChatReceiver.kt:45 ExternalChatReceiver.onReceive",
+        "executor: app/src/main/java/com/ai/assistance/operit/integrations/intent/ExternalChatReceiver.kt:54 外部请求执行",
+        "http: app/src/main/java/com/ai/assistance/operit/integrations/http/ExternalChatHttpServer.kt:43 ExternalChatHttpServer",
+        "tasker: app/src/main/java/com/ai/assistance/operit/data/repository/WorkflowRepository.kt:840 Tasker 事件",
+        "a2a: app/src/main/java/com/ai/assistance/operit/integrations/a2a/A2aTaskManager.kt:64 A2aTaskManager"
+      ],
+      "callChainSteps": [
+        {
+          "stage": "caller",
+          "file": "app/src/main/java/com/ai/assistance/operit/integrations/intent/ExternalChatReceiver.kt",
+          "line": 45,
+          "symbol": "ExternalChatReceiver.onReceive",
+          "text": "override fun onReceive(context: Context, intent: Intent) {",
+          "sha256": "8780ab14a575f07c6f241e2868e8b022f6566dbec445f74fba1b4c7bdce3dc95"
+        },
+        {
+          "stage": "executor",
+          "file": "app/src/main/java/com/ai/assistance/operit/integrations/intent/ExternalChatReceiver.kt",
+          "line": 54,
+          "symbol": "外部请求执行",
+          "text": "val result = ExternalChatRequestExecutor(context.applicationContext).execute(",
+          "sha256": "8780ab14a575f07c6f241e2868e8b022f6566dbec445f74fba1b4c7bdce3dc95"
+        },
+        {
+          "stage": "http",
+          "file": "app/src/main/java/com/ai/assistance/operit/integrations/http/ExternalChatHttpServer.kt",
+          "line": 43,
+          "symbol": "ExternalChatHttpServer",
+          "text": "class ExternalChatHttpServer(",
+          "sha256": "5e9c10541ebdd4e43cbdb2801eeb2a5b5d978c91c99cd8a18aca4cc002561fa3"
+        },
+        {
+          "stage": "tasker",
+          "file": "app/src/main/java/com/ai/assistance/operit/data/repository/WorkflowRepository.kt",
+          "line": 840,
+          "symbol": "Tasker 事件",
+          "text": "suspend fun triggerWorkflowsByTaskerEvent(params: List<String>?) = withContext(Dispatchers.IO) {",
+          "sha256": "ca149cb937d19088326bdd356df39e7a6242cf75e45ac1d6e21dbcaaf534f807"
+        },
+        {
+          "stage": "a2a",
+          "file": "app/src/main/java/com/ai/assistance/operit/integrations/a2a/A2aTaskManager.kt",
+          "line": 64,
+          "symbol": "A2aTaskManager",
+          "text": "class A2aTaskManager(",
+          "sha256": "3de8bf7aec1298e5ec59ab5f84198939319d74b342d0d94fae6558626ec1a05a"
+        }
+      ],
+      "value": "把外部触发（HTTP/A2A/Tasker/分享）接入统一任务与审批",
+      "adapters": [
+        "AppGraph",
+        "TaskSupervisor",
+        "CapabilityBroker"
+      ],
+      "dependencies": [
+        "S6.35 包安装",
+        "S2.22 调度",
+        "S3.17 ToolDispatcher"
+      ],
+      "persistence": "local: HTTP/A2A/Tasker 接入开关与令牌本机；触发结果进任务账本",
+      "executionIdentity": "APP 广播/HTTP 服务；触发任务按声明 target 执行",
+      "owner": "main-channel: 外部集成负责人（S6.36）",
+      "acceptance": "外部 HTTP/A2A/Tasker 触发进同一任务账本；未授权入口拒绝；触发幂等",
+      "risks": [
+        "外部 HTTP 服务默认关闭，需与常驻职责和端口校验合并",
+        "A2A/Tasker 入口需统一审批与幂等"
+      ],
+      "brandPages": [
+        "mcp-config"
+      ],
+      "domains": [
+        "integration",
+        "ilink"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "id": "avatar",
+      "capability": "虚拟形象：DragonBones/FBX/MMD/GLTF/MP4/WebP 渲染与控制器",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/core/avatar/",
+      "modulePath": "avator/dragonbones",
+      "decision": "不采用",
+      "reason": "产品无角色形象与 3D 展示需求；依赖多个原生引擎与素材许可，包体与运行成本无对应价值",
+      "scope": "product-scope"
+    },
+    {
+      "id": "annual-report",
+      "capability": "年度报告与统计图",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/data/annualreport/",
+      "modulePath": "annual-report",
+      "decision": "不采用",
+      "reason": "Operit 自有运营内容；dstu 学习洞察与周报由 S7.33 基于桌面指标实现",
+      "scope": "product-scope"
+    },
+    {
+      "id": "web-chat",
+      "capability": "React 网页聊天前端",
+      "sourcePath": "web-chat/",
+      "modulePath": null,
+      "decision": "不采用",
+      "reason": "构建排除清单已排除旧 React 页面；Android 为原生 Compose，桌面继续使用 dstu-node",
+      "scope": "product-scope"
+    },
+    {
+      "id": "subpack",
+      "capability": "APK/EXE 反编译与图标替换",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/core/subpack/",
+      "modulePath": null,
+      "decision": "不采用",
+      "reason": "属 Operit 打包工具链，不在 dstu 产品范围，且涉及二次分发风险",
+      "scope": "product-scope"
+    },
+    {
+      "id": "updates",
+      "capability": "自更新下载与补丁安装",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/data/updates/",
+      "modulePath": null,
+      "decision": "不采用",
+      "reason": "更新与签名由 S0.15 与 S9 发布合同统一管理，不复用 Operit 更新通道",
+      "scope": "product-scope"
+    },
+    {
+      "id": "notification-listener",
+      "capability": "系统通知读取服务",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/services/notification/",
+      "modulePath": null,
+      "decision": "不采用",
+      "reason": "通知监听属高敏感权限；dstu 仅展示后台/电池设置，不读取第三方通知",
+      "scope": "product-scope"
+    },
+    {
+      "id": "desktop-widget",
+      "capability": "ToolPkg 桌面小组件宿主",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/widget/",
+      "modulePath": null,
+      "decision": "不采用",
+      "reason": "dstu 首页由 S7.34 原生 Compose 承载，不引入 AppWidget 双宿主",
+      "scope": "product-scope"
+    },
+    {
+      "id": "voice-widget",
+      "capability": "语音助手系统小组件",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/widget/VoiceAssistantGlanceWidget.kt",
+      "modulePath": null,
+      "decision": "不采用",
+      "reason": "语音交互在应用内 S4.19/S4.20 交付，不建系统小组件",
+      "scope": "product-scope"
+    },
+    {
+      "id": "demo",
+      "capability": "演示与诊断面板",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/ui/features/demo/",
+      "modulePath": null,
+      "decision": "不采用",
+      "reason": "Operit 内部演示面；dstu 诊断由 S2.28 统一实现",
+      "scope": "product-scope"
+    },
+    {
+      "id": "announcement",
+      "capability": "远程公告",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/data/announcement/",
+      "modulePath": null,
+      "decision": "不采用",
+      "reason": "Operit 运营公告通道；dstu 不接入外部公告源",
+      "scope": "product-scope"
+    },
+    {
+      "id": "codex-auth",
+      "capability": "Codex OAuth 与用量客户端",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/data/api/CodexAuthManager.kt",
+      "modulePath": null,
+      "decision": "不采用",
+      "reason": "provider 认证由 S3.02–S3.08 按桌面基线实现，不复用 Operit 账号体系",
+      "scope": "product-scope"
+    },
+    {
+      "id": "character-card",
+      "capability": "角色卡与角色组",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/data/preferences/CharacterCardManager.kt",
+      "modulePath": null,
+      "decision": "不采用",
+      "reason": "角色卡是 Operit 对话人格模型；dstu 使用 Agent 技能与系统提示，数据模型不同",
+      "scope": "product-scope"
+    },
+    {
+      "id": "backup-room",
+      "capability": "Room 数据库备份/恢复",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/data/backup/",
+      "modulePath": null,
+      "decision": "不采用",
+      "reason": "dstu 备份恢复由 S2.09–S2.15 的 DataSpace/DSBK 合同统一，避免双备份体系",
+      "scope": "product-scope"
+    },
+    {
+      "id": "token-stats",
+      "capability": "Token 用量与计费统计",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/data/stats/",
+      "modulePath": null,
+      "decision": "不采用",
+      "reason": "用量与预算由 S3.11 依桌面 llm_usage 库实现，避免两套计费口径",
+      "scope": "product-scope"
+    },
+    {
+      "id": "theme",
+      "capability": "Operit 主题与液态玻璃",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/ui/theme/",
+      "modulePath": null,
+      "decision": "不采用",
+      "reason": "视觉统一由 DstuTheme（S5.01）与 S0.11/S0.12 快照决定，Operit 调色不进入产品",
+      "scope": "product-scope"
+    },
+    {
+      "id": "permission-ui",
+      "capability": "Operit 工具权限弹窗与权限引导",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/ui/permissions/",
+      "modulePath": null,
+      "decision": "不采用",
+      "reason": "审批入口由 S2.23 CapabilityBroker 与 S5 组件实现；交互语义参考，代码不移植",
+      "scope": "product-scope"
+    },
+    {
+      "id": "plugin-hooks",
+      "capability": "Operit 插件注册与聊天钩子体系",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/plugins/",
+      "modulePath": null,
+      "decision": "不采用",
+      "reason": "dstu 使用 UI contribution + ToolPkg 模型（S6.34/S6.44），与 Operit 钩子体系不兼容",
+      "scope": "product-scope"
+    },
+    {
+      "id": "chat-service",
+      "capability": "Operit 聊天服务内核与消息委托",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/services/ChatServiceCore.kt",
+      "modulePath": null,
+      "decision": "不采用",
+      "reason": "聊天与流管线由 S3.01–S3.11 按桌面基线实现；仅 provider 协议细节作参考",
+      "scope": "product-scope"
+    },
+    {
+      "id": "room-model",
+      "capability": "Room 实体与 DAO",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/data/model/",
+      "modulePath": null,
+      "decision": "不采用",
+      "reason": "dstu 数据层为原生 SQLite + S0.08 迁移基线，Room 实体不可复用",
+      "scope": "product-scope"
+    },
+    {
+      "id": "preferences",
+      "capability": "Operit SharedPreferences 偏好中心",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/data/preferences/",
+      "modulePath": null,
+      "decision": "不采用",
+      "reason": "设置项分类与持久位置由 S0.06/S0.23 与 S7.35 定义，避免平行设置源",
+      "scope": "product-scope"
+    },
+    {
+      "id": "ripgrep",
+      "capability": "原生 ripgrep 检索",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/util/ripgrep/",
+      "modulePath": null,
+      "decision": "不采用",
+      "reason": "dstu 检索走 S4.24 FTS 与 S4.25 ANN，不引入额外原生二进制",
+      "scope": "product-scope"
+    },
+    {
+      "id": "vector-index",
+      "capability": "Operit 向量索引",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/util/vector/",
+      "modulePath": null,
+      "decision": "不采用",
+      "reason": "ANN 由 S4.25 按桌面 profile 实现，索引格式不同",
+      "scope": "product-scope"
+    },
+    {
+      "id": "assistant-service",
+      "capability": "系统语音助手 Activity/Service",
+      "sourcePath": "app/src/main/java/com/ai/assistance/operit/services/assistant/",
+      "modulePath": null,
+      "decision": "不采用",
+      "reason": "系统级语音助手接入不在产品范围；应用内语音由 S4.19 交付",
+      "scope": "product-scope"
+    }
+  ],
+  "modules": [
+    {
+      "id": "api/chat",
+      "kotlin": 4,
+      "files": 4,
+      "sample": "app/src/main/java/com/ai/assistance/operit/api/chat/AIForegroundService.kt",
+      "rule": "api/chat",
+      "decision": "partial",
+      "owners": [
+        "foreground-service"
+      ],
+      "reason": "AIForegroundService 是前台职责采用单元证据；其余聊天运行时由 S3 重写"
+    },
+    {
+      "id": "api/chat/enhance",
+      "kotlin": 10,
+      "files": 10,
+      "sample": "app/src/main/java/com/ai/assistance/operit/api/chat/enhance/ConversationMarkupManager.kt",
+      "rule": "api/chat/enhance",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "消息增强管线由 S3.10 块增量与 S3.12 上下文编译承载"
+    },
+    {
+      "id": "api/chat/library",
+      "kotlin": 5,
+      "files": 5,
+      "sample": "app/src/main/java/com/ai/assistance/operit/api/chat/library/ChatMemoryRebuildManager.kt",
+      "rule": "api/chat/library",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "聊天库由 S3.01 仓储与 S3.15 变体状态机承载"
+    },
+    {
+      "id": "api/chat/llmprovider",
+      "kotlin": 43,
+      "files": 43,
+      "sample": "app/src/main/java/com/ai/assistance/operit/api/chat/llmprovider/AIService.kt",
+      "rule": "api/chat/llmprovider",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "provider 协议实现由 S3.04–S3.08 依桌面基线重写，仅作对拍参考"
+    },
+    {
+      "id": "api/speech",
+      "kotlin": 11,
+      "files": 11,
+      "sample": "app/src/main/java/com/ai/assistance/operit/api/speech/DeepgramSttProvider.kt",
+      "rule": "api/speech",
+      "decision": "adopted",
+      "owners": [
+        "voice"
+      ],
+      "reason": "SpeechServiceFactory 及 STT/VAD provider 是 voice 采用单元证据"
+    },
+    {
+      "id": "api/voice",
+      "kotlin": 15,
+      "files": 15,
+      "sample": "app/src/main/java/com/ai/assistance/operit/api/voice/AccessibilityVoiceProvider.kt",
+      "rule": "api/voice",
+      "decision": "adopted",
+      "owners": [
+        "voice"
+      ],
+      "reason": "TTS provider 工厂与队列是 voice 采用单元证据"
+    },
+    {
+      "id": "core/application",
+      "kotlin": 3,
+      "files": 3,
+      "sample": "app/src/main/java/com/ai/assistance/operit/core/application/ActivityLifecycleManager.kt",
+      "rule": "core/application",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "应用初始化由 S1.02 进程感知 AppGraph 承载"
+    },
+    {
+      "id": "core/avatar",
+      "kotlin": 35,
+      "files": 35,
+      "sample": "app/src/main/java/com/ai/assistance/operit/core/avatar/common/control/AvatarController.kt",
+      "rule": "core/avatar",
+      "decision": "rejected",
+      "owners": [
+        "avatar"
+      ],
+      "reason": "产品无虚拟形象需求"
+    },
+    {
+      "id": "core/chat",
+      "kotlin": 7,
+      "files": 7,
+      "sample": "app/src/main/java/com/ai/assistance/operit/core/chat/AIMessageManager.kt",
+      "rule": "core/chat",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "消息与 prompt 运行钩子由 S3.01/S3.12 重写"
+    },
+    {
+      "id": "core/config",
+      "kotlin": 4,
+      "files": 4,
+      "sample": "app/src/main/java/com/ai/assistance/operit/core/config/FunctionalPrompts.kt",
+      "rule": "core/config",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "系统提示与功能提示由 S3.12 上下文编译承载"
+    },
+    {
+      "id": "core/performance",
+      "kotlin": 1,
+      "files": 1,
+      "sample": "app/src/main/java/com/ai/assistance/operit/core/performance/PerformanceMonitorManager.kt",
+      "rule": "core/performance",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "性能观测由 S1.27 与 S9 测量方案统一"
+    },
+    {
+      "id": "core/subpack",
+      "kotlin": 5,
+      "files": 5,
+      "sample": "app/src/main/java/com/ai/assistance/operit/core/subpack/ApkEditor.kt",
+      "rule": "core/subpack",
+      "decision": "rejected",
+      "owners": [
+        "subpack"
+      ],
+      "reason": "APK/EXE 工具链不在产品范围"
+    },
+    {
+      "id": "core/tools",
+      "kotlin": 7,
+      "files": 7,
+      "sample": "app/src/main/java/com/ai/assistance/operit/core/tools/AIToolHandler.kt",
+      "rule": "core/tools",
+      "decision": "adopted",
+      "owners": [
+        "terminal-kernel",
+        "root-standard-exec",
+        "browser",
+        "mcp"
+      ],
+      "reason": "ToolRegistration/AIToolHandler 是工具注册与执行的公共接缝"
+    },
+    {
+      "id": "core/tools/agent",
+      "kotlin": 8,
+      "files": 8,
+      "sample": "app/src/main/java/com/ai/assistance/operit/core/tools/agent/PhoneAgent.kt",
+      "rule": "core/tools/agent",
+      "decision": "adopted",
+      "owners": [
+        "shower"
+      ],
+      "reason": "PhoneAgent 是 Shower 采用单元的设备侧证据"
+    },
+    {
+      "id": "core/tools/calculator",
+      "kotlin": 6,
+      "files": 6,
+      "sample": "app/src/main/java/com/ai/assistance/operit/core/tools/calculator/Calculator.kt",
+      "rule": "core/tools/calculator",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "工具目录由 S3.16 依桌面注册表建立"
+    },
+    {
+      "id": "core/tools/climode",
+      "kotlin": 1,
+      "files": 1,
+      "sample": "app/src/main/java/com/ai/assistance/operit/core/tools/climode/CliToolModeSupport.kt",
+      "rule": "core/tools/climode",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "CLI 模式并入 S6 终端与 S3.26 工具"
+    },
+    {
+      "id": "core/tools/condition",
+      "kotlin": 1,
+      "files": 1,
+      "sample": "app/src/main/java/com/ai/assistance/operit/core/tools/condition/ConditionEvaluator.kt",
+      "rule": "core/tools/condition",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "条件执行由 S3.18 工具循环承载"
+    },
+    {
+      "id": "core/tools/defaultTool",
+      "kotlin": 67,
+      "files": 67,
+      "sample": "app/src/main/java/com/ai/assistance/operit/core/tools/defaultTool/PathValidator.kt",
+      "rule": "core/tools/defaultTool",
+      "decision": "adopted",
+      "owners": [
+        "terminal-kernel",
+        "root-standard-exec",
+        "browser"
+      ],
+      "reason": "终端/Shell/浏览器工具执行器是三个采用单元证据"
+    },
+    {
+      "id": "core/tools/javascript",
+      "kotlin": 22,
+      "files": 22,
+      "sample": "app/src/main/java/com/ai/assistance/operit/core/tools/javascript/JsAssetLoader.kt",
+      "rule": "core/tools/javascript",
+      "decision": "adopted",
+      "owners": [
+        "quickjs"
+      ],
+      "reason": "JsEngine 是 QuickJS 采用单元的宿主侧证据"
+    },
+    {
+      "id": "core/tools/mcp",
+      "kotlin": 7,
+      "files": 7,
+      "sample": "app/src/main/java/com/ai/assistance/operit/core/tools/mcp/MCPJson.kt",
+      "rule": "core/tools/mcp",
+      "decision": "adopted",
+      "owners": [
+        "mcp"
+      ],
+      "reason": "McpRuntimeSession 与 MCPToolExecutor 是 mcp 采用单元证据"
+    },
+    {
+      "id": "core/tools/packTool",
+      "kotlin": 21,
+      "files": 21,
+      "sample": "app/src/main/java/com/ai/assistance/operit/core/tools/packTool/PackageDebugRefreshReceiver.kt",
+      "rule": "core/tools/packTool",
+      "decision": "adopted",
+      "owners": [
+        "toolpkg",
+        "compose-dsl"
+      ],
+      "reason": "Parser/Loader/DSL parser 是 toolpkg 与 compose-dsl 证据"
+    },
+    {
+      "id": "core/tools/skill",
+      "kotlin": 2,
+      "files": 2,
+      "sample": "app/src/main/java/com/ai/assistance/operit/core/tools/skill/SkillManager.kt",
+      "rule": "core/tools/skill",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "技能加载由 S3.20 依桌面 manifest 实现"
+    },
+    {
+      "id": "core/tools/system",
+      "kotlin": 28,
+      "files": 28,
+      "sample": "app/src/main/java/com/ai/assistance/operit/core/tools/system/AccessibilityProviderInstaller.kt",
+      "rule": "core/tools/system",
+      "decision": "adopted",
+      "owners": [
+        "shizuku",
+        "root-standard-exec",
+        "terminal-kernel"
+      ],
+      "reason": "ShizukuAuthorizer/ShellExecutor/Terminal 是三个采用单元证据"
+    },
+    {
+      "id": "core/workflow",
+      "kotlin": 4,
+      "files": 4,
+      "sample": "app/src/main/java/com/ai/assistance/operit/core/workflow/WorkflowExecutor.kt",
+      "rule": "core/workflow",
+      "decision": "adopted",
+      "owners": [
+        "workflow"
+      ],
+      "reason": "工作流执行器与调度是 workflow 采用单元证据"
+    },
+    {
+      "id": "data/announcement",
+      "kotlin": 1,
+      "files": 1,
+      "sample": "app/src/main/java/com/ai/assistance/operit/data/announcement/RemoteAnnouncementRepository.kt",
+      "rule": "data/announcement",
+      "decision": "rejected",
+      "owners": [
+        "announcement"
+      ],
+      "reason": "不接入外部公告源"
+    },
+    {
+      "id": "data/annualreport",
+      "kotlin": 3,
+      "files": 3,
+      "sample": "app/src/main/java/com/ai/assistance/operit/data/annualreport/AnnualReportCollector.kt",
+      "rule": "data/annualreport",
+      "decision": "rejected",
+      "owners": [
+        "annual-report"
+      ],
+      "reason": "运营内容不在产品范围"
+    },
+    {
+      "id": "data/api",
+      "kotlin": 6,
+      "files": 6,
+      "sample": "app/src/main/java/com/ai/assistance/operit/data/api/CodexAuthManager.kt",
+      "rule": "data/api",
+      "decision": "rejected",
+      "owners": [
+        "codex-auth"
+      ],
+      "reason": "provider 认证由 S3.02–S3.08 实现"
+    },
+    {
+      "id": "data/backup",
+      "kotlin": 7,
+      "files": 7,
+      "sample": "app/src/main/java/com/ai/assistance/operit/data/backup/OperitBackupDirs.kt",
+      "rule": "data/backup",
+      "decision": "rejected",
+      "owners": [
+        "backup-room"
+      ],
+      "reason": "备份恢复由 S2.09–S2.15 统一"
+    },
+    {
+      "id": "data/collects",
+      "kotlin": 4,
+      "files": 4,
+      "sample": "app/src/main/java/com/ai/assistance/operit/data/collects/ApiProviderConfigCollect.kt",
+      "rule": "data/collects",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "模型定价/能力采集由 S3.11/S3.14 依桌面目录实现"
+    },
+    {
+      "id": "data/converter",
+      "kotlin": 8,
+      "files": 8,
+      "sample": "app/src/main/java/com/ai/assistance/operit/data/converter/ChatBoxConverter.kt",
+      "rule": "data/converter",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "聊天导入导出由 S7.05 格式单元实现"
+    },
+    {
+      "id": "data/dao",
+      "kotlin": 6,
+      "files": 6,
+      "sample": "app/src/main/java/com/ai/assistance/operit/data/dao/ChatContentDao.kt",
+      "rule": "data/dao",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "Room DAO 由 S2.01 原生 SQLite 仓储替代"
+    },
+    {
+      "id": "data/db",
+      "kotlin": 2,
+      "files": 2,
+      "sample": "app/src/main/java/com/ai/assistance/operit/data/db/AppDatabase.kt",
+      "rule": "data/db",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "Room/ObjectBox 由 S2.01 DatabaseRegistry 替代"
+    },
+    {
+      "id": "data/exporter",
+      "kotlin": 3,
+      "files": 3,
+      "sample": "app/src/main/java/com/ai/assistance/operit/data/exporter/HtmlExporter.kt",
+      "rule": "data/exporter",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "导出由 S7.05 实现"
+    },
+    {
+      "id": "data/mcp",
+      "kotlin": 4,
+      "files": 4,
+      "sample": "app/src/main/java/com/ai/assistance/operit/data/mcp/MCPLocalServer.kt",
+      "rule": "data/mcp",
+      "decision": "adopted",
+      "owners": [
+        "mcp"
+      ],
+      "reason": "MCP 配置仓库与本地服务器是 mcp 采用单元证据"
+    },
+    {
+      "id": "data/mcp/plugins",
+      "kotlin": 11,
+      "files": 11,
+      "sample": "app/src/main/java/com/ai/assistance/operit/data/mcp/plugins/BridgeMcpRuntimeSession.kt",
+      "rule": "data/mcp",
+      "decision": "adopted",
+      "owners": [
+        "mcp"
+      ],
+      "reason": "MCP 配置仓库与本地服务器是 mcp 采用单元证据"
+    },
+    {
+      "id": "data/mnn",
+      "kotlin": 1,
+      "files": 1,
+      "sample": "app/src/main/java/com/ai/assistance/operit/data/mnn/MnnModelDownloadManager.kt",
+      "rule": "data/mnn",
+      "decision": "adopted",
+      "owners": [
+        "local-inference"
+      ],
+      "reason": "模型下载管理是本地推理采用单元证据"
+    },
+    {
+      "id": "data/model",
+      "kotlin": 53,
+      "files": 53,
+      "sample": "app/src/main/java/com/ai/assistance/operit/data/model/AITool.kt",
+      "rule": "data/model",
+      "decision": "rejected",
+      "owners": [
+        "room-model"
+      ],
+      "reason": "Room 实体不可复用，领域模型由 S3.01 建立"
+    },
+    {
+      "id": "data/preferences",
+      "kotlin": 37,
+      "files": 37,
+      "sample": "app/src/main/java/com/ai/assistance/operit/data/preferences/ActivePromptManager.kt",
+      "rule": "data/preferences",
+      "decision": "rejected",
+      "owners": [
+        "preferences"
+      ],
+      "reason": "设置源由 S0.06/S0.23 定义"
+    },
+    {
+      "id": "data/recovery",
+      "kotlin": 2,
+      "files": 2,
+      "sample": "app/src/main/java/com/ai/assistance/operit/data/recovery/PreferencesHealthManager.kt",
+      "rule": "data/recovery",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "健康检查与恢复由 S2.03/S2.19 承载"
+    },
+    {
+      "id": "data/repository",
+      "kotlin": 8,
+      "files": 8,
+      "sample": "app/src/main/java/com/ai/assistance/operit/data/repository/AvatarConfigPersistence.kt",
+      "rule": "data/repository",
+      "decision": "partial",
+      "owners": [
+        "workflow"
+      ],
+      "reason": "WorkflowRepository 被采用；Avatar/ChatHistory/Memory 仓库不采用"
+    },
+    {
+      "id": "data/security",
+      "kotlin": 1,
+      "files": 1,
+      "sample": "app/src/main/java/com/ai/assistance/operit/data/security/PluginDenylistRepository.kt",
+      "rule": "data/security",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "插件信任与拒绝名单由 S6.35 与 S0.24 承载"
+    },
+    {
+      "id": "data/skill",
+      "kotlin": 1,
+      "files": 1,
+      "sample": "app/src/main/java/com/ai/assistance/operit/data/skill/SkillRepository.kt",
+      "rule": "data/skill",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "技能仓库由 S3.20 实现"
+    },
+    {
+      "id": "data/stats",
+      "kotlin": 15,
+      "files": 15,
+      "sample": "app/src/main/java/com/ai/assistance/operit/data/stats/ProviderUsageSnapshot.kt",
+      "rule": "data/stats",
+      "decision": "rejected",
+      "owners": [
+        "token-stats"
+      ],
+      "reason": "用量口径由 S3.11 统一"
+    },
+    {
+      "id": "data/updates",
+      "kotlin": 5,
+      "files": 5,
+      "sample": "app/src/main/java/com/ai/assistance/operit/data/updates/FullUpdateInstaller.kt",
+      "rule": "data/updates",
+      "decision": "rejected",
+      "owners": [
+        "updates"
+      ],
+      "reason": "更新由发布合同统一"
+    },
+    {
+      "id": "integrations/a2a",
+      "kotlin": 3,
+      "files": 3,
+      "sample": "app/src/main/java/com/ai/assistance/operit/integrations/a2a/A2aHttpHandler.kt",
+      "rule": "integrations/a2a",
+      "decision": "adopted",
+      "owners": [
+        "integrations"
+      ],
+      "reason": "A2A 任务入口是外部集成采用单元证据"
+    },
+    {
+      "id": "integrations/externalchat",
+      "kotlin": 3,
+      "files": 3,
+      "sample": "app/src/main/java/com/ai/assistance/operit/integrations/externalchat/ExternalChatModels.kt",
+      "rule": "integrations/externalchat",
+      "decision": "adopted",
+      "owners": [
+        "integrations"
+      ],
+      "reason": "外部聊天执行器是外部集成采用单元证据"
+    },
+    {
+      "id": "integrations/http",
+      "kotlin": 12,
+      "files": 12,
+      "sample": "app/src/main/java/com/ai/assistance/operit/integrations/http/ExternalChatHttpAutoStarter.kt",
+      "rule": "integrations/http",
+      "decision": "adopted",
+      "owners": [
+        "integrations"
+      ],
+      "reason": "外部 HTTP 服务与 SSE 写出是外部集成采用单元证据"
+    },
+    {
+      "id": "integrations/intent",
+      "kotlin": 1,
+      "files": 1,
+      "sample": "app/src/main/java/com/ai/assistance/operit/integrations/intent/ExternalChatReceiver.kt",
+      "rule": "integrations/intent",
+      "decision": "adopted",
+      "owners": [
+        "integrations"
+      ],
+      "reason": "外部 Intent 广播接收是外部集成采用单元证据"
+    },
+    {
+      "id": "integrations/tasker",
+      "kotlin": 3,
+      "files": 3,
+      "sample": "app/src/main/java/com/ai/assistance/operit/integrations/tasker/AIAgentTasker.kt",
+      "rule": "integrations/tasker",
+      "decision": "adopted",
+      "owners": [
+        "integrations"
+      ],
+      "reason": "Tasker 触发是外部集成采用单元证据"
+    },
+    {
+      "id": "plugins",
+      "kotlin": 1,
+      "files": 1,
+      "sample": "app/src/main/java/com/ai/assistance/operit/plugins/PluginRegistry.kt",
+      "rule": "plugins",
+      "decision": "rejected",
+      "owners": [
+        "plugin-hooks"
+      ],
+      "reason": "Operit 插件钩子体系与 dstu UI contribution 模型不兼容"
+    },
+    {
+      "id": "plugins/chatmessage",
+      "kotlin": 1,
+      "files": 1,
+      "sample": "app/src/main/java/com/ai/assistance/operit/plugins/chatmessage/ChatMessageMenuItemRegistry.kt",
+      "rule": "plugins",
+      "decision": "rejected",
+      "owners": [
+        "plugin-hooks"
+      ],
+      "reason": "Operit 插件钩子体系与 dstu UI contribution 模型不兼容"
+    },
+    {
+      "id": "plugins/chatview",
+      "kotlin": 1,
+      "files": 1,
+      "sample": "app/src/main/java/com/ai/assistance/operit/plugins/chatview/ChatViewHookPluginRegistry.kt",
+      "rule": "plugins",
+      "decision": "rejected",
+      "owners": [
+        "plugin-hooks"
+      ],
+      "reason": "Operit 插件钩子体系与 dstu UI contribution 模型不兼容"
+    },
+    {
+      "id": "plugins/lifecycle",
+      "kotlin": 1,
+      "files": 1,
+      "sample": "app/src/main/java/com/ai/assistance/operit/plugins/lifecycle/AppLifecycleHookPluginRegistry.kt",
+      "rule": "plugins",
+      "decision": "rejected",
+      "owners": [
+        "plugin-hooks"
+      ],
+      "reason": "Operit 插件钩子体系与 dstu UI contribution 模型不兼容"
+    },
+    {
+      "id": "plugins/toolbox",
+      "kotlin": 1,
+      "files": 1,
+      "sample": "app/src/main/java/com/ai/assistance/operit/plugins/toolbox/ToolboxPlugin.kt",
+      "rule": "plugins",
+      "decision": "rejected",
+      "owners": [
+        "plugin-hooks"
+      ],
+      "reason": "Operit 插件钩子体系与 dstu UI contribution 模型不兼容"
+    },
+    {
+      "id": "plugins/toolpkg",
+      "kotlin": 13,
+      "files": 13,
+      "sample": "app/src/main/java/com/ai/assistance/operit/plugins/toolpkg/ToolPkgAiProviderRegistry.kt",
+      "rule": "plugins/toolpkg",
+      "decision": "partial",
+      "owners": [
+        "toolpkg",
+        "compose-dsl"
+      ],
+      "reason": "ToolPkg 宿主桥接采用；聊天钩子桥不采用"
+    },
+    {
+      "id": "plugins/workflow",
+      "kotlin": 1,
+      "files": 1,
+      "sample": "app/src/main/java/com/ai/assistance/operit/plugins/workflow/WorkflowLifecyclePlugin.kt",
+      "rule": "plugins",
+      "decision": "rejected",
+      "owners": [
+        "plugin-hooks"
+      ],
+      "reason": "Operit 插件钩子体系与 dstu UI contribution 模型不兼容"
+    },
+    {
+      "id": "provider",
+      "kotlin": 3,
+      "files": 3,
+      "sample": "app/src/main/java/com/ai/assistance/operit/provider/MemoryDocumentsProvider.kt",
+      "rule": "provider",
+      "decision": "adopted",
+      "owners": [
+        "file-provider"
+      ],
+      "reason": "DocumentsProvider 三实现是文件 Provider 采用单元证据"
+    },
+    {
+      "id": "services",
+      "kotlin": 7,
+      "files": 7,
+      "sample": "app/src/main/java/com/ai/assistance/operit/services/ChatServiceCore.kt",
+      "rule": "services",
+      "decision": "partial",
+      "owners": [
+        "floating-window"
+      ],
+      "reason": "仅 FloatingChatService 采用为浮窗证据；聊天服务内核与 UI 桥由 S3 重写，其余子包已单独归类"
+    },
+    {
+      "id": "services/assistant",
+      "kotlin": 3,
+      "files": 3,
+      "sample": "app/src/main/java/com/ai/assistance/operit/services/assistant/OperitAssistActivity.kt",
+      "rule": "services/assistant",
+      "decision": "rejected",
+      "owners": [
+        "assistant-service"
+      ],
+      "reason": "系统级语音助手接入不在产品范围"
+    },
+    {
+      "id": "services/core",
+      "kotlin": 9,
+      "files": 9,
+      "sample": "app/src/main/java/com/ai/assistance/operit/services/core/ApiConfigDelegate.kt",
+      "rule": "services/core",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "聊天委托由 S3 聊天纵切重写"
+    },
+    {
+      "id": "services/floating",
+      "kotlin": 6,
+      "files": 6,
+      "sample": "app/src/main/java/com/ai/assistance/operit/services/floating/FloatingWindowManager.kt",
+      "rule": "services/floating",
+      "decision": "adopted",
+      "owners": [
+        "floating-window"
+      ],
+      "reason": "浮窗管理与会话是悬浮窗采用单元证据"
+    },
+    {
+      "id": "services/notification",
+      "kotlin": 1,
+      "files": 1,
+      "sample": "app/src/main/java/com/ai/assistance/operit/services/notification/OperitNotificationListenerService.kt",
+      "rule": "services/notification",
+      "decision": "rejected",
+      "owners": [
+        "notification-listener"
+      ],
+      "reason": "不读取第三方通知"
+    },
+    {
+      "id": "ui/common",
+      "kotlin": 4,
+      "files": 4,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/common/NavItem.kt",
+      "rule": "ui/common",
+      "decision": "partial",
+      "owners": [
+        "navigation",
+        "stream-markdown"
+      ],
+      "reason": "NavItem 作导航参考、Markdown 显示采用；OperitUtilityTheme 与 WaveVisualizer 不采用"
+    },
+    {
+      "id": "ui/common/animations",
+      "kotlin": 1,
+      "files": 1,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/common/animations/SimpleAnimation.kt",
+      "rule": "ui/common/animations",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "动效由 DstuTheme（S5.01）令牌驱动"
+    },
+    {
+      "id": "ui/common/browser",
+      "kotlin": 1,
+      "files": 1,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/common/browser/BrowserCallbackDialog.kt",
+      "rule": "ui/common/browser",
+      "decision": "adopted",
+      "owners": [
+        "browser"
+      ],
+      "reason": "浏览器通用组件是 browser 采用单元证据"
+    },
+    {
+      "id": "ui/common/composedsl",
+      "kotlin": 7,
+      "files": 7,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/common/composedsl/ComposeDslScrollStateStore.kt",
+      "rule": "ui/common/composedsl",
+      "decision": "adopted",
+      "owners": [
+        "compose-dsl"
+      ],
+      "reason": "Compose DSL 渲染宿主是采用单元证据"
+    },
+    {
+      "id": "ui/common/displays",
+      "kotlin": 10,
+      "files": 10,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/common/displays/FpsCounter.kt",
+      "rule": "ui/common/displays",
+      "decision": "adopted",
+      "owners": [
+        "stream-markdown"
+      ],
+      "reason": "Markdown 显示组合是流式内容采用单元证据"
+    },
+    {
+      "id": "ui/common/icons",
+      "kotlin": 3,
+      "files": 3,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/common/icons/MaterialIconNameResolver.kt",
+      "rule": "ui/common/icons",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "图标由 S0.12 品牌基线与 S5.04 生成"
+    },
+    {
+      "id": "ui/common/input",
+      "kotlin": 1,
+      "files": 1,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/common/input/ImeBringIntoView.kt",
+      "rule": "ui/common/input",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "输入适配由 S5.11 IME 单元实现"
+    },
+    {
+      "id": "ui/common/markdown",
+      "kotlin": 15,
+      "files": 15,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/common/markdown/BareUrlLinkifier.kt",
+      "rule": "ui/common/markdown",
+      "decision": "adopted",
+      "owners": [
+        "stream-markdown"
+      ],
+      "reason": "流式 Markdown 渲染器族是采用单元证据"
+    },
+    {
+      "id": "ui/components",
+      "kotlin": 3,
+      "files": 3,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/components/CustomScaffold.kt",
+      "rule": "ui/components",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "通用组件由 S5.02/S5.03 依桌面设计令牌实现"
+    },
+    {
+      "id": "ui/error",
+      "kotlin": 1,
+      "files": 1,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/error/CrashReportActivity.kt",
+      "rule": "ui/error",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "错误与诊断页由 S2.28 实现"
+    },
+    {
+      "id": "ui/features/about",
+      "kotlin": 2,
+      "files": 2,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/features/about/screens/AboutScreen.kt",
+      "rule": "ui/features/about",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "关于页由 S5.04 品牌资源与设置壳承载"
+    },
+    {
+      "id": "ui/features/agreement",
+      "kotlin": 1,
+      "files": 1,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/features/agreement/screens/AgreementScreen.kt",
+      "rule": "ui/features/agreement",
+      "decision": "rejected",
+      "owners": [
+        "demo"
+      ],
+      "reason": "协议页属 Operit 运营内容"
+    },
+    {
+      "id": "ui/features/announcement",
+      "kotlin": 1,
+      "files": 1,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/features/announcement/RemoteAnnouncementDialog.kt",
+      "rule": "ui/features/announcement",
+      "decision": "rejected",
+      "owners": [
+        "announcement"
+      ],
+      "reason": "公告页不采用"
+    },
+    {
+      "id": "ui/features/annualreport",
+      "kotlin": 6,
+      "files": 6,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/features/annualreport/AnnualReportActivity.kt",
+      "rule": "ui/features/annualreport",
+      "decision": "rejected",
+      "owners": [
+        "annual-report"
+      ],
+      "reason": "年度报告不采用"
+    },
+    {
+      "id": "ui/features/assistant",
+      "kotlin": 7,
+      "files": 7,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/features/assistant/components/AvatarConfigSection.kt",
+      "rule": "ui/features/assistant",
+      "decision": "rejected",
+      "owners": [
+        "avatar"
+      ],
+      "reason": "助手形象配置不采用"
+    },
+    {
+      "id": "ui/features/chat",
+      "kotlin": 170,
+      "files": 170,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/features/chat/attachments/AttachmentUtils.kt",
+      "rule": "ui/features/chat",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "聊天页面由 S3.27 依桌面设计实现"
+    },
+    {
+      "id": "ui/features/codex",
+      "kotlin": 3,
+      "files": 3,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/features/codex/CodexLoginDialog.kt",
+      "rule": "ui/features/codex",
+      "decision": "rejected",
+      "owners": [
+        "codex-auth"
+      ],
+      "reason": "Codex 账号页不采用"
+    },
+    {
+      "id": "ui/features/demo",
+      "kotlin": 10,
+      "files": 10,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/features/demo/components/DialogComponents.kt",
+      "rule": "ui/features/demo",
+      "decision": "rejected",
+      "owners": [
+        "demo"
+      ],
+      "reason": "演示与诊断面板不采用"
+    },
+    {
+      "id": "ui/features/github",
+      "kotlin": 4,
+      "files": 4,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/features/github/GitHubLoginDialog.kt",
+      "rule": "ui/features/github",
+      "decision": "rejected",
+      "owners": [
+        "codex-auth"
+      ],
+      "reason": "GitHub 市场页不采用"
+    },
+    {
+      "id": "ui/features/help",
+      "kotlin": 1,
+      "files": 1,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/features/help/screens/HelpScreen.kt",
+      "rule": "ui/features/help",
+      "decision": "rejected",
+      "owners": [
+        "demo"
+      ],
+      "reason": "帮助页由 dstu 设置壳承载"
+    },
+    {
+      "id": "ui/features/memory",
+      "kotlin": 12,
+      "files": 12,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/features/memory/screens/FolderNavigator.kt",
+      "rule": "ui/features/memory",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "记忆页面由 S3.24 实现"
+    },
+    {
+      "id": "ui/features/packages",
+      "kotlin": 63,
+      "files": 63,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/features/packages/components/EmptyState.kt",
+      "rule": "ui/features/packages",
+      "decision": "partial",
+      "owners": [
+        "toolpkg"
+      ],
+      "reason": "包管理页面交互参考，渲染改用 DstuTheme（S6.35）"
+    },
+    {
+      "id": "ui/features/performance",
+      "kotlin": 2,
+      "files": 2,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/features/performance/PerformanceMonitorCharts.kt",
+      "rule": "ui/features/performance",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "性能页由 S9 测量与 S2.28 诊断承载"
+    },
+    {
+      "id": "ui/features/permission",
+      "kotlin": 2,
+      "files": 2,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/features/permission/screens/PermissionGuideScreen.kt",
+      "rule": "ui/features/permission",
+      "decision": "rejected",
+      "owners": [
+        "permission-ui"
+      ],
+      "reason": "权限引导由 S2.23 审批与 S5 组件实现"
+    },
+    {
+      "id": "ui/features/settings",
+      "kotlin": 56,
+      "files": 56,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/features/settings/ModelConfigAutoSaveSupport.kt",
+      "rule": "ui/features/settings",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "设置分区由 S7.35 依 S0.06 清单实现"
+    },
+    {
+      "id": "ui/features/startup",
+      "kotlin": 3,
+      "files": 3,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/features/startup/components/AnimatedProgressBar.kt",
+      "rule": "ui/features/startup",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "启动页由 S1.12 导航壳承载"
+    },
+    {
+      "id": "ui/features/token",
+      "kotlin": 8,
+      "files": 8,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/features/token/TokenConfigWebViewScreen.kt",
+      "rule": "ui/features/token",
+      "decision": "rejected",
+      "owners": [
+        "token-stats"
+      ],
+      "reason": "Token 页不采用"
+    },
+    {
+      "id": "ui/features/tokenstats",
+      "kotlin": 9,
+      "files": 9,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/features/tokenstats/ActivityDateRangePolicy.kt",
+      "rule": "ui/features/tokenstats",
+      "decision": "rejected",
+      "owners": [
+        "token-stats"
+      ],
+      "reason": "用量统计不采用"
+    },
+    {
+      "id": "ui/features/toolbox",
+      "kotlin": 47,
+      "files": 47,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/features/toolbox/screens/ProcessLimitRemoverToolScreen.kt",
+      "rule": "ui/features/toolbox",
+      "decision": "partial",
+      "owners": [
+        "terminal-ui"
+      ],
+      "reason": "TerminalToolScreen 是终端界面入口；其余工具箱页面不采用"
+    },
+    {
+      "id": "ui/features/update",
+      "kotlin": 3,
+      "files": 3,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/features/update/screens/UpdateInfo.kt",
+      "rule": "ui/features/update",
+      "decision": "rejected",
+      "owners": [
+        "updates"
+      ],
+      "reason": "更新页不采用"
+    },
+    {
+      "id": "ui/features/websession",
+      "kotlin": 12,
+      "files": 12,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/features/websession/browser/WebSessionBookmarkSheet.kt",
+      "rule": "ui/features/websession",
+      "decision": "adopted",
+      "owners": [
+        "browser"
+      ],
+      "reason": "浏览器会话 UI 是 browser 采用单元证据"
+    },
+    {
+      "id": "ui/features/workflow",
+      "kotlin": 8,
+      "files": 8,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/features/workflow/components/ConnectionMenu.kt",
+      "rule": "ui/features/workflow",
+      "decision": "partial",
+      "owners": [
+        "workflow"
+      ],
+      "reason": "工作流编辑 UI 交互参考，渲染改用 DstuTheme"
+    },
+    {
+      "id": "ui/floating",
+      "kotlin": 29,
+      "files": 29,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/floating/FloatContext.kt",
+      "rule": "ui/floating",
+      "decision": "adopted",
+      "owners": [
+        "floating-window"
+      ],
+      "reason": "浮窗聊天 UI 是悬浮窗采用单元证据"
+    },
+    {
+      "id": "ui/main",
+      "kotlin": 17,
+      "files": 17,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/main/MainActivity.kt",
+      "rule": "ui/main",
+      "decision": "adopted",
+      "owners": [
+        "navigation"
+      ],
+      "reason": "自适应布局与路由目录是导航采用单元证据"
+    },
+    {
+      "id": "ui/permissions",
+      "kotlin": 4,
+      "files": 4,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/permissions/PermissionRequestOverlay.kt",
+      "rule": "ui/permissions",
+      "decision": "rejected",
+      "owners": [
+        "permission-ui"
+      ],
+      "reason": "权限弹窗不移植"
+    },
+    {
+      "id": "ui/recovery",
+      "kotlin": 2,
+      "files": 2,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/recovery/DataRecoveryActivity.kt",
+      "rule": "ui/recovery",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "恢复页由 S2.10/S2.11 恢复计划承载"
+    },
+    {
+      "id": "ui/theme",
+      "kotlin": 10,
+      "files": 10,
+      "sample": "app/src/main/java/com/ai/assistance/operit/ui/theme/AppBackgroundLayer.kt",
+      "rule": "ui/theme",
+      "decision": "rejected",
+      "owners": [
+        "theme"
+      ],
+      "reason": "视觉由 DstuTheme 决定"
+    },
+    {
+      "id": "util",
+      "kotlin": 49,
+      "files": 49,
+      "sample": "app/src/main/java/com/ai/assistance/operit/util/AndroidUserPathUtils.kt",
+      "rule": "util",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "通用工具由 dstu core/util 与 S2.28 日志诊断替代"
+    },
+    {
+      "id": "util/exceptions",
+      "kotlin": 1,
+      "files": 1,
+      "sample": "app/src/main/java/com/ai/assistance/operit/util/exceptions/UserCancellationException.kt",
+      "rule": "util/exceptions",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "错误类型由 S1.03 核心端口定义"
+    },
+    {
+      "id": "util/markdown",
+      "kotlin": 2,
+      "files": 2,
+      "sample": "app/src/main/java/com/ai/assistance/operit/util/markdown/MarkdownProcessor.kt",
+      "rule": "util/markdown",
+      "decision": "partial",
+      "owners": [
+        "stream-markdown"
+      ],
+      "reason": "MarkdownProcessor 作流式渲染参考；不复制实现"
+    },
+    {
+      "id": "util/ripgrep",
+      "kotlin": 1,
+      "files": 1,
+      "sample": "app/src/main/java/com/ai/assistance/operit/util/ripgrep/NativeRipgrep.kt",
+      "rule": "util/ripgrep",
+      "decision": "rejected",
+      "owners": [
+        "ripgrep"
+      ],
+      "reason": "不引入额外原生检索二进制"
+    },
+    {
+      "id": "util/stream",
+      "kotlin": 20,
+      "files": 20,
+      "sample": "app/src/main/java/com/ai/assistance/operit/util/stream/HotStream.kt",
+      "rule": "util/stream",
+      "decision": "adopted",
+      "owners": [
+        "stream-markdown"
+      ],
+      "reason": "可修订文本流是流式内容采用单元证据"
+    },
+    {
+      "id": "util/streamnative",
+      "kotlin": 3,
+      "files": 3,
+      "sample": "app/src/main/java/com/ai/assistance/operit/util/streamnative/NativeMarkdownSplitter.kt",
+      "rule": "util/streamnative",
+      "decision": "adopted",
+      "owners": [
+        "stream-markdown"
+      ],
+      "reason": "原生 splitter 是流式内容采用单元证据"
+    },
+    {
+      "id": "util/vector",
+      "kotlin": 2,
+      "files": 2,
+      "sample": "app/src/main/java/com/ai/assistance/operit/util/vector/IndexItem.kt",
+      "rule": "util/vector",
+      "decision": "rejected",
+      "owners": [
+        "vector-index"
+      ],
+      "reason": "向量索引由 S4.25 按桌面 profile 实现"
+    },
+    {
+      "id": "widget",
+      "kotlin": 7,
+      "files": 7,
+      "sample": "app/src/main/java/com/ai/assistance/operit/widget/ToolPkgDesktopGlanceWidget.kt",
+      "rule": "widget",
+      "decision": "rejected",
+      "owners": [
+        "desktop-widget"
+      ],
+      "reason": "不引入 AppWidget 双宿主"
+    }
+  ],
+  "terminalModules": [
+    {
+      "id": "src/androidTest/java/com/ai/assistance/operit/terminal",
+      "files": 1,
+      "kotlin": 1,
+      "sample": "src/androidTest/java/com/ai/assistance/operit/terminal/PtyIoCompatibilityTest.kt",
+      "module": "terminal",
+      "rule": "src/androidTest",
+      "decision": "partial",
+      "owners": [
+        "terminal-kernel"
+      ],
+      "reason": "PtyIo 兼容性测试作为 S6.02 验收夹具参考，不直接搬运测试工程"
+    },
+    {
+      "id": "src/main",
+      "files": 1,
+      "kotlin": 0,
+      "sample": "src/main/AndroidManifest.xml",
+      "module": "terminal",
+      "rule": "src/main",
+      "decision": "partial",
+      "owners": [
+        "terminal-kernel"
+      ],
+      "reason": "AndroidManifest 服务声明并入 dstu 清单合同"
+    },
+    {
+      "id": "src/main/aidl/com/ai/assistance/operit/terminal",
+      "files": 4,
+      "kotlin": 0,
+      "sample": "src/main/aidl/com/ai/assistance/operit/terminal/CommandExecutionEvent.aidl",
+      "module": "terminal",
+      "rule": "src/main/aidl",
+      "decision": "partial",
+      "owners": [
+        "terminal-kernel"
+      ],
+      "reason": "ITerminalService 等 AIDL 作为跨进程参考；dstu 使用 Kotlin 端口"
+    },
+    {
+      "id": "src/main/assets",
+      "files": 2,
+      "kotlin": 0,
+      "sample": "src/main/assets/setup_fake_sysdata.sh",
+      "module": "terminal",
+      "rule": "src/main/assets",
+      "decision": "adopted",
+      "owners": [
+        "dependency-mirror"
+      ],
+      "reason": "Ubuntu noble rootfs 与 setup 脚本是依赖安装来源，资源登记见 S0.14"
+    },
+    {
+      "id": "src/main/java/com/ai/assistance/operit/terminal",
+      "files": 10,
+      "kotlin": 10,
+      "sample": "src/main/java/com/ai/assistance/operit/terminal/CommandExecutionEvent.kt",
+      "module": "terminal",
+      "rule": "src/main/java/com/ai/assistance/operit/terminal",
+      "decision": "adopted",
+      "owners": [
+        "terminal-kernel"
+      ],
+      "reason": "PTY/会话/输入路由/命令跟踪是终端内核采用单元证据"
+    },
+    {
+      "id": "src/main/java/com/ai/assistance/operit/terminal/data",
+      "files": 2,
+      "kotlin": 2,
+      "sample": "src/main/java/com/ai/assistance/operit/terminal/data/SSHConfig.kt",
+      "module": "terminal",
+      "rule": "src/main/java/com/ai/assistance/operit/terminal",
+      "decision": "adopted",
+      "owners": [
+        "terminal-kernel"
+      ],
+      "reason": "PTY/会话/输入路由/命令跟踪是终端内核采用单元证据"
+    },
+    {
+      "id": "src/main/java/com/ai/assistance/operit/terminal/main",
+      "files": 2,
+      "kotlin": 2,
+      "sample": "src/main/java/com/ai/assistance/operit/terminal/main/TerminalRoutes.kt",
+      "module": "terminal",
+      "rule": "src/main/java/com/ai/assistance/operit/terminal/main",
+      "decision": "adopted",
+      "owners": [
+        "terminal-ui"
+      ],
+      "reason": "TerminalScreen 与路由是终端界面采用单元证据"
+    },
+    {
+      "id": "src/main/java/com/ai/assistance/operit/terminal/provider",
+      "files": 7,
+      "kotlin": 7,
+      "sample": "src/main/java/com/ai/assistance/operit/terminal/provider/UbuntuDocumentsProvider.kt",
+      "module": "terminal",
+      "rule": "src/main/java/com/ai/assistance/operit/terminal/provider",
+      "decision": "partial",
+      "owners": [
+        "terminal-kernel"
+      ],
+      "reason": "LocalTerminalProvider 采用；SSH provider/文件系统在 S6.08 拆出"
+    },
+    {
+      "id": "src/main/java/com/ai/assistance/operit/terminal/service",
+      "files": 1,
+      "kotlin": 1,
+      "sample": "src/main/java/com/ai/assistance/operit/terminal/service/TerminalService.kt",
+      "module": "terminal",
+      "rule": "src/main/java/com/ai/assistance/operit/terminal/service",
+      "decision": "partial",
+      "owners": [
+        "terminal-kernel"
+      ],
+      "reason": "TerminalService AIDL 绑定保留作进程边界参考，dstu 以 AppGraph 单进程装配"
+    },
+    {
+      "id": "src/main/java/com/ai/assistance/operit/terminal/ui",
+      "files": 6,
+      "kotlin": 6,
+      "sample": "src/main/java/com/ai/assistance/operit/terminal/ui/SSHConfigScreen.kt",
+      "module": "terminal",
+      "rule": "src/main/java/com/ai/assistance/operit/terminal/ui",
+      "decision": "adopted",
+      "owners": [
+        "terminal-ui",
+        "dependency-mirror"
+      ],
+      "reason": "SetupScreen/Settings/TerminalHome 分属终端界面与依赖安装采用单元"
+    },
+    {
+      "id": "src/main/java/com/ai/assistance/operit/terminal/utils",
+      "files": 9,
+      "kotlin": 9,
+      "sample": "src/main/java/com/ai/assistance/operit/terminal/utils/CacheManager.kt",
+      "module": "terminal",
+      "rule": "src/main/java/com/ai/assistance/operit/terminal/utils",
+      "decision": "partial",
+      "owners": [
+        "dependency-mirror"
+      ],
+      "reason": "SourceManager 采用；SSH/FTP/SFTP 服务在 S6.08 显式拆出后另行接入"
+    },
+    {
+      "id": "src/main/java/com/ai/assistance/operit/terminal/view",
+      "files": 14,
+      "kotlin": 14,
+      "sample": "src/main/java/com/ai/assistance/operit/terminal/view/SyntaxHighlighter.kt",
+      "module": "terminal",
+      "rule": "src/main/java/com/ai/assistance/operit/terminal/view",
+      "decision": "adopted",
+      "owners": [
+        "terminal-ui"
+      ],
+      "reason": "ANSI 模拟器、Canvas 渲染与手势是终端界面采用单元证据"
+    },
+    {
+      "id": "src/main/jni",
+      "files": 2,
+      "kotlin": 0,
+      "sample": "src/main/jni/CMakeLists.txt",
+      "module": "terminal",
+      "rule": "src/main/jni",
+      "decision": "adopted",
+      "owners": [
+        "terminal-kernel"
+      ],
+      "reason": "forkpty JNI 与 CMake 是终端内核构建来源"
+    },
+    {
+      "id": "src/main/jniLibs/arm64-v8a",
+      "files": 5,
+      "kotlin": 0,
+      "sample": "src/main/jniLibs/arm64-v8a/libbash.so",
+      "module": "terminal",
+      "rule": "src/main",
+      "decision": "partial",
+      "owners": [
+        "terminal-kernel"
+      ],
+      "reason": "AndroidManifest 服务声明并入 dstu 清单合同"
+    },
+    {
+      "id": "src/main/res/font",
+      "files": 1,
+      "kotlin": 0,
+      "sample": "src/main/res/font/jetbrains_mono_nerd_font_regular.ttf",
+      "module": "terminal",
+      "rule": "src/main/res",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "字体与字符串由 S0.12 品牌基线和 S5 资源替代"
+    },
+    {
+      "id": "src/main/res/values",
+      "files": 1,
+      "kotlin": 0,
+      "sample": "src/main/res/values/strings.xml",
+      "module": "terminal",
+      "rule": "src/main/res",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "字体与字符串由 S0.12 品牌基线和 S5 资源替代"
+    },
+    {
+      "id": "src/main/res/values-en",
+      "files": 1,
+      "kotlin": 0,
+      "sample": "src/main/res/values-en/strings.xml",
+      "module": "terminal",
+      "rule": "src/main/res",
+      "decision": "replaced",
+      "owners": [],
+      "reason": "字体与字符串由 S0.12 品牌基线和 S5 资源替代"
+    },
+    {
+      "id": "src/test/java/com/ai/assistance/operit/terminal",
+      "files": 3,
+      "kotlin": 3,
+      "sample": "src/test/java/com/ai/assistance/operit/terminal/PtyChildProcessTest.kt",
+      "module": "terminal",
+      "rule": "src/test",
+      "decision": "partial",
+      "owners": [
+        "terminal-kernel"
+      ],
+      "reason": "PtyChildProcess/SessionInputRouter/TrackedCommandProtocol 测试作为行为夹具参考"
+    }
+  ],
+  "fileAdoptions": [
+    {
+      "id": "app/src/main/java/com/ai/assistance/operit/util/OCRUtils.kt",
+      "decision": "adopted",
+      "owners": [
+        "doc-ocr"
+      ],
+      "reason": "OCR 工具是文档/OCR 采用单元证据"
+    },
+    {
+      "id": "app/src/main/java/com/ai/assistance/operit/util/DocumentConversionUtil.kt",
+      "decision": "adopted",
+      "owners": [
+        "doc-ocr"
+      ],
+      "reason": "文档转换工具是文档/OCR 采用单元证据"
+    },
+    {
+      "id": "app/src/main/java/com/ai/assistance/operit/util/LatexMathMlConverter.kt",
+      "decision": "adopted",
+      "owners": [
+        "stream-markdown"
+      ],
+      "reason": "公式转换经 QuickJS 渲染，属流式内容证据"
+    },
+    {
+      "id": "app/src/main/java/com/ai/assistance/operit/util/ToolPkgJsAstMinifier.kt",
+      "decision": "adopted",
+      "owners": [
+        "toolpkg"
+      ],
+      "reason": "ToolPkg 脚本压缩是包解析证据"
+    }
+  ],
+  "inventory": [
+    {
+      "id": "app",
+      "path": "app",
+      "files": 1889,
+      "kotlin": 1436
+    },
+    {
+      "id": "terminal",
+      "path": "terminal",
+      "files": 1,
+      "kotlin": 0
+    },
+    {
+      "id": "quickjs",
+      "path": "quickjs",
+      "files": 10,
+      "kotlin": 4
+    },
+    {
+      "id": "llama",
+      "path": "llm/llama",
+      "files": 9,
+      "kotlin": 3
+    },
+    {
+      "id": "mnn",
+      "path": "llm/mnn",
+      "files": 21,
+      "kotlin": 10
+    },
+    {
+      "id": "showerclient",
+      "path": "showerclient",
+      "files": 14,
+      "kotlin": 6
+    },
+    {
+      "id": "dragonbones",
+      "path": "avator/dragonbones",
+      "files": 14,
+      "kotlin": 3
+    },
+    {
+      "id": "fbx",
+      "path": "avator/fbx",
+      "files": 10,
+      "kotlin": 4
+    },
+    {
+      "id": "mmd",
+      "path": "avator/mmd",
+      "files": 78,
+      "kotlin": 4
+    },
+    {
+      "id": "web-chat",
+      "path": "web-chat",
+      "files": 71,
+      "kotlin": 0
+    },
+    {
+      "id": "tools",
+      "path": "tools",
+      "files": 118,
+      "kotlin": 6
+    },
+    {
+      "id": "examples",
+      "path": "examples",
+      "files": 558,
+      "kotlin": 0
+    },
+    {
+      "id": "docs",
+      "path": "docs",
+      "files": 531,
+      "kotlin": 0
+    },
+    {
+      "id": "ci",
+      "path": "ci",
+      "files": 18,
+      "kotlin": 0
+    },
+    {
+      "id": "annual-report",
+      "path": "annual-report",
+      "files": 63,
+      "kotlin": 0
+    }
+  ],
+  "rootfs": {
+    "asset": "terminal/src/main/assets/ubuntu-noble-aarch64-pd-v4.18.0.tar.xz",
+    "bytes": 64133552,
+    "sha256": "91acaa786b8e2fbba56a9fd0f8a1188cee482b5c7baeed707b29ddaa9a294daa",
+    "entries": 12684,
+    "release": "24.04",
+    "codename": "noble",
+    "aptCodename": "noble",
+    "installScriptCodename": "noble",
+    "consistent": true
+  },
+  "checks": {
+    "adopted": 21,
+    "section31": 12,
+    "section32": 9,
+    "rejected": 23,
+    "evidence": 40,
+    "callChainSteps": 122,
+    "directPort": 13,
+    "adapter": 7,
+    "reimplement": 1,
+    "operitPackages": 125,
+    "terminalAdopted": 7,
+    "terminalPartial": 8,
+    "terminalReplaced": 3,
+    "terminalRejected": 0,
+    "appPackages": 107,
+    "fileAdoptions": 4,
+    "terminalPackages": 18,
+    "packagesAdopted": 29,
+    "packagesPartial": 9,
+    "packagesReplaced": 34,
+    "packagesRejected": 35,
+    "modules": 15,
+    "brandPages": 13,
+    "brandPagesMapped": 13,
+    "domains": 30,
+    "domainsOwned": 19,
+    "domainsUnowned": 11,
+    "kernelModule": "terminal",
+    "rootfsCodename": "noble",
+    "rootfsConsistent": true,
+    "externalPackManager": "app/src/main/java/com/ai/assistance/operit/core/tools/system/OperitTerminalManager.kt",
+    "selfChecks": {
+      "rejectsFakeSymbol": true,
+      "rejectsWrongLine": true,
+      "rejectsUnknownPackage": true,
+      "rejectsUnmappedTerminalPackage": true,
+      "rejectsBrokenChain": true
+    },
+    "operitCommit": "7a39941bad80209973c535046a18195c5da9e647",
+    "terminalCommit": "e4646680663789002b43bbfffa6e69e65c35e614"
+  }
+}

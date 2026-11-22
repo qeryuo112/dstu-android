@@ -1,0 +1,30 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Test APK only: no production network permission or cleartext policy. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application android:usesCleartextTraffic="true">
+        <!-- Separate-UID fixture for the App instrumentation; contains synthetic files only. -->
+        <provider
+            android:name="com.deepstudent.services.resources.data.saf.GrantFixtureProvider"
+            android:authorities="com.deepstudent.services.resources.data.test.s207grant"
+            android:exported="true"
+            android:grantUriPermissions="true"
+            android:permission="android.permission.MANAGE_DOCUMENTS">
+            <intent-filter>
+                <action android:name="android.content.action.DOCUMENTS_PROVIDER" />
+            </intent-filter>
+        </provider>
+        <activity
+            android:name="com.deepstudent.services.resources.data.saf.GrantFixtureActivity"
+            android:exported="true" />
+        <provider
+            android:name="com.deepstudent.services.resources.data.saf.SafFixtureProvider"
+            android:authorities="com.deepstudent.services.resources.data.test.saf"
+            android:exported="true"
+            android:grantUriPermissions="true"
+            android:permission="android.permission.MANAGE_DOCUMENTS">
+            <intent-filter>
+                <action android:name="android.content.action.DOCUMENTS_PROVIDER" />
+            </intent-filter>
+        </provider>
+    </application>
+</manifest>

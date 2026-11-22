@@ -1,0 +1,377 @@
+{
+  "formatVersion": 1,
+  "toolchain": {
+    "gradle": "8.14.2",
+    "agp": "8.13.0",
+    "kotlin": "2.2.21",
+    "jdk": 17,
+    "detekt": "1.23.8",
+    "compileSdk": 36,
+    "minSdk": 26,
+    "targetSdk": 36
+  },
+  "productionConfigurations": [
+    "api",
+    "implementation",
+    "compileOnly",
+    "compileOnlyApi",
+    "runtimeOnly",
+    "kapt",
+    "ksp",
+    "annotationProcessor"
+  ],
+  "roleRules": [
+    {
+      "id": "app",
+      "pattern": "^:app$",
+      "layer": "app",
+      "description": "Process composition root; the only global graph owner."
+    },
+    {
+      "id": "core-common",
+      "pattern": "^:core:common$",
+      "layer": "core",
+      "description": "Pure Kotlin shared primitives only."
+    },
+    {
+      "id": "core-design",
+      "pattern": "^:core:design$",
+      "layer": "core",
+      "description": "Theme and design resources without business state."
+    },
+    {
+      "id": "core-ui",
+      "pattern": "^:core:ui$",
+      "layer": "core",
+      "description": "UI lifecycle/navigation adapters without business state."
+    },
+    {
+      "id": "core-other",
+      "pattern": "^:core(?::.+)?$",
+      "layer": "core",
+      "description": "Explicitly registered shared core modules with narrow dependencies."
+    },
+    {
+      "id": "service-api",
+      "pattern": "^:services:(?<capability>[A-Za-z0-9_]+):api$",
+      "layer": "api",
+      "description": "Public service contract."
+    },
+    {
+      "id": "service-backend",
+      "pattern": "^:services:(?<capability>[A-Za-z0-9_]+):backend$",
+      "layer": "backend",
+      "description": "Service state machine and orchestration."
+    },
+    {
+      "id": "service-data",
+      "pattern": "^:services:(?<capability>[A-Za-z0-9_]+):data$",
+      "layer": "data",
+      "description": "Service ledger and infrastructure adapters."
+    },
+    {
+      "id": "feature-api",
+      "pattern": "^:features:(?<domain>[A-Za-z0-9_]+):api$",
+      "layer": "api",
+      "description": "Public feature command/query contract."
+    },
+    {
+      "id": "feature-backend",
+      "pattern": "^:features:(?<domain>[A-Za-z0-9_]+):backend$",
+      "layer": "backend",
+      "description": "Feature domain and application rules."
+    },
+    {
+      "id": "feature-data",
+      "pattern": "^:features:(?<domain>[A-Za-z0-9_]+):data$",
+      "layer": "data",
+      "description": "Feature repository and storage adapters."
+    },
+    {
+      "id": "feature-ui",
+      "pattern": "^:features:(?<domain>[A-Za-z0-9_]+):ui$",
+      "layer": "ui",
+      "description": "Feature Route/ViewModel/Screen implementation."
+    },
+    {
+      "id": "platform-backupzip",
+      "pattern": "^:platform:backupzip$",
+      "layer": "platform",
+      "description": "S2.10 read-only ZIP adapter below the pure backup planner."
+    },
+    {
+      "id": "platform-storage",
+      "pattern": "^:platform:storage$",
+      "layer": "platform",
+      "description": "S2.09 DataSpace: private slot state, leases and durable atomic activation."
+    },
+    {
+      "id": "platform",
+      "pattern": "^:platform(?::.+)?$",
+      "layer": "platform",
+      "description": "Database/network/storage/security/background adapters."
+    },
+    {
+      "id": "engine",
+      "pattern": "^:engines(?::.+)?$",
+      "layer": "engine",
+      "description": "Algorithm and native engine adapters."
+    },
+    {
+      "id": "integration",
+      "pattern": "^:integrations(?::.+)?$",
+      "layer": "integration",
+      "description": "Narrow host adapters around frozen sources."
+    },
+    {
+      "id": "third-party",
+      "pattern": "^:third_party(?::.+)?$",
+      "layer": "vendor",
+      "description": "Frozen vendored source that must not import the host."
+    },
+    {
+      "id": "testing",
+      "pattern": "^:testing(?::.+)?$",
+      "layer": "testing",
+      "description": "Shared fixtures and harnesses."
+    },
+    {
+      "id": "benchmark",
+      "pattern": "^:benchmark(?::.+)?$",
+      "layer": "benchmark",
+      "description": "Fixed corpus and device measurement harness."
+    }
+  ],
+  "allowUnknownProjects": false,
+  "edgeRules": [
+    {
+      "from": ["app"],
+      "to": ["*"],
+      "description": "The app composition root wires public contracts and implementations."
+    },
+    {
+      "from": ["core-common"],
+      "to": [],
+      "description": "Pure common primitives have no project dependencies."
+    },
+    {
+      "from": ["core-design"],
+      "to": ["core-common"],
+      "description": "Design tokens may use only pure common primitives."
+    },
+    {
+      "from": ["core-ui"],
+      "to": ["core-common", "core-design"],
+      "description": "UI adapters may use pure primitives and design, not platform/engine business."
+    },
+    {
+      "from": ["core-other"],
+      "to": ["core-common", "platform", "engine", "service-api"],
+      "description": "Other core modules must stay narrow and below features."
+    },
+    {
+      "from": ["feature-api"],
+      "to": ["core-common", "core-other", "service-api"],
+      "description": "Feature contracts stay pure and platform-free."
+    },
+    {
+      "from": ["feature-backend"],
+      "to": ["feature-api", "core-common", "core-other", "service-api"],
+      "description": "Domain/application depend on public contracts and service ports."
+    },
+    {
+      "from": ["feature-data"],
+      "to": ["feature-api", "feature-backend", "core-common", "core-other", "service-api", "platform", "engine"],
+      "sameDomainFor": ["feature-api", "feature-backend"],
+      "description": "Feature data implements its own repositories and public service contribution ports; service implementations remain forbidden."
+    },
+    {
+      "from": ["feature-ui"],
+      "to": ["feature-api", "core-common", "core-design", "core-ui", "service-api"],
+      "description": "Feature UI sees typed APIs and shared UI primitives only."
+    },
+    {
+      "from": ["service-api"],
+      "to": ["core-common", "core-other"],
+      "description": "Service contracts stay small and platform-free."
+    },
+    {
+      "from": ["service-backend"],
+      "to": ["service-api", "core-common", "core-other"],
+      "sameCapabilityFor": ["service-api"],
+      "description": "Service backends do not import feature implementations."
+    },
+    {
+      "from": ["service-data"],
+      "to": ["platform-storage", "platform-backupzip"],
+      "description": "Backup execution uses the bounded archive reader and the existing DataSpace slot authority."
+    },
+    {
+      "from": ["service-data"],
+      "to": ["service-api", "service-backend", "core-common", "core-other", "platform", "engine"],
+      "sameCapabilityFor": ["service-api", "service-backend"],
+      "description": "Service data owns its capability adapters."
+    },
+    {
+      "from": ["platform-backupzip"],
+      "to": ["service-api"],
+      "description": "Archive inspection exposes a service port and does not activate slots."
+    },
+    {
+      "from": ["platform-storage"],
+      "to": ["core-common"],
+      "description": "Active slot coordination depends only on shared primitives and logging."
+    },
+    {
+      "from": ["platform"],
+      "to": ["core-common", "core-other", "service-api"],
+      "description": "Platform adapters do not import features or app."
+    },
+    {
+      "from": ["engine"],
+      "to": ["core-common", "core-other", "service-api", "platform"],
+      "description": "Engine adapters stay below features."
+    },
+    {
+      "from": ["integration"],
+      "to": ["third-party", "platform", "core-common", "core-other", "service-api"],
+      "description": "Host adapters wrap frozen vendor code."
+    },
+    {
+      "from": ["third-party"],
+      "to": [],
+      "description": "Vendored source must not reverse-import the host."
+    },
+    {
+      "from": ["testing"],
+      "to": ["app", "core-common", "core-design", "core-ui", "core-other", "feature-api", "service-api", "platform"],
+      "description": "Test harness may assemble app fixtures."
+    },
+    {
+      "from": ["benchmark"],
+      "to": ["app", "core-common", "core-design", "core-ui", "core-other", "feature-api", "service-api", "platform"],
+      "description": "Benchmarks measure shipped code."
+    }
+  ],
+  "crossDomainApiAllowlist": [],
+  "forbiddenExternalDependencies": [
+    {
+      "roles": ["core-common", "feature-api", "feature-backend", "service-api", "service-backend"],
+      "groups": [
+        "android",
+        "androidx",
+        "com.android",
+        "com.google.android",
+        "org.jetbrains.compose",
+        "com.squareup.okhttp3",
+        "com.squareup.retrofit2",
+        "io.ktor",
+        "com.squareup.sqldelight",
+        "io.realm",
+        "org.xerial"
+      ],
+      "description": "Pure Kotlin contracts/rules may not link Android/Compose/SQL/HTTP."
+    },
+    {
+      "roles": ["feature-ui"],
+      "groups": [
+        "com.squareup.sqldelight",
+        "io.realm",
+        "org.xerial"
+      ],
+      "description": "Feature UI must not link SQLite/DB implementation libraries."
+    }
+  ],
+  "sourceRules": {
+    "domainPureRoles": [
+      "core-common",
+      "feature-api",
+      "feature-backend",
+      "service-api",
+      "service-backend"
+    ],
+    "domainForbiddenImportPrefixes": [
+      "android.",
+      "androidx.",
+      "com.android.",
+      "com.google.android.",
+      "org.jetbrains.compose.",
+      "kotlinx.android.parcel.",
+      "java.sql.",
+      "javax.sql.",
+      "java.net.Socket",
+      "java.net.ServerSocket",
+      "java.net.Datagram",
+      "java.net.MulticastSocket",
+      "java.net.InetAddress",
+      "java.net.Inet4Address",
+      "java.net.Inet6Address",
+      "java.net.NetworkInterface",
+      "java.net.URL",
+      "java.net.HttpURLConnection",
+      "java.net.http.",
+      "com.squareup.okhttp3.",
+      "com.squareup.retrofit2.",
+      "io.ktor.",
+      "org.apache.http."
+    ],
+    "uiStrictRoles": ["feature-ui"],
+    "uiForbiddenImportPrefixes": [
+      "com.deepstudent.features.",
+      "com.deepstudent.services.",
+      "com.deepstudent.platform.",
+      "com.deepstudent.app."
+    ],
+    "crossDomainInternalExemptRoles": [
+      "app",
+      "testing",
+      "benchmark",
+      "integration"
+    ],
+    "globalLookupSymbols": [
+      "AppGraph",
+      "AppGraphFactory",
+      "AuxiliaryGraph",
+      "BaseProcessGraph",
+      "EngineGraph",
+      "GlobalGraph",
+      "IsolatedGraph",
+      "MainGraph",
+      "ServiceLocator"
+    ],
+    "globalLookupAllowedRoles": ["app", "testing", "benchmark"],
+    "globalLookupAllowedFiles": [],
+    "coreNoPlatformRoles": ["core-common", "core-design", "core-ui"],
+    "coreForbiddenImportPrefixes": [
+      "com.deepstudent.platform.",
+      "com.deepstudent.engines."
+    ],
+    "domainPackageSegments": ["domain"],
+    "applicationPackageSegments": ["application"],
+    "architectureSourceSets": ["main", "test", "androidTest"],
+    "complexitySourceSets": ["main"]
+  },
+  "additionalSourceRoots": [
+    {
+      "project": ":engines:terminal",
+      "path": "src/operit/kotlin",
+      "sourceSet": "main"
+    },
+    {
+      "project": ":core:design",
+      "path": "build/generated/s1Design/kotlin",
+      "sourceSet": "main"
+    },
+    {
+      "project": ":features:notes:ui",
+      "path": "src/sharedTest/kotlin",
+      "sourceSet": "test"
+    },
+    {
+      "project": ":platform:storage",
+      "path": "src/sharedTest/kotlin",
+      "sourceSet": "test"
+    }
+  ],
+  "exceptions": []
+}

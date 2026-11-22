@@ -1,0 +1,575 @@
+{
+  "formatVersion": 1,
+  "unit": "S0.18",
+  "format": "dstu.crypto-golden.v1",
+  "source": {
+    "backupCrypto": "dstu-node/host/platform/secrets/backup-crypto.ts",
+    "dsbkStream": "dstu-node/host/platform/secrets/dsbk-stream.ts",
+    "sourceHashes": [
+      {
+        "file": "dstu-node/host/platform/secrets/backup-crypto.ts",
+        "sha256": "0e6dc6397b387734221c00ad6f07d26553fa7d745e03112e8484780b85b42393"
+      },
+      {
+        "file": "dstu-node/host/platform/secrets/dsbk-stream.ts",
+        "sha256": "83b0f59d44808c92f2eaf0418966454ea92deeb3793453ef30781c82bdd6f710"
+      }
+    ],
+    "binding": {
+      "commit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+      "head": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+      "files": [
+        {
+          "file": "dstu-node/host/platform/secrets/backup-crypto.ts",
+          "sha256": "0e6dc6397b387734221c00ad6f07d26553fa7d745e03112e8484780b85b42393"
+        },
+        {
+          "file": "dstu-node/host/platform/secrets/dsbk-stream.ts",
+          "sha256": "83b0f59d44808c92f2eaf0418966454ea92deeb3793453ef30781c82bdd6f710"
+        }
+      ]
+    },
+    "modules": [
+      "deriveKey",
+      "encryptBackupWithKey",
+      "encryptDsbkStream",
+      "decryptDsbkStream"
+    ],
+    "testOnlyKdf": {
+      "m": 8,
+      "t": 1,
+      "p": 1
+    },
+    "saltHex": "07070707070707070707070707070707",
+    "v1NonceHex": "000102030405060708090a0b",
+    "v2PrefixHex": "aaaaaaaaaaaaaa",
+    "v2PrefixInjection": "injected through production encryptDsbkStream deps.randomBytes; fixture only, never production randomness",
+    "aead": "node:crypto AES-256-GCM"
+  },
+  "cases": [
+    {
+      "id": "empty",
+      "description": "empty plaintext",
+      "plaintext": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "fullHex": "",
+        "pattern": "byte(i)=(i*31+7)&255"
+      },
+      "v1": {
+        "bytes": 61,
+        "sha256": "31748753b79d183009672cac1809cc187fa26de8797aac310e7f277a93656534",
+        "headerHex": "4453424b0108000000010000000100000007070707070707070707070707070707000102030405060708090a0b9a1376d18c8c606dbbd22d655ed51c59",
+        "fullHex": "4453424b0108000000010000000100000007070707070707070707070707070707000102030405060708090a0b9a1376d18c8c606dbbd22d655ed51c59"
+      },
+      "v2": {
+        "bytes": 60,
+        "sha256": "541f4453fc71115145e573b1302c9c31c1027348e76bc32210aa5313c97e4642",
+        "headerHex": "4453424b0208000000010000000100000007070707070707070707070707070707aaaaaaaaaaaaaa0000100035851f32ebe336b63f867f13dd917abd",
+        "fullHex": "4453424b0208000000010000000100000007070707070707070707070707070707aaaaaaaaaaaaaa0000100035851f32ebe336b63f867f13dd917abd"
+      },
+      "headers": {
+        "v1": {
+          "salt": "07070707070707070707070707070707",
+          "nonce": "000102030405060708090a0b",
+          "m": 8,
+          "t": 1,
+          "p": 1
+        },
+        "v2": {
+          "salt": "07070707070707070707070707070707",
+          "prefix": "aaaaaaaaaaaaaa",
+          "m": 8,
+          "t": 1,
+          "p": 1
+        }
+      },
+      "encryptionKeyCalls": {
+        "v1": [
+          {
+            "salt": "07070707070707070707070707070707",
+            "m": 8,
+            "t": 1,
+            "p": 1
+          }
+        ],
+        "v2": [
+          {
+            "salt": "07070707070707070707070707070707",
+            "m": 8,
+            "t": 1,
+            "p": 1
+          }
+        ]
+      },
+      "roundtrip": {
+        "v1": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "closed": true,
+          "writes": 1,
+          "keyCalls": [
+            {
+              "salt": "07070707070707070707070707070707",
+              "m": 8,
+              "t": 1,
+              "p": 1
+            }
+          ]
+        },
+        "v2": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "closed": true,
+          "writes": 1,
+          "keyCalls": [
+            {
+              "salt": "07070707070707070707070707070707",
+              "m": 8,
+              "t": 1,
+              "p": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "unicode",
+      "description": "multibyte UTF-8 plaintext",
+      "plaintext": {
+        "bytes": 23,
+        "sha256": "c839e794fc9b7cbda6c248a1bb6ab6e743eaee93d59b22ae448565b5be0c531e",
+        "fullHex": "e5a487e4bbbd20f09f9490204453424b20e4b8ade69687",
+        "pattern": "literal-utf8"
+      },
+      "v1": {
+        "bytes": 84,
+        "sha256": "a5be7880a1c318cb683c50bb74ce79cccf9799b98100fd928c2fc23fd6af1541",
+        "headerHex": "4453424b0108000000010000000100000007070707070707070707070707070707000102030405060708090a0b338c9b61dc39dd6f8998b1eae6b1944b81e545",
+        "fullHex": "4453424b0108000000010000000100000007070707070707070707070707070707000102030405060708090a0b338c9b61dc39dd6f8998b1eae6b1944b81e5458781e932bcd6adecf58cd1d1ba95d7bd09427937"
+      },
+      "v2": {
+        "bytes": 83,
+        "sha256": "733c0164847b519e8cc95efa11255d52e6f0554e7ee84d435d47822265a155f5",
+        "headerHex": "4453424b0208000000010000000100000007070707070707070707070707070707aaaaaaaaaaaaaa0000100009cb8450beb04a70edd495304b4a19b37761374b",
+        "fullHex": "4453424b0208000000010000000100000007070707070707070707070707070707aaaaaaaaaaaaaa0000100009cb8450beb04a70edd495304b4a19b37761374b659a6af3a135a934a43f3ba0aa2283f87a855b"
+      },
+      "headers": {
+        "v1": {
+          "salt": "07070707070707070707070707070707",
+          "nonce": "000102030405060708090a0b",
+          "m": 8,
+          "t": 1,
+          "p": 1
+        },
+        "v2": {
+          "salt": "07070707070707070707070707070707",
+          "prefix": "aaaaaaaaaaaaaa",
+          "m": 8,
+          "t": 1,
+          "p": 1
+        }
+      },
+      "encryptionKeyCalls": {
+        "v1": [
+          {
+            "salt": "07070707070707070707070707070707",
+            "m": 8,
+            "t": 1,
+            "p": 1
+          }
+        ],
+        "v2": [
+          {
+            "salt": "07070707070707070707070707070707",
+            "m": 8,
+            "t": 1,
+            "p": 1
+          }
+        ]
+      },
+      "roundtrip": {
+        "v1": {
+          "bytes": 23,
+          "sha256": "c839e794fc9b7cbda6c248a1bb6ab6e743eaee93d59b22ae448565b5be0c531e",
+          "closed": true,
+          "writes": 1,
+          "keyCalls": [
+            {
+              "salt": "07070707070707070707070707070707",
+              "m": 8,
+              "t": 1,
+              "p": 1
+            }
+          ]
+        },
+        "v2": {
+          "bytes": 23,
+          "sha256": "c839e794fc9b7cbda6c248a1bb6ab6e743eaee93d59b22ae448565b5be0c531e",
+          "closed": true,
+          "writes": 1,
+          "keyCalls": [
+            {
+              "salt": "07070707070707070707070707070707",
+              "m": 8,
+              "t": 1,
+              "p": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "exact-1MiB",
+      "description": "exactly one 1 MiB stream chunk",
+      "plaintext": {
+        "bytes": 1048576,
+        "sha256": "06b7bbfb7824aa03382051691630eb26de85102d1b08a81e907ec0744cd8a286",
+        "fullHex": null,
+        "pattern": "byte(i)=(i*31+7)&255"
+      },
+      "v1": {
+        "bytes": 1048637,
+        "sha256": "703738caa3f7129f7abf613ee1311d51fe3a8a1e61b7fe8a04109b6610fde2e2",
+        "headerHex": "4453424b0108000000010000000100000007070707070707070707070707070707000102030405060708090a0bd10e59e1e4263c7fe9121c96d9786fd85617c8",
+        "fullHex": null
+      },
+      "v2": {
+        "bytes": 1048636,
+        "sha256": "c5918d5c13d4cea27d268c2a87e252aaa0bfdc41954977d9bf551b3900af97c4",
+        "headerHex": "4453424b0208000000010000000100000007070707070707070707070707070707aaaaaaaaaaaaaa00001000eb4946d086afab608d5e384c7483e220a093bab2",
+        "fullHex": null
+      },
+      "headers": {
+        "v1": {
+          "salt": "07070707070707070707070707070707",
+          "nonce": "000102030405060708090a0b",
+          "m": 8,
+          "t": 1,
+          "p": 1
+        },
+        "v2": {
+          "salt": "07070707070707070707070707070707",
+          "prefix": "aaaaaaaaaaaaaa",
+          "m": 8,
+          "t": 1,
+          "p": 1
+        }
+      },
+      "encryptionKeyCalls": {
+        "v1": [
+          {
+            "salt": "07070707070707070707070707070707",
+            "m": 8,
+            "t": 1,
+            "p": 1
+          }
+        ],
+        "v2": [
+          {
+            "salt": "07070707070707070707070707070707",
+            "m": 8,
+            "t": 1,
+            "p": 1
+          }
+        ]
+      },
+      "roundtrip": {
+        "v1": {
+          "bytes": 1048576,
+          "sha256": "06b7bbfb7824aa03382051691630eb26de85102d1b08a81e907ec0744cd8a286",
+          "closed": true,
+          "writes": 1,
+          "keyCalls": [
+            {
+              "salt": "07070707070707070707070707070707",
+              "m": 8,
+              "t": 1,
+              "p": 1
+            }
+          ]
+        },
+        "v2": {
+          "bytes": 1048576,
+          "sha256": "06b7bbfb7824aa03382051691630eb26de85102d1b08a81e907ec0744cd8a286",
+          "closed": true,
+          "writes": 1,
+          "keyCalls": [
+            {
+              "salt": "07070707070707070707070707070707",
+              "m": 8,
+              "t": 1,
+              "p": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "plus-1",
+      "description": "one byte beyond the 1 MiB chunk boundary",
+      "plaintext": {
+        "bytes": 1048577,
+        "sha256": "0d09f3eabb5c78e5d435c41e3b3755f1c4d038657f739d0be0083c24e71235df",
+        "fullHex": null,
+        "pattern": "byte(i)=(i*31+7)&255"
+      },
+      "v1": {
+        "bytes": 1048638,
+        "sha256": "7bce572708410cb7b6088060f1d3d74e63093b90424f263b7e128cf49a46c5e7",
+        "headerHex": "4453424b0108000000010000000100000007070707070707070707070707070707000102030405060708090a0bd10e59e1e4263c7fe9121c96d9786fd85617c8",
+        "fullHex": null
+      },
+      "v2": {
+        "bytes": 1048653,
+        "sha256": "31874aeafc2b11c1a99b80c761ded289d8329a11cfc288ec48ef09498e03ad9f",
+        "headerHex": "4453424b0208000000010000000100000007070707070707070707070707070707aaaaaaaaaaaaaa000010000c23f41f4c4d18a12db1a756d4c9bf3a1106636d",
+        "fullHex": null
+      },
+      "headers": {
+        "v1": {
+          "salt": "07070707070707070707070707070707",
+          "nonce": "000102030405060708090a0b",
+          "m": 8,
+          "t": 1,
+          "p": 1
+        },
+        "v2": {
+          "salt": "07070707070707070707070707070707",
+          "prefix": "aaaaaaaaaaaaaa",
+          "m": 8,
+          "t": 1,
+          "p": 1
+        }
+      },
+      "encryptionKeyCalls": {
+        "v1": [
+          {
+            "salt": "07070707070707070707070707070707",
+            "m": 8,
+            "t": 1,
+            "p": 1
+          }
+        ],
+        "v2": [
+          {
+            "salt": "07070707070707070707070707070707",
+            "m": 8,
+            "t": 1,
+            "p": 1
+          }
+        ]
+      },
+      "roundtrip": {
+        "v1": {
+          "bytes": 1048577,
+          "sha256": "0d09f3eabb5c78e5d435c41e3b3755f1c4d038657f739d0be0083c24e71235df",
+          "closed": true,
+          "writes": 1,
+          "keyCalls": [
+            {
+              "salt": "07070707070707070707070707070707",
+              "m": 8,
+              "t": 1,
+              "p": 1
+            }
+          ]
+        },
+        "v2": {
+          "bytes": 1048577,
+          "sha256": "0d09f3eabb5c78e5d435c41e3b3755f1c4d038657f739d0be0083c24e71235df",
+          "closed": true,
+          "writes": 2,
+          "keyCalls": [
+            {
+              "salt": "07070707070707070707070707070707",
+              "m": 8,
+              "t": 1,
+              "p": 1
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "negatives": [
+    {
+      "id": "wrong-password",
+      "rejected": true,
+      "message": "备份解密失败（密码错误或数据损坏）: aead::Error",
+      "kind": "AEAD",
+      "keyCalls": [
+        {
+          "salt": "07070707070707070707070707070707",
+          "m": 8,
+          "t": 1,
+          "p": 1
+        }
+      ],
+      "aborted": true,
+      "closed": false,
+      "stagedBytes": 0
+    },
+    {
+      "id": "tag-tamper",
+      "rejected": true,
+      "message": "备份解密失败（密码错误或数据损坏）: aead::Error",
+      "kind": "AEAD",
+      "keyCalls": [
+        {
+          "salt": "07070707070707070707070707070707",
+          "m": 8,
+          "t": 1,
+          "p": 1
+        }
+      ],
+      "aborted": true,
+      "closed": false,
+      "stagedBytes": 0
+    },
+    {
+      "id": "truncation",
+      "rejected": true,
+      "message": "备份解密失败（密码错误或数据损坏）: aead::Error",
+      "kind": "AEAD",
+      "keyCalls": [
+        {
+          "salt": "07070707070707070707070707070707",
+          "m": 8,
+          "t": 1,
+          "p": 1
+        }
+      ],
+      "aborted": true,
+      "closed": false,
+      "stagedBytes": 0
+    },
+    {
+      "id": "header-magic",
+      "rejected": true,
+      "message": "非加密备份文件（无 DSBK 标头）",
+      "kind": "header",
+      "keyCalls": [],
+      "aborted": true,
+      "closed": false,
+      "stagedBytes": 0
+    },
+    {
+      "id": "header-version",
+      "rejected": true,
+      "message": "不支持的加密版本: 3",
+      "kind": "header",
+      "keyCalls": [],
+      "aborted": true,
+      "closed": false,
+      "stagedBytes": 0
+    },
+    {
+      "id": "header-kdf-tamper",
+      "rejected": true,
+      "message": "备份解密失败（密码错误或数据损坏）: aead::Error",
+      "kind": "kdf-header",
+      "header": {
+        "salt": "08080808080808080808080808080808",
+        "m": 9,
+        "t": 1,
+        "p": 1
+      },
+      "keyCalls": [
+        {
+          "salt": "08080808080808080808080808080808",
+          "m": 9,
+          "t": 1,
+          "p": 1
+        }
+      ],
+      "keyMatchesHeader": true,
+      "aborted": true,
+      "closed": false,
+      "stagedBytes": 0
+    },
+    {
+      "id": "chunk-zero",
+      "rejected": true,
+      "message": "加密分块大小非法: 0",
+      "kind": "chunk",
+      "keyCalls": [],
+      "aborted": true,
+      "closed": false,
+      "stagedBytes": 0
+    },
+    {
+      "id": "over-64MiB",
+      "rejected": true,
+      "message": "加密分块大小非法: 67108865",
+      "kind": "chunk",
+      "keyCalls": [],
+      "aborted": true,
+      "closed": false,
+      "stagedBytes": 0
+    },
+    {
+      "id": "kdf-budget-m",
+      "rejected": true,
+      "message": "该云端数据携带的加密参数异常（数据可能已损坏、被外部工具改写，或由不兼容的版本写入），已在开始计算前停止，以避免应用长时间无响应。请检查该云端目录的内容后重试，或改用其他云端目录。",
+      "kind": "kdf-budget",
+      "nativeDeriveCallsBefore": 1,
+      "nativeDeriveCallsAfter": 1,
+      "allocationReached": false
+    },
+    {
+      "id": "kdf-budget-t",
+      "rejected": true,
+      "message": "该云端数据携带的加密参数异常（数据可能已损坏、被外部工具改写，或由不兼容的版本写入），已在开始计算前停止，以避免应用长时间无响应。请检查该云端目录的内容后重试，或改用其他云端目录。",
+      "kind": "kdf-budget",
+      "nativeDeriveCallsBefore": 1,
+      "nativeDeriveCallsAfter": 1,
+      "allocationReached": false
+    },
+    {
+      "id": "kdf-budget-p",
+      "rejected": true,
+      "message": "该云端数据携带的加密参数异常（数据可能已损坏、被外部工具改写，或由不兼容的版本写入），已在开始计算前停止，以避免应用长时间无响应。请检查该云端目录的内容后重试，或改用其他云端目录。",
+      "kind": "kdf-budget",
+      "nativeDeriveCallsBefore": 1,
+      "nativeDeriveCallsAfter": 1,
+      "allocationReached": false
+    }
+  ],
+  "staging": {
+    "aborted": true,
+    "closed": false,
+    "committed": false,
+    "writesBeforeAbort": 1,
+    "bytesBeforeAbort": 1048576,
+    "stagedBytesAfterAbort": 0,
+    "stagingFlag": "cleared",
+    "activeSlotClaimed": false,
+    "scope": "actual decrypt stream sink abort state; no active-slot switch claim"
+  },
+  "checks": {
+    "cases": 4,
+    "plaintextBoundaries": [
+      0,
+      23,
+      1048576,
+      1048577
+    ],
+    "v1RoundTrips": 4,
+    "v2RoundTrips": 4,
+    "negativeCases": 11,
+    "allNegativesRejected": true,
+    "over64MiBRejectedBeforeKey": true,
+    "over64MiBKeyCalls": 0,
+    "kdfBudgetRejectedBeforeDerivation": true,
+    "headerBoundKeyDerivation": true,
+    "stagingAborted": true,
+    "activeSlotClaimed": false
+  },
+  "limitations": [
+    "Argon2id parameters m=8 KiB, t=1, p=1 are cheap test-only parameters; they are not production KDF settings.",
+    "The v2 nonce prefix is deterministic only through the injectable fixture dependency; production uses randomBytes.",
+    "The staging check exercises the actual decrypt stream sink abort and clearing collected staged bytes; it does not claim a DataSpace active-slot switch or application activation.",
+    "Large 1 MiB vectors are represented by deterministic input recipe, length, header, and SHA-256; only small vectors retain full hex."
+  ]
+}

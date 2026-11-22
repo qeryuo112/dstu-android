@@ -1,0 +1,26 @@
+{
+  "unit": "S1.01",
+  "gradle": "8.14.2",
+  "agp": "8.13.0",
+  "kotlin": "2.2.21",
+  "javaBytecode": 17,
+  "composeBom": "2026.02.01",
+  "coreKtx": "1.17.0",
+  "activityCompose": "1.11.0",
+  "dependencySelection": "Pinned compatible versions, measured AAR manifests <= minSdk26. The upstream mobile version catalog is not adopted. core-ktx1.18 is not required by a frozen desktop feature.",
+  "wrapper": {
+    "generator": "Gradle 8.14.2 wrapper task from the installed official distribution",
+    "distributionUrl": "https://services.gradle.org/distributions/gradle-8.14.2-bin.zip",
+    "distributionSha256": "7197a12f450794931532469d4ff21a59ea2c1cd59a3ec3f89c035c3c420a6999",
+    "jarSha256": "7d3a4ac4de1c32b59bc6a4eb8ecb8e612ccd0cf1ae1e99f66902da64df296172",
+    "jarChecksumSource": "https://services.gradle.org/distributions/gradle-8.14.2-wrapper.jar.sha256",
+    "license": "Apache-2.0",
+    "source": "https://github.com/gradle/gradle/tree/v8.14.2"
+  },
+  "snapshot": {
+    "ref": "36511a1ba27ef2db7c45636162575a2b1c6564e8",
+    "runner": "tools/s1/verify-s0-snapshot.mjs",
+    "isolation": "bubblewrap read-only host/sources, original paths, disposable snapshot and browser scratch, tracked-byte and clean-checkout verification",
+    "legacyRuntime": "test-only historical compatibility evidence; not included in the Android app"
+  }
+}

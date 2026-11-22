@@ -1,0 +1,965 @@
+{
+  "formatVersion": 1,
+  "unit": "S0.01",
+  "purpose": "Stable inputs for the complete desktop-source diff audit. The capture artifact is config/upstream-impact.json; this input file is never overwritten by capture.",
+  "scope": {
+    "baselineFrozen": true,
+    "adoptedDesktopCommit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+    "adoptedWorkspace": "Desktop application functionality only. Android-native targets are built in this repository; upstream mobile/Capacitor/Java runtime code is not adopted.",
+    "upstreamMobileRuntime": {
+      "adopted": false,
+      "deliveryEvidence": false,
+      "productRequirement": false,
+      "patterns": [
+        "mobile/**",
+        "host/platform/**/mobile.ts",
+        "host/platform/**/mobile-*.ts",
+        "host/platform/storage-mobile/**",
+        "host/plugins/**/mobile.ts",
+        "src/**/mobile*.ts",
+        "src/**/mobile*.tsx"
+      ],
+      "classification": "source-diff/legacy-evidence",
+      "reason": "The upstream Capacitor/mobile shell, storage-mobile runtime and Java plugins are recorded for provenance, diff review and legacy evidence only. They are not Android product modules, do not establish delivered functionality, and must not become feature-completion requirements for later units.",
+      "legacyExport": "The S0.16 data-export contract remains owned by the existing legacy sample verification against the target schema. Do not start or extend the upstream Android chain to satisfy it."
+    }
+  },
+  "old": {
+    "commit": "145bb3879164c58d1cd5ff39daa94a3daa9fe874",
+    "tree": "7e08b4aba921ca8c4ebf5156f1be24b373db77d4",
+    "objectSource": "/home/xutao/deepstudent/dstu-node",
+    "fallbackObjectSources": [],
+    "requireCheckoutHead": false,
+    "note": "The old commit is read from the Git object database. After merging, the old checkout may be gone; any configured source that still contains the object is sufficient."
+  },
+  "new": {
+    "commit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+    "tree": "3bee0f058851b9eb113bdc036d9f60433ed29944",
+    "checkout": "/home/xutao/deepstudent/dstu-node",
+    "allowCheckoutOverrideEnv": "DSTU_UPSTREAM_CHECKOUT",
+    "requireCheckoutHead": false,
+    "note": "After merge, dstu-node may advance beyond this commit. The audit still pins the source blob/tree by commit; the checkout only has to contain that commit."
+  },
+  "baseline": {
+    "repository": "/home/xutao/deepstudent/dstu-android",
+    "commit": "0222cccafe4cd5243785ee930d26ef53b2c2c9eb",
+    "files": [
+      "config/baseline/domains.json",
+      "config/baseline/entries.json",
+      "config/baseline/workbench.json",
+      "config/baseline/contributions.json",
+      "config/baseline/schema.json",
+      "config/baseline/classification.json",
+      "config/baseline/protocol.json",
+      "config/baseline/content.json",
+      "config/baseline/navigation.json",
+      "config/design/brand.baseline.json",
+      "config/design/tokens.baseline.json",
+      "config/operit-adoption.json",
+      "config/runtime-assets.json",
+      "config/baseline/platform.json",
+      "config/baseline/legacy-export.json",
+      "config/baseline/corpus.json",
+      "config/baseline/model-recordings.json",
+      "config/baseline/measurement.json",
+      "config/baseline/test-foundation.json",
+      "config/baseline/crypto-golden.json",
+      "config/baseline/file-golden.json",
+      "config/baseline/sync-formats.json",
+      "config/baseline/sync-golden.json",
+      "config/sync-registry-contract.json",
+      "config/sync-release-window.json",
+      "config/contracts/templates-assets.json",
+      "config/contracts/asset-transport.json",
+      "config/contracts/chat-attachment.json",
+      "config/contracts/media-time.json",
+      "config/contracts/media-audit.json",
+      "config/contracts/portable-config.json",
+      "config/contracts/config-audit.json",
+      "config/contracts/plugin-data.json",
+      "config/contracts/plugin-audit.json"
+    ],
+    "unitOverrides": {
+      "config/baseline/navigation.json": "S0.02",
+      "config/baseline/entries.json": "S0.03",
+      "config/baseline/workbench.json": "S0.04",
+      "config/baseline/domains.json": "S0.05",
+      "config/baseline/contributions.json": "S0.06",
+      "config/baseline/content.json": "S0.07",
+      "config/baseline/schema.json": "S0.08",
+      "config/baseline/classification.json": "S0.09",
+      "config/baseline/protocol.json": "S0.10",
+      "config/design/tokens.baseline.json": "S0.11",
+      "config/design/brand.baseline.json": "S0.12",
+      "config/operit-adoption.json": "S0.13",
+      "config/runtime-assets.json": "S0.14",
+      "config/baseline/platform.json": "S0.15",
+      "config/baseline/legacy-export.json": "S0.16",
+      "config/baseline/corpus.json": "S0.17",
+      "config/baseline/model-recordings.json": "S0.17",
+      "config/baseline/measurement.json": "S0.17",
+      "config/baseline/test-foundation.json": "S0.17",
+      "config/baseline/crypto-golden.json": "S0.18",
+      "config/baseline/file-golden.json": "S0.18",
+      "config/baseline/sync-formats.json": "S0.18",
+      "config/baseline/sync-golden.json": "S0.18",
+      "config/sync-registry-contract.json": "S0.19",
+      "config/sync-release-window.json": "S0.20",
+      "config/contracts/templates-assets.json": "S0.21",
+      "config/contracts/asset-transport.json": "S0.21",
+      "config/contracts/chat-attachment.json": "S0.21",
+      "config/contracts/media-time.json": "S0.22",
+      "config/contracts/media-audit.json": "S0.22",
+      "config/contracts/portable-config.json": "S0.23",
+      "config/contracts/config-audit.json": "S0.23",
+      "config/contracts/plugin-data.json": "S0.24",
+      "config/contracts/plugin-audit.json": "S0.24"
+    },
+    "note": "Read these files with git show <baseline commit>:<path>. They are frozen evidence even if working-tree baselines are refreshed later."
+  },
+  "diff": {
+    "command": "git diff --raw -z --no-abbrev --find-renames=50% <old> <new>",
+    "expectedFiles": 1245,
+    "expectedStatuses": {
+      "A": 336,
+      "D": 6,
+      "M": 903
+    },
+    "maximumFiles": null,
+    "excludedFromCoverage": [],
+    "uncoveredMustEqual": 0,
+    "renameScore": "captured from the numeric score in the raw status (for example R087)",
+    "blobIdentity": "git blob ids for every changed file; SHA-1 object ids are accepted as source identity",
+    "binaryPolicy": "record blob ids without decoding text",
+    "note": "Use the local Git object database, never a paginated GitHub compare page."
+  },
+  "evidenceClasses": [
+    {
+      "id": "production",
+      "rank": 3,
+      "deliveryEvidence": true,
+      "patterns": [
+        "src/**",
+        "host/**",
+        "electron/**",
+        "mobile/**",
+        "resources/**",
+        "contracts/**",
+        "web/**",
+        "package.json",
+        "package-lock.json"
+      ],
+      "exclusions": [
+        "**/__tests__/**",
+        "**/tests/**",
+        "**/*.test.*",
+        "**/*.spec.*",
+        "**/__golden__/**",
+        "**/demo/**",
+        "**/fixtures/**"
+      ],
+      "reason": "Runtime, schema, contract or platform source."
+    },
+    {
+      "id": "test",
+      "rank": 2,
+      "deliveryEvidence": false,
+      "patterns": [
+        "**/__tests__/**",
+        "**/tests/**",
+        "**/*.test.*",
+        "**/*.spec.*",
+        "**/__golden__/**",
+        "**/fixtures/**"
+      ],
+      "reason": "Tests and golden data can reveal intended behavior but do not by themselves prove a production capability or Android delivery."
+    },
+    {
+      "id": "demo",
+      "rank": 1,
+      "deliveryEvidence": false,
+      "patterns": [
+        "**/demo/**",
+        "**/examples/**",
+        "src/demo/**",
+        "vite.demo.config.ts"
+      ],
+      "reason": "Demo/example code is not product delivery evidence."
+    },
+    {
+      "id": "documentation",
+      "rank": 1,
+      "deliveryEvidence": false,
+      "patterns": [
+        "docs/**",
+        "**/*.md",
+        "**/*.mdx",
+        "**/NOTICE*",
+        "**/LICENSE*",
+        "legal/**"
+      ],
+      "reason": "Documentation and license material describe intent or provenance; they do not implement or prove a delivered feature."
+    },
+    {
+      "id": "support",
+      "rank": 0,
+      "deliveryEvidence": false,
+      "patterns": [
+        ".github/**",
+        ".vscode/**",
+        ".kiro/**",
+        ".skills/**",
+        "benchmarks/**",
+        "scripts/**",
+        "config/**",
+        "video/**",
+        ".release-channel",
+        ".release-please-manifest.json",
+        "ACKNOWLEDGMENTS.md",
+        "CHANGELOG.md",
+        "README.md",
+        "README_CN.md"
+      ],
+      "reason": "Build, release, tooling or repository support; not a runtime feature by itself."
+    },
+    {
+      "id": "unclassified",
+      "rank": 0,
+      "deliveryEvidence": false,
+      "patterns": [],
+      "reason": "No rule matched. This remains an audited file but must be reviewed before use as delivery evidence."
+    }
+  ],
+  "sourceIndex": {
+    "precedence": [
+      "explicit review-plans-fsrs mapping",
+      "exact old baseline source path",
+      "new/changed path rule with longest pattern match",
+      "unmapped"
+    ],
+    "unitOrder": [
+      "S0.02",
+      "S0.03",
+      "S0.04",
+      "S0.05",
+      "S0.06",
+      "S0.07",
+      "S0.08",
+      "S0.09",
+      "S0.10",
+      "S0.11",
+      "S0.12",
+      "S0.13",
+      "S0.14",
+      "S0.15",
+      "S0.16",
+      "S0.17",
+      "S0.18",
+      "S0.19",
+      "S0.20",
+      "S0.21",
+      "S0.22",
+      "S0.23",
+      "S0.24",
+      "S0.25",
+      "S0.G",
+      "S1+"
+    ],
+    "pathRules": [
+      {
+        "id": "repository-support",
+        "unit": "S0.01",
+        "patterns": [
+          "README.md",
+          "README_CN.md",
+          "CHANGELOG.md",
+          "ACKNOWLEDGMENTS.md",
+          ".release-channel",
+          ".release-please-manifest.json",
+          "config/**",
+          ".github/**",
+          ".vscode/**",
+          ".kiro/**",
+          ".skills/**",
+          "benchmarks/**",
+          "video/**",
+          "vite.demo.config.ts"
+        ],
+        "reason": "Repository support, release metadata or reference media. This is an S0.01 source-provenance obligation, not a delivered product capability."
+      },
+      {
+        "id": "navigation-and-shell",
+        "unit": "S0.02",
+        "patterns": [
+          "src/app/**",
+          "src/components/ModernSidebar.tsx",
+          "src/components/layout/**",
+          "src/ui-plugins/official/shell/**"
+        ],
+        "reason": "Views, navigation, shell routing and app chrome feed S0.02."
+      },
+      {
+        "id": "entries-and-commands",
+        "unit": "S0.03",
+        "patterns": [
+          "src/command-palette/**",
+          "src/ui-plugins/official/menu/**",
+          "src/debug-panel/panels.ts",
+          "src/utils/systemFileOpener.ts"
+        ],
+        "reason": "Menus, command registry, deep links and external entries feed S0.03."
+      },
+      {
+        "id": "workbench",
+        "unit": "S0.04",
+        "patterns": [
+          "src/features/workbench/**",
+          "src/ui-plugins/official/workbench/**",
+          "host/kernel/**"
+        ],
+        "reason": "Workbench apps, UI slots and plugin kernel surfaces feed S0.04."
+      },
+      {
+        "id": "plugin-platform-surface",
+        "unit": "S0.04",
+        "patterns": [
+          "resources/dstu-workshop/**",
+          "src/features/plugin-manager/**",
+          "src/features/plugin-workshop/**",
+          "host/plugins/plugin-workshop/**"
+        ],
+        "reason": "Workshop recipes, plugin manager surfaces and workshop runtime feed S0.04. Full-trust desktop behavior is a recorded security conflict, not an Android capability."
+      },
+      {
+        "id": "domains-and-ipc",
+        "unit": "S0.05",
+        "patterns": [
+          "contracts/ipc/**",
+          "src/ui-sdk/**",
+          "src/ui-plugins/official/**"
+        ],
+        "reason": "IPC contracts, UI SDK and official plugin surfaces feed S0.05 unless a more specific path rule applies."
+      },
+      {
+        "id": "plugin-services-and-tools",
+        "unit": "S0.05",
+        "patterns": [
+          "host/plugins/plugin-services/**",
+          "host/plugins/agent-skills/**",
+          "host/plugins/mcp/**",
+          "host/plugins/browser/**",
+          "host/plugins/media/**",
+          "host/plugins/vfs-index/**",
+          "host/plugins/vfs-handlers/**",
+          "host/plugins/vfs/**",
+          "host/plugins/integration/**",
+          "host/plugins/mobile-compat/**"
+        ],
+        "reason": "Plugin services, tools, MCP/browser/media/VFS command surfaces feed S0.05. Tests alone remain test evidence."
+      },
+      {
+        "id": "settings-and-ui-contributions",
+        "unit": "S0.06",
+        "patterns": [
+          "src/features/settings/**",
+          "src/components/settings/**",
+          "host/platform/settings/**",
+          "host/platform/secrets/**",
+          "src/locales/**",
+          "src/features/theme/**"
+        ],
+        "reason": "Settings, UI contribution surfaces, labels and theme entry points feed S0.06; sync portability is a later override."
+      },
+      {
+        "id": "content-and-editors",
+        "unit": "S0.07",
+        "patterns": [
+          "src/components/crepe/**",
+          "src/components/notes/**",
+          "src/features/notes/**",
+          "host/plugins/notes/**",
+          "src/features/mindmap/**",
+          "src/utils/latexHtml.ts",
+          "src/utils/snippetRenderer.ts",
+          "src/translation/**"
+        ],
+        "reason": "Markdown/editor dialects, numeric/content rendering and note content semantics feed S0.07."
+      },
+      {
+        "id": "chat-and-agent-content",
+        "unit": "S0.07",
+        "patterns": [
+          "src/features/chat/**",
+          "src/essay-grading/**",
+          "src/components/essay-grading/**",
+          "src/components/practice/**",
+          "src/features/generative-ui/**",
+          "src/components/previews/liveSvgStream.ts",
+          "host/plugins/chat/**",
+          "host/plugins/chat-pipeline/**",
+          "host/plugins/llm/**",
+          "host/plugins/memory/**",
+          "host/plugins/agent-orchestration/**"
+        ],
+        "reason": "Chat rendering, grading, practice and generated content feed S0.07 when they change content semantics; runtime delivery belongs to later units."
+      },
+      {
+        "id": "review-and-flashcard-content",
+        "unit": "S0.07",
+        "patterns": [
+          "src/features/flashcards/**",
+          "src/components/review/**",
+          "src/components/ReviewSession.tsx",
+          "src/components/ReviewPlanView.tsx",
+          "src/stores/reviewPlanStore.ts",
+          "src/features/anki-tasks/**",
+          "host/plugins/review/**",
+          "host/plugins/qbank/**"
+        ],
+        "reason": "Review scheduling content, rating semantics and question/flashcard presentation feed S0.07; the FSRS migration is S0.08 and wire behavior is S0.10."
+      },
+      {
+        "id": "schema-and-migrations",
+        "unit": "S0.08",
+        "patterns": [
+          "resources/app/migrations/**",
+          "host/platform/storage/migration/**",
+          "host/platform/storage/connection.ts",
+          "host/platform/storage/database-layout.ts",
+          "host/plugins/sync/repository/schema.ts",
+          "host/plugins/agent-workspace/repository/schema.ts"
+        ],
+        "reason": "SQL, migration lock, migration definitions and schema fingerprints feed S0.08. A new migration is not an Android migration until its consumer unit implements it."
+      },
+      {
+        "id": "sync-classification-and-portable-boundary",
+        "unit": "S0.09",
+        "patterns": [
+          "host/plugins/sync/src/classification*.ts",
+          "host/plugins/sync/src/classification-data/**",
+          "host/plugins/sync/src/preferences-sync.ts",
+          "host/plugins/sync/src/file-level-sync.ts",
+          "host/plugins/sync/src/file-tombstone-sync.ts",
+          "host/plugins/sync/src/asset-paths.ts",
+          "host/plugins/sync/src/asset-sync.ts",
+          "host/plugins/sync/src/asset-manifest.ts",
+          "host/plugins/sync/src/blob-sync.ts",
+          "host/plugins/sync/src/workspace-manifest.ts",
+          "host/plugins/sync/src/change-log.ts",
+          "host/plugins/sync/src/collect-sync-changes.ts",
+          "host/plugins/sync/src/device-pairing.ts",
+          "host/plugins/sync/src/field-merge.ts",
+          "host/plugins/sync/src/plugin-sync-sandbox.ts",
+          "host/plugins/sync/repository/plugin-sync-sandbox.ts",
+          "host/plugins/sync/repository/registry-preflight.ts",
+          "host/plugins/sync/repository/apply-record.ts",
+          "host/plugins/sync/repository/record-data.ts",
+          "host/plugins/sync/repository/unknown-fields.ts",
+          "host/plugins/sync/src/unknown-fields.ts"
+        ],
+        "reason": "Classification, unknown-field retention, plugin sandbox and row scope feed S0.09."
+      },
+      {
+        "id": "sync-protocol-and-v5",
+        "unit": "S0.10",
+        "patterns": [
+          "host/plugins/sync/src/run-sync.ts",
+          "host/plugins/sync/src/remote-format.ts",
+          "host/plugins/sync/src/manifest-upload.ts",
+          "host/plugins/sync/src/remote-manifest.ts",
+          "host/plugins/sync/src/change-keys.ts",
+          "host/plugins/sync/src/change-payload.ts",
+          "host/plugins/sync/src/download-payload.ts",
+          "host/plugins/sync/src/upload-changes.ts",
+          "host/plugins/sync/src/download-changes.ts",
+          "host/plugins/sync/src/payload.ts",
+          "host/plugins/sync/src/merge.ts",
+          "host/plugins/sync/src/record-plain.ts",
+          "host/plugins/sync/src/transfer-commands.ts",
+          "host/plugins/sync/src/plugin.ts",
+          "host/plugins/sync/src/v5-runtime-bridge.ts",
+          "host/plugins/sync/repository/state.ts",
+          "host/plugins/sync/repository/apply-databases.ts",
+          "host/plugins/sync/repository/v5-runtime-bridge.ts",
+          "host/plugins/sync/repository/v5-vaults.ts",
+          "host/plugins/sync-providers/**",
+          "host/plugins/sync-support/**"
+        ],
+        "reason": "Wire formats, manifest, object keys, V5 bridge/runtime and providers feed S0.10. Presence in the desktop bridge is not evidence that Android V5 is enabled."
+      },
+      {
+        "id": "design-tokens",
+        "unit": "S0.11",
+        "relatedUnits": [
+          "S1.11",
+          "S5.01",
+          "S5.02",
+          "S5.13",
+          "S7.38",
+          "S9.03"
+        ],
+        "patterns": [
+          "src/styles/**",
+          "src/shared/styles/**",
+          "src/components/ui/**",
+          "src/components/Card3DPreview.css",
+          "src/components/UnifiedNotification.css",
+          "src/components/crepe/CrepeEditor.css",
+          "src/features/workbench/styles/**",
+          "src/features/flashcards/*.css",
+          "src/features/mindmap/styles/**",
+          "src/features/pdf/styles/**",
+          "src/features/todo/styles/**",
+          "src/features/settings/themeVariants.ts",
+          "src/hooks/useTheme.ts"
+        ],
+        "reason": "Design tokens, shared primitives and visual CSS feed S0.11; the generated theme and component families remain S1.11/S5.01/S5.02. Brand-specific marks are S0.12."
+      },
+      {
+        "id": "brand-and-screens",
+        "unit": "S0.12",
+        "relatedUnits": [
+          "S1.12",
+          "S5.04",
+          "S9.03",
+          "S9.14"
+        ],
+        "patterns": [
+          "docs/plans/assets/**",
+          "src/components/icons/StudySidebarIcons.tsx",
+          "src/components/ui/DeepStudentLogo.tsx",
+          "public/**",
+          "electron/shell/app-user-model-id.ts",
+          "ACKNOWLEDGMENTS.md",
+          "legal/**",
+          "src/features/settings/components/OpenSourceAcknowledgementsSection.tsx",
+          "src/components/legal/**"
+        ],
+        "reason": "Brand marks, application icons, terminology/screenshot evidence and acknowledgement surfaces feed S0.12; asset generation and release checks remain S1.12/S5.04/S9.03/S9.14."
+      },
+      {
+        "id": "operit-adoption",
+        "unit": "S0.13",
+        "patterns": [
+          "host/platform/native/**",
+          "mobile/android-native/**"
+        ],
+        "reason": "Native adoption seams feed S0.13/S0.14; actual resource licensing remains S0.14."
+      },
+      {
+        "id": "runtime-assets",
+        "unit": "S0.14",
+        "patterns": [
+          "legal/THIRD_PARTY_NOTICES.txt",
+          "legal/f7-native-wasm-components.json",
+          "legal/frontend-bundle-packages.json",
+          "resources/app/tauri.conf.json"
+        ],
+        "reason": "Native/runtime resource and third-party notice evidence feeds S0.14."
+      },
+      {
+        "id": "platform-and-release",
+        "unit": "S0.15",
+        "patterns": [
+          "electron/build-info.ts",
+          "electron/build/**",
+          "electron/electron-builder.config.cjs",
+          "electron/scripts/app-hardening.cjs",
+          "electron/scripts/package.mjs",
+          "mobile/scripts/build-apk.mjs",
+          "mobile/package.json",
+          "resources/app/permissions/**",
+          ".release-channel",
+          ".release-please-manifest.json",
+          "package.json",
+          "package-lock.json"
+        ],
+        "reason": "Version, packaging, permissions and platform release evidence feed S0.15."
+      },
+      {
+        "id": "legacy-export",
+        "unit": "S0.16",
+        "patterns": [
+          "host/platform/storage-mobile/backup.ts",
+          "host/platform/storage-mobile/restore-intent.ts",
+          "host/platform/storage-mobile/legacy.ts",
+          "host/platform/storage-mobile/backup-cipher.ts",
+          "host/platform/storage-mobile/audit.ts",
+          "host/platform/storage-mobile/index.ts",
+          "host/platform/storage-mobile/sqlite-wasm.ts",
+          "src/features/settings/components/data-governance/**"
+        ],
+        "reason": "Backup/export/restore and legacy mobile data paths feed S0.16."
+      },
+      {
+        "id": "data-recovery-and-governance",
+        "unit": "S0.16",
+        "patterns": [
+          "src/features/data-recovery/**",
+          "src/api/dataGovernance.ts",
+          "src/hooks/useBackupJobListener.ts",
+          "src/logging/exportDiagnostics.ts"
+        ],
+        "reason": "Legacy recovery, backup and diagnostic export surfaces feed S0.16; they do not prove an Android export is available."
+      },
+      {
+        "id": "corpus-and-measurement",
+        "unit": "S0.17",
+        "patterns": [
+          "docs/audits/**",
+          "docs/plans/2026-11-14-promo-v2-capability-baseline.md",
+          "docs/plans/2026-11-15-promo-v2-gap-ledger.md",
+          "docs/plans/2026-11-15-promo-v2-ux-audit.md"
+        ],
+        "reason": "Capability baselines, audit notes and measurement inputs feed S0.17; docs remain non-delivery evidence."
+      },
+      {
+        "id": "sync-goldens",
+        "unit": "S0.18",
+        "patterns": [
+          "host/plugins/sync/tests/**",
+          "host/plugins/sync-providers/tests/**"
+        ],
+        "reason": "Sync tests can supply golden vectors but do not themselves prove production delivery."
+      },
+      {
+        "id": "registry-contract",
+        "unit": "S0.19",
+        "patterns": [
+          "host/plugins/sync/repository/registry-preflight.ts",
+          "host/plugins/sync/repository/apply-record.ts",
+          "host/plugins/sync/repository/record-data.ts"
+        ],
+        "reason": "Registry/preflight/record apply behavior feeds S0.19; concrete schema remains S0.08."
+      },
+      {
+        "id": "schema-window",
+        "unit": "S0.20",
+        "patterns": [
+          "contracts/plugin-manifest/**",
+          "host/plugins/sync/repository/v5-vaults.ts",
+          "host/plugins/sync/repository/v5-runtime-bridge.ts"
+        ],
+        "reason": "Versioned manifest and V5 windows feed S0.20; the bridge must remain an explicit opt-in."
+      },
+      {
+        "id": "templates-and-attachments",
+        "unit": "S0.21",
+        "patterns": [
+          "host/plugins/vfs-repos/repository/attachment*.ts",
+          "host/plugins/vfs-repos/src/attachment-processing.ts",
+          "host/plugins/anki/src/apkg-import-media.ts",
+          "host/plugins/chat/src/attachment-stage.ts",
+          "src/features/media-handout/**"
+        ],
+        "reason": "Template, Anki media and attachment paths feed S0.21."
+      },
+      {
+        "id": "templates-and-files",
+        "unit": "S0.21",
+        "patterns": [
+          "src/features/template-management/**",
+          "src/utils/fileManager.ts",
+          "src/utils/mobileFileDelivery.ts",
+          "src/utils/stagedUpload.ts",
+          "src/utils/pickWebViewFiles.ts",
+          "src/shared/resource-types/inventory.ts",
+          "host/plugins/anki/**",
+          "host/plugins/vfs-repos/**"
+        ],
+        "reason": "Template and file delivery paths feed S0.21; VFS schema remains S0.08 and sync classification remains S0.09."
+      },
+      {
+        "id": "study-library-and-import",
+        "unit": "S0.21",
+        "patterns": [
+          "src/features/learning-hub/**",
+          "src/dstu/editors/**",
+          "host/platform/storage/file-manager.ts",
+          "host/platform/storage/image-quality.ts"
+        ],
+        "reason": "Learning-hub import, resource creation, file delivery and preview paths feed S0.21; route/navigation ownership remains S0.02."
+      },
+      {
+        "id": "media-and-time",
+        "unit": "S0.22",
+        "patterns": [
+          "host/plugins/media/repository/media-ledger.ts",
+          "host/plugins/media/src/register-media-portable.ts",
+          "src/features/media-studio/**"
+        ],
+        "reason": "Media progress, subtitle and timing paths feed S0.22."
+      },
+      {
+        "id": "media-and-pdf-surface",
+        "unit": "S0.22",
+        "patterns": [
+          "src/features/pdf/**",
+          "src/hooks/usePdfLoader.ts",
+          "src/features/learning-hub/apps/views/media/**",
+          "src/features/learning-today/**"
+        ],
+        "reason": "Media/PDF study surfaces and progress surfaces feed S0.22; route ownership remains S0.02."
+      },
+      {
+        "id": "portable-config",
+        "unit": "S0.23",
+        "patterns": [
+          "host/platform/settings/**",
+          "host/platform/secrets/**",
+          "src/features/settings/components/ThemeVariantPicker.tsx",
+          "src/features/settings/components/AppearanceTab.tsx",
+          "src/features/settings/themeVariants.ts",
+          "src/hooks/useTheme.ts",
+          "host/plugins/sync/src/preferences-sync.ts"
+        ],
+        "reason": "Portable configuration and secret/local separation feed S0.23."
+      },
+      {
+        "id": "plugin-data",
+        "unit": "S0.24",
+        "patterns": [
+          "src/features/plugin-manager/PluginDataSection.tsx",
+          "host/plugins/plugin-services/src/study-data*.ts",
+          "host/plugins/plugin-services/tests/study-data.test.ts"
+        ],
+        "reason": "Plugin/skill data contract and owner-scoped storage feed S0.24."
+      },
+      {
+        "id": "ui-runtime-components",
+        "unit": "S0.06",
+        "patterns": [
+          "src/components/**",
+          "src/shared/**",
+          "src/ui-kernel/**",
+          "src/boot/**",
+          "src/main.tsx",
+          "src/voice-input/**",
+          "web/server/**",
+          "web/shared/**",
+          "host/platform/http/**",
+          "host/platform/log/**",
+          "host/platform/util/**",
+          "host/platform/vector/**",
+          "host/platform/zip/**",
+          "host/platform/files/**",
+          "host/profiles/**",
+          "host/testing/**"
+        ],
+        "reason": "Shared UI, shell/runtime plumbing and UI contribution surfaces feed S0.06 unless a more specific content, media, file or schema rule applies."
+      },
+      {
+        "id": "automation-and-todo-surfaces",
+        "unit": "S0.06",
+        "patterns": [
+          "src/features/todo/**",
+          "src/features/pomodoro/**",
+          "src/hooks/useQbankGenerationTasks.ts",
+          "src/hooks/useUnifiedNotification.ts",
+          "src/utils/notificationRouting.ts",
+          "src/utils/pendingSettingsTab.ts",
+          "src/utils/missingModelError.ts",
+          "src/utils/modelDisplayName.ts",
+          "src/utils/sourceWindowId.ts",
+          "src/utils/platform.ts"
+        ],
+        "reason": "Settings-adjacent automation, todo, notification and platform UI surfaces feed S0.06; domain execution remains S0.05 and later."
+      },
+      {
+        "id": "source-provenance-support",
+        "unit": "S0.01",
+        "patterns": [
+          "scripts/**",
+          "legal/**",
+          "electron/**",
+          "tests/**",
+          "examples/**",
+          "docs/**"
+        ],
+        "reason": "Build scripts, legal notices, Electron shell, tests, examples and documentation are audited source/provenance evidence. They do not by themselves prove a delivered S0 unit."
+      },
+      {
+        "id": "upstream-mobile-runtime",
+        "unit": "S0.01",
+        "patterns": [
+          "mobile/**",
+          "host/platform/**/mobile.ts",
+          "host/platform/**/mobile-*.ts",
+          "host/platform/storage-mobile/**",
+          "host/plugins/**/mobile.ts",
+          "src/**/mobile*.ts",
+          "src/**/mobile*.tsx"
+        ],
+        "reason": "Upstream Capacitor/mobile/Java runtime is source-diff/legacy evidence only. It is deliberately excluded from product-delivery scope and must not be used as a feature-completion requirement."
+      },
+      {
+        "id": "demo-and-fixture-support",
+        "unit": "S0.01",
+        "patterns": [
+          "src/demo/**",
+          "examples/**",
+          "**/fixtures/**"
+        ],
+        "reason": "Demo and fixture source is preserved for provenance and visual reference only. It is explicitly not delivery evidence for any S0 capability."
+      },
+      {
+        "id": "host-e2e-and-platform-support",
+        "unit": "S0.01",
+        "patterns": [
+          "host/e2e/**",
+          "host/platform/API.md",
+          "web/tests/**"
+        ],
+        "reason": "End-to-end and platform support files are source/provenance evidence only; they do not prove an Android capability."
+      },
+      {
+        "id": "platform-and-utility-tests",
+        "unit": "S0.01",
+        "patterns": [
+          "host/platform/**/tests/**",
+          "host/platform/**/__tests__/**",
+          "src/hooks/__tests__/**",
+          "src/utils/__tests__/**",
+          "src/features/**/__tests__/**"
+        ],
+        "reason": "Test-only source changes are audited as test evidence. They do not imply that the tested production capability has been delivered."
+      },
+      {
+        "id": "debug-and-testing-surfaces",
+        "unit": "S0.06",
+        "patterns": [
+          "src/debug-panel/**",
+          "src/ui-plugins/testing/**",
+          "tests/visual/**"
+        ],
+        "reason": "Debug and testing surfaces can expose UI contributions but remain non-delivery evidence."
+      }
+    ],
+    "reviewPlansFsrs": {
+      "unit": "S0.08",
+      "relatedUnits": [
+        "S0.07",
+        "S0.09",
+        "S0.19",
+        "S2.10",
+        "S3.14"
+      ],
+      "paths": [
+        "resources/app/migrations/vfs/V20261115__review_plans_fsrs.sql",
+        "resources/app/migrations/migration-lock.json",
+        "host/platform/storage/migration/definitions/vfs.ts",
+        "host/plugins/review/src/review-plan-fsrs.ts",
+        "host/plugins/review/src/review-plan.ts",
+        "host/plugins/review/src/review-plan-commands.ts",
+        "host/plugins/review/repository/fsrs-stats.ts",
+        "host/plugins/vfs-repos/repository/review-plans.ts",
+        "host/plugins/vfs-repos/types/content.ts"
+      ],
+      "overridePatterns": [
+        "host/platform/storage/migration/definitions/vfs.ts"
+      ],
+      "reason": "New VFS migration adds seven nullable FSRS columns to review_plans and a desktop-only lazy SM-2 conversion. It is an S0.08 source delta; Android schema, sync classification, commands and UI must be handled by their owning units."
+    }
+  },
+  "s0Status": {
+    "deliveredUnits": [
+      "S0.01",
+      "S0.02",
+      "S0.03",
+      "S0.04",
+      "S0.05",
+      "S0.06",
+      "S0.07",
+      "S0.08",
+      "S0.09",
+      "S0.10",
+      "S0.11",
+      "S0.12",
+      "S0.13",
+      "S0.14",
+      "S0.15",
+      "S0.16",
+      "S0.17",
+      "S0.18",
+      "S0.19",
+      "S0.20",
+      "S0.21",
+      "S0.22",
+      "S0.23",
+      "S0.24"
+    ],
+    "openUnits": [
+      "S0.25",
+      "S0.G"
+    ],
+    "outOfScope": [
+      "S0.02",
+      "S0.25",
+      "S0.G",
+      "S1+"
+    ],
+    "note": "Only S0.01 is edited in this task. Unit labels are impact hints for the owning unit; they are not baseline refreshes or delivery claims."
+  },
+  "securityConflicts": [
+    {
+      "id": "workshop-full-trust",
+      "upstreamEvidence": [
+        "host/kernel/manifest.ts: plugin manifest trust === 'full' bypasses service declarations",
+        "host/plugins/plugin-workshop/src/compiler.ts: workshop-built plugins are compiled as full trust",
+        "host/plugins/plugin-workshop/src/deps.ts: npm install --ignore-scripts runs on the host",
+        "host/plugins/agent-skills/src/tools/plugin-tool-executor.ts: workshop plugins may use global fetch"
+      ],
+      "conflict": "Android is a sandboxed app with manifest permissions and OS-enforced isolation. Full-trust desktop plugins assume Node built-ins, child processes, arbitrary host services and global network; these capabilities cannot be reproduced by silently widening Android app permissions.",
+      "requiredDecision": "Do not adopt full trust as an Android plugin security model. Define an explicit capability-gated workshop contract, preserve user-visible consent, and fail closed where the Android host cannot provide a capability. Record this as a cross-unit risk, not an S0.01 delivery claim.",
+      "affectedUnits": [
+        "S0.05",
+        "S0.06",
+        "S0.13",
+        "S0.24",
+        "S1+"
+      ]
+    },
+    {
+      "id": "plugin-network-and-tools",
+      "upstreamEvidence": [
+        "host/kernel/manifest.ts: net:<host> and agent:tools permission kinds",
+        "host/plugins/agent-skills/src/tools/plugin-tool-executor.ts: public-pinned transport, host allowlist, redirect checks"
+      ],
+      "conflict": "Desktop plugin networking is a host-level allowlist; Android networking is subject to the app's INTERNET permission, cleartext policy and platform transport. The desktop allowlist alone is not an Android security boundary.",
+      "requiredDecision": "Map plugin network declarations to Android transport policy and explicit user consent; never infer Android permission grants from a desktop manifest.",
+      "affectedUnits": [
+        "S0.04",
+        "S0.06",
+        "S0.24",
+        "S1+"
+      ]
+    }
+  ],
+  "verification": {
+    "modes": [
+      "capture",
+      "verify",
+      "selftest"
+    ],
+    "commands": [
+      "node tools/baseline/upstream-audit.mjs capture",
+      "node tools/baseline/upstream-audit.mjs verify",
+      "node tools/baseline/upstream-audit.mjs selftest"
+    ],
+    "negativeCases": [
+      "missing changed file",
+      "extra changed file",
+      "wrong old blob",
+      "wrong new blob",
+      "wrong status",
+      "wrong old commit",
+      "wrong new tree",
+      "tampered reason",
+      "tampered impact unit",
+      "uncovered count not zero",
+      "test or demo marked as delivered production evidence"
+    ],
+    "replay": "verify re-reads frozen input config, reads the old baseline files from the pinned dstu-android commit, recomputes the raw Git diff and source-index mapping, then compares the artifact. It does not hash the artifact into itself.",
+    "log": "Every run emits append-only JSON lines with the time, event, counts and first differing JSON path."
+  }
+}

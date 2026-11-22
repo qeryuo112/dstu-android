@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+    <!-- Test-only visibility; declaring packages does not grant access to any document. -->
+    <queries>
+        <package android:name="com.deepstudent.services.resources.data.test" />
+        <package android:name="com.android.documentsui" />
+    </queries>
+    <application android:networkSecurityConfig="@xml/debug_network_security" tools:replace="android:networkSecurityConfig">
+        <!-- ADB shell may start the test-only task in the foreground; ordinary apps cannot. -->
+        <activity android:name="com.deepstudent.app.saf.SafGrantHostActivity"
+            android:exported="true"
+            android:permission="android.permission.DUMP"
+            android:taskAffinity="${applicationId}.s207.saf"
+            android:excludeFromRecents="true"
+            android:theme="@android:style/Theme.Material.Light.NoActionBar" />
+        <provider android:name="androidx.core.content.FileProvider"
+            android:authorities="com.deepstudent.app.debug.documents"
+            android:exported="false" android:grantUriPermissions="true">
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/debug_document_paths" />
+        </provider>
+    </application>
+</manifest>

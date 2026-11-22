@@ -1,0 +1,73 @@
+{
+  "formatVersion": 1,
+  "format": "dstu-s0-g-main-review/v1",
+  "unit": "S0.G",
+  "decision": "accepted",
+  "signer": "main-thread",
+  "signedAt": "2026-11-16T03:59:35+08:00",
+  "policy": {
+    "file": "config/s0-gate.json",
+    "sha256": "825d12f3400f7bc4d5a234d1fc6e0cfa8c3d2bd2e7952136444aa966d22ce2fe"
+  },
+  "finalLock": {
+    "file": "config/schema/final-lock.json",
+    "sha256": "5fd1b3a4bd4288ce577c3f17677c9ca6accfab56c03a80130a8797baed5c08e8"
+  },
+  "assembly": {
+    "sqlSetSha256": "a3c70a046b3d981c2ceba348ad9e7a14e3113d076925e6dbad50ccc67a6d2675",
+    "databases": {
+      "vfs": {
+        "version": 20261117,
+        "fingerprint": "4370a412fa4d4dd7a23cf2308735f75c147ba30ab22329e7829a9bb1d56161d2"
+      },
+      "chat_v2": {
+        "version": 20261111,
+        "fingerprint": "2a29bf29771c7381db4cac8cdbad325cddad8d86bc06795a369176e4654e8b7a"
+      },
+      "mistakes": {
+        "version": 20261006,
+        "fingerprint": "fdd31bdf68ccfa505b88e946a24eb4ae66dc43e13ccf3102f045a67af36b4e31"
+      },
+      "llm_usage": {
+        "version": 20260826,
+        "fingerprint": "ed69ae106103c3b48460d898be47fdfe12124e26f392e4636d1fe7816beb6245"
+      }
+    }
+  },
+  "registry": {
+    "entries": 126,
+    "rowSync": 61
+  },
+  "units": {
+    "count": 25,
+    "allEvidence": true,
+    "units": [
+      "S0.01", "S0.02", "S0.03", "S0.04", "S0.05",
+      "S0.06", "S0.07", "S0.08", "S0.09", "S0.10",
+      "S0.11", "S0.12", "S0.13", "S0.14", "S0.15",
+      "S0.16", "S0.17", "S0.18", "S0.19", "S0.20",
+      "S0.21", "S0.22", "S0.23", "S0.24", "S0.25"
+    ]
+  },
+  "m0": {
+    "complete": true,
+    "signedOff": true
+  },
+  "requiredFields": {
+    "policy.file": "config/s0-gate.json",
+    "policy.sha256": "sha256(config/s0-gate.json)",
+    "finalLock.file": "config/schema/final-lock.json",
+    "finalLock.sha256": "sha256(config/schema/final-lock.json)",
+    "assembly.sqlSetSha256": "final-lock.sql.setSha256",
+    "assembly.databases.<id>.version": "final-lock.databases[id].version",
+    "assembly.databases.<id>.fingerprint": "final-lock.databases[id].fingerprint",
+    "registry.entries": "final-lock.registry.count",
+    "registry.rowSync": "final-lock.registry.rowSync",
+    "units.count": "25",
+    "units.allEvidence": "true",
+    "units.units": "final-lock.units[].unit in order",
+    "m0.complete": "true",
+    "m0.signedOff": "true"
+  },
+  "note": "Main-thread review of the validated S0 source/contracts/fixtures gate. This accepts M0, not an APK or runtime/device release. License evidence, native 16 KiB rebuilds and later device gates remain blocking in their assigned units. The receipt hashes the lock; the lock never hashes the receipt."
+}

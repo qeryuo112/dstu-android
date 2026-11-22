@@ -1,0 +1,1120 @@
+{
+  "formatVersion": 1,
+  "unit": "S0.14",
+  "generatedFrom": "config/runtime-assets.json",
+  "distributionScopes": [
+    "apk",
+    "terminal-env",
+    "desktop-only",
+    "build-only",
+    "not-shipped"
+  ],
+  "desktopEvidence": {
+    "desktopCommit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+    "desktopTree": "3bee0f058851b9eb113bdc036d9f60433ed29944",
+    "license": {
+      "path": "LICENSE",
+      "sha256": "8943429804542a78e4f48d6a7ac6323f059a5a8540200eb0a2a9b3de7c33bf1d",
+      "usedAsReference": true,
+      "supersedesProjectNotice": false
+    },
+    "acknowledgments": {
+      "path": "ACKNOWLEDGMENTS.md",
+      "sha256": "439cfbb7db10394a699fa65ce97adcb7a120d75a711fe422ae4b27f8f4e01bc2",
+      "role": "upstream desktop acknowledgment inventory, checked as evidence only",
+      "usedAsAndroidNotice": false,
+      "supersedesProjectNotice": false
+    },
+    "thirdPartyNotices": {
+      "path": "legal/THIRD_PARTY_NOTICES.txt",
+      "sha256": "b1f896e2c790861e8fd9e872d3eb753f739861baa6da42f3aeff81f3225ae15c",
+      "usedAsAndroidNotice": false
+    },
+    "frontendBundleInventory": {
+      "path": "legal/frontend-bundle-packages.json",
+      "sha256": "a1bf6565913e5ae36f2e1f4f64df38d4267645fb718b106a412534a6435f257a",
+      "packages": 476,
+      "vueIncluded": false,
+      "vueObservationOnly": true
+    },
+    "fonts": {
+      "generationCommit": "145bb3879164c58d1cd5ff39daa94a3daa9fe874",
+      "generatedFrom": "NotoSansSC-VF.ttf",
+      "tool": "fontTools 4.67.0",
+      "files": [
+        {
+          "path": "public/fonts/paper-export/NotoSansSC-Regular.ttf",
+          "sha256": "20239f4010302723d94ef5dcb2ef0926d6a8751918744479d61fa4f08c28e304",
+          "atGeneration": "20239f4010302723d94ef5dcb2ef0926d6a8751918744479d61fa4f08c28e304"
+        },
+        {
+          "path": "public/fonts/paper-export/NotoSansSC-Bold.ttf",
+          "sha256": "291a37b4d5f1cad12467a407f943f089aebae1add41b900197e34038634d5a0e",
+          "atGeneration": "291a37b4d5f1cad12467a407f943f089aebae1add41b900197e34038634d5a0e"
+        },
+        {
+          "path": "public/fonts/paper-export/OFL.txt",
+          "sha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2",
+          "atGeneration": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2"
+        },
+        {
+          "path": "public/fonts/paper-export/README.md",
+          "sha256": "5f8d08390da54a164895b6524d57aae56f1bcfc85af5bf504fc7e41bb5427b60",
+          "atGeneration": "5f8d08390da54a164895b6524d57aae56f1bcfc85af5bf504fc7e41bb5427b60"
+        }
+      ],
+      "unchangedAtFrozenCommit": true,
+      "androidDelivery": "not-adopted runtime resource; S0 has no APK; any future Android PDF export must independently embed or replace the fonts under S4.05"
+    },
+    "adoptionBoundary": {
+      "result": "desktop-runtime-not-adopted-in-android",
+      "apkRelevant": false,
+      "node": "development/runtime evidence only; terminal Node installs are user tools, not an in-APK runtime",
+      "react": "desktop UI implementation only; Android UI is Kotlin/Compose",
+      "vue": "desktop development dependency; the desktop bundle inventory is observation-only, and Vue is not an Android APK dependency",
+      "demoPdf": "upstream demo/film evidence only; not-adopted runtime asset",
+      "upstreamMobile": "not-adopted; Capacitor/mobile/storage-mobile/Java runtime does not enter delivery",
+      "rule": "desktop source and notices are behavior/reference evidence; this will not be represented as an Android license clearance"
+    }
+  },
+  "licenseTexts": [
+    {
+      "id": "LGPL-3.0",
+      "repo": "operit",
+      "path": "LICENSE",
+      "sha256": "e3a994d82e644b03a792a930f574002658412f62407f5fee083f2555c5f23118",
+      "standard": true,
+      "note": "Operit project license; byte-identical to Ubuntu common-licenses/LGPL-3"
+    },
+    {
+      "id": "LGPL-3.0-terminal-variant",
+      "repo": "terminal",
+      "path": "LICENSE",
+      "sha256": "ec6e36db2faaaf8eb41db2013d41a77de9b5252ce354c5bed4cbe161205b0d58",
+      "standard": false,
+      "note": "terminal submodule license; GPL-3 body omitted at line 211"
+    },
+    {
+      "id": "AGPL-3.0",
+      "repo": "desktop",
+      "path": "LICENSE",
+      "sha256": "8943429804542a78e4f48d6a7ac6323f059a5a8540200eb0a2a9b3de7c33bf1d",
+      "standard": true,
+      "note": "dstu-node project license"
+    },
+    {
+      "id": "Apache-2.0",
+      "repo": "operit",
+      "path": "app/src/main/assets/fonts/MATERIAL_SYMBOLS_LICENSE.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "standard": true,
+      "note": "byte-identical to Ubuntu common-licenses/Apache-2.0"
+    },
+    {
+      "id": "MIT",
+      "repo": "operit",
+      "path": "app/src/main/assets/js/katex.LICENSE.txt",
+      "sha256": "766ccc1f306c885aa45542a9846bbd0a505b27a0374f146778171c2254ce18e3",
+      "standard": true,
+      "note": "KaTeX MIT text"
+    },
+    {
+      "id": "BSD-2-Clause",
+      "repo": "operit",
+      "path": "app/src/main/assets/js/terser.LICENSE",
+      "sha256": "901d0a7fcaccaae9917d165039c0473c354e5da2e0e94140dde67aad9ffb19da",
+      "standard": false,
+      "note": "Terser/UglifyJS BSD text without SPDX header"
+    },
+    {
+      "id": "OFL-1.1",
+      "repo": "desktop",
+      "path": "public/fonts/paper-export/OFL.txt",
+      "sha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2",
+      "standard": true,
+      "note": "Noto Sans SC OFL text; usable as the OFL-1.1 reference text"
+    },
+    {
+      "id": "Ubuntu-common-Apache-2.0",
+      "rootfs": "usr/share/common-licenses/Apache-2.0",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "standard": true,
+      "note": "read-only stream from rootfs archive"
+    },
+    {
+      "id": "Ubuntu-common-Artistic",
+      "rootfs": "usr/share/common-licenses/Artistic",
+      "sha256": "b7fd9b73ea99602016a326e0b62e6646060d18febdd065ceca8bb482208c3d88",
+      "standard": false,
+      "note": "read-only stream from rootfs archive"
+    },
+    {
+      "id": "Ubuntu-common-BSD",
+      "rootfs": "usr/share/common-licenses/BSD",
+      "sha256": "5d588eb3b157d52112afea935c88a7ff9efddc1e2d95a42c25d3b96ad9055008",
+      "standard": true,
+      "note": "read-only stream from rootfs archive"
+    },
+    {
+      "id": "Ubuntu-common-CC0-1.0",
+      "rootfs": "usr/share/common-licenses/CC0-1.0",
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+      "standard": true,
+      "note": "read-only stream from rootfs archive"
+    },
+    {
+      "id": "Ubuntu-common-GFDL-1.2",
+      "rootfs": "usr/share/common-licenses/GFDL-1.2",
+      "sha256": "d8e94ae5fdb5433fcae2961aeb1a8cf17174d6f4a0465d24bf37dd8a038bd439",
+      "standard": true,
+      "note": "read-only stream from rootfs archive"
+    },
+    {
+      "id": "Ubuntu-common-GFDL-1.3",
+      "rootfs": "usr/share/common-licenses/GFDL-1.3",
+      "sha256": "110535522396708cea37c72a802c5e7e81391139f5f7985631c93ef242b206a4",
+      "standard": true,
+      "note": "read-only stream from rootfs archive"
+    },
+    {
+      "id": "Ubuntu-common-GPL-1",
+      "rootfs": "usr/share/common-licenses/GPL-1",
+      "sha256": "d77d235e41d54594865151f4751e835c5a82322b0e87ace266567c3391a4b912",
+      "standard": true,
+      "note": "read-only stream from rootfs archive"
+    },
+    {
+      "id": "Ubuntu-common-GPL-2",
+      "rootfs": "usr/share/common-licenses/GPL-2",
+      "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643",
+      "standard": true,
+      "note": "read-only stream from rootfs archive"
+    },
+    {
+      "id": "Ubuntu-common-GPL-3",
+      "rootfs": "usr/share/common-licenses/GPL-3",
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "standard": true,
+      "note": "read-only stream from rootfs archive"
+    },
+    {
+      "id": "Ubuntu-common-LGPL-2",
+      "rootfs": "usr/share/common-licenses/LGPL-2",
+      "sha256": "681e386e44a19d7d0674b4320272c90e66b6610b741e7e6305f8219c42e85366",
+      "standard": true,
+      "note": "read-only stream from rootfs archive"
+    },
+    {
+      "id": "Ubuntu-common-LGPL-2.1",
+      "rootfs": "usr/share/common-licenses/LGPL-2.1",
+      "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551",
+      "standard": true,
+      "note": "read-only stream from rootfs archive"
+    },
+    {
+      "id": "Ubuntu-common-LGPL-3",
+      "rootfs": "usr/share/common-licenses/LGPL-3",
+      "sha256": "e3a994d82e644b03a792a930f574002658412f62407f5fee083f2555c5f23118",
+      "standard": true,
+      "note": "read-only stream from rootfs archive"
+    },
+    {
+      "id": "Ubuntu-common-MPL-1.1",
+      "rootfs": "usr/share/common-licenses/MPL-1.1",
+      "sha256": "f849fc26a7a99981611a3a370e83078deb617d12a45776d6c4cada4d338be469",
+      "standard": true,
+      "note": "read-only stream from rootfs archive"
+    },
+    {
+      "id": "Ubuntu-common-MPL-2.0",
+      "rootfs": "usr/share/common-licenses/MPL-2.0",
+      "sha256": "fab3dd6bdab226f1c08630b1dd917e11fcb4ec5e1e020e2c16f83a0a13863e85",
+      "standard": true,
+      "note": "read-only stream from rootfs archive"
+    }
+  ],
+  "components": [
+    {
+      "id": "terminal-pty-jni",
+      "name": "terminal-pty-jni",
+      "kind": "source-build",
+      "deliveryUnit": "S6.01",
+      "distribution": "shipped",
+      "license": "LGPL-3.0",
+      "licenseStatus": "resolved",
+      "copyright": "terminal repository LICENSE",
+      "textRefs": [
+        {
+          "repo": "terminal",
+          "path": "LICENSE",
+          "sha256": "ec6e36db2faaaf8eb41db2013d41a77de9b5252ce354c5bed4cbe161205b0d58"
+        }
+      ],
+      "noticeAction": "include-text-and-source-offer",
+      "status": "resolved",
+      "followUp": {
+        "unit": "S6.01",
+        "reason": "built artifact absent; 16 KiB page-size flag is not declared in terminal CMake"
+      }
+    },
+    {
+      "id": "terminal-libbash",
+      "name": "terminal-libbash",
+      "kind": "prebuilt-native",
+      "deliveryUnit": "S6.01",
+      "distribution": "shipped",
+      "license": "GPL-3.0-or-later",
+      "licenseStatus": "declared-unverified",
+      "copyright": "binary string: \"License GPLv3+: GNU GPL version 3 or later\"",
+      "textRefs": [
+        {
+          "rootfs": "usr/share/common-licenses/GPL-3",
+          "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+        }
+      ],
+      "noticeAction": "include-text-and-source-offer",
+      "status": "unresolved",
+      "followUp": {
+        "unit": "S6.01",
+        "reason": "source package, build script and upstream hash are not recorded"
+      }
+    },
+    {
+      "id": "terminal-libbusybox",
+      "name": "terminal-libbusybox",
+      "kind": "prebuilt-native",
+      "deliveryUnit": "S6.01",
+      "distribution": "shipped",
+      "license": "GPL-2.0-only",
+      "licenseStatus": "declared-unverified",
+      "copyright": "binary string: \"Licensed under GPLv2. See source distribution\"",
+      "textRefs": [
+        {
+          "rootfs": "usr/share/common-licenses/GPL-2",
+          "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+        }
+      ],
+      "noticeAction": "include-text-and-source-offer",
+      "status": "unresolved",
+      "followUp": {
+        "unit": "S6.01",
+        "reason": "third-party build (osm0sis) has no pinned source/build recipe; license compatibility review required"
+      }
+    },
+    {
+      "id": "terminal-liboperit-proot",
+      "name": "terminal-liboperit-proot",
+      "kind": "prebuilt-native",
+      "deliveryUnit": "S6.01",
+      "distribution": "shipped",
+      "license": "GPL-2.0-or-later",
+      "licenseStatus": "declared-unverified",
+      "copyright": "binary string: \"Copyright (C) 2015 STMicroelectronics, licensed under GPL v2 or later.\"",
+      "textRefs": [
+        {
+          "rootfs": "usr/share/common-licenses/GPL-2",
+          "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+        }
+      ],
+      "noticeAction": "include-text-and-source-offer",
+      "status": "unresolved",
+      "followUp": {
+        "unit": "S6.01",
+        "reason": "PRoot fork source and build recipe are not recorded"
+      }
+    },
+    {
+      "id": "terminal-liboperit-loader",
+      "name": "terminal-liboperit-loader",
+      "kind": "prebuilt-native",
+      "deliveryUnit": "S6.01",
+      "distribution": "shipped",
+      "license": null,
+      "licenseStatus": "unknown",
+      "copyright": "no local license text or binary string",
+      "textRefs": [],
+      "noticeAction": "review",
+      "status": "unresolved",
+      "followUp": {
+        "unit": "S6.01",
+        "reason": "source, purpose, license and build recipe unknown; needed evidence: upstream source and license"
+      }
+    },
+    {
+      "id": "terminal-libsudo",
+      "name": "terminal-libsudo",
+      "kind": "prebuilt-native",
+      "deliveryUnit": "S6.01",
+      "distribution": "shipped",
+      "license": null,
+      "licenseStatus": "unknown",
+      "copyright": "2-byte shell fragment, no license evidence",
+      "textRefs": [],
+      "noticeAction": "review",
+      "status": "unresolved",
+      "followUp": {
+        "unit": "S6.01",
+        "reason": "not an ELF; execution depends on shell fallback; source/license unknown"
+      }
+    },
+    {
+      "id": "terminal-rootfs",
+      "name": "terminal-rootfs",
+      "kind": "rootfs-archive",
+      "deliveryUnit": "S6.09",
+      "distribution": "shipped",
+      "license": "mixed-ubuntu-noble",
+      "licenseStatus": "aggregate",
+      "copyright": "dpkg status + per-package copyright",
+      "textRefs": [],
+      "noticeAction": "aggregate-notice-and-source-offer",
+      "status": "unresolved",
+      "followUp": {
+        "unit": "S6.09",
+        "reason": "upstream release URL, archive manifest and reproducible build are not recorded"
+      }
+    },
+    {
+      "id": "terminal-setup-fake-sysdata",
+      "name": "terminal-setup-fake-sysdata",
+      "kind": "shell-script",
+      "deliveryUnit": "S6.09",
+      "distribution": "shipped",
+      "license": "GPL-3.0",
+      "licenseStatus": "declared-unverified",
+      "copyright": "proot-distro derivative per file header; no license header in file",
+      "textRefs": [
+        {
+          "rootfs": "usr/share/common-licenses/GPL-3",
+          "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+        }
+      ],
+      "noticeAction": "include-text-and-source-offer",
+      "status": "unresolved",
+      "followUp": {
+        "unit": "S6.09",
+        "reason": "upstream proot-distro version and license text are not recorded"
+      }
+    },
+    {
+      "id": "terminal-font-jetbrains-mono-nerd",
+      "name": "terminal-font-jetbrains-mono-nerd",
+      "kind": "font",
+      "deliveryUnit": "S6.03",
+      "distribution": "shipped",
+      "license": "OFL-1.1",
+      "licenseStatus": "declared-unverified",
+      "copyright": "name ID 13 in the TTF; OFL text not vendored",
+      "textRefs": [
+        {
+          "repo": "desktop",
+          "path": "public/fonts/paper-export/OFL.txt",
+          "sha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2"
+        }
+      ],
+      "noticeAction": "include-text",
+      "status": "unresolved",
+      "followUp": {
+        "unit": "S6.03",
+        "reason": "OFL text and exact patched-font release hash are not vendored in Operit"
+      }
+    },
+    {
+      "id": "quickjs-engine",
+      "name": "quickjs-engine",
+      "kind": "source-build",
+      "deliveryUnit": "S6.31",
+      "distribution": "shipped",
+      "license": "MIT",
+      "licenseStatus": "declared-unverified",
+      "copyright": "upstream project license; no LICENSE file in either repo",
+      "textRefs": [],
+      "noticeAction": "include-text",
+      "status": "unresolved",
+      "followUp": {
+        "unit": "S6.31",
+        "reason": "fetch upstream LICENSE at the pinned commit and store text/hash; verify built LOAD alignment"
+      }
+    },
+    {
+      "id": "wamr-engine",
+      "name": "wamr-engine",
+      "kind": "source-build",
+      "deliveryUnit": "S4.01",
+      "distribution": "shipped",
+      "license": "Apache-2.0",
+      "licenseStatus": "declared-unverified",
+      "copyright": "upstream project license; no LICENSE file in either repo",
+      "textRefs": [],
+      "noticeAction": "include-text",
+      "status": "unresolved",
+      "followUp": {
+        "unit": "S4.01",
+        "reason": "store upstream license text/hash and verify built alignment"
+      }
+    },
+    {
+      "id": "sherpa-ncnn-engine",
+      "name": "sherpa-ncnn-engine",
+      "kind": "source-build",
+      "deliveryUnit": "S4.01",
+      "distribution": "shipped",
+      "license": "Apache-2.0",
+      "licenseStatus": "declared-unverified",
+      "copyright": "about screen declaration; no local license text",
+      "textRefs": [],
+      "noticeAction": "include-text",
+      "status": "unresolved",
+      "followUp": {
+        "unit": "S4.01",
+        "reason": "sherpa-ncnn-jni does not receive enable_16kb_page_alignment; verify built LOAD alignment and license text"
+      }
+    },
+    {
+      "id": "ncnn-source-declaration",
+      "name": "ncnn-source-declaration",
+      "kind": "source-declaration",
+      "deliveryUnit": "S4.01",
+      "distribution": "not-shipped",
+      "license": "BSD-3-Clause",
+      "licenseStatus": "declared-unverified",
+      "copyright": "upstream project license; no local text",
+      "textRefs": [],
+      "noticeAction": "review",
+      "status": "not-required",
+      "followUp": {
+        "unit": "S4.01",
+        "reason": "unused declaration with floating master; record actual ncnn acquisition path of sherpa-ncnn"
+      }
+    },
+    {
+      "id": "openfst-source-declaration",
+      "name": "openfst-source-declaration",
+      "kind": "source-declaration",
+      "deliveryUnit": "S4.01",
+      "distribution": "not-shipped",
+      "license": "Apache-2.0",
+      "licenseStatus": "declared-unverified",
+      "copyright": "upstream project license; no local text",
+      "textRefs": [],
+      "noticeAction": "review",
+      "status": "not-required",
+      "followUp": {
+        "unit": "S4.01",
+        "reason": "unused declaration; keep hash evidence only if adopted"
+      }
+    },
+    {
+      "id": "llama-cpp-engine",
+      "name": "llama-cpp-engine",
+      "kind": "source-build",
+      "deliveryUnit": "S4.01",
+      "distribution": "shipped",
+      "license": "MIT",
+      "licenseStatus": "declared-unverified",
+      "copyright": "upstream project license; no local text",
+      "textRefs": [],
+      "noticeAction": "include-text",
+      "status": "unresolved",
+      "followUp": {
+        "unit": "S4.01",
+        "reason": "store upstream license text/hash; verify built LOAD alignment"
+      }
+    },
+    {
+      "id": "mnn-engine",
+      "name": "mnn-engine",
+      "kind": "source-build",
+      "deliveryUnit": "S4.01",
+      "distribution": "shipped",
+      "license": "Apache-2.0",
+      "licenseStatus": "declared-unverified",
+      "copyright": "about screen declaration; no local license text",
+      "textRefs": [],
+      "noticeAction": "include-text",
+      "status": "unresolved",
+      "followUp": {
+        "unit": "S4.01",
+        "reason": "store upstream license text/hash; verify built LOAD alignment"
+      }
+    },
+    {
+      "id": "kleidiai-engine",
+      "name": "kleidiai-engine",
+      "kind": "source-build",
+      "deliveryUnit": "S4.01",
+      "distribution": "shipped",
+      "license": "Apache-2.0",
+      "licenseStatus": "declared-unverified",
+      "copyright": "upstream project license; no local text",
+      "textRefs": [],
+      "noticeAction": "include-text",
+      "status": "unresolved",
+      "followUp": {
+        "unit": "S4.01",
+        "reason": "store upstream license text/hash"
+      }
+    },
+    {
+      "id": "saba-engine",
+      "name": "saba-engine",
+      "kind": "source-build",
+      "deliveryUnit": "S4.01",
+      "distribution": "not-shipped",
+      "license": "MIT",
+      "licenseStatus": "declared-unverified",
+      "copyright": "upstream project license; no local text",
+      "textRefs": [],
+      "noticeAction": "none",
+      "status": "not-required",
+      "followUp": {
+        "unit": "S4.01",
+        "reason": "S0.13 rejected avatar scope; keep recorded and do not build for dstu"
+      }
+    },
+    {
+      "id": "bullet3-engine",
+      "name": "bullet3-engine",
+      "kind": "source-build",
+      "deliveryUnit": "S4.01",
+      "distribution": "not-shipped",
+      "license": "Zlib",
+      "licenseStatus": "declared-unverified",
+      "copyright": "upstream project license; no local text",
+      "textRefs": [],
+      "noticeAction": "none",
+      "status": "not-required",
+      "followUp": {
+        "unit": "S4.01",
+        "reason": "S0.13 rejected avatar scope; keep recorded and do not build for dstu"
+      }
+    },
+    {
+      "id": "ufbx-engine",
+      "name": "ufbx-engine",
+      "kind": "source-build",
+      "deliveryUnit": "S4.01",
+      "distribution": "not-shipped",
+      "license": "MIT",
+      "licenseStatus": "declared-unverified",
+      "copyright": "upstream project license; no local text",
+      "textRefs": [],
+      "noticeAction": "none",
+      "status": "not-required",
+      "followUp": {
+        "unit": "S4.01",
+        "reason": "S0.13 rejected avatar scope; keep recorded and do not build for dstu"
+      }
+    },
+    {
+      "id": "dragonbones-cpp-engine",
+      "name": "dragonbones-cpp-engine",
+      "kind": "source-build",
+      "deliveryUnit": "S4.01",
+      "distribution": "not-shipped",
+      "license": "MIT",
+      "licenseStatus": "declared-unverified",
+      "copyright": "upstream project license; no local text",
+      "textRefs": [],
+      "noticeAction": "none",
+      "status": "not-required",
+      "followUp": {
+        "unit": "S4.01",
+        "reason": "S0.13 rejected avatar scope; keep recorded and do not build for dstu"
+      }
+    },
+    {
+      "id": "sherpa-mnn-jni",
+      "name": "sherpa-mnn-jni",
+      "kind": "prebuilt-native",
+      "deliveryUnit": "S4.18",
+      "distribution": "shipped",
+      "license": "Apache-2.0",
+      "licenseStatus": "declared-unverified",
+      "copyright": "about screen declaration only",
+      "textRefs": [],
+      "noticeAction": "include-text",
+      "status": "unresolved",
+      "followUp": {
+        "unit": "S4.18",
+        "reason": "no build recipe, upstream commit or license text; needed evidence: sherpa-mnn source tag, build script, license"
+      }
+    },
+    {
+      "id": "stt-models",
+      "name": "stt-models",
+      "kind": "model-manifest",
+      "deliveryUnit": "S4.18",
+      "distribution": "shipped",
+      "license": "MIT + undeclared",
+      "licenseStatus": "mixed",
+      "copyright": "manifest column 6",
+      "textRefs": [
+        {
+          "repo": "operit",
+          "path": "app/src/main/assets/js/katex.LICENSE.txt",
+          "sha256": "766ccc1f306c885aa45542a9846bbd0a505b27a0374f146778171c2254ce18e3"
+        }
+      ],
+      "noticeAction": "review",
+      "status": "unresolved",
+      "followUp": {
+        "unit": "S4.18",
+        "reason": "seven sherpa-ncnn files declare no upstream license; needed evidence: model card license and redistribution permission"
+      }
+    },
+    {
+      "id": "ffmpeg-kit-local-aar",
+      "name": "ffmpeg-kit-local-aar",
+      "kind": "external-build",
+      "deliveryUnit": "S4.17",
+      "distribution": "shipped",
+      "license": "LGPL-3.0",
+      "licenseStatus": "declared-unverified",
+      "copyright": "about screen declaration; no local text",
+      "textRefs": [],
+      "noticeAction": "include-text-and-source-offer",
+      "status": "unresolved",
+      "followUp": {
+        "unit": "S4.17",
+        "reason": "ffmpeg-kit commit, AAR hash and per-library license manifest are not recorded"
+      }
+    },
+    {
+      "id": "liboperit-ripgrep-so",
+      "name": "liboperit-ripgrep-so",
+      "kind": "external-build",
+      "deliveryUnit": "S4.01",
+      "distribution": "not-shipped",
+      "license": "MIT",
+      "licenseStatus": "declared-unverified",
+      "copyright": "ripgrep/ignore/globset crates; no local text",
+      "textRefs": [],
+      "noticeAction": "none",
+      "status": "not-required",
+      "followUp": {
+        "unit": "S4.01",
+        "reason": "S0.13 rejected native ripgrep for dstu; Cargo.lock retained as source evidence"
+      }
+    },
+    {
+      "id": "operit-ci-archives",
+      "name": "operit-ci-archives",
+      "kind": "external-archive",
+      "deliveryUnit": "S4.01",
+      "distribution": "not-shipped",
+      "license": null,
+      "licenseStatus": "unknown",
+      "copyright": "archive members have no license manifest",
+      "textRefs": [],
+      "noticeAction": "review",
+      "status": "unresolved",
+      "followUp": {
+        "unit": "S4.01",
+        "reason": "archive hashes and per-member license inventory are missing; needed evidence: downloaded archive SHA-256 and manifest"
+      }
+    },
+    {
+      "id": "mcp-bridge-js",
+      "name": "mcp-bridge-js",
+      "kind": "bundled-js",
+      "deliveryUnit": "S6.28",
+      "distribution": "shipped",
+      "license": null,
+      "licenseStatus": "unknown",
+      "copyright": "no lockfile, version or license manifest for bundled npm modules",
+      "textRefs": [],
+      "noticeAction": "review",
+      "status": "unresolved",
+      "followUp": {
+        "unit": "S6.28",
+        "reason": "npm module inventory/versions/licenses are not recorded; needed evidence: lockfile and generated NOTICE"
+      }
+    },
+    {
+      "id": "terser-bundle",
+      "name": "terser-bundle",
+      "kind": "bundled-js",
+      "deliveryUnit": "S6.33",
+      "distribution": "shipped",
+      "license": "BSD-2-Clause",
+      "licenseStatus": "resolved",
+      "copyright": "vendored terser.LICENSE",
+      "textRefs": [
+        {
+          "repo": "operit",
+          "path": "app/src/main/assets/js/terser.LICENSE",
+          "sha256": "901d0a7fcaccaae9917d165039c0473c354e5da2e0e94140dde67aad9ffb19da"
+        }
+      ],
+      "noticeAction": "include-text",
+      "status": "resolved",
+      "followUp": {
+        "unit": "S6.33",
+        "reason": "bundle version and generation command are not recorded"
+      }
+    },
+    {
+      "id": "katex-min",
+      "name": "katex-min",
+      "kind": "bundled-js",
+      "deliveryUnit": "S5.15",
+      "distribution": "shipped",
+      "license": "MIT",
+      "licenseStatus": "resolved",
+      "copyright": "vendored katex.LICENSE.txt",
+      "textRefs": [
+        {
+          "repo": "operit",
+          "path": "app/src/main/assets/js/katex.LICENSE.txt",
+          "sha256": "766ccc1f306c885aa45542a9846bbd0a505b27a0374f146778171c2254ce18e3"
+        }
+      ],
+      "noticeAction": "include-text",
+      "status": "resolved",
+      "followUp": {
+        "unit": "S5.15",
+        "reason": "Android 0.16.44 drifts from desktop lock 0.16.47; align or record compatibility"
+      }
+    },
+    {
+      "id": "js-native-shims",
+      "name": "js-native-shims",
+      "kind": "project-js",
+      "deliveryUnit": "S6.31",
+      "distribution": "shipped",
+      "license": "LGPL-3.0",
+      "licenseStatus": "project",
+      "copyright": "Operit-authored shims",
+      "textRefs": [
+        {
+          "repo": "operit",
+          "path": "LICENSE",
+          "sha256": "e3a994d82e644b03a792a930f574002658412f62407f5fee083f2555c5f23118"
+        }
+      ],
+      "noticeAction": "include-text",
+      "status": "resolved",
+      "followUp": {
+        "unit": "S6.31",
+        "reason": "confirm no upstream code is embedded in the shims"
+      }
+    },
+    {
+      "id": "material-symbols-font",
+      "name": "material-symbols-font",
+      "kind": "font",
+      "deliveryUnit": "S5.17",
+      "distribution": "shipped",
+      "license": "Apache-2.0",
+      "licenseStatus": "resolved",
+      "copyright": "vendored MATERIAL_SYMBOLS_LICENSE.txt",
+      "textRefs": [
+        {
+          "repo": "operit",
+          "path": "app/src/main/assets/fonts/MATERIAL_SYMBOLS_LICENSE.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+        },
+        {
+          "rootfs": "usr/share/common-licenses/Apache-2.0",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+        }
+      ],
+      "noticeAction": "include-text",
+      "status": "resolved",
+      "followUp": {
+        "unit": "S5.17",
+        "reason": "none; declared and actual hash agree"
+      }
+    },
+    {
+      "id": "noto-sans-sc-paper-export",
+      "name": "noto-sans-sc-paper-export",
+      "kind": "font",
+      "deliveryUnit": "S4.05",
+      "distribution": "not-shipped",
+      "license": "OFL-1.1",
+      "licenseStatus": "resolved",
+      "copyright": "vendored OFL.txt",
+      "textRefs": [
+        {
+          "repo": "desktop",
+          "path": "public/fonts/paper-export/OFL.txt",
+          "sha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2"
+        }
+      ],
+      "noticeAction": "include-text",
+      "status": "resolved",
+      "followUp": {
+        "unit": "S4.05",
+        "reason": "Android PDF export must embed the same fonts or record a replacement"
+      }
+    },
+    {
+      "id": "shower-server-jar",
+      "name": "shower-server-jar",
+      "kind": "prebuilt-apk",
+      "deliveryUnit": "S6.41",
+      "distribution": "shipped",
+      "license": "Apache-2.0 + LGPL-3.0",
+      "licenseStatus": "declared-unverified",
+      "copyright": "about screen lists scrcpy Apache-2.0; tools/shower has no LICENSE/NOTICE",
+      "textRefs": [
+        {
+          "repo": "operit",
+          "path": "LICENSE",
+          "sha256": "e3a994d82e644b03a792a930f574002658412f62407f5fee083f2555c5f23118"
+        }
+      ],
+      "noticeAction": "review",
+      "status": "unresolved",
+      "followUp": {
+        "unit": "S6.41",
+        "reason": "record source commit, APK hash, scrcpy derivation and attribution; add NOTICE"
+      }
+    },
+    {
+      "id": "operit-shell-exec",
+      "name": "operit-shell-exec",
+      "kind": "prebuilt-native",
+      "deliveryUnit": "S6.21",
+      "distribution": "shipped",
+      "license": "LGPL-3.0",
+      "licenseStatus": "project",
+      "copyright": "Operit-authored launcher",
+      "textRefs": [
+        {
+          "repo": "operit",
+          "path": "LICENSE",
+          "sha256": "e3a994d82e644b03a792a930f574002658412f62407f5fee083f2555c5f23118"
+        }
+      ],
+      "noticeAction": "include-text",
+      "status": "resolved",
+      "followUp": {
+        "unit": "S6.21",
+        "reason": "prebuilt binary LOAD alignment is 0x1000; rebuild with 16 KiB page-size flags and record hash"
+      }
+    },
+    {
+      "id": "shizuku-apk",
+      "name": "shizuku-apk",
+      "kind": "prebuilt-apk",
+      "deliveryUnit": "S6.18",
+      "distribution": "shipped",
+      "license": "Apache-2.0",
+      "licenseStatus": "declared-unverified",
+      "copyright": "README and about screen; no license text in APK or repo",
+      "textRefs": [],
+      "noticeAction": "include-text",
+      "status": "unresolved",
+      "followUp": {
+        "unit": "S6.18",
+        "reason": "record release tag, APK hash, signature and Apache-2.0 text"
+      }
+    },
+    {
+      "id": "accessibility-apk",
+      "name": "accessibility-apk",
+      "kind": "prebuilt-apk",
+      "deliveryUnit": "S6.22",
+      "distribution": "shipped",
+      "license": null,
+      "licenseStatus": "unknown",
+      "copyright": "source and build recipe absent",
+      "textRefs": [],
+      "noticeAction": "review",
+      "status": "unresolved",
+      "followUp": {
+        "unit": "S6.22",
+        "reason": "source module, build recipe and license text are missing"
+      }
+    },
+    {
+      "id": "desktop-apk",
+      "name": "desktop-apk",
+      "kind": "prebuilt-apk",
+      "deliveryUnit": "S0.15",
+      "distribution": "shipped",
+      "license": null,
+      "licenseStatus": "unknown",
+      "copyright": "provenance and license unknown",
+      "textRefs": [],
+      "noticeAction": "review",
+      "status": "unresolved",
+      "followUp": {
+        "unit": "S0.15",
+        "reason": "disposition decision: remove unused APK or document source/license"
+      }
+    },
+    {
+      "id": "subpack-keystores",
+      "name": "subpack-keystores",
+      "kind": "keystore",
+      "deliveryUnit": "S6.35",
+      "distribution": "shipped",
+      "license": "LGPL-3.0",
+      "licenseStatus": "project",
+      "copyright": "project-generated keystores",
+      "textRefs": [
+        {
+          "repo": "operit",
+          "path": "LICENSE",
+          "sha256": "e3a994d82e644b03a792a930f574002658412f62407f5fee083f2555c5f23118"
+        }
+      ],
+      "noticeAction": "none",
+      "status": "not-required",
+      "followUp": {
+        "unit": "S6.35",
+        "reason": "known password \"android\" and generation procedure must be reviewed before package signing reuse"
+      }
+    },
+    {
+      "id": "aapt2-arm64",
+      "name": "aapt2-arm64",
+      "kind": "prebuilt-native",
+      "deliveryUnit": "S6.15",
+      "distribution": "shipped",
+      "license": "Apache-2.0",
+      "licenseStatus": "declared-unverified",
+      "copyright": "AOSP build tool; no local license text",
+      "textRefs": [
+        {
+          "rootfs": "usr/share/common-licenses/Apache-2.0",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+        }
+      ],
+      "noticeAction": "include-text",
+      "status": "unresolved",
+      "followUp": {
+        "unit": "S6.15",
+        "reason": "prebuilt LOAD alignment is 0x1000; rebuild from pinned AOSP/NDK and record recipe"
+      }
+    },
+    {
+      "id": "gradle-wrapper-jars",
+      "name": "gradle-wrapper-jars",
+      "kind": "build-tool",
+      "deliveryUnit": "S1.01",
+      "distribution": "not-shipped",
+      "license": "Apache-2.0",
+      "licenseStatus": "declared-unverified",
+      "copyright": "Gradle wrapper manifest; no local license text",
+      "textRefs": [
+        {
+          "rootfs": "usr/share/common-licenses/Apache-2.0",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+        }
+      ],
+      "noticeAction": "include-text",
+      "status": "unresolved",
+      "followUp": {
+        "unit": "S1.01",
+        "reason": "record wrapper provenance and distribution hash in the new build"
+      }
+    },
+    {
+      "id": "examples-apktool-jars",
+      "name": "examples-apktool-jars",
+      "kind": "example-asset",
+      "deliveryUnit": "S0.15",
+      "distribution": "not-shipped",
+      "license": null,
+      "licenseStatus": "unknown",
+      "copyright": "no license manifest for the four jars",
+      "textRefs": [],
+      "noticeAction": "review",
+      "status": "not-required",
+      "followUp": {
+        "unit": "S0.15",
+        "reason": "examples are not shipped; record disposition and remove if unused"
+      }
+    },
+    {
+      "id": "ubuntu-noble-rootfs",
+      "name": "Ubuntu 24.04.1 LTS noble rootfs",
+      "kind": "rootfs-archive",
+      "deliveryUnit": "S6.09",
+      "distribution": "shipped",
+      "license": "mixed-ubuntu-noble",
+      "licenseStatus": "aggregate",
+      "copyright": "185 installed packages; 181 copyright files; 1 unresolved",
+      "textRefs": [
+        {
+          "rootfs": "usr/share/common-licenses/Apache-2.0",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+        },
+        {
+          "rootfs": "usr/share/common-licenses/Artistic",
+          "sha256": "b7fd9b73ea99602016a326e0b62e6646060d18febdd065ceca8bb482208c3d88"
+        },
+        {
+          "rootfs": "usr/share/common-licenses/BSD",
+          "sha256": "5d588eb3b157d52112afea935c88a7ff9efddc1e2d95a42c25d3b96ad9055008"
+        },
+        {
+          "rootfs": "usr/share/common-licenses/CC0-1.0",
+          "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
+        },
+        {
+          "rootfs": "usr/share/common-licenses/GFDL-1.2",
+          "sha256": "d8e94ae5fdb5433fcae2961aeb1a8cf17174d6f4a0465d24bf37dd8a038bd439"
+        },
+        {
+          "rootfs": "usr/share/common-licenses/GFDL-1.3",
+          "sha256": "110535522396708cea37c72a802c5e7e81391139f5f7985631c93ef242b206a4"
+        },
+        {
+          "rootfs": "usr/share/common-licenses/GPL-1",
+          "sha256": "d77d235e41d54594865151f4751e835c5a82322b0e87ace266567c3391a4b912"
+        },
+        {
+          "rootfs": "usr/share/common-licenses/GPL-2",
+          "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+        },
+        {
+          "rootfs": "usr/share/common-licenses/GPL-3",
+          "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+        },
+        {
+          "rootfs": "usr/share/common-licenses/LGPL-2",
+          "sha256": "681e386e44a19d7d0674b4320272c90e66b6610b741e7e6305f8219c42e85366"
+        },
+        {
+          "rootfs": "usr/share/common-licenses/LGPL-2.1",
+          "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551"
+        },
+        {
+          "rootfs": "usr/share/common-licenses/LGPL-3",
+          "sha256": "e3a994d82e644b03a792a930f574002658412f62407f5fee083f2555c5f23118"
+        },
+        {
+          "rootfs": "usr/share/common-licenses/MPL-1.1",
+          "sha256": "f849fc26a7a99981611a3a370e83078deb617d12a45776d6c4cada4d338be469"
+        },
+        {
+          "rootfs": "usr/share/common-licenses/MPL-2.0",
+          "sha256": "fab3dd6bdab226f1c08630b1dd917e11fcb4ec5e1e020e2c16f83a0a13863e85"
+        }
+      ],
+      "noticeAction": "aggregate-notice-and-source-offer",
+      "status": "unresolved",
+      "followUp": {
+        "unit": "S6.09",
+        "reason": "per-package source offer and unresolved copyrights"
+      }
+    }
+  ],
+  "summary": {
+    "components": 42,
+    "resolved": 7,
+    "unresolved": 26,
+    "notRequired": 9,
+    "licenseTexts": 21
+  },
+  "checks": {
+    "unknownLicenseWithoutReview": 0,
+    "unresolvedMissingText": 26
+  }
+}

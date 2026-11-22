@@ -1,0 +1,36 @@
+{
+  "formatVersion": 1,
+  "unit": "S0.17",
+  "inventory": {
+    "observedAt": "2026-11-15T21:16:08+08:00",
+    "adb": "/home/xutao/Android/Sdk/platform-tools/adb",
+    "adbDevices": ["lab-tablet-01"],
+    "avds": [],
+    "method": "adb devices -l; emulator -list-avds",
+    "scope": "Read-only property/identity observation, not an application execution or performance result",
+    "devices": [{ "id": "lab-tablet-01", "model": "iPA2475", "buildFingerprint": "vivo/DPD2329M/DPD2329:16/BP2A.250605.031.A3/compiler260701181748:user/release-keys", "api": 36, "abi": "arm64-v8a", "memoryTotalKiB": 16021468, "pageSize": 4096, "physicalPixels": [2064, 3096], "densityDpi": 400, "smallestWidthDp": 825.6, "adbUid": 0, "adbSelinuxContext": "u:r:ksu:s0", "shizukuPackagePresent": true, "shizukuBinderPermissionTested": false, "dstuPackagePresent": false, "applicationTargetIdentityTested": false, "assignedProfiles": ["tablet-foldable", "root-permission-device"], "limitations": ["not a low-memory or midrange phone", "not a 16 KiB page device", "fold/unfold behavior not observed", "ADB root does not establish the app ROOT or SHIZUKU target identity"] }]
+  },
+  "deviceProfiles": [
+    { "id": "low-memory-phone", "source": "plan §12.3 three-tier devices; release-contract minSdk/ABI", "form": "phone", "api": [26, 28], "abi": "arm64-v8a", "ramMiB": [2048, 3072], "smallestWidthDp": [320, 411], "pageSize": 4096, "permissions": ["normal"], "requiredUnits": ["S1.27", "S9.04", "S9.12"], "status": "procurement-required", "observedDevice": null },
+    { "id": "midrange-phone", "source": "plan §12.3 three-tier devices; targetSdk 36 behavior matrix", "form": "phone", "api": [33, 36], "abi": "arm64-v8a", "ramMiB": [4096, 8192], "smallestWidthDp": [360, 480], "pageSize": 4096, "permissions": ["normal", "shizuku-shell"], "requiredUnits": ["S1.22", "S1.27", "S6.22", "S9.10"], "status": "procurement-required", "observedDevice": null },
+    { "id": "tablet-foldable", "source": "plan §1.1 tablets/foldables; §7.3 adaptive workbench", "form": "tablet-foldable", "api": [34, 36], "abi": "arm64-v8a", "ramMiB": [6144, 16384], "smallestWidthDp": [600, 960], "pageSize": 4096, "permissions": ["normal"], "requiredUnits": ["S1.17", "S1.27", "S9.04"], "status": "tablet-observed-foldable-pending", "observedDevice": "lab-tablet-01" },
+    { "id": "16k-page-phone", "source": "config/release-contract.json native16k.acceptance.deviceRuntime", "form": "phone", "api": [35, 36], "abi": "arm64-v8a", "ramMiB": [6144, 12288], "smallestWidthDp": [360, 480], "pageSize": 16384, "permissions": ["normal", "shizuku-shell"], "requiredUnits": ["S6.01", "S9.13"], "status": "procurement-required", "observedDevice": null },
+    { "id": "root-permission-device", "source": "plan §5.1 explicit targets and §12.3 permission tests", "form": "phone-or-tablet", "api": [30, 36], "abi": "arm64-v8a", "ramMiB": [4096, 16384], "smallestWidthDp": [360, 960], "pageSize": 4096, "permissions": ["normal", "shizuku-shell", "root-user-approved"], "requiredUnits": ["S6.19", "S6.22", "S9.10"], "status": "adb-root-observed-app-authorization-pending", "observedDevice": "lab-tablet-01" }
+  ],
+  "measurements": [
+    { "id": "cold-start", "metric": "timeToInitialDisplayMs/timeToFullDisplayMs", "harness": "Android Macrobenchmark StartupTimingMetric COLD", "warmup": 3, "iterations": 30, "aggregation": ["p50", "p95"], "deliveryUnit": "S1.27" },
+    { "id": "editor-input-scroll", "metric": "frameDurationCpuMs/frameOverrunMs/IME input latency", "harness": "Macrobenchmark FrameTimingMetric + Perfetto input-to-draw trace", "warmup": 3, "iterations": 30, "aggregation": ["p50", "p95"], "deliveryUnit": "S5.34" },
+    { "id": "stream-updates", "metric": "firstTokenMs/updateFrameMs/eventSequence", "harness": "fixed SSE byte splits + production network parser + frame trace", "warmup": 3, "iterations": 30, "aggregation": ["p50", "p95"], "deliveryUnit": "S3.29" },
+    { "id": "search-import-sync", "metric": "durationMs/bytesPerSecond/peakPssMiB", "harness": "fixed corpus hash + isolated slot + production repository/provider ports", "warmup": 3, "iterations": 30, "aggregation": ["p50", "p95", "maximum"], "deliveryUnit": "S9.12" },
+    { "id": "terminal-io", "metric": "bytesPerSecond/inputLatencyMs/openFdCount", "harness": "fixed PTY byte sequence + real terminal ExecutionProfile", "warmup": 3, "iterations": 30, "aggregation": ["p50", "p95", "maximum"], "deliveryUnit": "S6.44" },
+    { "id": "background-energy", "metric": "cpuTimeMs/wakeLockMs/energyUwh/checkpointCount", "harness": "30-minute screen-off, Doze and OEM matrix; Batterystats + Perfetto", "warmup": 1, "iterations": 3, "aggregation": ["median", "maximum"], "deliveryUnit": "S9.11" }
+  ],
+  "runRecord": {
+    "requiredFields": ["commit", "apkSha256", "buildVariant", "versionCode", "schemaFingerprint", "wireVersion", "corpusSha256", "deviceProfileId", "deviceBuildFingerprint", "api", "abi", "ramMiB", "pageSize", "thermalState", "batteryState", "iterations", "rawSamples", "traceSha256", "startedAt", "finishedAt"],
+    "clock": "monotonic elapsed time for durations; RFC3339 wall time only for attribution",
+    "p95": "nearest-rank sortedSamples[ceil(0.95*n)-1]",
+    "baselinePolicy": "S1.27 records device P50/P95 before numeric release budgets are frozen; missing runs cannot pass by default",
+    "privacy": "No credentials, user profiles or private corpora. Local physical serials are not committed.",
+    "executedAndroidRuns": 0
+  }
+}

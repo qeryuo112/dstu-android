@@ -1,5 +1,8 @@
 package com.deepstudent.services.sync.backend.transfer
 
+import com.deepstudent.core.common.error.DstuError
+import com.deepstudent.core.common.error.DstuException
+import com.deepstudent.core.common.error.errorFromThrowable
 import com.deepstudent.core.common.json.JsonValue
 import com.deepstudent.core.common.logging.Logger
 import com.deepstudent.core.common.logging.NoopLogger
@@ -9,7 +12,6 @@ import com.deepstudent.services.sync.api.SyncTransfer
 import com.deepstudent.services.sync.api.SyncTransferPhase
 import com.deepstudent.services.sync.api.SyncTransferState
 import com.deepstudent.services.sync.backend.SyncFailure
-import java.util.UUID
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
@@ -17,6 +19,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import java.io.IOException
+import java.util.UUID
 
 class SyncPipeline(
     private val changes: ChangeTransfer,
@@ -32,44 +36,88 @@ class SyncPipeline(
     override suspend fun synchronize(): SyncResult<Unit> = mutex.withLock {
         val correlation = UUID.randomUUID().toString()
         val start = System.nanoTime()
+        var stage = SyncTransferPhase.IDLE
+        var unexpectedFailure = false
         try {
             val reader = minReader()
             changes.resumePending()
-            phase(SyncTransferPhase.BLOBS, correlation)
+            stage = SyncTransferPhase.BLOBS
+            phase(stage, correlation)
             blobs.synchronize()
-            phase(SyncTransferPhase.DOWNLOAD, correlation)
+            stage = SyncTransferPhase.DOWNLOAD
+            phase(stage, correlation)
             changes.download()
-            phase(SyncTransferPhase.BLOBS, correlation)
+            stage = SyncTransferPhase.BLOBS
+            phase(stage, correlation)
             blobs.synchronize()
-            phase(SyncTransferPhase.UPLOAD, correlation)
+            stage = SyncTransferPhase.UPLOAD
+            phase(stage, correlation)
             changes.upload(reader)
             publishManifest()
-            phase(SyncTransferPhase.COMPLETE, correlation)
+            stage = SyncTransferPhase.COMPLETE
+            phase(stage, correlation)
             SyncResult.Success(Unit)
         } catch (cancelled: CancellationException) {
             mutableState.value = SyncTransferState(SyncTransferPhase.FAILED, correlation, SyncError.CANCELLED)
             throw cancelled
         } catch (failure: SyncFailure) {
             failed(correlation, failure.error)
-        } catch (_: Exception) {
+        } catch (_: IOException) {
+            // Remote providers translate transport failures to SyncFailure; raw I/O here is local storage.
             failed(correlation, SyncError.STORAGE)
+        } catch (failure: Exception) {
+            // Preserve the original cause for callers; only a sanitized diagnostic enters the log.
+            unexpectedFailure = true
+            unexpected(correlation, stage, failure)
+            throw failure
         } finally {
-            logger.info("sync.transfer.finished", JsonValue.Object.Builder().put("owner", "sync")
-                .put("correlationId", correlation).put("phase", mutableState.value.phase.name)
-                .put("error", mutableState.value.error?.name ?: "none")
-                .put("elapsedMs", (System.nanoTime() - start) / 1_000_000).build())
+            finished(correlation, stage, start, unexpectedFailure)
         }
     }
 
     private suspend fun phase(phase: SyncTransferPhase, correlation: String) {
         currentCoroutineContext().ensureActive()
         mutableState.value = SyncTransferState(phase, correlation)
-        logger.info("sync.transfer.phase", JsonValue.Object.Builder().put("owner", "sync")
-            .put("correlationId", correlation).put("phase", phase.name).build())
+        logger.info(
+            "sync.transfer.phase",
+            JsonValue.Object.Builder().put("owner", "sync")
+                .put("correlationId", correlation).put("phase", phase.name).build(),
+        )
     }
 
     private fun failed(correlation: String, error: SyncError): SyncResult<Unit> {
         mutableState.value = SyncTransferState(SyncTransferPhase.FAILED, correlation, error)
         return SyncResult.Failure(error)
+    }
+
+    private fun unexpected(correlation: String, stage: SyncTransferPhase, failure: Exception) {
+        mutableState.value = SyncTransferState(SyncTransferPhase.FAILED, correlation)
+        val fields = JsonValue.Object.Builder().put("owner", "sync")
+            .put("correlationId", correlation).put("stage", stage.name)
+            .put("error", "UNEXPECTED").build()
+        try {
+            val diagnostic = if (failure is DstuException) {
+                DstuError.internal("UNEXPECTED", "operation failed")
+            } else {
+                errorFromThrowable(failure)
+            }
+            logger.error("sync.transfer.unexpected", diagnostic, fields)
+        } catch (_: Exception) {
+            // Diagnostics must not replace the original failure.
+        }
+    }
+
+    private fun finished(correlation: String, stage: SyncTransferPhase, start: Long, unexpected: Boolean) {
+        val state = mutableState.value
+        val fields = JsonValue.Object.Builder().put("owner", "sync")
+            .put("correlationId", correlation).put("phase", state.phase.name)
+            .put("stage", stage.name)
+            .put("error", if (unexpected) "UNEXPECTED" else state.error?.name ?: "none")
+            .put("elapsedMs", (System.nanoTime() - start) / 1_000_000).build()
+        try {
+            logger.info("sync.transfer.finished", fields)
+        } catch (_: Exception) {
+            // Diagnostics must not change the synchronization result.
+        }
     }
 }

@@ -1,0 +1,35 @@
+{
+  "sha": "d1f6ac67e9fc91390cc70f7168573fd2626f1d66",
+  "node_id": "C_kwDOBbcBAtoAKGQxZjZhYzY3ZTlmYzkxMzkwY2M3MGY3MTY4NTczZmQyNjI2ZjFkNjY",
+  "url": "https://api.github.com/repos/Tencent/ncnn/git/commits/d1f6ac67e9fc91390cc70f7168573fd2626f1d66",
+  "html_url": "https://github.com/Tencent/ncnn/commit/d1f6ac67e9fc91390cc70f7168573fd2626f1d66",
+  "author": {
+    "name": "nihui",
+    "email": "nihuini@tencent.com",
+    "date": "2026-11-13T11:58:25Z"
+  },
+  "committer": {
+    "name": "GitHub",
+    "email": "noreply@github.com",
+    "date": "2026-11-13T11:58:25Z"
+  },
+  "tree": {
+    "sha": "e7f5c21a40c8981d16a68f6256aa80ba9cba604b",
+    "url": "https://api.github.com/repos/Tencent/ncnn/git/trees/e7f5c21a40c8981d16a68f6256aa80ba9cba604b"
+  },
+  "message": "Vulkan paged weight allocator (#7167)\n\nSupport Vulkan weight paging to reduce GPU memory usage when running large models on memory-constrained devices.\n\n- Add tiered weight storage across device memory, host memory, and disk-backed temporary files, with configurable memory limits.\n- Support host-visible Vulkan buffers and CPU memory fallback for host-resident weights.\n- Upload non-device-resident weights into temporary GPU buffers on demand during inference.\n- Overlap weight uploads with compute execution using separate command buffers and queue synchronization.\n- Manage temporary weight buffers per command to support concurrent extractors and external Vulkan commands.\n- Add cross-platform temporary file handling, memory-mapped weight storage, and automatic cleanup.\n- Add configuration APIs, developer documentation, correctness tests, and performance benchmarks.\n\nCo-authored-by: Claude Opus 5.5 (1M context) <noreply@anthropic.com>",
+  "parents": [
+    {
+      "sha": "24ea07e87f544a3fbc59980b57885a92c75f2d24",
+      "url": "https://api.github.com/repos/Tencent/ncnn/git/commits/24ea07e87f544a3fbc59980b57885a92c75f2d24",
+      "html_url": "https://github.com/Tencent/ncnn/commit/24ea07e87f544a3fbc59980b57885a92c75f2d24"
+    }
+  ],
+  "verification": {
+    "verified": true,
+    "reason": "valid",
+    "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJq9vthCRC1aQ7uu5UhlAAAjfMQAHL2+ce6BR0I5Aio7Hiigg24\n7fr2gsxhhrH6KPKn8lnq2E1K6mFMNH/H9dXKaigQ1x7ajszhSTFBnnwXX70JIyGX\n7IeTkkaNotwRbMJbEqvwX5IYSlDJnJvBVOPHxFIy7sD7CjenL7Lzsa3WhW2Nr850\nhkVlVy8Uxuk2R9eTpI5vrnYAWlgtGPY8RRtcs4ecc5CdKzf9hd+6Fo4yoM90N+q7\nNXRABNh3S0759xF8mQpRw0V7bs4VAvb9AuyYa8nGJnrE2g08juE8f7EpUZfSgU16\n/LiYFS2zxDfp8Zd71dSjdarrDORSFgLtMEh0XSl2SPcfvyx/535VoEoH91rTm7X3\nkAjP4xsECK6kemN9EixtXK4W7rbj5aqcplctF/UpDMNeuncHQt2L8cMXJv30g8lG\nwIZm3m3dxyH494zsne0ZckR/vp7sr5IR9oS3t9YToVlpgBE3g4Kf3Z64zMX/WIa7\nHrPnkLj8nqMCy6hxvCU96n3mrQvlYp/uXxSzd48fQA0WaKl7dH0NxNb8M9YFfon5\n8NyXq1yKXX72jUgZlURbGrtn43XAIalHcAgPOVXAL0cLFZfmbWqW58rOIlgknP66\nbksWNfOFR1ZBoctvqQVSIK96Kb+3QJ3DMQyCUMvsQEXwvjLVlJRWRGQaLMCf2BMu\nqYE3CrvYP1Rt/EGAVDt2\n=Bwd7\n-----END PGP SIGNATURE-----\n",
+    "payload": "tree e7f5c21a40c8981d16a68f6256aa80ba9cba604b\nparent 24ea07e87f544a3fbc59980b57885a92c75f2d24\nauthor nihui <nihuini@tencent.com> 1794571105 +0800\ncommitter GitHub <noreply@github.com> 1794571105 +0800\n\nVulkan paged weight allocator (#7167)\n\nSupport Vulkan weight paging to reduce GPU memory usage when running large models on memory-constrained devices.\n\n- Add tiered weight storage across device memory, host memory, and disk-backed temporary files, with configurable memory limits.\n- Support host-visible Vulkan buffers and CPU memory fallback for host-resident weights.\n- Upload non-device-resident weights into temporary GPU buffers on demand during inference.\n- Overlap weight uploads with compute execution using separate command buffers and queue synchronization.\n- Manage temporary weight buffers per command to support concurrent extractors and external Vulkan commands.\n- Add cross-platform temporary file handling, memory-mapped weight storage, and automatic cleanup.\n- Add configuration APIs, developer documentation, correctness tests, and performance benchmarks.\n\nCo-authored-by: Claude Opus 5.5 (1M context) <noreply@anthropic.com>",
+    "verified_at": "2026-11-13T11:58:26Z"
+  }
+}

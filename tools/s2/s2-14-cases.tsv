@@ -1,0 +1,6 @@
+5 com.deepstudent.app.backup.EncryptedBackupInteropDeviceTest
+3 com.deepstudent.app.backup.ColdBackupRestoreDeviceTest
+8 com.deepstudent.app.backup.LegacyMobileImportDeviceTest
+2 com.deepstudent.app.backup.BackupPreviewUiDeviceTest
+1 com.deepstudent.app.backup.BackupRestoreStatusUiDeviceTest
+9 com.deepstudent.app.backup.EncryptedBackupEntryUiDeviceTest

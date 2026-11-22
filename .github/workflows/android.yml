@@ -1,0 +1,152 @@
+name: Android CI
+
+on:
+  push:
+    branches: [main, 'release/**']
+  pull_request:
+    branches: [main, 'release/**']
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+concurrency:
+  group: android-ci-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+defaults:
+  run:
+    working-directory: dstu-android
+    shell: bash
+
+jobs:
+  contracts:
+    name: Repository contracts
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: dstu-android
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm run verify:repository
+      - run: npm run test:repository
+      - run: bash tools/ci/lint-workflows.sh
+
+  static:
+    name: Format, architecture and build logic
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: dstu-android
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: ./dstu-android/.github/actions/android-environment
+      - run: ./gradlew spotlessCheck verifyModuleRegistry verifyDstu :core:design:verifyDesignTokens --stacktrace
+      - run: ./gradlew -p build-logic check --stacktrace
+      - run: node --test tools/s1/design.test.mjs tools/s1/content-assets.test.mjs tools/s1/progress.test.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: static-reports
+          path: |
+            dstu-android/**/build/reports/
+            dstu-android/**/build/test-results/
+          retention-days: 14
+
+  unit:
+    name: Unit tests (${{ matrix.group }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        group: [jvm, android]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: dstu-android
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: ./dstu-android/.github/actions/android-environment
+        with:
+          native: ${{ matrix.group == 'android' && 'true' || 'false' }}
+      - run: node tools/ci/unit-tests.mjs '${{ matrix.group }}'
+      - name: Coverage report and 60% line gate (explicit scope)
+        if: matrix.group == 'jvm'
+        run: ./gradlew coverageReport verifyCoverage --stacktrace
+      - name: Build installable app and device-test APKs
+        if: matrix.group == 'android'
+        run: |
+          ./gradlew :app:assembleDebug :app:assembleDebugAndroidTest --stacktrace
+          node tools/s1/verify-apk.mjs app/build/outputs/apk/debug/app-debug.apk
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: unit-${{ matrix.group }}-reports
+          path: |
+            dstu-android/**/build/reports/
+            dstu-android/**/build/test-results/
+            dstu-android/app/build/outputs/apk/
+            dstu-android/logs/
+          retention-days: 14
+
+  device:
+    name: Platform instrumentation (API ${{ matrix.api }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        api: [26, 36]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: dstu-android
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: ./dstu-android/.github/actions/android-environment
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api }}
+          arch: x86_64
+          target: default
+          disable-animations: true
+          working-directory: dstu-android
+          script: bash tools/ci/device-tests.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: device-api-${{ matrix.api }}-evidence
+          path: |
+            dstu-android/platform/**/build/reports/androidTests/
+            dstu-android/platform/**/build/outputs/androidTest-results/
+            dstu-android/build/ci-device/
+          retention-days: 14
+
+  required:
+    name: Android required checks
+    if: always()
+    needs: [contracts, static, unit, device]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    defaults:
+      run:
+        working-directory: .
+    steps:
+      - name: Fail if any check failed, was cancelled or skipped
+        env:
+          RESULTS: ${{ toJSON(needs) }}
+        run: |
+          node -e 'const results=JSON.parse(process.env.RESULTS); for(const [job,value] of Object.entries(results)) { if(value.result!=="success") throw new Error(`${job}: ${value.result}`); }'

@@ -1,0 +1,5955 @@
+{
+  "formatVersion": 2,
+  "unit": "S0.07",
+  "revision": "content-contract-v2",
+  "desktopCommit": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+  "desktopTree": "3bee0f058851b9eb113bdc036d9f60433ed29944",
+  "inputSha256": "4ae3fdedf25e1ee9580b9c6934d96958eb9793f73213cd7ad972b84444c472eb",
+  "dialect": [
+    {
+      "id": "commonmark-gfm",
+      "grammar": "paragraph/headings/blockquote/list/task/table/code/link/image/strikethrough",
+      "samples": [
+        "commonmark-gfm"
+      ],
+      "deliveryUnit": "S5.08"
+    },
+    {
+      "id": "math",
+      "grammar": "inline $ / display $$; TeX source retained",
+      "samples": [
+        "math-diagrams"
+      ],
+      "deliveryUnit": "S5.08"
+    },
+    {
+      "id": "callout",
+      "grammar": "> [!type][+-] title; whitelist marker; nested children",
+      "samples": [
+        "callout"
+      ],
+      "deliveryUnit": "S5.08"
+    },
+    {
+      "id": "toggle",
+      "grammar": "> [!toggle][+-] title; first-line split and marks retained",
+      "samples": [
+        "toggle"
+      ],
+      "deliveryUnit": "S5.08"
+    },
+    {
+      "id": "columns",
+      "grammar": ":::ds-columns{version=1 layout=equal|cornell}; exactly two :::column blocks at root",
+      "samples": [
+        "columns",
+        "columns-escaped"
+      ],
+      "deliveryUnit": "S5.08"
+    },
+    {
+      "id": "wikilink",
+      "grammar": "[[target|label]] and [[target]]; logical resource identity",
+      "samples": [],
+      "deliveryUnit": "S5.08"
+    },
+    {
+      "id": "mention-references",
+      "grammar": "@mention; note:// pdfref:// mediaref:// links and source anchors",
+      "samples": [
+        "wiki-mention-reference"
+      ],
+      "deliveryUnit": "S5.08"
+    },
+    {
+      "id": "inline-cards",
+      "grammar": "editor:inline-cards opt-in; capsule metadata and source identity",
+      "samples": [],
+      "deliveryUnit": "S5.08"
+    },
+    {
+      "id": "unknown",
+      "grammar": "retain raw source bytes and unknown attrs; edit only known range; unsupported normalization is a typed error",
+      "samples": [
+        "unknown-future-node"
+      ],
+      "deliveryUnit": "S5.08"
+    }
+  ],
+  "markdown": [
+    {
+      "id": "commonmark-gfm",
+      "text": "# 标题\n\n中文 **粗体** 与 *斜体*、~~删除~~、`x`。\n\n- [x] 已完成\n- [ ] 待办\n\n| A | B |\n| :-- | --: |\n| 1 | 2 |\n\n[链接](https://example.org \"标题\") ![图](asset://image.png)\n",
+      "contract": "heading/inline/list/task/table/link/image AST and source ranges",
+      "utf8Hex": "2320e6a087e9a2980a0ae4b8ade69687202a2ae7b297e4bd932a2a20e4b88e202ae6969ce4bd932ae380817e7ee588a0e999a47e7ee38081607860e380820a0a2d205b785d20e5b7b2e5ae8ce688900a2d205b205d20e5be85e58a9e0a0a7c2041207c2042207c0a7c203a2d2d207c202d2d3a207c0a7c2031207c2032207c0a0a5be993bee68ea55d2868747470733a2f2f6578616d706c652e6f72672022e6a087e9a298222920215be59bbe5d2861737365743a2f2f696d6167652e706e67290a",
+      "sha256": "3a2ad1a1f795d65a9215141358b94b484f5f0b07df2258a0c445666c23e13876",
+      "expected": {
+        "type": "root",
+        "children": [
+          {
+            "type": "heading",
+            "depth": 1,
+            "children": [
+              {
+                "type": "text",
+                "value": "标题",
+                "position": {
+                  "start": {
+                    "line": 1,
+                    "column": 3,
+                    "offset": 2
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 5,
+                    "offset": 4
+                  }
+                }
+              }
+            ],
+            "position": {
+              "start": {
+                "line": 1,
+                "column": 1,
+                "offset": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 5,
+                "offset": 4
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "中文 ",
+                "position": {
+                  "start": {
+                    "line": 3,
+                    "column": 1,
+                    "offset": 6
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 4,
+                    "offset": 9
+                  }
+                }
+              },
+              {
+                "type": "strong",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "粗体",
+                    "position": {
+                      "start": {
+                        "line": 3,
+                        "column": 6,
+                        "offset": 11
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 8,
+                        "offset": 13
+                      }
+                    }
+                  }
+                ],
+                "position": {
+                  "start": {
+                    "line": 3,
+                    "column": 4,
+                    "offset": 9
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 10,
+                    "offset": 15
+                  }
+                }
+              },
+              {
+                "type": "text",
+                "value": " 与 ",
+                "position": {
+                  "start": {
+                    "line": 3,
+                    "column": 10,
+                    "offset": 15
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 13,
+                    "offset": 18
+                  }
+                }
+              },
+              {
+                "type": "emphasis",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "斜体",
+                    "position": {
+                      "start": {
+                        "line": 3,
+                        "column": 14,
+                        "offset": 19
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 16,
+                        "offset": 21
+                      }
+                    }
+                  }
+                ],
+                "position": {
+                  "start": {
+                    "line": 3,
+                    "column": 13,
+                    "offset": 18
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 17,
+                    "offset": 22
+                  }
+                }
+              },
+              {
+                "type": "text",
+                "value": "、",
+                "position": {
+                  "start": {
+                    "line": 3,
+                    "column": 17,
+                    "offset": 22
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 18,
+                    "offset": 23
+                  }
+                }
+              },
+              {
+                "type": "delete",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "删除",
+                    "position": {
+                      "start": {
+                        "line": 3,
+                        "column": 20,
+                        "offset": 25
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 22,
+                        "offset": 27
+                      }
+                    }
+                  }
+                ],
+                "position": {
+                  "start": {
+                    "line": 3,
+                    "column": 18,
+                    "offset": 23
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 24,
+                    "offset": 29
+                  }
+                }
+              },
+              {
+                "type": "text",
+                "value": "、",
+                "position": {
+                  "start": {
+                    "line": 3,
+                    "column": 24,
+                    "offset": 29
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 25,
+                    "offset": 30
+                  }
+                }
+              },
+              {
+                "type": "inlineCode",
+                "value": "x",
+                "position": {
+                  "start": {
+                    "line": 3,
+                    "column": 25,
+                    "offset": 30
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 28,
+                    "offset": 33
+                  }
+                }
+              },
+              {
+                "type": "text",
+                "value": "。",
+                "position": {
+                  "start": {
+                    "line": 3,
+                    "column": 28,
+                    "offset": 33
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 29,
+                    "offset": 34
+                  }
+                }
+              }
+            ],
+            "position": {
+              "start": {
+                "line": 3,
+                "column": 1,
+                "offset": 6
+              },
+              "end": {
+                "line": 3,
+                "column": 29,
+                "offset": 34
+              }
+            }
+          },
+          {
+            "type": "list",
+            "ordered": false,
+            "start": null,
+            "spread": false,
+            "children": [
+              {
+                "type": "listItem",
+                "spread": false,
+                "checked": true,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "已完成",
+                        "position": {
+                          "start": {
+                            "line": 5,
+                            "column": 7,
+                            "offset": 42
+                          },
+                          "end": {
+                            "line": 5,
+                            "column": 10,
+                            "offset": 45
+                          }
+                        }
+                      }
+                    ],
+                    "position": {
+                      "start": {
+                        "line": 5,
+                        "column": 7,
+                        "offset": 42
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 10,
+                        "offset": 45
+                      }
+                    }
+                  }
+                ],
+                "position": {
+                  "start": {
+                    "line": 5,
+                    "column": 1,
+                    "offset": 36
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 10,
+                    "offset": 45
+                  }
+                }
+              },
+              {
+                "type": "listItem",
+                "spread": false,
+                "checked": false,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "待办",
+                        "position": {
+                          "start": {
+                            "line": 6,
+                            "column": 7,
+                            "offset": 52
+                          },
+                          "end": {
+                            "line": 6,
+                            "column": 9,
+                            "offset": 54
+                          }
+                        }
+                      }
+                    ],
+                    "position": {
+                      "start": {
+                        "line": 6,
+                        "column": 7,
+                        "offset": 52
+                      },
+                      "end": {
+                        "line": 6,
+                        "column": 9,
+                        "offset": 54
+                      }
+                    }
+                  }
+                ],
+                "position": {
+                  "start": {
+                    "line": 6,
+                    "column": 1,
+                    "offset": 46
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 9,
+                    "offset": 54
+                  }
+                }
+              }
+            ],
+            "position": {
+              "start": {
+                "line": 5,
+                "column": 1,
+                "offset": 36
+              },
+              "end": {
+                "line": 6,
+                "column": 9,
+                "offset": 54
+              }
+            }
+          },
+          {
+            "type": "table",
+            "align": [
+              "left",
+              "right"
+            ],
+            "children": [
+              {
+                "type": "tableRow",
+                "children": [
+                  {
+                    "type": "tableCell",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "A",
+                        "position": {
+                          "start": {
+                            "line": 8,
+                            "column": 3,
+                            "offset": 58
+                          },
+                          "end": {
+                            "line": 8,
+                            "column": 4,
+                            "offset": 59
+                          }
+                        }
+                      }
+                    ],
+                    "position": {
+                      "start": {
+                        "line": 8,
+                        "column": 1,
+                        "offset": 56
+                      },
+                      "end": {
+                        "line": 8,
+                        "column": 5,
+                        "offset": 60
+                      }
+                    }
+                  },
+                  {
+                    "type": "tableCell",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "B",
+                        "position": {
+                          "start": {
+                            "line": 8,
+                            "column": 7,
+                            "offset": 62
+                          },
+                          "end": {
+                            "line": 8,
+                            "column": 8,
+                            "offset": 63
+                          }
+                        }
+                      }
+                    ],
+                    "position": {
+                      "start": {
+                        "line": 8,
+                        "column": 5,
+                        "offset": 60
+                      },
+                      "end": {
+                        "line": 8,
+                        "column": 10,
+                        "offset": 65
+                      }
+                    }
+                  }
+                ],
+                "position": {
+                  "start": {
+                    "line": 8,
+                    "column": 1,
+                    "offset": 56
+                  },
+                  "end": {
+                    "line": 8,
+                    "column": 10,
+                    "offset": 65
+                  }
+                }
+              },
+              {
+                "type": "tableRow",
+                "children": [
+                  {
+                    "type": "tableCell",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "1",
+                        "position": {
+                          "start": {
+                            "line": 10,
+                            "column": 3,
+                            "offset": 82
+                          },
+                          "end": {
+                            "line": 10,
+                            "column": 4,
+                            "offset": 83
+                          }
+                        }
+                      }
+                    ],
+                    "position": {
+                      "start": {
+                        "line": 10,
+                        "column": 1,
+                        "offset": 80
+                      },
+                      "end": {
+                        "line": 10,
+                        "column": 5,
+                        "offset": 84
+                      }
+                    }
+                  },
+                  {
+                    "type": "tableCell",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "2",
+                        "position": {
+                          "start": {
+                            "line": 10,
+                            "column": 7,
+                            "offset": 86
+                          },
+                          "end": {
+                            "line": 10,
+                            "column": 8,
+                            "offset": 87
+                          }
+                        }
+                      }
+                    ],
+                    "position": {
+                      "start": {
+                        "line": 10,
+                        "column": 5,
+                        "offset": 84
+                      },
+                      "end": {
+                        "line": 10,
+                        "column": 10,
+                        "offset": 89
+                      }
+                    }
+                  }
+                ],
+                "position": {
+                  "start": {
+                    "line": 10,
+                    "column": 1,
+                    "offset": 80
+                  },
+                  "end": {
+                    "line": 10,
+                    "column": 10,
+                    "offset": 89
+                  }
+                }
+              }
+            ],
+            "position": {
+              "start": {
+                "line": 8,
+                "column": 1,
+                "offset": 56
+              },
+              "end": {
+                "line": 10,
+                "column": 10,
+                "offset": 89
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "link",
+                "title": "标题",
+                "url": "https://example.org",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "链接",
+                    "position": {
+                      "start": {
+                        "line": 12,
+                        "column": 2,
+                        "offset": 92
+                      },
+                      "end": {
+                        "line": 12,
+                        "column": 4,
+                        "offset": 94
+                      }
+                    }
+                  }
+                ],
+                "position": {
+                  "start": {
+                    "line": 12,
+                    "column": 1,
+                    "offset": 91
+                  },
+                  "end": {
+                    "line": 12,
+                    "column": 31,
+                    "offset": 121
+                  }
+                }
+              },
+              {
+                "type": "text",
+                "value": " ",
+                "position": {
+                  "start": {
+                    "line": 12,
+                    "column": 31,
+                    "offset": 121
+                  },
+                  "end": {
+                    "line": 12,
+                    "column": 32,
+                    "offset": 122
+                  }
+                }
+              },
+              {
+                "type": "image",
+                "title": null,
+                "url": "asset://image.png",
+                "alt": "图",
+                "position": {
+                  "start": {
+                    "line": 12,
+                    "column": 32,
+                    "offset": 122
+                  },
+                  "end": {
+                    "line": 12,
+                    "column": 55,
+                    "offset": 145
+                  }
+                }
+              }
+            ],
+            "position": {
+              "start": {
+                "line": 12,
+                "column": 1,
+                "offset": 91
+              },
+              "end": {
+                "line": 12,
+                "column": 55,
+                "offset": 145
+              }
+            }
+          }
+        ],
+        "position": {
+          "start": {
+            "line": 1,
+            "column": 1,
+            "offset": 0
+          },
+          "end": {
+            "line": 13,
+            "column": 1,
+            "offset": 146
+          }
+        }
+      },
+      "comparison": "AST fields and offsets exact; unchanged source bytes exact; editor semantic comparison ignores position/list spread only",
+      "deliveryUnit": "S5.08"
+    },
+    {
+      "id": "callout",
+      "text": "> [!note]+ 标题\n>\n> 正文 **重点**\n",
+      "contract": "calloutType/title/collapsed and children",
+      "utf8Hex": "3e205b216e6f74655d2b20e6a087e9a2980a3e0a3e20e6ada3e69687202a2ae9878de782b92a2a0a",
+      "sha256": "c99bd3ca15cfe194e3a58c11ee2a354b74b615aeb8767606b3c7a8248ff1836c",
+      "expected": {
+        "type": "root",
+        "children": [
+          {
+            "type": "callout",
+            "children": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "正文 ",
+                    "position": {
+                      "start": {
+                        "line": 3,
+                        "column": 3,
+                        "offset": 18
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 6,
+                        "offset": 21
+                      }
+                    }
+                  },
+                  {
+                    "type": "strong",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "重点",
+                        "position": {
+                          "start": {
+                            "line": 3,
+                            "column": 8,
+                            "offset": 23
+                          },
+                          "end": {
+                            "line": 3,
+                            "column": 10,
+                            "offset": 25
+                          }
+                        }
+                      }
+                    ],
+                    "position": {
+                      "start": {
+                        "line": 3,
+                        "column": 6,
+                        "offset": 21
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 12,
+                        "offset": 27
+                      }
+                    }
+                  }
+                ],
+                "position": {
+                  "start": {
+                    "line": 3,
+                    "column": 3,
+                    "offset": 18
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 12,
+                    "offset": 27
+                  }
+                }
+              }
+            ],
+            "position": {
+              "start": {
+                "line": 1,
+                "column": 1,
+                "offset": 0
+              },
+              "end": {
+                "line": 3,
+                "column": 12,
+                "offset": 27
+              }
+            },
+            "calloutType": "note",
+            "calloutTitle": "标题",
+            "calloutCollapsed": false
+          }
+        ],
+        "position": {
+          "start": {
+            "line": 1,
+            "column": 1,
+            "offset": 0
+          },
+          "end": {
+            "line": 4,
+            "column": 1,
+            "offset": 28
+          }
+        }
+      },
+      "comparison": "AST fields and offsets exact; unchanged source bytes exact; editor semantic comparison ignores position/list spread only",
+      "deliveryUnit": "S5.08"
+    },
+    {
+      "id": "toggle",
+      "text": "> [!toggle]- 折叠标题\n> 正文 **重点**\n",
+      "contract": "toggle title/open and retained inline AST",
+      "utf8Hex": "3e205b21746f67676c655d2d20e68a98e58fa0e6a087e9a2980a3e20e6ada3e69687202a2ae9878de782b92a2a0a",
+      "sha256": "f19ca4081895efb764372c6d99d3227a0ba1606dab1c67a537363795e86310ea",
+      "expected": {
+        "type": "root",
+        "children": [
+          {
+            "type": "toggle",
+            "children": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "正文 ",
+                    "position": {
+                      "start": {
+                        "line": 1,
+                        "column": 3,
+                        "offset": 2
+                      },
+                      "end": {
+                        "line": 2,
+                        "column": 6,
+                        "offset": 23
+                      }
+                    }
+                  },
+                  {
+                    "type": "strong",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "重点",
+                        "position": {
+                          "start": {
+                            "line": 2,
+                            "column": 8,
+                            "offset": 25
+                          },
+                          "end": {
+                            "line": 2,
+                            "column": 10,
+                            "offset": 27
+                          }
+                        }
+                      }
+                    ],
+                    "position": {
+                      "start": {
+                        "line": 2,
+                        "column": 6,
+                        "offset": 23
+                      },
+                      "end": {
+                        "line": 2,
+                        "column": 12,
+                        "offset": 29
+                      }
+                    }
+                  }
+                ]
+              }
+            ],
+            "position": {
+              "start": {
+                "line": 1,
+                "column": 1,
+                "offset": 0
+              },
+              "end": {
+                "line": 2,
+                "column": 12,
+                "offset": 29
+              }
+            },
+            "open": false,
+            "title": "折叠标题"
+          }
+        ],
+        "position": {
+          "start": {
+            "line": 1,
+            "column": 1,
+            "offset": 0
+          },
+          "end": {
+            "line": 3,
+            "column": 1,
+            "offset": 30
+          }
+        }
+      },
+      "comparison": "AST fields and offsets exact; unchanged source bytes exact; editor semantic comparison ignores position/list spread only",
+      "deliveryUnit": "S5.08"
+    },
+    {
+      "id": "columns",
+      "text": ":::ds-columns{version=1 layout=cornell}\n\n:::column\n\n左栏\n\n:::end-column\n\n:::column\n\n右栏\n\n:::end-column\n\n:::end-ds-columns\n",
+      "contract": "root-only two-column versioned grammar",
+      "utf8Hex": "3a3a3a64732d636f6c756d6e737b76657273696f6e3d31206c61796f75743d636f726e656c6c7d0a0a3a3a3a636f6c756d6e0a0ae5b7a6e6a08f0a0a3a3a3a656e642d636f6c756d6e0a0a3a3a3a636f6c756d6e0a0ae58fb3e6a08f0a0a3a3a3a656e642d636f6c756d6e0a0a3a3a3a656e642d64732d636f6c756d6e730a",
+      "sha256": "2192fdcd284c26c4ee4b3ceabfbfb825729f796825dab0059d23977e9e1435cd",
+      "expected": {
+        "type": "root",
+        "children": [
+          {
+            "type": "ds_columns",
+            "layout": "cornell",
+            "children": [
+              {
+                "type": "ds_column",
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "左栏",
+                        "position": {
+                          "start": {
+                            "line": 5,
+                            "column": 1,
+                            "offset": 52
+                          },
+                          "end": {
+                            "line": 5,
+                            "column": 3,
+                            "offset": 54
+                          }
+                        }
+                      }
+                    ],
+                    "position": {
+                      "start": {
+                        "line": 5,
+                        "column": 1,
+                        "offset": 52
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 3,
+                        "offset": 54
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ds_column",
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "右栏",
+                        "position": {
+                          "start": {
+                            "line": 11,
+                            "column": 1,
+                            "offset": 82
+                          },
+                          "end": {
+                            "line": 11,
+                            "column": 3,
+                            "offset": 84
+                          }
+                        }
+                      }
+                    ],
+                    "position": {
+                      "start": {
+                        "line": 11,
+                        "column": 1,
+                        "offset": 82
+                      },
+                      "end": {
+                        "line": 11,
+                        "column": 3,
+                        "offset": 84
+                      }
+                    }
+                  }
+                ]
+              }
+            ],
+            "position": {
+              "start": {
+                "line": 1,
+                "column": 1,
+                "offset": 0
+              },
+              "end": {
+                "line": 15,
+                "column": 18,
+                "offset": 118
+              }
+            }
+          }
+        ],
+        "position": {
+          "start": {
+            "line": 1,
+            "column": 1,
+            "offset": 0
+          },
+          "end": {
+            "line": 16,
+            "column": 1,
+            "offset": 119
+          }
+        }
+      },
+      "comparison": "AST fields and offsets exact; unchanged source bytes exact; editor semantic comparison ignores position/list spread only",
+      "deliveryUnit": "S5.08"
+    },
+    {
+      "id": "columns-escaped",
+      "text": "\\:::ds-columns{version=1 layout=equal}\n\n正文\n",
+      "contract": "escaped marker remains text",
+      "utf8Hex": "5c3a3a3a64732d636f6c756d6e737b76657273696f6e3d31206c61796f75743d657175616c7d0a0ae6ada3e696870a",
+      "sha256": "506eba1a4030487824058b677c86f90cc771212b05854526b2a96d423d8ea461",
+      "expected": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": ":::ds-columns{version=1 layout=equal}",
+                "position": {
+                  "start": {
+                    "line": 1,
+                    "column": 1,
+                    "offset": 0
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 39,
+                    "offset": 38
+                  }
+                }
+              }
+            ],
+            "position": {
+              "start": {
+                "line": 1,
+                "column": 1,
+                "offset": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 39,
+                "offset": 38
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "正文",
+                "position": {
+                  "start": {
+                    "line": 3,
+                    "column": 1,
+                    "offset": 40
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 3,
+                    "offset": 42
+                  }
+                }
+              }
+            ],
+            "position": {
+              "start": {
+                "line": 3,
+                "column": 1,
+                "offset": 40
+              },
+              "end": {
+                "line": 3,
+                "column": 3,
+                "offset": 42
+              }
+            }
+          }
+        ],
+        "position": {
+          "start": {
+            "line": 1,
+            "column": 1,
+            "offset": 0
+          },
+          "end": {
+            "line": 4,
+            "column": 1,
+            "offset": 43
+          }
+        }
+      },
+      "comparison": "AST fields and offsets exact; unchanged source bytes exact; editor semantic comparison ignores position/list spread only",
+      "deliveryUnit": "S5.08"
+    },
+    {
+      "id": "wiki-mention-reference",
+      "text": "[[note_1|标题]] @笔记 [PDF](pdfref://pdf_1?page=2) [媒体](mediaref://audio_1?time=01:23)\n",
+      "contract": "wiki target/label and internal resource URI preserve identity",
+      "utf8Hex": "5b5b6e6f74655f317ce6a087e9a2985d5d2040e7ac94e8aeb0205b5044465d287064667265663a2f2f7064665f313f706167653d3229205be5aa92e4bd935d286d656469617265663a2f2f617564696f5f313f74696d653d30313a3233290a",
+      "sha256": "e51981a7ab6b5b8f8d1734b54d6ad43c0e8264e59443cca7f10bf49c8f37f1ba",
+      "expected": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "wikilink",
+                "target": "note_1",
+                "label": "标题",
+                "value": "[[note_1|标题]]"
+              },
+              {
+                "type": "text",
+                "value": " @笔记 "
+              },
+              {
+                "type": "link",
+                "title": null,
+                "url": "pdfref://pdf_1?page=2",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "PDF",
+                    "position": {
+                      "start": {
+                        "line": 1,
+                        "column": 20,
+                        "offset": 19
+                      },
+                      "end": {
+                        "line": 1,
+                        "column": 23,
+                        "offset": 22
+                      }
+                    }
+                  }
+                ],
+                "position": {
+                  "start": {
+                    "line": 1,
+                    "column": 19,
+                    "offset": 18
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 47,
+                    "offset": 46
+                  }
+                }
+              },
+              {
+                "type": "text",
+                "value": " ",
+                "position": {
+                  "start": {
+                    "line": 1,
+                    "column": 47,
+                    "offset": 46
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 48,
+                    "offset": 47
+                  }
+                }
+              },
+              {
+                "type": "link",
+                "title": null,
+                "url": "mediaref://audio_1?time=01:23",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "媒体",
+                    "position": {
+                      "start": {
+                        "line": 1,
+                        "column": 49,
+                        "offset": 48
+                      },
+                      "end": {
+                        "line": 1,
+                        "column": 51,
+                        "offset": 50
+                      }
+                    }
+                  }
+                ],
+                "position": {
+                  "start": {
+                    "line": 1,
+                    "column": 48,
+                    "offset": 47
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 83,
+                    "offset": 82
+                  }
+                }
+              }
+            ],
+            "position": {
+              "start": {
+                "line": 1,
+                "column": 1,
+                "offset": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 83,
+                "offset": 82
+              }
+            }
+          }
+        ],
+        "position": {
+          "start": {
+            "line": 1,
+            "column": 1,
+            "offset": 0
+          },
+          "end": {
+            "line": 2,
+            "column": 1,
+            "offset": 83
+          }
+        }
+      },
+      "comparison": "AST fields and offsets exact; unchanged source bytes exact; editor semantic comparison ignores position/list spread only",
+      "deliveryUnit": "S5.08"
+    },
+    {
+      "id": "math-diagrams",
+      "text": "$x^2$\n\n$$\na+b=c\n$$\n\n```mermaid\ngraph TD; A-->B;\n```\n",
+      "contract": "math and fenced content source preserved with language",
+      "utf8Hex": "24785e32240a0a24240a612b623d630a24240a0a6060606d65726d6169640a67726170682054443b20412d2d3e423b0a6060600a",
+      "sha256": "49276ffe0aa09d326509aa1a5f3eba5b3939dbbe44642096f1cff56f565462e6",
+      "expected": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "inlineMath",
+                "value": "x^2",
+                "data": {
+                  "hName": "code",
+                  "hProperties": {
+                    "className": [
+                      "language-math",
+                      "math-inline"
+                    ]
+                  },
+                  "hChildren": [
+                    {
+                      "type": "text",
+                      "value": "x^2"
+                    }
+                  ]
+                },
+                "position": {
+                  "start": {
+                    "line": 1,
+                    "column": 1,
+                    "offset": 0
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 6,
+                    "offset": 5
+                  }
+                }
+              }
+            ],
+            "position": {
+              "start": {
+                "line": 1,
+                "column": 1,
+                "offset": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 6,
+                "offset": 5
+              }
+            }
+          },
+          {
+            "type": "math",
+            "meta": null,
+            "value": "a+b=c",
+            "data": {
+              "hName": "pre",
+              "hChildren": [
+                {
+                  "type": "element",
+                  "tagName": "code",
+                  "properties": {
+                    "className": [
+                      "language-math",
+                      "math-display"
+                    ]
+                  },
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "a+b=c"
+                    }
+                  ]
+                }
+              ]
+            },
+            "position": {
+              "start": {
+                "line": 3,
+                "column": 1,
+                "offset": 7
+              },
+              "end": {
+                "line": 5,
+                "column": 3,
+                "offset": 18
+              }
+            }
+          },
+          {
+            "type": "code",
+            "lang": "mermaid",
+            "meta": null,
+            "value": "graph TD; A-->B;",
+            "position": {
+              "start": {
+                "line": 7,
+                "column": 1,
+                "offset": 20
+              },
+              "end": {
+                "line": 9,
+                "column": 4,
+                "offset": 51
+              }
+            }
+          }
+        ],
+        "position": {
+          "start": {
+            "line": 1,
+            "column": 1,
+            "offset": 0
+          },
+          "end": {
+            "line": 10,
+            "column": 1,
+            "offset": 52
+          }
+        }
+      },
+      "comparison": "AST fields and offsets exact; unchanged source bytes exact; editor semantic comparison ignores position/list spread only",
+      "deliveryUnit": "S5.08"
+    },
+    {
+      "id": "unknown-future-node",
+      "text": ":::future-widget{data=α}\n\n未知内容\n\n:::end-future-widget\n",
+      "contract": "unknown syntax and properties retained byte-for-byte outside edited range",
+      "utf8Hex": "3a3a3a6675747572652d7769646765747b646174613dceb17d0a0ae69caae79fa5e58685e5aeb90a0a3a3a3a656e642d6675747572652d7769646765740a",
+      "sha256": "d8058ac4977d1ce58a251050cb1fbfcc09c1c822982bcb9f7c9bba0845195ba9",
+      "expected": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": ":::future-widget{data=α}",
+                "position": {
+                  "start": {
+                    "line": 1,
+                    "column": 1,
+                    "offset": 0
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 25,
+                    "offset": 24
+                  }
+                }
+              }
+            ],
+            "position": {
+              "start": {
+                "line": 1,
+                "column": 1,
+                "offset": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 25,
+                "offset": 24
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "未知内容",
+                "position": {
+                  "start": {
+                    "line": 3,
+                    "column": 1,
+                    "offset": 26
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 5,
+                    "offset": 30
+                  }
+                }
+              }
+            ],
+            "position": {
+              "start": {
+                "line": 3,
+                "column": 1,
+                "offset": 26
+              },
+              "end": {
+                "line": 3,
+                "column": 5,
+                "offset": 30
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": ":::end-future-widget",
+                "position": {
+                  "start": {
+                    "line": 5,
+                    "column": 1,
+                    "offset": 32
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 21,
+                    "offset": 52
+                  }
+                }
+              }
+            ],
+            "position": {
+              "start": {
+                "line": 5,
+                "column": 1,
+                "offset": 32
+              },
+              "end": {
+                "line": 5,
+                "column": 21,
+                "offset": 52
+              }
+            }
+          }
+        ],
+        "position": {
+          "start": {
+            "line": 1,
+            "column": 1,
+            "offset": 0
+          },
+          "end": {
+            "line": 6,
+            "column": 1,
+            "offset": 53
+          }
+        }
+      },
+      "comparison": "AST fields and offsets exact; unchanged source bytes exact; editor semantic comparison ignores position/list spread only",
+      "deliveryUnit": "S5.08"
+    },
+    {
+      "id": "unicode-crlf",
+      "text": "# 中文👩‍💻\r\n\r\né 与 é\r\n",
+      "contract": "UTF-16 source offsets, UTF-8 byte boundaries and unchanged line endings",
+      "utf8Hex": "2320e4b8ade69687f09f91a9e2808df09f92bb0d0a0d0a65cc8120e4b88e20c3a90d0a",
+      "sha256": "ebf79bf5ee3770be0ee1e7da8e6bb411a8d4588a67fe728945fce70287d9c285",
+      "expected": {
+        "type": "root",
+        "children": [
+          {
+            "type": "heading",
+            "depth": 1,
+            "children": [
+              {
+                "type": "text",
+                "value": "中文👩‍💻",
+                "position": {
+                  "start": {
+                    "line": 1,
+                    "column": 3,
+                    "offset": 2
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 10,
+                    "offset": 9
+                  }
+                }
+              }
+            ],
+            "position": {
+              "start": {
+                "line": 1,
+                "column": 1,
+                "offset": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 10,
+                "offset": 9
+              }
+            }
+          },
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "é 与 é",
+                "position": {
+                  "start": {
+                    "line": 3,
+                    "column": 1,
+                    "offset": 13
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 7,
+                    "offset": 19
+                  }
+                }
+              }
+            ],
+            "position": {
+              "start": {
+                "line": 3,
+                "column": 1,
+                "offset": 13
+              },
+              "end": {
+                "line": 3,
+                "column": 7,
+                "offset": 19
+              }
+            }
+          }
+        ],
+        "position": {
+          "start": {
+            "line": 1,
+            "column": 1,
+            "offset": 0
+          },
+          "end": {
+            "line": 4,
+            "column": 1,
+            "offset": 21
+          }
+        }
+      },
+      "comparison": "AST fields and offsets exact; unchanged source bytes exact; editor semantic comparison ignores position/list spread only",
+      "deliveryUnit": "S5.08"
+    }
+  ],
+  "anki": [
+    {
+      "id": "basic-front",
+      "template": "<b>{{Front}}</b>",
+      "fields": {
+        "Front": "<i>问题</i>",
+        "Back": "答案"
+      },
+      "options": {
+        "side": "front"
+      },
+      "expected": {
+        "html": "<b><i>问题</i></b>",
+        "issues": [],
+        "ok": true
+      },
+      "comparison": "HTML and structured issue codes exact; user CSS/script source retained",
+      "deliveryUnit": "S5.17"
+    },
+    {
+      "id": "frontside-back",
+      "template": "{{FrontSide}}<hr>{{Back}}",
+      "fields": {
+        "Back": "答案"
+      },
+      "options": {
+        "side": "back",
+        "frontSide": "<b>问题</b>"
+      },
+      "expected": {
+        "html": "<b>问题</b><hr>答案",
+        "issues": [],
+        "ok": true
+      },
+      "comparison": "HTML and structured issue codes exact; user CSS/script source retained",
+      "deliveryUnit": "S5.17"
+    },
+    {
+      "id": "conditional",
+      "template": "{{#Extra}}有{{Extra}}{{/Extra}}{{^Empty}}空{{/Empty}}",
+      "fields": {
+        "Extra": "值",
+        "Empty": ""
+      },
+      "options": {
+        "side": "front"
+      },
+      "expected": {
+        "html": "有值空",
+        "issues": [],
+        "ok": true
+      },
+      "comparison": "HTML and structured issue codes exact; user CSS/script source retained",
+      "deliveryUnit": "S5.17"
+    },
+    {
+      "id": "cloze-front",
+      "template": "{{cloze:Text}}",
+      "fields": {
+        "Text": "记住 {{c1::原理::提示}} 和 {{c2::结论}}"
+      },
+      "options": {
+        "side": "front",
+        "clozeOrdinal": 1
+      },
+      "expected": {
+        "html": "记住 <span class=\"cloze\" data-cloze-ordinal=\"1\">[...]</span><span class=\"cloze-hint\">提示</span> 和 结论",
+        "issues": [],
+        "ok": true
+      },
+      "comparison": "HTML and structured issue codes exact; user CSS/script source retained",
+      "deliveryUnit": "S5.17"
+    },
+    {
+      "id": "cloze-back",
+      "template": "{{cloze:Text}}",
+      "fields": {
+        "Text": "记住 {{c1::原理::提示}} 和 {{c2::结论}}"
+      },
+      "options": {
+        "side": "back",
+        "clozeOrdinal": 1
+      },
+      "expected": {
+        "html": "记住 <span class=\"cloze-revealed\" data-cloze-ordinal=\"1\">原理</span> 和 结论",
+        "issues": [],
+        "ok": true
+      },
+      "comparison": "HTML and structured issue codes exact; user CSS/script source retained",
+      "deliveryUnit": "S5.17"
+    },
+    {
+      "id": "sound",
+      "template": "{{Audio}}",
+      "fields": {
+        "Audio": "[sound:声音.mp3]"
+      },
+      "options": {
+        "side": "front",
+        "soundStrategy": "keep"
+      },
+      "expected": {
+        "html": "[sound:声音.mp3]",
+        "issues": [],
+        "ok": true
+      },
+      "comparison": "HTML and structured issue codes exact; user CSS/script source retained",
+      "deliveryUnit": "S5.17"
+    },
+    {
+      "id": "hint-text",
+      "template": "{{hint:Extra}} {{text:Front}}",
+      "fields": {
+        "Extra": "提示",
+        "Front": "<b>正文</b>"
+      },
+      "options": {
+        "side": "front"
+      },
+      "expected": {
+        "html": "<details class=\"anki-hint\"><summary class=\"anki-hint-summary\">Extra</summary><span class=\"anki-hint-content\">提示</span></details> <b>正文</b>",
+        "issues": [],
+        "ok": true
+      },
+      "comparison": "HTML and structured issue codes exact; user CSS/script source retained",
+      "deliveryUnit": "S5.17"
+    },
+    {
+      "id": "malformed",
+      "template": "{{#Extra}}未关闭",
+      "fields": {
+        "Extra": "x"
+      },
+      "options": {
+        "side": "front"
+      },
+      "expected": {
+        "html": "未关闭",
+        "issues": [
+          {
+            "code": "unclosed-section",
+            "message": "条件段 {{#Extra}} 缺少结束标签 {{/Extra}}",
+            "tag": "#Extra"
+          }
+        ],
+        "ok": false
+      },
+      "comparison": "HTML and structured issue codes exact; user CSS/script source retained",
+      "deliveryUnit": "S5.17"
+    },
+    {
+      "id": "custom-html",
+      "template": "<style>.card{color:red}</style><div class=card>{{Front}}</div><script>window.userCard=true</script>",
+      "fields": {
+        "Front": "内容"
+      },
+      "options": {
+        "side": "front"
+      },
+      "expected": {
+        "html": "<style>.card{color:red}</style><div class=card>内容</div><script>window.userCard=true</script>",
+        "issues": [],
+        "ok": true
+      },
+      "comparison": "HTML and structured issue codes exact; user CSS/script source retained",
+      "deliveryUnit": "S5.17"
+    }
+  ],
+  "inlineCards": [
+    {
+      "input": "问题 >> 答案",
+      "expected": {
+        "kind": "qa",
+        "front": "问题",
+        "back": "答案",
+        "cardCount": 1
+      }
+    },
+    {
+      "input": "牛顿第{{一}}定律",
+      "expected": {
+        "kind": "cloze",
+        "front": "牛顿第[...]定律",
+        "back": "牛顿第一定律",
+        "clozeText": "牛顿第{{c1::一}}定律",
+        "cardCount": 1
+      }
+    },
+    {
+      "input": "`问题 >> 答案`",
+      "expected": null
+    },
+    {
+      "input": "$a >> b$",
+      "expected": null
+    }
+  ],
+  "contentLanguages": [
+    {
+      "language": "mermaid",
+      "definition": {
+        "kind": "mermaid"
+      },
+      "deliveryUnit": "S5.18"
+    },
+    {
+      "language": "svg",
+      "definition": {
+        "kind": "svg"
+      },
+      "deliveryUnit": "S5.18"
+    },
+    {
+      "language": "html",
+      "definition": {
+        "kind": "html"
+      },
+      "deliveryUnit": "S5.18"
+    },
+    {
+      "language": "htm",
+      "definition": {
+        "kind": "html"
+      },
+      "deliveryUnit": "S5.18"
+    },
+    {
+      "language": "xml",
+      "definition": {
+        "kind": "xml"
+      },
+      "deliveryUnit": "S5.18"
+    },
+    {
+      "language": "vega-lite",
+      "definition": {
+        "kind": "rich",
+        "capability": "charts",
+        "richRendererKind": "vega-lite"
+      },
+      "deliveryUnit": "S5.18"
+    },
+    {
+      "language": "vega",
+      "definition": {
+        "kind": "rich",
+        "capability": "charts",
+        "richRendererKind": "vega-lite"
+      },
+      "deliveryUnit": "S5.18"
+    },
+    {
+      "language": "dot",
+      "definition": {
+        "kind": "rich",
+        "capability": "graphviz",
+        "richRendererKind": "dot"
+      },
+      "deliveryUnit": "S5.18"
+    },
+    {
+      "language": "abc",
+      "definition": {
+        "kind": "rich",
+        "capability": "music",
+        "richRendererKind": "abc"
+      },
+      "deliveryUnit": "S5.18"
+    },
+    {
+      "language": "wavedrom",
+      "definition": {
+        "kind": "rich",
+        "capability": "timing",
+        "richRendererKind": "wavedrom"
+      },
+      "deliveryUnit": "S5.18"
+    },
+    {
+      "language": "mol",
+      "definition": {
+        "kind": "rich",
+        "capability": "chemicalFiles",
+        "richRendererKind": "molecule-2d"
+      },
+      "deliveryUnit": "S5.18"
+    },
+    {
+      "language": "molfile",
+      "definition": {
+        "kind": "rich",
+        "capability": "chemicalFiles",
+        "richRendererKind": "molecule-2d"
+      },
+      "deliveryUnit": "S5.18"
+    },
+    {
+      "language": "sdf",
+      "definition": {
+        "kind": "rich",
+        "capability": "chemicalFiles",
+        "richRendererKind": "molecule-2d"
+      },
+      "deliveryUnit": "S5.18"
+    },
+    {
+      "language": "pdb",
+      "definition": {
+        "kind": "rich",
+        "capability": "molecular3d",
+        "richRendererKind": "molecule-3d"
+      },
+      "deliveryUnit": "S5.18"
+    },
+    {
+      "language": "geojson",
+      "definition": {
+        "kind": "rich",
+        "capability": "geojson",
+        "richRendererKind": "geojson"
+      },
+      "deliveryUnit": "S5.18"
+    }
+  ],
+  "schemaDefinitions": {
+    "optionalLayoutUnitSchema": {
+      "source": "z\n  .number()\n  .optional()\n  .transform((n) => (typeof n === 'number' ? clampGenerativeLayoutUnit(n) : undefined))",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/generative-ui/schema.ts",
+        "line": 32,
+        "symbol": null
+      }
+    },
+    "generativeLayoutSchema": {
+      "source": "z.object({\n  mode: z.enum(['stack', 'grid']),\n  columns: optionalLayoutUnitSchema,\n})",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/generative-ui/schema.ts",
+        "line": 38,
+        "symbol": null
+      }
+    },
+    "generativeBlockIntentSchema": {
+      "source": "z.object({\n  type: z.string().min(1).max(64),\n  props: z.record(z.string(), z.unknown()).optional().default({}),\n  id: z.string().max(128).optional(),\n  span: optionalLayoutUnitSchema,\n})",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/generative-ui/schema.ts",
+        "line": 44,
+        "symbol": null
+      }
+    },
+    "generativeUIMetaSchema": {
+      "source": "z\n  .object({\n    title: z.string().max(200).optional(),\n    description: z.string().max(1000).optional(),\n    researchSessionId: z\n      .unknown()\n      .optional()\n      .transform((value) => sanitizeResearchSessionId(value) ?? undefined),\n  })\n  .optional()",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/generative-ui/schema.ts",
+        "line": 54,
+        "symbol": null
+      }
+    },
+    "generativeUIIntentSchema": {
+      "source": "z.object({\n  version: z.enum(GENERATIVE_UI_INTENT_VERSIONS).optional().default('1'),\n  layout: generativeLayoutSchema.optional(),\n  blocks: z.array(generativeBlockIntentSchema).min(0).max(MAX_GENERATIVE_UI_BLOCKS),\n  meta: generativeUIMetaSchema,\n})",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/generative-ui/schema.ts",
+        "line": 66,
+        "symbol": null
+      }
+    },
+    "statCardPropsSchema": {
+      "source": "z.object({\n  id: z.string().optional(),\n  title: z.string().min(1).max(120),\n  value: z.union([z.string(), z.number()]),\n  subtitle: z.string().max(200).optional(),\n  trend: z.enum(['up', 'down', 'neutral']).optional(),\n  trendLabel: z.string().max(80).optional(),\n})",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/generative-ui/schema.ts",
+        "line": 116,
+        "symbol": null
+      }
+    },
+    "alertBlockPropsSchema": {
+      "source": "z.object({\n  id: z.string().optional(),\n  variant: z.enum(['default', 'info', 'warning', 'destructive']).optional().default('default'),\n  title: z.string().min(1).max(120),\n  description: z.string().max(500).optional(),\n})",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/generative-ui/schema.ts",
+        "line": 125,
+        "symbol": null
+      }
+    },
+    "listBlockPropsSchema": {
+      "source": "z.object({\n  id: z.string().optional(),\n  title: z.string().max(120).optional(),\n  items: z\n    .array(\n      z.object({\n        id: z.string().optional(),\n        label: z.string().min(1).max(200),\n        description: z.string().max(300).optional(),\n        badge: z.string().max(40).optional(),\n      }),\n    )\n    .min(0)\n    .max(50),\n  emptyLabel: z.string().max(80).optional(),\n})",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/generative-ui/schema.ts",
+        "line": 132,
+        "symbol": null
+      }
+    },
+    "progressBlockPropsSchema": {
+      "source": "z.object({\n  id: z.string().optional(),\n  title: z.string().max(120).optional(),\n  current: z.number().min(0),\n  total: z.number().min(1),\n  label: z.string().max(80).optional(),\n})",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/generative-ui/schema.ts",
+        "line": 149,
+        "symbol": null
+      }
+    },
+    "actionBarPropsSchema": {
+      "source": "z.object({\n  id: z.string().optional(),\n  actions: z\n    .array(\n      z.object({\n        id: z.string().min(1).max(64),\n        label: z.string().min(1).max(60),\n        variant: z.enum(['default', 'primary', 'destructive']).optional().default('default'),\n        riskLevel: z.enum(['low', 'medium', 'high']).optional().default('low'),\n      }),\n    )\n    .min(1)\n    .max(6),\n})",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/generative-ui/schema.ts",
+        "line": 157,
+        "symbol": null
+      }
+    },
+    "textBlockPropsSchema": {
+      "source": "z.object({\n  id: z.string().optional(),\n  heading: z.string().max(120).optional(),\n  body: z.string().min(1).max(4000),\n  density: z.enum(['compact', 'normal']).optional().default('normal'),\n})",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/generative-ui/schema.ts",
+        "line": 172,
+        "symbol": null
+      }
+    },
+    "keyValueGridPropsSchema": {
+      "source": "z.object({\n  id: z.string().optional(),\n  title: z.string().max(120).optional(),\n  rows: z\n    .array(\n      z.object({\n        key: z.string().min(1).max(80),\n        value: z.string().min(1).max(300),\n      }),\n    )\n    .min(1)\n    .max(20),\n})",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/generative-ui/schema.ts",
+        "line": 179,
+        "symbol": null
+      }
+    },
+    "flashcardPreviewPropsSchema": {
+      "source": "z.object({\n  id: z.string().optional(),\n  front: z.string().min(1).max(500),\n  back: z.string().min(1).max(1000),\n  tags: z.array(z.string().max(40)).max(8).optional(),\n  deckName: z.string().max(80).optional(),\n})",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/generative-ui/schema.ts",
+        "line": 385,
+        "symbol": null
+      }
+    },
+    "reviewCalendarPropsSchema": {
+      "source": "z.object({\n  id: z.string().optional(),\n  title: z.string().max(120).optional(),\n  days: z\n    .array(\n      z.object({\n        date: z.string().min(1).max(20),\n        label: z.string().max(40).optional(),\n        dueCount: z.number().min(0),\n        completedCount: z.number().min(0).optional(),\n      }),\n    )\n    .min(1)\n    .max(14),\n})",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/generative-ui/schema.ts",
+        "line": 393,
+        "symbol": null
+      }
+    },
+    "mistakeAnalysisPropsSchema": {
+      "source": "z.object({\n  id: z.string().optional(),\n  topic: z.string().min(1).max(120),\n  errorRate: z.number().min(0).max(100),\n  mistakeCount: z.number().min(0).optional(),\n  suggestion: z.string().max(500),\n  severity: z.enum(['low', 'medium', 'high']).optional().default('medium'),\n})",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/generative-ui/schema.ts",
+        "line": 409,
+        "symbol": null
+      }
+    },
+    "mindmapEmbedPropsSchema": {
+      "source": "z\n  .object({\n    id: z.string().optional(),\n    mindmapId: z.string().min(1).max(128).regex(GENERATIVE_EMBED_ID_RE).optional(),\n    versionId: z.string().min(1).max(128).regex(GENERATIVE_EMBED_ID_RE).optional(),\n    title: z.string().max(120).optional(),\n    height: z.number().min(200).max(600).optional().default(280),\n  })\n  .refine((data) => Boolean(data.mindmapId || data.versionId), {\n    message: 'mindmapId or versionId is required',\n  })",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/generative-ui/schema.ts",
+        "line": 420,
+        "symbol": null
+      }
+    },
+    "paperDigestPropsSchema": {
+      "source": "z.object({\n  id: z.string().optional(),\n  title: z.string().min(1).max(300),\n  authors: z.string().max(200).optional(),\n  venue: z.string().max(120).optional(),\n  year: z.number().int().min(1900).max(2100).optional(),\n  citationLabel: z.string().max(40).optional(),\n  citationCount: z.number().min(0).optional(),\n  keyFindings: z.array(z.string().min(1).max(300)).max(8).optional(),\n  abstractExcerpt: z.string().max(500).optional(),\n})",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/generative-ui/schema.ts",
+        "line": 432,
+        "symbol": null
+      }
+    },
+    "researchPlanStepSchema": {
+      "source": "z.object({\n  label: z.string().min(1).max(200),\n  status: z.enum(['pending', 'active', 'done']).optional().default('pending'),\n})",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/generative-ui/schema.ts",
+        "line": 444,
+        "symbol": null
+      }
+    },
+    "researchPlanPropsSchema": {
+      "source": "z.object({\n  id: z.string().optional(),\n  title: z.string().min(1).max(160),\n  round: z.number().int().min(1).optional(),\n  steps: z.array(researchPlanStepSchema).min(1).max(12),\n})",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/generative-ui/schema.ts",
+        "line": 449,
+        "symbol": null
+      }
+    },
+    "researchReportPropsSchema": {
+      "source": "z.object({\n  id: z.string().optional(),\n  title: z.string().max(200).optional(),\n  body: z.string().min(1).max(12000),\n  density: z.enum(['compact', 'normal']).optional().default('normal'),\n})",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/generative-ui/schema.ts",
+        "line": 456,
+        "symbol": null
+      }
+    },
+    "markdownPropsSchema": {
+      "source": "z.object({\n  id: z.string().optional(),\n  title: z.string().max(MARKDOWN_TITLE_MAX).optional(),\n  body: z.string().min(1).max(MARKDOWN_BODY_MAX),\n  variant: z.enum(['default', 'compact']).optional(),\n})",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/generative-ui/schema.ts",
+        "line": 467,
+        "symbol": null
+      }
+    },
+    "chartSeriesSchema": {
+      "source": "z.object({\n  name: z.string().max(40),\n  values: z.array(z.number()),\n})",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/generative-ui/schema.ts",
+        "line": 476,
+        "symbol": null
+      }
+    },
+    "chartBlockPropsSchema": {
+      "source": "z\n  .object({\n    id: z.string().optional(),\n    title: z.string().max(120).optional(),\n    kind: z.enum(CHART_KINDS),\n    categories: z.array(z.string()).min(1).max(24),\n    series: z.array(chartSeriesSchema).min(1).max(8).optional(),\n    unit: z.string().max(16).optional(),\n  })\n  .refine(\n    (data) =>\n      (data.series ?? []).every((item) => item.values.length === data.categories.length),\n    { message: 'series.values.length must equal categories.length', path: ['series'] },\n  )",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/generative-ui/schema.ts",
+        "line": 481,
+        "symbol": null
+      }
+    },
+    "stepsStepSchema": {
+      "source": "z.object({\n  id: z.string().optional(),\n  label: z.string().min(1).max(160),\n  description: z.string().max(300).optional(),\n  status: z.enum(STEPS_STATUSES).default('pending'),\n  durationLabel: z.string().max(40).optional(),\n})",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/generative-ui/schema.ts",
+        "line": 498,
+        "symbol": null
+      }
+    },
+    "stepsBlockPropsSchema": {
+      "source": "z.object({\n  id: z.string().optional(),\n  title: z.string().max(120).optional(),\n  steps: z.array(stepsStepSchema).min(1).max(20),\n})",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/generative-ui/schema.ts",
+        "line": 506,
+        "symbol": null
+      }
+    },
+    "tableColumnSchema": {
+      "source": "z.object({\n  key: z.string().min(1).max(40),\n  label: z.string().min(1).max(80),\n  align: z.enum(TABLE_ALIGN).optional(),\n})",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/generative-ui/schema.ts",
+        "line": 514,
+        "symbol": null
+      }
+    },
+    "tableBlockPropsSchema": {
+      "source": "z.object({\n  id: z.string().optional(),\n  title: z.string().max(120).optional(),\n  columns: z.array(tableColumnSchema).min(1).max(12),\n  rows: z.array(z.record(z.string(), z.union([z.string(), z.number()]))).min(0).max(50),\n  emptyLabel: z.string().max(80).optional(),\n  caption: z.string().max(200).optional(),\n})",
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/generative-ui/schema.ts",
+        "line": 520,
+        "symbol": null
+      }
+    }
+  },
+  "generative": [
+    {
+      "id": "grid-v11",
+      "input": {
+        "version": "1.1",
+        "layout": {
+          "mode": "grid",
+          "columns": 2
+        },
+        "blocks": [
+          {
+            "id": "stats",
+            "type": "stat-card",
+            "span": 1,
+            "props": {
+              "title": "掌握度",
+              "value": "80%"
+            }
+          },
+          {
+            "id": "future",
+            "type": "future-widget",
+            "props": {
+              "opaque": {
+                "x": null
+              }
+            }
+          }
+        ]
+      },
+      "expected": {
+        "ok": true,
+        "value": {
+          "version": "1.1",
+          "layout": {
+            "mode": "grid",
+            "columns": 2
+          },
+          "blocks": [
+            {
+              "type": "stat-card",
+              "props": {
+                "title": "掌握度",
+                "value": "80%"
+              },
+              "id": "stats",
+              "span": 1
+            },
+            {
+              "type": "future-widget",
+              "props": {
+                "opaque": {
+                  "x": null
+                }
+              },
+              "id": "future"
+            }
+          ]
+        }
+      },
+      "deliveryUnit": "S5.19"
+    },
+    {
+      "id": "missing-version",
+      "input": {
+        "blocks": [
+          {
+            "type": "text",
+            "props": {
+              "body": "正文"
+            }
+          }
+        ]
+      },
+      "expected": {
+        "ok": true,
+        "value": {
+          "version": "1",
+          "blocks": [
+            {
+              "type": "text",
+              "props": {
+                "body": "正文"
+              }
+            }
+          ]
+        }
+      },
+      "deliveryUnit": "S5.19"
+    },
+    {
+      "id": "invalid-version",
+      "input": {
+        "version": "9",
+        "blocks": []
+      },
+      "expected": {
+        "ok": false,
+        "issues": [
+          {
+            "path": [
+              "version"
+            ],
+            "code": "invalid_value"
+          }
+        ]
+      },
+      "deliveryUnit": "S5.19"
+    },
+    {
+      "id": "invalid-block",
+      "input": {
+        "blocks": [
+          {
+            "type": "",
+            "props": {}
+          }
+        ]
+      },
+      "expected": {
+        "ok": false,
+        "issues": [
+          {
+            "path": [
+              "blocks",
+              0,
+              "type"
+            ],
+            "code": "too_small"
+          }
+        ]
+      },
+      "deliveryUnit": "S5.19"
+    }
+  ],
+  "generativeTypes": [
+    {
+      "type": "stat-card",
+      "description": "指标卡片：标题、数值、可选趋势",
+      "allowPartialRender": true,
+      "deliveryUnit": "S5.19",
+      "schemaSymbol": "statCardPropsSchema",
+      "schema": {
+        "source": "z.object({\n  id: z.string().optional(),\n  title: z.string().min(1).max(120),\n  value: z.union([z.string(), z.number()]),\n  subtitle: z.string().max(200).optional(),\n  trend: z.enum(['up', 'down', 'neutral']).optional(),\n  trendLabel: z.string().max(80).optional(),\n})",
+        "evidence": {
+          "source": "desktop",
+          "file": "src/features/generative-ui/schema.ts",
+          "line": 116,
+          "symbol": null
+        }
+      },
+      "vectors": [
+        {
+          "input": {
+            "title": "掌握度",
+            "value": "80%"
+          },
+          "expected": {
+            "ok": true,
+            "value": {
+              "title": "掌握度",
+              "value": "80%"
+            }
+          }
+        },
+        {
+          "input": {},
+          "expected": {
+            "ok": false,
+            "issues": [
+              {
+                "path": [
+                  "title"
+                ],
+                "code": "invalid_type"
+              },
+              {
+                "path": [
+                  "value"
+                ],
+                "code": "invalid_union"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "alert",
+      "description": "提示条：info/warning/destructive",
+      "allowPartialRender": false,
+      "deliveryUnit": "S5.19",
+      "schemaSymbol": "alertBlockPropsSchema",
+      "schema": {
+        "source": "z.object({\n  id: z.string().optional(),\n  variant: z.enum(['default', 'info', 'warning', 'destructive']).optional().default('default'),\n  title: z.string().min(1).max(120),\n  description: z.string().max(500).optional(),\n})",
+        "evidence": {
+          "source": "desktop",
+          "file": "src/features/generative-ui/schema.ts",
+          "line": 125,
+          "symbol": null
+        }
+      },
+      "vectors": [
+        {
+          "input": {
+            "title": "提示"
+          },
+          "expected": {
+            "ok": true,
+            "value": {
+              "variant": "default",
+              "title": "提示"
+            }
+          }
+        },
+        {
+          "input": {},
+          "expected": {
+            "ok": false,
+            "issues": [
+              {
+                "path": [
+                  "title"
+                ],
+                "code": "invalid_type"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "list",
+      "description": "列表：标题 + 条目（label/description/badge）",
+      "allowPartialRender": true,
+      "deliveryUnit": "S5.19",
+      "schemaSymbol": "listBlockPropsSchema",
+      "schema": {
+        "source": "z.object({\n  id: z.string().optional(),\n  title: z.string().max(120).optional(),\n  items: z\n    .array(\n      z.object({\n        id: z.string().optional(),\n        label: z.string().min(1).max(200),\n        description: z.string().max(300).optional(),\n        badge: z.string().max(40).optional(),\n      }),\n    )\n    .min(0)\n    .max(50),\n  emptyLabel: z.string().max(80).optional(),\n})",
+        "evidence": {
+          "source": "desktop",
+          "file": "src/features/generative-ui/schema.ts",
+          "line": 132,
+          "symbol": null
+        }
+      },
+      "vectors": [
+        {
+          "input": {
+            "items": [
+              {
+                "label": "项目"
+              }
+            ]
+          },
+          "expected": {
+            "ok": true,
+            "value": {
+              "items": [
+                {
+                  "label": "项目"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "input": {},
+          "expected": {
+            "ok": false,
+            "issues": [
+              {
+                "path": [
+                  "items"
+                ],
+                "code": "invalid_type"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "progress",
+      "description": "进度条：current/total",
+      "allowPartialRender": false,
+      "deliveryUnit": "S5.19",
+      "schemaSymbol": "progressBlockPropsSchema",
+      "schema": {
+        "source": "z.object({\n  id: z.string().optional(),\n  title: z.string().max(120).optional(),\n  current: z.number().min(0),\n  total: z.number().min(1),\n  label: z.string().max(80).optional(),\n})",
+        "evidence": {
+          "source": "desktop",
+          "file": "src/features/generative-ui/schema.ts",
+          "line": 149,
+          "symbol": null
+        }
+      },
+      "vectors": [
+        {
+          "input": {
+            "current": 1,
+            "total": 2
+          },
+          "expected": {
+            "ok": true,
+            "value": {
+              "current": 1,
+              "total": 2
+            }
+          }
+        },
+        {
+          "input": {},
+          "expected": {
+            "ok": false,
+            "issues": [
+              {
+                "path": [
+                  "current"
+                ],
+                "code": "invalid_type"
+              },
+              {
+                "path": [
+                  "total"
+                ],
+                "code": "invalid_type"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "action-bar",
+      "description": "操作栏：仅声明 action id，副作用由 handler 执行",
+      "allowPartialRender": false,
+      "deliveryUnit": "S5.19",
+      "schemaSymbol": "actionBarPropsSchema",
+      "schema": {
+        "source": "z.object({\n  id: z.string().optional(),\n  actions: z\n    .array(\n      z.object({\n        id: z.string().min(1).max(64),\n        label: z.string().min(1).max(60),\n        variant: z.enum(['default', 'primary', 'destructive']).optional().default('default'),\n        riskLevel: z.enum(['low', 'medium', 'high']).optional().default('low'),\n      }),\n    )\n    .min(1)\n    .max(6),\n})",
+        "evidence": {
+          "source": "desktop",
+          "file": "src/features/generative-ui/schema.ts",
+          "line": 157,
+          "symbol": null
+        }
+      },
+      "vectors": [
+        {
+          "input": {
+            "actions": [
+              {
+                "id": "confirm",
+                "label": "确认"
+              }
+            ]
+          },
+          "expected": {
+            "ok": true,
+            "value": {
+              "actions": [
+                {
+                  "id": "confirm",
+                  "label": "确认",
+                  "variant": "default",
+                  "riskLevel": "low"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "input": {},
+          "expected": {
+            "ok": false,
+            "issues": [
+              {
+                "path": [
+                  "actions"
+                ],
+                "code": "invalid_type"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "description": "文本块：heading + body，SaaS 信息密度",
+      "allowPartialRender": true,
+      "deliveryUnit": "S5.19",
+      "schemaSymbol": "textBlockPropsSchema",
+      "schema": {
+        "source": "z.object({\n  id: z.string().optional(),\n  heading: z.string().max(120).optional(),\n  body: z.string().min(1).max(4000),\n  density: z.enum(['compact', 'normal']).optional().default('normal'),\n})",
+        "evidence": {
+          "source": "desktop",
+          "file": "src/features/generative-ui/schema.ts",
+          "line": 172,
+          "symbol": null
+        }
+      },
+      "vectors": [
+        {
+          "input": {
+            "body": "正文"
+          },
+          "expected": {
+            "ok": true,
+            "value": {
+              "body": "正文",
+              "density": "normal"
+            }
+          }
+        },
+        {
+          "input": {},
+          "expected": {
+            "ok": false,
+            "issues": [
+              {
+                "path": [
+                  "body"
+                ],
+                "code": "invalid_type"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "key-value-grid",
+      "description": "键值对网格：摘要/metadata",
+      "allowPartialRender": false,
+      "deliveryUnit": "S5.19",
+      "schemaSymbol": "keyValueGridPropsSchema",
+      "schema": {
+        "source": "z.object({\n  id: z.string().optional(),\n  title: z.string().max(120).optional(),\n  rows: z\n    .array(\n      z.object({\n        key: z.string().min(1).max(80),\n        value: z.string().min(1).max(300),\n      }),\n    )\n    .min(1)\n    .max(20),\n})",
+        "evidence": {
+          "source": "desktop",
+          "file": "src/features/generative-ui/schema.ts",
+          "line": 179,
+          "symbol": null
+        }
+      },
+      "vectors": [
+        {
+          "input": {
+            "rows": [
+              {
+                "key": "科目",
+                "value": "数学"
+              }
+            ]
+          },
+          "expected": {
+            "ok": true,
+            "value": {
+              "rows": [
+                {
+                  "key": "科目",
+                  "value": "数学"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "input": {},
+          "expected": {
+            "ok": false,
+            "issues": [
+              {
+                "path": [
+                  "rows"
+                ],
+                "code": "invalid_type"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "flashcard-preview",
+      "description": "闪卡预览：front/back/tags",
+      "allowPartialRender": false,
+      "deliveryUnit": "S5.19",
+      "schemaSymbol": "flashcardPreviewPropsSchema",
+      "schema": {
+        "source": "z.object({\n  id: z.string().optional(),\n  front: z.string().min(1).max(500),\n  back: z.string().min(1).max(1000),\n  tags: z.array(z.string().max(40)).max(8).optional(),\n  deckName: z.string().max(80).optional(),\n})",
+        "evidence": {
+          "source": "desktop",
+          "file": "src/features/generative-ui/schema.ts",
+          "line": 385,
+          "symbol": null
+        }
+      },
+      "vectors": [
+        {
+          "input": {
+            "front": "问题",
+            "back": "答案"
+          },
+          "expected": {
+            "ok": true,
+            "value": {
+              "front": "问题",
+              "back": "答案"
+            }
+          }
+        },
+        {
+          "input": {},
+          "expected": {
+            "ok": false,
+            "issues": [
+              {
+                "path": [
+                  "front"
+                ],
+                "code": "invalid_type"
+              },
+              {
+                "path": [
+                  "back"
+                ],
+                "code": "invalid_type"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "review-calendar",
+      "description": "复习日历：日期 + 待复习数量",
+      "allowPartialRender": false,
+      "deliveryUnit": "S5.19",
+      "schemaSymbol": "reviewCalendarPropsSchema",
+      "schema": {
+        "source": "z.object({\n  id: z.string().optional(),\n  title: z.string().max(120).optional(),\n  days: z\n    .array(\n      z.object({\n        date: z.string().min(1).max(20),\n        label: z.string().max(40).optional(),\n        dueCount: z.number().min(0),\n        completedCount: z.number().min(0).optional(),\n      }),\n    )\n    .min(1)\n    .max(14),\n})",
+        "evidence": {
+          "source": "desktop",
+          "file": "src/features/generative-ui/schema.ts",
+          "line": 393,
+          "symbol": null
+        }
+      },
+      "vectors": [
+        {
+          "input": {
+            "days": [
+              {
+                "date": "2026-11-15",
+                "dueCount": 2
+              }
+            ]
+          },
+          "expected": {
+            "ok": true,
+            "value": {
+              "days": [
+                {
+                  "date": "2026-11-15",
+                  "dueCount": 2
+                }
+              ]
+            }
+          }
+        },
+        {
+          "input": {},
+          "expected": {
+            "ok": false,
+            "issues": [
+              {
+                "path": [
+                  "days"
+                ],
+                "code": "invalid_type"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "mistake-analysis",
+      "description": "错题分析：主题 + 错误率 + 建议",
+      "allowPartialRender": false,
+      "deliveryUnit": "S5.19",
+      "schemaSymbol": "mistakeAnalysisPropsSchema",
+      "schema": {
+        "source": "z.object({\n  id: z.string().optional(),\n  topic: z.string().min(1).max(120),\n  errorRate: z.number().min(0).max(100),\n  mistakeCount: z.number().min(0).optional(),\n  suggestion: z.string().max(500),\n  severity: z.enum(['low', 'medium', 'high']).optional().default('medium'),\n})",
+        "evidence": {
+          "source": "desktop",
+          "file": "src/features/generative-ui/schema.ts",
+          "line": 409,
+          "symbol": null
+        }
+      },
+      "vectors": [
+        {
+          "input": {
+            "topic": "代数",
+            "errorRate": 20,
+            "suggestion": "复习公式"
+          },
+          "expected": {
+            "ok": true,
+            "value": {
+              "topic": "代数",
+              "errorRate": 20,
+              "suggestion": "复习公式",
+              "severity": "medium"
+            }
+          }
+        },
+        {
+          "input": {},
+          "expected": {
+            "ok": false,
+            "issues": [
+              {
+                "path": [
+                  "topic"
+                ],
+                "code": "invalid_type"
+              },
+              {
+                "path": [
+                  "errorRate"
+                ],
+                "code": "invalid_type"
+              },
+              {
+                "path": [
+                  "suggestion"
+                ],
+                "code": "invalid_type"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "mindmap-embed",
+      "description": "思维导图嵌入：mindmapId 引用式预览",
+      "allowPartialRender": false,
+      "deliveryUnit": "S5.19",
+      "schemaSymbol": "mindmapEmbedPropsSchema",
+      "schema": {
+        "source": "z\n  .object({\n    id: z.string().optional(),\n    mindmapId: z.string().min(1).max(128).regex(GENERATIVE_EMBED_ID_RE).optional(),\n    versionId: z.string().min(1).max(128).regex(GENERATIVE_EMBED_ID_RE).optional(),\n    title: z.string().max(120).optional(),\n    height: z.number().min(200).max(600).optional().default(280),\n  })\n  .refine((data) => Boolean(data.mindmapId || data.versionId), {\n    message: 'mindmapId or versionId is required',\n  })",
+        "evidence": {
+          "source": "desktop",
+          "file": "src/features/generative-ui/schema.ts",
+          "line": 420,
+          "symbol": null
+        }
+      },
+      "vectors": [
+        {
+          "input": {
+            "mindmapId": "mindmap_fixture_1"
+          },
+          "expected": {
+            "ok": true,
+            "value": {
+              "mindmapId": "mindmap_fixture_1",
+              "height": 280
+            }
+          }
+        },
+        {
+          "input": {},
+          "expected": {
+            "ok": false,
+            "issues": [
+              {
+                "path": [],
+                "code": "custom"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "paper-digest",
+      "description": "论文摘要：标题、作者、要点、引用标签",
+      "allowPartialRender": true,
+      "deliveryUnit": "S5.19",
+      "schemaSymbol": "paperDigestPropsSchema",
+      "schema": {
+        "source": "z.object({\n  id: z.string().optional(),\n  title: z.string().min(1).max(300),\n  authors: z.string().max(200).optional(),\n  venue: z.string().max(120).optional(),\n  year: z.number().int().min(1900).max(2100).optional(),\n  citationLabel: z.string().max(40).optional(),\n  citationCount: z.number().min(0).optional(),\n  keyFindings: z.array(z.string().min(1).max(300)).max(8).optional(),\n  abstractExcerpt: z.string().max(500).optional(),\n})",
+        "evidence": {
+          "source": "desktop",
+          "file": "src/features/generative-ui/schema.ts",
+          "line": 432,
+          "symbol": null
+        }
+      },
+      "vectors": [
+        {
+          "input": {
+            "title": "论文",
+            "year": 2026
+          },
+          "expected": {
+            "ok": true,
+            "value": {
+              "title": "论文",
+              "year": 2026
+            }
+          }
+        },
+        {
+          "input": {},
+          "expected": {
+            "ok": false,
+            "issues": [
+              {
+                "path": [
+                  "title"
+                ],
+                "code": "invalid_type"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "research-plan",
+      "description": "研究计划：多步骤进度（pending/active/done）",
+      "allowPartialRender": true,
+      "deliveryUnit": "S5.19",
+      "schemaSymbol": "researchPlanPropsSchema",
+      "schema": {
+        "source": "z.object({\n  id: z.string().optional(),\n  title: z.string().min(1).max(160),\n  round: z.number().int().min(1).optional(),\n  steps: z.array(researchPlanStepSchema).min(1).max(12),\n})",
+        "evidence": {
+          "source": "desktop",
+          "file": "src/features/generative-ui/schema.ts",
+          "line": 449,
+          "symbol": null
+        }
+      },
+      "vectors": [
+        {
+          "input": {
+            "title": "研究",
+            "steps": [
+              {
+                "label": "检索"
+              }
+            ]
+          },
+          "expected": {
+            "ok": true,
+            "value": {
+              "title": "研究",
+              "steps": [
+                {
+                  "label": "检索",
+                  "status": "pending"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "input": {},
+          "expected": {
+            "ok": false,
+            "issues": [
+              {
+                "path": [
+                  "title"
+                ],
+                "code": "invalid_type"
+              },
+              {
+                "path": [
+                  "steps"
+                ],
+                "code": "invalid_type"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "research-report",
+      "description": "研究报告：正文 + [类型-N] 引用标记（可流式 partial body）",
+      "allowPartialRender": true,
+      "deliveryUnit": "S5.19",
+      "schemaSymbol": "researchReportPropsSchema",
+      "schema": {
+        "source": "z.object({\n  id: z.string().optional(),\n  title: z.string().max(200).optional(),\n  body: z.string().min(1).max(12000),\n  density: z.enum(['compact', 'normal']).optional().default('normal'),\n})",
+        "evidence": {
+          "source": "desktop",
+          "file": "src/features/generative-ui/schema.ts",
+          "line": 456,
+          "symbol": null
+        }
+      },
+      "vectors": [
+        {
+          "input": {
+            "body": "报告 [论文-1]"
+          },
+          "expected": {
+            "ok": true,
+            "value": {
+              "body": "报告 [论文-1]",
+              "density": "normal"
+            }
+          }
+        },
+        {
+          "input": {},
+          "expected": {
+            "ok": false,
+            "issues": [
+              {
+                "path": [
+                  "body"
+                ],
+                "code": "invalid_type"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "markdown",
+      "description": "Markdown 正文：title + body，复用 Chat MarkdownRenderer",
+      "allowPartialRender": true,
+      "deliveryUnit": "S5.19",
+      "schemaSymbol": "markdownPropsSchema",
+      "schema": {
+        "source": "z.object({\n  id: z.string().optional(),\n  title: z.string().max(MARKDOWN_TITLE_MAX).optional(),\n  body: z.string().min(1).max(MARKDOWN_BODY_MAX),\n  variant: z.enum(['default', 'compact']).optional(),\n})",
+        "evidence": {
+          "source": "desktop",
+          "file": "src/features/generative-ui/schema.ts",
+          "line": 467,
+          "symbol": null
+        }
+      },
+      "vectors": [
+        {
+          "input": {
+            "body": "# 笔记"
+          },
+          "expected": {
+            "ok": true,
+            "value": {
+              "body": "# 笔记"
+            }
+          }
+        },
+        {
+          "input": {},
+          "expected": {
+            "ok": false,
+            "issues": [
+              {
+                "path": [
+                  "body"
+                ],
+                "code": "invalid_type"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "chart",
+      "description": "图表：限定 bar/line/pie，categories + series",
+      "allowPartialRender": true,
+      "deliveryUnit": "S5.19",
+      "schemaSymbol": "chartBlockPropsSchema",
+      "schema": {
+        "source": "z\n  .object({\n    id: z.string().optional(),\n    title: z.string().max(120).optional(),\n    kind: z.enum(CHART_KINDS),\n    categories: z.array(z.string()).min(1).max(24),\n    series: z.array(chartSeriesSchema).min(1).max(8).optional(),\n    unit: z.string().max(16).optional(),\n  })\n  .refine(\n    (data) =>\n      (data.series ?? []).every((item) => item.values.length === data.categories.length),\n    { message: 'series.values.length must equal categories.length', path: ['series'] },\n  )",
+        "evidence": {
+          "source": "desktop",
+          "file": "src/features/generative-ui/schema.ts",
+          "line": 481,
+          "symbol": null
+        }
+      },
+      "vectors": [
+        {
+          "input": {
+            "kind": "line",
+            "categories": [
+              "一"
+            ],
+            "series": [
+              {
+                "name": "进度",
+                "values": [
+                  1
+                ]
+              }
+            ]
+          },
+          "expected": {
+            "ok": true,
+            "value": {
+              "kind": "line",
+              "categories": [
+                "一"
+              ],
+              "series": [
+                {
+                  "name": "进度",
+                  "values": [
+                    1
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "input": {},
+          "expected": {
+            "ok": false,
+            "issues": [
+              {
+                "path": [
+                  "kind"
+                ],
+                "code": "invalid_value"
+              },
+              {
+                "path": [
+                  "categories"
+                ],
+                "code": "invalid_type"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "steps",
+      "description": "学习计划步骤：通用步骤列表（pending/active/done/error/skipped，可选时长）",
+      "allowPartialRender": true,
+      "deliveryUnit": "S5.19",
+      "schemaSymbol": "stepsBlockPropsSchema",
+      "schema": {
+        "source": "z.object({\n  id: z.string().optional(),\n  title: z.string().max(120).optional(),\n  steps: z.array(stepsStepSchema).min(1).max(20),\n})",
+        "evidence": {
+          "source": "desktop",
+          "file": "src/features/generative-ui/schema.ts",
+          "line": 506,
+          "symbol": null
+        }
+      },
+      "vectors": [
+        {
+          "input": {
+            "steps": [
+              {
+                "label": "学习"
+              }
+            ]
+          },
+          "expected": {
+            "ok": true,
+            "value": {
+              "steps": [
+                {
+                  "label": "学习",
+                  "status": "pending"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "input": {},
+          "expected": {
+            "ok": false,
+            "issues": [
+              {
+                "path": [
+                  "steps"
+                ],
+                "code": "invalid_type"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "description": "表格：列 schema + 行数据（允许流式 rows）",
+      "allowPartialRender": true,
+      "deliveryUnit": "S5.19",
+      "schemaSymbol": "tableBlockPropsSchema",
+      "schema": {
+        "source": "z.object({\n  id: z.string().optional(),\n  title: z.string().max(120).optional(),\n  columns: z.array(tableColumnSchema).min(1).max(12),\n  rows: z.array(z.record(z.string(), z.union([z.string(), z.number()]))).min(0).max(50),\n  emptyLabel: z.string().max(80).optional(),\n  caption: z.string().max(200).optional(),\n})",
+        "evidence": {
+          "source": "desktop",
+          "file": "src/features/generative-ui/schema.ts",
+          "line": 520,
+          "symbol": null
+        }
+      },
+      "vectors": [
+        {
+          "input": {
+            "columns": [
+              {
+                "key": "a",
+                "label": "列"
+              }
+            ],
+            "rows": [
+              {
+                "a": "值"
+              }
+            ]
+          },
+          "expected": {
+            "ok": true,
+            "value": {
+              "columns": [
+                {
+                  "key": "a",
+                  "label": "列"
+                }
+              ],
+              "rows": [
+                {
+                  "a": "值"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "input": {},
+          "expected": {
+            "ok": false,
+            "issues": [
+              {
+                "path": [
+                  "columns"
+                ],
+                "code": "invalid_type"
+              },
+              {
+                "path": [
+                  "rows"
+                ],
+                "code": "invalid_type"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "generativeJsonSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "generative-ui-intent",
+    "title": "GenerativeUIIntent",
+    "type": "object",
+    "required": [
+      "blocks"
+    ],
+    "x-registered-block-types": [
+      "action-bar",
+      "alert",
+      "chart",
+      "flashcard-preview",
+      "key-value-grid",
+      "list",
+      "markdown",
+      "mindmap-embed",
+      "mistake-analysis",
+      "paper-digest",
+      "progress",
+      "research-plan",
+      "research-report",
+      "review-calendar",
+      "stat-card",
+      "steps",
+      "table",
+      "text"
+    ],
+    "properties": {
+      "version": {
+        "type": "string",
+        "enum": [
+          "1",
+          "1.1"
+        ]
+      },
+      "layout": {
+        "type": "object",
+        "required": [
+          "mode"
+        ],
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": [
+              "stack",
+              "grid"
+            ]
+          },
+          "columns": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3
+          }
+        }
+      },
+      "blocks": {
+        "type": "array",
+        "maxItems": 32,
+        "items": {
+          "type": "object",
+          "required": [
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "action-bar",
+                "alert",
+                "chart",
+                "flashcard-preview",
+                "key-value-grid",
+                "list",
+                "markdown",
+                "mindmap-embed",
+                "mistake-analysis",
+                "paper-digest",
+                "progress",
+                "research-plan",
+                "research-report",
+                "review-calendar",
+                "stat-card",
+                "steps",
+                "table",
+                "text"
+              ]
+            },
+            "id": {
+              "type": "string"
+            },
+            "props": {
+              "type": "object"
+            },
+            "span": {
+              "type": "integer",
+              "enum": [
+                1,
+                2,
+                3
+              ]
+            }
+          }
+        }
+      },
+      "meta": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "registrations": [
+    {
+      "kind": "officialEntry",
+      "id": "editor:automd",
+      "definition": [
+        10,
+        {
+          "expression": "({ options }) => (enabled(options.automd) ? automd : null)"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/components/crepe/plugins/index.ts",
+        "line": 84,
+        "symbol": null
+      },
+      "sourceSha256": "29bff8dd8298740c6bc1e29f24bbb68579bdada7246111eec9f42a7a92547e1c",
+      "statementSha256": "54f7c01500a545088f689e3b1c6edade4932166c6739a97c5472f7ba3eeb3ca0"
+    },
+    {
+      "kind": "officialEntry",
+      "id": "editor:search-highlight",
+      "definition": [
+        20,
+        {
+          "expression": "() => searchHighlightPlugin"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/components/crepe/plugins/index.ts",
+        "line": 86,
+        "symbol": null
+      },
+      "sourceSha256": "29bff8dd8298740c6bc1e29f24bbb68579bdada7246111eec9f42a7a92547e1c",
+      "statementSha256": "46d3b734559024b7978c189be04685fa3243842e6f47e58765571de0fbd27ecd"
+    },
+    {
+      "kind": "officialEntry",
+      "id": "editor:agent-highlight",
+      "definition": [
+        30,
+        {
+          "expression": "() => agentHighlightPlugin"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/components/crepe/plugins/index.ts",
+        "line": 88,
+        "symbol": null
+      },
+      "sourceSha256": "29bff8dd8298740c6bc1e29f24bbb68579bdada7246111eec9f42a7a92547e1c",
+      "statementSha256": "ce4f2f2e9566f68174f2cb1be969eba242aba1f71a75671017cc9e8f61044cc2"
+    },
+    {
+      "kind": "officialEntry",
+      "id": "editor:paste-link",
+      "definition": [
+        40,
+        {
+          "expression": "({ options }) => (enabled(options.pasteLink) ? pasteLinkPlugin() : null)"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/components/crepe/plugins/index.ts",
+        "line": 90,
+        "symbol": null
+      },
+      "sourceSha256": "29bff8dd8298740c6bc1e29f24bbb68579bdada7246111eec9f42a7a92547e1c",
+      "statementSha256": "8e8d0550138cc940d675960bcaafa742c9d276fc711dd3173e5c067f9dce6357"
+    },
+    {
+      "kind": "officialEntry",
+      "id": "editor:callout",
+      "definition": [
+        50,
+        {
+          "expression": "({ options }) => (enabled(options.callout) ? calloutPlugin() : null)"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/components/crepe/plugins/index.ts",
+        "line": 92,
+        "symbol": null
+      },
+      "sourceSha256": "29bff8dd8298740c6bc1e29f24bbb68579bdada7246111eec9f42a7a92547e1c",
+      "statementSha256": "43617b9984d3913cc2a17acfe16f9aa4969cb9569cc0a3b7bd0f14843ec2d588"
+    },
+    {
+      "kind": "officialEntry",
+      "id": "editor:toggle",
+      "definition": [
+        60,
+        {
+          "expression": "({ options }) => (enabled(options.toggle) ? togglePlugin() : null)"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/components/crepe/plugins/index.ts",
+        "line": 93,
+        "symbol": null
+      },
+      "sourceSha256": "29bff8dd8298740c6bc1e29f24bbb68579bdada7246111eec9f42a7a92547e1c",
+      "statementSha256": "3ecda54eaaa14e7ebd455d08c2334b60e1b4147198f089b9c998930c1398f23e"
+    },
+    {
+      "kind": "officialEntry",
+      "id": "editor:wikilink",
+      "definition": [
+        70,
+        {
+          "expression": "({ options }) => {\n    if (options.wikilink === false) return null;\n    const config: WikilinkPluginConfig = typeof options.wikilink === 'object' && options.wikilink ? options.wikilink : {};\n    return wikilinkPlugin({\n      getNotes: config.getNotes ?? defaultWikilinkGetNotes,\n      resolve: config.resolve,\n      maxSuggestions: config.maxSuggestions,\n    });\n  }"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/components/crepe/plugins/index.ts",
+        "line": 95,
+        "symbol": null
+      },
+      "sourceSha256": "29bff8dd8298740c6bc1e29f24bbb68579bdada7246111eec9f42a7a92547e1c",
+      "statementSha256": "2e5a62389100c9826da5f19e85e43fbcd926ab6189ae5bbe17ee33dbf39f92d4"
+    },
+    {
+      "kind": "officialEntry",
+      "id": "editor:mention",
+      "definition": [
+        80,
+        {
+          "expression": "({ options }) => {\n    if (options.mention === false) return null;\n    const config: MentionPluginConfig = typeof options.mention === 'object' && options.mention ? options.mention : {};\n    return mentionPlugin({\n      searchNotes: config.searchNotes,\n      maxSuggestions: config.maxSuggestions,\n      debounceMs: config.debounceMs,\n    });\n  }"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/components/crepe/plugins/index.ts",
+        "line": 105,
+        "symbol": null
+      },
+      "sourceSha256": "29bff8dd8298740c6bc1e29f24bbb68579bdada7246111eec9f42a7a92547e1c",
+      "statementSha256": "d1fb8f2b86b80c1591fa336e25560794a087846989b5db9508ebd4ce223c5109"
+    },
+    {
+      "kind": "officialEntry",
+      "id": "editor:image-lightbox",
+      "definition": [
+        90,
+        {
+          "expression": "({ options }) => (enabled(options.imageLightbox) ? imageLightboxPlugin() : null)"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/components/crepe/plugins/index.ts",
+        "line": 115,
+        "symbol": null
+      },
+      "sourceSha256": "29bff8dd8298740c6bc1e29f24bbb68579bdada7246111eec9f42a7a92547e1c",
+      "statementSha256": "3eed0fa1210ad980e52d5bdb49526a61efe47449253cdd369af8fefa974ac5a4"
+    },
+    {
+      "kind": "officialEntry",
+      "id": "editor:link-keymap",
+      "definition": [
+        100,
+        {
+          "expression": "({ options }) => (enabled(options.linkKeymap) ? linkKeymapPlugin() : null)"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/components/crepe/plugins/index.ts",
+        "line": 117,
+        "symbol": null
+      },
+      "sourceSha256": "29bff8dd8298740c6bc1e29f24bbb68579bdada7246111eec9f42a7a92547e1c",
+      "statementSha256": "0461013da96e7066ec41d9f9209b14724083f6ef922a9add850cd1d43566b4a6"
+    },
+    {
+      "kind": "officialEntry",
+      "id": "editor:internal-link-schema",
+      "definition": [
+        110,
+        {
+          "expression": "() => internalLinkSchema"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/components/crepe/plugins/index.ts",
+        "line": 119,
+        "symbol": null
+      },
+      "sourceSha256": "29bff8dd8298740c6bc1e29f24bbb68579bdada7246111eec9f42a7a92547e1c",
+      "statementSha256": "1daf13070540e7893aad985fadb700157656fd1d9c8b28ebf2fcb29f8720bdbc"
+    },
+    {
+      "kind": "officialEntry",
+      "id": "editor:pdf-ref",
+      "definition": [
+        120,
+        {
+          "expression": "({ options }) => (enabled(options.pdfRefLink) ? pdfRefPlugin() : null)"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/components/crepe/plugins/index.ts",
+        "line": 121,
+        "symbol": null
+      },
+      "sourceSha256": "29bff8dd8298740c6bc1e29f24bbb68579bdada7246111eec9f42a7a92547e1c",
+      "statementSha256": "23d3b3d7f427010f1190e9485bba1869382c5fbb36acd32083708b62b3a760d9"
+    },
+    {
+      "kind": "officialEntry",
+      "id": "editor:media-ref",
+      "definition": [
+        130,
+        {
+          "expression": "({ options }) => (enabled(options.mediaRefLink) ? mediaRefPlugin() : null)"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/components/crepe/plugins/index.ts",
+        "line": 123,
+        "symbol": null
+      },
+      "sourceSha256": "29bff8dd8298740c6bc1e29f24bbb68579bdada7246111eec9f42a7a92547e1c",
+      "statementSha256": "e105a30d23c57af7d6b0c78f511d5ec389cf0cb156a175acb7ad2b0385ea99fb"
+    },
+    {
+      "kind": "officialEntry",
+      "id": "editor:columns",
+      "definition": [
+        140,
+        {
+          "expression": "({ options }) => columnsPlugin(options.columns)"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/components/crepe/plugins/index.ts",
+        "line": 124,
+        "symbol": null
+      },
+      "sourceSha256": "29bff8dd8298740c6bc1e29f24bbb68579bdada7246111eec9f42a7a92547e1c",
+      "statementSha256": "1f5ba024651352537e2c0a7bb7ecde2f34c438d515ac86137b26efa4593f8437"
+    },
+    {
+      "kind": "officialEntry",
+      "id": "editor:block-identity",
+      "definition": [
+        150,
+        {
+          "expression": "() => blockIdentityPlugin()"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/components/crepe/plugins/index.ts",
+        "line": 125,
+        "symbol": null
+      },
+      "sourceSha256": "29bff8dd8298740c6bc1e29f24bbb68579bdada7246111eec9f42a7a92547e1c",
+      "statementSha256": "c44bed9b6f5e485620ca313591b98061e8835104b6ae25e98e60e76b4707007b"
+    },
+    {
+      "kind": "officialEntry",
+      "id": "editor:block-selection",
+      "definition": [
+        160,
+        {
+          "expression": "() => blockSelectionPlugin()"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/components/crepe/plugins/index.ts",
+        "line": 127,
+        "symbol": null
+      },
+      "sourceSha256": "29bff8dd8298740c6bc1e29f24bbb68579bdada7246111eec9f42a7a92547e1c",
+      "statementSha256": "89a4e4adab94a943ed7431e87475e43f6bbbc134aef673dab116c89acb440269"
+    },
+    {
+      "kind": "officialEntry",
+      "id": "editor:typed-placeholder",
+      "definition": [
+        170,
+        {
+          "expression": "() => typedPlaceholderPlugin()"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/components/crepe/plugins/index.ts",
+        "line": 128,
+        "symbol": null
+      },
+      "sourceSha256": "29bff8dd8298740c6bc1e29f24bbb68579bdada7246111eec9f42a7a92547e1c",
+      "statementSha256": "2305233908a27b7b1fa42a65c81615a9e8654dc491982b5aa9df8fbed98fdbfd"
+    },
+    {
+      "kind": "officialEntry",
+      "id": "editor:canonical-document",
+      "definition": [
+        180,
+        {
+          "expression": "() => canonicalDocumentPlugin"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/components/crepe/plugins/index.ts",
+        "line": 129,
+        "symbol": null
+      },
+      "sourceSha256": "29bff8dd8298740c6bc1e29f24bbb68579bdada7246111eec9f42a7a92547e1c",
+      "statementSha256": "5ac42f8600d2fc6e3c61ff51067299f0ea12d418a05f9386913168ad71c5c9c3"
+    },
+    {
+      "kind": "officialEntry",
+      "id": "editor:command-execute",
+      "definition": [
+        190,
+        {
+          "expression": "() => crepeExecuteCommand"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/components/crepe/plugins/index.ts",
+        "line": 130,
+        "symbol": null
+      },
+      "sourceSha256": "29bff8dd8298740c6bc1e29f24bbb68579bdada7246111eec9f42a7a92547e1c",
+      "statementSha256": "0bf07051d7a702f2168cfeae8cba36ea5e815b0636cf518bd187eed1d3298a85"
+    },
+    {
+      "kind": "officialEntry",
+      "id": "editor:command-bindings",
+      "definition": [
+        200,
+        {
+          "expression": "() => crepeCommandBindingsPlugin"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/components/crepe/plugins/index.ts",
+        "line": 131,
+        "symbol": null
+      },
+      "sourceSha256": "29bff8dd8298740c6bc1e29f24bbb68579bdada7246111eec9f42a7a92547e1c",
+      "statementSha256": "678527132fb0a0a30f0a5f29ca12bdbd11b5dbbea01fd774118f92d58f1cc7ce"
+    },
+    {
+      "kind": "officialEntry",
+      "id": "editor:list-item-has-checked",
+      "definition": [
+        210,
+        {
+          "expression": "() => listItemHasCheckedPlugin()"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/components/crepe/plugins/index.ts",
+        "line": 133,
+        "symbol": null
+      },
+      "sourceSha256": "29bff8dd8298740c6bc1e29f24bbb68579bdada7246111eec9f42a7a92547e1c",
+      "statementSha256": "d7b70f2351bb532754354b3f766294654953465f02abd88d454050040186e1bb"
+    },
+    {
+      "kind": "officialEntry",
+      "id": "editor:inline-cards",
+      "definition": [
+        220,
+        {
+          "expression": "({ options }) => (\n    options.inlineCards ? inlineCardsPlugin(options.inlineCards) : null\n  )"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/components/crepe/plugins/index.ts",
+        "line": 135,
+        "symbol": null
+      },
+      "sourceSha256": "29bff8dd8298740c6bc1e29f24bbb68579bdada7246111eec9f42a7a92547e1c",
+      "statementSha256": "a2c4e84fef95ab85b823bd52d3ac0d6284bd7ab384fef29827cb241985a1684c"
+    },
+    {
+      "kind": "blockRegistry.register",
+      "id": "academic_search",
+      "definition": [
+        {
+          "type": "academic_search",
+          "component": {
+            "expression": "AcademicSearchBlock"
+          },
+          "onAbort": "mark-error"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/chat/plugins/blocks/academicSearch.tsx",
+        "line": 159,
+        "symbol": null
+      },
+      "sourceSha256": "037571b7b9e6a0ae4521a1d187f2be74bc54dc60d4505a44705949b9e27be252",
+      "statementSha256": "ac69d8e54b1ed2f145789deabf9db6152303432dff42f66b8f3a88e3b39eb706"
+    },
+    {
+      "kind": "blockRegistry.register",
+      "id": "anki_cards",
+      "definition": [
+        {
+          "type": "anki_cards",
+          "component": {
+            "expression": "AnkiCardsBlock"
+          },
+          "onAbort": "keep-content"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/chat/plugins/blocks/ankiCardsBlock.tsx",
+        "line": 3208,
+        "symbol": null
+      },
+      "sourceSha256": "7b5b08e5c5ede0501b857b84c279e058fcc3f91a44d19753ac08065e14e323a3",
+      "statementSha256": "60d8133c14af5afe799349580f1088c958840115e0f6cded203bd0cbc760f154"
+    },
+    {
+      "kind": "blockRegistry.register",
+      "id": "ask_user",
+      "definition": [
+        {
+          "type": "ask_user",
+          "component": {
+            "expression": "AskUserBlockComponent"
+          },
+          "onAbort": "keep-content"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/chat/plugins/blocks/askUserBlock.tsx",
+        "line": 1153,
+        "symbol": null
+      },
+      "sourceSha256": "60c55fb08c6b3d394ed559bef7aec78e053aac770c2bdf8397891bda23e5208d",
+      "statementSha256": "4c3bfcfc45f61811ca781d7f58a91f7c071f3793da3e6b3f0a111a4495a4dccc"
+    },
+    {
+      "kind": "blockRegistry.register",
+      "id": "compaction_summary",
+      "definition": [
+        {
+          "type": "compaction_summary",
+          "component": {
+            "expression": "CompactionSummaryBlock"
+          },
+          "onAbort": "keep-content"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/chat/plugins/blocks/compactionSummary.tsx",
+        "line": 359,
+        "symbol": null
+      },
+      "sourceSha256": "0db5250e7b97c29719d042a6e7b46894d48df37355d1e17e6adcef8cc960ebc1",
+      "statementSha256": "338f22cd8b7e94707eb7e06f799a578d8fc92b6e40a2d1787bf740e6069fbf4e"
+    },
+    {
+      "kind": "blockRegistry.register",
+      "id": "content",
+      "definition": [
+        {
+          "type": "content",
+          "component": {
+            "expression": "ContentBlock"
+          },
+          "onAbort": "keep-content"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/chat/plugins/blocks/content.tsx",
+        "line": 243,
+        "symbol": null
+      },
+      "sourceSha256": "448dcbae8ec757bd39637e997245a83aacec70abcf4f56b7511484b0ea53d219",
+      "statementSha256": "20ca25739cae1307a1516734104aeeb257718d3202ec055cfea9ca1e1fd6aa9b"
+    },
+    {
+      "kind": "blockRegistry.register",
+      "id": {
+        "expression": "GENERATIVE_UI_BLOCK_TYPE"
+      },
+      "definition": [
+        {
+          "type": {
+            "expression": "GENERATIVE_UI_BLOCK_TYPE"
+          },
+          "component": {
+            "expression": "GenerativeUIBlockComponent"
+          },
+          "onAbort": "keep-content"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/chat/plugins/blocks/generativeUI.tsx",
+        "line": 299,
+        "symbol": null
+      },
+      "sourceSha256": "d885c6e985d8ded52df1e3a55d6786d535af5205c411a5645c04ba6c08f9048e",
+      "statementSha256": "a463517c4fcfe1658c92035fec109dfedb993d50024b67bc40710760a6080897"
+    },
+    {
+      "kind": "blockRegistry.register",
+      "id": "generic",
+      "definition": [
+        {
+          "type": "generic",
+          "component": {
+            "expression": "GenericBlock"
+          },
+          "onAbort": "mark-error"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/chat/plugins/blocks/generic.tsx",
+        "line": 234,
+        "symbol": null
+      },
+      "sourceSha256": "6ae8fa46376b1e4340c0efaeaf4a42768e564c1a249973cf9aa4f252a12b9857",
+      "statementSha256": "a8efa93232766467cfe57a8dd4c77dd604884dbc47816734a0f98d0f713e3365"
+    },
+    {
+      "kind": "blockRegistry.register",
+      "id": "image_gen",
+      "definition": [
+        {
+          "type": "image_gen",
+          "component": {
+            "expression": "ImageGenBlockComponent"
+          },
+          "onAbort": "mark-error"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/chat/plugins/blocks/imageGen.tsx",
+        "line": 490,
+        "symbol": null
+      },
+      "sourceSha256": "f513b86250983b43fdcf7232b6518f87c60ddc965767533f0f01d5917a1394bc",
+      "statementSha256": "86cb41c920724448f3238c9ce0f286d9a922b77111862539e04237a9c8b9bf40"
+    },
+    {
+      "kind": "blockRegistry.register",
+      "id": "insight_recall",
+      "definition": [
+        {
+          "type": "insight_recall",
+          "component": {
+            "expression": "InsightRecallBlock"
+          },
+          "onAbort": "mark-error"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/chat/plugins/blocks/insightRecall.tsx",
+        "line": 193,
+        "symbol": null
+      },
+      "sourceSha256": "8872a6c41a0348746ec17b1a0a5f6db1374332866692f18b2ee9b25d20eae696",
+      "statementSha256": "aa8e7ee8adc5442284b733a11eebb8c1cb17361288c2e0da7aca6e9a24909e53"
+    },
+    {
+      "kind": "blockRegistry.register",
+      "id": "mcp_tool",
+      "definition": [
+        {
+          "type": "mcp_tool",
+          "component": {
+            "expression": "McpToolBlockComponent"
+          },
+          "onAbort": "mark-error"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/chat/plugins/blocks/mcpTool.tsx",
+        "line": 585,
+        "symbol": null
+      },
+      "sourceSha256": "65456acd401536a8a760684f7993e9225eeb813ecc60616b765809bb2d2d0b10",
+      "statementSha256": "414d43a652a319cb325838fda0d4b02ff4c7b2c2fa11fa4b75a1e08a8edc4301"
+    },
+    {
+      "kind": "blockRegistry.register",
+      "id": "memory",
+      "definition": [
+        {
+          "type": "memory",
+          "component": {
+            "expression": "MemoryBlock"
+          },
+          "onAbort": "mark-error"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/chat/plugins/blocks/memory.tsx",
+        "line": 194,
+        "symbol": null
+      },
+      "sourceSha256": "c8e36a0b3dbb2a9d18d498ffffcdca8439f7134cae4f3c3aa57c999cf41f8884",
+      "statementSha256": "eec2c07c9a95cd2a3880c9d84dc7d49c9412c0941152977c7b8350057be2333f"
+    },
+    {
+      "kind": "blockRegistry.register",
+      "id": "multimodal_rag",
+      "definition": [
+        {
+          "type": "multimodal_rag",
+          "component": {
+            "expression": "MultimodalRagBlock"
+          },
+          "onAbort": "mark-error"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/chat/plugins/blocks/multimodalRag.tsx",
+        "line": 109,
+        "symbol": null
+      },
+      "sourceSha256": "b72c8ad500cd1aadcf6b532240f56416a885c41fcb9d0fb13f60f96bbf847ad9",
+      "statementSha256": "de875d3d89938a8e226fb6f5305ee81d9884c78ab0897a7355f2d10ba3de1089"
+    },
+    {
+      "kind": "blockRegistry.register",
+      "id": "paper_save",
+      "definition": [
+        {
+          "type": "paper_save",
+          "component": {
+            "expression": "PaperSaveBlock"
+          },
+          "onAbort": "mark-error"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/chat/plugins/blocks/paperSave.tsx",
+        "line": 510,
+        "symbol": null
+      },
+      "sourceSha256": "df530d563771da91394024858b11648851037dc480e7c2767dabeff66261d04b",
+      "statementSha256": "19ec45b35223ab86c4de5801d6661cd3349f284e6b17e91bd9df3926b69d061d"
+    },
+    {
+      "kind": "blockRegistry.register",
+      "id": "qbank_questions",
+      "definition": [
+        {
+          "type": "qbank_questions",
+          "component": {
+            "expression": "QbankQuestionsBlock"
+          },
+          "onAbort": "keep-content"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/chat/plugins/blocks/qbankQuestionsBlock.tsx",
+        "line": 408,
+        "symbol": null
+      },
+      "sourceSha256": "8ea104f44f2b3303a328b483e11a22ce8087b230bf627ca2c4af0b0f181a1083",
+      "statementSha256": "b522164aaa0b25c497a0012450570a7df1676602a5e4041c89837e243f9bf768"
+    },
+    {
+      "kind": "blockRegistry.register",
+      "id": "rag",
+      "definition": [
+        {
+          "type": "rag",
+          "component": {
+            "expression": "RagBlock"
+          },
+          "onAbort": "mark-error"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/chat/plugins/blocks/rag.tsx",
+        "line": 126,
+        "symbol": null
+      },
+      "sourceSha256": "5c7a8863f6b9746f9ff40eee96cab56b71dda2060e0a8d466bbcc925b6787aaf",
+      "statementSha256": "5be64c57427d88b0deba1810f6053d8604642d8ff846039421a485ff49033bbe"
+    },
+    {
+      "kind": "blockRegistry.register",
+      "id": "sleep",
+      "definition": [
+        {
+          "type": "sleep",
+          "component": {
+            "expression": "SleepBlockComponent"
+          },
+          "onAbort": "keep-content"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/chat/plugins/blocks/sleepBlock.tsx",
+        "line": 682,
+        "symbol": null
+      },
+      "sourceSha256": "325025ccea305a091a0db2e010b989d437ec62ac6940bfb60a627a09ae543000",
+      "statementSha256": "00e6cddf1461832608bb52351f60f27f210aeb500326c5ba5cbbbe884d20aed1"
+    },
+    {
+      "kind": "blockRegistry.register",
+      "id": "subagent_embed",
+      "definition": [
+        {
+          "type": "subagent_embed",
+          "component": {
+            "expression": "SubagentEmbedBlockComponent"
+          },
+          "onAbort": "keep-content"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/chat/plugins/blocks/subagentEmbed.tsx",
+        "line": 1070,
+        "symbol": null
+      },
+      "sourceSha256": "84196cda2408be9a35e7d548171969958335d105d85c723f5f88a29a68a0cb41",
+      "statementSha256": "99203a78c436e0bd3e283bb6d02baae3651cfdae3dd3f5971a112134287a6bf8"
+    },
+    {
+      "kind": "blockRegistry.register",
+      "id": "subagent_retry",
+      "definition": [
+        {
+          "type": "subagent_retry",
+          "onAbort": "keep-content",
+          "component": {
+            "expression": "SubagentRetryBlockComponent"
+          }
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/chat/plugins/blocks/subagentRetry.tsx",
+        "line": 178,
+        "symbol": null
+      },
+      "sourceSha256": "41d8bcad6088f0842ae8062b9243f2cb34b20599d5234ad2ee31621cc98c0e39",
+      "statementSha256": "9a0578c2e8c71be4c77af06b7b53c6f662aecbf894dd5fbefd11167542676d51"
+    },
+    {
+      "kind": "blockRegistry.register",
+      "id": "template_preview",
+      "definition": [
+        {
+          "type": "template_preview",
+          "component": {
+            "expression": "TemplatePreviewBlock"
+          },
+          "onAbort": "keep-content"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/chat/plugins/blocks/templatePreview.tsx",
+        "line": 182,
+        "symbol": null
+      },
+      "sourceSha256": "cd41958435bc78208eaf24160695813aacfe2854615246125c6ed8aa9215787c",
+      "statementSha256": "86c5416025f28cbcbb0abc3a0ed2d6d2fa33b3ecae50da76f6ae46d612d0dda8"
+    },
+    {
+      "kind": "blockRegistry.register",
+      "id": "thinking",
+      "definition": [
+        {
+          "type": "thinking",
+          "component": {
+            "expression": "ThinkingBlock"
+          },
+          "onAbort": "keep-content"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/chat/plugins/blocks/thinking.tsx",
+        "line": 124,
+        "symbol": null
+      },
+      "sourceSha256": "2918c965407a27212e4aff5e250525ac2730edfddab177b2db81fdb49614ab99",
+      "statementSha256": "19251150ad4930f69dbe831b971bdad7c915374bd051c1063a4c60378a575c55"
+    },
+    {
+      "kind": "blockRegistry.register",
+      "id": "todo_list",
+      "definition": [
+        {
+          "type": "todo_list",
+          "component": {
+            "expression": "TodoListBlock"
+          },
+          "onAbort": "keep-content"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/chat/plugins/blocks/todoList.tsx",
+        "line": 386,
+        "symbol": null
+      },
+      "sourceSha256": "0ca60db2341a1ef022e5e5b2ea59d5eaebaeeb3035c1a8ac2dcabed154f5f7eb",
+      "statementSha256": "1bbd127c11c64316340610ac0fd0e0ab9f7338bf3f15fccf24183372123bde17"
+    },
+    {
+      "kind": "blockRegistry.register",
+      "id": "tool_limit",
+      "definition": [
+        {
+          "type": "tool_limit",
+          "component": {
+            "expression": "ToolLimitBlock"
+          },
+          "onAbort": "keep-content"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/chat/plugins/blocks/toolLimit.tsx",
+        "line": 152,
+        "symbol": null
+      },
+      "sourceSha256": "9413286a53331d0903fdf5d60afad86248fdbf21ec17eb41b87fb68f0f998125",
+      "statementSha256": "923e1950d024d46782eafc3080b0dac41e336acdad5cc4b9e4160006e5fe80ae"
+    },
+    {
+      "kind": "blockRegistry.register",
+      "id": "web_search",
+      "definition": [
+        {
+          "type": "web_search",
+          "component": {
+            "expression": "WebSearchBlock"
+          },
+          "onAbort": "mark-error"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/chat/plugins/blocks/webSearch.tsx",
+        "line": 134,
+        "symbol": null
+      },
+      "sourceSha256": "033fe9a1cc6b375c50390eb6d772b29cdfe49bc0c169f766f66514da95f37509",
+      "statementSha256": "ceef80711303cf8313a4d13be674012d351b6a411aab73930c404339f69574cc"
+    },
+    {
+      "kind": "blockRegistry.register",
+      "id": "workbench_ops",
+      "definition": [
+        {
+          "type": "workbench_ops",
+          "component": {
+            "expression": "WorkbenchOpsBlock"
+          },
+          "onAbort": "keep-content"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/chat/plugins/blocks/workbenchOpsBlock.tsx",
+        "line": 931,
+        "symbol": null
+      },
+      "sourceSha256": "af127f11b028023508f828d45f68bfbc172f0c9496ae2c0dc78b0f3fd0329bc2",
+      "statementSha256": "553ac411826779f438e281651b0c68c025d0ea85696813e732463367d69d3f96"
+    },
+    {
+      "kind": "blockRegistry.register",
+      "id": "workspace_injection",
+      "definition": [
+        {
+          "type": "workspace_injection",
+          "component": {
+            "expression": "WorkspaceInjectionBlockComponent"
+          },
+          "onAbort": "keep-content"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/chat/plugins/blocks/workspaceInjection.tsx",
+        "line": 206,
+        "symbol": null
+      },
+      "sourceSha256": "8df7ceb93a821e56d25e7a45836660d0ebb079618bf11429b21abc79fa277be5",
+      "statementSha256": "6c3db11017d334da95a0c2e015ae65453b27ff1e85a2d2d4b9fa1659c0796b03"
+    },
+    {
+      "kind": "blockRegistry.register",
+      "id": "workspace_send",
+      "definition": [
+        {
+          "type": "workspace_send",
+          "component": {
+            "expression": "WorkspaceSendBlockComponent"
+          },
+          "onAbort": "mark-error"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/chat/plugins/blocks/workspaceSend.tsx",
+        "line": 172,
+        "symbol": null
+      },
+      "sourceSha256": "7084b5323ea2620ca29630e9e1c2909e4acb67f4ee6febd22546baa131fd1e37",
+      "statementSha256": "9abee70c344b9b79b7a907643a81647572f91e6ee8e3124c3f25a34ee43f91ef"
+    },
+    {
+      "kind": "blockRegistry.register",
+      "id": "workspace_status",
+      "definition": [
+        {
+          "type": "workspace_status",
+          "component": {
+            "expression": "WorkspaceStatusBlockComponent"
+          },
+          "onAbort": "mark-error"
+        }
+      ],
+      "evidence": {
+        "source": "desktop",
+        "file": "src/features/chat/plugins/blocks/workspaceStatus.tsx",
+        "line": 686,
+        "symbol": null
+      },
+      "sourceSha256": "84df34642e28609ae67c3d3797ab23b711450992971ebad25131530518c54928",
+      "statementSha256": "69d8a33391100cb9884e7f1ea1aeb52218f6595174682939738fb56cb426bf47"
+    }
+  ],
+  "registrationSources": {
+    "src/components/crepe/plugins/index.ts": "29bff8dd8298740c6bc1e29f24bbb68579bdada7246111eec9f42a7a92547e1c",
+    "src/features/chat/plugins/blocks/academicSearch.tsx": "037571b7b9e6a0ae4521a1d187f2be74bc54dc60d4505a44705949b9e27be252",
+    "src/features/chat/plugins/blocks/ankiCardsBlock.tsx": "7b5b08e5c5ede0501b857b84c279e058fcc3f91a44d19753ac08065e14e323a3",
+    "src/features/chat/plugins/blocks/askUserBlock.tsx": "60c55fb08c6b3d394ed559bef7aec78e053aac770c2bdf8397891bda23e5208d",
+    "src/features/chat/plugins/blocks/compactionSummary.tsx": "0db5250e7b97c29719d042a6e7b46894d48df37355d1e17e6adcef8cc960ebc1",
+    "src/features/chat/plugins/blocks/content.tsx": "448dcbae8ec757bd39637e997245a83aacec70abcf4f56b7511484b0ea53d219",
+    "src/features/chat/plugins/blocks/generativeUI.tsx": "d885c6e985d8ded52df1e3a55d6786d535af5205c411a5645c04ba6c08f9048e",
+    "src/features/chat/plugins/blocks/generic.tsx": "6ae8fa46376b1e4340c0efaeaf4a42768e564c1a249973cf9aa4f252a12b9857",
+    "src/features/chat/plugins/blocks/imageGen.tsx": "f513b86250983b43fdcf7232b6518f87c60ddc965767533f0f01d5917a1394bc",
+    "src/features/chat/plugins/blocks/insightRecall.tsx": "8872a6c41a0348746ec17b1a0a5f6db1374332866692f18b2ee9b25d20eae696",
+    "src/features/chat/plugins/blocks/mcpTool.tsx": "65456acd401536a8a760684f7993e9225eeb813ecc60616b765809bb2d2d0b10",
+    "src/features/chat/plugins/blocks/memory.tsx": "c8e36a0b3dbb2a9d18d498ffffcdca8439f7134cae4f3c3aa57c999cf41f8884",
+    "src/features/chat/plugins/blocks/multimodalRag.tsx": "b72c8ad500cd1aadcf6b532240f56416a885c41fcb9d0fb13f60f96bbf847ad9",
+    "src/features/chat/plugins/blocks/paperSave.tsx": "df530d563771da91394024858b11648851037dc480e7c2767dabeff66261d04b",
+    "src/features/chat/plugins/blocks/qbankQuestionsBlock.tsx": "8ea104f44f2b3303a328b483e11a22ce8087b230bf627ca2c4af0b0f181a1083",
+    "src/features/chat/plugins/blocks/rag.tsx": "5c7a8863f6b9746f9ff40eee96cab56b71dda2060e0a8d466bbcc925b6787aaf",
+    "src/features/chat/plugins/blocks/sleepBlock.tsx": "325025ccea305a091a0db2e010b989d437ec62ac6940bfb60a627a09ae543000",
+    "src/features/chat/plugins/blocks/subagentEmbed.tsx": "84196cda2408be9a35e7d548171969958335d105d85c723f5f88a29a68a0cb41",
+    "src/features/chat/plugins/blocks/subagentRetry.tsx": "41d8bcad6088f0842ae8062b9243f2cb34b20599d5234ad2ee31621cc98c0e39",
+    "src/features/chat/plugins/blocks/templatePreview.tsx": "cd41958435bc78208eaf24160695813aacfe2854615246125c6ed8aa9215787c",
+    "src/features/chat/plugins/blocks/thinking.tsx": "2918c965407a27212e4aff5e250525ac2730edfddab177b2db81fdb49614ab99",
+    "src/features/chat/plugins/blocks/todoList.tsx": "0ca60db2341a1ef022e5e5b2ea59d5eaebaeeb3035c1a8ac2dcabed154f5f7eb",
+    "src/features/chat/plugins/blocks/toolLimit.tsx": "9413286a53331d0903fdf5d60afad86248fdbf21ec17eb41b87fb68f0f998125",
+    "src/features/chat/plugins/blocks/webSearch.tsx": "033fe9a1cc6b375c50390eb6d772b29cdfe49bc0c169f766f66514da95f37509",
+    "src/features/chat/plugins/blocks/workbenchOpsBlock.tsx": "af127f11b028023508f828d45f68bfbc172f0c9496ae2c0dc78b0f3fd0329bc2",
+    "src/features/chat/plugins/blocks/workspaceInjection.tsx": "8df7ceb93a821e56d25e7a45836660d0ebb079618bf11429b21abc79fa277be5",
+    "src/features/chat/plugins/blocks/workspaceSend.tsx": "7084b5323ea2620ca29630e9e1c2909e4acb67f4ee6febd22546baa131fd1e37",
+    "src/features/chat/plugins/blocks/workspaceStatus.tsx": "84df34642e28609ae67c3d3797ab23b711450992971ebad25131530518c54928"
+  },
+  "markers": {
+    "wiki": [
+      {
+        "input": "note_1|标题",
+        "expected": {
+          "target": "note_1",
+          "label": "标题"
+        }
+      },
+      {
+        "input": "note_1",
+        "expected": {
+          "target": "note_1",
+          "label": ""
+        }
+      },
+      {
+        "input": "|",
+        "expected": null
+      }
+    ],
+    "toggle": [
+      {
+        "input": "[!toggle]- 标题",
+        "expected": {
+          "open": false,
+          "title": "标题"
+        }
+      },
+      {
+        "input": "[!toggle]+ 展开",
+        "expected": {
+          "open": true,
+          "title": "展开"
+        }
+      },
+      {
+        "input": "[!note] 标题",
+        "expected": null
+      }
+    ]
+  },
+  "encoding": {
+    "integers": [
+      {
+        "kind": "i64",
+        "inputDecimal": "-9223372036854775808",
+        "expectedJson": "-9223372036854775808",
+        "expectedUtf8Hex": "2d39323233333732303336383534373735383038"
+      },
+      {
+        "kind": "i64",
+        "inputDecimal": "-9007199254740993",
+        "expectedJson": "-9007199254740993",
+        "expectedUtf8Hex": "2d39303037313939323534373430393933"
+      },
+      {
+        "kind": "i64",
+        "inputDecimal": "0",
+        "expectedJson": "0",
+        "expectedUtf8Hex": "30"
+      },
+      {
+        "kind": "i64",
+        "inputDecimal": "9223372036854775807",
+        "expectedJson": "9223372036854775807",
+        "expectedUtf8Hex": "39323233333732303336383534373735383037"
+      },
+      {
+        "kind": "u64",
+        "inputDecimal": "0",
+        "expectedJson": "0",
+        "expectedUtf8Hex": "30"
+      },
+      {
+        "kind": "u64",
+        "inputDecimal": "9007199254740993",
+        "expectedJson": "9007199254740993",
+        "expectedUtf8Hex": "39303037313939323534373430393933"
+      },
+      {
+        "kind": "u64",
+        "inputDecimal": "18446744073709551615",
+        "expectedJson": "18446744073709551615",
+        "expectedUtf8Hex": "3138343436373434303733373039353531363135"
+      },
+      {
+        "kind": "float",
+        "input": "0",
+        "expectedF64": "0.0",
+        "expectedF32": "0.0"
+      },
+      {
+        "kind": "float",
+        "input": "-0",
+        "expectedF64": "-0.0",
+        "expectedF32": "-0.0"
+      },
+      {
+        "kind": "float",
+        "input": "0.1",
+        "expectedF64": "0.1",
+        "expectedF32": "0.1"
+      },
+      {
+        "kind": "float",
+        "input": "0.000001",
+        "expectedF64": "1e-6",
+        "expectedF32": "0.000001"
+      },
+      {
+        "kind": "float",
+        "input": "10000000000000000",
+        "expectedF64": "1e+16",
+        "expectedF32": "1e+16"
+      },
+      {
+        "kind": "float",
+        "input": "3.141592653589793",
+        "expectedF64": "3.141592653589793",
+        "expectedF32": "3.1415927"
+      },
+      {
+        "kind": "float",
+        "input": "16777217",
+        "expectedF64": "16777217.0",
+        "expectedF32": "16777216.0"
+      }
+    ],
+    "rejectedIntegers": [
+      {
+        "kind": "i64",
+        "inputDecimal": "9223372036854775808",
+        "expected": "RangeError"
+      },
+      {
+        "kind": "i64",
+        "inputDecimal": "-9223372036854775809",
+        "expected": "RangeError"
+      },
+      {
+        "kind": "u64",
+        "inputDecimal": "-1",
+        "expected": "RangeError"
+      },
+      {
+        "kind": "u64",
+        "inputDecimal": "18446744073709551616",
+        "expected": "RangeError"
+      }
+    ],
+    "nullOmit": [
+      {
+        "id": "missing",
+        "input": {
+          "id": "x"
+        },
+        "expected": "{\"id\":\"x\",\"nullable\":null}"
+      },
+      {
+        "id": "null",
+        "input": {
+          "id": "x",
+          "nullable": null,
+          "omitted": null
+        },
+        "expected": "{\"id\":\"x\",\"nullable\":null}"
+      },
+      {
+        "id": "empty",
+        "input": {
+          "id": "x",
+          "nullable": "",
+          "omitted": ""
+        },
+        "expected": "{\"id\":\"x\",\"nullable\":\"\",\"omitted\":\"\"}"
+      }
+    ],
+    "exactJson": [
+      {
+        "input": "{\"i64\":9223372036854775807,\"u64\":18446744073709551615,\"min\":-9223372036854775808}",
+        "expected": {
+          "kind": "object",
+          "members": [
+            {
+              "key": "i64",
+              "value": {
+                "kind": "number",
+                "value": {
+                  "kind": "u64",
+                  "value": {
+                    "decimal": "9223372036854775807"
+                  },
+                  "raw": "9223372036854775807"
+                }
+              }
+            },
+            {
+              "key": "u64",
+              "value": {
+                "kind": "number",
+                "value": {
+                  "kind": "u64",
+                  "value": {
+                    "decimal": "18446744073709551615"
+                  },
+                  "raw": "18446744073709551615"
+                }
+              }
+            },
+            {
+              "key": "min",
+              "value": {
+                "kind": "number",
+                "value": {
+                  "kind": "i64",
+                  "value": {
+                    "decimal": "-9223372036854775808"
+                  },
+                  "raw": "-9223372036854775808"
+                }
+              }
+            }
+          ]
+        },
+        "rawSha256": "ecf9bb78079735a2134297cdd9fc7236908ee77f8bda82fa947875a8dcbe99a1"
+      },
+      {
+        "input": "{\"missingVsNull\":null,\"unknown\":{\"future\":[1,true,null]},\"text\":\"中文👩‍💻\"}",
+        "expected": {
+          "kind": "object",
+          "members": [
+            {
+              "key": "missingVsNull",
+              "value": {
+                "kind": "null"
+              }
+            },
+            {
+              "key": "unknown",
+              "value": {
+                "kind": "object",
+                "members": [
+                  {
+                    "key": "future",
+                    "value": {
+                      "kind": "array",
+                      "items": [
+                        {
+                          "kind": "number",
+                          "value": {
+                            "kind": "u64",
+                            "value": {
+                              "decimal": "1"
+                            },
+                            "raw": "1"
+                          }
+                        },
+                        {
+                          "kind": "bool",
+                          "value": true
+                        },
+                        {
+                          "kind": "null"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "key": "text",
+              "value": {
+                "kind": "string",
+                "value": "中文👩‍💻"
+              }
+            }
+          ]
+        },
+        "rawSha256": "c642db4572fcc507a7929ced84b3131f316af254c250e017e6dad32506aeb8e7"
+      },
+      {
+        "input": "{\"duplicate\":1,\"duplicate\":2,\"decimal\":1.2300,\"exponent\":1e1000}",
+        "expected": {
+          "kind": "object",
+          "members": [
+            {
+              "key": "duplicate",
+              "value": {
+                "kind": "number",
+                "value": {
+                  "kind": "u64",
+                  "value": {
+                    "decimal": "1"
+                  },
+                  "raw": "1"
+                }
+              }
+            },
+            {
+              "key": "duplicate",
+              "value": {
+                "kind": "number",
+                "value": {
+                  "kind": "u64",
+                  "value": {
+                    "decimal": "2"
+                  },
+                  "raw": "2"
+                }
+              }
+            },
+            {
+              "key": "decimal",
+              "value": {
+                "kind": "number",
+                "value": {
+                  "kind": "f64",
+                  "value": 1.23,
+                  "raw": "1.2300"
+                }
+              }
+            },
+            {
+              "key": "exponent",
+              "value": {
+                "kind": "number",
+                "value": {
+                  "kind": "arbitrary",
+                  "raw": "1e1000"
+                }
+              }
+            }
+          ]
+        },
+        "rawSha256": "1d1c43337eb4fa8e29a172372f897e5e91a409d7b545911d41bb8e4696d8a514"
+      }
+    ],
+    "utf8": [
+      {
+        "text": "中文👩‍💻",
+        "hex": "e4b8ade69687f09f91a9e2808df09f92bb",
+        "length": 17,
+        "sha256": "fcae9388e2f126b50337de63cf3aab57b969fa75aa81313882f694de94376343",
+        "prefixValidation": [
+          {
+            "length": 0,
+            "validation": null
+          },
+          {
+            "length": 1,
+            "validation": {
+              "validUpTo": 0,
+              "errorLength": null
+            }
+          },
+          {
+            "length": 2,
+            "validation": {
+              "validUpTo": 0,
+              "errorLength": null
+            }
+          },
+          {
+            "length": 3,
+            "validation": null
+          },
+          {
+            "length": 4,
+            "validation": {
+              "validUpTo": 3,
+              "errorLength": null
+            }
+          },
+          {
+            "length": 5,
+            "validation": {
+              "validUpTo": 3,
+              "errorLength": null
+            }
+          },
+          {
+            "length": 6,
+            "validation": null
+          },
+          {
+            "length": 7,
+            "validation": {
+              "validUpTo": 6,
+              "errorLength": null
+            }
+          },
+          {
+            "length": 8,
+            "validation": {
+              "validUpTo": 6,
+              "errorLength": null
+            }
+          },
+          {
+            "length": 9,
+            "validation": {
+              "validUpTo": 6,
+              "errorLength": null
+            }
+          },
+          {
+            "length": 10,
+            "validation": null
+          },
+          {
+            "length": 11,
+            "validation": {
+              "validUpTo": 10,
+              "errorLength": null
+            }
+          },
+          {
+            "length": 12,
+            "validation": {
+              "validUpTo": 10,
+              "errorLength": null
+            }
+          },
+          {
+            "length": 13,
+            "validation": null
+          },
+          {
+            "length": 14,
+            "validation": {
+              "validUpTo": 13,
+              "errorLength": null
+            }
+          },
+          {
+            "length": 15,
+            "validation": {
+              "validUpTo": 13,
+              "errorLength": null
+            }
+          },
+          {
+            "length": 16,
+            "validation": {
+              "validUpTo": 13,
+              "errorLength": null
+            }
+          },
+          {
+            "length": 17,
+            "validation": null
+          }
+        ]
+      },
+      {
+        "text": "é",
+        "hex": "65cc81",
+        "length": 3,
+        "sha256": "bf12767b0f2a56b2190075bae8169f656e3ce8d6357d4aff184bc6c7ea48f9f6",
+        "prefixValidation": [
+          {
+            "length": 0,
+            "validation": null
+          },
+          {
+            "length": 1,
+            "validation": null
+          },
+          {
+            "length": 2,
+            "validation": {
+              "validUpTo": 1,
+              "errorLength": null
+            }
+          },
+          {
+            "length": 3,
+            "validation": null
+          }
+        ]
+      },
+      {
+        "text": "é",
+        "hex": "c3a9",
+        "length": 2,
+        "sha256": "4a99557e4033c3539de2eb65472017cad5f9557f7a0625a09f1c3f6e2ba69c4c",
+        "prefixValidation": [
+          {
+            "length": 0,
+            "validation": null
+          },
+          {
+            "length": 1,
+            "validation": {
+              "validUpTo": 0,
+              "errorLength": null
+            }
+          },
+          {
+            "length": 2,
+            "validation": null
+          }
+        ]
+      },
+      {
+        "text": "﻿正文",
+        "hex": "efbbbfe6ada3e69687",
+        "length": 9,
+        "sha256": "72bc2dcc24023d7d080554200fd268b8328ac8402e63f561793b24f45eeeeded",
+        "prefixValidation": [
+          {
+            "length": 0,
+            "validation": null
+          },
+          {
+            "length": 1,
+            "validation": {
+              "validUpTo": 0,
+              "errorLength": null
+            }
+          },
+          {
+            "length": 2,
+            "validation": {
+              "validUpTo": 0,
+              "errorLength": null
+            }
+          },
+          {
+            "length": 3,
+            "validation": null
+          },
+          {
+            "length": 4,
+            "validation": {
+              "validUpTo": 3,
+              "errorLength": null
+            }
+          },
+          {
+            "length": 5,
+            "validation": {
+              "validUpTo": 3,
+              "errorLength": null
+            }
+          },
+          {
+            "length": 6,
+            "validation": null
+          },
+          {
+            "length": 7,
+            "validation": {
+              "validUpTo": 6,
+              "errorLength": null
+            }
+          },
+          {
+            "length": 8,
+            "validation": {
+              "validUpTo": 6,
+              "errorLength": null
+            }
+          },
+          {
+            "length": 9,
+            "validation": null
+          }
+        ]
+      },
+      {
+        "text": "line\r\nnext",
+        "hex": "6c696e650d0a6e657874",
+        "length": 10,
+        "sha256": "80ef8c498512aa799857e5227a9f84a2528904453c833dcfcfe52407cffc9ddc",
+        "prefixValidation": [
+          {
+            "length": 0,
+            "validation": null
+          },
+          {
+            "length": 1,
+            "validation": null
+          },
+          {
+            "length": 2,
+            "validation": null
+          },
+          {
+            "length": 3,
+            "validation": null
+          },
+          {
+            "length": 4,
+            "validation": null
+          },
+          {
+            "length": 5,
+            "validation": null
+          },
+          {
+            "length": 6,
+            "validation": null
+          },
+          {
+            "length": 7,
+            "validation": null
+          },
+          {
+            "length": 8,
+            "validation": null
+          },
+          {
+            "length": 9,
+            "validation": null
+          },
+          {
+            "length": 10,
+            "validation": null
+          }
+        ]
+      },
+      {
+        "text": "\ud800",
+        "hex": "efbfbd",
+        "length": 3,
+        "sha256": "83d544ccc223c057d2bf80d3f2a32982c32c3c0db8e2674820da5064783fb097",
+        "prefixValidation": [
+          {
+            "length": 0,
+            "validation": null
+          },
+          {
+            "length": 1,
+            "validation": {
+              "validUpTo": 0,
+              "errorLength": null
+            }
+          },
+          {
+            "length": 2,
+            "validation": {
+              "validUpTo": 0,
+              "errorLength": null
+            }
+          },
+          {
+            "length": 3,
+            "validation": null
+          }
+        ]
+      }
+    ],
+    "invalidUtf8": [
+      {
+        "hex": "c080",
+        "expected": {
+          "validUpTo": 0,
+          "errorLength": 1
+        }
+      },
+      {
+        "hex": "eda080",
+        "expected": {
+          "validUpTo": 0,
+          "errorLength": 1
+        }
+      },
+      {
+        "hex": "f4908080",
+        "expected": {
+          "validUpTo": 0,
+          "errorLength": 1
+        }
+      },
+      {
+        "hex": "e4b8",
+        "expected": {
+          "validUpTo": 0,
+          "errorLength": null
+        }
+      },
+      {
+        "hex": "ff",
+        "expected": {
+          "validUpTo": 0,
+          "errorLength": 1
+        }
+      }
+    ],
+    "rules": {
+      "numbers": "i64→Long; u64→ULong/decimal lexeme; arbitrary JSON numbers retain original token; no Double projection",
+      "null": "nullable option emits null; skipIf none omits; empty string is distinct",
+      "unknown": "unknown JSON members and content nodes survive semantic round-trip",
+      "text": "UTF-8 exact bytes; no NFC/NFD normalization; retain CRLF outside edited span",
+      "hash": "SHA-256 over declared UTF-8/binary bytes; lowercase hex; no added BOM/newline",
+      "objectOrder": "typed struct declaration order; map order follows captured schema; ordinary JSON compared semantically; hashed payload compared byte-for-byte"
+    }
+  },
+  "contentSources": [
+    {
+      "file": "src/components/crepe/plugins/agentHighlight.ts",
+      "sha256": "777b69c61987f78872b8a88cb353798c56d0cdeadd2364a4d90a7d66c3536728"
+    },
+    {
+      "file": "src/components/crepe/plugins/blockIdentity/commands.ts",
+      "sha256": "8d40445cdd2503f5997c0fd46f00182e2336ff78d9e31cd11b73abcc86eab604"
+    },
+    {
+      "file": "src/components/crepe/plugins/blockIdentity/index.ts",
+      "sha256": "ea784b7effac26611a57b808c18e70c763d903856fd874c0b5d04da44f1be79e"
+    },
+    {
+      "file": "src/components/crepe/plugins/blockIdentity/links.ts",
+      "sha256": "9fa8b54986aa92fa3a7eb5a436ea80e962ad794401d94511fd28853fec5a8897"
+    },
+    {
+      "file": "src/components/crepe/plugins/blockIdentity/markdown.ts",
+      "sha256": "d709808163df8d0698e42c0d6e44553dab8e1ca98cd1049857927126548f96d5"
+    },
+    {
+      "file": "src/components/crepe/plugins/blockSelection/index.ts",
+      "sha256": "db60cc6e5450479252d8ab1c93329a02b08cbcbc7accc63b01f64f7a96d69413"
+    },
+    {
+      "file": "src/components/crepe/plugins/callout/i18n.ts",
+      "sha256": "4a58dcd46e64e089bd9959a0c0363f3343bb0654861a8b29cbde26e90c6a628e"
+    },
+    {
+      "file": "src/components/crepe/plugins/callout/icons.ts",
+      "sha256": "4f39df4fb5af98dd9a847e2e4c9dc302236e0708bee02c0e2e67cedf146bba29"
+    },
+    {
+      "file": "src/components/crepe/plugins/callout/index.ts",
+      "sha256": "4a0e1db14c8b44baf6bb7806d55c4934775741563401977d29c98eff0e0d4e97"
+    },
+    {
+      "file": "src/components/crepe/plugins/callout/inputRule.ts",
+      "sha256": "a178461d1b10626bd2c304c3a930821f60fbfd16dd257c9baec2bafcca478951"
+    },
+    {
+      "file": "src/components/crepe/plugins/callout/remark.ts",
+      "sha256": "c8bfb558df43e080010bd4a0c3d6c748ff5e8ebcaa822eae1ac8c1b021870d5a"
+    },
+    {
+      "file": "src/components/crepe/plugins/callout/schema.ts",
+      "sha256": "a44e07e2f6af3a85a5eb0ef8ad3823d43bc03140a3047a4e4a577d61b32b06ce"
+    },
+    {
+      "file": "src/components/crepe/plugins/callout/types.ts",
+      "sha256": "9e17fe2b3b09460f531e8e230b3bcffbec619d1c0abe0375d7bd7644a0aa2f9a"
+    },
+    {
+      "file": "src/components/crepe/plugins/callout/view.ts",
+      "sha256": "56888d98cb5d25f14938fd6ab8a09bd937311c553925f511bdbcd0f36aff4fd1"
+    },
+    {
+      "file": "src/components/crepe/plugins/columns/behavior.ts",
+      "sha256": "c6a46c02b968ca2e8496ca38de00d86ac1af66ee70557ce4c4f906d007372e9b"
+    },
+    {
+      "file": "src/components/crepe/plugins/columns/commands.ts",
+      "sha256": "db5d4c17b71d34e1e3be5db2811cefe3e65b60e4367913d2823fc3371568f653"
+    },
+    {
+      "file": "src/components/crepe/plugins/columns/config.ts",
+      "sha256": "3e357ac134c7d37d8bdac64963ee4d2824057daac92750ab1567d630a95602eb"
+    },
+    {
+      "file": "src/components/crepe/plugins/columns/export.ts",
+      "sha256": "382baf06eeb8e001ad08924ffc9f35feddbf6504e5af5a0b275dcbc5685e0938"
+    },
+    {
+      "file": "src/components/crepe/plugins/columns/format.ts",
+      "sha256": "7fde4bd7a12e428e498c0aa43751d8f586ba4dbabd383359f348f0e5624e9c8a"
+    },
+    {
+      "file": "src/components/crepe/plugins/columns/index.ts",
+      "sha256": "5ecc20c07a58a343759b129087195e5fa3492e25401145127b25ebab4779b9c3"
+    },
+    {
+      "file": "src/components/crepe/plugins/columns/remark.ts",
+      "sha256": "2b27d55f203517d116830cb780f3d5ee226586c4f918949976314ff37c417e69"
+    },
+    {
+      "file": "src/components/crepe/plugins/columns/schema.ts",
+      "sha256": "96b366dbea0f4c6b606b3e716d03d62cb7ec01c831dbac6067aabbbed3ec49c9"
+    },
+    {
+      "file": "src/components/crepe/plugins/imageLightbox/collectGallery.ts",
+      "sha256": "355deee8aa339730ee8de9157f15e18aeb78bfb31bcf1c32db1f023fbcf90fa0"
+    },
+    {
+      "file": "src/components/crepe/plugins/imageLightbox/index.ts",
+      "sha256": "e7409eabbe89f8a86fbcf8952d7751fd6ba082cf776542de3482d1a56baa122c"
+    },
+    {
+      "file": "src/components/crepe/plugins/imageLightbox/lightboxDom.ts",
+      "sha256": "5dbf7aaaeee1ba582e05907bf8b0cd396c0aa95ce198204e8cbd5bd5c502e562"
+    },
+    {
+      "file": "src/components/crepe/plugins/imageLightbox/nonEmptyHref.ts",
+      "sha256": "9416f2a55f74e1445b1c8d15fd81cfdc6c89175c8dca99a4a9649c97362d83ef"
+    },
+    {
+      "file": "src/components/crepe/plugins/imageLightbox/resolveImageTarget.ts",
+      "sha256": "f4066c49f219012d22477696d95538f349d5c77876bae8a2f517822d647e7c18"
+    },
+    {
+      "file": "src/components/crepe/plugins/index.ts",
+      "sha256": "29bff8dd8298740c6bc1e29f24bbb68579bdada7246111eec9f42a7a92547e1c"
+    },
+    {
+      "file": "src/components/crepe/plugins/inlineCards/index.ts",
+      "sha256": "87265cd6b12f3cda16bf3dff942cbb94340acb44a23018e3cdc867378c03d4eb"
+    },
+    {
+      "file": "src/components/crepe/plugins/inlineCards/scanner.ts",
+      "sha256": "a0cd0c096c274dc98e9e0229380f0d062064aaf6cc1f7f9909343466e6a7c8f7"
+    },
+    {
+      "file": "src/components/crepe/plugins/internalLinkSchemes.ts",
+      "sha256": "801d7957ad535078d8ca955487e7598b16a01099a2b06e509b4a4f78fe22bd35"
+    },
+    {
+      "file": "src/components/crepe/plugins/linkKeymap/index.ts",
+      "sha256": "ede84f35a29b4fbef413bdf54e4c86be54fcbb3b1332ea13c19c540a946c58df"
+    },
+    {
+      "file": "src/components/crepe/plugins/linkKeymap/resolveLinkAction.ts",
+      "sha256": "9198d5732220f557a291cdea5a431808f5786d8ee70daee3257e00ad30cdda28"
+    },
+    {
+      "file": "src/components/crepe/plugins/listItemHasChecked/index.ts",
+      "sha256": "2ca9a7a4760334a93a64a0f436ef799226d019b85824becb7fd9371b18d90ddf"
+    },
+    {
+      "file": "src/components/crepe/plugins/mediaRef/click.ts",
+      "sha256": "68d5abb6789d2993a43f3d25fdf2582762cd8ea72fbbbdc355344667293dc773"
+    },
+    {
+      "file": "src/components/crepe/plugins/mediaRef/index.ts",
+      "sha256": "ad115a444ea89f82ad8f04098564dd5a37f99f1d7e2148993cc035b1813410c8"
+    },
+    {
+      "file": "src/components/crepe/plugins/mediaRef/protocol.ts",
+      "sha256": "4c6cbf042b961eac633b2ae64e7ef52041443abccae397a2ff4b73cbb9621e40"
+    },
+    {
+      "file": "src/components/crepe/plugins/mention/autocomplete.ts",
+      "sha256": "b82066e8c16b403a5d3b35106578bb939bceecdf67b56eca18f92cedda677300"
+    },
+    {
+      "file": "src/components/crepe/plugins/mention/click.ts",
+      "sha256": "fe7508a20f0cbb0817f430b97bd01fb4b53919d696307c331e004d1cd849b779"
+    },
+    {
+      "file": "src/components/crepe/plugins/mention/detectTrigger.ts",
+      "sha256": "05483b1573bc2dd47904420aebc6f7bae75bb75514dc5eccc9445fa7d79380d2"
+    },
+    {
+      "file": "src/components/crepe/plugins/mention/index.ts",
+      "sha256": "9fbdd46e798f2c2a6c20a5cb60218e523c6eda5fbbce5d534d907c486f365a31"
+    },
+    {
+      "file": "src/components/crepe/plugins/mention/insertMention.ts",
+      "sha256": "d28bc84d9a9e9e81657916beab6c3b06aa6c3b2fbfc0c52b5fb69c18015cf79c"
+    },
+    {
+      "file": "src/components/crepe/plugins/mention/overlay.ts",
+      "sha256": "fc02014b6bfd9cc5c4415d128b971171bd49e99a2403048d80ad1c1d0cf5b702"
+    },
+    {
+      "file": "src/components/crepe/plugins/mention/protocol.ts",
+      "sha256": "2d9ed300feabbd5dc63339bafc1279489aa8f0ae4164c8a72cb60c7608983e5c"
+    },
+    {
+      "file": "src/components/crepe/plugins/mention/search.ts",
+      "sha256": "4f2d237fd49a3a4d15d81eba3b2902ac3cd9da4b8a49095c886222ad793b231c"
+    },
+    {
+      "file": "src/components/crepe/plugins/mention/types.ts",
+      "sha256": "2bfa372985b7203a4d700709f937b2427f0d42dec4a39c94cfa40476394c6150"
+    },
+    {
+      "file": "src/components/crepe/plugins/options.ts",
+      "sha256": "e76cfede643b664fce39280c10680a4546f17c7fd279fbfbf6b05577d3169a31"
+    },
+    {
+      "file": "src/components/crepe/plugins/pasteLink/applyPasteUrlLink.ts",
+      "sha256": "c4e04307e7a5b630a7f3a0baf1007519e7c748b2945c4957677e04819ea9eaa7"
+    },
+    {
+      "file": "src/components/crepe/plugins/pasteLink/index.ts",
+      "sha256": "57d7e336dc927d4a4f884619066e67a19b3f589da2c1d242e56e9a568b7443ba"
+    },
+    {
+      "file": "src/components/crepe/plugins/pasteLink/isSinglePasteUrl.ts",
+      "sha256": "3175c7b749312f8103abd04cad66e586fcc35111f63e90bb662f36296a554688"
+    },
+    {
+      "file": "src/components/crepe/plugins/pasteLink/pasteLinkPlugin.ts",
+      "sha256": "84afa2e7c896bc35bedcce05b8af896070f7deda34d1679b76c4d7e964fafaa1"
+    },
+    {
+      "file": "src/components/crepe/plugins/pdfRef/click.ts",
+      "sha256": "102b535f3b058d86517d2d1e0dc8c2b3f3d05d342fde3c178eda0a818f2535fe"
+    },
+    {
+      "file": "src/components/crepe/plugins/pdfRef/index.ts",
+      "sha256": "80bfda4429363beeea365f827b7d4f18ae05a04d1136dc0a2a0525e38e0c0a7e"
+    },
+    {
+      "file": "src/components/crepe/plugins/pdfRef/protocol.ts",
+      "sha256": "59aa412c47b1b18560084f53b06cbdbcbb906a1a68c56c2a4c05872ec25da454"
+    },
+    {
+      "file": "src/components/crepe/plugins/pdfRef/types.ts",
+      "sha256": "57611469bf697758158130303db5451c8c3458b3d6333ef89d2277a522626036"
+    },
+    {
+      "file": "src/components/crepe/plugins/searchHighlight.ts",
+      "sha256": "da90aa178c30356051070d209e662d4b8dd092f6fba272a136e8ebc88c485d14"
+    },
+    {
+      "file": "src/components/crepe/plugins/shared/suggestOverlay.ts",
+      "sha256": "7e7e7929925ada4acbf96dd6ef785046aa0a1776976d63daa55849f55f44bec0"
+    },
+    {
+      "file": "src/components/crepe/plugins/slashMenuExtras.ts",
+      "sha256": "d73cd21c422162e032c225fa2cf599b7b16505f5c6295b6cb0bd846a16838f5b"
+    },
+    {
+      "file": "src/components/crepe/plugins/toggle/index.ts",
+      "sha256": "912d57c778c556d87641bc83fee5d3b4fc866a4bc2df5893d77364ae498749ad"
+    },
+    {
+      "file": "src/components/crepe/plugins/toggle/input-rule.ts",
+      "sha256": "ade6281574e3fa50d00a1a895d112d1abde3e6fbd539f69b893342ca30bfffb3"
+    },
+    {
+      "file": "src/components/crepe/plugins/toggle/keymap.ts",
+      "sha256": "64567550aff807e7b69c0315dcd5cdbf0835aa301af350c70b19610543ed7126"
+    },
+    {
+      "file": "src/components/crepe/plugins/toggle/marker.ts",
+      "sha256": "ef8a1d54eeedf10941e1e270d07b45f2e7898c3a3f58c19050abdf58bf7abe24"
+    },
+    {
+      "file": "src/components/crepe/plugins/toggle/remark.ts",
+      "sha256": "a1c55dbdd99c2bf36afae358e7477b144003014ca7c5af63fa3535d144348c91"
+    },
+    {
+      "file": "src/components/crepe/plugins/toggle/schema.ts",
+      "sha256": "ef0200c0f5c6b19abcbeb7ec403ccdfdbccd12888909776b9b9bbf1f5201dfb8"
+    },
+    {
+      "file": "src/components/crepe/plugins/toggle/styles.ts",
+      "sha256": "69bbb6837f49a729bd01ce0c12c0fe06bd787f28d5cc9c9c1ee5c64bf48f7e8d"
+    },
+    {
+      "file": "src/components/crepe/plugins/toggle/view.ts",
+      "sha256": "b1a85ff83f1f1f4d0de25011c3ac3045726176121cfe920a1ffe918271a03599"
+    },
+    {
+      "file": "src/components/crepe/plugins/typedPlaceholder/index.ts",
+      "sha256": "ec33b8840d749929b4ee7379f71bca2bed9f9e4b7b443b25d04c8e79c3dfe5df"
+    },
+    {
+      "file": "src/components/crepe/plugins/wikilink/autocomplete.ts",
+      "sha256": "560ef5103ab67e2cb3c8fc26288ddc00c06ec10e5cf752931cd1535e886126ca"
+    },
+    {
+      "file": "src/components/crepe/plugins/wikilink/candidatePicker.ts",
+      "sha256": "40578505f328d88424f44feee1a777a99cdfa1778c548caa42a7480dce9dff37"
+    },
+    {
+      "file": "src/components/crepe/plugins/wikilink/codeContext.ts",
+      "sha256": "d19200dc7cf7b11a1588e89ffbd0a88ec7359827def9c452a4c4f812fa8068fd"
+    },
+    {
+      "file": "src/components/crepe/plugins/wikilink/createConfirm.ts",
+      "sha256": "2da55fd82dd9f2da45d17b27d7d381f67f6c7bcd2e94f2c5e5d31c12f1202230"
+    },
+    {
+      "file": "src/components/crepe/plugins/wikilink/defaultGetNotes.ts",
+      "sha256": "a7395c3dad10e0557439da39f49f1a1f2769696676ea652837247ce6894b3d93"
+    },
+    {
+      "file": "src/components/crepe/plugins/wikilink/format.ts",
+      "sha256": "79ab8b3473a6226702c83d3ae99ab3cc3350bc63098e342d716c0c03c218debf"
+    },
+    {
+      "file": "src/components/crepe/plugins/wikilink/fuzzy.ts",
+      "sha256": "0a459e07c44b29fa17ef894073d19e69a5e78c5fbd7e41bd0e6a67a4538228b9"
+    },
+    {
+      "file": "src/components/crepe/plugins/wikilink/hoverPreview.ts",
+      "sha256": "e91cd4a6d8608bb3c6af5c9adb25f3682adf43144a65d4517f3d99b0ba968abe"
+    },
+    {
+      "file": "src/components/crepe/plugins/wikilink/index.ts",
+      "sha256": "e5f636c94a3e38bed53fc6217bae3e0132a6ab3eeaaf5fdcdb323f6ae9a33819"
+    },
+    {
+      "file": "src/components/crepe/plugins/wikilink/inputRule.ts",
+      "sha256": "bb71ae1bb6f6a82e74bb97bcdf572ad4709370b328ba8c87723e85a617fa8e51"
+    },
+    {
+      "file": "src/components/crepe/plugins/wikilink/noteContent.ts",
+      "sha256": "7085a46f734859e9b6b705a4aaf7798415c1b9d0aa80af2d6695d15b8a3ed272"
+    },
+    {
+      "file": "src/components/crepe/plugins/wikilink/remark.ts",
+      "sha256": "da2c5ba678e0e93f99c8295b3f95b0c0fda313dce7079c7d588435f3ec27d815"
+    },
+    {
+      "file": "src/components/crepe/plugins/wikilink/schema.ts",
+      "sha256": "4277db05edaf9752a05bc0f8f62155e47e0e70427c947092c0f0503877c7c4db"
+    },
+    {
+      "file": "src/components/crepe/plugins/wikilink/types.ts",
+      "sha256": "ed4b2a7b62d0957a86dbe60c8117f8c451683f26dfa717cfaee203e98f62e462"
+    },
+    {
+      "file": "src/components/crepe/plugins/wikilink/view.ts",
+      "sha256": "07000211617f655e586df9aa2411f1fe62eb041e6b061127806781ed09796750"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/academicSearch.tsx",
+      "sha256": "037571b7b9e6a0ae4521a1d187f2be74bc54dc60d4505a44705949b9e27be252"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/ankiCardsBlock.tsx",
+      "sha256": "7b5b08e5c5ede0501b857b84c279e058fcc3f91a44d19753ac08065e14e323a3"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/askUserBlock.tsx",
+      "sha256": "60c55fb08c6b3d394ed559bef7aec78e053aac770c2bdf8397891bda23e5208d"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/compactionSummary.tsx",
+      "sha256": "0db5250e7b97c29719d042a6e7b46894d48df37355d1e17e6adcef8cc960ebc1"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/components/AnkiClozeText.tsx",
+      "sha256": "8bea619937dcf070df09fa046f058a5059bedf7c0d211543cba75907a8ff9b6b"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/components/AnkiCriticSummaryBanner.tsx",
+      "sha256": "d56134c21e442c8968772d7ce70ae4353c15acfa5f8a8d2dfc1bedb923b04163"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/components/AnkiMediaReportView.tsx",
+      "sha256": "8ae924afa23be505d3f7445308dbb5c69b87fe9222ebc616099c7cfc58d4e6f0"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/components/AnkiQaFlagBadge.tsx",
+      "sha256": "359f4226b6c4b4c8f64311cd6e61720803fe89e99d854cb341c5cec846860897"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/components/ChatAnkiCardExtras.tsx",
+      "sha256": "77a231f4630761b44cf64119fc5d21fdc7f3c710a10faaea2d523fcdefffd0b6"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/components/ChatAnkiProgressCompact.tsx",
+      "sha256": "4c74f1a49e25536e122479ab5d00b7c54fefed4c419ce9d5e2ee01a24a099bc2"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/components/CitationPopover.tsx",
+      "sha256": "154ce48b2a7b7b10ce2c27ad295a51df52d7e7063b079686320cee2e5ffb0320"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/components/ImagePreview.tsx",
+      "sha256": "76bc607abef44faa4c40b89db7df1bf2dde398432a7da6c2e364e95b106095c5"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/components/RenderedAnkiCard.tsx",
+      "sha256": "a3e8b64670af4360f19a1d0398d99e81d33c783e2dc87e361e453c07a9e132e3"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/components/RetrievalBlockShell.tsx",
+      "sha256": "a63f8ab3985cb1984471dd2ddf2af9b417e7da1308826662940c933e6b0d9e20"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/components/ShellOutputView.tsx",
+      "sha256": "77bc4923d6cbe4d0e9b56d46fab4c04cfa2ef856539dc55e015e575711b27637"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/components/SourceCard.tsx",
+      "sha256": "d9f33f5d4df070add3e78145c22bd45834eae4758a4f60582f833093e0a129c7"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/components/SourceList.tsx",
+      "sha256": "c7ccd4edcd4995938e99f9c9e509b6f0f080891224a20e12c976ceadb659e9f5"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/components/TemplateToolOutput.tsx",
+      "sha256": "7611818dc1e72a81da8cbbb139f10f7b0e977f7594f023f8f01a24f6f10f17aa"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/components/ToolInputView.tsx",
+      "sha256": "f64db8b5f2c038644a90abd724dd42815385e195d6ad72c593d027777f0a04db"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/components/ToolOutputView.tsx",
+      "sha256": "723dfb751f332587a093e8efa2bc71a24a63f4e927e423113590aec5a3363a0f"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/components/ankiCardsBlockState.ts",
+      "sha256": "8e8c5f9c2d7baf3bdd058f2002e5658c226ba73e8fa540c4e4068cfbaed7f8e4"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/components/ankiMediaReport.ts",
+      "sha256": "5ce5664896b1ade45513209c23666e1b8763c5d783208f92ccd9e48173b4beb2"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/components/ankiQaFlags.ts",
+      "sha256": "b38204561413b77f1589f612e1269030ba2d8118eea17e4fa4cb812ff8fbd929"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/components/ankiSegmentCounts.ts",
+      "sha256": "b769e173ba11977a75897fe63b3c2b539b2f4e62c81d3de144aa574550a5db8f"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/components/index.ts",
+      "sha256": "7269a27ced10e66fa0b4c8eb873c6fe03403794dec45e57343c60c2f49fda385"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/components/types.ts",
+      "sha256": "d3fb22adec989d4c88225039fc6a3c8f3732fd22e215bf8a9fe084d2f41371e9"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/components/useAnkiConnectEnabled.ts",
+      "sha256": "e276d1da2488ed9af23970f4f21b513be2a1c78890a08e8b6b8b25c3070ec24a"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/content.tsx",
+      "sha256": "448dcbae8ec757bd39637e997245a83aacec70abcf4f56b7511484b0ea53d219"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/generativeUI.tsx",
+      "sha256": "d885c6e985d8ded52df1e3a55d6786d535af5205c411a5645c04ba6c08f9048e"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/generic.tsx",
+      "sha256": "6ae8fa46376b1e4340c0efaeaf4a42768e564c1a249973cf9aa4f252a12b9857"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/imageGen.tsx",
+      "sha256": "f513b86250983b43fdcf7232b6518f87c60ddc965767533f0f01d5917a1394bc"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/index.ts",
+      "sha256": "9c5b2595568cda3c95f26550cc44591b7a6cffc176cf65d8197adf7cbdb65c12"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/insightRecall.tsx",
+      "sha256": "8872a6c41a0348746ec17b1a0a5f6db1374332866692f18b2ee9b25d20eae696"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/mcpTool.tsx",
+      "sha256": "65456acd401536a8a760684f7993e9225eeb813ecc60616b765809bb2d2d0b10"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/memory.tsx",
+      "sha256": "c8e36a0b3dbb2a9d18d498ffffcdca8439f7134cae4f3c3aa57c999cf41f8884"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/multimodalRag.tsx",
+      "sha256": "b72c8ad500cd1aadcf6b532240f56416a885c41fcb9d0fb13f60f96bbf847ad9"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/paperSave.tsx",
+      "sha256": "df530d563771da91394024858b11648851037dc480e7c2767dabeff66261d04b"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/pendingCardDeletes.ts",
+      "sha256": "290472a390579da1046764d44816a98fee39c02cc57b61f78addedfa09890ec2"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/qbankQuestionsBlock.tsx",
+      "sha256": "8ea104f44f2b3303a328b483e11a22ce8087b230bf627ca2c4af0b0f181a1083"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/rag.tsx",
+      "sha256": "5c7a8863f6b9746f9ff40eee96cab56b71dda2060e0a8d466bbcc925b6787aaf"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/sessionPreheat.ts",
+      "sha256": "842f5ca6a8721a4a43e168a2a256e7779358d10d06516548a3e81fd0e8da42dd"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/sleepBlock.tsx",
+      "sha256": "325025ccea305a091a0db2e010b989d437ec62ac6940bfb60a627a09ae543000"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/subagentEmbed.tsx",
+      "sha256": "84196cda2408be9a35e7d548171969958335d105d85c723f5f88a29a68a0cb41"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/subagentRetry.tsx",
+      "sha256": "41d8bcad6088f0842ae8062b9243f2cb34b20599d5234ad2ee31621cc98c0e39"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/templatePreview.tsx",
+      "sha256": "cd41958435bc78208eaf24160695813aacfe2854615246125c6ed8aa9215787c"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/thinking.tsx",
+      "sha256": "2918c965407a27212e4aff5e250525ac2730edfddab177b2db81fdb49614ab99"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/todoList.tsx",
+      "sha256": "0ca60db2341a1ef022e5e5b2ea59d5eaebaeeb3035c1a8ac2dcabed154f5f7eb"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/toolLimit.tsx",
+      "sha256": "9413286a53331d0903fdf5d60afad86248fdbf21ec17eb41b87fb68f0f998125"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/toolResultSlot.ts",
+      "sha256": "5bb0ec7079a973124cef9fe773d2a150ebfc03af0a13d0070e8e78eccf3f8ede"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/toolResults.tsx",
+      "sha256": "99759dc957bcdaf22d43a844b6f03c4954316a3bb2b8ac0aff1229e0e5d85b45"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/webSearch.tsx",
+      "sha256": "033fe9a1cc6b375c50390eb6d772b29cdfe49bc0c169f766f66514da95f37509"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/workbenchOpsBlock.tsx",
+      "sha256": "af127f11b028023508f828d45f68bfbc172f0c9496ae2c0dc78b0f3fd0329bc2"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/workspaceInjection.tsx",
+      "sha256": "8df7ceb93a821e56d25e7a45836660d0ebb079618bf11429b21abc79fa277be5"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/workspaceSend.tsx",
+      "sha256": "7084b5323ea2620ca29630e9e1c2909e4acb67f4ee6febd22546baa131fd1e37"
+    },
+    {
+      "file": "src/features/chat/plugins/blocks/workspaceStatus.tsx",
+      "sha256": "84df34642e28609ae67c3d3797ab23b711450992971ebad25131530518c54928"
+    },
+    {
+      "file": "src/features/chat/plugins/chat/AdvancedPanel.tsx",
+      "sha256": "8607c843eea6488e5a5395800ebf5591fc0a4e881b9c1641c6e18c09c24d2f6e"
+    },
+    {
+      "file": "src/features/chat/plugins/chat/ChatModePlugin.ts",
+      "sha256": "04f86e395ded331a0f9b913d6501dd55bbeaa20728912ec3321122b4e91110b6"
+    },
+    {
+      "file": "src/features/chat/plugins/chat/McpPanel.tsx",
+      "sha256": "fc7134c8168cc7383e028fd3664e25adf70d94bc44d622f3088617560aba83fb"
+    },
+    {
+      "file": "src/features/chat/plugins/chat/ModelPanel.tsx",
+      "sha256": "adfd48d083fcfe57accf0e307e9bc136c1be46d9f14d55f757323e9bda72b23e"
+    },
+    {
+      "file": "src/features/chat/plugins/chat/RagPanel.tsx",
+      "sha256": "ef9a5ec7cd2a8f7291b39732dbc8854638286ea1e23c3efa0704cafa554c264e"
+    },
+    {
+      "file": "src/features/chat/plugins/chat/SearchPanel.tsx",
+      "sha256": "31a31dc7d39cbf832e267e90ea3bfd172c567717c743dd3b2eaafdf5ecd884c5"
+    },
+    {
+      "file": "src/features/chat/plugins/chat/deepseekSamplingControls.ts",
+      "sha256": "b2d96d6acbc43c79b05dfd05e6f90096e803e314190a6b6630061541a713cc9b"
+    },
+    {
+      "file": "src/features/chat/plugins/chat/index.ts",
+      "sha256": "43df0ee76e02f1224107c9e2893f498a93f8f5fecafead79e8fc2e0263281fed"
+    },
+    {
+      "file": "src/features/chat/plugins/events/ankiCards.ts",
+      "sha256": "b88d377a8c19de250c4415ec69925a60a323cc42f5d8b2408798405ddc0b58c3"
+    },
+    {
+      "file": "src/features/chat/plugins/events/approval.ts",
+      "sha256": "9e471a07f9642888e86b440e79f823aa0aa4f1418a2c9f340cd02b5d991d2613"
+    },
+    {
+      "file": "src/features/chat/plugins/events/content.ts",
+      "sha256": "4a62fa3c830dc6113e5a1460e871c186a121269eb768d9abfae4e9bd46e048a6"
+    },
+    {
+      "file": "src/features/chat/plugins/events/generativeUI.ts",
+      "sha256": "d3e56acc2d72f3992280b8d07319069a8983239081977d8e0e9869f8e9581be1"
+    },
+    {
+      "file": "src/features/chat/plugins/events/index.ts",
+      "sha256": "cccefc6936d92f528656a7b50338322dfafc0b93205745bbbb1454ffa407d949"
+    },
+    {
+      "file": "src/features/chat/plugins/events/retrieval.ts",
+      "sha256": "1dbc0c803ca08aecde1e3211b65ebaf25f23d9e6c5037386f896c635a03a1449"
+    },
+    {
+      "file": "src/features/chat/plugins/events/thinking.ts",
+      "sha256": "6ad85344a44a3809b85e48dbf726ec9a006a19b27ffc39c4c19954cd4d51b694"
+    },
+    {
+      "file": "src/features/chat/plugins/events/toolCall.ts",
+      "sha256": "8f61980f2ca95731875b519a6e7a97216930138598bc07109118fd7e7eb81666"
+    },
+    {
+      "file": "src/features/chat/plugins/events/toolLimit.ts",
+      "sha256": "12c27fef595a3378e856f7ccda357c68963771d8f890250ffa5cee6a49f4ad1c"
+    },
+    {
+      "file": "src/features/chat/plugins/events/workspaceInjection.ts",
+      "sha256": "60417fc5d387003a27c12232187923873293890b7e6306bcb8259a209d88b44a"
+    },
+    {
+      "file": "src/features/chat/plugins/index.ts",
+      "sha256": "f4f202a0b017d64fae611de092096560cd6c320ff32c60763c0318bdc235954d"
+    },
+    {
+      "file": "src/features/chat/plugins/modes/analysis.ts",
+      "sha256": "b333a090a195c8785bf686eab8240f811046dfbf13f86674dddccc46d187fe72"
+    },
+    {
+      "file": "src/features/chat/plugins/modes/chat.ts",
+      "sha256": "0c222150cfffa61105ba38c08befb0a9c5eaba12958c418c8f3772c7ab48c349"
+    },
+    {
+      "file": "src/features/chat/plugins/modes/components/OcrProgress.tsx",
+      "sha256": "574c1027dbfadd7dca33b6573ce8e39f21a7651f6159575c98ba2eb1f0ee58a0"
+    },
+    {
+      "file": "src/features/chat/plugins/modes/components/OcrResultHeader.tsx",
+      "sha256": "e01e8d212e43b5a1e1337bb1d443d0daea541f3fca62d377c68b423154388096"
+    },
+    {
+      "file": "src/features/chat/plugins/modes/components/PageNavigator.tsx",
+      "sha256": "ee9f64ec44a917265731c71a7e41f76ad416c40738383b07563d07dad5567e1e"
+    },
+    {
+      "file": "src/features/chat/plugins/modes/components/index.ts",
+      "sha256": "39d77e56cad57207713022702b08c441ed88a951ef46e6041e1d2ac21b0cb2aa"
+    },
+    {
+      "file": "src/features/chat/plugins/modes/index.ts",
+      "sha256": "621a77988b5dc31ca8c5662ea526141442c3b0bb193f8f3bede590d9462b1d0f"
+    },
+    {
+      "file": "src/features/chat/plugins/modes/textbook.ts",
+      "sha256": "2f03a1457c2d31d13809d147a1ccd8031ca3d1da9591e4baa5b10994c85cbfd3"
+    },
+    {
+      "file": "src/features/chat/plugins/official.ts",
+      "sha256": "a20a711218f2293618b778076d4d5929a76e1abb3d71372d752bc20b1f0dd808"
+    },
+    {
+      "file": "src/ui-plugins/official/content/CommunityContentBoundary.tsx",
+      "sha256": "10c4eb4b2a3026139d5e38253b67e73bfa98cf4f1dfb889f66dfc8102618edff"
+    },
+    {
+      "file": "src/ui-plugins/official/content/entries.ts",
+      "sha256": "04d6c12f35a3a1480baf7062a0e6f336d13b77ae414aa61a220cc4ba56d58077"
+    },
+    {
+      "file": "src/ui-plugins/official/content/index.ts",
+      "sha256": "8f961083f1564367cc9a352ad7c295cddb10d3d38fb0c4998567426a3d4a255b"
+    },
+    {
+      "file": "src/ui-plugins/official/content/markdown.tsx",
+      "sha256": "f355a644837a217077383542d1baca6e5ea1be788c7b4a2fe236d4d6807a3407"
+    },
+    {
+      "file": "src/ui-plugins/official/content/menu.ts",
+      "sha256": "20d05d5b7d5a2c048a2f8d35929f8285d92c09f4694610e277353feee0fd7267"
+    },
+    {
+      "file": "src/ui-plugins/official/content/pipeline.ts",
+      "sha256": "50041d52512b9d345ae9d154d6e8de1c2019a914d19f633469e6e515ac4f777c"
+    }
+  ],
+  "bundleInputs": {
+    "total": 285,
+    "source": [
+      {
+        "file": "host/kernel/serde.ts",
+        "sha256": "e7a6eb0955ca9955165a0dd4d2e6afad65ffecf69b20a2e9f4a7b0be1c012f63"
+      },
+      {
+        "file": "host/platform/crypto/api.ts",
+        "sha256": "1790cc15eab7c4dfa5480515b7fd66cd4ec7eda400ad3bdc194c66f5a10f7d82"
+      },
+      {
+        "file": "host/platform/crypto/encoding.ts",
+        "sha256": "0d8c2be36e95c4bfb5eec89b336d18db12b243811acb5eda2a04337042dceab7"
+      },
+      {
+        "file": "host/platform/crypto/sync.ts",
+        "sha256": "9be6f4ac9513026a85cbcd9c6062942a997f04b054a5ad85d2d7e7dd3fdf7aec"
+      },
+      {
+        "file": "host/platform/serde-compat/api.ts",
+        "sha256": "bc3ba57713925ca49dd74824f82a3688822583fede637585b5c1347acdeec76d"
+      },
+      {
+        "file": "host/platform/serde-compat/contract.ts",
+        "sha256": "94751db022c28d973c2b25bddd383b2adf8ef2cd2ba9246e4e5eb9fc1c57446b"
+      },
+      {
+        "file": "host/platform/serde-compat/index.ts",
+        "sha256": "bf04f9722ddff7a1a16c79f0426794892d6ca1b13d51dad466658b784d9af255"
+      },
+      {
+        "file": "host/platform/serde-compat/number.ts",
+        "sha256": "c25f31bae74ccea023caea894a01656f34b96ec16fb091a200338f9533481364"
+      },
+      {
+        "file": "host/platform/serde-compat/schema.ts",
+        "sha256": "a6e4afb6e4e68d26e9f21ab9861f80dd44b6a0890f81a23f11d11ee67768e969"
+      },
+      {
+        "file": "host/platform/serde-compat/serialize.ts",
+        "sha256": "22c10ea05f152c75d5f958af202ec5fbbea8226a7a9831bc35db512758164f9b"
+      },
+      {
+        "file": "host/platform/time/index.ts",
+        "sha256": "10d68a041ac4fb086dfb52d26d7cc2d6866a00f27ea35c5a88002ab02dea4c82"
+      },
+      {
+        "file": "host/platform/util/f32-json.ts",
+        "sha256": "9ec81fee66d477712a09721f38608543a2f3665d7b72ee22863cb228c7d47223"
+      },
+      {
+        "file": "host/platform/util/json-exact.ts",
+        "sha256": "7d3c82d72388078004daef57e946a75f052f7c3f18330c3f9f0d2acbfe83ebe3"
+      },
+      {
+        "file": "host/platform/util/utf8.ts",
+        "sha256": "9c2f9e9465f2790b03123bba52f63a84c1f79b3a12725637fc65915855aaca0d"
+      },
+      {
+        "file": "src/components/crepe/plugins/callout/remark.ts",
+        "sha256": "c8bfb558df43e080010bd4a0c3d6c748ff5e8ebcaa822eae1ac8c1b021870d5a"
+      },
+      {
+        "file": "src/components/crepe/plugins/callout/types.ts",
+        "sha256": "9e17fe2b3b09460f531e8e230b3bcffbec619d1c0abe0375d7bd7644a0aa2f9a"
+      },
+      {
+        "file": "src/components/crepe/plugins/columns/format.ts",
+        "sha256": "7fde4bd7a12e428e498c0aa43751d8f586ba4dbabd383359f348f0e5624e9c8a"
+      },
+      {
+        "file": "src/components/crepe/plugins/columns/remark.ts",
+        "sha256": "2b27d55f203517d116830cb780f3d5ee226586c4f918949976314ff37c417e69"
+      },
+      {
+        "file": "src/components/crepe/plugins/inlineCards/scanner.ts",
+        "sha256": "a0cd0c096c274dc98e9e0229380f0d062064aaf6cc1f7f9909343466e6a7c8f7"
+      },
+      {
+        "file": "src/components/crepe/plugins/toggle/marker.ts",
+        "sha256": "ef8a1d54eeedf10941e1e270d07b45f2e7898c3a3f58c19050abdf58bf7abe24"
+      },
+      {
+        "file": "src/components/crepe/plugins/toggle/remark.ts",
+        "sha256": "a1c55dbdd99c2bf36afae358e7477b144003014ca7c5af63fa3535d144348c91"
+      },
+      {
+        "file": "src/components/crepe/plugins/wikilink/format.ts",
+        "sha256": "79ab8b3473a6226702c83d3ae99ab3cc3350bc63098e342d716c0c03c218debf"
+      },
+      {
+        "file": "src/components/crepe/plugins/wikilink/remark.ts",
+        "sha256": "da2c5ba678e0e93f99c8295b3f95b0c0fda313dce7079c7d588435f3ec27d815"
+      },
+      {
+        "file": "src/features/generative-ui/blockSchemas.ts",
+        "sha256": "afa166bd3de44e665462373b53862423ebd242a1e42d7bc70913b00b3c541c22"
+      },
+      {
+        "file": "src/features/generative-ui/registry.ts",
+        "sha256": "2a62fdc3cab5759b4d8f4bc876c6384974a2b4b99aa380404ef6ca5a3ad50c8b"
+      },
+      {
+        "file": "src/features/generative-ui/schema.ts",
+        "sha256": "0116d15815a335c75bd72d83535f6c8a0ae1394d16d3012fbc2d25c06a72de39"
+      },
+      {
+        "file": "src/features/generative-ui/utils/exportGenerativeUIJsonSchema.ts",
+        "sha256": "d8e9fffa93a88230ac9ade30307c011b5befa7ced7b00e1708eac249b134c470"
+      },
+      {
+        "file": "src/features/generative-ui/utils/extractResearchSessionId.ts",
+        "sha256": "864caf1636361c03d7915b981c106102fbcc8c1bf003ab4ebb58a7462d2576fd"
+      },
+      {
+        "file": "src/features/generative-ui/utils/sanitizeGenerativeText.ts",
+        "sha256": "be5884961cc14dcd8cbff41771b32de928b7daf8c4f4cf9d7cf6fe73bcf0651f"
+      },
+      {
+        "file": "src/features/generative-ui/utils/schemaToPromptHint.ts",
+        "sha256": "30b10c3c3826d0ee409523a6a1d5e9077281f92d65124d6ee3871bfe9803be60"
+      },
+      {
+        "file": "src/features/generative-ui/utils/streamBufferGuard.ts",
+        "sha256": "239620fb6c528bb50c9dce6c949ad17fef026a9e1b2cea1df25d5310c55a2e89"
+      },
+      {
+        "file": "src/services/ankiTemplateEngine.ts",
+        "sha256": "f8d7f7e830744578dfc92ca52794a2bc275fb50e17d29bb9048efabaa114b6e7"
+      },
+      {
+        "file": "src/shared/flashcard-projection/index.ts",
+        "sha256": "a0fe4f7beda3e322f28c159a053fb471de3288a5807782eb04f2a2e6c82afe8c"
+      },
+      {
+        "file": "src/shared/flashcard-projection/liveCardProjector.ts",
+        "sha256": "fab64a1a4ec70f3e5d749be6667b3de551aa5168383e95268c59bdbcc5f223e9"
+      },
+      {
+        "file": "src/ui-kernel/contracts/interop.ts",
+        "sha256": "5bee373adaffa47967ed338c25036a540a39265cb32ccaef43f0846269a0a950"
+      }
+    ],
+    "dependencySha256": "045ceab483f16682e36e9f0239b1b9361af6e703bd03ab5d513eb0a0a9bbbf35"
+  }
+}

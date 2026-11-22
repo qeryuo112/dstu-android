@@ -1,0 +1,31 @@
+{
+  "formatVersion": 1,
+  "unit": "S2.04",
+  "purpose": "coordinated portable_plugin_records physical DELETE trigger repair",
+  "anchor": {
+    "file": "config/schema/final-lock.json",
+    "sha256": "5fd1b3a4bd4288ce577c3f17677c9ca6accfab56c03a80130a8797baed5c08e8",
+    "sqlSetSha256": "a3c70a046b3d981c2ceba348ad9e7a14e3113d076925e6dbad50ccc67a6d2675"
+  },
+  "database": "vfs",
+  "before": {
+    "version": 20261117,
+    "fingerprint": "4370a412fa4d4dd7a23cf2308735f75c147ba30ab22329e7829a9bb1d56161d2",
+    "migrationCount": 75
+  },
+  "after": {
+    "version": 20261120,
+    "fingerprint": "7dec0d2ff3cf1c40cb15e73396c05cbcab925487661b3e09a69a6b1f30f8345b",
+    "migrationCount": 76
+  },
+  "scope": "unchanged from anchored final-lock managedSchema.names",
+  "migration": {
+    "database": "vfs",
+    "version": 20261120,
+    "name": "fix_plugin_delete_trigger",
+    "file": "config/schema/coordinated/vfs/V20261120__fix_plugin_delete_trigger.sql",
+    "bytes": 377,
+    "sha256": "ab988b2a4ca8bdd1b81bb577d95fda638a8c69324d603f7c8d4c3126956dbb1d",
+    "refineryChecksum": "17799307631992323381"
+  }
+}
