@@ -1,0 +1,72 @@
+{
+  "format": "dstu-evidence-index/v1",
+  "generatedAt": "2026-11-23T21:16:53.598Z",
+  "source": {
+    "repository": "dstu-android",
+    "ref": "0c89d9ed6662f89553c58e1cfe896959f2583abd",
+    "revision": "0c89d9ed6662f89553c58e1cfe896959f2583abd",
+    "selection": "worktree",
+    "entryCount": 4,
+    "trackedCount": 0,
+    "presentCount": 4,
+    "missingFromWorktree": []
+  },
+  "archive": {
+    "format": "tar.gz",
+    "root": "PRIVATE_ARTIFACT_ROOT",
+    "relativeLocation": "s2-20-22-v2232a-20261124/evidence.tar.gz",
+    "location": "PRIVATE_ARTIFACT_ROOT/s2-20-22-v2232a-20261124/evidence.tar.gz",
+    "size": 21673,
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "b4055506cbe249bd98325d7ad6a4e5211672697a7e519a19cba97093abdf7bf5"
+    },
+    "manifest": {
+      "relativeLocation": "s2-20-22-v2232a-20261124/manifest.json",
+      "location": "PRIVATE_ARTIFACT_ROOT/s2-20-22-v2232a-20261124/manifest.json",
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "0cfff238d7377f121c73f99cd0ab7acad5db4ebf14f12666db6a854ceb0f8d34"
+      }
+    }
+  },
+  "entries": [
+    {
+      "path": "logs/s220-22-frozen-s0-replay.log",
+      "size": 189776,
+      "sha256": "21f5d171e106285de802af48fe29d46b6c7b106a8f64e26c8143a280aa7b3ba5",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s220-22-v2232a-baseline.log",
+      "size": 21692,
+      "sha256": "b94634cb13e5cb572907d64ad7c0539572f2dd30b1cd0440e337ec97d18aa42b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s220-22-v2232a-final.log",
+      "size": 24951,
+      "sha256": "bbbe2ba222e7372dc988e1aa9e851a32ffbd3538041d95d98902f184bd09738f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s220-22-v2232a-same-candidate.log",
+      "size": 554,
+      "sha256": "e7e148ba6021b819e1c9518683d87792d3a70650c0d419a2de48506d7b22ab86",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    }
+  ],
+  "compatibility": {
+    "legacyPathPolicy": "Entries retain original logs/... paths; historical docs/config references are lookup keys, not tracked files.",
+    "localWrites": "logs/ is gitignored; existing tools may continue writing local evidence.",
+    "restoreCommand": "node tools/evidence/restore.mjs <logs/path>"
+  }
+}

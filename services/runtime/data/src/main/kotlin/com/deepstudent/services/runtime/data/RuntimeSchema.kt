@@ -2,25 +2,45 @@ package com.deepstudent.services.runtime.data
 
 import com.deepstudent.platform.database.SqlDatabase
 
+/**
+ * runtime.db layout versions:
+ * - v1: tasks + events.
+ * - v2: adds `runtime_tasks.confirmation_required`.
+ * - v3: adds the approval/audit/duty projections served by [SqlTaskLedger]'s RuntimeProjectionStore.
+ *
+ * A new file starts directly at v3; existing v1/v2 files are upgraded in place inside the same
+ * transaction, so a failed upgrade leaves the previous version untouched.
+ */
 internal object RuntimeSchema {
     fun initialize(database: SqlDatabase) {
         database.transaction {
             execute("CREATE TABLE IF NOT EXISTS runtime_schema (version INTEGER NOT NULL)")
             val versions = query("SELECT version FROM runtime_schema") { it.long(0) }
-            check(versions.isEmpty() || versions == listOf(1L) || versions == listOf(2L)) {
+            check(versions.isEmpty() || versions in SUPPORTED) {
                 "unsupported runtime database version"
             }
             if (versions.isEmpty()) {
                 execute(TASKS)
                 execute(EVENTS)
                 execute("CREATE INDEX runtime_events_task_cursor ON runtime_events(task_id, cursor)")
-                execute("INSERT INTO runtime_schema(version) VALUES (2)")
-            } else if (versions == listOf(1L)) {
-                execute("ALTER TABLE runtime_tasks ADD COLUMN confirmation_required INTEGER NOT NULL DEFAULT 0")
-                execute("UPDATE runtime_schema SET version = 2")
+                RuntimeProjectionSchema.create(this)
+                execute("INSERT INTO runtime_schema(version) VALUES (3)")
+            } else {
+                var version = versions.single()
+                if (version == 1L) {
+                    execute("ALTER TABLE runtime_tasks ADD COLUMN confirmation_required INTEGER NOT NULL DEFAULT 0")
+                    version = 2L
+                }
+                if (version == 2L) {
+                    RuntimeProjectionSchema.create(this)
+                    version = 3L
+                }
+                execute("UPDATE runtime_schema SET version = ?", listOf(integer(version)))
             }
         }
     }
+
+    private val SUPPORTED = listOf(listOf(1L), listOf(2L), listOf(3L))
 
     private val TASKS = """
         CREATE TABLE runtime_tasks (

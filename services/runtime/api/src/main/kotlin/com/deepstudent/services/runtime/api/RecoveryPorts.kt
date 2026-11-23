@@ -23,11 +23,14 @@ sealed interface RecoveryDecision {
     data object Interrupted : RecoveryDecision
     data object ConfirmationRequired : RecoveryDecision
     data object Resume : RecoveryDecision
+
+    /**
+     * Leaves an already gated task untouched: no execution, terminal projection or fabricated
+     * result. Recovery only releases its own claim, so `WAITING_APPROVAL`/`PAUSED` survive a
+     * restart exactly as the approval flow or the user left them.
+     */
+    data object KeepPaused : RecoveryDecision
 }
 
 /** Each task kind has exactly one authoritative business source and recovery handler. */
-data class RecoveryRegistration(
-    val kind: TaskKind,
-    val completionSource: BusinessCompletionSource,
-    val handler: RecoveryHandler,
-)
+data class RecoveryRegistration(val kind: TaskKind, val completionSource: BusinessCompletionSource, val handler: RecoveryHandler)

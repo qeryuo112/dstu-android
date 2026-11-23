@@ -1,0 +1,80 @@
+{
+  "format": "dstu-evidence-index/v1",
+  "generatedAt": "2026-11-23T14:55:06.991Z",
+  "source": {
+    "repository": "dstu-android",
+    "ref": "HEAD",
+    "revision": "958af12d86093e4e6ce94ee1f7f15b918aba2fe9",
+    "selection": "worktree",
+    "entryCount": 5,
+    "trackedCount": 0,
+    "presentCount": 5,
+    "missingFromWorktree": []
+  },
+  "archive": {
+    "format": "tar.gz",
+    "root": "PRIVATE_ARTIFACT_ROOT",
+    "relativeLocation": "s2-19-22-host-candidate-20261123/evidence.tar.gz",
+    "location": "PRIVATE_ARTIFACT_ROOT/s2-19-22-host-candidate-20261123/evidence.tar.gz",
+    "size": 41318,
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "6007db5df55ee5e6d88c1a424f36858458cb3390b161d0f595c127ac31bd77b9"
+    },
+    "manifest": {
+      "relativeLocation": "s2-19-22-host-candidate-20261123/manifest.json",
+      "location": "PRIVATE_ARTIFACT_ROOT/s2-19-22-host-candidate-20261123/manifest.json",
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "4a0dd5508190e43d15026ef5e9906a23c3032a86954c69c55b0682f0e14080ff"
+      }
+    }
+  },
+  "entries": [
+    {
+      "path": "logs/final-host.log",
+      "size": 198188,
+      "sha256": "8d482581a0c013c916652f022c9615a6aadca9c831ab258cc7271dc303ca4d92",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/final-repository.log",
+      "size": 9234,
+      "sha256": "c2a1deee878e1cd8d09f9784ff52ee85e0ebf40c51d1ad67bec004ad49caf299",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2-19-20-host.log",
+      "size": 20343,
+      "sha256": "62ac80fd35b3d0000462971962094fa0058d6294db8ccb889868e8449a2d82c2",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2-21-candidate-final.log",
+      "size": 81921,
+      "sha256": "ac6e5af3c8a2705588ba8ae4401467fdd5ed2269fb0a585e587a1afe4e1053f7",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2-22-host-stable.log",
+      "size": 83274,
+      "sha256": "1b5f6f9ae7f531159ec40ca09bd8ff331c6837e32fbe0da37790a1272d4c5ff8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    }
+  ],
+  "compatibility": {
+    "legacyPathPolicy": "Entries retain original logs/... paths; historical docs/config references are lookup keys, not tracked files.",
+    "localWrites": "logs/ is gitignored; existing tools may continue writing local evidence.",
+    "restoreCommand": "node tools/evidence/restore.mjs <logs/path>"
+  }
+}

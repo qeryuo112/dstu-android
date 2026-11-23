@@ -6,18 +6,18 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.deepstudent.services.backup.api.DomainAction
 import com.deepstudent.services.backup.api.RestoreProblemCode
 import com.deepstudent.services.backup.api.SnapshotKind
+import kotlinx.coroutines.runBlocking
+import org.junit.After
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
 import java.io.File
 import java.nio.file.Files
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
-import kotlinx.coroutines.runBlocking
-import org.junit.After
-import org.junit.Rule
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
-import org.junit.Test
-import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class BackupPreviewDeviceTest {
@@ -29,7 +29,9 @@ class BackupPreviewDeviceTest {
     private val scratch = Files.createTempDirectory(root.toPath(), "s210-").toFile()
     private val reader = SafBackupPreviewReader(context)
 
-    @After fun removeFixture() { check(scratch.deleteRecursively()) }
+    @After fun removeFixture() {
+        check(scratch.deleteRecursively())
+    }
 
     @Test fun fullDesktopV3HasPerDomainCoverageButDoesNotActivate(): Unit = runBlocking {
         val plan = reader.read(uri(zip("full")))
@@ -69,18 +71,23 @@ class BackupPreviewDeviceTest {
         assertFalse(plan.canSwitchSlot)
     }
 
-    private fun uri(file: File) = FileProvider.getUriForFile(context, "com.deepstudent.app.debug.documents", file)
+    private fun uri(file: File) = FileProvider.getUriForFile(context, "${context.packageName}.debug.documents", file)
 
     private fun zip(kind: String, changeVfs: Boolean = false, omitChat: Boolean = false): File {
         val source = instrumentation.context.assets.open("desktop-v3-$kind.json").use { it.readBytes() }
-        val entries = if (kind == "full") listOf("vfs", "llm_usage", "chat_v2", "mistakes")
-            .filterNot { it == "chat_v2" && omitChat }
-            .associate { "$it.db" to (if (it == "vfs" && changeVfs) "sQlite:vfs" else "sqlite:$it").toByteArray() }
-        else mapOf("vfs.db" to "sqlite:vfs".toByteArray(), "assets/vfs_blobs/ab/desktop.txt" to "desktop-asset".toByteArray())
+        val entries = if (kind == "full") {
+            listOf("vfs", "llm_usage", "chat_v2", "mistakes")
+                .filterNot { it == "chat_v2" && omitChat }
+                .associate { "$it.db" to (if (it == "vfs" && changeVfs) "sQlite:vfs" else "sqlite:$it").toByteArray() }
+        } else {
+            mapOf("vfs.db" to "sqlite:vfs".toByteArray(), "assets/vfs_blobs/ab/desktop.txt" to "desktop-asset".toByteArray())
+        }
         return File(scratch, "$kind.zip").also { file ->
             ZipOutputStream(file.outputStream()).use { stream ->
                 (entries + ("manifest.json" to source)).forEach { (name, bytes) ->
-                    stream.putNextEntry(ZipEntry(name)); stream.write(bytes); stream.closeEntry()
+                    stream.putNextEntry(ZipEntry(name))
+                    stream.write(bytes)
+                    stream.closeEntry()
                 }
             }
         }

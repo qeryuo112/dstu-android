@@ -56,3 +56,6 @@ android.sourceSets["androidTest"].java.srcDir("src/sharedTest/kotlin")
 val exitProbeSources = rootProject.layout.projectDirectory.dir("testing/android-process-exit/src")
 android.sourceSets["androidTest"].java.srcDir(exitProbeSources.dir("androidTest/java"))
 android.sourceSets["androidTest"].java.srcDir(exitProbeSources.dir("sharedTest/java"))
+
+// The app instrumentation runs this same WebDAV/password contract on Android.
+android.sourceSets["test"].java.srcDir("src/markerTest/kotlin")

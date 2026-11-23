@@ -72,7 +72,7 @@
     "verify:planning": "node tools/planning/verify-plan.mjs",
     "verify:progress": "node tools/evidence/replay.mjs tools/s1/progress.mjs",
     "verify:repository": "node tools/ci/modules.mjs && node tools/evidence/check-logs.mjs && node tools/planning/verify-plan.mjs && node tools/publication/verify.mjs",
-    "test:repository": "node --test tools/ci/*.test.mjs tools/evidence/*.test.mjs tools/publication/*.test.mjs tools/planning/*.test.mjs tools/s1/version.test.mjs tools/s1/instrument-config.test.mjs tools/s1/frozen-inputs.test.mjs",
+    "test:repository": "node --test tools/ci/*.test.mjs tools/evidence/*.test.mjs tools/publication/*.test.mjs tools/planning/*.test.mjs tools/s1/version.test.mjs tools/s1/instrument-config.test.mjs tools/s1/frozen-inputs.test.mjs tools/s2/s2-16-18-results.test.mjs",
     "quality": "node tools/s1/gradle.mjs qualityGate",
     "evidence:verify": "node tools/evidence/verify.mjs",
     "evidence:archive": "node tools/evidence/archive.mjs --source worktree --prune-worktree",

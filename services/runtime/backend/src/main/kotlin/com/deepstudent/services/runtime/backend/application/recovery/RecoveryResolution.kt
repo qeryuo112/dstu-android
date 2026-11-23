@@ -22,11 +22,15 @@ internal class RecoveryResolution(private val session: RecoverySession) {
         if (!session.attempt(RecoveryPhase.DECIDE, snapshot) {
                 decision = handler.decide(snapshot)
                 true
-            }) return false
+            }
+        ) {
+            return false
+        }
         return when (decision) {
             RecoveryDecision.Interrupted -> finish(snapshot, RuntimeState.INTERRUPTED)
             RecoveryDecision.ConfirmationRequired -> confirmation(snapshot)
             RecoveryDecision.Resume -> resume(snapshot)
+            RecoveryDecision.KeepPaused -> true
             null -> false
         }
     }
@@ -60,7 +64,9 @@ internal class RecoveryResolution(private val session: RecoverySession) {
     private suspend fun resume(snapshot: RuntimeSnapshot): Boolean {
         if (snapshot.execution.cancelRequested || snapshot.state == RuntimeState.PAUSED ||
             snapshot.state == RuntimeState.WAITING_APPROVAL
-        ) return false
+        ) {
+            return false
+        }
         val token = snapshot.leaseToken() ?: return false
         return session.attempt(RecoveryPhase.DECIDE, snapshot) {
             if (!session.actions.supervisor.startClaimed(snapshot, token)) return@attempt false

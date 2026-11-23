@@ -6,9 +6,14 @@ import com.deepstudent.core.common.logging.LogRecord
 import com.deepstudent.core.common.logging.Logger
 import com.deepstudent.core.common.time.WallClock
 import com.deepstudent.platform.database.DatabaseFactory
+import com.deepstudent.platform.database.SqlDatabase
 import com.deepstudent.services.runtime.api.BusinessCompletion
 import com.deepstudent.services.runtime.api.BusinessCompletionSource
+import com.deepstudent.services.runtime.api.RuntimeProjectionChange
+import com.deepstudent.services.runtime.api.RuntimeProjectionResult
+import com.deepstudent.services.runtime.api.RuntimeRecordKey
 import com.deepstudent.services.runtime.api.RuntimeState
+import com.deepstudent.services.runtime.api.RuntimeTaskGeneration
 import com.deepstudent.services.runtime.api.RuntimeTaskHandler
 import com.deepstudent.services.runtime.api.TaskCursor
 import com.deepstudent.services.runtime.api.TaskKind
@@ -23,11 +28,11 @@ import com.deepstudent.services.runtime.backend.TaskIdSource
 import com.deepstudent.services.runtime.backend.TaskSupervisor
 import com.deepstudent.services.runtime.backend.leaseToken
 import kotlinx.coroutines.CompletableDeferred
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
@@ -72,7 +77,9 @@ class SqlTaskLedgerTest {
                 val fact = BusinessCompletion("fact-1", task, 1, RuntimeState.COMPLETED, "receipt-1", now)
                 val staleFact = ledger.apply(task, LedgerCommand.Reconcile(fact, oldToken), now)
                 assertEquals(LedgerRejection.STALE_OWNER, (staleFact as LedgerResult.Rejected).reason)
-                assertTrue(ledger.apply(task, LedgerCommand.Reconcile(fact, requireNotNull(second.leaseToken())), now) is LedgerResult.Applied)
+                assertTrue(
+                    ledger.apply(task, LedgerCommand.Reconcile(fact, requireNotNull(second.leaseToken())), now) is LedgerResult.Applied,
+                )
                 assertTrue(ledger.apply(task, LedgerCommand.Reconcile(fact), now) is LedgerResult.Unchanged)
             }
             DatabaseFactory.openLocal(file).use { database ->
@@ -125,9 +132,9 @@ class SqlTaskLedgerTest {
         try {
             DatabaseFactory.openLocal(dir.resolve("runtime.db")).use { database ->
                 database.execute("CREATE TABLE runtime_schema (version INTEGER NOT NULL)")
-                database.execute("INSERT INTO runtime_schema(version) VALUES (3)")
+                database.execute("INSERT INTO runtime_schema(version) VALUES (4)")
                 assertTrue(runCatching { SqlTaskLedger(database) }.exceptionOrNull() is IllegalStateException)
-                assertEquals(3L, database.query("SELECT version FROM runtime_schema") { it.long(0) }.single())
+                assertEquals(4L, database.query("SELECT version FROM runtime_schema") { it.long(0) }.single())
             }
         } finally {
             dir.deleteRecursively()
@@ -139,6 +146,7 @@ class SqlTaskLedgerTest {
         val dir = Files.createTempDirectory("runtime-schema-upgrade").toFile()
         val file = dir.resolve("runtime.db")
         val task = TaskId.parse("upgrade")
+        var eventCursors = emptyList<TaskCursor>()
         try {
             DatabaseFactory.openLocal(file).use { database ->
                 val ledger = SqlTaskLedger(database)
@@ -147,15 +155,16 @@ class SqlTaskLedgerTest {
                 val token = requireNotNull(claim.snapshot.leaseToken())
                 ledger.apply(task, LedgerCommand.Transition(token, RuntimeState.RUNNING), now)
                 ledger.apply(task, LedgerCommand.Checkpoint(token, JsonValue.text("partial")), now)
-                database.execute("ALTER TABLE runtime_tasks DROP COLUMN confirmation_required")
-                database.execute("UPDATE runtime_schema SET version = 1")
+                eventCursors = ledger.events(task, TaskCursor.ZERO).map { it.cursor }
+                downgradeToVersionOne(database)
             }
             DatabaseFactory.openLocal(file).use { database ->
                 val ledger = SqlTaskLedger(database)
-                assertEquals(2L, database.query("SELECT version FROM runtime_schema") { it.long(0) }.single())
+                assertEquals(3L, database.query("SELECT version FROM runtime_schema") { it.long(0) }.single())
                 val before = requireNotNull(ledger.snapshot(task))
                 assertFalse(before.execution.confirmationRequired)
                 assertEquals(JsonValue.text("partial"), before.execution.checkpoint)
+                assertEquals(eventCursors, ledger.events(task, TaskCursor.ZERO).map { it.cursor })
                 val token = requireNotNull(before.leaseToken())
                 val result = ledger.apply(task, LedgerCommand.RequireConfirmation(token), now) as LedgerResult.Applied
                 assertEquals(RuntimeState.PAUSED, result.snapshot.state)
@@ -168,6 +177,68 @@ class SqlTaskLedgerTest {
                 assertEquals("CONFIRMATION_REQUIRED", ledger.events(task, TaskCursor.ZERO).last().type.name)
                 val rejected = ledger.apply(task, LedgerCommand.Claim("worker", now.plusSeconds(30)), now) as LedgerResult.Rejected
                 assertEquals(LedgerRejection.CONFIRMATION_REQUIRED, rejected.reason)
+            }
+        } finally {
+            dir.deleteRecursively()
+        }
+    }
+
+    @Test
+    fun versionTwoAddsProjectionsAndKeepsEventCursors() = runBlocking {
+        val dir = Files.createTempDirectory("runtime-v2-upgrade").toFile()
+        val file = dir.resolve("runtime.db")
+        val task = TaskId.parse("v2-upgrade")
+        var eventCursors = emptyList<TaskCursor>()
+        try {
+            DatabaseFactory.openLocal(file).use { database ->
+                val ledger = SqlTaskLedger(database)
+                ledger.create(task, TaskSubmission(kind), now)
+                eventCursors = ledger.events(task, TaskCursor.ZERO).map { it.cursor }
+                downgradeToVersionTwo(database)
+                assertTrue(
+                    runCatching {
+                        database.query("SELECT count(*) FROM runtime_approvals") { it.long(0) }
+                    }.exceptionOrNull() != null,
+                )
+            }
+            DatabaseFactory.openLocal(file).use { database ->
+                val ledger = SqlTaskLedger(database)
+                assertEquals(3L, database.query("SELECT version FROM runtime_schema") { it.long(0) }.single())
+                assertEquals(eventCursors, ledger.events(task, TaskCursor.ZERO).map { it.cursor })
+                assertEquals(0L, database.query("SELECT count(*) FROM runtime_audit") { it.long(0) }.single())
+                val snapshot = requireNotNull(ledger.snapshot(task))
+                val applied = ledger.apply(
+                    RuntimeTaskGeneration(task, snapshot.ownership.generation),
+                    RuntimeProjectionChange.RequestApproval(
+                        RuntimeRecordKey.parse("approval-v2"),
+                        RuntimeRecordKey.parse("operation-v2"),
+                    ),
+                    now,
+                )
+                assertEquals(RuntimeProjectionResult.APPLIED, applied)
+            }
+        } finally {
+            dir.deleteRecursively()
+        }
+    }
+
+    @Test
+    fun failedProjectionUpgradeRollsBackToPreviousVersion() {
+        val dir = Files.createTempDirectory("runtime-v2-rollback").toFile()
+        val file = dir.resolve("runtime.db")
+        try {
+            DatabaseFactory.openLocal(file).use { database ->
+                SqlTaskLedger(database)
+                downgradeToVersionTwo(database)
+                // A table with the projected name but an incompatible shape makes the v3 DDL fail
+                // after it has already added the earlier tables inside the same transaction.
+                database.execute("CREATE TABLE runtime_approvals (placeholder INTEGER NOT NULL)")
+                assertTrue(runCatching { SqlTaskLedger(database) }.exceptionOrNull() != null)
+                assertEquals(2L, database.query("SELECT version FROM runtime_schema") { it.long(0) }.single())
+                assertTrue(
+                    database.query("SELECT count(*) FROM sqlite_master WHERE type = 'table' AND name = 'runtime_audit'") { it.long(0) }
+                        .single() == 0L,
+                )
             }
         } finally {
             dir.deleteRecursively()
@@ -188,15 +259,34 @@ class SqlTaskLedgerTest {
                 val clock = WallClock { now }
                 val handler = RuntimeTaskHandler { context, payload ->
                     when ((payload as JsonValue.Text).value) {
-                        "complete" -> { entered.complete(Unit); finish.await(); context.checkpoint(JsonValue.text("saved")) }
+                        "complete" -> {
+                            entered.complete(Unit)
+                            finish.await()
+                            context.checkpoint(JsonValue.text("saved"))
+                        }
+
                         "fail" -> throw IllegalStateException(failure)
+
                         "cancel" -> CompletableDeferred<Unit>().await()
                     }
                 }
-                val logger = object : Logger { override fun log(record: LogRecord) { logs.add(record) } }
-                val supervisor = TaskSupervisor(scope, ledger, LeaseManager(ledger, clock, "app", Duration.ofMinutes(10)), HandlerRegistry(mapOf(kind to handler)), clock, logger)
+                val logger = object : Logger {
+                    override fun log(record: LogRecord) {
+                        logs.add(record)
+                    }
+                }
+                val supervisor =
+                    TaskSupervisor(
+                        scope,
+                        ledger,
+                        LeaseManager(ledger, clock, "app", Duration.ofMinutes(10)),
+                        HandlerRegistry(mapOf(kind to handler)),
+                        clock,
+                        logger,
+                    )
                 val ids = AtomicInteger()
-                val controller = RuntimeController(ledger, supervisor, TaskIdSource { TaskId.parse("task-${ids.incrementAndGet()}") }, clock, 5)
+                val controller =
+                    RuntimeController(ledger, supervisor, TaskIdSource { TaskId.parse("task-${ids.incrementAndGet()}") }, clock, 5)
                 val completed = controller.submit(TaskSubmission(kind, JsonValue.text("complete"), dedupeKey = "same"))
                 entered.await()
                 val observer = launch { controller.observe(completed.taskId, null).first() }
@@ -232,8 +322,20 @@ class SqlTaskLedgerTest {
                 val ledger = SqlTaskLedger(database)
                 val clock = WallClock { Instant.now() }
                 val handler = RuntimeTaskHandler { _, _ -> delay(350) }
-                val logger = object : Logger { override fun log(record: LogRecord) { error("private logger error") } }
-                val supervisor = TaskSupervisor(scope, ledger, LeaseManager(ledger, clock, "app", Duration.ofMillis(150)), HandlerRegistry(mapOf(kind to handler)), clock, logger)
+                val logger = object : Logger {
+                    override fun log(record: LogRecord) {
+                        error("private logger error")
+                    }
+                }
+                val supervisor =
+                    TaskSupervisor(
+                        scope,
+                        ledger,
+                        LeaseManager(ledger, clock, "app", Duration.ofMillis(150)),
+                        HandlerRegistry(mapOf(kind to handler)),
+                        clock,
+                        logger,
+                    )
                 val controller = RuntimeController(ledger, supervisor, TaskIdSource { TaskId.parse("renew") }, clock, 5)
                 val task = controller.submit(TaskSubmission(kind))
                 awaitState(controller, task.taskId, RuntimeState.COMPLETED)
@@ -255,8 +357,13 @@ class SqlTaskLedgerTest {
                 val clock = WallClock { now }
                 val acknowledged = CompletableDeferred<String>()
                 val source = object : BusinessCompletionSource {
-                    override suspend fun find(taskId: TaskId, generation: Long): BusinessCompletion? =
-                        if (taskId.value == "with-fact") BusinessCompletion("fact-1", taskId, generation, RuntimeState.COMPLETED, "receipt", now) else null
+                    override suspend fun find(taskId: TaskId, generation: Long): BusinessCompletion? = if (taskId.value ==
+                        "with-fact"
+                    ) {
+                        BusinessCompletion("fact-1", taskId, generation, RuntimeState.COMPLETED, "receipt", now)
+                    } else {
+                        null
+                    }
                     override suspend fun pending(consumerId: String, limit: Int): List<BusinessCompletion> = emptyList()
                     override suspend fun acknowledge(consumerId: String, factId: String) {
                         assertEquals("runtime.recovery", consumerId)
@@ -267,8 +374,11 @@ class SqlTaskLedgerTest {
                 val completed = CompletableDeferred<Unit>()
                 val handler = RuntimeTaskHandler { _, _ -> completed.complete(Unit) }
                 val registry = HandlerRegistry(mapOf(kind to handler), mapOf(kind to source))
-                val logger = object : Logger { override fun log(record: LogRecord) = Unit }
-                val supervisor = TaskSupervisor(scope, ledger, LeaseManager(ledger, clock, "app", Duration.ofSeconds(30)), registry, clock, logger)
+                val logger = object : Logger {
+                    override fun log(record: LogRecord) = Unit
+                }
+                val supervisor =
+                    TaskSupervisor(scope, ledger, LeaseManager(ledger, clock, "app", Duration.ofSeconds(30)), registry, clock, logger)
                 val first = RuntimeController(ledger, supervisor, TaskIdSource { TaskId.parse("with-fact") }, clock, 5)
                 val task = first.submit(TaskSubmission(kind))
                 awaitState(first, task.taskId, RuntimeState.COMPLETED)
@@ -307,10 +417,16 @@ class SqlTaskLedgerTest {
                     override suspend fun pending(consumerId: String, limit: Int): List<BusinessCompletion> = emptyList()
                     override suspend fun acknowledge(consumerId: String, factId: String) = Unit
                 }
-                val handler = RuntimeTaskHandler { _, _ -> entered.complete(Unit); CompletableDeferred<Unit>().await() }
-                val logger = object : Logger { override fun log(record: LogRecord) = Unit }
+                val handler = RuntimeTaskHandler { _, _ ->
+                    entered.complete(Unit)
+                    CompletableDeferred<Unit>().await()
+                }
+                val logger = object : Logger {
+                    override fun log(record: LogRecord) = Unit
+                }
                 val registry = HandlerRegistry(mapOf(kind to handler), mapOf(kind to source))
-                val supervisor = TaskSupervisor(scope, ledger, LeaseManager(ledger, clock, "app", Duration.ofSeconds(30)), registry, clock, logger)
+                val supervisor =
+                    TaskSupervisor(scope, ledger, LeaseManager(ledger, clock, "app", Duration.ofSeconds(30)), registry, clock, logger)
                 val controller = RuntimeController(ledger, supervisor, TaskIdSource { TaskId.parse("cancel-fact") }, clock, 5)
                 val task = controller.submit(TaskSubmission(kind))
                 entered.await()
@@ -340,8 +456,26 @@ class SqlTaskLedgerTest {
                 ledger.create(taskId, TaskSubmission(kind), now)
                 val claim = ledger.apply(taskId, LedgerCommand.Claim("recovery", now.plusSeconds(30)), now) as LedgerResult.Applied
                 val token = requireNotNull(claim.snapshot.leaseToken())
-                val logger = object : Logger { override fun log(record: LogRecord) = Unit }
-                val supervisor = TaskSupervisor(scope, ledger, LeaseManager(ledger, clock, "app", Duration.ofSeconds(30)), HandlerRegistry(mapOf(kind to RuntimeTaskHandler { _, _ -> })), clock, logger)
+                val logger = object : Logger {
+                    override fun log(record: LogRecord) = Unit
+                }
+                val supervisor =
+                    TaskSupervisor(
+                        scope,
+                        ledger,
+                        LeaseManager(ledger, clock, "app", Duration.ofSeconds(30)),
+                        HandlerRegistry(
+                            mapOf(
+                                kind to RuntimeTaskHandler {
+                                        _,
+                                        _,
+                                    ->
+                                },
+                            ),
+                        ),
+                        clock,
+                        logger,
+                    )
                 val controller = RuntimeController(ledger, supervisor, TaskIdSource { TaskId.parse("unused") }, clock, 5)
                 assertTrue(supervisor.startClaimed(claim.snapshot, token))
                 awaitState(controller, taskId, RuntimeState.COMPLETED)
@@ -358,5 +492,27 @@ class SqlTaskLedgerTest {
         withTimeout(5000) {
             while (controller.snapshot(taskId)?.state != state) delay(5)
         }
+    }
+
+    /**
+     * Rebuilds a v1 fixture from the current schema. Projection tables are dropped child-first,
+     * because runtime_approvals/runtime_duties reference runtime_audit, which references
+     * runtime_events; leaving any of them behind would make the v3 DDL collide instead of migrate.
+     */
+    private fun downgradeToVersionOne(database: SqlDatabase) {
+        dropProjectionTables(database)
+        database.execute("ALTER TABLE runtime_tasks DROP COLUMN confirmation_required")
+        database.execute("UPDATE runtime_schema SET version = 1")
+    }
+
+    private fun downgradeToVersionTwo(database: SqlDatabase) {
+        dropProjectionTables(database)
+        database.execute("UPDATE runtime_schema SET version = 2")
+    }
+
+    private fun dropProjectionTables(database: SqlDatabase) {
+        database.execute("DROP TABLE IF EXISTS runtime_approvals")
+        database.execute("DROP TABLE IF EXISTS runtime_duties")
+        database.execute("DROP TABLE IF EXISTS runtime_audit")
     }
 }

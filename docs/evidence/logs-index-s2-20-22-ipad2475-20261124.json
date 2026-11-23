@@ -1,0 +1,168 @@
+{
+  "format": "dstu-evidence-index/v1",
+  "generatedAt": "2026-11-23T21:00:25.635Z",
+  "source": {
+    "repository": "dstu-android",
+    "ref": "3afa07525bb7dd3b321305a54ef4924eeba120d5",
+    "revision": "3afa07525bb7dd3b321305a54ef4924eeba120d5",
+    "selection": "worktree",
+    "entryCount": 16,
+    "trackedCount": 0,
+    "presentCount": 16,
+    "missingFromWorktree": []
+  },
+  "archive": {
+    "format": "tar.gz",
+    "root": "PRIVATE_ARTIFACT_ROOT",
+    "relativeLocation": "s2-20-22-ipad2475-20261124/evidence.tar.gz",
+    "location": "PRIVATE_ARTIFACT_ROOT/s2-20-22-ipad2475-20261124/evidence.tar.gz",
+    "size": 29171,
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "c63a2f9a5edb817f784046543fd097ca8d5bdcc062563e215dab629a7f36c57d"
+    },
+    "manifest": {
+      "relativeLocation": "s2-20-22-ipad2475-20261124/manifest.json",
+      "location": "PRIVATE_ARTIFACT_ROOT/s2-20-22-ipad2475-20261124/manifest.json",
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "ec86848ea0700ebba96118161230ab7d9e69fdfe1c45ec7e34b71c42d6fda59a"
+      }
+    }
+  },
+  "entries": [
+    {
+      "path": "logs/s220-22-app-DeviceTrace.kt",
+      "size": 3055,
+      "sha256": "ef59624646356d8fd92a0e6ab7051a257764b4b5667795229179d7489ca0be5e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s220-22-app-LeaseRaceDeviceTest.kt",
+      "size": 3306,
+      "sha256": "00097b160e7fda2eed266af7a9bd738c652dac2520ce8f9c9a1844e7bf598408",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s220-22-app-OutboxProcessDeviceTest.kt",
+      "size": 10131,
+      "sha256": "751afdd62a3865d3c6d127f33bde95c46b660ee647a220798b2bbc97de593ae6",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s220-22-app-StartupRecoveryProcessDeviceTest.kt",
+      "size": 9471,
+      "sha256": "cd683f093177507b22c04b2f59a69e2be1906a50274dabc230859a23963b3314",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s220-22-baseline-apk-sha256.txt",
+      "size": 336,
+      "sha256": "4f0e87cf20c41e248d07bdfa5263593d17bc6b85dc3600210af4800ce6862cc2",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s220-22-baseline-run.sh",
+      "size": 6972,
+      "sha256": "53e64684d3c6f7adbcb69b2e6ee4050536ad3537c6e30673f79c19bd8f87794a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s220-22-debug-LeaseRaceFixture.kt",
+      "size": 7459,
+      "sha256": "7134ace13552ebe18d390345a5176ed3d31391b054d4d3b44717bd469c0eff9c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s220-22-debug-manifest.xml",
+      "size": 1800,
+      "sha256": "c9da4d2c482e3552f10766c949656bd96434488a83bb324189333bc9015a0ef4",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s220-22-final-apk-sha256.txt",
+      "size": 171,
+      "sha256": "840bf01c7ac024c39ab67950eed83fb116d549ea2950a4c4562932d6b86ab0fe",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s220-22-final-run.sh",
+      "size": 8721,
+      "sha256": "d83e1103dbdde4594a1eebfa96e6e1bc25759a6a190e8d066057705f40e7b8d2",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s220-22-ipad2475-apk-check.log",
+      "size": 1489,
+      "sha256": "fc1861c2e08686a73e8299c3e844bae9136263578954647ffbd3bc60e47c3c45",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s220-22-ipad2475-baseline.log",
+      "size": 21696,
+      "sha256": "6f33e76e58f12aea20215b70292b919062e030f5ef8476d757f4943d247d0c8b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s220-22-ipad2475-build.log",
+      "size": 99248,
+      "sha256": "280faa1bd1f24ec6de2385cd7987412f8229cc09b647403814bb51da45f9fce7",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s220-22-ipad2475-final.log",
+      "size": 24890,
+      "sha256": "2a7a324731c57b2f237ffdae038cd2755b92360069adf466dfb88320b4ffb6d8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s220-22-ipad2475-ui-cleanup-timeout.log",
+      "size": 1718,
+      "sha256": "45f0af2957a07522be374193e05187e77c1d5d9fde7a96fa7f18a5b557451d9b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s220-22-tablet-tests.init.gradle",
+      "size": 640,
+      "sha256": "007846661c3671ece78e3d7a2c8b368b4da9ea23b9234629d40f35d7da2669a9",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    }
+  ],
+  "compatibility": {
+    "legacyPathPolicy": "Entries retain original logs/... paths; historical docs/config references are lookup keys, not tracked files.",
+    "localWrites": "logs/ is gitignored; existing tools may continue writing local evidence.",
+    "restoreCommand": "node tools/evidence/restore.mjs <logs/path>"
+  }
+}

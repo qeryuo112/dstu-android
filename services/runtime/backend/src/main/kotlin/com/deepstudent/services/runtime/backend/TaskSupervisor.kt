@@ -6,18 +6,18 @@ import com.deepstudent.core.common.json.JsonValue
 import com.deepstudent.core.common.logging.LogLevel
 import com.deepstudent.core.common.logging.LogRecord
 import com.deepstudent.core.common.logging.Logger
-import com.deepstudent.core.common.time.WallClock
+import com.deepstudent.core.common.time.ClockChecks
 import com.deepstudent.core.common.time.MonotonicClock
 import com.deepstudent.core.common.time.SystemMonotonicClock
-import com.deepstudent.core.common.time.ClockChecks
+import com.deepstudent.core.common.time.WallClock
 import com.deepstudent.services.runtime.api.RuntimeSnapshot
 import com.deepstudent.services.runtime.api.RuntimeState
 import com.deepstudent.services.runtime.api.RuntimeTaskContext
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.SupervisorJob
@@ -26,10 +26,10 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.util.concurrent.ConcurrentHashMap
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
+import java.util.concurrent.ConcurrentHashMap
 
 /** Owned by the application scope. Each task has its own supervisor and cancellation. */
 class TaskSupervisor(
@@ -65,6 +65,7 @@ class TaskSupervisor(
 
     /** Transfers an existing recovery claim into the application-owned supervisor. */
     suspend fun startClaimed(snapshot: RuntimeSnapshot, token: LeaseToken): Boolean {
+        if (token.recoveryOnly) return false
         if (snapshot.state.terminal || snapshot.execution.confirmationRequired || snapshot.leaseToken() != token) return false
         val slot = TaskSlot()
         if (jobs.putIfAbsent(snapshot.taskId, slot) != null) return false
@@ -142,13 +143,7 @@ class TaskSupervisor(
         }
     }
 
-    private suspend fun complete(
-        snapshot: RuntimeSnapshot,
-        token: LeaseToken,
-        state: RuntimeState,
-        error: DstuError?,
-        started: Long,
-    ) {
+    private suspend fun complete(snapshot: RuntimeSnapshot, token: LeaseToken, state: RuntimeState, error: DstuError?, started: Long) {
         try {
             val outcome = completion.finish(snapshot, token, state, error)
             log(snapshot, outcome.state, outcome.event, started)

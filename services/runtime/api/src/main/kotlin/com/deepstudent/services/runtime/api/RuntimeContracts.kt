@@ -8,18 +8,21 @@ import java.time.Instant
 
 /** Local execution lifecycle. This is not the frozen wire [TaskStatus]. */
 enum class RuntimeState {
-    CREATED, RUNNING, WAITING_APPROVAL, PAUSED, COMPLETED, FAILED, CANCELLED, INTERRUPTED;
+    CREATED,
+    RUNNING,
+    WAITING_APPROVAL,
+    PAUSED,
+    COMPLETED,
+    FAILED,
+    CANCELLED,
+    INTERRUPTED,
+    ;
 
     val terminal: Boolean
         get() = this == COMPLETED || this == FAILED || this == CANCELLED || this == INTERRUPTED
 }
 
-data class RuntimeOwnership(
-    val generation: Long,
-    val ownerEpoch: Long,
-    val ownerId: String?,
-    val leaseUntil: Instant?,
-)
+data class RuntimeOwnership(val generation: Long, val ownerEpoch: Long, val ownerId: String?, val leaseUntil: Instant?)
 
 data class RuntimeExecution(
     val checkpoint: JsonValue?,
@@ -44,7 +47,16 @@ data class RuntimeSnapshot(
 }
 
 enum class RuntimeEventType {
-    CREATED, STATE_CHANGED, CANCEL_REQUESTED, CHECKPOINT, LEASE_CHANGED, RECONCILED, CONFIRMATION_REQUIRED,
+    CREATED,
+    STATE_CHANGED,
+    CANCEL_REQUESTED,
+    CHECKPOINT,
+    LEASE_CHANGED,
+    RECONCILED,
+    CONFIRMATION_REQUIRED,
+
+    /** A local approval/audit/duty row changed; the payload is never stored in runtime_events. */
+    PROJECTION_CHANGED,
 }
 
 /** Cursor is globally ordered in runtime.db; query and observation still filter by task. */

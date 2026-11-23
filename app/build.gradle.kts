@@ -9,6 +9,8 @@ val releaseIdentity = providers.exec {
     commandLine("node", rootProject.file("tools/s1/version.mjs"), providers.gradleProperty("dstu.version").get())
 }.standardOutput.asText.get().trim().split(":")
 val benchmarkApp = providers.gradleProperty("dstu.benchmarkApp").orNull == "true"
+val remediationApp = providers.gradleProperty("dstu.remediationApp").orNull == "true"
+check(!benchmarkApp || !remediationApp) { "Select only one isolated app variant" }
 
 // Only a protected CI job supplies these values. Never use the debug key as a release fallback.
 val releaseSigningEnvironment = listOf(
@@ -32,6 +34,10 @@ android {
             keyPassword = releaseSigningEnvironment["DSTU_RELEASE_KEY_PASSWORD"]
         }
         buildTypes.named("release") { signingConfig = ciSigning }
+    }
+    if (remediationApp) {
+        // Device acceptance must never replace the installed app or share its files/Keystore UID.
+        buildTypes.named("debug") { applicationIdSuffix = ".s2device" }
     }
     namespace = "com.deepstudent.app"
     defaultConfig {
@@ -168,3 +174,7 @@ configurations.configureEach {
         exclude(group = "androidx.sqlite", module = "sqlite-android")
     }
 }
+
+android.sourceSets["test"].java.srcDir("src/sharedTest/kotlin")
+android.sourceSets["androidTest"].java.srcDir("src/sharedTest/kotlin")
+android.sourceSets["androidTest"].java.srcDir(project(":services:sync:data").file("src/markerTest/kotlin"))

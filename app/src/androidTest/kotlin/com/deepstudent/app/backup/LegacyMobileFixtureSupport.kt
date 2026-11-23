@@ -13,20 +13,23 @@ import com.deepstudent.platform.database.DatabaseRegistry
 import com.deepstudent.platform.database.SharedDatabase
 import com.deepstudent.platform.database.SqlValue
 import com.deepstudent.services.backup.api.RestorePlan
+import org.json.JSONArray
+import org.json.JSONObject
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotEquals
+import org.junit.Assert.assertNull
 import java.io.File
 import java.nio.file.Files
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 import java.util.zip.ZipOutputStream
-import org.json.JSONArray
-import org.json.JSONObject
-import org.junit.Assert.*
 
 /** Each test owns its own files, databases, queue and DataSpace, but uses the real resolver/provider. */
 internal class LegacyMobileFixtureSupport : AutoCloseable {
     private val runner = InstrumentationRegistry.getInstrumentation()
     private val base = runner.targetContext
-    private val root = File(base.cacheDir, "s210-preview-fixtures").apply { mkdirs() }
+    private val root = File(base.cacheDir.canonicalFile, "s210-preview-fixtures").apply { mkdirs() }
     val scratch: File = Files.createTempDirectory(root.toPath(), "s212-legacy-").toFile()
     val target: Context = object : ContextWrapper(base) {
         private val directory = scratch.resolve("target").apply { mkdir() }
@@ -49,7 +52,7 @@ internal class LegacyMobileFixtureSupport : AutoCloseable {
         return destination
     }
 
-    fun uri(file: File): Uri = FileProvider.getUriForFile(base, "com.deepstudent.app.debug.documents", file)
+    fun uri(file: File): Uri = FileProvider.getUriForFile(base, "${base.packageName}.debug.documents", file)
 
     suspend fun seedLocalState(): LegacyLocalState {
         val noteAndRoot = MainStorageResources.open(target).use { storage ->
@@ -84,8 +87,10 @@ internal class LegacyMobileFixtureSupport : AutoCloseable {
         }
         assertEquals("local-only", state.root.resolve("local-state.txt").readText())
         DatabaseRegistry.openShared(state.root.resolve("databases/vfs.db"), SharedDatabase.VFS, BundledMigrationSource(target)).use { db ->
-            val old = db.query("SELECT r.data FROM notes n JOIN resources r ON r.id=n.resource_id WHERE n.id=?",
-                listOf(SqlValue.Text(state.noteId))) { it.text(0) }
+            val old = db.query(
+                "SELECT r.data FROM notes n JOIN resources r ON r.id=n.resource_id WHERE n.id=?",
+                listOf(SqlValue.Text(state.noteId)),
+            ) { it.text(0) }
             assertEquals(listOf("old device data"), old)
         }
         assertEquals("keep-installation", target.noBackupFilesDir.resolve("local-installation.txt").readText())
@@ -107,7 +112,11 @@ internal class LegacyMobileFixtureSupport : AutoCloseable {
 
     /** Produces a negative test ZIP only; originals remain byte-for-byte frozen assets. */
     fun alterArchive(
-        source: File, name: String, omitBlob: Boolean = false, sourceVersion: Long? = null, corruptBlob: Boolean = false,
+        source: File,
+        name: String,
+        omitBlob: Boolean = false,
+        sourceVersion: Long? = null,
+        corruptBlob: Boolean = false,
     ): File {
         val destination = scratch.resolve(name)
         ZipFile(source).use { zip ->
@@ -124,11 +133,13 @@ internal class LegacyMobileFixtureSupport : AutoCloseable {
                     when {
                         entry.name == "manifest.json" && (omitBlob || sourceVersion != null) ->
                             out.write(manifest.toString().toByteArray(Charsets.UTF_8))
+
                         entry.name == blobPath && corruptBlob -> {
                             val bytes = zip.getInputStream(entry).use { it.readBytes() }
                             bytes[0] = (bytes[0].toInt() xor 1).toByte()
                             out.write(bytes)
                         }
+
                         else -> zip.getInputStream(entry).use { it.copyTo(out) }
                     }
                     out.closeEntry()
@@ -157,7 +168,9 @@ internal class LegacyMobileFixtureSupport : AutoCloseable {
         return file
     }
 
-    override fun close() { check(scratch.deleteRecursively()) }
+    override fun close() {
+        check(scratch.deleteRecursively())
+    }
 }
 
 internal data class LegacyLocalState(val noteId: String, val root: File)

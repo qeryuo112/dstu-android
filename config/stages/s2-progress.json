@@ -363,6 +363,140 @@
         "logs/s2-15-audit-main-tablet.log",
         "logs/s2-15-audit-main-phone.log"
       ]
+    },
+    {
+      "id": "S2.16",
+      "card": "S2.16/remediation/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-23T16:54:51+08:00",
+      "dependsOn": [
+        "S2.15",
+        "S2.05",
+        "S2.11",
+        "S1.G"
+      ],
+      "review": "docs/handoff-s2.md",
+      "evidence": [
+        "logs/s2-16-18-ipad2475-receipt.json",
+        "logs/s2-16-18-v2232a-receipt.json",
+        "logs/s2-16-18-ipad2475-s216.log",
+        "logs/s2-16-18-v2232a-s216.log"
+      ]
+    },
+    {
+      "id": "S2.17",
+      "card": "S2.17/remediation/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-23T16:54:51+08:00",
+      "dependsOn": [
+        "S2.16",
+        "S2.08",
+        "S2.14",
+        "S1.G"
+      ],
+      "review": "docs/handoff-s2.md",
+      "evidence": [
+        "logs/s2-16-18-ipad2475-receipt.json",
+        "logs/s2-16-18-v2232a-receipt.json",
+        "logs/s2-16-18-ipad2475-s217.log",
+        "logs/s2-16-18-v2232a-s217.log"
+      ]
+    },
+    {
+      "id": "S2.18",
+      "card": "S2.18/remediation/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-23T16:54:51+08:00",
+      "dependsOn": [
+        "S2.17",
+        "S2.13",
+        "S1.24",
+        "S1.26",
+        "S1.G"
+      ],
+      "review": "docs/handoff-s2.md",
+      "evidence": [
+        "logs/s2-16-18-ipad2475-receipt.json",
+        "logs/s2-16-18-v2232a-receipt.json",
+        "logs/s2-16-18-ipad2475-s218.log",
+        "logs/s2-16-18-v2232a-s218.log"
+      ]
+    },
+    {
+      "id": "S2.19",
+      "card": "S2.19/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-24T04:32:19+08:00",
+      "dependsOn": [
+        "S1.08",
+        "S2.01",
+        "S2.18",
+        "S1.G"
+      ],
+      "review": "docs/handoff-s2.md",
+      "evidence": [
+        "logs/s219-22-ipa2475-ledger.log",
+        "logs/s219-22-v2232a-ledger.log",
+        "logs/s219-22-ipa2475-restart.log",
+        "logs/s219-22-v2232a-restart.log"
+      ]
+    },
+    {
+      "id": "S2.20",
+      "card": "S2.20/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-24T05:21:45+08:00",
+      "dependsOn": [
+        "S2.19",
+        "S1.G"
+      ],
+      "scope": "任务租约、取消及受控 Activity/JobScheduler 同任务竞争；生产 WorkManager 接入不在此回执",
+      "review": "docs/handoff-s2.md",
+      "evidence": [
+        "logs/s220-22-ipad2475-baseline.log",
+        "logs/s220-22-ipad2475-final.log",
+        "logs/s220-22-v2232a-baseline.log",
+        "logs/s220-22-v2232a-final.log"
+      ]
+    },
+    {
+      "id": "S2.21",
+      "card": "S2.21/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-24T05:21:45+08:00",
+      "dependsOn": [
+        "S2.19",
+        "S2.20",
+        "S1.G"
+      ],
+      "scope": "脚本纵切的同事务完成事实、消费者游标和跨库幂等对账；不签收默认装配或聊天投递",
+      "review": "docs/handoff-s2.md",
+      "evidence": [
+        "logs/s220-22-ipad2475-baseline.log",
+        "logs/s220-22-ipad2475-final.log",
+        "logs/s220-22-v2232a-baseline.log",
+        "logs/s220-22-v2232a-final.log"
+      ]
+    },
+    {
+      "id": "S2.22",
+      "card": "S2.22/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-24T05:21:45+08:00",
+      "dependsOn": [
+        "S1.10",
+        "S2.20",
+        "S2.21",
+        "S1.G"
+      ],
+      "scope": "隔离 App 中显式调用恢复计划，在真实 VFS 和运行时数据库验证进程退出及重复重启；不签收普通 App 的默认启动接线",
+      "review": "docs/handoff-s2.md",
+      "evidence": [
+        "logs/s220-22-ipad2475-baseline.log",
+        "logs/s220-22-ipad2475-final.log",
+        "logs/s220-22-v2232a-baseline.log",
+        "logs/s220-22-v2232a-final.log"
+      ]
     }
   ],
   "previousCandidates": {
@@ -1291,15 +1425,15 @@
     "backupDataTestSha256": "d0f7f14ef84b675c705165a1d8cf6c0efec1397c83d61e8fe268fd05a0e13b93",
     "managedWebDavFixtureVerified": true
   },
-  "next": "S2.16",
+  "next": "S2.23",
   "planRevision": "2026-11-23-s2-desktop-compatibility",
   "currentPlan": "config/planning/active-plan.json",
-  "nextName": "修复普通恢复四库同步基线",
+  "nextName": "完善FGS职责和通知",
   "plannedRemediations": [
     {
       "id": "S2.16",
       "name": "修复普通恢复四库同步基线",
-      "status": "awaiting-device",
+      "status": "accepted",
       "dependsOn": [
         "S2.15",
         "S2.05",
@@ -1313,7 +1447,7 @@
     {
       "id": "S2.17",
       "name": "修复恢复资源引用兼容",
-      "status": "awaiting-device",
+      "status": "accepted",
       "dependsOn": [
         "S2.16",
         "S2.08",
@@ -1327,7 +1461,7 @@
     {
       "id": "S2.18",
       "name": "兼容旧版加密仓库 marker",
-      "status": "awaiting-device",
+      "status": "accepted",
       "dependsOn": [
         "S2.17",
         "S2.13",
@@ -1339,5 +1473,49 @@
       ],
       "reason": "DSBK文件版本与仓库marker版本不同，补旧标记密码验证和升级加入"
     }
-  ]
+  ],
+  "remediationDeviceCandidate": {
+    "status": "accepted-dual-device",
+    "sourceCommit": "2502c0eeaa0d041ed5e2e955343569b2b4d11bdf",
+    "applicationId": "com.deepstudent.app.s2device",
+    "abi": "arm64-v8a",
+    "apkSetSha256": "113949de4b987da5b76b2cf412af2d31c769876e73930a1fcefc67fa7ddece6a",
+    "sha256ByFile": {
+      "app-debug.apk": "812ae78e03428d85787821138e09d70a20af47103ecb5d20384c149161dd9548",
+      "app-debug-androidTest.apk": "6caefd05c0b03f8f0f7cc6596a18b39b5b3d4d79b47c0d1d3c58ac9693c983b2"
+    },
+    "verifiedDevices": [
+      {
+        "model": "iPA2475",
+        "api": 36,
+        "casesByUnit": {
+          "S2.16": 3,
+          "S2.17": 6,
+          "S2.18": 10
+        },
+        "skipped": 0,
+        "desktopRoundtripAndMarkerVerified": true,
+        "receipt": "logs/s2-16-18-ipad2475-receipt.json",
+        "finishedAt": "2026-11-23T16:41:52+08:00"
+      },
+      {
+        "model": "V2232A",
+        "api": 36,
+        "casesByUnit": {
+          "S2.16": 3,
+          "S2.17": 6,
+          "S2.18": 10
+        },
+        "skipped": 0,
+        "desktopRoundtripAndMarkerVerified": true,
+        "receipt": "logs/s2-16-18-v2232a-receipt.json",
+        "finishedAt": "2026-11-23T16:53:20+08:00"
+      }
+    ],
+    "acceptedAt": "2026-11-23T16:54:51+08:00",
+    "evidenceIndexes": [
+      "docs/evidence/logs-index-s2-16-18-ipad2475-20261123.json",
+      "docs/evidence/logs-index-s2-16-18-v2232a-20261123.json"
+    ]
+  }
 }

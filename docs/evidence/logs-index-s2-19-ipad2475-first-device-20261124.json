@@ -1,0 +1,64 @@
+{
+  "format": "dstu-evidence-index/v1",
+  "generatedAt": "2026-11-23T20:13:38.082Z",
+  "source": {
+    "repository": "dstu-android",
+    "ref": "9e34cceceade89b8787e7463d5d7311b5399f412",
+    "revision": "9e34cceceade89b8787e7463d5d7311b5399f412",
+    "selection": "worktree",
+    "entryCount": 3,
+    "trackedCount": 0,
+    "presentCount": 3,
+    "missingFromWorktree": []
+  },
+  "archive": {
+    "format": "tar.gz",
+    "root": "PRIVATE_ARTIFACT_ROOT",
+    "relativeLocation": "s2-19-ipad2475-first-device-20261124/evidence.tar.gz",
+    "location": "PRIVATE_ARTIFACT_ROOT/s2-19-ipad2475-first-device-20261124/evidence.tar.gz",
+    "size": 3105,
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "5914ebc16f054452e37e3425fbd8476e4a38cb43efe145ee90fe38081468b648"
+    },
+    "manifest": {
+      "relativeLocation": "s2-19-ipad2475-first-device-20261124/manifest.json",
+      "location": "PRIVATE_ARTIFACT_ROOT/s2-19-ipad2475-first-device-20261124/manifest.json",
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "93ca50f439964526e6066139dfbb0dfb96d7d3b5b640f9f70bd744b44e78bd19"
+      }
+    }
+  },
+  "entries": [
+    {
+      "path": "logs/s2-19-ipad2475-first-device-20261124-apk-check.log",
+      "size": 609,
+      "sha256": "713cb2a0b055207ebd87f69ce61e03c2509e5f5b04f0013249e5d7112ebe55c2",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2-19-ipad2475-first-device-20261124-build.log",
+      "size": 19503,
+      "sha256": "6b447d702114c72a4a0c1efbd3fea101982a86d2366240b7f0f5008d19ad2858",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2-19-ipad2475-first-device-20261124-instrumentation.log",
+      "size": 2185,
+      "sha256": "3d6222def0020c846683e6e2f35e844fc31512faa586c05325a35e77789e430a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    }
+  ],
+  "compatibility": {
+    "legacyPathPolicy": "Entries retain original logs/... paths; historical docs/config references are lookup keys, not tracked files.",
+    "localWrites": "logs/ is gitignored; existing tools may continue writing local evidence.",
+    "restoreCommand": "node tools/evidence/restore.mjs <logs/path>"
+  }
+}

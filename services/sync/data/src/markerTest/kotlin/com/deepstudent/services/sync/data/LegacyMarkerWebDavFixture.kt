@@ -4,24 +4,32 @@ import com.deepstudent.core.common.id.Digests
 import com.deepstudent.core.common.json.JsonValue
 import com.deepstudent.services.sync.backend.PairingService
 import com.deepstudent.services.sync.backend.SyncWireCodec
-import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.CopyOnWriteArrayList
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okhttp3.mockwebserver.RecordedRequest
+import okhttp3.mockwebserver.SocketPolicy
 import okio.Buffer
+import java.net.InetAddress
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.CopyOnWriteArrayList
 
 internal class LegacyMarkerWebDavFixture : AutoCloseable {
     private val server = MockWebServer()
     val factory = WebDavProviderFactory(allowLoopbackHttp = true)
-    val endpoint get() = server.url("/dav/").toString()
+    val endpoint get() = "http://127.0.0.1:${server.port}/dav/"
     val webdav get() = factory.open(endpoint, "fixture", "repo", "fixture-webdav".toCharArray())
     val objects = ConcurrentHashMap<String, ByteArray>()
     val marker get() = objects.getValue(PairingService.ENCRYPTION_MARKER_KEY)
     val writes = CopyOnWriteArrayList<String>()
     val ranges = CopyOnWriteArrayList<Pair<String, Int>>()
     val matchedWrites = CopyOnWriteArrayList<String>()
+
+    @Volatile var afterLeaseWrite: (() -> Unit)? = null
+
+    @Volatile var failMarkerReadback = false
+
+    @Volatile var competitorAtMarkerWrite: ByteArray? = null
     var badRange = false
     var stealMarkerAfterConditionalRead: ByteArray? = null
     var markerReadsBeforeTheft: Int = Int.MAX_VALUE
@@ -33,7 +41,7 @@ internal class LegacyMarkerWebDavFixture : AutoCloseable {
         server.dispatcher = object : Dispatcher() {
             override fun dispatch(request: RecordedRequest): MockResponse = serve(request)
         }
-        server.start()
+        server.start(InetAddress.getByName("127.0.0.1"), 0)
     }
 
     fun seedBackups(vararg backups: Pair<String, ByteArray>) {
@@ -64,6 +72,7 @@ internal class LegacyMarkerWebDavFixture : AutoCloseable {
     }
 
     private fun get(request: RecordedRequest, key: String): MockResponse {
+        if (key == PairingService.ENCRYPTION_MARKER_KEY && failMarkerReadback && key in writes) return status(503)
         val value = objects[key] ?: return status(404)
         val range = request.getHeader("Range")
         if (range != null) {
@@ -81,6 +90,9 @@ internal class LegacyMarkerWebDavFixture : AutoCloseable {
     }
 
     private fun mutate(request: RecordedRequest, key: String): MockResponse {
+        if (request.method == "PUT" && key == PairingService.ENCRYPTION_MARKER_KEY) {
+            competitorAtMarkerWrite?.let { objects[key] = it.copyOf() }
+        }
         val old = objects[key]
         if (request.getHeader("If-None-Match") == "*" && old != null) return status(412)
         request.getHeader("If-Match")?.let { match ->
@@ -90,6 +102,12 @@ internal class LegacyMarkerWebDavFixture : AutoCloseable {
         if (request.method == "DELETE") return status(if (objects.remove(key) == null) 404 else 204)
         objects[key] = request.body.readByteArray()
         writes += key
+        if (key == ".encryption-marker.lease") {
+            afterLeaseWrite?.let {
+                it()
+                return MockResponse().setSocketPolicy(SocketPolicy.NO_RESPONSE)
+            }
+        }
         return status(if (old == null) 201 else 204)
     }
 

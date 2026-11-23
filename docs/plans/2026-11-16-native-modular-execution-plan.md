@@ -483,6 +483,6 @@ node tools/s1/frozen-inputs.mjs
 | S2.13 | accepted（双真机） | 868 JVM；冻结桌面 DSBK v1/v2 对拍；V2232A 与 iPA2475 同候选各 23 项、零跳过，密钥丢失后确认重配，错密、换块、截断不提交；[S2 回执](../../config/stages/s2-progress.json) |
 | S2.14 | accepted（双真机） | 899 JVM；iPA2475 与 V2232A 同补审候选各 28/28、零跳过；桌面 v1 ZIP 完整转换 v2、Android 冷恢复与跨端 ZIP 导入内容对拍、4 条认证至切槽关联、9 项加密页；未运行桌面整槽激活；[S2 回执](../../config/stages/s2-progress.json) |
 | S2.15 | accepted（双真机） | 1013 JVM；iPA2475 与 V2232A 同补审候选各 45/45、零跳过；普通恢复重新配对、受控 WebDAV 续发 5→6、重复序列拒绝、claim 后过期或未知结果保留证据；不含用户生产仓库；[S2 回执](../../config/stages/s2-progress.json) |
-| S2.16 | 待真机验收（next） | 四库候选基线重建；本机恢复、重入及冻结桌面笔记往返通过 |
-| S2.17 | 待真机验收 | 冻结桌面同包导入与本机切槽通过；缺失的零引用残留不阻断同步，真实引用仍须完整 |
-| S2.18 | 待真机验收 | 本机 WebDAV 验证旧标记升级、冲突和中断；冻结桌面回验 v2 密码校验字段 |
+| S2.16 | accepted（双真机） | 同候选双机各 3/3；四库候选基线、失败重入、同实例换写者及冻结桌面笔记往返；[S2 回执](../../config/stages/s2-progress.json) |
+| S2.17 | accepted（双真机） | 同候选双机各 6/6；冻结桌面导入与真机恢复，零引用残留放行、引用缺失或损坏切槽前拒绝；[S2 回执](../../config/stages/s2-progress.json) |
+| S2.18 | accepted（双真机） | 同候选双机各 10/10；旧标记升级、错密、损坏、竞争、取消、回读不确定及既有 v2；冻结桌面验回标记；[S2 回执](../../config/stages/s2-progress.json) |

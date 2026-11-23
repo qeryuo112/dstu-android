@@ -404,3 +404,91 @@
 - 已按用户授权创建并推送公开仓库`qeryuo112/dstu-android`，默认main、GitHub识别AGPL-3.0。首次公开head `b87614273af2a32d4cea6ab68948a865f05392a6`，仅3个独立源码提交；只推main，没有镜像推送、旧tags、旧日志、截图、归档或原Git祖先。私有开发目录仍无remote，完整历史保留。
 - 从GitHub重新clone实际远端后检查所有可达对象，无logs/截图/二进制发布包；`verify:repository`及94/94脚本测试通过，公开索引无可下载私有归档。云端run 45066852276实际启动，私有基线availability明确报告缺少FROZEN_DESKTOP_TOKEN，不运行依赖私有源码的job，聚合检查保持失败；不是全CI通过。
 - 首轮repository job脚本测试成功，actionlint在runner附带ShellCheck时把内嵌Node模板字符串的单引号误判为SC2016。改为带引号heredoc，保留字面量防shell展开；本机补装ShellCheck0.10.0与actionlint联合检查通过，并准备推送修复。完整AndroidCI剩余条件仍是管理员配置私有桌面仓库专用只读secret，未使用日常账户token作为CI凭据。
+
+
+## 2026-11-23T16:46:40+08:00 - S2.16–S2.18 iPA2475 真机通过，保留同包供手机复验
+
+- 本轮是真机验收，不推进桌面/Operit 版本。桌面 `e6b2657fd59014a73f5bbb1d14c2db732cf23e87` 的 `host/plugins/backup/src/restore-commands.ts`、`host/plugins/sync/repository/change-log.ts` 和 `host/plugins/sync/tests/change-log.test.ts` 定义普通恢复重置；`backup-manager.ts`、`zip.ts`、VFS 资源引用及 `sync/repository/apply-refcounts.ts` 定义真实附件；`sync-providers/src/{marker,password_proof,e2ee_claim}.ts` 定义密码证明、租约认领与标记对拍。Operit `7a39941bad80209973c535046a18195c5da9e647` 检索 `app/src` 下变更日志、引用计数、WebDAV 和标记，核对 `data/backup/RawSnapshotBackupManager.kt`、`RoomDatabaseBackupManager.kt` 的私有暂存/恢复边界；其本机快照不是同步协议来源。
+- **S2.16：3/3，零跳过。** 用 Android SQLite 和正式恢复执行器检验四库候选同步版本归一、冲突/别名/旧日志清除，原活动槽不变，失败可重新暂存，重开不清新改动。经专用 loopback WebDAV 普通排队、首次启动恢复入口、Keystore、换新 writer 加入同一实例：首轮无旧日志上传，收到桌面笔记；新 writer 真发序列 1/2，冻结桌面消费后读出新建、编辑、删除，附件与原仓库实例保持。四库采集不等于其他三个域已开通桌面往返。全量 seed 仍为 S2.29/S8.06 范围。
+- **S2.17：6/6，零跳过。** 冻结桌面正式导出及重新导入的同一加密 ZIP，真机经 Android 文件提供器、认证、队列和首次访问恢复入口切槽。笔记与附件哈希匹配；无引用且零计数的缺失 blob 留元数据、不进入上传清单。正计数缺载荷、仍被文件/外置资源/预览/压缩图引用、缺元数据、错 hash 或大小均拒绝且原活动槽保全；未执行桌面整槽激活。
+- **S2.18：10/10，零跳过。** 真机用 WebDAV 强 ETag 和真实 DSBK/Android Keystore：冻结桌面 marker v1 + DSBK v2 首块证明后升级原仓库并持久化配对，已有 v2 重配不重写标记；覆盖 DSBK v1、次新备份、只有认证清单、错误 Range/错密、损坏标记、竞争、持租约时取消及提交后回读丢失。回读不确定时无本机配对，保留已写标记及认领材料。冻结桌面验证真机 v2 校验字段、拒绝陈旧 claim。未访问生产仓库。
+- 设备为 iQOO Pad2 Pro（`iPA2475`、API 36、ARM64），未用模拟器。预跑发现 vivo 后台 freezer 和私有路径链接问题；用已有前台测试宿主和规范私有路径修正后完整复跑。独立 debug ID `com.deepstudent.app.s2device` 安装后读回双 APK SHA-256，结束后卸载两份临时包和清专用反向端口；原 App 安装路径未变，未清数据。冷恢复测试显式调用新协调器的首次启动钩子并重开槽，不是硬断电或进程 kill 矩阵。
+- `qualityGate`、APK 构建、仓库校验和 Node **96/96** 通过；主机对应四库/资源/marker 回归与冻结桌面向量通过。真机脱敏日志按 UID 采集，验证 12 个相关操作，确认四库重建 → 切槽 → writer 轮换，认证 → 排队 → 附件校验 → 切槽，以及 marker 的六类结果。证据索引 [s2-16-18-ipad2475-20261123](evidence/logs-index-s2-16-18-ipad2475-20261123.json)，归档 SHA-256 `87bdc760687e20d60f858a5d5e24d71f8ef109e81604a9cbfd7410e716c4bf31`；Git 没有原始日志、截图或 APK，未推送新的公开提交。
+- 同包复验：候选源码 `2502c0eeaa0d041ed5e2e955343569b2b4d11bdf`，两 APK 清单 SHA-256 `113949de4b987da5b76b2cf412af2d31c769876e73930a1fcefc67fa7ddece6a`；本机候选目录 `/home/xutao/deepstudent/artifacts/android-s216-18-20261123/candidate-2502c0eeaa0d041ed5e2e955343569b2b4d11bdf`。仅连接且授权 `V2232A` 后，在项目根目录运行下方命令（需冻结桌面检出及可执行 Node 24）。不要重打包或改用普通包；手机通过后再按 S2.16→S2.18 更新签收。当前 `next=S2.16`，没有签 S2.G／M2。
+
+```bash
+PATH="/home/xutao/deepstudent/build-tools/node24/bin:$PATH" \
+  node --disable-warning=ExperimentalWarning --experimental-strip-types \
+  tools/s2/s2-16-18-device.mjs --serial "$PHONE_SERIAL" --model V2232A \
+  --candidate "/home/xutao/deepstudent/artifacts/android-s216-18-20261123/candidate-2502c0eeaa0d041ed5e2e955343569b2b4d11bdf" \
+  --output "/home/xutao/deepstudent/artifacts/android-s216-18-20261123/v2232a"
+```
+
+
+## 2026-11-23T16:54:51+08:00 - S2.16–S2.18 V2232A 同候选复验，双真机签收
+
+- 主线程只连接 `V2232A`（API 36、ARM64），用 iPA2475 已验的 `2502c0eeaa0d041ed5e2e955343569b2b4d11bdf` 候选原包复跑。未重打包，双 APK 安装读回 SHA-256、集合 SHA-256 `113949de4b987da5b76b2cf412af2d31c769876e73930a1fcefc67fa7ddece6a`、19 个用例标识逐项一致；生成的桌面测试材料在各次运行独立校验摘要。桌面 `e6b2657fd59014a73f5bbb1d14c2db732cf23e87` 和 Operit `7a39941bad80209973c535046a18195c5da9e647` 未变更。
+- **S2.16 3/3、S2.17 6/6、S2.18 10/10，零跳过。** 手机实际用新写者在原同步实例发出序列 1、2，冻结桌面消费并回读笔记新建、编辑、删除；冻结桌面正式导入的加密备份在手机完成恢复，真实引用异常切槽前拒绝；手机写出的旧仓库升级 v2 标记由冻结桌面回验。复核 12 组关联日志，含错密、标记损坏、认领竞争、取消与提交后回读不确定。只用受控测试仓库，未访问生产同步数据。
+- 测试于 `2026-11-23T16:53:20+08:00` 完成；专用反向端口和两份临时包已清理，未覆盖或清除用户 App、数据。手机证据归档 SHA-256 `f4b31959a9d71cae7b3bee3e1ee0ab05b3b14da72c191ce5a8f9ecaf3c10a1e4`，Git 只存[手机证据索引](evidence/logs-index-s2-16-18-v2232a-20261123.json)与[平板证据索引](evidence/logs-index-s2-16-18-ipad2475-20261123.json)，原始证据不公开。
+- 主线程核对各前置签收后按 `S2.16 → S2.17 → S2.18` 登记 accepted。两台各 **19/19**，合计 **38/38**；`next=S2.19`（完善 runtime.db 状态与投影），未开始该单元，也未签 S2.G/M2。
+
+## 2026-11-23T22:19:14+08:00 - S2.19 本机验证，待设备复验
+
+- 当前卡 `S2.19/implementation` 源自冻结 `S2.16/implementation`；11 项历史插件命令场景保留来源映射，本轮不把运行时基础测试记作插件功能通过。冻结桌面 `e6b2657fd59014a73f5bbb1d14c2db732cf23e87` 核对 `host/plugins/agent-workspace/src/workspace/subagent-task.ts`、`repository/subagent-task-repository.ts`、`tests/workspace-subagent-task.test.ts` 的原子状态转换及同状态幂等；核对同插件 `src/approval-manager.ts`、`tests/approval-manager.test.ts` 的会话/调用键隔离、晚到决定与拒绝。Operit `7a39941bad80209973c535046a18195c5da9e647` 核对 `app/src/{main,test}/java/com/ai/assistance/operit/integrations/a2a/` 的 `A2aTaskManager.kt` 与 `A2aTaskPublicationTest.kt`：借鉴快照和事件顺序，不采用其内存任务表作为持久草案，未找到同等的持久任务投影布局。
+- `runtime.db` v3 复用 `DatabaseRegistry` 和 `SqlTaskLedger`：从 v1/v2 事务升级，新增审批、审计、职责投影；每次有效变更和审计、任务事件及游标同一事务，旧 generation、冲突与重复提交不产生额外事件。晚到投影只推进事件游标，不回拨任务租约时间。日志记录固定字段，不记录决定载荷；授权裁决和实际前台服务不在本单元。共享库 schema、同步 wire 和正式签收文件不变。
+- 主线程在本机复跑 `runtime:api`、`runtime:backend`、`runtime:data` 共 **70/70**（含同分支的隔离 S2.20 回归），覆盖 fresh/v1/v2、DDL 失败回滚、重开、记录键与游标隔离、日志异常和脱敏。78 模块架构及复杂度检查无违规；`runtime:data` 测试 APK 只构建，未安装或运行。正式状态保留 `next=S2.19`，本机候选不作真机签收。
+
+## 2026-11-23T22:19:14+08:00 - S2.20 隔离租约候选本机验证
+
+- 当前卡 `S2.20/implementation` 映射冻结 `S2.17/implementation`，无独立历史场景。桌面原冻结提交核对 `host/plugins/agent-workspace/{src/workspace/completion-outbox,repository/completion-outbox-repository,tests/workspace-completion-outbox.test}.ts` 的 owner/expiry 匹配、原子回收和幂等确认；Operit 原冻结提交核对 `A2aTaskManager` 的取消与唯一终态、`A2aTaskPublicationTest` 的并发发布，以及 `core/workflow/WorkflowWorker.kt` 的 Worker 与业务入口分工。Android 沿用持久 `ownerEpoch`，不复制 Operit 的内存锁或引入 WorkManager。
+- 在本地分支实现显式释放及精确匹配旧所有权的过期接管。接管许可由持久 owner 标识推导，只可核对事实或结算，不可交给执行器重跑；过期、续期、时钟回退、跨任务/代次旧 token 和重复取消都有负例。纯状态机 **11/11**、本机真实 SQLite **6/6**（已计入前述 70 项）；并发用例使用同进程两个 Registry 句柄，不是 Android Worker 或跨进程实测。未把新接管路径接入正式 App，也未签收 S2.20。
+
+## 2026-11-23T22:36:59+08:00 - S2.21 隔离 outbox 和双库对账本机验证
+
+- 当前 `S2.21/implementation` 对应冻结 `S2.18/implementation` 和 `sync.registry:chat_v2.completion_outbox`；现行查询还继承 S2.20 的执行顺序。核对冻结桌面 `host/plugins/agent-workspace/{src/workspace/completion-outbox,repository/completion-outbox-repository,tests/workspace-completion-outbox.test}.ts` 和 `host/plugins/chat/{src/completion-dispatcher,tests/completion-dispatcher.test}.ts`，取稳定事实键、补投查重及先投影后确认合同，不将聊天 outbox 改作 Android 私有任务队列。Operit 核对 `integrations/a2a/A2aTaskManager.kt`、相应 `A2aTaskPublicationTest.kt` 与 `core/workflow/WorkflowWorker.kt`，其内存任务/发布不提供业务库到运行时账本的持久投递。
+- `script.db` 候选 outbox 只保存单调序列与唯一 receipt 引用，由触发器随脚本回执在同事务写入，安装时回填已存在事实；各消费者独立确认，游标不越未确认记录。复用 `BusinessCompletionSource` 和 `RecoveryCoordinator` 先对账再 ack。主线程本机复验新增用例 **13/13**，含同事务回滚及双库关闭重开：账本写入失败不提前确认；账本已写、确认失败时再次启动不新建投影事件、不重跑脚本。架构/复杂度无违规，日志不含事实内容或消费方原始标识。
+- 候选仅覆盖脚本业务纵切，不把它记作聊天 `completion_outbox` 正式业务或同步完成；冻结聊天表、笔记路径及默认脚本装配均未变。旧脚本 ack 未迁移，未来显式切换候选时会对已存在回执做一次幂等补确认，接入前须复核升级流量。未真机测试，未签收。
+
+## 2026-11-23T22:53:58+08:00 - S2.22 隔离启动恢复候选及四单元本机回归
+
+- 当前 `S2.22/implementation` 对应冻结 `S2.19/implementation`，无独立历史场景。冻结桌面查看 `host/plugins/chat/src/workspace-run-agent.ts` 的 `workspaceRestoreExecutionsAction`，以及 `host/plugins/agent-workspace/src/workspace/subagent-task.ts` 的 `sweepOrphanedRunning` 和 `tests/workspace-subagent-task.test.ts`：活 owner 不动，已失去 owner 且终态不明的任务不盲重跑。Operit 查看 `api/chat/AIForegroundService.kt` 的空 intent 服务重建、`integrations/a2a/A2aTaskManager.kt` / `A2aTaskPublicationTest.kt`、`api/chat/enhance/SubtaskExecutionStateTest.kt` 的部分结果与取消语义；没有可移植的双库启动对账。两份冻结版本均保持原样。
+- `AppRecoveryPlan` / `AppRecoveryPolicy` 复用 `RecoveryCoordinator`：先回收旧 owner、核对业务事实，再按任务处置。已有事实只补账；可证明幂等的 `notes.create` 可以续作；笔记导入与聊天流保留检查点并标为中断；无回执脚本进入待确认。等待审批或暂停不执行、不改终态，无 owner 的待审批或暂停任务再次扫描仍可能产生一对租约事件。租约过期不是进程死亡证据，不将过期当成可重放不明副作用的授权。正式启动仍走原入口；未把候选接入默认 `RuntimeStartupRecovery`。
+- 主线程本机 SQLite 重开用例 **8/8**：事实先行、只续一次、保留部分内容、脚本待确认、活/过期所有权、审批/暂停、取消。业务事实在这组用例是受控夹具，笔记本身的同库去重复用既有 `NoteTaskStoreTest`，实际脚本双库掉点证据见 S2.21；不等同于安卓进程死亡实测。
+- 最终在本地分支跑 `qualityGate`、Gradle `test`（含冻结桌面备份夹具）及 APK 构建：**1,089/1,089** 唯一 JVM/本机 SQLite 用例通过，零失败、零跳过；仓库回归 **96/96**。78 个模块架构与复杂度检查无违规；调试 App 与 App/runtime 测试 APK 只构建，App 调试 APK 包名、ARM64、调试签名和 16 KiB 对齐核验通过。286 份冻结源码/合同及 249 份历史证据校验通过。未使用真机、模拟器或设备脚本；未推送或合入主线。
+- 工作保存在本地 `staging/s2-19-22-host`。S2.19 本机验证通过待设备复验；S2.20–S2.22 为隔离候选，须等前置正式签收再接入正式调用链。`next=S2.19`、`s2GateAccepted=false`，不把本机结果登记成真机签收。
+
+## 2026-11-23T22:55:26+08:00 - 本机候选证据归档
+
+- 以本地候选 `958af12` 为索引来源，将 5 份最终本机测试/门禁日志归档至仓库外；[证据索引](evidence/logs-index-s2-19-22-host-candidate-20261123.json) 与归档按 SHA-256 `6007db5df55ee5e6d88c1a424f36858458cb3390b161d0f595c127ac31bd77b9` 独立验证通过。仓库没有追踪原始日志；不是设备回执。
+
+## 2026-11-24T04:32:19+08:00 - 合入本地 main、S2.19 双真机签收和后续候选复验
+
+- 按用户指令，`staging/s2-19-22-host` 快进合入本地 `main`（`6583cab` → `9e34cceceade89b8787e7463d5d7311b5399f412`），[规则第 16 条](rules/rules.txt)登记后续禁止新建开发分支。未推送远端。S2.20–S2.22 的源码虽随分支合入，本轮仍未把候选接到正式 App 调用链。冻结桌面 `e6b2657fd59014a73f5bbb1d14c2db732cf23e87` 与 Operit `7a39941bad80209973c535046a18195c5da9e647` 未变。
+- iPA2475 平板先跑运行时 APK **2/2**（与后续复跑重合，不重复计入）。两台 Android 16、ARM64 真机随后使用同样的四个隔离 APK，安装后逐个读回哈希一致；以测试源叠加方式复用该提交的用例，没有改动生产代码。每台 **42/42**：S2.19 账本 **15/15**，S2.20 租约 **6/6**，S2.21 脚本 outbox、适配与双库对账 **13/13**，S2.22 恢复策略 **8/8**，无失败、无跳过。
+- **S2.19 正式签收。** 每台 15 项覆盖 fresh、v1/v2→v3、失败回滚、未知版本、重复键/冲突、任务和代次隔离、游标分页、各投影读回；另用同一跨进程测试 APK 在每台执行写入、读回两步（**2/2**）。提交后对隔离包执行 `force-stop`，主机确认旧 PID 不在，再启动新进程；重读任务终态、检查点、回执、审批、审计、职责及游标，两个设备的写入与读回游标均为 `9`。每台审阅 6 条实际投影日志，含任务关联、阶段、归属、结果、耗时，不含业务载荷；使用测试 sink，未声称普通 App 已订阅投影日志。此为提交后跨进程读回，不是掉电或事务中断实测，也不把历史插件命令场景登记为通过。
+- **S2.20–S2.22 仅隔离候选验证。** S2.20 的竞争是同进程不同句柄，不是真实 UI／WorkManager 同时执行；S2.21 的对账是注入写入或确认失败后关库再开，没有接入默认脚本或聊天业务路径；S2.22 用受控事实与执行器验证显式恢复策略，不是正式 App 启动或系统杀进程后的恢复。按顺序仅登记 S2.19，`next=S2.20`，`s2GateAccepted=false`。
+- 正式安装状态在两台设备前后未变（平板已安装，手机未安装）；四种隔离测试包均已卸载，未覆盖、清理或读写用户数据。双真机有效结果为每台 **44/44**（含跨进程的写入、读回两项），共 **88/88**。两台均未使用模拟器。手机最后结束于 `2026-11-24T04:30:59+08:00`。
+- [首轮平板证据](evidence/logs-index-s2-19-ipad2475-first-device-20261124.json)与[双真机证据](evidence/logs-index-s2-19-22-dual-device-20261124.json)均已验证；双机最终日志与复现夹具归档 15 项，SHA-256 `4e30cd3a08ca7e52df7eb30ca3cd48dcbd123b565aca35237b2e21d1c8e5f13b`。同包复验原件保存在仓库外 `/home/xutao/deepstudent/artifacts/android-s219-22-device/9e34cce-20261124T040848-0FZwM2/`；四个补验 APK 的校验清单 SHA-256 `4f0e87cf20c41e248d07bdfa5263593d17bc6b85dc3600210af4800ce6862cc2`，跨进程 APK SHA-256 `aed906c1192a194c1fe8010ad9ab72bab7aa2f19b40b66c0d9ebc799cefecc42`。Git 仅保留证据索引与回执。
+
+## 2026-11-24T05:00:25+08:00 - S2.20–S2.22 平板专项复验，等待手机同包验证
+
+- 本轮按用户要求只对 iPA2475（Android 16、ARM64）运行。主线基线 `3afa07525bb7dd3b321305a54ef4924eeba120d5`，冻结桌面与 Operit 未变；未新建分支、未修改生产源码、未对手机执行操作。已签收的 S2.19 作为前置。已封存的 APK 先跑完 27 项基线，另用独立 `.s2device` APK 运行 5 项补验，合计 **32/32**，最终两轮均无失败、无跳过。3 次预期测试进程退出单独核验，不计入 32 个成功用例。
+- **S2.20 7/7。** 六项 SQLite 租约回归覆盖续期、释放、旧 token 围栏、过期接管与重复取消。补验使测试 Activity 按钮与 Android `JobScheduler` 的 `JobService` 同时提交相同去重键；核对两个入口返回同一任务、仅一次业务执行，四次取消只写一次取消请求及一个终态，检查点保留。后台入口是受控系统任务夹具，不是生产 UI 或 WorkManager，未提前接入 S2.25。
+- **S2.21 15/15。** 十三项基线外，分别在脚本回执和 outbox 已提交但未投影、以及投影已提交但未确认的边界终止隔离进程。主机确认旧 PID 已退出，随后新进程只补账或补确认：每个场景最终一份回执、一次投影、一次确认、零业务重执行；再次恢复不重复，独立消费者游标不受影响。实际日志核对先对账后确认。显式使用脚本候选 outbox，不涉及正式脚本装配或聊天同步。
+- **S2.22 10/10。** 八项策略基线外，旧进程保留租约和检查点后退出，新进程对独立实际 VFS/运行时目录显式调用 `AppRecoveryPlan.forRuntime`：已有笔记事实只补账、另一条笔记只续作一次；聊天与导入保留部分内容并中断，未知脚本待确认，取消与审批/暂停状态符合预期。再次停掉隔离 App 后以不同 PID 运行，笔记数量和终态游标不变。不是安装到普通 App 的默认启动验证。早先一次自动复跑在 Activity 销毁等待超时；调整测试夹具收尾后用最终包完整复跑，未改产品代码。最终结束于 `2026-11-24T04:57:46+08:00`，全部临时包已移除，普通 App 的安装状态未变、未清理用户数据。
+- [平板证据索引](evidence/logs-index-s2-20-22-ipad2475-20261124.json)指向 16 份已校验条目，归档 SHA-256 `c63a2f9a5edb817f784046543fd097ca8d5bdcc062563e215dab629a7f36c57d`。正式 `next=S2.20` 与 `s2GateAccepted=false` 未更改；待用户接入 V2232A 后按相同 APK 与选择器复验，不能将前一轮旧包结果与本轮补验混用。
+- **手机同包复验入口**（用户接入并授权手机后才运行）：`ROOT=/home/xutao/deepstudent/artifacts/android-s220-22-20261124/tablet-043813-LxXkhl`；核对 `baseline/SHA256SUMS` 文件摘要 `4f0e87cf20c41e248d07bdfa5263593d17bc6b85dc3600210af4800ce6862cc2`、`phone-candidate/SHA256SUMS` 文件摘要 `840bf01c7ac024c39ab67950eed83fb116d549ea2950a4c4562932d6b86ab0fe`，不重打包。前一轮 S2.19 手机前置日志已按双机归档的哈希放入基线目录，只作为前置证据。
+
+```bash
+bash "$ROOT/baseline/run-on-device.sh" "$PHONE_SERIAL" V2232A candidates &&
+  bash "$ROOT/phone-candidate/run-on-device.sh" "$PHONE_SERIAL" V2232A phone
+```
+
+## 2026-11-24T05:21:45+08:00 - S2.20–S2.22 手机同包复验与任务底座签收
+
+- 主线程仅连接 V2232A（Android 16、ARM64），用上节封存原包复验，未重新打包。基线四个 APK 及补验两个 APK 的安装读回 SHA-256 与 iPA2475 逐个相同，两个设备的测试类和方法清单也逐项一致。手机 **32/32**、平板 **32/32**，合计 **64/64**，零失败或跳过；每台另有三次独立核验的预期退出，不重复计数。手机基线结束 `2026-11-24T05:07:17+08:00`，补验结束 `2026-11-24T05:08:17+08:00`。临时包均已卸载，手机上的普通 App 安装状态维持未安装；未操作平板、修改用户数据或使用模拟器。
+- **S2.20（每台 7/7）：** SQLite 上领取/续期/释放、`ownerEpoch` 围栏及过期接管通过；同去重键从测试 Activity 与真实 Android `JobService` 同时提交时只执行一次，四次取消只留下一个取消事件与一个终态，检查点保留。受控后台入口以 `JobScheduler` 实测任务租约合同；不算 S2.25 正式 WorkManager、重排或系统停止续作验收。
+- **S2.21（每台 15/15）：** 脚本回执与 outbox 同事务；业务已提交尚未记账、账已记尚未确认两处掉点均确认旧进程退出、新进程继续。每处最终一份回执、一次投影、一次确认、零脚本重执行，其他消费者游标不动。顺序由持久事件与真实 `RECONCILE` → `ACK` 脱敏日志共同验证。只签收脚本纵切的同事务、消费和对账合同；普通 App 仍未切换默认事实源。冻结历史场景 `sync.registry:chat_v2.completion_outbox` 保留 LocalRuntime 分类与 schema 校验，不把脚本结果登记为该聊天表的真实投递或同步，聊天流的正式业务链不在本回执。
+- **S2.22（每台 10/10）：** 隔离 App 使用真实 VFS 和 runtime.db 显式调用 `AppRecoveryPlan.forRuntime`，回收旧 owner 后先核对事实。已完成笔记只补账、另一笔记仅续作一次，聊天/导入保留检查点并中断，无回执脚本进待确认，取消与审批/暂停保持正确。再次以不同 PID 重启时笔记数和终态游标不变。仅签收新恢复入口的合同，不代表它已连到普通 App 默认启动。
+- 审阅手机采集的 81 条结构化恢复/outbox 日志，均带阶段、归属、结果、耗时，恢复侧可按合成任务 ID 关联，outbox 确认记录不含消费者 ID 或业务载荷。已核对 `S1.G`、`S1.10` 和 S2.19，按 **S2.20 → S2.21 → S2.22** 登记 accepted；`next=S2.23`（完善 FGS 职责和通知），不签 S2.G/M2，不改或启用正式 App 接线。
+- [平板索引](evidence/logs-index-s2-20-22-ipad2475-20261124.json)与[手机索引](evidence/logs-index-s2-20-22-v2232a-20261124.json)均已校验；手机原始归档 SHA-256 `b4055506cbe249bd98325d7ad6a4e5211672697a7e519a19cba97093abdf7bf5`。另验 286 份冻结合同和 249 份历史证据；旧分类命令直接在当前树运行误用 302 项历史计数（现行 305 项），改走隔离 S0 快照后 S0.08 schema / S0.09 分类通过。额外全量历史回放在 S0.11 停止：本机 Edge `158.0.4370.33`，冻结基线要求 `157.0.4341.60`；不记全量 S0 回放通过，不改冻结文档或浏览器。这不是本次设备测试失败。
