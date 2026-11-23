@@ -12,7 +12,8 @@ internal class TaskNotificationFactory(private val context: Context) {
     private val manager = context.getSystemService(NotificationManager::class.java)
 
     fun createChannel() {
-        val channel = NotificationChannel(CHANNEL_ID, context.getString(R.string.background_channel_name), NotificationManager.IMPORTANCE_LOW)
+        val channel =
+            NotificationChannel(CHANNEL_ID, context.getString(R.string.background_channel_name), NotificationManager.IMPORTANCE_LOW)
         channel.description = context.getString(R.string.background_channel_description)
         manager.createNotificationChannel(channel)
     }
@@ -23,21 +24,28 @@ internal class TaskNotificationFactory(private val context: Context) {
         return channel == null || channel.importance != NotificationManager.IMPORTANCE_NONE
     }
 
-    fun summary(duties: List<ForegroundDuty>): Notification {
-        val text = if (duties.isEmpty()) {
+    fun summary(slots: List<ForegroundSlot>): Notification {
+        val text = if (slots.isEmpty()) {
             context.getString(R.string.background_notification_starting)
         } else {
-            context.getString(R.string.background_notification_count, duties.size)
+            context.getString(R.string.background_notification_count, slots.size)
         }
-        return base().setContentText(text).setGroup(GROUP).setGroupSummary(true).build()
+        val builder = base(purposeTitle(slots.map { it.purpose }.distinct().singleOrNull()))
+            .setContentText(text)
+            .setGroup(GROUP)
+            .setGroupSummary(true)
+        if (slots.isNotEmpty()) builder.addAction(closeBackgroundAction())
+        return builder.build()
     }
 
     fun task(duty: ForegroundDuty, state: RuntimeState): Notification {
         val stop = PendingIntent.getBroadcast(
-            context, 0, StopTaskAction.intent(context, duty),
+            context,
+            0,
+            StopTaskAction.intent(context, duty),
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
         )
-        return base()
+        return base(purposeTitle(duty.purpose))
             .setContentText(context.getString(R.string.background_notification_task, duty.taskId.value))
             .setSubText(context.getString(state.label()))
             .setProgress(0, 0, true)
@@ -46,15 +54,35 @@ internal class TaskNotificationFactory(private val context: Context) {
             .build()
     }
 
-    fun show(duty: ForegroundDuty, state: RuntimeState) =
-        manager.notify(duty.taskId.value, TASK_NOTIFICATION_ID, task(duty, state))
+    fun continuous(duty: ContinuousDuty): Notification = base(purposeTitle(duty.purpose))
+        .setContentText(context.getString(R.string.background_notification_owner, duty.ownerId))
+        .setSubText(context.getString(duty.purpose.description()))
+        .setGroup(GROUP)
+        .addAction(closeBackgroundAction())
+        .build()
+
+    fun show(duty: ForegroundDuty, state: RuntimeState) = manager.notify(duty.taskId.value, TASK_NOTIFICATION_ID, task(duty, state))
+
+    fun showContinuous(duty: ContinuousDuty) = manager.notify(continuousTag(duty), CONTINUOUS_NOTIFICATION_ID, continuous(duty))
 
     fun remove(duty: ForegroundDuty) = manager.cancel(duty.taskId.value, TASK_NOTIFICATION_ID)
 
-    private fun base(): Notification.Builder {
+    fun removeContinuous(duty: ContinuousDuty) = manager.cancel(continuousTag(duty), CONTINUOUS_NOTIFICATION_ID)
+
+    private fun closeBackgroundAction(): Notification.Action {
+        val close = PendingIntent.getBroadcast(
+            context,
+            0,
+            CloseBackgroundAction.intent(context),
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+        )
+        return Notification.Action.Builder(null, context.getString(R.string.background_notification_close), close).build()
+    }
+
+    private fun base(title: String): Notification.Builder {
         val builder = Notification.Builder(context, CHANNEL_ID)
             .setSmallIcon(android.R.drawable.stat_sys_upload)
-            .setContentTitle(context.getString(R.string.background_notification_title))
+            .setContentTitle(title)
             .setOngoing(true)
             .setOnlyAlertOnce(true)
             .setCategory(Notification.CATEGORY_PROGRESS)
@@ -68,12 +96,28 @@ internal class TaskNotificationFactory(private val context: Context) {
         return builder
     }
 
+    private fun purposeTitle(purpose: ForegroundPurpose?): String = context.getString(
+        when (purpose) {
+            ForegroundPurpose.DATA_SYNC -> R.string.background_purpose_data_sync
+            ForegroundPurpose.TERMINAL -> R.string.background_purpose_terminal
+            null -> R.string.background_notification_title
+        },
+    )
+
+    private fun continuousTag(duty: ContinuousDuty): String = "continuous:${duty.ownerId}"
+
     companion object {
         const val SUMMARY_ID = 7410
         private const val TASK_NOTIFICATION_ID = 7411
+        private const val CONTINUOUS_NOTIFICATION_ID = 7412
         private const val CHANNEL_ID = "dstu.background.tasks"
         private const val GROUP = "com.deepstudent.background.tasks"
     }
+}
+
+internal fun ForegroundPurpose.description(): Int = when (this) {
+    ForegroundPurpose.DATA_SYNC -> R.string.background_purpose_data_sync_description
+    ForegroundPurpose.TERMINAL -> R.string.background_purpose_terminal_description
 }
 
 internal fun RuntimeState.label(): Int = when (this) {

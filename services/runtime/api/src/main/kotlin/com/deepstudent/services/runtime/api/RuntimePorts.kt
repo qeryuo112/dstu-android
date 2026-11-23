@@ -8,8 +8,7 @@ fun interface RuntimeTaskCanceller {
     suspend fun cancel(taskId: TaskId): RuntimeCancelResult
 
     /** The default refuses conditional cancellation; implementations must never ignore generation. */
-    suspend fun cancelIfGeneration(taskId: TaskId, generation: Long): RuntimeCancelResult =
-        RuntimeCancelResult.StaleGeneration(taskId)
+    suspend fun cancelIfGeneration(taskId: TaskId, generation: Long): RuntimeCancelResult = RuntimeCancelResult.StaleGeneration(taskId)
 }
 
 interface RuntimeTaskQuery {
@@ -36,6 +35,12 @@ fun interface RuntimeSnapshotObserver {
 interface RuntimeTaskContext {
     val taskId: TaskId
     val generation: Long
+
+    /**
+     * Checkpoint committed by an earlier generation-preserving execution attempt, if any.
+     * Scheduled handlers use it to continue the same task instead of starting a new one.
+     */
+    val resumeCheckpoint: JsonValue? get() = null
     suspend fun checkpoint(value: JsonValue?)
     suspend fun transition(state: RuntimeState)
     suspend fun renewLease()

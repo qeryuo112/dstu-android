@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedules_title">计划与提醒</string>
+    <string name="schedules_explanation">计划仅保留在这台设备。Android 可能按省电策略延迟工作或通知。</string>
+    <string name="schedules_name">标题</string>
+    <string name="schedules_body">正文</string>
+    <string name="schedules_after">几分钟后</string>
+    <string name="schedules_repeat">笔记重复间隔（15–1440 分钟，可选）</string>
+    <string name="schedules_note">安排新建笔记</string>
+    <string name="schedules_reminder">设置提醒</string>
+    <string name="schedules_pending">计划时间：%1$s</string>
+    <string name="schedules_settled">已结束 · %1$s</string>
+    <string name="schedules_run_now">立即运行</string>
+    <string name="schedules_remove">移除</string>
+    <string name="schedules_action_failed">未能完成此次调度操作。</string>
+</resources>

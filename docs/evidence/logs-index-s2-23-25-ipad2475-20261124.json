@@ -1,0 +1,80 @@
+{
+  "format": "dstu-evidence-index/v1",
+  "generatedAt": "2026-11-23T23:33:48.892Z",
+  "source": {
+    "repository": "dstu-android",
+    "ref": "4471fcf",
+    "revision": "4471fcf4e334e996109807d079e77eafa7c226b4",
+    "selection": "worktree",
+    "entryCount": 5,
+    "trackedCount": 0,
+    "presentCount": 5,
+    "missingFromWorktree": []
+  },
+  "archive": {
+    "format": "tar.gz",
+    "root": "PRIVATE_ARTIFACT_ROOT",
+    "relativeLocation": "s223-25-ipad2475-final-20261124/evidence.tar.gz",
+    "location": "PRIVATE_ARTIFACT_ROOT/s223-25-ipad2475-final-20261124/evidence.tar.gz",
+    "size": 19517,
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "65eab4963b9e1a64471c4bb4be1c06c0f139c0693c38b7f4350299e4e915a31a"
+    },
+    "manifest": {
+      "relativeLocation": "s223-25-ipad2475-final-20261124/manifest.json",
+      "location": "PRIVATE_ARTIFACT_ROOT/s223-25-ipad2475-final-20261124/manifest.json",
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "1aaecbd96625b9973c9eb2ea134f6507f4de0510bc8afddd9992c742f2504f6d"
+      }
+    }
+  },
+  "entries": [
+    {
+      "path": "logs/s223-25-apk-verification.log",
+      "size": 503,
+      "sha256": "f251310cd6f7fd5f17f2527d2644e8498c37304767380db08c388059757f916d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s223-25-host-final.log",
+      "size": 109789,
+      "sha256": "999b209ce772a8344905281437e887cd768e7023223439f18d6ab7340a4bbdb5",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s223-25-ipad2475-cases.txt",
+      "size": 2795,
+      "sha256": "fc41fdf9415d89980949cc207512b8c8ac066445d0518a682e06bc21f6ff4fb8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s223-25-ipad2475-final.log",
+      "size": 27550,
+      "sha256": "8b5aaa5e86dbd293c99c940bc362841713ce5f854e3f86fff4e4cee8c8f5b4a1",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s223-25-repository-final.log",
+      "size": 20409,
+      "sha256": "35f7c1cccdc3927131b05704adef9611deabd62fc2b1a2cf35448821111f4f8c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    }
+  ],
+  "compatibility": {
+    "legacyPathPolicy": "Entries retain original logs/... paths; historical docs/config references are lookup keys, not tracked files.",
+    "localWrites": "logs/ is gitignored; existing tools may continue writing local evidence.",
+    "restoreCommand": "node tools/evidence/restore.mjs <logs/path>"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "format": "dstu-evidence-index/v1",
+  "generatedAt": "2026-11-23T22:19:49.663Z",
+  "source": {
+    "repository": "dstu-android",
+    "ref": "f24dab8",
+    "revision": "f24dab810d71532e2e1afb3fa1b8fbdd43f622ad",
+    "selection": "worktree",
+    "entryCount": 3,
+    "trackedCount": 0,
+    "presentCount": 3,
+    "missingFromWorktree": []
+  },
+  "archive": {
+    "format": "tar.gz",
+    "root": "PRIVATE_ARTIFACT_ROOT",
+    "relativeLocation": "s223-ipad2475-20261124/evidence.tar.gz",
+    "location": "PRIVATE_ARTIFACT_ROOT/s223-ipad2475-20261124/evidence.tar.gz",
+    "size": 13370,
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "3b2a27f65f1b9d498549fe230ded469c3f07f64eb34a2636dcca2cc788fc3b80"
+    },
+    "manifest": {
+      "relativeLocation": "s223-ipad2475-20261124/manifest.json",
+      "location": "PRIVATE_ARTIFACT_ROOT/s223-ipad2475-20261124/manifest.json",
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "0e5e1b36d92f63d5f7a3209ebc30a132125359bf6c0af2782519a381ce3a2c34"
+      }
+    }
+  },
+  "entries": [
+    {
+      "path": "logs/s223-host-final.log",
+      "size": 106196,
+      "sha256": "f54a1215b52c28322bb20d8ace5116220679ed1596251dc6988e996e11616fd3",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s223-ipad2475-final.log",
+      "size": 10080,
+      "sha256": "02f0bc2cca61d62035876c18841f79a48b3f763f1a57e8cbd65978dbb99632fa",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s223-repository.log",
+      "size": 2858,
+      "sha256": "a082a65360a264039cd7634d06980b3e567b0f7aff130887e89671e68ff3fef0",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    }
+  ],
+  "compatibility": {
+    "legacyPathPolicy": "Entries retain original logs/... paths; historical docs/config references are lookup keys, not tracked files.",
+    "localWrites": "logs/ is gitignored; existing tools may continue writing local evidence.",
+    "restoreCommand": "node tools/evidence/restore.mjs <logs/path>"
+  }
+}

@@ -98,6 +98,44 @@ class RuntimeProjectionLedgerTest {
     }
 
     @Test
+    fun coldForegroundCleanupOnlyClosesPlatformReferencesAndDoesNotRepeat() = runBlocking {
+        val dir = Files.createTempDirectory("runtime-foreground-cleanup").toFile()
+        val taskId = TaskId.parse("duty-reopen")
+        val address = RuntimeTaskGeneration(taskId, 1)
+        try {
+            DatabaseFactory.openLocal(dir.resolve("runtime.db")).use { database ->
+                val ledger = SqlTaskLedger(database)
+                ledger.create(taskId, TaskSubmission(kind), now)
+                for (id in listOf("fgs.started", "fgs.secondary", "other.duty")) {
+                    assertEquals(
+                        RuntimeProjectionResult.APPLIED,
+                        ledger.apply(address, RuntimeProjectionChange.RegisterDuty(key(id), key("DATA_SYNC")), now),
+                    )
+                }
+                val claimed = ledger.apply(taskId, LedgerCommand.Claim("old-owner", now.plusSeconds(30)), now) as LedgerResult.Applied
+                val token = requireNotNull(claimed.snapshot.leaseToken())
+                ledger.apply(taskId, LedgerCommand.Transition(token, RuntimeState.RUNNING), now)
+                assertTrue(ledger.apply(taskId, LedgerCommand.Finish(token, RuntimeState.COMPLETED), now) is LedgerResult.Applied)
+            }
+            DatabaseFactory.openLocal(dir.resolve("runtime.db")).use { database ->
+                val ledger = SqlTaskLedger(database)
+                val before = requireNotNull(ledger.snapshot(taskId)).cursor
+                ledger.closePreviousForegroundDuties(now.plusSeconds(1))
+                val duties = ledger.duties(address, null, 10).associateBy { it.id.value }
+                assertEquals(now.plusSeconds(1), duties.getValue("fgs.started").releasedAt)
+                assertEquals(now.plusSeconds(1), duties.getValue("fgs.secondary").releasedAt)
+                assertEquals(null, duties.getValue("other.duty").releasedAt)
+                assertEquals(RuntimeState.COMPLETED, ledger.snapshot(taskId)?.state)
+                assertEquals(2, ledger.events(taskId, before).size)
+                ledger.closePreviousForegroundDuties(now.plusSeconds(2))
+                assertEquals(2, ledger.events(taskId, before).size)
+            }
+        } finally {
+            dir.deleteRecursively()
+        }
+    }
+
+    @Test
     fun duplicateSteadyStateIsUnchangedWithoutNewEvent() = runBlocking {
         val dir = Files.createTempDirectory("runtime-projection-stable").toFile()
         val taskId = TaskId.parse("stable-task")

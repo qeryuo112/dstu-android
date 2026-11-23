@@ -492,3 +492,44 @@ bash "$ROOT/baseline/run-on-device.sh" "$PHONE_SERIAL" V2232A candidates &&
 - **S2.22（每台 10/10）：** 隔离 App 使用真实 VFS 和 runtime.db 显式调用 `AppRecoveryPlan.forRuntime`，回收旧 owner 后先核对事实。已完成笔记只补账、另一笔记仅续作一次，聊天/导入保留检查点并中断，无回执脚本进待确认，取消与审批/暂停保持正确。再次以不同 PID 重启时笔记数和终态游标不变。仅签收新恢复入口的合同，不代表它已连到普通 App 默认启动。
 - 审阅手机采集的 81 条结构化恢复/outbox 日志，均带阶段、归属、结果、耗时，恢复侧可按合成任务 ID 关联，outbox 确认记录不含消费者 ID 或业务载荷。已核对 `S1.G`、`S1.10` 和 S2.19，按 **S2.20 → S2.21 → S2.22** 登记 accepted；`next=S2.23`（完善 FGS 职责和通知），不签 S2.G/M2，不改或启用正式 App 接线。
 - [平板索引](evidence/logs-index-s2-20-22-ipad2475-20261124.json)与[手机索引](evidence/logs-index-s2-20-22-v2232a-20261124.json)均已校验；手机原始归档 SHA-256 `b4055506cbe249bd98325d7ad6a4e5211672697a7e519a19cba97093abdf7bf5`。另验 286 份冻结合同和 249 份历史证据；旧分类命令直接在当前树运行误用 302 项历史计数（现行 305 项），改走隔离 S0 快照后 S0.08 schema / S0.09 分类通过。额外全量历史回放在 S0.11 停止：本机 Edge `158.0.4370.33`，冻结基线要求 `157.0.4341.60`；不记全量 S0 回放通过，不改冻结文档或浏览器。这不是本次设备测试失败。
+
+## 2026-11-24T06:20:14+08:00 - S2.23 前台职责与通知，平板候选验证
+
+- 冻结桌面 `e6b2657f` 核对 `electron/shell/background-residency.ts`、`host/plugins/agent-orchestration/tests/background-residency.test.ts`，复用后台需有真实原因的判定；Operit `7a39941b` 核对 `api/chat/AIForegroundService.kt` 和 `core/application/ForegroundServiceCompat.kt`，借鉴用途和空 Intent 分流，未复制一律常驻、进程退出和透明浮窗。terminal `e464668` 保持冻结。现行 S2.23 对应历史卡 S2.20，不改共享 schema。
+- 私有 main 实现 `f24dab8`：工作台流式笔记导入使用同一 `TaskSupervisor`；每个有效引用通过 `runtime_duties` 持久登记，通知按任务归并，停止按任务代次，取消/终态释放；旧进程已失去持有权的前台记录在首次成功打开 runtime.db 时归档为释放。同进程空 Intent 对账保留有效引用，无有效引用不启动任务。Sticky 仅给用户启用且有明确冷恢复协议的持续职责，现有导入及 PTY 不请求 Sticky。
+- iPA2475 API 36 ARM64 **8/8**，无跳过，另一次受控进程退出核对旧 PID 确实退出；覆盖真实工作台、Activity 销毁后双任务继续、通知定向停止、服务同进程重建、冷打开后旧引用释放/检查点保留/未重放。早版前台强制启动在空重建触发系统 `ForegroundServiceDidNotStartInTimeException`；最终从可见入口发常规服务启动，只在有职责时提升，原路径完整复跑通过。空动作显式重建走与系统 null Intent 相同处理函数，不冒充系统自然 Sticky 重启；正式系统长时预算不在本轮实跑。
+- 本机背景模块 27 项、账本投影 8 项、导入入参 2 项通过，架构/复杂度零违规，仓库合同和冻结输入通过。平板完成 `2026-11-24T06:18:47+08:00`，三个隔离包已按读回哈希清理，普通 App 安装状态不变。 [归档索引](evidence/logs-index-s2-23-ipad2475-20261124.json) SHA-256 `3b2a27f65f1b9d498549fe230ded469c3f07f64eb34a2636dcca2cc788fc3b80`，APK 清单 `cd78c92992d9549f3ed3a20de2eec4573fbb1454dadd23477fa6d04b9cd09ddd`。平板作为后续单元的集成检查点，不登记手机或双机正式签收，`next=S2.23`。
+
+## 2026-11-24T06:49:01+08:00 - S2.24 常驻、电池页和分段锁，平板候选验证
+
+- 冻结桌面 `e6b2657f` 核对 `electron/power.ts` 与 `electron/tests/power-entry.test.ts` 的启停及资源释放；Operit `7a39941b` 核对 `DisplayPreferencesManager`、`PermissionGuideViewModel`／`PermissionGuideScreen` 和 `FloatingChatService`，参考默认关闭、系统设置和带时限部分锁，不沿用全局空服务、透明浮窗或持续锁。terminal `e464668` 复用本机 PTY 会话生命周期，不重放 shell 命令。现行 S2.24 对应冻结 S2.21。
+- 私有 main 生产接线 `c01d455`：工作台“后台与电池”、本机 DataStore 开关、可用通知与真实职责数量、系统电池入口和 OEM 指引；只为用户选择开启且实际 RUNNING 的终端会话增加 `specialUse` 职责。关闭后台撤销职责，不结束独立终端或导入。仅活动 I/O 段申请带系统超时、有限预算的 PARTIAL_WAKE_LOCK，空闲无锁；结束、关闭或服务销毁清理，日志记录阶段/原因/时长/上限。外部接入及持续 Agent 尚无可确认的正式持久在线入口，不伪造会话。
+- iPA2475 API 36 ARM64 **4/4**，零跳过。两个真实 PTY 独立通知、关闭后台不杀会话、force-stop 重开只保留偏好、实读电池优化开/豁免两种状态并恢复；只临时修改同一隔离包的设备电池名单。另验证真实 Android WakeLock 句柄系统超时、按 owner 释放和全释放；不把控制器全释放测试当作人为杀 Service 的完整实测。早期用 `dumpsys power` 高频查询时系统 Watchdog 中断，系统服务恢复后按读回哈希清理临时包；最终改用真实锁句柄检测，完整复跑通过。普通 App 安装路径不变。
+- 本机背景模块 **50/50**（包含 S2.23），真实 DataStore 测试 **1/1**，架构与复杂度无违规。平板完成 `2026-11-24T06:48:08+08:00`，[证据索引](evidence/logs-index-s2-24-ipad2475-20261124.json)，归档 SHA-256 `fd1e5b178558490f06cf9102f2daee4b0c0d0c5cc7b0d23388b8760230659367`，候选清单 SHA-256 `3bb9a6f72c4cb2ddcdf295715fb88158435d693adf84b7de91f73e0cee835f5e`。无分支、无推送，不提前登记双机签收。
+
+## 2026-11-24T07:34:36+08:00 - S2.23–S2.25 同候选平板验证，等待手机复验
+
+- 冻结桌面 `e6b2657f` 核对 `src/features/todo/reminderScheduler.ts`、`host/plugins/vfs-repos/repository/todos.ts` 与提醒目标测试，采用本机发生键、已投递不重复及仅重排启用项，不移植桌面轮询。Operit `7a39941b` 核对 `core/workflow/WorkflowWorker.kt`、`WorkflowScheduler.kt`、`integrations/tasker/WorkflowTaskerReceiver.kt`、`data/backup/RoomDatabaseBackupScheduler.kt`，复用 Worker 与业务职责分离、唯一名称和启动重排，不采用 `REPLACE` 重置周期。terminal `e464668` 无 WorkManager/闹钟重排对应实现。现行 S2.25 映射冻结 S2.22；共享 schema、同步 wire、冻结源码均不变。
+- 生产源码 `4471fcf4e334e996109807d079e77eafa7c226b4`。工作台“计划与提醒”接入同进程 WorkManager 2.10.5、一次性 KEEP、周期 UPDATE 保持初始到期锚点、独立提醒渠道与 AlarmManager；能用精确闹钟才用，否则系统窗口，不授予精确权限。提醒投递成功才确认、按发生键防重，点击直接打开本应用 Activity（不走通知广播转跳）。`notes.create_scheduled` 是明确可续的纵切，UI 和 Worker 同任务 ID、同代次、同真实 VFS 事务和回执；系统停止与用户取消区分；正式启动只为该新用途接入可续任务的回收与事实对账，其它运行时恢复策略保持原状。
+- **平板同候选：S2.23 8/8，S2.24 4/4，S2.25 13/13，共 25/25，零失败或跳过。** iPA2475 Android 16、ARM64；S2.23 另一次预期进程退出，主机核验 PID 消失；S2.24 电池优化开启与豁免两种实际状态、测试包豁免恢复；S2.25 实际 WorkManager 系统 Job 由 JobScheduler 超时命令停止，Worker 释放租约、保留 checkpoint 且不写用户取消，待 AndroidX 退避后同任务只产生一个 VFS 笔记回执。对照 `force-stop`：应用保持 stopped、旧 PID 与活动作业都消失，显式重开后新 PID 以同任务、同代次完成，不多写笔记。周期 UPDATE 连续重排只保留一个 WorkInfo 且首次时间不变。提醒复用开机重排函数，使用真实私有 Alarm Receiver/PendingIntent；对 inexact 回调采用受控发送，不把此用例记作整机重启、自然到点精度或已授精确权限。完整待办、工作流和番茄业务仍属后续单元。
+- 结束于 `2026-11-24T07:32:48+08:00`，三份临时 APK 逐一核对设备读回哈希后卸载，普通 App 安装状态前后相同。相关 JVM/SQLite/DataStore 用例 **134/134**（62 背景 + 35 账本数据 + 34 运行后端 + 3 应用），仓库脚本 **96/96**，`qualityGate`、仓库合同、286 份冻结文件与 249 份历史证据校验均通过，隔离 App 签名 v2、ARM64、minSdk 26/targetSdk 36、16 KiB 对齐核验通过。
+- [同包平板证据索引](evidence/logs-index-s2-23-25-ipad2475-20261124.json)，归档 SHA-256 `65eab4963b9e1a64471c4bb4be1c06c0f139c0693c38b7f4350299e4e915a31a`。Android 测试 APK 与所有原始日志在仓库外；不公开、不推送。下一步仅在用户接入并授权 V2232A 后用原件复跑，不重建。`next=S2.23`、`s2GateAccepted=false`；未签收双机或 S2.G。
+
+```bash
+ROOT=/home/xutao/deepstudent/artifacts/android-s223-25-20261124
+CANDIDATE="$ROOT/tablet-phone-candidate"
+(cd "$CANDIDATE" && sha256sum -c SHA256SUMS && sha256sum SHA256SUMS tablet-cases.txt)
+bash tools/s2/verify-background-device.sh "$PHONE_SERIAL" V2232A "$CANDIDATE" "$ROOT/phone-final" all
+rg '^PASS ' "$ROOT/phone-final/device.log" | cut -d ' ' -f 2- | sort | diff - "$CANDIDATE/tablet-cases.txt"
+```
+
+APK 清单摘要 `65415e23c2bdc55ad9d1895b18a2dd04c7daf1345e534d883c33bb52821c1c1a`；平板 25 项选择器清单摘要 `fc41fdf9415d89980949cc207512b8c8ac066445d0518a682e06bc21f6ff4fb8`。
+
+## 2026-11-24T07:43:29+08:00 - S2.23–S2.25 手机同包复验与双真机签收
+
+- 仅接入 `V2232A`（Android 16/API 36、ARM64），原样使用 iPA2475 平板候选的三个 APK，未重打包。候选源码 `4471fcf4e334e996109807d079e77eafa7c226b4`，APK 清单摘要 `65415e23c2bdc55ad9d1895b18a2dd04c7daf1345e534d883c33bb52821c1c1a`。两台设备的三个安装读回 SHA-256 逐一相同，25 个通过的类及方法标识逐项相同；用例清单摘要 `fc41fdf9415d89980949cc207512b8c8ac066445d0518a682e06bc21f6ff4fb8`。每台 **25/25**，合计 **50/50**，零失败或跳过。每台另分别核验一次受控进程退出并确认旧 PID 消失，不计入通过数。
+- **S2.23（每台 8/8）**：从工作台正式入口发起笔记导入，Activity 销毁后双任务继续，通知停止只影响指定任务。服务同进程重建恢复有效职责，冷进程清理旧引用并保留检查点，不重跑导入。双机空动作走与 null Intent 共用的对账路径；Sticky 条件有本机回归，不把受控重建记为自然 Sticky 重启。
+- **S2.24（每台 4/4）**：真实双 PTY 会话职责与常驻开关一致，关闭后台不终止独立终端，重开只保留偏好；系统实际电池优化和豁免均读回。真实 Android 锁句柄超时后释放，控制器按职责和全部释放通过；不签收外部接入、持续 Agent 或长时耗电矩阵。
+- **S2.25（每台 13/13）**：以真 WorkManager 系统作业与工作台入口验证不双执行，系统停止不写用户取消；经过退避以原 taskId、原 generation 从检查点完成一次 VFS 提交。隔离包 `force-stop` 后没有旧进程或活动作业，显式重开换 PID 后仍只写一份业务回执。周期重排保留唯一 WorkInfo 和首次到期时间；真实私有闹钟接收器通过受控送达核验重复、撤销和开机重排入口，未授精确闹钟权限，不把它登记成整机重启或自然准点送达。
+- 手机实测完成 `2026-11-24T07:41:14+08:00`。临时 APK 按读回哈希清理，测试包电池豁免已恢复，正式 App 安装状态无变化，未操作用户数据。手机[证据索引](evidence/logs-index-s2-23-25-v2232a-20261124.json)的 2 项归档已核验，SHA-256 `26a535a7c83bfac5e97f2d3c59bef0cdfad5e4e597d5c8f05c9a277420f3d225`；[平板索引](evidence/logs-index-s2-23-25-ipad2475-20261124.json)继续有效。原始日志与 APK 不入 Git、不公开。
+- 主线程核对 `S1.09`、`S1.G`、`S2.20`、`S2.22` 等有效依赖，按 `S2.23 → S2.24 → S2.25` 登记 accepted。下一单元 `S2.26`（实现 CapabilityBroker 审批审计），未开始开发，`s2GateAccepted=false`，未签 S2.G/M2。此次仅私有本地 `main`，无新分支、无远端推送。

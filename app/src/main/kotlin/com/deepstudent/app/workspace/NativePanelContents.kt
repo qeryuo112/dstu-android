@@ -1,5 +1,6 @@
 package com.deepstudent.app.workspace
 
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -10,7 +11,6 @@ import com.deepstudent.app.execution.ExecutionPanel
 import com.deepstudent.app.terminal.TerminalPanel
 import com.deepstudent.core.common.id.TaskId
 import com.deepstudent.features.chat.ui.ChatStreamPanel
-import androidx.compose.material3.Text
 import com.deepstudent.features.workspace.api.PanelInstance
 import com.deepstudent.features.workspace.api.PanelKey
 import com.deepstudent.features.workspace.api.ResourceKey
@@ -23,7 +23,7 @@ internal typealias NativePanelContent = @Composable (PanelInstance, Boolean) -> 
 internal fun nativePanelContents(ports: WorkspacePorts): Map<PanelKey, NativePanelContent> {
     val scope = rememberCoroutineScope()
     return remember(ports, scope) {
-        mapOf(
+        mapOf<PanelKey, NativePanelContent>(
             PanelKey.parse("content") to { _, _ -> ContentEntry() },
             WorkspacePanelKeys.Notes to { panel, active -> PanelViewModels(panel.id) { WorkspaceNotesEntry(ports, panel, active) } },
             WorkspacePanelKeys.Pdf to { panel, _ -> WorkspacePdfEntry(ports, panel) },
@@ -33,10 +33,12 @@ internal fun nativePanelContents(ports: WorkspacePorts): Map<PanelKey, NativePan
                 })
             },
             WorkspacePanelKeys.Browser to { panel, active ->
-                BrowserEntry(onClose = { scope.launch { ports.workspace.close(panel.id) } },
+                BrowserEntry(
+                    onClose = { scope.launch { ports.workspace.close(panel.id) } },
                     host = BrowserEntryHost(panel.resource?.id, active, { url ->
                         ports.workspace.updateResource(panel.id, ResourceKey("browser-url", url))
-                    }, ports.testLoopback))
+                    }, ports.testLoopback),
+                )
             },
             PanelKey.parse("environments") to { panel, _ ->
                 val loadManager = ports.environments
@@ -67,6 +69,15 @@ internal fun nativePanelContents(ports: WorkspacePorts): Map<PanelKey, NativePan
                     }
                 }
             },
-        )
+        ) + backgroundPanels(ports.tools)
     }
 }
+
+private fun backgroundPanels(tools: WorkspaceToolPorts): Map<PanelKey, NativePanelContent> = mapOf(
+    PanelKey.parse("schedules") to { _, _ -> tools.schedules?.let { com.deepstudent.app.scheduling.SchedulePanel(it) } },
+    PanelKey.parse("background-power") to { _, _ -> tools.backgroundPower?.let { com.deepstudent.app.power.BackgroundPowerEntry(it) } },
+    PanelKey.parse("note-import") to { _, _ ->
+        val actions = tools.noteImport
+        if (actions == null) Text("导入未配置") else com.deepstudent.app.runtime.NoteImportPanel(actions)
+    },
+)

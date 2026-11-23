@@ -30,15 +30,27 @@ internal class RuntimeStartupRecovery(private val runtime: MainRuntimeResources)
         } + listOf(
             RecoveryRegistration(RuntimeChatStreams.KIND, ChatCheckpointSource, handler),
             RecoveryRegistration(MainScriptResources.KIND, runtime.script.completionSource, handler),
+            RecoveryRegistration(MainRuntimeResources.SCHEDULED_NOTE_CREATE, runtime.completionSource) { snapshot ->
+                if (snapshot.execution.cancelRequested) RecoveryDecision.Interrupted else RecoveryDecision.KeepPaused
+            },
         )
-        val actions = RecoveryActions(runtime.ledger, runtime.supervisor, SystemWallClock,
-            runtime.ownerId, MainRuntimeResources.LEASE_DURATION,
+        val actions = RecoveryActions(
+            runtime.ledger,
+            runtime.supervisor,
+            SystemWallClock,
+            runtime.ownerId,
+            MainRuntimeResources.LEASE_DURATION,
             DeadOwnerPredicate {
                 it.ownership.ownerId?.startsWith("main:") == true &&
                     it.ownership.ownerId != runtime.ownerId
-            })
-        return RecoveryCoordinator(actions, registrations,
+            },
+        )
+        return RecoveryCoordinator(
+            actions,
+            registrations,
             RecoveryPublisher { snapshots.value = snapshots.value + (it.taskId to it) },
-            AndroidOperationLogger, SystemMonotonicClock).recover()
+            AndroidOperationLogger,
+            SystemMonotonicClock,
+        ).recover()
     }
 }

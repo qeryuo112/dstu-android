@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="background_power_title">后台与耗电</string>
+    <string name="background_power_keep_alive">允许后台继续运行</string>
+    <string name="background_power_keep_alive_detail">关闭后，离开应用时后台工作会停止。</string>
+    <string name="background_power_active_duties">当前后台职责：%1$d 个</string>
+    <string name="background_power_notifications_blocked">通知已被阻止，因此不显示后台状态通知。</string>
+    <string name="background_power_notifications_visible">有后台工作运行时，会显示后台状态通知。</string>
+    <string name="background_power_battery_ignored">Deep Student 已关闭电池优化。</string>
+    <string name="background_power_battery_optimized">Deep Student 仍受电池优化限制，息屏时系统可能停止后台工作。</string>
+    <string name="background_power_battery_open">打开电池设置</string>
+    <string name="background_power_battery_unavailable">该系统没有可以为应用打开的电池设置页。</string>
+</resources>

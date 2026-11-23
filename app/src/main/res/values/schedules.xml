@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="schedules_title">Schedules and reminders</string>
+    <string name="schedules_explanation">Schedules stay on this device. Android may defer work or notifications according to its power policy.</string>
+    <string name="schedules_name">Title</string>
+    <string name="schedules_body">Text</string>
+    <string name="schedules_after">Minutes from now</string>
+    <string name="schedules_repeat">Repeat note every 15–1440 minutes (optional)</string>
+    <string name="schedules_note">Schedule note</string>
+    <string name="schedules_reminder">Set reminder</string>
+    <string name="schedules_pending">Scheduled for %1$s</string>
+    <string name="schedules_settled">Finished · %1$s</string>
+    <string name="schedules_run_now">Run now</string>
+    <string name="schedules_remove">Remove</string>
+    <string name="schedules_action_failed">The scheduling action could not be completed.</string>
+</resources>

@@ -497,6 +497,64 @@
         "logs/s220-22-v2232a-baseline.log",
         "logs/s220-22-v2232a-final.log"
       ]
+    },
+    {
+      "id": "S2.23",
+      "card": "S2.23/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-24T07:43:29+08:00",
+      "dependsOn": [
+        "S1.09",
+        "S2.20",
+        "S2.22",
+        "S1.G"
+      ],
+      "scope": "笔记导入正式入口、前台职责引用、定向通知停止和服务对账；Sticky 条件由本机用例验证，双机空动作重建不计为系统自然 Sticky 重启",
+      "review": "docs/handoff-s2.md",
+      "evidence": [
+        "logs/s223-25-ipad2475-final.log",
+        "logs/s223-25-ipad2475-cases.txt",
+        "logs/s223-25-v2232a-final.log",
+        "logs/s223-25-v2232a-cases.txt"
+      ]
+    },
+    {
+      "id": "S2.24",
+      "card": "S2.24/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-24T07:43:29+08:00",
+      "dependsOn": [
+        "S2.23",
+        "S1.G"
+      ],
+      "scope": "真实终端常驻、本地偏好、两种实际电池优化状态及有上限的 WakeLock；不签收外部接入、持续 Agent 或长时耗电矩阵",
+      "review": "docs/handoff-s2.md",
+      "evidence": [
+        "logs/s223-25-ipad2475-final.log",
+        "logs/s223-25-ipad2475-cases.txt",
+        "logs/s223-25-v2232a-final.log",
+        "logs/s223-25-v2232a-cases.txt"
+      ]
+    },
+    {
+      "id": "S2.25",
+      "card": "S2.25/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-24T07:43:29+08:00",
+      "dependsOn": [
+        "S2.20",
+        "S2.23",
+        "S2.24",
+        "S1.G"
+      ],
+      "scope": "真实 WorkManager 与可续笔记纵切、唯一工作、系统停止与强停分别复验、提醒重排及受控投递；不签收整机重启、精确到点或后续领域调度",
+      "review": "docs/handoff-s2.md",
+      "evidence": [
+        "logs/s223-25-ipad2475-final.log",
+        "logs/s223-25-ipad2475-cases.txt",
+        "logs/s223-25-v2232a-final.log",
+        "logs/s223-25-v2232a-cases.txt"
+      ]
     }
   ],
   "previousCandidates": {
@@ -1425,10 +1483,10 @@
     "backupDataTestSha256": "d0f7f14ef84b675c705165a1d8cf6c0efec1397c83d61e8fe268fd05a0e13b93",
     "managedWebDavFixtureVerified": true
   },
-  "next": "S2.23",
+  "next": "S2.26",
   "planRevision": "2026-11-23-s2-desktop-compatibility",
   "currentPlan": "config/planning/active-plan.json",
-  "nextName": "完善FGS职责和通知",
+  "nextName": "实现CapabilityBroker审批审计",
   "plannedRemediations": [
     {
       "id": "S2.16",

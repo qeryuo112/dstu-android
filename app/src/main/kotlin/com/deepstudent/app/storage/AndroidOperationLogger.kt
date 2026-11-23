@@ -7,7 +7,10 @@ import com.deepstudent.core.common.logging.Logger
 
 /** Diagnostic fields are explicitly selected; payloads and exception messages never enter logcat. */
 internal object AndroidOperationLogger : Logger {
-    private val allowed = setOf("owner", "stage", "status", "state", "phase", "outcome", "durationMillis", "duration_ms", "elapsedMs")
+    private val allowed = setOf(
+        "owner", "stage", "status", "state", "phase", "outcome", "durationMillis", "duration_ms", "elapsedMs",
+        "generation", "change", "result", "purpose", "category", "reason", "capMs", "remainingMs",
+    )
 
     override fun log(record: LogRecord) {
         val fields = allowed.mapNotNull { key ->
@@ -17,7 +20,10 @@ internal object AndroidOperationLogger : Logger {
                 else -> null
             }
         }
-        Log.i("DstuOperation", "event=${record.event} taskId=${record.taskId?.value} " +
-            "correlationId=${record.correlationId?.value} ${fields.joinToString(" ")}")
+        Log.i(
+            "DstuOperation",
+            "event=${record.event} taskId=${record.taskId?.value} " +
+                "correlationId=${record.correlationId?.value} ${fields.joinToString(" ")}",
+        )
     }
 }

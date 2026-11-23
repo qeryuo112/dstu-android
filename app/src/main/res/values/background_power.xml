@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="background_power_title">Background power</string>
+    <string name="background_power_keep_alive">Keep running in the background</string>
+    <string name="background_power_keep_alive_detail">When this is off, background work stops as soon as you leave the app.</string>
+    <string name="background_power_active_duties">Active background duties: %1$d</string>
+    <string name="background_power_notifications_blocked">Notifications are blocked, so the background status notification is hidden.</string>
+    <string name="background_power_notifications_visible">The background status notification is shown while work runs.</string>
+    <string name="background_power_battery_ignored">Battery optimization is off for Deep Student.</string>
+    <string name="background_power_battery_optimized">Battery optimization is on for Deep Student. The system can stop background work while the screen is off.</string>
+    <string name="background_power_battery_open">Open battery settings</string>
+    <string name="background_power_battery_unavailable">This system has no battery settings page that can be opened for the app.</string>
+</resources>

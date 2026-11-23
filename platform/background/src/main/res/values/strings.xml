@@ -1,11 +1,17 @@
 <resources>
     <string name="background_channel_name">Background tasks</string>
-    <string name="background_channel_description">Tasks running in the background</string>
+    <string name="background_channel_description">Tasks and sessions you explicitly keep running in the background</string>
     <string name="background_notification_title">Background tasks</string>
-    <string name="background_notification_starting">Starting task</string>
-    <string name="background_notification_count">Active tasks: %1$d</string>
+    <string name="background_notification_starting">Starting background task</string>
+    <string name="background_notification_count">Active items: %1$d</string>
     <string name="background_notification_task">Task %1$s</string>
+    <string name="background_notification_owner">Session %1$s</string>
     <string name="background_notification_stop">Stop task</string>
+    <string name="background_notification_close">Close background</string>
+    <string name="background_purpose_data_sync">Syncing data</string>
+    <string name="background_purpose_data_sync_description">User-started data transfer or synchronization</string>
+    <string name="background_purpose_terminal">Terminal session</string>
+    <string name="background_purpose_terminal_description">Terminal session you keep running</string>
     <string name="background_state_created">Starting</string>
     <string name="background_state_running">In progress</string>
     <string name="background_state_waiting">Waiting for approval</string>
@@ -14,4 +20,15 @@
     <string name="background_state_failed">Failed</string>
     <string name="background_state_cancelled">Cancelled</string>
     <string name="background_state_interrupted">Interrupted</string>
+    <string name="battery_vendor_vivo">vivo hides the switch in Settings → Battery → Background power consumption management. Allow Deep Student to run in the background there.</string>
+    <string name="battery_vendor_iqoo">iQOO hides the switch in Settings → Battery → Background power consumption management. Allow Deep Student to run in the background there.</string>
+    <string name="battery_vendor_oppo">OPPO hides the switch in Settings → Battery → App battery management. Allow Deep Student to run in the background there.</string>
+    <string name="battery_vendor_oneplus">OnePlus hides the switch in Settings → Battery → Battery optimization → Deep Student. Choose Do not optimize.</string>
+    <string name="battery_vendor_realme">realme hides the switch in Settings → Battery → App battery management. Allow Deep Student to run in the background there.</string>
+    <string name="battery_vendor_xiaomi">Xiaomi hides the switch in Settings → Apps → Deep Student → Battery saver. Choose No restrictions.</string>
+    <string name="battery_vendor_redmi">Redmi hides the switch in Settings → Apps → Deep Student → Battery saver. Choose No restrictions.</string>
+    <string name="battery_vendor_huawei">Huawei hides the switch in Settings → Battery → App launch. Set Deep Student to Manage manually with background running allowed.</string>
+    <string name="battery_vendor_honor">HONOR hides the switch in Settings → Battery → App launch. Set Deep Student to Manage manually with background running allowed.</string>
+    <string name="battery_vendor_samsung">Samsung hides the switch in Settings → Battery → Background usage limits. Make sure Deep Student is not in Sleeping apps.</string>
+    <string name="battery_vendor_meizu">Meizu hides the switch in Settings → Battery → Power management. Allow Deep Student to run in the background.</string>
 </resources>

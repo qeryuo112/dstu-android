@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Deep Student</string>
+    <string name="note_import_title">Import a text stream</string>
+    <string name="note_import_explanation">Enter an HTTPS Server-Sent Events endpoint. Text from the stream is saved as a new note when the import completes.</string>
+    <string name="note_import_name">Note title</string>
+    <string name="note_import_address">Stream URL</string>
+    <string name="note_import_start">Start import</string>
+    <string name="note_import_app_only">Background protection is not active. Keep the app open until the import completes.</string>
+    <string name="note_import_submit_error">Could not start the import. Check the address and try again.</string>
+    <string name="note_import_task_id">Task %1$s</string>
+    <string name="note_import_queued">Waiting to start</string>
+    <string name="note_import_running">Importing</string>
+    <string name="note_import_completed">Saved in Notes</string>
+    <string name="note_import_cancelled">Import cancelled</string>
+    <string name="note_import_failed">Import failed</string>
+    <string name="note_import_interrupted">Import interrupted</string>
+    <string name="note_import_paused">Import paused</string>
+    <string name="note_import_cancel">Stop import</string>
 </resources>

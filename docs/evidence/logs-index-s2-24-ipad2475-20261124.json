@@ -1,0 +1,56 @@
+{
+  "format": "dstu-evidence-index/v1",
+  "generatedAt": "2026-11-23T22:48:37.991Z",
+  "source": {
+    "repository": "dstu-android",
+    "ref": "c01d455",
+    "revision": "c01d4552c2c48ff674771097427f47825057b362",
+    "selection": "worktree",
+    "entryCount": 2,
+    "trackedCount": 0,
+    "presentCount": 2,
+    "missingFromWorktree": []
+  },
+  "archive": {
+    "format": "tar.gz",
+    "root": "PRIVATE_ARTIFACT_ROOT",
+    "relativeLocation": "s224-ipad2475-20261124/evidence.tar.gz",
+    "location": "PRIVATE_ARTIFACT_ROOT/s224-ipad2475-20261124/evidence.tar.gz",
+    "size": 11920,
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "fd1e5b178558490f06cf9102f2daee4b0c0d0c5cc7b0d23388b8760230659367"
+    },
+    "manifest": {
+      "relativeLocation": "s224-ipad2475-20261124/manifest.json",
+      "location": "PRIVATE_ARTIFACT_ROOT/s224-ipad2475-20261124/manifest.json",
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "0a575b5eb15f2a557e68cb86a086359f90ec2afa53b6cbf6b092e8e985d525d3"
+      }
+    }
+  },
+  "entries": [
+    {
+      "path": "logs/s224-host-final.log",
+      "size": 105809,
+      "sha256": "171afc2d6499876db7b1625dbeee8639f2dae4832b3a2f009759e75143f7e989",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s224-ipad2475-final.log",
+      "size": 5773,
+      "sha256": "3981c57652513ab9eb59508bb26c81bf28263bcefdd67ea99dd040bcaba4cffc",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    }
+  ],
+  "compatibility": {
+    "legacyPathPolicy": "Entries retain original logs/... paths; historical docs/config references are lookup keys, not tracked files.",
+    "localWrites": "logs/ is gitignored; existing tools may continue writing local evidence.",
+    "restoreCommand": "node tools/evidence/restore.mjs <logs/path>"
+  }
+}

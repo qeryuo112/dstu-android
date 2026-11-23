@@ -1,6 +1,7 @@
 package com.deepstudent.app.runtime
 
 import com.deepstudent.app.runtime.script.MainScriptResources
+import com.deepstudent.app.storage.AndroidDatabaseLog
 import com.deepstudent.app.storage.AndroidOperationLogger
 import com.deepstudent.app.storage.MainStorageResources
 import com.deepstudent.core.common.id.TaskId
@@ -10,7 +11,6 @@ import com.deepstudent.features.chat.backend.application.RuntimeChatStreams
 import com.deepstudent.features.chat.data.NetworkChatStream
 import com.deepstudent.features.notes.backend.application.NoteStreamImport
 import com.deepstudent.platform.database.DatabaseRegistry
-import com.deepstudent.app.storage.AndroidDatabaseLog
 import com.deepstudent.platform.database.SqlDatabase
 import com.deepstudent.services.runtime.api.TaskKind
 import com.deepstudent.services.runtime.backend.HandlerRegistry
@@ -19,15 +19,15 @@ import com.deepstudent.services.runtime.backend.RuntimeController
 import com.deepstudent.services.runtime.backend.TaskIdSource
 import com.deepstudent.services.runtime.backend.TaskSupervisor
 import com.deepstudent.services.runtime.data.SqlTaskLedger
-import java.io.File
-import java.time.Duration
-import java.util.UUID
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.runBlocking
+import java.io.File
+import java.time.Duration
+import java.util.UUID
 
 /** Application-owned execution. No Activity or observer owns the task jobs. */
 internal class MainRuntimeResources private constructor(
@@ -59,6 +59,7 @@ internal class MainRuntimeResources private constructor(
 
     companion object {
         val NOTE_CREATE = TaskKind.parse("notes.create")
+        val SCHEDULED_NOTE_CREATE = TaskKind.parse("notes.create_scheduled")
         val NOTE_IMPORT = TaskKind.parse("notes.import_stream")
         val LEASE_DURATION: Duration = Duration.ofSeconds(30)
 
@@ -66,7 +67,11 @@ internal class MainRuntimeResources private constructor(
             val parent = File(activeRoot, "databases")
             check(parent.isDirectory || parent.mkdirs()) { "private runtime directory unavailable" }
             val processLock = RuntimeProcessLock.acquire(parent)
-            val database = try { DatabaseRegistry.openLocal(File(parent, "runtime.db"), log = AndroidDatabaseLog) } catch (failure: Exception) {
+            val database = try {
+                DatabaseRegistry.openLocal(File(parent, "runtime.db"), log = AndroidDatabaseLog)
+            } catch (
+                failure: Exception,
+            ) {
                 closeResource(processLock, failure)
                 throw failure
             }
@@ -75,7 +80,10 @@ internal class MainRuntimeResources private constructor(
                 val openedScript = MainScriptResources.open(parent)
                 script = openedScript
                 val composition = MainRuntimeComposition.create(
-                    database, processLock.ownerId, storage, openedScript,
+                    database,
+                    processLock.ownerId,
+                    storage,
+                    openedScript,
                 )
                 return MainRuntimeResources(database, openedScript, composition, processLock)
             } catch (failure: Exception) {
@@ -103,36 +111,51 @@ private class MainRuntimeComposition(
             storage: MainStorageResources,
             script: MainScriptResources,
         ): MainRuntimeComposition {
-            val ledger = SqlTaskLedger(database)
+            val ledger = SqlTaskLedger(database, AndroidOperationLogger)
             val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
             try {
                 val source = NotesCompletionSource(storage.noteTasks, storage.noteCancellations)
+                val createNote = NoteCreationHandler(storage.noteTasks)
                 val registry = HandlerRegistry(
                     mapOf(
-                        MainRuntimeResources.NOTE_CREATE to NoteCreationHandler(storage.noteTasks),
+                        MainRuntimeResources.NOTE_CREATE to createNote,
+                        MainRuntimeResources.SCHEDULED_NOTE_CREATE to
+                            NoteCreationHandler(storage.noteTasks, ScheduledNoteExecution::beforeWrite),
                         MainRuntimeResources.NOTE_IMPORT to NoteStreamImport(
-                            storage.noteStreamReader(), NoteImportStorageAdapter(storage),
+                            storage.noteStreamReader(),
+                            NoteImportStorageAdapter(storage),
                         ),
                         RuntimeChatStreams.KIND to ChatStreamHandler(NetworkChatStream(storage.network)),
                         MainScriptResources.KIND to script.handler,
                     ),
                     mapOf(
                         MainRuntimeResources.NOTE_CREATE to source,
+                        MainRuntimeResources.SCHEDULED_NOTE_CREATE to source,
                         MainRuntimeResources.NOTE_IMPORT to source,
                         MainScriptResources.KIND to script.completionSource,
                     ),
+                    resumableKinds = setOf(MainRuntimeResources.SCHEDULED_NOTE_CREATE),
                 )
                 val leases = LeaseManager(
-                    ledger, SystemWallClock, ownerId, MainRuntimeResources.LEASE_DURATION,
+                    ledger,
+                    SystemWallClock,
+                    ownerId,
+                    MainRuntimeResources.LEASE_DURATION,
                 )
                 val supervisor = TaskSupervisor(
-                    scope, ledger, leases, registry, SystemWallClock, AndroidOperationLogger,
+                    scope,
+                    ledger,
+                    leases,
+                    registry,
+                    SystemWallClock,
+                    AndroidOperationLogger,
                 )
                 val controller = RuntimeController(
                     ledger,
                     supervisor,
                     TaskIdSource { TaskId.parse("task_${UUID.randomUUID()}") },
                     SystemWallClock,
+                    resumableKinds = registry.resumableKinds,
                 )
                 return MainRuntimeComposition(scope, ledger, supervisor, controller, source)
             } catch (failure: Exception) {
@@ -143,15 +166,14 @@ private class MainRuntimeComposition(
     }
 }
 
-private fun closeResource(resource: AutoCloseable?, failure: Throwable?): Throwable? =
-    try {
-        resource?.close()
+private fun closeResource(resource: AutoCloseable?, failure: Throwable?): Throwable? = try {
+    resource?.close()
+    failure
+} catch (closeFailure: Throwable) {
+    if (failure == null) {
+        closeFailure
+    } else {
+        failure.addSuppressed(closeFailure)
         failure
-    } catch (closeFailure: Throwable) {
-        if (failure == null) {
-            closeFailure
-        } else {
-            failure.addSuppressed(closeFailure)
-            failure
-        }
     }
+}

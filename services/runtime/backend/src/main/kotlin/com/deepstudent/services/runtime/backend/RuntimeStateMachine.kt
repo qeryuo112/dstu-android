@@ -16,6 +16,7 @@ object RuntimeStateMachine {
         is LedgerCommand.Fence -> fence(snapshot, command, now)
         is LedgerCommand.Release -> releaseLease(snapshot, command, now)
         is LedgerCommand.TakeOver -> takeOver(snapshot, command, now)
+        LedgerCommand.SettleCancelled -> settleCancelled(snapshot, now)
         else -> executionDecision(snapshot, command, now)
     }
 
@@ -37,6 +38,17 @@ object RuntimeStateMachine {
         is LedgerCommand.Reconcile -> reconcile(snapshot, command, now)
 
         else -> rejected(snapshot, LedgerRejection.INVALID_TRANSITION)
+    }
+
+    /**
+     * A released task that already carries a durable user cancel request is settled without
+     * executing anything. A live owner or a missing request keeps the decision with its owner.
+     */
+    private fun settleCancelled(s: RuntimeSnapshot, now: Instant): LedgerChange = when {
+        s.state.terminal -> rejected(s, LedgerRejection.TERMINAL)
+        !s.execution.cancelRequested -> rejected(s, LedgerRejection.INVALID_TRANSITION)
+        s.ownership.ownerId != null -> rejected(s, LedgerRejection.OWNED)
+        else -> changed(s.copy(state = RuntimeState.CANCELLED), RuntimeEventType.STATE_CHANGED, now)
     }
 
     private fun cancelGeneration(snapshot: RuntimeSnapshot, generation: Long, now: Instant): LedgerChange =

@@ -1,5 +1,6 @@
 package com.deepstudent.services.runtime.data
 
+import com.deepstudent.core.common.id.TaskId
 import com.deepstudent.core.common.json.JsonValue
 import com.deepstudent.core.common.logging.LogLevel
 import com.deepstudent.core.common.logging.LogRecord
@@ -62,6 +63,27 @@ internal class RuntimeProjectionLedger(private val database: SqlDatabase, privat
             listOf(text(task.taskId.value), integer(task.generation), text(after?.value ?: ""), integer(limit.toLong())),
             RuntimeProjectionRows::duty,
         )
+    }
+
+    /** A cold owner can close its previous process's notification references, including terminal tasks. */
+    suspend fun closeForegroundProjectionRows(now: Instant) {
+        while (true) {
+            val pending = database.query(
+                "SELECT d.task_id, d.generation, d.record_id FROM runtime_duties d " +
+                    "JOIN runtime_tasks t ON t.task_id = d.task_id AND t.generation = d.generation " +
+                    "WHERE d.released_at IS NULL AND d.record_id GLOB 'fgs.*' " +
+                    "ORDER BY d.task_id, d.record_id LIMIT 100",
+            ) {
+                RuntimeTaskGeneration(TaskId.parse(it.text(0)), it.long(1)) to RuntimeRecordKey.parse(it.text(2))
+            }
+            if (pending.isEmpty()) return
+            for ((address, recordId) in pending) {
+                val result = apply(address, RuntimeProjectionChange.ReleaseDuty(recordId), now)
+                check(result == RuntimeProjectionResult.APPLIED || result == RuntimeProjectionResult.UNCHANGED) {
+                    "stale foreground projection during cold open"
+                }
+            }
+        }
     }
 
     private fun SqlOperations.applyChange(

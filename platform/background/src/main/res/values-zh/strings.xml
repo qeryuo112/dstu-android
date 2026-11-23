@@ -1,0 +1,13 @@
+<resources>
+    <string name="battery_vendor_vivo">vivo 把开关放在「设置 → 电池 → 后台耗电管理」，在那里允许 Deep Student 后台运行。</string>
+    <string name="battery_vendor_iqoo">iQOO 把开关放在「设置 → 电池 → 后台耗电管理」，在那里允许 Deep Student 后台运行。</string>
+    <string name="battery_vendor_oppo">OPPO 把开关放在「设置 → 电池 → 应用耗电管理」，在那里允许 Deep Student 后台运行。</string>
+    <string name="battery_vendor_oneplus">一加把开关放在「设置 → 电池 → 电池优化 → Deep Student」，选择「不优化」。</string>
+    <string name="battery_vendor_realme">realme 把开关放在「设置 → 电池 → 应用耗电管理」，在那里允许 Deep Student 后台运行。</string>
+    <string name="battery_vendor_xiaomi">小米把开关放在「设置 → 应用设置 → Deep Student → 省电策略」，选择「无限制」。</string>
+    <string name="battery_vendor_redmi">红米把开关放在「设置 → 应用设置 → Deep Student → 省电策略」，选择「无限制」。</string>
+    <string name="battery_vendor_huawei">华为把开关放在「设置 → 电池 → 应用启动管理」，把 Deep Student 设为手动管理并允许后台活动。</string>
+    <string name="battery_vendor_honor">荣耀把开关放在「设置 → 电池 → 应用启动管理」，把 Deep Student 设为手动管理并允许后台活动。</string>
+    <string name="battery_vendor_samsung">三星把开关放在「设置 → 电池 → 后台使用限制」，确认 Deep Student 没有被放入休眠应用。</string>
+    <string name="battery_vendor_meizu">魅族把开关放在「设置 → 电量管理 → 耗电管理」，允许 Deep Student 后台运行。</string>
+</resources>

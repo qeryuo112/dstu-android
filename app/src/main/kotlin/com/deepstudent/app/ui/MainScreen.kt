@@ -10,33 +10,33 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
-import androidx.compose.ui.ExperimentalComposeUiApi
 import com.deepstudent.app.BuildConfig
 import com.deepstudent.app.backup.BackupRestoreUiStatus
-import com.deepstudent.design.DstuTheme
-import kotlinx.coroutines.CancellationException
+import com.deepstudent.app.graph.MigrationRetryState
+import com.deepstudent.app.workspace.FourPanelWorkspace
 import com.deepstudent.app.workspace.WorkspacePorts
+import com.deepstudent.design.DstuTheme
+import com.deepstudent.features.workspace.api.WorkspaceStatus
 import com.deepstudent.platform.database.MigrationMaintenanceException
 import com.deepstudent.platform.database.MigrationState
 import com.deepstudent.platform.database.MigrationStatus
 import com.deepstudent.platform.storage.DataSpaceError
 import com.deepstudent.platform.storage.DataSpaceException
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.StateFlow
-import com.deepstudent.app.graph.MigrationRetryState
-import com.deepstudent.app.workspace.FourPanelWorkspace
-import com.deepstudent.features.workspace.api.WorkspaceStatus
 
 private sealed interface NotesStartup {
     data object Loading : NotesStartup
@@ -46,6 +46,7 @@ private sealed interface NotesStartup {
     data class Ready(val ports: WorkspacePorts) : NotesStartup
 }
 
+@Suppress("ktlint:standard:function-naming") // Compose entry points use PascalCase.
 @Composable
 @OptIn(ExperimentalComposeUiApi::class)
 internal fun MainScreen(
@@ -53,6 +54,7 @@ internal fun MainScreen(
     retryState: StateFlow<MigrationRetryState>,
     retryMigration: () -> Unit,
     restoreStatus: StateFlow<BackupRestoreUiStatus>? = null,
+    openSchedules: Int = 0,
 ) {
     val model = rememberStartup(loadWorkspace, retryState)
     val startup = model.startup
@@ -64,23 +66,37 @@ internal fun MainScreen(
     val markReady = BuildConfig.APPLICATION_ID == "com.deepstudent.app.benchmark" && workspaceReady
     DstuTheme {
         Surface(Modifier.fillMaxSize()) {
-            Box(Modifier.fillMaxSize().safeDrawingPadding().then(if (markReady)
-                Modifier.semantics { testTagsAsResourceId = true }.testTag("s127-workspace-ready") else Modifier),
-                contentAlignment = Alignment.Center) {
+            Box(
+                Modifier.fillMaxSize().safeDrawingPadding().then(
+                    if (markReady) {
+                        Modifier.semantics { testTagsAsResourceId = true }.testTag("s127-workspace-ready")
+                    } else {
+                        Modifier
+                    },
+                ),
+                contentAlignment = Alignment.Center,
+            ) {
                 when (val current = startup) {
                     NotesStartup.Loading -> StartupProgress(restoreStatus)
+
                     NotesStartup.Failed -> TextButton(onClick = model.restart) { Text("无法恢复工作区，重试") }
+
                     is NotesStartup.DataSpaceUnavailable -> DataSpaceMaintenanceScreen(current.error, model.restart)
+
                     is NotesStartup.Maintenance -> MigrationMaintenanceScreen(
-                        current.latestFailure(retry), retry is MigrationRetryState.Running, retryMigration,
+                        current.latestFailure(retry),
+                        retry is MigrationRetryState.Running,
+                        retryMigration,
                     )
-                    is NotesStartup.Ready -> FourPanelWorkspace(current.ports)
+
+                    is NotesStartup.Ready -> FourPanelWorkspace(current.ports, openSchedules)
                 }
             }
         }
     }
 }
 
+@Suppress("ktlint:standard:function-naming") // Compose entry points use PascalCase.
 @Composable
 private fun StartupProgress(restoreStatus: StateFlow<BackupRestoreUiStatus>?) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -94,10 +110,7 @@ private fun StartupProgress(restoreStatus: StateFlow<BackupRestoreUiStatus>?) {
 private class StartupModel(val startup: NotesStartup, val retry: MigrationRetryState, val restart: () -> Unit)
 
 @Composable
-private fun rememberStartup(
-    loadWorkspace: suspend () -> WorkspacePorts,
-    retryState: StateFlow<MigrationRetryState>,
-): StartupModel {
+private fun rememberStartup(loadWorkspace: suspend () -> WorkspacePorts, retryState: StateFlow<MigrationRetryState>): StartupModel {
     var attempt by remember { mutableStateOf(0) }
     val retry by retryState.collectAsState()
     val startup by produceState<NotesStartup>(NotesStartup.Loading, attempt) {

@@ -75,6 +75,13 @@ sealed interface LedgerCommand {
     data object RequestCancel : LedgerCommand
     data class RequestCancelGeneration(val generation: Long) : LedgerCommand
 
+    /**
+     * Settles a durable cancel request after the execution owner released the task, for example
+     * when a system stop yielded the coroutine. It never runs the handler and never turns a
+     * system stop into a user cancellation: the stored `cancel_requested` flag is authoritative.
+     */
+    data object SettleCancelled : LedgerCommand
+
     /** Call only after the execution owner is known dead or its lease has expired. */
     data class Fence(val token: LeaseToken, val expiredAt: Instant? = null) : LedgerCommand
 

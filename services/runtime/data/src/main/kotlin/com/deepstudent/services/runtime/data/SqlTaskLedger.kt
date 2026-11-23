@@ -104,6 +104,9 @@ class SqlTaskLedger(private val database: SqlDatabase, logger: Logger = NoopLogg
     override suspend fun duties(task: RuntimeTaskGeneration, after: RuntimeRecordKey?, limit: Int): List<RuntimeDutyRecord> =
         projections.duties(task, after, limit)
 
+    /** Call only after acquiring exclusive process ownership, before accepting new foreground references. */
+    suspend fun closePreviousForegroundDuties(now: Instant) = projections.closeForegroundProjectionRows(now)
+
     private fun SqlOperations.findDedupe(submission: TaskSubmission): RuntimeSnapshot? = query(
         "SELECT ${RuntimeRows.COLUMNS} FROM runtime_tasks WHERE kind = ? AND dedupe_key = ?",
         listOf(text(submission.kind.value), text(requireNotNull(submission.dedupeKey))),

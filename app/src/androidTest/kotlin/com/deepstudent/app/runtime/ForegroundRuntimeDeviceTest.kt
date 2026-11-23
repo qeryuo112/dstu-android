@@ -1,7 +1,6 @@
 package com.deepstudent.app.runtime
 
 import android.app.NotificationManager
-import android.os.ParcelFileDescriptor
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.deepstudent.app.DstuApplication
@@ -13,7 +12,6 @@ import com.deepstudent.services.runtime.api.RuntimeSnapshot
 import com.deepstudent.services.runtime.api.RuntimeState
 import com.deepstudent.services.runtime.api.RuntimeTaskQuery
 import com.deepstudent.services.runtime.api.TaskSubmission
-import java.io.Closeable
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
@@ -24,8 +22,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
-import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
-import androidx.test.runner.lifecycle.Stage
+import java.io.Closeable
 
 @RunWith(AndroidJUnit4::class)
 class ForegroundRuntimeDeviceTest {
@@ -35,7 +32,10 @@ class ForegroundRuntimeDeviceTest {
 
     @Test fun activityClosesTasksContinueAndNotificationStopsOnlyItsTask(): Unit = runBlocking {
         instrumentation.uiAutomation.grantRuntimePermission(app.packageName, android.Manifest.permission.POST_NOTIFICATIONS)
-        shell("am start -W -n ${app.packageName}/.MainActivity")
+        val activity = instrumentation.startActivitySync(
+            android.content.Intent(app, com.deepstudent.app.MainActivity::class.java)
+                .addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK or android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP),
+        )
         val runtime = app.runtime()
         StreamFixturePeer().use { one ->
             StreamFixturePeer().use { two ->
@@ -64,15 +64,8 @@ class ForegroundRuntimeDeviceTest {
                         first.taskId.value in tags && second.taskId.value in tags
                     }
                     val before = runtime.controller.snapshot(second.taskId)!!.cursor.value
-                    val closed = java.util.concurrent.atomic.AtomicReference<android.app.Activity?>()
-                    instrumentation.runOnMainSync {
-                        val activities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED)
-                            .filter { it.javaClass.name == "com.deepstudent.app.MainActivity" }
-                        assertEquals(1, activities.size)
-                        closed.set(activities.single())
-                        activities.single().finishAndRemoveTask()
-                    }
-                    await { checkNotNull(closed.get()).isDestroyed }
+                    instrumentation.runOnMainSync { activity.finishAndRemoveTask() }
+                    await { activity.isDestroyed }
                     await { runtime.controller.snapshot(second.taskId)!!.cursor.value > before }
                     val notice = notifications.activeNotifications.first { it.tag == first.taskId.value }
                     notice.notification.actions.single().actionIntent.send()
@@ -117,9 +110,12 @@ class ForegroundRuntimeDeviceTest {
                         }.onFailure { cleanupFailures += it }
                         if (cleanupFailures.isNotEmpty()) {
                             val original = testFailure
-                            if (original != null) cleanupFailures.forEach(original::addSuppressed)
-                            else throw AssertionError("Foreground fixture cleanup failed", cleanupFailures.first()).apply {
-                                cleanupFailures.drop(1).forEach(::addSuppressed)
+                            if (original != null) {
+                                cleanupFailures.forEach(original::addSuppressed)
+                            } else {
+                                throw AssertionError("Foreground fixture cleanup failed", cleanupFailures.first()).apply {
+                                    cleanupFailures.drop(1).forEach(::addSuppressed)
+                                }
                             }
                         }
                     }
@@ -128,8 +124,10 @@ class ForegroundRuntimeDeviceTest {
         }
     }
 
-    private fun importRequest(url: String) = TaskSubmission(MainRuntimeResources.NOTE_IMPORT,
-        JsonValue.obj("url" to JsonValue.text(url), "title" to JsonValue.text("FGS import fixture")))
+    private fun importRequest(url: String) = TaskSubmission(
+        MainRuntimeResources.NOTE_IMPORT,
+        JsonValue.obj("url" to JsonValue.text(url), "title" to JsonValue.text("FGS import fixture")),
+    )
 
     private suspend fun awaitBothRunning(query: RuntimeTaskQuery, firstId: TaskId, secondId: TaskId) {
         var first: RuntimeSnapshot? = null
@@ -156,11 +154,5 @@ class ForegroundRuntimeDeviceTest {
 
     private suspend fun await(predicate: suspend () -> Boolean) = withTimeout(15000) {
         while (!predicate()) delay(25)
-    }
-
-    private fun shell(command: String) {
-        ParcelFileDescriptor.AutoCloseInputStream(instrumentation.uiAutomation.executeShellCommand(command)).use {
-            it.readBytes()
-        }
     }
 }

@@ -75,3 +75,17 @@ sealed interface RuntimeCancelResult {
     data class NotFound(val taskId: TaskId) : RuntimeCancelResult
     data class StaleGeneration(val taskId: TaskId) : RuntimeCancelResult
 }
+
+/**
+ * Durable result of a scheduled run keyed by a stable dedupe key. [state] is the committed
+ * ledger state when the call returns. A non-terminal state means another owner holds the task,
+ * the task is gated by approval/pause, or its business fact is not committed yet; callers must
+ * not report success and may retry with the same key.
+ */
+data class ScheduledRunOutcome(
+    val taskId: TaskId,
+    val generation: Long,
+    val state: RuntimeState,
+    val reusedExisting: Boolean,
+    val executedHere: Boolean,
+)

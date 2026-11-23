@@ -2,6 +2,7 @@ package com.deepstudent.platform.background
 
 import android.app.PendingIntent
 import android.content.pm.PackageManager
+import android.content.pm.ServiceInfo
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.deepstudent.core.common.id.TaskId
@@ -41,21 +42,50 @@ class NotificationDeviceTest {
         assertEquals(1, notification.actions.size)
         assertTrue(notification.actions.single().actionIntent.isImmutable)
         assertEquals(context.getString(R.string.background_state_waiting), context.getString(RuntimeState.WAITING_APPROVAL.label()))
+        assertEquals(
+            context.getString(R.string.background_purpose_data_sync),
+            notification.extras.getCharSequence("android.title").toString(),
+        )
     }
 
     @Test
-    fun manifestKeepsComponentsPrivateAndUsesOnlyDataSyncType() {
+    fun summaryAndContinuousNotificationsExposeTheSeparateCloseBackgroundControl() {
+        val factory = TaskNotificationFactory(context)
+        factory.createChannel()
+        val summary = factory.summary(listOf(ForegroundSlot.Task(duty("first", 1))))
+        assertEquals(1, summary.actions.size)
+        assertTrue(summary.actions.single().actionIntent.isImmutable)
+        val continuous = factory.continuous(ContinuousDuty("terminal-1", ForegroundPurpose.TERMINAL))
+        assertEquals(1, continuous.actions.size)
+        assertTrue(continuous.actions.single().actionIntent.isImmutable)
+        assertEquals(
+            context.getString(R.string.background_purpose_terminal),
+            continuous.extras.getCharSequence("android.title").toString(),
+        )
+    }
+
+    @Test
+    fun manifestKeepsComponentsPrivateAndDeclaresBothRealTypes() {
         val pm = context.packageManager
         val service = pm.getServiceInfo(android.content.ComponentName(context, RuntimeForegroundService::class.java), 0)
-        val receiver = pm.getReceiverInfo(android.content.ComponentName(context, StopTaskReceiver::class.java), 0)
+        val stop = pm.getReceiverInfo(android.content.ComponentName(context, StopTaskReceiver::class.java), 0)
+        val close = pm.getReceiverInfo(android.content.ComponentName(context, CloseBackgroundReceiver::class.java), 0)
         assertFalse(service.exported)
-        assertFalse(receiver.exported)
-        assertEquals(android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC, service.foregroundServiceType)
+        assertFalse(stop.exported)
+        assertFalse(close.exported)
+        assertEquals(
+            ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC or ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE,
+            service.foregroundServiceType,
+        )
         assertEquals(PackageManager.PERMISSION_GRANTED, context.checkSelfPermission("android.permission.FOREGROUND_SERVICE_DATA_SYNC"))
+        assertEquals(PackageManager.PERMISSION_GRANTED, context.checkSelfPermission("android.permission.FOREGROUND_SERVICE_SPECIAL_USE"))
     }
 
     private fun action(duty: ForegroundDuty): PendingIntent = PendingIntent.getBroadcast(
-        context, 0, StopTaskAction.intent(context, duty), PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+        context,
+        0,
+        StopTaskAction.intent(context, duty),
+        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
     )
 
     private fun duty(id: String, generation: Long): ForegroundDuty =

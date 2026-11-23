@@ -1,0 +1,56 @@
+{
+  "format": "dstu-evidence-index/v1",
+  "generatedAt": "2026-11-23T23:42:29.156Z",
+  "source": {
+    "repository": "dstu-android",
+    "ref": "4471fcf4e334e996109807d079e77eafa7c226b4",
+    "revision": "4471fcf4e334e996109807d079e77eafa7c226b4",
+    "selection": "worktree",
+    "entryCount": 2,
+    "trackedCount": 0,
+    "presentCount": 2,
+    "missingFromWorktree": []
+  },
+  "archive": {
+    "format": "tar.gz",
+    "root": "PRIVATE_ARTIFACT_ROOT",
+    "relativeLocation": "s223-25-v2232a-final-20261124/evidence.tar.gz",
+    "location": "PRIVATE_ARTIFACT_ROOT/s223-25-v2232a-final-20261124/evidence.tar.gz",
+    "size": 3173,
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "26a535a7c83bfac5e97f2d3c59bef0cdfad5e4e597d5c8f05c9a277420f3d225"
+    },
+    "manifest": {
+      "relativeLocation": "s223-25-v2232a-final-20261124/manifest.json",
+      "location": "PRIVATE_ARTIFACT_ROOT/s223-25-v2232a-final-20261124/manifest.json",
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "26bd71d7897154a94c91bb3d6bba40dbf4bc9bf42dd7efbfae2b048e872e5a21"
+      }
+    }
+  },
+  "entries": [
+    {
+      "path": "logs/s223-25-v2232a-cases.txt",
+      "size": 2795,
+      "sha256": "fc41fdf9415d89980949cc207512b8c8ac066445d0518a682e06bc21f6ff4fb8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s223-25-v2232a-final.log",
+      "size": 27552,
+      "sha256": "cdc7456d6b31cd2c9707755e02ac917195b88ef7db2df78c59f4b2397e74f61a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    }
+  ],
+  "compatibility": {
+    "legacyPathPolicy": "Entries retain original logs/... paths; historical docs/config references are lookup keys, not tracked files.",
+    "localWrites": "logs/ is gitignored; existing tools may continue writing local evidence.",
+    "restoreCommand": "node tools/evidence/restore.mjs <logs/path>"
+  }
+}

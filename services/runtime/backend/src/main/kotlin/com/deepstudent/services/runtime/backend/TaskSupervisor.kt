@@ -14,6 +14,7 @@ import com.deepstudent.services.runtime.api.RuntimeSnapshot
 import com.deepstudent.services.runtime.api.RuntimeState
 import com.deepstudent.services.runtime.api.RuntimeTaskContext
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -45,10 +46,17 @@ class TaskSupervisor(
     private val contexts = ConcurrentHashMap<TaskId, TaskContext>()
     private val completion = TaskCompletion(ledger, handlers, clock)
 
-    suspend fun start(snapshot: RuntimeSnapshot): Boolean {
-        if (snapshot.state.terminal || snapshot.execution.confirmationRequired) return false
+    suspend fun start(snapshot: RuntimeSnapshot): Boolean = startOwned(snapshot) != null
+
+    /**
+     * Starts one execution and returns a handle owned by this caller. Returns null when another
+     * execution already holds the task, when no lease could be claimed, or when the task is
+     * terminal/gated. The handle settles only after the execution's durable cleanup completed.
+     */
+    suspend fun startOwned(snapshot: RuntimeSnapshot): TaskExecution? {
+        if (snapshot.state.terminal || snapshot.execution.confirmationRequired) return null
         val slot = TaskSlot()
-        if (jobs.putIfAbsent(snapshot.taskId, slot) != null) return false
+        if (jobs.putIfAbsent(snapshot.taskId, slot) != null) return null
         val token = try {
             leases.claim(snapshot.taskId)
         } catch (failure: Throwable) {
@@ -57,10 +65,9 @@ class TaskSupervisor(
         }
         if (token == null) {
             jobs.remove(snapshot.taskId, slot)
-            return false
+            return null
         }
-        launch(snapshot, token, slot)
-        return true
+        return launch(snapshot, token, slot)
     }
 
     /** Transfers an existing recovery claim into the application-owned supervisor. */
@@ -80,18 +87,32 @@ class TaskSupervisor(
     }
 
     @OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)
-    private fun launch(snapshot: RuntimeSnapshot, token: LeaseToken, slot: TaskSlot) {
+    private fun launch(snapshot: RuntimeSnapshot, token: LeaseToken, slot: TaskSlot): TaskExecution {
         val taskJob = SupervisorJob(scope.coroutineContext[Job])
         val child = scope.launch(taskJob, start = CoroutineStart.ATOMIC) {
-            execute(snapshot, token)
+            execute(snapshot, token, slot)
         }
-        slot.install(taskJob)
+        slot.install(taskJob, token.ownerEpoch)
         child.invokeOnCompletion { taskJob.complete() }
-        taskJob.invokeOnCompletion { jobs.remove(snapshot.taskId, slot) }
+        taskJob.invokeOnCompletion {
+            jobs.remove(snapshot.taskId, slot)
+            slot.completion.complete(Unit)
+        }
+        return TaskExecution(snapshot.taskId, token.ownerEpoch, slot.completion)
     }
 
     suspend fun cancel(taskId: TaskId) {
         jobs[taskId]?.cancel()
+    }
+
+    /**
+     * Stops only the execution identified by [execution] and waits for its durable cleanup.
+     * A different owner's execution, or an already finished one, is left untouched.
+     */
+    suspend fun yieldAndAwait(execution: TaskExecution) {
+        val slot = jobs[execution.taskId] ?: return
+        if (!slot.yield(execution.ownerEpoch)) return
+        execution.awaitSettlement()
     }
 
     /** Returns only after the active execution owner's checkpoint is durably re-acknowledged. */
@@ -101,21 +122,21 @@ class TaskSupervisor(
         context.flushCheckpoint()
     }
 
-    private suspend fun execute(snapshot: RuntimeSnapshot, token: LeaseToken) {
+    private suspend fun execute(snapshot: RuntimeSnapshot, token: LeaseToken, slot: TaskSlot) {
         val started = monotonicClock.nowNanos()
-        var terminal = RuntimeState.INTERRUPTED
+        var terminal: RuntimeState? = RuntimeState.INTERRUPTED
         var error: DstuError? = null
         try {
             kotlinx.coroutines.currentCoroutineContext().ensureActive()
-            val context = TaskContext(ledger, leases, clock, token)
-            contexts[snapshot.taskId] = context
             val current = ledger.snapshot(snapshot.taskId) ?: throw LeaseLostException()
+            val context = TaskContext(ledger, leases, clock, token, current.execution.checkpoint)
+            contexts[snapshot.taskId] = context
             if (current.state != RuntimeState.RUNNING) context.transition(RuntimeState.RUNNING)
-            val handler = handlers.find(snapshot.kind) ?: throw MissingHandlerException()
-            executeWithRenewal(context, snapshot, handler)
+            val handler = handlers.find(current.kind) ?: throw MissingHandlerException()
+            executeWithRenewal(context, current, handler)
             terminal = RuntimeState.COMPLETED
         } catch (failure: CancellationException) {
-            terminal = RuntimeState.INTERRUPTED
+            terminal = if (slot.yieldRequested) null else RuntimeState.INTERRUPTED
         } catch (failure: Exception) {
             terminal = RuntimeState.FAILED
             error = DstuError.internal("TASK_FAILED", "task execution failed")
@@ -143,9 +164,13 @@ class TaskSupervisor(
         }
     }
 
-    private suspend fun complete(snapshot: RuntimeSnapshot, token: LeaseToken, state: RuntimeState, error: DstuError?, started: Long) {
+    private suspend fun complete(snapshot: RuntimeSnapshot, token: LeaseToken, state: RuntimeState?, error: DstuError?, started: Long) {
         try {
-            val outcome = completion.finish(snapshot, token, state, error)
+            val outcome = if (state == null) {
+                completion.yield(snapshot, token)
+            } else {
+                completion.finish(snapshot, token, state, error)
+            }
             log(snapshot, outcome.state, outcome.event, started)
         } catch (failure: Exception) {
             log(snapshot, null, "runtime.finish_unavailable", started)
@@ -167,14 +192,29 @@ class TaskSupervisor(
 
 private class MissingHandlerException : IllegalStateException("handler not registered")
 
+/** Cooperative cancellation raised only by [TaskSupervisor.yieldAndAwait]. */
+private class TaskYieldCancellation : CancellationException("scheduled execution yielded")
+
+/** Handle for one execution. Settlement follows the durable finish/release and fact projection. */
+class TaskExecution internal constructor(val taskId: TaskId, val ownerEpoch: Long, internal val completion: CompletableDeferred<Unit>) {
+    suspend fun awaitSettlement() = completion.await()
+}
+
 private class TaskSlot {
+    val completion = CompletableDeferred<Unit>()
     private var job: Job? = null
     private var cancelled = false
+    private var yielded = false
+    private var ownerEpoch = 0L
 
     @Synchronized
-    fun install(value: Job) {
+    fun install(value: Job, executionEpoch: Long) {
+        ownerEpoch = executionEpoch
         job = value
-        if (cancelled) value.cancel(CancellationException("task cancellation requested"))
+        when {
+            cancelled -> value.cancel(CancellationException("task cancellation requested"))
+            yielded -> value.cancel(TaskYieldCancellation())
+        }
     }
 
     @Synchronized
@@ -182,6 +222,18 @@ private class TaskSlot {
         cancelled = true
         job?.cancel(CancellationException("task cancellation requested"))
     }
+
+    /** Requests a yield only when [executionEpoch] still matches this slot's execution. */
+    @Synchronized
+    fun yield(executionEpoch: Long): Boolean {
+        if (yielded || cancelled || ownerEpoch != executionEpoch) return false
+        yielded = true
+        job?.cancel(TaskYieldCancellation())
+        return true
+    }
+
+    val yieldRequested: Boolean
+        @Synchronized get() = yielded
 }
 
 private class TaskContext(
@@ -189,6 +241,7 @@ private class TaskContext(
     private val leases: LeaseManager,
     private val clock: WallClock,
     private val token: LeaseToken,
+    override val resumeCheckpoint: JsonValue?,
 ) : RuntimeTaskContext {
     private val checkpointLock = Mutex()
     private var checkpointValue: JsonValue? = null

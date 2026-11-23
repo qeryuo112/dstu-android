@@ -2,10 +2,10 @@ package com.deepstudent.app.workspace
 
 import com.deepstudent.features.chat.api.ChatStreams
 import com.deepstudent.features.documents.api.PdfPages
+import com.deepstudent.features.environments.api.EnvironmentManager
 import com.deepstudent.features.notes.api.Notes
 import com.deepstudent.features.terminal.api.TerminalSessions
 import com.deepstudent.features.workspace.api.Workspace
-import com.deepstudent.features.environments.api.EnvironmentManager
 import com.deepstudent.services.execution.api.ExecutionSystem
 
 internal class WorkspacePorts(
@@ -29,4 +29,7 @@ internal class WorkspaceToolPorts(
     val environments: (suspend () -> EnvironmentManager)? = null,
     val execution: (suspend () -> ExecutionSystem)? = null,
     val sync: (suspend () -> com.deepstudent.features.sync.ui.SyncController)? = null,
+    val noteImport: com.deepstudent.app.runtime.NoteImportActions? = null,
+    val backgroundPower: com.deepstudent.app.terminal.TerminalResidency? = null,
+    val schedules: com.deepstudent.app.scheduling.MainSchedules? = null,
 )
