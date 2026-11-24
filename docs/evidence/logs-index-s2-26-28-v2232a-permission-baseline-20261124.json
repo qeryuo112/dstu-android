@@ -1,0 +1,112 @@
+{
+  "format": "dstu-evidence-index/v1",
+  "generatedAt": "2026-11-24T09:08:19.324Z",
+  "source": {
+    "repository": "dstu-android",
+    "ref": "44daeb3",
+    "revision": "44daeb38d1121e0e3ccc4819fc0c94d3e74232b0",
+    "selection": "worktree",
+    "entryCount": 9,
+    "trackedCount": 0,
+    "presentCount": 9,
+    "missingFromWorktree": []
+  },
+  "archive": {
+    "format": "tar.gz",
+    "root": "PRIVATE_ARTIFACT_ROOT",
+    "relativeLocation": "s226-28-v2232a-permission-baseline-20261124/evidence.tar.gz",
+    "location": "PRIVATE_ARTIFACT_ROOT/s226-28-v2232a-permission-baseline-20261124/evidence.tar.gz",
+    "size": 90588,
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "3b18978f485a4a01414527e8d7a714198af64ddb73bd4f53529815d8a9a78a78"
+    },
+    "manifest": {
+      "relativeLocation": "s226-28-v2232a-permission-baseline-20261124/manifest.json",
+      "location": "PRIVATE_ARTIFACT_ROOT/s226-28-v2232a-permission-baseline-20261124/manifest.json",
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "815fce5898acb99540d0b71a64385f2dbe53a6d602b71e40c2ad9fd24f06d398"
+      }
+    }
+  },
+  "entries": [
+    {
+      "path": "logs/s226-28-v2232a-permission-baseline-base.log",
+      "size": 13239,
+      "sha256": "65ba5ba525bc8d5e958efc7892f46537d5873a389a8e1844ff6acc62e6454d8f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-v2232a-permission-baseline-fixture-picker.png",
+      "size": 99516,
+      "sha256": "f662a4903000f1b65223586bae5d482cf890c0774e9b3e79813af734ea66738f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-v2232a-permission-baseline-installation-and-cleanup.txt",
+      "size": 1009,
+      "sha256": "f53306d7dcce4a7a8ec3c78ccafba262b17d99e0d639ed0e7a0c02242cc95f69",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-v2232a-permission-baseline-linux-setup.log",
+      "size": 891,
+      "sha256": "fa42309f1412d61fd468ff095dc5ebf9202fde74e2758eba3d6d58aa986c6737",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-v2232a-permission-baseline-preflight.txt",
+      "size": 401,
+      "sha256": "baae34cc84b8d27187757384e4aac156f5ebd9f9b12791379f678e2a8c5a20f8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-v2232a-permission-baseline-revocation-diagnostics.log",
+      "size": 21574,
+      "sha256": "684b95948e891c98d7c8be444aa2f6443d1255dc5da6047b1c6ee1e8dc561878",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-v2232a-permission-baseline-revocation-diff.txt",
+      "size": 6871,
+      "sha256": "7b430659057dad7215ca36e5df257dd2739dd996191e2d35b8fd901db3b76ef8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-v2232a-permission-baseline-shell-cases.log",
+      "size": 8008,
+      "sha256": "2e7c0d78b7970724eff0c02d19ddf08df7157a92a8713611811985b3390b48a6",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-v2232a-permission-baseline-shell-markers.txt",
+      "size": 2262,
+      "sha256": "f65fcb4d20eafc523024f10342f8d6c04b680fc0e12dce0be6277def0ace3691",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    }
+  ],
+  "compatibility": {
+    "legacyPathPolicy": "Entries retain original logs/... paths; historical docs/config references are lookup keys, not tracked files.",
+    "localWrites": "logs/ is gitignored; existing tools may continue writing local evidence.",
+    "restoreCommand": "node tools/evidence/restore.mjs <logs/path>"
+  }
+}

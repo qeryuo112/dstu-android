@@ -2,6 +2,9 @@ package com.deepstudent.platform.execution
 
 import com.deepstudent.services.execution.api.ExecutionFailureCode
 import com.deepstudent.services.execution.api.ExecutionOutput
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runInterruptible
 import java.io.ByteArrayOutputStream
 import java.io.Closeable
 import java.io.IOException
@@ -15,23 +18,14 @@ import java.util.concurrent.Future
 import java.util.concurrent.RejectedExecutionException
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runInterruptible
 
 internal data class ProcessRun(val exitCode: Int, val output: ExecutionOutput)
 
-internal class ProcessRunFailure(
-    val code: ExecutionFailureCode,
-    cause: Throwable? = null,
-    val exitCode: Int? = null,
-) : Exception(cause)
+internal class ProcessRunFailure(val code: ExecutionFailureCode, cause: Throwable? = null, val exitCode: Int? = null) : Exception(cause)
 
 /** Blocking IPC has bounded awaits; both pipes drain concurrently even past capture limits. */
-internal class ShizukuProcessRunner(
-    private val maxCaptureBytes: Int,
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
-) : Closeable {
+internal class ShizukuProcessRunner(private val maxCaptureBytes: Int, private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO) :
+    Closeable {
     private val workers: ExecutorService = Executors.newCachedThreadPool { task ->
         Thread(task, "dstu-shizuku-io").apply { isDaemon = true }
     }
@@ -40,23 +34,22 @@ internal class ShizukuProcessRunner(
         transact(process) { process.attach(create()) }
     }
 
-    suspend fun <T> transact(process: ActiveProcess, block: () -> T): T =
-        runInterruptible(ioDispatcher) {
-            process.throwIfAborted()
-            val future = submit(block)
-            try {
-                await(future, process)
-            } finally {
-                future.cancel(true)
-            }
+    suspend fun <T> transact(process: ActiveProcess, block: () -> T): T = runInterruptible(ioDispatcher) {
+        process.throwIfAborted()
+        val future = submit(block)
+        try {
+            await(future, process)
+        } finally {
+            future.cancel(true)
         }
+    }
 
-    suspend fun run(process: ActiveProcess): ProcessRun = runInterruptible(ioDispatcher) {
+    suspend fun run(process: ActiveProcess, limit: Int = maxCaptureBytes): ProcessRun = runInterruptible(ioDispatcher) {
         val submitted = mutableListOf<Future<*>>()
         try {
             process.throwIfAborted()
-            val stdout = submit { drainOwned(process, process.handle.stdout()) }.also { submitted += it }
-            val stderr = submit { drainOwned(process, process.handle.stderr()) }.also { submitted += it }
+            val stdout = submit { drainOwned(process, process.handle.stdout(), limit) }.also { submitted += it }
+            val stderr = submit { drainOwned(process, process.handle.stderr(), limit) }.also { submitted += it }
             val exit = submit { process.handle.waitFor() }.also { submitted += it }
             val exitCode = await(exit, process)
             val output = await(stdout, process)
@@ -111,22 +104,22 @@ internal class ShizukuProcessRunner(
         else -> ExecutionFailureCode.IO_FAILED
     }
 
-    private fun drainOwned(process: ActiveProcess, stream: InputStream): DrainResult = try {
-        drain(stream)
+    private fun drainOwned(process: ActiveProcess, stream: InputStream, limit: Int): DrainResult = try {
+        drain(stream, limit)
     } catch (failure: IOException) {
         process.abort(ExecutionFailureCode.IO_FAILED)
         throw failure
     }
 
-    private fun drain(stream: InputStream): DrainResult {
+    private fun drain(stream: InputStream, limit: Int): DrainResult {
         val bytes = ByteArray(BUFFER_BYTES)
-        val captured = ByteArrayOutputStream(minOf(maxCaptureBytes, BUFFER_BYTES))
+        val captured = ByteArrayOutputStream(minOf(limit, BUFFER_BYTES))
         var retained = 0
         var truncated = false
         while (true) {
             val count = stream.read(bytes)
             if (count < 0) break
-            val writable = minOf(count, maxCaptureBytes - retained)
+            val writable = minOf(count, limit - retained)
             if (writable > 0) {
                 captured.write(bytes, 0, writable)
                 retained += writable

@@ -1,0 +1,176 @@
+{
+  "format": "dstu-evidence-index/v1",
+  "generatedAt": "2026-11-24T08:33:07.744Z",
+  "source": {
+    "repository": "dstu-android",
+    "ref": "44daeb3",
+    "revision": "44daeb38d1121e0e3ccc4819fc0c94d3e74232b0",
+    "selection": "worktree",
+    "entryCount": 17,
+    "trackedCount": 0,
+    "presentCount": 17,
+    "missingFromWorktree": []
+  },
+  "archive": {
+    "format": "tar.gz",
+    "root": "PRIVATE_ARTIFACT_ROOT",
+    "relativeLocation": "s226-28-ipad2475-20261124/evidence.tar.gz",
+    "location": "PRIVATE_ARTIFACT_ROOT/s226-28-ipad2475-20261124/evidence.tar.gz",
+    "size": 113413,
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "9bbecd4f1e49ffbcc6b2d7515137778f2b87adb1a84a2a36f4f19f2f2cf597af"
+    },
+    "manifest": {
+      "relativeLocation": "s226-28-ipad2475-20261124/manifest.json",
+      "location": "PRIVATE_ARTIFACT_ROOT/s226-28-ipad2475-20261124/manifest.json",
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "569bf0fd5af61f393ef188699815e1c8918441d19ee96749c73a699888ffd28c"
+      }
+    }
+  },
+  "entries": [
+    {
+      "path": "logs/s226-28-ipad2475-app-identity.log",
+      "size": 807,
+      "sha256": "f662b3ed5ede485554b92eccc9d13fa10850d9fea12e19224ff44227b2d9ffff",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-ipad2475-approval-separate.log",
+      "size": 815,
+      "sha256": "e4900240ddbc17b9f14ef6e9dc40d75bb245768515eccf6f53e29064b453dbaa",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-ipad2475-base-compose-retry.log",
+      "size": 35508,
+      "sha256": "ac32cbe18fbfcaccdb36483fb63978c0af8f0c24300311bd3a87b06708e75883",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-ipad2475-base-final.log",
+      "size": 9854,
+      "sha256": "7ceeb137a0198404f5b65e066ecb28dfb4499178992d417ac2f1f7feb75dbc93",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-ipad2475-base-locked-first.log",
+      "size": 20713,
+      "sha256": "d3f1929f75a13481de0b0d38d13c41d8fd667c00b1bc7a9a4deec4a03d876b43",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-ipad2475-cleanup.txt",
+      "size": 247,
+      "sha256": "d7debf52425d4659c9acf15e7a5b99c594b4b8168777b0aa8371196a3a80f1a0",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-ipad2475-documentsui.png",
+      "size": 122650,
+      "sha256": "728b74d8bc771bc605ead14975e76c988d4e1db7c72fbf0f5b8973812a093bc8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-ipad2475-instrumentation-build.log",
+      "size": 98979,
+      "sha256": "8c739ed234e5f044fa1f20a3e46b133d46d8564e748c48619f1d61391779ccdb",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-ipad2475-linux-cancel.log",
+      "size": 836,
+      "sha256": "0a1e79d3045707d1a91b6dabd70e49ede201450c2759e16fd832487cd866c9a0",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-ipad2475-linux-identity.log",
+      "size": 807,
+      "sha256": "9a06eba4451ab0a61e83c0ec03cf62a797a5d6a6067bac132ce185affe9d6b68",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-ipad2475-linux-setup.log",
+      "size": 1063,
+      "sha256": "c621e97922a88c76f5d8f59a9725e9178820822527df56550718ce91dad98c4f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-ipad2475-packages.txt",
+      "size": 843,
+      "sha256": "b38d765e0148147313c1061186b086a538980285e84334e925cab4f0ca7dc6ff",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-ipad2475-preflight.txt",
+      "size": 480,
+      "sha256": "6b6e5de825bf0b08f38c0a66e5ce70e1752e517183e6d44ce87528f17dbb888c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-ipad2475-results.txt",
+      "size": 2407,
+      "sha256": "3e67af2630aa40a4828f28b52fe0d566ed35989dccc9045b3288c9e86d251de1",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-ipad2475-root-blocked.log",
+      "size": 6544,
+      "sha256": "bb94574424cfde4deed673e8932334d6378782cac9aa275cc530c84488613b4e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-ipad2475-shizuku-cancel.log",
+      "size": 835,
+      "sha256": "c8648f434ed3b4bd55daa47389c470ece359ee7135462f29322ecbd58450a0d3",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-ipad2475-shizuku-identity.log",
+      "size": 808,
+      "sha256": "5d645b4719439bcddb83851d81d4290eb1bfa552e8ad4709ba7e5415fc8a8507",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    }
+  ],
+  "compatibility": {
+    "legacyPathPolicy": "Entries retain original logs/... paths; historical docs/config references are lookup keys, not tracked files.",
+    "localWrites": "logs/ is gitignored; existing tools may continue writing local evidence.",
+    "restoreCommand": "node tools/evidence/restore.mjs <logs/path>"
+  }
+}

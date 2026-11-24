@@ -1,13 +1,13 @@
 package com.deepstudent.platform.execution
 
 import android.os.ParcelFileDescriptor
+import moe.shizuku.server.IRemoteProcess
+import moe.shizuku.server.IShizukuService
 import java.io.Closeable
 import java.io.IOException
 import java.io.InputStream
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
-import moe.shizuku.server.IRemoteProcess
-import moe.shizuku.server.IShizukuService
 
 /**
  * Direct binder adapter for Shizuku 13.1.5.
@@ -20,20 +20,21 @@ import moe.shizuku.server.IShizukuService
  * `newProcess` is a normal (blocking) binder call that creates a process in the
  * Shizuku server; callers must invoke it off the main thread.
  */
-internal class AndroidShizukuTransport(
-    private val service: IShizukuService,
-    private val log: ExecutionLogSink = AndroidExecutionLogSink,
-) : ShizukuServiceTransport {
+internal class AndroidShizukuTransport(private val service: IShizukuService, private val log: ExecutionLogSink = AndroidExecutionLogSink) :
+    ShizukuServiceTransport {
     override fun uid(): Int = log.atStage(ExecutionStage.UID_PROBE) { service.uid }
 
-    override fun checkSelfPermission(): Boolean =
-        log.atStage(ExecutionStage.PERMISSION_CHECK) { service.checkSelfPermission() }
+    override fun checkSelfPermission(): Boolean = log.atStage(ExecutionStage.PERMISSION_CHECK) { service.checkSelfPermission() }
 
-    override fun newProcess(argv: Array<String>): RemoteProcessHandle {
+    override fun newProcess(argv: Array<String>): RemoteProcessHandle = createProcess(argv, false)
+
+    override fun newOwnedProcess(argv: Array<String>): RemoteProcessHandle = createProcess(argv, true)
+
+    private fun createProcess(argv: Array<String>, owned: Boolean): RemoteProcessHandle {
         val process = log.atStage(ExecutionStage.PROCESS_START) {
             service.newProcess(argv, null, null) ?: throw IOException("Shizuku refused to create process")
         }
-        return AndroidRemoteProcess.from(process, log)
+        return AndroidRemoteProcess.from(process, log, owned)
     }
 
     override fun close() = Unit
@@ -59,6 +60,7 @@ internal class AndroidRemoteProcess private constructor(
     private val output: InputStream,
     private val error: InputStream,
     private val log: ExecutionLogSink,
+    private val control: Closeable?,
 ) : RemoteProcessHandle {
     private val closed = AtomicBoolean(false)
 
@@ -83,11 +85,16 @@ internal class AndroidRemoteProcess private constructor(
     }
 
     override fun destroy() {
+        if (control != null) {
+            closeQuietly(control, log)
+            if (log.atStage(ExecutionStage.PROCESS_WAIT) { process.waitForTimeout(750, TimeUnit.MILLISECONDS.name) }) return
+        }
         log.atStage(ExecutionStage.PROCESS_DESTROY) { process.destroy() }
     }
 
     override fun close() {
         if (!closed.compareAndSet(false, true)) return
+        control?.let { closeQuietly(it, log) }
         closeQuietly(output, log)
         closeQuietly(error, log)
     }
@@ -95,17 +102,15 @@ internal class AndroidRemoteProcess private constructor(
     companion object {
         private const val WAIT_SLICE_MILLIS = 100L
 
-        fun from(
-            process: IRemoteProcess,
-            log: ExecutionLogSink = AndroidExecutionLogSink,
-        ): AndroidRemoteProcess {
-            closeStdin(process, log)
+        fun from(process: IRemoteProcess, log: ExecutionLogSink = AndroidExecutionLogSink, owned: Boolean = false): AndroidRemoteProcess {
+            val control = openControl(process, log, owned)
 
             val stdoutDescriptor = try {
                 log.atStage(ExecutionStage.PROCESS_STDOUT) {
                     process.inputStream ?: throw IOException("Shizuku process has no stdout descriptor")
                 }
             } catch (failure: Exception) {
+                control?.let { closeQuietly(it, log) }
                 destroyQuietly(process, log)
                 throw failure
             }
@@ -117,24 +122,31 @@ internal class AndroidRemoteProcess private constructor(
                 }
             } catch (failure: Exception) {
                 closeQuietly(stdout, log)
+                control?.let { closeQuietly(it, log) }
                 destroyQuietly(process, log)
                 throw failure
             }
             val stderr = ParcelFileDescriptor.AutoCloseInputStream(stderrDescriptor)
 
-            return AndroidRemoteProcess(process, stdout, stderr, log)
+            return AndroidRemoteProcess(process, stdout, stderr, log, control)
         }
 
-        private fun closeStdin(process: IRemoteProcess, log: ExecutionLogSink) {
+        private fun openControl(process: IRemoteProcess, log: ExecutionLogSink, owned: Boolean): Closeable? {
             val stdin = try {
                 log.atStage(ExecutionStage.PROCESS_STDIN) { process.outputStream }
             } catch (failure: Exception) {
                 destroyQuietly(process, log)
                 throw failure
             }
-            try {
+            return try {
                 log.atStage(ExecutionStage.PROCESS_STDIN) {
-                    stdin?.close() ?: throw IOException("Shizuku process has no stdin descriptor")
+                    val descriptor = stdin ?: throw IOException("Shizuku process has no stdin descriptor")
+                    if (owned) {
+                        descriptor
+                    } else {
+                        descriptor.close()
+                        null
+                    }
                 }
             } catch (failure: Exception) {
                 destroyQuietly(process, log)

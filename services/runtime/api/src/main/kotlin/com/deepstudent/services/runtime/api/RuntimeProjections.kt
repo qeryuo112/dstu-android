@@ -32,6 +32,7 @@ data class RuntimeApprovalRecord(
     val requestedAt: Instant,
     val updatedAt: Instant,
     val cursor: TaskCursor,
+    val binding: CapabilityBinding? = null,
 )
 
 enum class RuntimeAuditAction { APPROVAL_REQUESTED, APPROVAL_RESOLVED, DUTY_REGISTERED, DUTY_RELEASED, DECISION_RECORDED }
@@ -57,7 +58,11 @@ enum class RuntimeProjectionResult { APPLIED, UNCHANGED, CONFLICT, MISSING, STAL
 sealed interface RuntimeProjectionChange {
     val id: RuntimeRecordKey
 
-    data class RequestApproval(override val id: RuntimeRecordKey, val operation: RuntimeRecordKey) : RuntimeProjectionChange
+    data class RequestApproval(
+        override val id: RuntimeRecordKey,
+        val operation: RuntimeRecordKey,
+        val binding: CapabilityBinding? = null,
+    ) : RuntimeProjectionChange
     data class ResolveApproval(override val id: RuntimeRecordKey, val state: RuntimeApprovalState) : RuntimeProjectionChange {
         init {
             require(state != RuntimeApprovalState.PENDING) { "approval decision is required" }

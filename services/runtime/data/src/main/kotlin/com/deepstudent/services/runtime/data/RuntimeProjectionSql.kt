@@ -12,14 +12,14 @@ import com.deepstudent.services.runtime.api.TaskCursor
 import java.time.Instant
 
 /** SQL helpers shared by [RuntimeProjectionLedger]; all values are opaque machine codes. */
-internal data class ApprovalRow(val operation: String, val state: String)
+internal data class ApprovalRow(val operation: String, val state: String, val binding: String?)
 
 internal data class DutyRow(val purpose: String, val released: Boolean)
 
 internal fun SqlOperations.approvalRow(task: RuntimeTaskGeneration, id: RuntimeRecordKey): ApprovalRow? = query(
-    "SELECT operation, state FROM runtime_approvals WHERE task_id = ? AND generation = ? AND record_id = ?",
+    "SELECT operation, state, capability_binding FROM runtime_approvals WHERE task_id = ? AND generation = ? AND record_id = ?",
     listOf(text(task.taskId.value), integer(task.generation), text(id.value)),
-) { ApprovalRow(it.text(0), it.text(1)) }.singleOrNull()
+) { ApprovalRow(it.text(0), it.text(1), it.optional(2)) }.singleOrNull()
 
 internal fun SqlOperations.dutyRow(task: RuntimeTaskGeneration, id: RuntimeRecordKey): DutyRow? = query(
     "SELECT purpose, released_at IS NOT NULL FROM runtime_duties WHERE task_id = ? AND generation = ? AND record_id = ?",
@@ -93,7 +93,7 @@ internal fun SqlOperations.insertApproval(
 ) {
     execute(
         "INSERT INTO runtime_approvals(task_id, generation, record_id, operation, state, " +
-            "requested_at, updated_at, cursor) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+            "requested_at, updated_at, cursor, capability_binding) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         listOf(
             text(task.taskId.value),
             integer(task.generation),
@@ -103,6 +103,7 @@ internal fun SqlOperations.insertApproval(
             text(now.toString()),
             text(now.toString()),
             integer(cursor.value),
+            nullable(change.binding?.let(CapabilityRows::encode)),
         ),
     )
 }

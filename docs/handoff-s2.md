@@ -540,3 +540,90 @@ APK 清单摘要 `65415e23c2bdc55ad9d1895b18a2dd04c7daf1345e534d883c33bb52821c1c
 - **V2232A 实测 10/10，无失败或跳过。** App 和 App 仪表测试 APK 是 `4471fcf` 原双机候选的同字节隔离包，安装后逐包读回哈希。独立 UID 资源夹具仅在测试构建中把允许请求的包名改为 `com.deepstudent.app.s2device`，其余授权检查、系统选择器调用和读写断言不变；没有安装或改动正式包。夹具 APK SHA-256 `ccd8da3bc51aeb0c6aed60e83b93666d3758419b15521038f20c22558a06a9ac`，临时源码改动已恢复。
 - 打开和保存各在真实 `DocumentsUI` 前台时捕获原 PID 的 `cgroup.events` 从 `frozen 0` 到 `frozen 1`；由主机只选择 `DSTU S207 Test Only` 的合成源或预填目标，原 PID 解冻，各收到一次真实 `RESULT_OK`。打开路径一次导入完成，保存路径一次导出完成并读回，2 MiB + 31 B 合成数据的字节和 SHA-256 相符。无授权与撤权的 PFD 实际拒绝结果保持正确。未改系统冻结、省电或安全设置；测试使用已修正的 debug 宿主，未复跑旧候选的宿主启动超时，也不代表默认 OEM 选择器或全场景保活已验证。
 - **iPA2475 平板按用户确认视为通过**：本轮未连接平板、未运行补测、无新的平板实测数。手机于 `2026-11-24T08:32:19+08:00` 完成并清理所有临时包；正式包安装状态不变。[补测证据索引](evidence/logs-index-s2-07-regression-4471fcf-v2232a-20261124.json)已校验，归档 SHA-256 `222a62fbfb804dd8a0388bdfdc4ffd45c49ba85c8dc4cbcf7048987bc106ccc5`；原始日志、截图和 APK 不入 Git、不公开。原签收状态和 `next=S2.26` 不变，未签 S2.G/M2。
+
+## 2026-11-24T08:52:15+08:00 - S2.26 开工：冻结源码对照
+
+- 桌面 `e6b2657fd59014a73f5bbb1d14c2db732cf23e87`：核对 `host/plugins/agent-workspace/src/{approval-manager,tool-approval-gate-core,tool-approval-shell,tool-approval-policy}.ts`、对应 approval/tool-approval-gate 测试与 `host/plugins/chat/src/grants.ts`、`resources/app/migrations/chat_v2/V20260910__revocation_epochs_and_budget.sql`。审批决定必须绑定已解析的实际身份、资源及请求；超时关闭等待，撤权先持久化再终止调用。复用现有共享撤权表，不接管后续聊天委派审批，也不把本地审批票据同步出去。
+- Operit `7a39941bad80209973c535046a18195c5da9e647`：核对 `core/tools/AIToolHandler.kt` 的权限入口与 `ui/permissions/ToolPermissionSystem.kt` 的 ASK/ALLOW/FORBID、超时及回调。其覆盖层使用单一内存请求，不作为本项目权限账本；采用任务代次隔离、工作台 UI 和持久审计，不默认永久放行。核对终端 gitlink `e4646680663789002b43bbfffa6e69e65c35e614`，本单元不修改终端源码。搜索 Operit app 的 test/androidTest，无对应的跨进程审批或撤权账本测试。
+
+## 2026-11-24T09:03:54+08:00 - S2.26 主机验证
+
+- 新增进程级 CapabilityBroker；审批只对本次任务代次、调用者、目标/UID、资源、输入摘要和预算有效。界面从 `runtime.db` 读取待审批，决定先落账再唤醒，撤权先记录到冻结 `chat_v2.revocation_epochs` 再取消并等待调用 owner 清理；进程冷启动关掉无法继续的旧待审批。不改变桌面共享 schema/wire。
+- 本地 `:services:runtime:data:testDebugUnitTest`、`:app:compileDebugKotlin`、`verifyArchitecture`、`verifyComplexity` 通过。真实 SQLite 覆盖拒绝/旧票据零执行、撤权后 owner 清理与 epoch 重开读回、全局 epoch 改变失败关闭、v3→v4 迁移与冷恢复。本机通过后开始接 S2.27；Activity 重建与设备回放待本轮候选，未登记 accepted。
+
+## 2026-11-24T09:05:31+08:00 - S2.27 开工：冻结源码对照
+
+- 桌面 `e6b2657fd59014a73f5bbb1d14c2db732cf23e87`：核对 `host/plugins/agent-workspace/src/tools/shell-execute.ts`、`tools/shell-execute/{context,process}.ts` 和 `tools-shell-execute.test.ts`，以及 `tools/shell-execute/README.md`。采用先解析资源与环境再执行、区分启动失败/真实退出、输出预算和进程 owner 清理；不用桌面 bwrap/Seatbelt，也不把 Android 工作目录误称为沙箱。
+- Operit `7a39941bad80209973c535046a18195c5da9e647`：核对 `core/tools/system/shell/{StandardShellExecutor,RootShellExecutor,ShellExecutorFactory}.kt` 的普通 UID、独立 `su -c`、身份和退出码；已约定由本次进程/描述符 owner 关停，不从 Root 回落普通 UID、不接管共享 libsu 会话。终端 `e4646680663789002b43bbfffa6e69e65c35e614` 使用当前 S1.20 冻结 JNI 与 PtyIo；PRoot/ARM64 和 Shizuku 授权继承 S1.21/S1.22。Operit app 的 shell 测试邻近 `TerminalCommandOutcomeTest.kt`，未找到绑定这四个目标的共同路由测试。
+
+## 2026-11-24T09:20:39+08:00 - S2.26–S2.27 审批与路由主机/模拟器验证
+
+- 工作台“命令执行”按 APP、LINUX、SHIZUKU、ROOT 分别解析并固定执行者，入口与“执行审批”共享任务代次；审批能看到这次的具体命令，原文只在进程内，不进入任务 payload、持久审计和日志。APP 用真实只读输入的 PTY 命令会话，LINUX 取就绪的 PRoot 代次并区分 guest UID 与 Android owner，SHIZUKU 重用 Binder 权限与句柄，ROOT 用独立 `su -c` 所有者。实际 UID 前置验证，失败不降级。记录启动/权限失败、退出码、输出截断、取消和结果；TTY/PRoot 合流输出，SHIZUKU/ROOT 分流。资源显示为起始目录与身份，不声称目录约束权限；脱离会话的任意后代不是本单元验证对象。
+- 变更仅更新 S1.20 本地 `Pty.kt` 适配器的哈希；Operit 冻结字节与 JNI、桌面共享数据库和 wire 不变。主机 `:platform:execution:testDebugUnitTest` 40/40，`:services:runtime:data:testDebugUnitTest` 39/39，App 编译、架构、复杂度、286 项冻结输入检查均通过。ARM64 隔离包与仪表 APK 已构建。
+- **API 36 x86_64 模拟器 2/2**：用同 Kotlin 代码、x86_64 重编 PTY、现有 SQLite x86_64 库的隔离验证包；真实 Activity 重建后从账本读回审批，拒绝不产生文件；实际 APP PTY 回报 App UID/退出码，撤权终止仍在运行的 PTY 并记审计。不是 ARM64 候选安装证明；LINUX、SHIZUKU、ROOT 还没有本轮四目标设备验收。保持 accepted 顺序和 `next=S2.26` 不变。
+
+## 2026-11-24T09:22:22+08:00 - S2.28 开工：冻结源码对照
+
+- 桌面 `e6b2657fd59014a73f5bbb1d14c2db732cf23e87`：核对 `host/plugins/agent-workspace/src/tools/workspace-fs.ts` 与 `tools-workspace-fs.test.ts` 的逻辑根、路径防越界、写入预期内容版本；核对 `host/plugins/vfs-repos/repository/{attachments,attachment-upload}.ts` 及 `attachments.test.ts`，保留文件唯一内容摘要、VFS 资源与 blob 归属/引用、软删除。没有对应的桌面 SAF Provider；不添加共享 schema 或手写同步变更。
+- Operit `7a39941bad80209973c535046a18195c5da9e647`：核对 `provider/{WorkspaceDocumentsProvider,OperitDataDocumentsProvider}.kt` 的 root/children/文档操作、`AndroidManifest.xml` 的系统授权与导出，终端 gitlink 仍为 `e4646680663789002b43bbfffa6e69e65c35e614`。保留系统 DocumentsUI 获取 URI 授权的形态，不采纳裸路径 documentId 或原始 data root 暴露；Operit app 的 test/androidTest 没有对等 Provider 授权回放用例。由 ResourceStore 提供逻辑工作区写入和已存在附件的受限读取，挂接更广的终端/共享目录在 S6.39。
+
+## 2026-11-24T09:54:05+08:00 - S2.28 主机、模拟器与候选构建
+
+- 系统文件选择器提供两个逻辑根：“Deep Student 工作区”（可创建/读写/重命名/删除文件）与“Deep Student 附件（只读）”。文档 ID 绑定资源身份，不解析文件路径；不暴露数据空间、配置、运行账本、数据库或治理目录。工作区是本轮可读写的平面文件区，终端目录桥、嵌套目录与更宽共享范围留到 S6.39。新文件先在本地预留 ID，第一次成功写入通过资源服务原子发布；现有附件内容地址和旧引用不被劫持。一次新建/更新对应 `files` 一条冻结触发器变更；底层 `resources`/`blobs` 各自的正常捕获没有被压掉。
+- **API 36 x86_64 模拟器 6/6**：审批重建/拒绝、真实 APP PTY 身份与撤权共 2 项；系统 DocumentsUI 在独立应用 UID 下创建并授予读写、两次 fsync/关闭只记录一次 `files` INSERT、撤销 Intent grant 后再次读写均拒绝；同一个 URI 重命名与改写；只读附件、越根/治理路径拒绝和旧写句柄不得覆盖，Provider 共 3 项。另外真实 Shizuku ADB 服务运行，经授权后验证 UID 2000 和退出码 7（1 项）。模拟器 APK 使用同 Kotlin 代码、x86_64 本地 PTY 与现有 SQLite x86_64 库，三个安装包均作读回校验；不替代 ARM64 候选。
+- 本机 Gradle `qualityGate` 通过；App、runtime data、platform execution、resources data 合计 233 通过、0 失败、3 项旧桌面备份夹具测试跳过。仓库 Node 测试 96/96，模块、规划和 286 项冻结输入校验通过。已构建 `com.deepstudent.app.s2device` ARM64 隔离 App、仪表和独立 UID 文件夹具。轮内源码只提交到本地 `main`；无新分支、无推送、未修改公开副本。
+- **未签收**：当前仅有模拟器，未连接 iPA2475/V2232A；ARM64 的 LINUX 需隔离 App 安装就绪的 PRoot 环境，ROOT 需已有 `su` 授权的测试设备。不存在两目标真实 UID/退出码和全目标取消的真机证据；不能以 Shizuku UID 或模拟环境代替 ROOT/LINUX。`next=S2.26` 仍按现行签收前缀保留，S2.G/M2 未签。复验入口 `tools/s2/verify-shell-provider-device.sh` 只使用指定串号和读回哈希匹配的预安装隔离包，不替设备用户授予权限。
+
+## 2026-11-24T09:56:12+08:00 - S2.26–S2.28 候选封存
+
+- 源码 `44daeb3`。ARM64 隔离候选及 `SHA256SUMS` 位于仓库外 `/home/xutao/deepstudent/artifacts/android-s226-28-20261124/arm64-44daeb3/`，包含 `app-debug.apk`、`app-debug-androidTest.apk`、`resources-test.apk`。真机安装前后核对三个包的哈希，正式 `com.deepstudent.app` 不覆盖、不清数据。
+- 原始证据 9 项在仓库外归档，[证据索引](evidence/logs-index-s2-26-28-local-20261124.json)读取并逐项验证通过，归档 SHA-256 `285f31e0ddd1e1b0da94ed0020187b730745f08cd4f8ce04d1a02d1338f21bf3`。本次用过的临时模拟器与隔离测试数据已关闭并清理，无物理设备安装或权限变更。
+- ARM64 复验：在目标真机使用同套隔离包，先跑 `tools/s2/verify-shell-provider-device.sh <串号> <候选目录> <仓库外输出目录> base`，厂商冻结时设置 `DSTU_MANUAL_PICKER=true` 并仅在系统选择器点选预填合成目标。随后按已明确授予身份的环境，用末尾参数 `APP <实际APP UID>`、`LINUX 0`、`SHIZUKU <实际服务UID>`、`ROOT 0` 各执行一次设备用例；非零退出或缺少目标不得记录为通过。Root 和 Shizuku 由测试设备用户提供授权，不由脚本配置。原 S2 各单元签收不变。
+
+## 2026-11-24T16:33:07+08:00 - S2.26–S2.28 iPA2475 平板实测
+
+- iPA2475，Android 16 / API 36 / ARM64。生产路径使用 `44daeb3` 原封存隔离 App，基础与身份验证使用同候选原仪表、文件夹具，逐包安装后读回核对 SHA-256。额外 Linux 预置/取消/申请仅替换仪表 APK（源码 `ecc34be`，SHA-256 `e6ecd7f74d57790c39fe97bb089b6ac3a639af19a531356f3a892caabb49a4a2`，读回一致）；不替换被测 App。
+- **基础 5/5**：真实 Activity 重建后读回待审批并拒绝，零文件写入；APP PTY 实际撤权和审计；真实系统 DocumentsUI 只保存预填合成件，独立 UID 读写授权与撤权、重复 fsync 对应单条文件变更、稳定 ID、只读附件和治理边界、旧写句柄不覆盖。首次锁屏 2 项未通过，解锁重跑曾出现仪表 Compose 重入异常；保留原日志，单独重跑成功，最终同包基础矩阵完整 5/5，未把失败尝试计入通过。
+- **三目标身份 3/3**：APP UID `10594`、LINUX guest UID `0`（Android app/tracer owner `10594`）、SHIZUKU 既有服务 UID `0`，均从真实命令回报退出码 `7`。LINUX 通过原生 EnvironmentManager 从本机冻结 Operit 镜像的同字节输入安装/健康检查到 READY，未安装额外软件包。额外 LINUX/SHIZUKU 取消 2/2：撤权前合成命令与子进程确实运行，撤权后两者不再运行且无迟到标记，审计有 authorized/revoked/cancelled。另计预置 1/1，不算验收用例。
+- **独立 ROOT 未通过前置**：Shell 可见 `/system/bin/su`，但来自实际前台隔离 App（UID `10594`）的 ROOT 适配器不准备命令；用户要求发起后，固定身份探针也不能启动系统 `su`（`ENOENT`），没有授权弹窗。未代用户确认、未修改 Root 策略或寻求其它提权路径；SHIZUKU 的 UID `0` 不计作独立 ROOT。独立 ROOT 身份和取消仍待具备相应权限的测试环境。`next=S2.26`、S2.G/M2 不变。
+- 平板于 `2026-11-24T16:31:41+08:00` 完成三份隔离包的按哈希校验卸载、临时 Linux 环境及合成文件清理。正式 App 安装路径保持原值，未操作正式数据。
+- [平板证据索引](evidence/logs-index-s2-26-28-ipad2475-20261124.json)的 17 个条目已逐项验证，归档 SHA-256 `9bbecd4f1e49ffbcc6b2d7515137778f2b87adb1a84a2a36f4f19f2f2cf597af`。原始日志、截图和 APK 留仓库外。
+
+## 2026-11-24T16:40:19+08:00 - S2.27 iPA2475 独立 ROOT 授权后补测
+
+- 用户确认此平板 Root 管理器会对未授权 App 隐藏 `su`，随后亲自在管理器里授权当次新装隔离包 `com.deepstudent.app.s2device`（App UID `10597`）。复用 `44daeb3` 封存 App、`ecc34be` 补充仪表；两份安装 APK 均读回匹配原 SHA-256。生产代码、Root 策略和正式包未改。
+- **独立 ROOT 2/2，无失败或跳过**：生产审批记录明确为 ROOT，走独立 `su` 适配器，不用 ADB/Shizuku 代跑；实际回报 UID `0`、退出码 `7`，未落入前次诊断探针。第二项用同一 ROOT 路由验证 App 内撤权：撤权前命令及其测试子进程存活，撤权后两者均不再运行、无迟到写入，账本有 authorized/revoked/cancelled。此处撤销的是 App 对当次调用的许可，不自动操作用户 Root 管理器的系统授权项。
+- **平板两次合计 12 项通过**：基础 5、四目标实际身份/退出 4、LINUX/SHIZUKU/ROOT 单独取消 3；APP 的取消在基础 5 内，Linux 预置单列。前次 `ENOENT` 及重试记录保留；本次没有把手机计入实测或改阶段 accepted 前缀。S2.26–S2.28 下一步为 V2232A 同候选复跑，`next=S2.26`、S2.G/M2 不变。
+- `2026-11-24T16:39:35+08:00` 按回读哈希卸载本次的测试 App 和仪表包，确认无测试标记文件且正式 App 安装路径不变。[ROOT 补测证据索引](evidence/logs-index-s2-27-root-ipad2475-20261124.json)的 5 个条目均验证，归档 SHA-256 `bf850cfaded81082f9f4e97ab8655d65657ac134b99ee98636f5cf02088bb5cb`。
+
+## 2026-11-24T16:58:52+08:00 - 固定后续真机签收的设备权限前置
+
+- 用户确认：V2232A 手机为普通用户、无 Root，最高以 Operit 五档中的第四档（Shizuku 配对后的 ADB，实测目标 UID `2000`）验收；iPA2475 平板有 Root，承担第五档（最高档）的独立 `su` 验证。固定口径及通过/不适用的区分见[真机验证与签收前置](device-acceptance-prerequisites.md)。这是后续验证前置，不直接登记任何单元为通过。
+
+## 2026-11-24T17:09:13+08:00 - V2232A 按非 Root 第四档验证，文件撤权待修
+
+- V2232A Android 16 / API 36 / ARM64，以[真机签收前置](device-acceptance-prerequisites.md)的普通用户第四档验证。封存 `44daeb3` App、原基础仪表/独立 UID 夹具、`ecc34be` 补充仪表均沿原候选使用。APP 实际 UID `10559`，LINUX guest UID `0`，SHIZUKU 后端及实际命令 UID `2000`，均回报退出码 `7`。LINUX/SHIZUKU 撤权结束命令和测试子进程。独立 ROOT 正向不适用；预先探测的 `ENOENT` 不计通过，不给手机提权，也不削减平板的独立 ROOT 要求。
+- 基础 5 项中 4 项通过。S2.28 真实 DocumentsUI 已在独立 UID 下成功授权、写入、读回，重复 fsync 只捕获一次文件变更；但撤销后同一 UID 仍可打开读和写描述符，剩余稳定 ID/改写断言未在该次流程执行。仅修改仪表日志分别诊断 `Context.revokeUriPermission` 和 Provider 自带 `revokeDocumentPermission`，两次均观测到系统读写授权仍为 true，外部 UID 仍可打开两种 PFD。没有把它当成时序误报或仅异常类型差异；生产 APK 未改，临时诊断源码已恢复。
+- 本次未签收或推送 S2.26–S2.28，`next=S2.26` 与 S2.G/M2 保持不变。2026-11-24T17:08:19+08:00 三份测试包按回读哈希清理，正式安装状态不变、无测试标记残留。[手机验证和诊断索引](evidence/logs-index-s2-26-28-v2232a-permission-baseline-20261124.json)的 9 项已校验；原始资料留在仓库外。
+
+## 2026-11-24T17:36:26+08:00 - S2.28 文件撤权根因与修补设计
+
+- 复核冻结 Operit `WorkspaceDocumentsProvider.kt` 仅按文档路径提供文件；原生端继续沿冻结桌面 `workspace-fs.ts` 的明确读写边界，不修改同步、备份或业务身份。普通设备接口的账户/资料不能代表系统授权中所有来源。
+- V2232A 对实际 DocumentsUI 结果为同一文件、同一隔离接收 UID 生成两条临时读写 grant：来源用户 `0` 与 Vivo XSPACE 分身用户 `666`。同机只读检查系统权限实现：撤权选择与 URI 来源用户相等的记录；检查授权另有 Vivo 的跨用户别名逻辑。`Context.revokeUriPermission` 与 `DocumentsProvider.revokeDocumentPermission` 不会自动枚举该别名。普通应用公开的资料列表不含 `666`，按公开资料、再按同文档的诊断来源别名试撤也未使原用例通过。接收 Activity 退出后存在系统自动清理，不能把偶发通过当成接口成功。
+- 修补在 App 所有者这一层先持久撤回分享，在文件查询、打开以及所有代理描述符 I/O/最终提交处拒绝，系统撤权作为兼容清理，不依赖硬编码厂商用户号、隐藏 API 或系统额外权限。保留原资源及文档 ID，不删除内容；工作台提供明确撤回入口。增强真机见证为撤权前持有描述符、撤权后继续探测拒绝，并验证文件内容和变更日志不变。
+- Android 代理描述符继续保留原 SAF 随机访问与 `fsync` 语义。已交付给客户进程或内核读缓存中的数据无法收回；验收对同一旧句柄读先前未读区域、写入和 `fsync` 各验证拒绝。手机专项追加的独立 UID 二次授予探针确认 Android 仍认为 grant 有效时，Provider 也拒绝新描述符。
+- 普通手机新增明确的独立 Root 拒绝用例：不发送任务、不触发审批，也不从现有 Shizuku 回退执行。它不替代平板的独立 `su`。`tools/s2/verify-shell-provider-device.sh` 提供同一封存候选的 Linux 装备、各目标身份及取消分相回放。
+
+## 2026-11-24T18:06:46+08:00 - S2.26–S2.28 修补候选：V2232A 通过
+
+- 封存候选 `037c34e`（生产修补 `d7a41ef`；此后只改审批仪表）。V2232A 安装后逐包读回摘要，最终 **11/11，无失败或跳过**；Linux 预置 1 项单列。非 Root 手机的独立 ROOT 正向与取消不适用，`ROOT_UNAVAILABLE` 实测无任务、无审批、无回退。SHIZUKU 真实命令 UID `2000`、退出 `7`，LINUX/SHIZUKU 取消均确认子进程终止。
+- 文件用例用真实 DocumentsUI 授予独立 UID，验证一次首次写入变更。工作台所有者撤回后，Android 仍报有 grant，外部 UID 的新句柄和旧句柄未读区域/写入/fsync 仍被拒绝；独立二次授予探针也不绕过撤回。未提交字节不进入资源库，逻辑 ID 与内容保留、治理路径不被暴露。此前已进入内核读缓存的字节不声称能收回。审批仪表改用真实主 Activity 与界面可访问性遍历；前次 Compose 测试宿主冲突保留，不计通过。
+- 三份测试包已按读回 SHA-256 清理，正式安装状态不变。[手机修补候选证据](evidence/logs-index-s2-26-28-withdrawal-v2232a-20261124.json)归档并复算。待同一候选完成 iPA2475 回放；双机未签收，未推送。
+
+## 2026-11-24T18:17:59+08:00 - S2.26–S2.28 同候选双机签收
+
+- **正式签收 S2.26、S2.27、S2.28**，按 [S2 回执](../config/stages/s2-progress.json) 依赖顺序登记；`next=S2.29`（完善同步采集与发布基础）。`s2GateAccepted=false`，不签收 S2.G 或 M2。两机沿用[固定验收前置](device-acceptance-prerequisites.md)，使用同一套 ARM64 隔离 APK（候选 `037c34e`），均安装后读回校验；V2232A **11/11**，iPA2475 **12/12**，最终矩阵无失败或跳过。两机各 1 项 Linux rootfs 预置单列。
+- **S2.26 审批**：同一待审批在真实工作台 Activity 重建后仍存在，点击实际界面的“拒绝”后无文件写入并落审计；APP PTY 撤权取消，不出现迟到写入。重建不是杀进程或整机重启证明。
+- **S2.27 四路由**：V2232A 的 Shizuku ADB 实跑 UID `2000`；独立 ROOT 在非 Root 环境明确拒绝，不建任务、不弹审批、不回退，独立 ROOT 正向和取消不计入手机通过数。iPA2475 的 APP UID `10599`、Linux guest UID `0`、Shizuku UID `0`，以及另走产品独立 `su` 审批和执行的 ROOT UID `0` 均实测回报退出 `7`。平板的 Linux、Shizuku 和独立 ROOT 均核对撤权结束命令及测试子进程、无迟到写入和保留账本审计；未代授系统权限或修改 Root 管理器策略。
+- **S2.28 文件分享**：真实 DocumentsUI 授权独立 UID，首次写入产生一条 `files` 变更；稳定 ID、旧写入冲突、附件只读和治理目录隔离均通过。V2232A 撤回后仍可见 Vivo 系统 grant；iPA2475 首次系统 grant 已清理。两机重新给测试 UID 有效的系统读写 grant，Provider 均仍拒绝新读写句柄；撤回前已打开句柄的未读区域、写入及 `fsync` 也实测拒绝。所有者仍可访问原文件，未提交的字节未发布。已交付或已缓存的内容不在撤回能力内。
+- 两机均按读回 SHA-256 验证并卸载仅当轮新增的三份测试 APK，无测试标记残留；正式包安装状态未改变。主机修补候选 `qualityGate`、定向 JVM 回归、仓库 96 项测试和 286 项冻结输入均已校验。原始日志、截图和安装包只留于私有存储；[V2232A 证据索引](evidence/logs-index-s2-26-28-withdrawal-v2232a-20261124.json)、[iPA2475 证据索引](evidence/logs-index-s2-26-28-withdrawal-ipad2475-20261124.json)已复算，分别绑定同一封存提交。公开推送由独立源码仓库另行验证，不发布证据正文。

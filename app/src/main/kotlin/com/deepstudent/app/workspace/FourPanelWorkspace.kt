@@ -17,9 +17,12 @@ private val launchers = listOf(
     PanelLauncher(WorkspacePanelKeys.Chat, "聊天"),
     PanelLauncher(WorkspacePanelKeys.Browser, "浏览器"),
     PanelLauncher(PanelKey.parse("content"), "内容"),
+    PanelLauncher(WorkspaceSharingPanelKey, "文件共享"),
     PanelLauncher(PanelKey.parse("terminal"), "终端"),
     PanelLauncher(PanelKey.parse("environments"), "环境安装"),
     PanelLauncher(PanelKey.parse("shizuku"), "Shizuku"),
+    PanelLauncher(PanelKey.parse("shell-console"), "命令执行"),
+    PanelLauncher(PanelKey.parse("approvals"), "执行审批"),
     PanelLauncher(PanelKey.parse("sync"), "同步配置"),
     PanelLauncher(PanelKey.parse("backup-preview"), "备份检查"),
 )
@@ -28,7 +31,7 @@ private val launchers = listOf(
 @Composable
 internal fun FourPanelWorkspace(ports: WorkspacePorts, openSchedules: Int = 0) {
     LaunchedEffect(ports, openSchedules) {
-        if (openSchedules > 0 && ports.tools.schedules != null) {
+        if (openSchedules > 0 && ports.tools.runtime.schedules != null) {
             val key = PanelKey.parse("schedules")
             val existing = ports.workspace.state.value.layout.panels.firstOrNull { it.key == key }
             if (existing == null) ports.workspace.open(OpenPanel(key)) else ports.workspace.focus(existing.id)

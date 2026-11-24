@@ -80,6 +80,7 @@ dependencies {
     implementation(project(":services:script:backend"))
     implementation(project(":services:script:data"))
     implementation(project(":engines:proot"))
+    implementation(project(":engines:terminal"))
     implementation(project(":features:environments:api"))
     implementation(project(":features:environments:data"))
     implementation(project(":features:environments:ui"))

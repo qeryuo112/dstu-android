@@ -1,0 +1,80 @@
+{
+  "format": "dstu-evidence-index/v1",
+  "generatedAt": "2026-11-24T08:39:35.067Z",
+  "source": {
+    "repository": "dstu-android",
+    "ref": "44daeb3",
+    "revision": "44daeb38d1121e0e3ccc4819fc0c94d3e74232b0",
+    "selection": "worktree",
+    "entryCount": 5,
+    "trackedCount": 0,
+    "presentCount": 5,
+    "missingFromWorktree": []
+  },
+  "archive": {
+    "format": "tar.gz",
+    "root": "PRIVATE_ARTIFACT_ROOT",
+    "relativeLocation": "s227-root-ipad2475-20261124/evidence.tar.gz",
+    "location": "PRIVATE_ARTIFACT_ROOT/s227-root-ipad2475-20261124/evidence.tar.gz",
+    "size": 1354,
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "bf850cfaded81082f9f4e97ab8655d65657ac134b99ee98636f5cf02088bb5cb"
+    },
+    "manifest": {
+      "relativeLocation": "s227-root-ipad2475-20261124/manifest.json",
+      "location": "PRIVATE_ARTIFACT_ROOT/s227-root-ipad2475-20261124/manifest.json",
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "10002e00e3135b7d4167b9564f4376303b030af8e790df58c250d5caed70ad60"
+      }
+    }
+  },
+  "entries": [
+    {
+      "path": "logs/s226-28-ipad2475-root-authorized-cancel.log",
+      "size": 836,
+      "sha256": "f03df8805ed9cf41f7b3c9dfad72b2e9aeab6247e9789915d5f27fa4bf9e5dbc",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-ipad2475-root-authorized-cleanup.txt",
+      "size": 328,
+      "sha256": "95a6de25750a3eeb6743e25bb63fe251c158de2a85967187a242bc55851781df",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-ipad2475-root-authorized-identity.log",
+      "size": 812,
+      "sha256": "c5a355a00ff831bd9d142705777bf245885c6df659ed0d2ea6faf15423d9552e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-ipad2475-root-authorized-markers.txt",
+      "size": 594,
+      "sha256": "820a27fdc0bbeb27120a9be1711733bb56b22c27b56994f00d92e599e484d0d2",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-ipad2475-root-authorized-preflight.txt",
+      "size": 869,
+      "sha256": "ceaa7480d17eddb5aab69fd0f7719fb9c86ef86b5d8b2ec9d3c459841a5579a2",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    }
+  ],
+  "compatibility": {
+    "legacyPathPolicy": "Entries retain original logs/... paths; historical docs/config references are lookup keys, not tracked files.",
+    "localWrites": "logs/ is gitignored; existing tools may continue writing local evidence.",
+    "restoreCommand": "node tools/evidence/restore.mjs <logs/path>"
+  }
+}

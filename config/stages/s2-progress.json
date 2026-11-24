@@ -555,6 +555,69 @@
         "logs/s223-25-v2232a-final.log",
         "logs/s223-25-v2232a-cases.txt"
       ]
+    },
+    {
+      "id": "S2.26",
+      "card": "S2.26/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-24T18:17:59+08:00",
+      "dependsOn": [
+        "S2.20",
+        "S2.21",
+        "S2.25",
+        "S1.G"
+      ],
+      "scope": "真实工作台 Activity 重建保留同一待审批；拒绝不执行不写文件，批准/撤权与任务审计可对账",
+      "review": "docs/handoff-s2.md",
+      "evidence": [
+        "logs/s226-28-v2232a-withdrawal-base.log",
+        "logs/s226-28-v2232a-withdrawal-markers.txt",
+        "logs/s226-28-ipad2475-final-base.log",
+        "logs/s226-28-ipad2475-final-markers.txt"
+      ]
+    },
+    {
+      "id": "S2.27",
+      "card": "S2.27/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-24T18:17:59+08:00",
+      "dependsOn": [
+        "S1.20",
+        "S1.21",
+        "S1.22",
+        "S2.26",
+        "S1.G"
+      ],
+      "scope": "平板 APP/PRoot Linux/Shizuku/独立 su 真机核对身份与取消；普通手机以 Shizuku ADB UID 2000 验证第四档，独立 Root 不可用时拒绝且不回退",
+      "review": "docs/handoff-s2.md",
+      "evidence": [
+        "logs/s226-28-v2232a-withdrawal-routes.log",
+        "logs/s226-28-v2232a-withdrawal-receipt.txt",
+        "logs/s226-28-ipad2475-final-routes.log",
+        "logs/s226-28-ipad2475-final-markers.txt",
+        "logs/s226-28-ipad2475-final-receipt.txt"
+      ]
+    },
+    {
+      "id": "S2.28",
+      "card": "S2.28/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-24T18:17:59+08:00",
+      "dependsOn": [
+        "S2.06",
+        "S2.07",
+        "S2.27",
+        "S1.G"
+      ],
+      "scope": "同包双机验证 DocumentsUI 独立 UID 读写、一次变更、稳定文档 ID、只读附件和治理隔离；Provider 撤回在系统 grant 残留或新授予时仍拒绝外部访问",
+      "review": "docs/handoff-s2.md",
+      "evidence": [
+        "logs/s226-28-v2232a-withdrawal-base.log",
+        "logs/s226-28-v2232a-withdrawal-markers.txt",
+        "logs/s226-28-v2232a-withdrawal-root-cause.txt",
+        "logs/s226-28-ipad2475-final-base.log",
+        "logs/s226-28-ipad2475-final-markers.txt"
+      ]
     }
   ],
   "previousCandidates": {
@@ -1483,10 +1546,10 @@
     "backupDataTestSha256": "d0f7f14ef84b675c705165a1d8cf6c0efec1397c83d61e8fe268fd05a0e13b93",
     "managedWebDavFixtureVerified": true
   },
-  "next": "S2.26",
+  "next": "S2.29",
   "planRevision": "2026-11-23-s2-desktop-compatibility",
   "currentPlan": "config/planning/active-plan.json",
-  "nextName": "实现CapabilityBroker审批审计",
+  "nextName": "完善同步采集与发布基础",
   "plannedRemediations": [
     {
       "id": "S2.16",

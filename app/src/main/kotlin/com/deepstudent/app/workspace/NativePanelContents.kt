@@ -50,6 +50,7 @@ internal fun nativePanelContents(ports: WorkspacePorts): Map<PanelKey, NativePan
                     })
                 }
             },
+            PanelKey.parse("shell-console") to { _, _ -> ShellWorkspacePanel(ports, scope) },
             PanelKey.parse("shizuku") to { panel, _ ->
                 PanelViewModels(panel.id) { ExecutionPanel(ports.execution) }
             },
@@ -69,15 +70,40 @@ internal fun nativePanelContents(ports: WorkspacePorts): Map<PanelKey, NativePan
                     }
                 }
             },
-        ) + backgroundPanels(ports.tools)
+        ) + backgroundPanels(ports.tools.runtime) + sharingPanels(ports.tools)
     }
 }
 
-private fun backgroundPanels(tools: WorkspaceToolPorts): Map<PanelKey, NativePanelContent> = mapOf(
+@Suppress("ktlint:standard:function-naming") // Compose entry points use PascalCase.
+@Composable
+private fun ShellWorkspacePanel(ports: WorkspacePorts, scope: kotlinx.coroutines.CoroutineScope) {
+    val shell = ports.tools.runtime.shell
+    if (shell == null) {
+        Text("命令执行未配置")
+    } else {
+        com.deepstudent.app.execution.ShellConsolePanel(shell) { scope.launch { openApprovals(ports.workspace) } }
+    }
+}
+
+private suspend fun openApprovals(workspace: com.deepstudent.features.workspace.api.Workspace) {
+    val key = PanelKey.parse("approvals")
+    val existing = workspace.state.value.layout.panels.firstOrNull { it.key == key }
+    if (existing == null) workspace.open(com.deepstudent.features.workspace.api.OpenPanel(key)) else workspace.focus(existing.id)
+}
+
+private fun backgroundPanels(tools: WorkspaceRuntimeTools): Map<PanelKey, NativePanelContent> = mapOf(
+    PanelKey.parse("approvals") to { _, _ ->
+        val approvals = tools.approvals
+        if (approvals == null) Text("审批未配置") else com.deepstudent.app.execution.CapabilityApprovalPanel(approvals)
+    },
     PanelKey.parse("schedules") to { _, _ -> tools.schedules?.let { com.deepstudent.app.scheduling.SchedulePanel(it) } },
     PanelKey.parse("background-power") to { _, _ -> tools.backgroundPower?.let { com.deepstudent.app.power.BackgroundPowerEntry(it) } },
     PanelKey.parse("note-import") to { _, _ ->
         val actions = tools.noteImport
         if (actions == null) Text("导入未配置") else com.deepstudent.app.runtime.NoteImportPanel(actions)
     },
+)
+
+private fun sharingPanels(tools: WorkspaceToolPorts): Map<PanelKey, NativePanelContent> = mapOf(
+    WorkspaceSharingPanelKey to { _, _ -> tools.documents?.let { WorkspaceSharingPanel(it) } },
 )

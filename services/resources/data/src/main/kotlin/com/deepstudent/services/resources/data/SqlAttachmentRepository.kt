@@ -10,6 +10,10 @@ import com.deepstudent.services.resources.api.AttachmentMetadata
 import com.deepstudent.services.resources.api.AttachmentVerification
 import com.deepstudent.services.resources.api.CreateAttachment
 import com.deepstudent.services.resources.api.StreamAttachmentRequest
+import com.deepstudent.services.resources.api.WorkspaceFileArea
+import com.deepstudent.services.resources.api.WorkspaceFileIds
+import com.deepstudent.services.resources.api.WorkspaceFileWrite
+import com.deepstudent.services.resources.api.WorkspaceFiles
 import com.deepstudent.services.resources.backend.AttachmentRepository
 import com.deepstudent.services.resources.backend.AttachmentService
 import com.deepstudent.services.resources.backend.ResourcePhase
@@ -31,7 +35,8 @@ class SqlAttachmentRepository internal constructor(
     private val clock: WallClock,
     private val faults: ResourceFaults,
     space: AvailableSpace,
-) : AttachmentRepository {
+) : AttachmentRepository,
+    WorkspaceFiles {
     constructor(database: SqlDatabase, blobsRoot: File, clock: WallClock) :
         this(database, blobsRoot, clock, ResourceFaults.NONE, AvailableSpace.REAL)
 
@@ -39,12 +44,18 @@ class SqlAttachmentRepository internal constructor(
 
     override suspend fun create(command: CreateAttachment): AttachmentMetadata = createStream(
         StreamAttachmentRequest(command.name, command.mediaType, command.size.toLong()),
-        ByteArrayInputStream(command.bytes), {},
+        ByteArrayInputStream(command.bytes),
+        {},
     )
 
     override suspend fun createStream(
-        request: StreamAttachmentRequest, input: InputStream, onProgress: (Long) -> Unit,
-    ): AttachmentMetadata {
+        request: StreamAttachmentRequest,
+        input: InputStream,
+        onProgress: (Long) -> Unit,
+    ): AttachmentMetadata = save(AttachmentWrite(request), input, onProgress)
+
+    private suspend fun save(write: AttachmentWrite, input: InputStream, onProgress: (Long) -> Unit): AttachmentMetadata {
+        val request = write.source
         val context = currentCoroutineContext()
         val trace = context[ResourceTrace]
         val limit = if (request.mediaType.startsWith("image/", true)) AttachmentService.IMAGE_LIMIT else AttachmentService.FILE_LIMIT
@@ -57,18 +68,20 @@ class SqlAttachmentRepository internal constructor(
         val prepared = phase(trace, ResourcePhase.PREPARE) {
             blobs.prepare(input, request.expectedSize, limit.toLong(), { context.ensureActive() }, onProgress)
         }
-        return storePrepared(request, prepared, context, trace)
+        return storePrepared(write, prepared, context, trace)
     }
 
     private fun storePrepared(
-        request: StreamAttachmentRequest, prepared: PreparedBlob,
-        context: kotlin.coroutines.CoroutineContext, trace: ResourceTrace?,
+        write: AttachmentWrite,
+        prepared: PreparedBlob,
+        context: kotlin.coroutines.CoroutineContext,
+        trace: ResourceTrace?,
     ): AttachmentMetadata {
         val state = CommitState()
         var operationFailure: Throwable? = null
         try {
             return try {
-                blobs.locked { commitAndClose(request, prepared, context, trace, state) }
+                blobs.locked { commitAndClose(write, prepared, context, trace, state) }
             } catch (failure: Exception) {
                 // Lock-release failures after commit cannot turn a committed write into a reported failure.
                 val result = state.committed ?: throw failure
@@ -84,27 +97,37 @@ class SqlAttachmentRepository internal constructor(
     }
 
     private fun commitAndClose(
-        request: StreamAttachmentRequest, prepared: PreparedBlob,
-        context: kotlin.coroutines.CoroutineContext, trace: ResourceTrace?, state: CommitState,
+        write: AttachmentWrite,
+        prepared: PreparedBlob,
+        context: kotlin.coroutines.CoroutineContext,
+        trace: ResourceTrace?,
+        state: CommitState,
     ): AttachmentMetadata {
         var original: Throwable? = null
         try {
-            return commitPrepared(request, prepared, context, trace, state)
+            return commitPrepared(write, prepared, context, trace, state)
         } catch (failure: Throwable) {
             original = failure
             throw failure
         } finally {
-            try { closePrepared(prepared, state, original, trace) } finally { state.closed = true }
+            try {
+                closePrepared(prepared, state, original, trace)
+            } finally {
+                state.closed = true
+            }
         }
     }
 
     private fun commitPrepared(
-        request: StreamAttachmentRequest, prepared: PreparedBlob,
-        context: kotlin.coroutines.CoroutineContext, trace: ResourceTrace?, state: CommitState,
+        write: AttachmentWrite,
+        prepared: PreparedBlob,
+        context: kotlin.coroutines.CoroutineContext,
+        trace: ResourceTrace?,
+        state: CommitState,
     ): AttachmentMetadata {
         try {
             val result = phase(trace, ResourcePhase.DATABASE) {
-                val committed = database.transaction { registerPrepared(request, prepared, context, trace) }
+                val committed = database.transaction { registerPrepared(write, prepared, context, trace) }
                 // The transaction has returned: its commit is the irreversible success boundary.
                 state.committed = committed
                 committed
@@ -112,54 +135,84 @@ class SqlAttachmentRepository internal constructor(
             try {
                 faults.hit(ResourceCut.AFTER_COMMIT_CLEANUP, prepared.size)
                 settle(trace, prepared)
-            } catch (failure: Exception) { trace?.recoverableCleanup(failure) }
+            } catch (failure: Exception) {
+                trace?.recoverableCleanup(failure)
+            }
             return result
         } catch (failure: Throwable) {
             if (state.committed == null) {
-                try { settle(trace, prepared) } catch (cleanup: Throwable) { failure.addSuppressed(cleanup) }
+                try {
+                    settle(trace, prepared)
+                } catch (cleanup: Throwable) {
+                    failure.addSuppressed(cleanup)
+                }
             }
             throw failure
         }
     }
 
     private fun SqlOperations.registerPrepared(
-        request: StreamAttachmentRequest, prepared: PreparedBlob,
-        context: kotlin.coroutines.CoroutineContext, trace: ResourceTrace?,
+        write: AttachmentWrite,
+        prepared: PreparedBlob,
+        context: kotlin.coroutines.CoroutineContext,
+        trace: ResourceTrace?,
     ): AttachmentMetadata {
         context.ensureActive()
+        val edit = write.workspace
+        val current = edit?.let { workspaceEditRow(it) }
         val existing = attachmentByHash(prepared.hash)
+        validateWorkspaceHash(edit, existing)
+        if (current?.storage?.sha256 == prepared.hash) return current.metadata()
         val shouldBlob = prepared.size >= AttachmentService.INLINE_LIMIT || existing?.storage?.blobHash != null
         val previousPath = if (shouldBlob) blobPath(prepared.hash) else null
         val path = if (shouldBlob) phase(trace, ResourcePhase.PUBLISH) { blobs.publish(prepared, previousPath) } else null
         context.ensureActive()
         faults.hit(ResourceCut.BEFORE_DATABASE, prepared.size)
         val now = clock.now()
-        val result = if (existing != null) reuse(existing, request.name, now)
-        else insertPrepared(request, prepared, path, now)
+        val result = if (edit == null && existing != null) {
+            reuse(existing, write.source.name, now)
+        } else {
+            storeFile(write, prepared, path, now)
+        }
         faults.hit(ResourceCut.BEFORE_COMMIT, prepared.size)
         context.ensureActive()
         return result
     }
 
-    private fun SqlOperations.insertPrepared(
-        request: StreamAttachmentRequest, prepared: PreparedBlob, path: String?, now: Instant,
-    ): AttachmentMetadata {
+    private fun SqlOperations.storeFile(write: AttachmentWrite, prepared: PreparedBlob, path: String?, now: Instant): AttachmentMetadata {
+        val request = write.source
+        val id = write.workspace?.id ?: newId("att")
         val inlineBytes = if (path == null) Files.readAllBytes(prepared.path) else null
         val value = PreparedAttachment(
-            identity = AttachmentIdentity(newId("att"), newId("res")), name = request.name,
-            mediaType = request.mediaType, hash = prepared.hash, size = prepared.size,
-            inlineBytes = inlineBytes, blobPath = path, nowMillis = now.toEpochMilli(),
+            identity = AttachmentIdentity(id, newId("res")),
+            name = request.name,
+            mediaType = request.mediaType,
+            hash = prepared.hash,
+            size = prepared.size,
+            inlineBytes = inlineBytes,
+            blobPath = path,
+            nowMillis = now.toEpochMilli(),
         )
         val resourceId = registerResource(value)
-        insertFile(this, value, resourceId, now)
-        return (attachmentById(value.identity.id) ?: corruptAttachment()).metadata()
+        if (write.workspace?.expected == null) {
+            insertFile(this, value, resourceId, now)
+        } else {
+            repointWorkspaceFile(value, resourceId, now)
+        }
+        return (attachmentById(id) ?: corruptAttachment()).metadata()
     }
 
     private fun closePrepared(prepared: PreparedBlob, state: CommitState, original: Throwable?, trace: ResourceTrace?) {
         if (state.committed != null) {
-            try { prepared.close() } catch (failure: Exception) { trace?.recoverableCleanup(failure) }
+            try {
+                prepared.close()
+            } catch (failure: Exception) {
+                trace?.recoverableCleanup(failure)
+            }
         } else {
-            try { prepared.close() } catch (cleanup: Throwable) {
+            try {
+                prepared.close()
+            } catch (cleanup: Throwable) {
                 if (original != null) original.addSuppressed(cleanup) else throw cleanup
             }
         }
@@ -183,7 +236,10 @@ class SqlAttachmentRepository internal constructor(
     }
 
     override suspend fun copyTo(
-        id: String, output: OutputStream, includeDeleted: Boolean, onProgress: (Long) -> Unit,
+        id: String,
+        output: OutputStream,
+        includeDeleted: Boolean,
+        onProgress: (Long) -> Unit,
     ): AttachmentMetadata? {
         val context = currentCoroutineContext()
         val trace = context[ResourceTrace]
@@ -198,8 +254,7 @@ class SqlAttachmentRepository internal constructor(
         }
     }
 
-    override suspend fun resolve(resourceId: ResourceId): AttachmentMetadata? =
-        database.attachmentByResource(resourceId.value)?.metadata()
+    override suspend fun resolve(resourceId: ResourceId): AttachmentMetadata? = database.attachmentByResource(resourceId.value)?.metadata()
 
     override suspend fun rename(id: String, name: String): AttachmentMetadata = mutate(id, name, null)
     override suspend fun delete(id: String): AttachmentMetadata = mutate(id, null, true)
@@ -215,8 +270,37 @@ class SqlAttachmentRepository internal constructor(
         }
     }
 
+    override fun page(area: WorkspaceFileArea, afterId: String?, limit: Int): List<AttachmentMetadata> =
+        database.visibleFiles(area, afterId, limit)
+
+    override fun stat(id: String): AttachmentMetadata? = database.visibleFile(id)?.metadata()
+
+    override suspend fun read(id: String, output: OutputStream, check: () -> Unit): AttachmentMetadata? {
+        val allowed = stat(id) ?: return null
+        check()
+        return copyTo(id, output, onProgress = { check() })?.takeIf { it == allowed }
+    }
+
+    override suspend fun write(request: WorkspaceFileWrite, input: InputStream): AttachmentMetadata {
+        require(WorkspaceFileIds.isOwned(request.id)) { "not a workspace file" }
+        validateWorkspaceTitle(request.source.name)
+        return save(AttachmentWrite(request.source, request), input, {})
+    }
+
+    override suspend fun renameWorkspace(id: String, title: String): AttachmentMetadata {
+        require(WorkspaceFileIds.isOwned(id)) { "not a workspace file" }
+        validateWorkspaceTitle(title)
+        return mutate(id, title, null, workspace = true)
+    }
+
+    override suspend fun deleteWorkspace(id: String) {
+        require(WorkspaceFileIds.isOwned(id)) { "not a workspace file" }
+        mutate(id, null, true, workspace = true)
+    }
+
     private fun SqlOperations.blobPath(hash: String): String? = query(
-        "SELECT relative_path FROM blobs WHERE hash=?", listOf(text(hash)),
+        "SELECT relative_path FROM blobs WHERE hash=?",
+        listOf(text(hash)),
     ) { it.text(0) }.singleOrNull()
 
     private fun SqlOperations.reuse(row: AttachmentRow, name: String, now: Instant): AttachmentMetadata {
@@ -230,11 +314,11 @@ class SqlAttachmentRepository internal constructor(
         return (attachmentById(row.id) ?: corruptAttachment()).metadata()
     }
 
-    private suspend fun mutate(id: String, name: String?, deleting: Boolean?): AttachmentMetadata {
+    private suspend fun mutate(id: String, name: String?, deleting: Boolean?, workspace: Boolean = false): AttachmentMetadata {
         val context = currentCoroutineContext()
         return database.transaction {
             context.ensureActive()
-            val row = attachmentById(id) ?: attachmentMissing()
+            val row = (if (workspace) visibleFile(id) else attachmentById(id)) ?: attachmentMissing()
             val now = timestamp(clock.now())
             when (deleting) {
                 true -> softDelete(this, row, now)
@@ -248,6 +332,12 @@ class SqlAttachmentRepository internal constructor(
 }
 
 /** Refuse removal for any durable direct or indirect reference, including deletion journals. */
+private fun validateWorkspaceHash(edit: WorkspaceFileWrite?, existing: AttachmentRow?) {
+    if (edit != null && existing != null && existing.id != edit.id) resourceConflict()
+}
+
+private data class AttachmentWrite(val source: StreamAttachmentRequest, val workspace: WorkspaceFileWrite? = null)
+
 private class CommitState {
     var committed: AttachmentMetadata? = null
     var closed: Boolean = false
@@ -265,7 +355,10 @@ private fun SqlOperations.hasBlobOwner(hash: String, path: String): Boolean {
     val one = listOf(text(hash))
     return present("SELECT 1 FROM blobs WHERE hash=? OR relative_path=? LIMIT 1", listOf(text(hash), text(path))) ||
         present("SELECT 1 FROM resources WHERE external_hash=? LIMIT 1", one) ||
-        present("SELECT 1 FROM files WHERE blob_hash=? OR compressed_blob_hash=? OR sha256=? LIMIT 1", listOf(text(hash), text(hash), text(hash))) ||
+        present(
+            "SELECT 1 FROM files WHERE blob_hash=? OR compressed_blob_hash=? OR sha256=? LIMIT 1",
+            listOf(text(hash), text(hash), text(hash)),
+        ) ||
         present("SELECT 1 FROM vfs_index_units WHERE image_blob_hash=? LIMIT 1", one) ||
         present("SELECT 1 FROM __blob_deletion_queue WHERE hash=? LIMIT 1", one) ||
         present("SELECT 1 FROM __file_deletion_journal WHERE target_kind='blob' AND entity_key=? LIMIT 1", one)
@@ -299,7 +392,8 @@ private fun insertFile(tx: SqlOperations, input: PreparedAttachment, resourceId:
     val instant = timestamp(now)
     tx.execute(
         """INSERT INTO files (id,resource_id,blob_hash,type,name,mime_type,size,content_hash,sha256,
-            file_name,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)""".trimIndent(),
+            file_name,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)
+        """.trimIndent(),
         listOf(
             text(input.identity.id), text(resourceId), nullable(if (input.blobPath == null) null else input.hash),
             text(if (input.mediaType.startsWith("image/", true)) "image" else "file"), text(input.name),
@@ -310,7 +404,7 @@ private fun insertFile(tx: SqlOperations, input: PreparedAttachment, resourceId:
 }
 
 private fun newId(prefix: String): String = "${prefix}_${UUID.randomUUID().toString().replace("-", "")}"
-private fun timestamp(now: Instant): String = DateTimeFormatterBuilder().appendInstant(3).toFormatter().format(now)
+internal fun timestamp(now: Instant): String = DateTimeFormatterBuilder().appendInstant(3).toFormatter().format(now)
 
 private val DISCARD = object : OutputStream() {
     override fun write(value: Int) { }

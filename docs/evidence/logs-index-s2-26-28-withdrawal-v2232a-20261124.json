@@ -1,0 +1,96 @@
+{
+  "format": "dstu-evidence-index/v1",
+  "generatedAt": "2026-11-24T10:06:46.509Z",
+  "source": {
+    "repository": "dstu-android",
+    "ref": "037c34e",
+    "revision": "037c34ef4d8eaeb15840366c5f19c6520e86c3eb",
+    "selection": "worktree",
+    "entryCount": 7,
+    "trackedCount": 0,
+    "presentCount": 7,
+    "missingFromWorktree": []
+  },
+  "archive": {
+    "format": "tar.gz",
+    "root": "PRIVATE_ARTIFACT_ROOT",
+    "relativeLocation": "s226-28-withdrawal-v2232a-20261124/evidence.tar.gz",
+    "location": "PRIVATE_ARTIFACT_ROOT/s226-28-withdrawal-v2232a-20261124/evidence.tar.gz",
+    "size": 83329,
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "d4c65cac295d97e4385d8a7674d4c3108228fc95a7f2a3a571bc8376367eda85"
+    },
+    "manifest": {
+      "relativeLocation": "s226-28-withdrawal-v2232a-20261124/manifest.json",
+      "location": "PRIVATE_ARTIFACT_ROOT/s226-28-withdrawal-v2232a-20261124/manifest.json",
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "f08b9b461d3c03994812177d6eb8b42b53031c8a199e15cc010c9f30de1c8772"
+      }
+    }
+  },
+  "entries": [
+    {
+      "path": "logs/s226-28-v2232a-withdrawal-base.log",
+      "size": 11656,
+      "sha256": "77c7ee98499c8db4d091e5551cde0a2cb3a50e7dacbcbe61f074a55beef007ac",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-v2232a-withdrawal-markers.txt",
+      "size": 2401,
+      "sha256": "c5cff96aa8bb520ad58ea415db821abd816215cfd734698e72be75970e4c5622",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-v2232a-withdrawal-picker.png",
+      "size": 94280,
+      "sha256": "c18f9edf3f197dd359fb66304f195bdab5ae73b649bd5a875752272b7c43351a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-v2232a-withdrawal-receipt.txt",
+      "size": 1132,
+      "sha256": "bf6ff5293176888c2c0b2f1c9fdd501eb5345619c892f19e262e8bf42cb53dc5",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-v2232a-withdrawal-retries.txt",
+      "size": 538,
+      "sha256": "29d1b25946d71e72ed8dcfce8cbd6c764bb640e34e216e0aea92c73838f04bc8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-v2232a-withdrawal-root-cause.txt",
+      "size": 2518,
+      "sha256": "86b4cc1ffaf982fb5e00e2cb78abff83e91f9cdb5f8763d4368ec343bc57f7c6",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-v2232a-withdrawal-routes.log",
+      "size": 6702,
+      "sha256": "d4efef0ff76e1a34282796c8652b4c97f7e1f73cb56cd84c6e6cc0d745044c4a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    }
+  ],
+  "compatibility": {
+    "legacyPathPolicy": "Entries retain original logs/... paths; historical docs/config references are lookup keys, not tracked files.",
+    "localWrites": "logs/ is gitignored; existing tools may continue writing local evidence.",
+    "restoreCommand": "node tools/evidence/restore.mjs <logs/path>"
+  }
+}

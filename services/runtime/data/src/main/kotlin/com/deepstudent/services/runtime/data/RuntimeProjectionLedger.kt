@@ -38,7 +38,7 @@ internal class RuntimeProjectionLedger(private val database: SqlDatabase, privat
     suspend fun approvals(task: RuntimeTaskGeneration, after: RuntimeRecordKey?, limit: Int): List<RuntimeApprovalRecord> {
         require(limit in 1..MAX_PAGE) { "invalid approval page size" }
         return database.query(
-            "SELECT record_id, operation, state, requested_at, updated_at, cursor FROM runtime_approvals " +
+            "SELECT record_id, operation, state, requested_at, updated_at, cursor, capability_binding FROM runtime_approvals " +
                 "WHERE task_id = ? AND generation = ? AND record_id > ? ORDER BY record_id LIMIT ?",
             listOf(text(task.taskId.value), integer(task.generation), text(after?.value ?: ""), integer(limit.toLong())),
             RuntimeProjectionRows::approval,
@@ -152,7 +152,9 @@ internal class RuntimeProjectionLedger(private val database: SqlDatabase, privat
         change: RuntimeProjectionChange.RequestApproval,
     ): RuntimeProjectionResult? {
         val row = approvalRow(task, change.id) ?: return null
-        return if (row.operation == change.operation.value && row.state == RuntimeApprovalState.PENDING.name) {
+        return if (row.operation == change.operation.value && row.binding == change.binding?.let(CapabilityRows::encode) &&
+            row.state == RuntimeApprovalState.PENDING.name
+        ) {
             RuntimeProjectionResult.UNCHANGED
         } else {
             RuntimeProjectionResult.CONFLICT

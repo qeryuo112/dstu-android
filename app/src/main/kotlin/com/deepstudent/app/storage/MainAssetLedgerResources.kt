@@ -2,6 +2,7 @@ package com.deepstudent.app.storage
 
 import android.content.Context
 import com.deepstudent.core.common.id.DeviceId
+import com.deepstudent.core.common.id.TaskId
 import com.deepstudent.core.common.logging.Logger
 import com.deepstudent.platform.database.BundledMigrationSource
 import com.deepstudent.platform.database.DatabaseRegistry
@@ -24,7 +25,11 @@ import com.deepstudent.services.resources.data.assets.SqlAssetDeletionReader
 import com.deepstudent.services.resources.data.assets.SqlChatAttachmentReferences
 import com.deepstudent.services.resources.data.assets.SqlVfsFilesReferences
 import com.deepstudent.services.resources.data.assets.SqlVfsResourceReferences
+import com.deepstudent.services.runtime.api.CapabilityEpoch
+import com.deepstudent.services.runtime.api.CapabilityEpochStore
+import com.deepstudent.services.runtime.data.SqlCapabilityEpochStore
 import java.io.File
+import java.time.Instant
 
 /**
  * Owned by the main storage lifecycle. VFS is borrowed and must outlive this owner; its caller
@@ -50,8 +55,7 @@ internal class MainAssetLedgerResources private constructor(
             SqlVfsResourceReferences(vfs),
             object : AssetReferenceReader {
                 override val owner = AssetReferenceOwner.CHAT_ATTACHMENTS
-                override fun inspect(target: AssetTarget): AssetReferenceCount =
-                    SqlChatAttachmentReferences(chat()).inspect(target)
+                override fun inspect(target: AssetTarget): AssetReferenceCount = SqlChatAttachmentReferences(chat()).inspect(target)
             },
         ),
         scratch = OwnedAssetScratch(cacheDir),
@@ -71,7 +75,12 @@ internal class MainAssetLedgerResources private constructor(
         override fun cleanupOwnScratch(): AssetCleanupResult = withOpen { delegate.cleanupOwnScratch() }
     }
 
-    // Called under lock via ledger.references(); an unsuccessful open is not cached.
+    val capabilityEpochs: CapabilityEpochStore = object : CapabilityEpochStore {
+        override fun current(task: TaskId): CapabilityEpoch = withOpen { SqlCapabilityEpochStore(chat()).current(task) }
+        override fun revokeTask(task: TaskId, now: Instant): Long = withOpen { SqlCapabilityEpochStore(chat()).revokeTask(task, now) }
+    }
+
+    // Called under lock via ledger.references() or capabilityEpochs; an unsuccessful open is not cached.
     private fun chat(): SqlDatabase = chatLease ?: openChatLease().also { chatLease = it }
 
     private fun <T> withOpen(block: () -> T): T = synchronized(lock) {
@@ -96,8 +105,11 @@ internal class MainAssetLedgerResources private constructor(
             val source = BundledMigrationSource(context)
             return create(activeRoot, cacheDir, vfs, {
                 DatabaseRegistry.openShared(
-                    chatFile, SharedDatabase.CHAT_V2, source,
-                    log = AndroidDatabaseLog, migrationLog = AndroidMigrationLog,
+                    chatFile,
+                    SharedDatabase.CHAT_V2,
+                    source,
+                    log = AndroidDatabaseLog,
+                    migrationLog = AndroidMigrationLog,
                 )
             }, logger)
         }

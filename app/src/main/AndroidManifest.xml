@@ -15,6 +15,16 @@
             tools:node="merge">
             <meta-data android:name="androidx.work.WorkManagerInitializer" tools:node="remove" />
         </provider>
+        <provider
+            android:name=".storage.documents.WorkspaceDocumentsProvider"
+            android:authorities="${applicationId}.documents.workspace"
+            android:exported="true"
+            android:grantUriPermissions="true"
+            android:permission="android.permission.MANAGE_DOCUMENTS">
+            <intent-filter>
+                <action android:name="android.content.action.DOCUMENTS_PROVIDER" />
+            </intent-filter>
+        </provider>
         <activity
             android:name=".MainActivity"
             android:exported="true">

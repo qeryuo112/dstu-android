@@ -1,0 +1,80 @@
+{
+  "format": "dstu-evidence-index/v1",
+  "generatedAt": "2026-11-24T10:16:47.925Z",
+  "source": {
+    "repository": "dstu-android",
+    "ref": "037c34e",
+    "revision": "037c34ef4d8eaeb15840366c5f19c6520e86c3eb",
+    "selection": "worktree",
+    "entryCount": 5,
+    "trackedCount": 0,
+    "presentCount": 5,
+    "missingFromWorktree": []
+  },
+  "archive": {
+    "format": "tar.gz",
+    "root": "PRIVATE_ARTIFACT_ROOT",
+    "relativeLocation": "s226-28-withdrawal-ipad2475-20261124/evidence.tar.gz",
+    "location": "PRIVATE_ARTIFACT_ROOT/s226-28-withdrawal-ipad2475-20261124/evidence.tar.gz",
+    "size": 95168,
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "4111a6797f189a3383a9bc7efd27ba213faa06a27543f83e294c51aa56251807"
+    },
+    "manifest": {
+      "relativeLocation": "s226-28-withdrawal-ipad2475-20261124/manifest.json",
+      "location": "PRIVATE_ARTIFACT_ROOT/s226-28-withdrawal-ipad2475-20261124/manifest.json",
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "8f31a7ec391cb2491a43f38892a526aa06815c53784719ed8c8ae05536e0c03f"
+      }
+    }
+  },
+  "entries": [
+    {
+      "path": "logs/s226-28-ipad2475-final-base.log",
+      "size": 11658,
+      "sha256": "b0dba6e6af6629947c0d11b21cf59cd7faada45fb54c9f5a1d2c67a0cb59d2e0",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-ipad2475-final-markers.txt",
+      "size": 1477,
+      "sha256": "a96cd2b75674a9aca2552b0118093dd38a5969cfe8d6a8e1a05aa6bc7be1283b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-ipad2475-final-picker.png",
+      "size": 119198,
+      "sha256": "8f7bb4508de9182ccf89fdec1fa11ab937a757b7c12542beda45cc749f973c87",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-ipad2475-final-receipt.txt",
+      "size": 3419,
+      "sha256": "a7d69c44c1a5260f671a5aeb8bdf6bb4e7941a421abce9994861e4f65537ab14",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-ipad2475-final-routes.log",
+      "size": 8253,
+      "sha256": "79193612a196b3b62808a2cceea99e0ab76fd8695ab12006f1cb5d8e664e23a8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    }
+  ],
+  "compatibility": {
+    "legacyPathPolicy": "Entries retain original logs/... paths; historical docs/config references are lookup keys, not tracked files.",
+    "localWrites": "logs/ is gitignored; existing tools may continue writing local evidence.",
+    "restoreCommand": "node tools/evidence/restore.mjs <logs/path>"
+  }
+}

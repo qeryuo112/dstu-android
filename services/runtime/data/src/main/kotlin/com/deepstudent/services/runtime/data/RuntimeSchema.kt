@@ -7,8 +7,9 @@ import com.deepstudent.platform.database.SqlDatabase
  * - v1: tasks + events.
  * - v2: adds `runtime_tasks.confirmation_required`.
  * - v3: adds the approval/audit/duty projections served by [SqlTaskLedger]'s RuntimeProjectionStore.
+ * - v4: adds optional non-secret capability bindings to approval rows.
  *
- * A new file starts directly at v3; existing v1/v2 files are upgraded in place inside the same
+ * A new file starts directly at v4; existing v1/v2 files are upgraded in place inside the same
  * transaction, so a failed upgrade leaves the previous version untouched.
  */
 internal object RuntimeSchema {
@@ -24,7 +25,8 @@ internal object RuntimeSchema {
                 execute(EVENTS)
                 execute("CREATE INDEX runtime_events_task_cursor ON runtime_events(task_id, cursor)")
                 RuntimeProjectionSchema.create(this)
-                execute("INSERT INTO runtime_schema(version) VALUES (3)")
+                RuntimeProjectionSchema.addCapabilityBindings(this)
+                execute("INSERT INTO runtime_schema(version) VALUES (4)")
             } else {
                 var version = versions.single()
                 if (version == 1L) {
@@ -35,12 +37,16 @@ internal object RuntimeSchema {
                     RuntimeProjectionSchema.create(this)
                     version = 3L
                 }
+                if (version == 3L) {
+                    RuntimeProjectionSchema.addCapabilityBindings(this)
+                    version = 4L
+                }
                 execute("UPDATE runtime_schema SET version = ?", listOf(integer(version)))
             }
         }
     }
 
-    private val SUPPORTED = listOf(listOf(1L), listOf(2L), listOf(3L))
+    private val SUPPORTED = listOf(listOf(1L), listOf(2L), listOf(3L), listOf(4L))
 
     private val TASKS = """
         CREATE TABLE runtime_tasks (

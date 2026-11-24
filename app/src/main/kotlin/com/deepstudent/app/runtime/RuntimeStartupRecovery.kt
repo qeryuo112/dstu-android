@@ -1,5 +1,6 @@
 package com.deepstudent.app.runtime
 
+import com.deepstudent.app.execution.MainShellTasks
 import com.deepstudent.app.runtime.script.MainScriptResources
 import com.deepstudent.app.storage.AndroidOperationLogger
 import com.deepstudent.core.common.id.TaskId
@@ -29,6 +30,7 @@ internal class RuntimeStartupRecovery(private val runtime: MainRuntimeResources)
             RecoveryRegistration(it, runtime.completionSource, handler)
         } + listOf(
             RecoveryRegistration(RuntimeChatStreams.KIND, ChatCheckpointSource, handler),
+            RecoveryRegistration(MainShellTasks.KIND, MainShellTasks.noBusinessCompletion, handler),
             RecoveryRegistration(MainScriptResources.KIND, runtime.script.completionSource, handler),
             RecoveryRegistration(MainRuntimeResources.SCHEDULED_NOTE_CREATE, runtime.completionSource) { snapshot ->
                 if (snapshot.execution.cancelRequested) RecoveryDecision.Interrupted else RecoveryDecision.KeepPaused

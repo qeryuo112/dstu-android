@@ -132,9 +132,9 @@ class SqlTaskLedgerTest {
         try {
             DatabaseFactory.openLocal(dir.resolve("runtime.db")).use { database ->
                 database.execute("CREATE TABLE runtime_schema (version INTEGER NOT NULL)")
-                database.execute("INSERT INTO runtime_schema(version) VALUES (4)")
+                database.execute("INSERT INTO runtime_schema(version) VALUES (5)")
                 assertTrue(runCatching { SqlTaskLedger(database) }.exceptionOrNull() is IllegalStateException)
-                assertEquals(4L, database.query("SELECT version FROM runtime_schema") { it.long(0) }.single())
+                assertEquals(5L, database.query("SELECT version FROM runtime_schema") { it.long(0) }.single())
             }
         } finally {
             dir.deleteRecursively()
@@ -160,7 +160,7 @@ class SqlTaskLedgerTest {
             }
             DatabaseFactory.openLocal(file).use { database ->
                 val ledger = SqlTaskLedger(database)
-                assertEquals(3L, database.query("SELECT version FROM runtime_schema") { it.long(0) }.single())
+                assertEquals(4L, database.query("SELECT version FROM runtime_schema") { it.long(0) }.single())
                 val before = requireNotNull(ledger.snapshot(task))
                 assertFalse(before.execution.confirmationRequired)
                 assertEquals(JsonValue.text("partial"), before.execution.checkpoint)
@@ -203,7 +203,7 @@ class SqlTaskLedgerTest {
             }
             DatabaseFactory.openLocal(file).use { database ->
                 val ledger = SqlTaskLedger(database)
-                assertEquals(3L, database.query("SELECT version FROM runtime_schema") { it.long(0) }.single())
+                assertEquals(4L, database.query("SELECT version FROM runtime_schema") { it.long(0) }.single())
                 assertEquals(eventCursors, ledger.events(task, TaskCursor.ZERO).map { it.cursor })
                 assertEquals(0L, database.query("SELECT count(*) FROM runtime_audit") { it.long(0) }.single())
                 val snapshot = requireNotNull(ledger.snapshot(task))

@@ -27,6 +27,6 @@ internal object MainEnvironmentFactory {
             artifact = artifact,
         )
         Log.i("DstuEnvironmentEntry", "event=owner-opened dnsCount=${dns.size} source=packaged-native")
-        return OpenedEnvironment(platform.manager(), platform::close)
+        return OpenedEnvironment(platform.manager(), platform.console(), platform::close)
     }
 }

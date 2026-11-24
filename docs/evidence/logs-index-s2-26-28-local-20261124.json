@@ -1,0 +1,112 @@
+{
+  "format": "dstu-evidence-index/v1",
+  "generatedAt": "2026-11-24T01:55:22.114Z",
+  "source": {
+    "repository": "dstu-android",
+    "ref": "HEAD",
+    "revision": "44daeb38d1121e0e3ccc4819fc0c94d3e74232b0",
+    "selection": "worktree",
+    "entryCount": 9,
+    "trackedCount": 0,
+    "presentCount": 9,
+    "missingFromWorktree": []
+  },
+  "archive": {
+    "format": "tar.gz",
+    "root": "PRIVATE_ARTIFACT_ROOT",
+    "relativeLocation": "s226-28-local-20261124/evidence.tar.gz",
+    "location": "PRIVATE_ARTIFACT_ROOT/s226-28-local-20261124/evidence.tar.gz",
+    "size": 27082,
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "285f31e0ddd1e1b0da94ed0020187b730745f08cd4f8ce04d1a02d1338f21bf3"
+    },
+    "manifest": {
+      "relativeLocation": "s226-28-local-20261124/manifest.json",
+      "location": "PRIVATE_ARTIFACT_ROOT/s226-28-local-20261124/manifest.json",
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "6a152d35ffe4d5afcd18337a528092a8870f92a2086162818f6cc49639c23208"
+      }
+    }
+  },
+  "entries": [
+    {
+      "path": "logs/s226-28-api36-base.log",
+      "size": 9831,
+      "sha256": "218fa9ee5735ca2e61add3ded4bf520cfca2e0b1505d328b629cdc356690a8a8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-api36-installed.txt",
+      "size": 316,
+      "sha256": "08732c81c73bb0a0899d58288779abd4abd8e9bcc6aeb71f6e2d17590d05c893",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-api36-markers.txt",
+      "size": 223,
+      "sha256": "8806d14afab577d37efec15a0df54265b5124a232fb852f9cae08a5e964e1d71",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-api36-shizuku.log",
+      "size": 807,
+      "sha256": "8b89d95f07fcf56fac5711e4a6006c969cf33bb5885fd7b01425dd9e70e7ec74",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-arm64-sha256.txt",
+      "size": 257,
+      "sha256": "1879f17d9b6601b762cb0cc7c77276600dc5a8774ff98d9f466862c14cd221fa",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-instrument-apk-build.log",
+      "size": 98420,
+      "sha256": "2e92eb85499869366454e7dd4ee807b66780b4d205463acf3cdf757a9cd9be33",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-quality-and-unit.log",
+      "size": 108764,
+      "sha256": "cb3b1de734ce1834db894a6686afdfa6251e9c873e1851123cb59c80acf57dfd",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-repository-and-frozen.log",
+      "size": 20993,
+      "sha256": "3cdc2b02e77a81ab240f0144de9af122c4edb36dd422312d8d4bc93e561e1981",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s226-28-unit-counts.txt",
+      "size": 226,
+      "sha256": "bb1630b8d336091362ebed336193f3c40bad1d0670092aab0b3cc63a876bb8af",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    }
+  ],
+  "compatibility": {
+    "legacyPathPolicy": "Entries retain original logs/... paths; historical docs/config references are lookup keys, not tracked files.",
+    "localWrites": "logs/ is gitignored; existing tools may continue writing local evidence.",
+    "restoreCommand": "node tools/evidence/restore.mjs <logs/path>"
+  }
+}

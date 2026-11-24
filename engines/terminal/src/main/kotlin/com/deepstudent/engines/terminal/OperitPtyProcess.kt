@@ -9,9 +9,7 @@ import java.io.OutputStream
  * Narrow host handle over Operit's PTY bridge. It exposes bytes and lifecycle only; ANSI state
  * is owned by [OperitTerminalScreen].
  */
-class OperitPtyProcess private constructor(
-    private val process: Pty,
-) : AutoCloseable {
+class OperitPtyProcess private constructor(private val process: Pty) : AutoCloseable {
     val input: InputStream get() = process.input
     val output: OutputStream get() = process.output
 
@@ -26,6 +24,9 @@ class OperitPtyProcess private constructor(
     override fun close() = process.close()
 
     companion object {
+        fun startCommand(workingDirectory: File, argv: List<String>): OperitPtyProcess =
+            OperitPtyProcess(Pty.startCommand(workingDirectory, argv.toTypedArray()))
+
         fun start(workingDirectory: File, size: EngineTerminalSize): OperitPtyProcess =
             OperitPtyProcess(Pty.start(workingDirectory, size.rows, size.columns))
     }

@@ -6,15 +6,20 @@ import com.deepstudent.services.execution.api.ExecutionFailureCode
 import com.deepstudent.services.execution.api.ExecutionRequest
 import com.deepstudent.services.execution.api.ExecutionResult
 import com.deepstudent.services.execution.api.ExecutionSystem
+import com.deepstudent.services.execution.api.PreparedShell
+import com.deepstudent.services.execution.api.ShellAdapter
+import com.deepstudent.services.execution.api.ShellCommand
+import com.deepstudent.services.execution.api.ShellResult
+import com.deepstudent.services.execution.api.ShellScope
+import com.deepstudent.services.execution.api.ShellTarget
 import com.deepstudent.services.execution.api.ShizukuConnectionState
 import com.deepstudent.services.execution.api.ShizukuStatus
 import kotlinx.coroutines.flow.StateFlow
 
 /** Application-owned service. Screen monitor leases and execution owners are independent. */
-class ShizukuExecutionSystem internal constructor(
-    private val authorizer: ShizukuAuthorizer,
-    private val executor: ShizukuExecutor,
-) : ExecutionSystem {
+class ShizukuExecutionSystem internal constructor(private val authorizer: ShizukuAuthorizer, private val executor: ShizukuExecutor) :
+    ExecutionSystem,
+    ShellAdapter {
     private val lock = Any()
     private var started = false
     private var closed = false
@@ -56,7 +61,37 @@ class ShizukuExecutionSystem internal constructor(
         authorizer.requestPermission(onResult)
     }
 
-    override suspend fun execute(request: ExecutionRequest): ExecutionResult {
+    override suspend fun execute(request: ExecutionRequest): ExecutionResult =
+        withBinding { binding, checkpoint -> executor.execute(request, binding, checkpoint) }
+
+    override suspend fun prepare(command: ShellCommand): PreparedShell? {
+        require(command.target == ShellTarget.SHIZUKU)
+        authorizer.refresh()
+        val original = authorizer.authorizedBinding() ?: return null
+        val directory = if (original.backendUid == 0) "/" else "/data/local/tmp"
+        val scope = ShellScope(ShellTarget.SHIZUKU, original.backendUid, "shizuku.uid${original.backendUid}", directory)
+        return object : PreparedShell {
+            override val scope = scope
+            override suspend fun run(taskId: String): ShellResult = runApproved(taskId, command.text, scope, original.bindingId)
+        }
+    }
+
+    private suspend fun runApproved(taskId: String, script: String, scope: ShellScope, bindingId: String): ShellResult {
+        val start = System.nanoTime()
+        val answer = withBinding { binding, checkpoint ->
+            if (scope.uid != binding.backendUid || bindingId != binding.bindingId) {
+                failure(ExecutionFailureCode.UID_MISMATCH)
+            } else {
+                executor.execute(ShizukuInvocation.approved(taskId, script, scope.uid, scope.directory), binding, checkpoint)
+            }
+        }
+        return when (answer) {
+            is ExecutionResult.Failure -> ShellResult.Unavailable(answer.failure.code)
+            is ExecutionResult.Success -> with(answer.receipt) { ShellProtocol.result(scope.uid, exitCode, output, start) }
+        }
+    }
+
+    private suspend fun withBinding(run: suspend (ShizukuBinding, Long) -> ExecutionResult): ExecutionResult {
         synchronized(lock) {
             if (closed) return failure(ExecutionFailureCode.SYSTEM_CLOSED)
             executions++
@@ -68,7 +103,7 @@ class ShizukuExecutionSystem internal constructor(
             status.value.state.failureCode()?.let { return failure(it) }
             val binding = authorizer.authorizedBinding()
                 ?: return failure(status.value.state.failureCode() ?: ExecutionFailureCode.BINDER_DEAD)
-            val result = executor.execute(request, binding, checkpoint)
+            val result = run(binding, checkpoint)
             updateAuthorization(binding, result)
             return result
         } finally {
@@ -84,6 +119,7 @@ class ShizukuExecutionSystem internal constructor(
             is ExecutionResult.Success -> result.receipt.identity.observedUid?.let {
                 authorizer.recordVerifiedUid(binding, it)
             }
+
             is ExecutionResult.Failure -> when (result.failure.code) {
                 ExecutionFailureCode.UID_MISMATCH -> authorizer.clearVerifiedUid(binding)
                 in CONNECTION_FAILURES -> authorizer.refresh()

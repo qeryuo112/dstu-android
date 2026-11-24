@@ -15,12 +15,12 @@ import com.deepstudent.features.environments.backend.EnvironmentCoordinator
 import com.deepstudent.features.environments.backend.EnvironmentJournal
 import com.deepstudent.features.environments.backend.EnvironmentPorts
 import com.deepstudent.features.environments.backend.EnvironmentService
-import java.io.File
-import java.time.Instant
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import java.io.File
+import java.time.Instant
 
 /**
  * Self-contained S1.21 platform composition. The app supplies a private base directory and,
@@ -60,15 +60,14 @@ class AndroidEnvironmentPlatform(
 
     fun manager(): EnvironmentManager = service
 
+    fun console(): EnvironmentConsole = EnvironmentConsole(paths, runtime, service)
+
     override fun close() {
         scope.cancel()
         EnvironmentDataLog.event("environment-owner-closed")
     }
 
-    private fun prepareRuntime(
-        artifact: PRootArtifact?,
-        executableDirectory: File?,
-    ): PRootRuntimePaths? {
+    private fun prepareRuntime(artifact: PRootArtifact?, executableDirectory: File?): PRootRuntimePaths? {
         if (artifact == null) return null
         return try {
             PRootRuntimeInstaller().prepare(
@@ -97,10 +96,10 @@ class AndroidEnvironmentPlatform(
     }
 }
 
-internal class AndroidEnvironmentSpaceChecker(private val baseDirectory: File) : com.deepstudent.features.environments.backend.EnvironmentSpaceChecker {
+internal class AndroidEnvironmentSpaceChecker(private val baseDirectory: File) :
+    com.deepstudent.features.environments.backend.EnvironmentSpaceChecker {
     override fun availableBytes(): Long = android.os.StatFs(baseDirectory.absolutePath).availableBytes
 }
 
-fun EnvironmentSnapshot.isReady(): Boolean =
-    phase == com.deepstudent.features.environments.api.EnvironmentPhase.READY &&
-        activeGeneration != null
+fun EnvironmentSnapshot.isReady(): Boolean = phase == com.deepstudent.features.environments.api.EnvironmentPhase.READY &&
+    activeGeneration != null

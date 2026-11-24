@@ -16,9 +16,18 @@ internal data class AttachmentRow(
     val times: AttachmentTimes,
 ) {
     fun metadata(): AttachmentMetadata = AttachmentMetadata(
-        id, ResourceId.parse(resourceId ?: corruptAttachment()), name, mediaType, storage, times,
+        id,
+        ResourceId.parse(resourceId ?: corruptAttachment()),
+        name,
+        mediaType,
+        storage,
+        times,
     )
 }
+
+internal const val FILE_COLUMNS =
+    "f.id,f.resource_id,COALESCE(f.name,f.file_name),COALESCE(f.mime_type,'application/octet-stream')," +
+        "f.size,f.sha256,f.blob_hash,f.created_at,f.updated_at,f.deleted_at"
 
 private const val COLUMNS =
     "id,resource_id,COALESCE(name,file_name),COALESCE(mime_type,'application/octet-stream')," +
@@ -32,10 +41,11 @@ internal fun SqlOperations.attachmentByHash(hash: String): AttachmentRow? =
 
 internal fun SqlOperations.attachmentByResource(id: String): AttachmentRow? = query(
     "SELECT $COLUMNS FROM files WHERE resource_id=? ORDER BY deleted_at IS NULL DESC,id LIMIT 1",
-    listOf(text(id)), ::mapAttachment,
+    listOf(text(id)),
+    ::mapAttachment,
 ).singleOrNull()
 
-private fun mapAttachment(row: SqlRow): AttachmentRow = AttachmentRow(
+internal fun mapAttachment(row: SqlRow): AttachmentRow = AttachmentRow(
     id = row.text(0),
     resourceId = if (row.isNull(1)) null else row.text(1),
     name = row.text(2),

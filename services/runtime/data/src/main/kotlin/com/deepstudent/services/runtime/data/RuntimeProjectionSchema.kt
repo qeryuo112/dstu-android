@@ -18,6 +18,14 @@ internal object RuntimeProjectionSchema {
         database.execute("CREATE INDEX runtime_audit_task_cursor ON runtime_audit(task_id, generation, cursor)")
     }
 
+    fun addCapabilityBindings(database: SqlOperations) {
+        database.execute("ALTER TABLE runtime_approvals ADD COLUMN capability_binding TEXT")
+        database.execute(
+            "CREATE INDEX runtime_pending_capabilities ON runtime_approvals(requested_at, record_id) " +
+                "WHERE state = 'PENDING' AND capability_binding IS NOT NULL",
+        )
+    }
+
     private val AUDIT = """
         CREATE TABLE runtime_audit (
             cursor INTEGER PRIMARY KEY REFERENCES runtime_events(cursor),

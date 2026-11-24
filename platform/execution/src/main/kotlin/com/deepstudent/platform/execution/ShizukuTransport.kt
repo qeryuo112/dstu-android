@@ -23,6 +23,9 @@ internal interface ShizukuServiceTransport {
 
     fun newProcess(argv: Array<String>): RemoteProcessHandle
 
+    /** Approved shell owners hold a control pipe; old fixed diagnostics still use EOF stdin. */
+    fun newOwnedProcess(argv: Array<String>): RemoteProcessHandle = throw java.io.IOException("owned shell unavailable")
+
     fun close()
 }
 

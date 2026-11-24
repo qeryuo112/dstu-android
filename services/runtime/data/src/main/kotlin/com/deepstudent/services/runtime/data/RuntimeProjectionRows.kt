@@ -19,6 +19,7 @@ internal object RuntimeProjectionRows {
         Instant.parse(row.text(3)),
         Instant.parse(row.text(4)),
         TaskCursor.parse(row.long(5)),
+        row.optional(6)?.let(CapabilityRows::decode),
     )
 
     fun audit(row: SqlRow): RuntimeAuditRecord = RuntimeAuditRecord(

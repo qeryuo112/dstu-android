@@ -1,5 +1,7 @@
 package com.deepstudent.app.runtime
 
+import com.deepstudent.app.execution.MainShellTasks
+import com.deepstudent.app.execution.ShellRouter
 import com.deepstudent.app.runtime.script.MainScriptResources
 import com.deepstudent.app.storage.AndroidDatabaseLog
 import com.deepstudent.app.storage.AndroidOperationLogger
@@ -13,6 +15,7 @@ import com.deepstudent.features.notes.backend.application.NoteStreamImport
 import com.deepstudent.platform.database.DatabaseRegistry
 import com.deepstudent.platform.database.SqlDatabase
 import com.deepstudent.services.runtime.api.TaskKind
+import com.deepstudent.services.runtime.backend.CapabilityBroker
 import com.deepstudent.services.runtime.backend.HandlerRegistry
 import com.deepstudent.services.runtime.backend.LeaseManager
 import com.deepstudent.services.runtime.backend.RuntimeController
@@ -42,7 +45,19 @@ internal class MainRuntimeResources private constructor(
     val controller: RuntimeController get() = composition.controller
     val completionSource: NotesCompletionSource get() = composition.completionSource
     val ownerId: String get() = processLock.ownerId
+    val capabilities: CapabilityBroker get() = composition.capabilities
+    val shell get() = composition.shell
     val startup = RuntimeStartupRecovery(this)
+
+    suspend fun prepare(): MainRuntimeResources = try {
+        ledger.closePreviousCapabilityRequests(SystemWallClock.now())
+        startup.recover()
+        ledger.closePreviousForegroundDuties(SystemWallClock.now())
+        this
+    } catch (failure: Exception) {
+        runCatching { close() }.onFailure(failure::addSuppressed)
+        throw failure
+    }
 
     override fun close() {
         var failure: Throwable? = null
@@ -63,7 +78,11 @@ internal class MainRuntimeResources private constructor(
         val NOTE_IMPORT = TaskKind.parse("notes.import_stream")
         val LEASE_DURATION: Duration = Duration.ofSeconds(30)
 
-        fun open(activeRoot: File, storage: MainStorageResources): MainRuntimeResources {
+        fun open(
+            activeRoot: File,
+            storage: MainStorageResources,
+            shellRouter: ShellRouter = ShellRouter(emptyMap()),
+        ): MainRuntimeResources {
             val parent = File(activeRoot, "databases")
             check(parent.isDirectory || parent.mkdirs()) { "private runtime directory unavailable" }
             val processLock = RuntimeProcessLock.acquire(parent)
@@ -84,6 +103,7 @@ internal class MainRuntimeResources private constructor(
                     processLock.ownerId,
                     storage,
                     openedScript,
+                    shellRouter,
                 )
                 return MainRuntimeResources(database, openedScript, composition, processLock)
             } catch (failure: Exception) {
@@ -103,6 +123,8 @@ private class MainRuntimeComposition(
     val supervisor: TaskSupervisor,
     val controller: RuntimeController,
     val completionSource: NotesCompletionSource,
+    val capabilities: CapabilityBroker,
+    val shell: com.deepstudent.services.execution.api.ShellConsole,
 ) {
     companion object {
         fun create(
@@ -110,32 +132,15 @@ private class MainRuntimeComposition(
             ownerId: String,
             storage: MainStorageResources,
             script: MainScriptResources,
+            shellRouter: ShellRouter,
         ): MainRuntimeComposition {
             val ledger = SqlTaskLedger(database, AndroidOperationLogger)
             val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
             try {
+                val capabilities = CapabilityBroker(ledger, ledger, storage.capabilityEpochs, SystemWallClock)
+                val shell = MainShellTasks(shellRouter, capabilities)
                 val source = NotesCompletionSource(storage.noteTasks, storage.noteCancellations)
-                val createNote = NoteCreationHandler(storage.noteTasks)
-                val registry = HandlerRegistry(
-                    mapOf(
-                        MainRuntimeResources.NOTE_CREATE to createNote,
-                        MainRuntimeResources.SCHEDULED_NOTE_CREATE to
-                            NoteCreationHandler(storage.noteTasks, ScheduledNoteExecution::beforeWrite),
-                        MainRuntimeResources.NOTE_IMPORT to NoteStreamImport(
-                            storage.noteStreamReader(),
-                            NoteImportStorageAdapter(storage),
-                        ),
-                        RuntimeChatStreams.KIND to ChatStreamHandler(NetworkChatStream(storage.network)),
-                        MainScriptResources.KIND to script.handler,
-                    ),
-                    mapOf(
-                        MainRuntimeResources.NOTE_CREATE to source,
-                        MainRuntimeResources.SCHEDULED_NOTE_CREATE to source,
-                        MainRuntimeResources.NOTE_IMPORT to source,
-                        MainScriptResources.KIND to script.completionSource,
-                    ),
-                    resumableKinds = setOf(MainRuntimeResources.SCHEDULED_NOTE_CREATE),
-                )
+                val registry = runtimeRegistry(storage, script, shell, source)
                 val leases = LeaseManager(
                     ledger,
                     SystemWallClock,
@@ -157,13 +162,43 @@ private class MainRuntimeComposition(
                     SystemWallClock,
                     resumableKinds = registry.resumableKinds,
                 )
-                return MainRuntimeComposition(scope, ledger, supervisor, controller, source)
+                return MainRuntimeComposition(scope, ledger, supervisor, controller, source, capabilities, shell.console(controller, scope))
             } catch (failure: Exception) {
                 scope.coroutineContext[Job]?.cancel()
                 throw failure
             }
         }
     }
+}
+
+private fun runtimeRegistry(
+    storage: MainStorageResources,
+    script: MainScriptResources,
+    shell: MainShellTasks,
+    source: NotesCompletionSource,
+): HandlerRegistry {
+    val createNote = NoteCreationHandler(storage.noteTasks)
+    return HandlerRegistry(
+        mapOf(
+            MainRuntimeResources.NOTE_CREATE to createNote,
+            MainRuntimeResources.SCHEDULED_NOTE_CREATE to
+                NoteCreationHandler(storage.noteTasks, ScheduledNoteExecution::beforeWrite),
+            MainRuntimeResources.NOTE_IMPORT to NoteStreamImport(
+                storage.noteStreamReader(),
+                NoteImportStorageAdapter(storage),
+            ),
+            RuntimeChatStreams.KIND to ChatStreamHandler(NetworkChatStream(storage.network)),
+            MainScriptResources.KIND to script.handler,
+            MainShellTasks.KIND to shell.handler,
+        ),
+        mapOf(
+            MainRuntimeResources.NOTE_CREATE to source,
+            MainRuntimeResources.SCHEDULED_NOTE_CREATE to source,
+            MainRuntimeResources.NOTE_IMPORT to source,
+            MainScriptResources.KIND to script.completionSource,
+        ),
+        resumableKinds = setOf(MainRuntimeResources.SCHEDULED_NOTE_CREATE),
+    )
 }
 
 private fun closeResource(resource: AutoCloseable?, failure: Throwable?): Throwable? = try {

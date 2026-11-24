@@ -1,7 +1,6 @@
 package com.deepstudent.platform.execution
 
 import android.os.RemoteException
-import com.deepstudent.services.execution.api.ExecutionAudit
 import com.deepstudent.services.execution.api.ExecutionCommand
 import com.deepstudent.services.execution.api.ExecutionFailure
 import com.deepstudent.services.execution.api.ExecutionFailureCode
@@ -9,15 +8,15 @@ import com.deepstudent.services.execution.api.ExecutionIdentity
 import com.deepstudent.services.execution.api.ExecutionReceipt
 import com.deepstudent.services.execution.api.ExecutionRequest
 import com.deepstudent.services.execution.api.ExecutionResult
-import java.io.IOException
-import java.util.concurrent.TimeUnit
-import kotlin.coroutines.cancellation.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
+import java.io.IOException
+import java.util.concurrent.TimeUnit
+import kotlin.coroutines.cancellation.CancellationException
 
 /**
  * Owns process creation, bounded dual-stream capture, cancellation and the
@@ -30,7 +29,7 @@ import kotlinx.coroutines.withContext
  * trigger an ANR while Shizuku creates the process.
  */
 internal class ShizukuExecutor(
-    maxCaptureBytes: Int = DEFAULT_MAX_CAPTURE_BYTES,
+    private val maxCaptureBytes: Int = DEFAULT_MAX_CAPTURE_BYTES,
     private val timeoutMillis: Long = DEFAULT_TIMEOUT_MILLIS,
     private val log: ExecutionLogSink = AndroidExecutionLogSink,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
@@ -48,12 +47,12 @@ internal class ShizukuExecutor(
 
     fun checkpoint(): Long = synchronized(active) { generation }
 
-    suspend fun execute(
-        request: ExecutionRequest,
-        binding: ShizukuBinding,
-        checkpoint: Long = checkpoint(),
-    ): ExecutionResult {
+    suspend fun execute(request: ExecutionRequest, binding: ShizukuBinding, checkpoint: Long = checkpoint()): ExecutionResult {
         validate(request)?.let { return it }
+        return execute(ShizukuInvocation.diagnostic(request), binding, checkpoint)
+    }
+
+    suspend fun execute(request: ShizukuInvocation, binding: ShizukuBinding, checkpoint: Long): ExecutionResult {
         val owner = ActiveProcess(timeoutMillis, log, executionCorrelation(request.taskId))
         synchronized(active) {
             if (closed) return failure(ExecutionFailureCode.SYSTEM_CLOSED)
@@ -80,17 +79,13 @@ internal class ShizukuExecutor(
         runner.close()
     }
 
-    private suspend fun executeOwned(
-        request: ExecutionRequest,
-        binding: ShizukuBinding,
-        owner: ActiveProcess,
-    ): ExecutionResult {
+    private suspend fun executeOwned(request: ShizukuInvocation, binding: ShizukuBinding, owner: ActiveProcess): ExecutionResult {
         val started = System.nanoTime()
         var completed = false
         try {
             runner.start(owner) { startProcess(request, binding, owner) }
             logStart(request, binding.backendUid)
-            val run = runner.run(owner)
+            val run = runner.run(owner, request.captureLimit(maxCaptureBytes))
             val result = runner.transact(owner) {
                 finishProcess(request, binding, binding.backendUid, started, run)
             }
@@ -119,9 +114,12 @@ internal class ShizukuExecutor(
         val uid = binding.transport.uid()
         when {
             uid < 0 -> UidProbe(-1, ExecutionFailureCode.BINDER_DEAD)
+
             uid != binding.backendUid -> UidProbe(uid, ExecutionFailureCode.UID_MISMATCH)
+
             uid != 0 && uid != 2000 ->
                 UidProbe(uid, ExecutionFailureCode.UNTRUSTED_BACKEND_UID)
+
             else -> UidProbe(uid)
         }
     } catch (error: SecurityException) {
@@ -132,15 +130,15 @@ internal class ShizukuExecutor(
         UidProbe(-1, ExecutionFailureCode.BINDER_DEAD)
     }
 
-    private fun startProcess(
-        request: ExecutionRequest,
-        binding: ShizukuBinding,
-        owner: ActiveProcess,
-    ): RemoteProcessHandle {
+    private fun startProcess(request: ShizukuInvocation, binding: ShizukuBinding, owner: ActiveProcess): RemoteProcessHandle {
         verifyBinding(binding)
         owner.throwIfAborted()
         return try {
-            binding.transport.newProcess(request.command.argv.toTypedArray())
+            if (request.owned) {
+                binding.transport.newOwnedProcess(request.argv.toTypedArray())
+            } else {
+                binding.transport.newProcess(request.argv.toTypedArray())
+            }
         } catch (error: SecurityException) {
             throw ProcessRunFailure(ExecutionFailureCode.PERMISSION_REVOKED, error)
         } catch (error: RemoteException) {
@@ -163,7 +161,7 @@ internal class ShizukuExecutor(
     }
 
     private fun finishProcess(
-        request: ExecutionRequest,
+        request: ShizukuInvocation,
         binding: ShizukuBinding,
         beforeUid: Int,
         started: Long,
@@ -173,21 +171,16 @@ internal class ShizukuExecutor(
         if (afterUid != beforeUid) {
             throw ProcessRunFailure(ExecutionFailureCode.UID_MISMATCH, exitCode = run.exitCode)
         }
-        val uidCheck = verifyObservedUid(request.command, run.output.stdout, beforeUid)
+        val uidCheck = verifyObservedUid(request.probe, run.output.stdout, beforeUid)
         uidCheck.failure?.let { throw ProcessRunFailure(it, exitCode = run.exitCode) }
-        if (request.command === ExecutionCommand.Identity && run.exitCode != 0) {
+        if (request.probe == ShizukuInvocation.Probe.FIXED_IDENTITY && run.exitCode != 0) {
             throw ProcessRunFailure(ExecutionFailureCode.UID_MISMATCH, exitCode = run.exitCode)
         }
         val duration = elapsedMillis(started)
         logExit(request, beforeUid, run.exitCode, duration)
         return ExecutionResult.Success(
             ExecutionReceipt(
-                audit = ExecutionAudit(
-                    taskId = request.taskId,
-                    callerId = request.callerId,
-                    commandId = request.command.commandId,
-                    argv = request.command.argv,
-                ),
+                audit = request.audit(),
                 identity = ExecutionIdentity(beforeUid, uidCheck.observed),
                 output = run.output,
                 exitCode = run.exitCode,
@@ -196,14 +189,12 @@ internal class ShizukuExecutor(
         )
     }
 
-    private fun verifyObservedUid(
-        command: ExecutionCommand,
-        stdout: String,
-        backendUid: Int,
-    ): UidCheck {
-        if (command !== ExecutionCommand.Identity) return UidCheck(null)
-        val observed = parseUid(stdout)
-            ?: return UidCheck(null, ExecutionFailureCode.UID_MISMATCH)
+    private fun verifyObservedUid(probe: ShizukuInvocation.Probe, stdout: String, backendUid: Int): UidCheck {
+        val observed = when (probe) {
+            ShizukuInvocation.Probe.NONE -> return UidCheck(null)
+            ShizukuInvocation.Probe.FIXED_IDENTITY -> parseUid(stdout)
+            ShizukuInvocation.Probe.APPROVED_SHELL -> ShellProtocol.observedUid(stdout)
+        } ?: return UidCheck(null, ExecutionFailureCode.UID_MISMATCH)
         return if (observed == backendUid) {
             UidCheck(observed)
         } else {
@@ -211,47 +202,37 @@ internal class ShizukuExecutor(
         }
     }
 
-    private fun logStart(request: ExecutionRequest, backendUid: Int) {
+    private fun logStart(request: ShizukuInvocation, backendUid: Int) {
         log.emit(
             ExecutionLogEvent(
                 kind = "process_start",
                 backendUid = backendUid,
                 correlationId = executionCorrelation(request.taskId),
-                commandId = request.command.commandId,
+                commandId = request.commandId,
             ),
         )
     }
 
-    private fun logAbort(
-        request: ExecutionRequest,
-        backendUid: Int,
-        code: ExecutionFailureCode,
-        started: Long,
-    ) {
+    private fun logAbort(request: ShizukuInvocation, backendUid: Int, code: ExecutionFailureCode, started: Long) {
         log.emit(
             ExecutionLogEvent(
                 kind = "process_abort",
                 state = code.name,
                 backendUid = backendUid,
                 correlationId = executionCorrelation(request.taskId),
-                commandId = request.command.commandId,
+                commandId = request.commandId,
                 durationMillis = elapsedMillis(started),
             ),
         )
     }
 
-    private fun logExit(
-        request: ExecutionRequest,
-        backendUid: Int,
-        exitCode: Int,
-        duration: Long,
-    ) {
+    private fun logExit(request: ShizukuInvocation, backendUid: Int, exitCode: Int, duration: Long) {
         log.emit(
             ExecutionLogEvent(
                 kind = "process_exit",
                 backendUid = backendUid,
                 correlationId = executionCorrelation(request.taskId),
-                commandId = request.command.commandId,
+                commandId = request.commandId,
                 exitCode = exitCode,
                 durationMillis = duration,
             ),
@@ -273,29 +254,20 @@ internal class ShizukuExecutor(
         }
     }
 
-    private fun validField(value: String): Boolean =
-        value.isNotBlank() &&
-            value.length <= 128 &&
-            value.none { it.isISOControl() }
+    private fun validField(value: String): Boolean = value.isNotBlank() &&
+        value.length <= 128 &&
+        value.none { it.isISOControl() }
 
-    private fun parseUid(stdout: String): Int? =
-        UID_PATTERN.find(stdout)?.groupValues?.getOrNull(1)?.toIntOrNull()
+    private fun parseUid(stdout: String): Int? = UID_PATTERN.find(stdout)?.groupValues?.getOrNull(1)?.toIntOrNull()
 
     private fun failure(code: ExecutionFailureCode, exitCode: Int? = null): ExecutionResult =
         ExecutionResult.Failure(ExecutionFailure(code, exitCode))
 
-    private fun elapsedMillis(started: Long): Long =
-        TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - started)
+    private fun elapsedMillis(started: Long): Long = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - started)
 
-    private data class UidProbe(
-        val uid: Int,
-        val failure: ExecutionFailureCode? = null,
-    )
+    private data class UidProbe(val uid: Int, val failure: ExecutionFailureCode? = null)
 
-    private data class UidCheck(
-        val observed: Int?,
-        val failure: ExecutionFailureCode? = null,
-    )
+    private data class UidCheck(val observed: Int?, val failure: ExecutionFailureCode? = null)
 
     private companion object {
         const val DEFAULT_MAX_CAPTURE_BYTES = 256 * 1024

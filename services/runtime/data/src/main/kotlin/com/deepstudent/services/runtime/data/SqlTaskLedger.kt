@@ -5,7 +5,10 @@ import com.deepstudent.core.common.logging.Logger
 import com.deepstudent.core.common.logging.NoopLogger
 import com.deepstudent.platform.database.SqlDatabase
 import com.deepstudent.platform.database.SqlOperations
+import com.deepstudent.services.runtime.api.CapabilityTicket
+import com.deepstudent.services.runtime.api.CapabilityTicketReader
 import com.deepstudent.services.runtime.api.RuntimeApprovalRecord
+import com.deepstudent.services.runtime.api.RuntimeApprovalState
 import com.deepstudent.services.runtime.api.RuntimeAuditRecord
 import com.deepstudent.services.runtime.api.RuntimeDutyRecord
 import com.deepstudent.services.runtime.api.RuntimeEvent
@@ -37,7 +40,8 @@ import java.time.Instant
  */
 class SqlTaskLedger(private val database: SqlDatabase, logger: Logger = NoopLogger) :
     TaskLedger,
-    RuntimeProjectionStore {
+    RuntimeProjectionStore,
+    CapabilityTicketReader {
     private val projections = RuntimeProjectionLedger(database, logger)
 
     init {
@@ -106,6 +110,37 @@ class SqlTaskLedger(private val database: SqlDatabase, logger: Logger = NoopLogg
 
     /** Call only after acquiring exclusive process ownership, before accepting new foreground references. */
     suspend fun closePreviousForegroundDuties(now: Instant) = projections.closeForegroundProjectionRows(now)
+
+    override suspend fun pendingCapabilities(): List<CapabilityTicket> = database.query(
+        CapabilityRows.PENDING + " AND t.state = 'WAITING_APPROVAL' AND t.cancel_requested = 0 " +
+            "ORDER BY a.requested_at, a.record_id",
+        map = CapabilityRows::ticket,
+    )
+
+    /** Process restart never continues an application-owned approval callback. */
+    suspend fun closePreviousCapabilityRequests(now: Instant) {
+        while (true) {
+            val lost = database.query(CapabilityRows.PENDING + " ORDER BY a.requested_at LIMIT 100", map = CapabilityRows::ticket)
+            if (lost.isEmpty()) return
+            for (ticket in lost) closeLostCapability(ticket, now)
+        }
+    }
+
+    private suspend fun closeLostCapability(ticket: CapabilityTicket, now: Instant) {
+        val (task, id) = ticket.address
+        check(
+            apply(task, RuntimeProjectionChange.ResolveApproval(id, RuntimeApprovalState.CANCELLED), now) ==
+                RuntimeProjectionResult.APPLIED,
+        ) { "lost capability cannot be closed" }
+        apply(
+            task,
+            RuntimeProjectionChange.RecordDecision(
+                RuntimeRecordKey.parse("${id.value}.end"),
+                RuntimeRecordKey.parse("owner.lost"),
+            ),
+            now,
+        )
+    }
 
     private fun SqlOperations.findDedupe(submission: TaskSubmission): RuntimeSnapshot? = query(
         "SELECT ${RuntimeRows.COLUMNS} FROM runtime_tasks WHERE kind = ? AND dedupe_key = ?",

@@ -8,6 +8,7 @@ import com.deepstudent.app.backup.BackupRestoreCoordinator
 import com.deepstudent.app.environments.LazyEnvironmentOwner
 import com.deepstudent.app.environments.MainEnvironmentFactory
 import com.deepstudent.app.execution.LazyExecutionOwner
+import com.deepstudent.app.execution.mainShellRouter
 import com.deepstudent.app.graph.AndroidGraphLogger
 import com.deepstudent.app.graph.AndroidProcessIdentityResolver
 import com.deepstudent.app.graph.AppGraph
@@ -35,6 +36,7 @@ import com.deepstudent.app.sync.MainSyncResources
 import com.deepstudent.app.terminal.MainTerminalResources
 import com.deepstudent.app.workspace.MainWorkspaceOwner
 import com.deepstudent.app.workspace.WorkspacePorts
+import com.deepstudent.app.workspace.WorkspaceRuntimeTools
 import com.deepstudent.app.workspace.WorkspaceToolPorts
 import com.deepstudent.core.common.logging.Logger
 import com.deepstudent.core.common.time.SystemWallClock
@@ -290,7 +292,8 @@ class DstuApplication :
     internal fun retryMigration() = migrationRetryOwner.start()
 
     internal suspend fun workspace(): WorkspacePorts = withContext(Dispatchers.IO) {
-        val runtime = runtime().controller
+        val resources = runtime()
+        val runtime = resources.controller
         workspaceOwner.open(
             this@DstuApplication,
             storage().notes,
@@ -300,9 +303,14 @@ class DstuApplication :
                 environments = { environments() },
                 execution = { execution() },
                 sync = { sync() },
-                noteImport = noteImport,
-                backgroundPower = terminalResidency,
-                schedules = schedules,
+                documents = com.deepstudent.app.storage.documents.WorkspaceDocumentPrivacy(this@DstuApplication, storage().workspaceFiles),
+                runtime = WorkspaceRuntimeTools(
+                    noteImport = noteImport,
+                    backgroundPower = terminalResidency,
+                    schedules = schedules,
+                    approvals = resources.capabilities,
+                    shell = resources.shell,
+                ),
             ),
         )
     }
@@ -348,22 +356,12 @@ class DstuApplication :
 
     internal suspend fun runtime(): MainRuntimeResources = withContext(Dispatchers.IO) {
         runtimeLock.withLock {
-            runtimeResources ?: openRuntimeResources().let { opened ->
-                try {
-                    opened.startup.recover()
-                    opened.ledger.closePreviousForegroundDuties(SystemWallClock.now())
-                    runtimeResources = opened
-                    opened
-                } catch (failure: Exception) {
-                    opened.close()
-                    throw failure
-                }
-            }
+            runtimeResources ?: openRuntimeResources().prepare().also { runtimeResources = it }
         }
     }
 
     private suspend fun openRuntimeResources(): MainRuntimeResources = storage().let {
-        MainRuntimeResources.open(it.activeRoot, it)
+        MainRuntimeResources.open(it.activeRoot, it, mainShellRouter(this, environmentOwner::console, ::execution))
     }
 
     private fun startRuntimeRecovery() {
