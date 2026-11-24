@@ -1,0 +1,128 @@
+{
+  "format": "dstu-evidence-index/v1",
+  "generatedAt": "2026-11-24T00:35:29.951Z",
+  "source": {
+    "repository": "dstu-android",
+    "ref": "4471fcf",
+    "revision": "4471fcf4e334e996109807d079e77eafa7c226b4",
+    "selection": "worktree",
+    "entryCount": 11,
+    "trackedCount": 0,
+    "presentCount": 11,
+    "missingFromWorktree": []
+  },
+  "archive": {
+    "format": "tar.gz",
+    "root": "PRIVATE_ARTIFACT_ROOT",
+    "relativeLocation": "s207-regression-4471fcf-v2232a-20261124/evidence.tar.gz",
+    "location": "PRIVATE_ARTIFACT_ROOT/s207-regression-4471fcf-v2232a-20261124/evidence.tar.gz",
+    "size": 185538,
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "222a62fbfb804dd8a0388bdfdc4ffd45c49ba85c8dc4cbcf7048987bc106ccc5"
+    },
+    "manifest": {
+      "relativeLocation": "s207-regression-4471fcf-v2232a-20261124/manifest.json",
+      "location": "PRIVATE_ARTIFACT_ROOT/s207-regression-4471fcf-v2232a-20261124/manifest.json",
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "de929ffce3858440a3941d94e78809076fba3b007f40ae751e86ff31c0ddbc06"
+      }
+    }
+  },
+  "entries": [
+    {
+      "path": "logs/s207-regression-4471fcf-fixture-build.log",
+      "size": 19388,
+      "sha256": "0ee3db24fa6a5157f8f311f6414667d99610387ce9f7a2682cb43d6a6ce3fbbb",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s207-regression-4471fcf-replay-sha256.txt",
+      "size": 436,
+      "sha256": "022a67e53f2310224e6f88f4ff766a3b9d0686cb5b42f7488023b9e71f13c2e2",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s207-regression-4471fcf-v2232a-cross-uid-original-first.log",
+      "size": 10434,
+      "sha256": "edef09e2e5f4ca386bc3d058e4beba6da78e2dcd76375976833943040ee23607",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s207-regression-4471fcf-v2232a-cross-uid-remaining.log",
+      "size": 90451,
+      "sha256": "d98ecb39b7bdced389af56f102c4597391454f0ad3a0635e7fa5a143e0904f59",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s207-regression-4471fcf-v2232a-picker-create.png",
+      "size": 108390,
+      "sha256": "5995a02319b9ea167aaa73e792239e551cf7677a2a21ddded25f254773162dfb",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s207-regression-4471fcf-v2232a-picker-open.png",
+      "size": 91834,
+      "sha256": "f2cd8c1a6ab7131129cf26a5d92f170cbb8057dceba81960b8757b9930352ef0",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s207-regression-4471fcf-v2232a-picker-transfer.log",
+      "size": 3069,
+      "sha256": "b7d493948bcdb361cbc31ce3d42bf29fe172e2e131c7bd9c41558a38ddc753bc",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s207-regression-4471fcf-v2232a-resource-trace.log",
+      "size": 74173,
+      "sha256": "d22f713756db68ae9e5aace5ef9bf6abe76450c1910b8a3a6c28b4ea24b2f513",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s207-regression-4471fcf-v2232a-summary.log",
+      "size": 11547,
+      "sha256": "e8d248a2bd649792255c275e7c53574e0da525623e23c7b24b11c6e84adb3f6f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s207-regression-4471fcf-v2232a-system-create.log",
+      "size": 13016,
+      "sha256": "749a047723ea2e163b380c336f0981ce8f6800b893760a8182eec81fdbd312a1",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s207-regression-4471fcf-v2232a-system-open.log",
+      "size": 11200,
+      "sha256": "43940c68d235cef34fabf9932e5d9efba20341df4809962f1b5a13ce94b432e2",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    }
+  ],
+  "compatibility": {
+    "legacyPathPolicy": "Entries retain original logs/... paths; historical docs/config references are lookup keys, not tracked files.",
+    "localWrites": "logs/ is gitignored; existing tools may continue writing local evidence.",
+    "restoreCommand": "node tools/evidence/restore.mjs <logs/path>"
+  }
+}
