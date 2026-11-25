@@ -1,19 +1,23 @@
 package com.deepstudent.services.sync.data
 
+import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import android.content.Context
 import com.deepstudent.platform.security.SecurityFactory
 import com.deepstudent.services.sync.api.SyncConfiguration
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
 import java.io.File
 import java.security.KeyStore
 import java.util.UUID
-import org.junit.Assert.*
-import org.junit.Test
-import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class LocalSyncStoreAndroidTest {
+    @get:Rule val s229Foreground = S229PublicationForegroundRule()
+
     @Test fun realKeystoreAndConfigurationReopen() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         val token = UUID.randomUUID().toString()
@@ -31,13 +35,22 @@ class LocalSyncStoreAndroidTest {
                 val store = LocalSyncStore(File(root, "config"), reopened.credentials)
                 assertEquals(config, store.read())
                 val password = store.password()
-                try { password.use { bytes -> assertEquals(secret, bytes.toString(Charsets.UTF_8)) } } finally { password.close() }
+                try {
+                    password.use { bytes -> assertEquals(secret, bytes.toString(Charsets.UTF_8)) }
+                } finally {
+                    password.close()
+                }
                 for (file in root.walkTopDown().filter { it.isFile }) {
                     assertFalse(file.readBytes().toString(Charsets.ISO_8859_1).contains(secret))
                 }
-            } finally { reopened.close() }
+            } finally {
+                reopened.close()
+            }
         } finally {
-            KeyStore.getInstance("AndroidKeyStore").apply { load(null); deleteEntry(alias) }
+            KeyStore.getInstance("AndroidKeyStore").apply {
+                load(null)
+                deleteEntry(alias)
+            }
             root.deleteRecursively()
         }
     }

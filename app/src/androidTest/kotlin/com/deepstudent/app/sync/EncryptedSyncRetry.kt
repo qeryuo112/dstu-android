@@ -16,10 +16,13 @@ import com.deepstudent.services.sync.backend.transfer.PendingPublication
 import com.deepstudent.services.sync.data.LocalSyncStore
 import com.deepstudent.services.sync.data.transfer.SqlUploadState
 import com.deepstudent.services.sync.data.transfer.StoredWebDavProvider
+import org.junit.Assert.assertArrayEquals
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import java.io.ByteArrayOutputStream
 import java.io.DataOutputStream
 import java.io.File
-import org.junit.Assert.*
 
 /** Three separate instrumentations let the HTTP fixture observe the wrong-password boundary. */
 internal class EncryptedSyncRetry(
@@ -40,8 +43,8 @@ internal class EncryptedSyncRetry(
         val pending = requireNotNull(journal.pending())
         assertEquals(before + 1, pending.sequence)
         assertEquals(before, journal.published())
-        assertTrue(pendingIds().containsAll(pending.changeLogIds))
-        assertTrue(pending.changeLogIds.isNotEmpty())
+        assertTrue(pending.receipts.all { it.database == "vfs" && it.changeLogId in pendingIds() })
+        assertTrue(pending.receipts.isNotEmpty())
         assertEquals("DSBK", pending.payload.decodeToString(0, 4))
         assertEquals(1, writes.changeWrites)
     }
@@ -49,10 +52,14 @@ internal class EncryptedSyncRetry(
     suspend fun wrongPassword(transfer: (ProviderFactory) -> SyncTransfer, nextDesktopSequence: Long) {
         val before = capture()
         assertEquals(nextDesktopSequence - 1, desktopCursor(before))
-        assertTrue(before.pending.changeLogIds.isNotEmpty())
+        assertTrue(before.pending.receipts.isNotEmpty())
         val writes = ObservedProvider(providers)
         val password = "incorrect stored fixture".toCharArray()
-        try { store.replaceEncryptionPassword(config, password) } finally { password.fill('\u0000') }
+        try {
+            store.replaceEncryptionPassword(config, password)
+        } finally {
+            password.fill('\u0000')
+        }
         assertEquals(SyncResult.Failure(SyncError.ENCRYPTION_PASSWORD_INCORRECT), transfer(writes).synchronize())
         assertEquals(0, writes.mutations)
         val after = capture()
@@ -70,7 +77,8 @@ internal class EncryptedSyncRetry(
         assertTrue("wrong-password witness is required", witness.isFile)
         assertEquals(witness.readText(Charsets.US_ASCII), fingerprint(before))
         assertEquals(nextDesktopSequence - 1, desktopCursor(before))
-        val pairing = PairingService(store, store, providers, encryption = encryption, openStored = StoredWebDavProvider(store, providers)::open)
+        val pairing =
+            PairingService(store, store, providers, encryption = encryption, openStored = StoredWebDavProvider(store, providers)::open)
         val correction = publicEncryptionPassword()
         assertEquals(SyncResult.Success(Unit), pairing.updateEncryptionPassword(correction))
         assertTrue(correction.all { it == '\u0000' })
@@ -82,15 +90,22 @@ internal class EncryptedSyncRetry(
         assertEquals(before.pending.sequence, journal.published())
         assertNull(journal.pending())
         val changeLog = changeLog().toMap()
-        before.pending.changeLogIds.forEach { assertEquals(before.pending.version, requireNotNull(changeLog[it])) }
+        before.pending.receipts.forEach {
+            assertEquals("vfs", it.database)
+            assertEquals(before.pending.version, requireNotNull(changeLog[it.changeLogId]))
+        }
         assertEquals(nextDesktopSequence, desktopCursor(cursors()))
         assertTrue(witness.delete())
         Log.i("DstuSyncTest", "encrypted same-batch retry verified")
     }
 
     private data class Cursor(val instance: String, val device: String, val sequence: Long)
-    private data class Snapshot(val pending: PendingPublication, val published: Long,
-        val changeLog: List<Pair<Long, Long>>, val cursors: List<Cursor>)
+    private data class Snapshot(
+        val pending: PendingPublication,
+        val published: Long,
+        val changeLog: List<Pair<Long, Long>>,
+        val cursors: List<Cursor>,
+    )
 
     private fun capture() = Snapshot(requireNotNull(journal.pending()), journal.published(), changeLog(), cursors())
     private fun desktopCursor(snapshot: Snapshot) = desktopCursor(snapshot.cursors)
@@ -107,13 +122,24 @@ internal class EncryptedSyncRetry(
             out.writeLong(pending.version)
             out.writeInt(pending.payload.size)
             out.write(pending.payload)
-            out.writeInt(pending.changeLogIds.size)
-            pending.changeLogIds.forEach(out::writeLong)
+            out.writeBoolean(pending.seed)
+            out.writeInt(pending.receipts.size)
+            pending.receipts.forEach {
+                out.writeUTF(it.database)
+                out.writeLong(it.changeLogId)
+            }
             out.writeLong(snapshot.published)
             out.writeInt(snapshot.changeLog.size)
-            snapshot.changeLog.forEach { (id, version) -> out.writeLong(id); out.writeLong(version) }
+            snapshot.changeLog.forEach { (id, version) ->
+                out.writeLong(id)
+                out.writeLong(version)
+            }
             out.writeInt(snapshot.cursors.size)
-            snapshot.cursors.forEach { cursor -> out.writeUTF(cursor.instance); out.writeUTF(cursor.device); out.writeLong(cursor.sequence) }
+            snapshot.cursors.forEach { cursor ->
+                out.writeUTF(cursor.instance)
+                out.writeUTF(cursor.device)
+                out.writeLong(cursor.sequence)
+            }
         }
         return Digests.sha256Hex(bytes.toByteArray())
     }
@@ -122,7 +148,8 @@ internal class EncryptedSyncRetry(
         assertEquals(expected.key, actual.key)
         assertEquals(expected.sequence, actual.sequence)
         assertEquals(expected.version, actual.version)
-        assertEquals(expected.changeLogIds, actual.changeLogIds)
+        assertEquals(expected.receipts, actual.receipts)
+        assertEquals(expected.seed, actual.seed)
         assertArrayEquals(expected.payload, actual.payload)
     }
 

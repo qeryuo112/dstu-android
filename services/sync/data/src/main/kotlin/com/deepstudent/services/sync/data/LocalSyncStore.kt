@@ -1,29 +1,17 @@
 package com.deepstudent.services.sync.data
 
-import com.deepstudent.platform.security.CredentialStoreError
-import com.deepstudent.platform.security.CredentialStoreException
 import com.deepstudent.platform.security.CredentialKey
 import com.deepstudent.platform.security.CredentialStore
+import com.deepstudent.platform.security.CredentialStoreError
+import com.deepstudent.platform.security.CredentialStoreException
 import com.deepstudent.platform.security.MasterKeyFailure
 import com.deepstudent.platform.security.SecretBytes
-import com.deepstudent.services.sync.api.SyncConfiguration
 import com.deepstudent.services.sync.api.PairingMode
+import com.deepstudent.services.sync.api.SyncConfiguration
 import com.deepstudent.services.sync.api.SyncError
 import com.deepstudent.services.sync.backend.ConfigurationStore
 import com.deepstudent.services.sync.backend.DeviceIdentity
 import com.deepstudent.services.sync.backend.SyncFailure
-import java.io.File
-import java.io.RandomAccessFile
-import java.nio.file.Files
-import java.nio.file.StandardCopyOption
-import java.nio.file.LinkOption
-import java.nio.file.StandardOpenOption
-import java.nio.file.NoSuchFileException
-import java.nio.file.attribute.BasicFileAttributes
-import java.nio.ByteBuffer
-import java.io.ByteArrayOutputStream
-import java.nio.channels.FileChannel
-import java.util.UUID
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.booleanOrNull
@@ -31,8 +19,22 @@ import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.json.put
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.RandomAccessFile
+import java.nio.ByteBuffer
+import java.nio.channels.FileChannel
+import java.nio.file.Files
+import java.nio.file.LinkOption
+import java.nio.file.NoSuchFileException
+import java.nio.file.StandardCopyOption
+import java.nio.file.StandardOpenOption
+import java.nio.file.attribute.BasicFileAttributes
+import java.util.UUID
 
-class LocalSyncStore(private val directory: File, private val credentials: CredentialStore) : ConfigurationStore, DeviceIdentity {
+class LocalSyncStore(private val directory: File, private val credentials: CredentialStore) :
+    ConfigurationStore,
+    DeviceIdentity {
     private data class Entry(val config: SyncConfiguration, val webdav: CredentialKey, val encryption: CredentialKey?) {
         fun keys(): List<CredentialKey> = listOfNotNull(webdav, encryption)
     }
@@ -68,8 +70,14 @@ class LocalSyncStore(private val directory: File, private val credentials: Crede
         if (binding != null && !binding.matches(configuration)) throw SyncFailure(SyncError.INVALID_CONFIGURATION)
         val previous = readEntry()
         val webdav = writeSecret("webdav", password)
-        val encryption = try { encryptionPassword?.takeIf { it.isNotEmpty() }?.let { writeSecret("encryption", it) } }
-        catch (failure: Exception) { deleteBestEffort(webdav); throw failure }
+        val encryption = try {
+            encryptionPassword?.takeIf { it.isNotEmpty() }?.let { writeSecret("encryption", it) }
+        } catch (
+            failure: Exception,
+        ) {
+            deleteBestEffort(webdav)
+            throw failure
+        }
         publish(Entry(configuration, webdav, encryption), previous)
     }
 
@@ -82,7 +90,11 @@ class LocalSyncStore(private val directory: File, private val credentials: Crede
     private fun writeSecret(kind: String, password: CharArray): CredentialKey {
         val key = CredentialKey.of("sync.$kind.${UUID.randomUUID()}")
         val secret = SecretBytes.fromUtf8(password)
-        try { credential { credentials.put(key, secret) } } finally { secret.close() }
+        try {
+            credential { credentials.put(key, secret) }
+        } finally {
+            secret.close()
+        }
         return key
     }
 
@@ -97,6 +109,7 @@ class LocalSyncStore(private val directory: File, private val credentials: Crede
                 put("instanceId", config.instanceId)
                 put("credentialRef", entry.webdav.value)
                 put("encrypted", config.encrypted)
+                if (config.requiresInitialSeed) put("requiresInitialSeed", true)
                 entry.encryption?.let { put("encryptionRef", it.value) }
             }
             atomicWrite(configFile, obj.toString())
@@ -108,7 +121,9 @@ class LocalSyncStore(private val directory: File, private val credentials: Crede
         (previous?.keys().orEmpty() - entry.keys().toSet()).forEach(::deleteBestEffort)
     }
 
-    private fun deleteBestEffort(key: CredentialKey) { runCatching { credentials.delete(key) } }
+    private fun deleteBestEffort(key: CredentialKey) {
+        runCatching { credentials.delete(key) }
+    }
 
     override fun clear(): Unit = locked {
         val keys = readEntry()?.keys().orEmpty()
@@ -139,10 +154,13 @@ class LocalSyncStore(private val directory: File, private val credentials: Crede
                 readEntry()
                 writeContinuityState(ContinuityWriterState.Adopting(binding))
             }
+
             is ContinuityWriterState.Adopting -> {
                 if (state.binding != binding) throw SyncFailure(SyncError.STORAGE)
             }
+
             is ContinuityWriterState.Rotating -> throw SyncFailure(SyncError.STORAGE)
+
             null -> {
                 readEntry()
                 writeContinuityState(ContinuityWriterState.Adopting(binding))
@@ -183,7 +201,9 @@ class LocalSyncStore(private val directory: File, private val credentials: Crede
             is ContinuityWriterState.Rotating -> {
                 if (state.operationId != operationId) throw SyncFailure(SyncError.STORAGE)
             }
+
             is ContinuityWriterState.Adopting -> throw SyncFailure(SyncError.STORAGE)
+
             else -> {
                 if (state == null && !exists(identityFile)) {
                     if (readEntry() != null) throw SyncFailure(SyncError.STORAGE)
@@ -237,7 +257,11 @@ class LocalSyncStore(private val directory: File, private val credentials: Crede
         if (!exists(configFile)) return null
         try {
             return decodeEntry(Json.parseToJsonElement(readBounded(configFile)).jsonObject, checkIdentity)
-        } catch (failure: SyncFailure) { throw failure } catch (_: Exception) { throw SyncFailure(SyncError.STORAGE) }
+        } catch (failure: SyncFailure) {
+            throw failure
+        } catch (_: Exception) {
+            throw SyncFailure(SyncError.STORAGE)
+        }
     }
 
     private fun decodeEntry(obj: JsonObject, checkIdentity: Boolean): Entry {
@@ -245,7 +269,9 @@ class LocalSyncStore(private val directory: File, private val credentials: Crede
         val encrypted = obj["encrypted"]?.let { requireNotNull(it.jsonPrimitive.booleanOrNull) } ?: false
         val encryption = obj["encryptionRef"]?.let { CredentialKey.of(it.jsonPrimitive.content) }
         require(encrypted == (encryption != null) && encryption?.value?.startsWith("sync.encryption.") != false)
-        val config = SyncConfiguration(field("endpoint"), field("username"), field("root"), field("deviceId"), field("instanceId"), encrypted)
+        val seed = obj["requiresInitialSeed"]?.let { requireNotNull(it.jsonPrimitive.booleanOrNull) } ?: false
+        val config =
+            SyncConfiguration(field("endpoint"), field("username"), field("root"), field("deviceId"), field("instanceId"), encrypted, seed)
         if (checkIdentity) validateEntryIdentity(config)
         val webdav = CredentialKey.of(field("credentialRef"))
         require(webdav.value.startsWith("sync.webdav."))
@@ -270,8 +296,7 @@ class LocalSyncStore(private val directory: File, private val credentials: Crede
         return ContinuitySyncBindingState.decode(readBounded(continuityFile))
     }
 
-    private fun writeContinuityState(state: ContinuityWriterState) =
-        atomicWrite(continuityFile, ContinuitySyncBindingState.encode(state))
+    private fun writeContinuityState(state: ContinuityWriterState) = atomicWrite(continuityFile, ContinuitySyncBindingState.encode(state))
 
     private fun exists(file: File): Boolean = try {
         Files.readAttributes(file.toPath(), BasicFileAttributes::class.java, LinkOption.NOFOLLOW_LINKS)
@@ -320,10 +345,15 @@ class LocalSyncStore(private val directory: File, private val credentials: Crede
         rejectLinks(file)
         val temp = File.createTempFile("sync-", ".tmp", directory)
         try {
-            java.io.FileOutputStream(temp).use { it.write(value.toByteArray()); it.fd.sync() }
+            java.io.FileOutputStream(temp).use {
+                it.write(value.toByteArray())
+                it.fd.sync()
+            }
             Files.move(temp.toPath(), file.toPath(), StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING)
             syncDirectory()
-        } finally { temp.delete() }
+        } finally {
+            temp.delete()
+        }
     }
 
     private fun syncDirectory() {
@@ -343,5 +373,7 @@ class LocalSyncStore(private val directory: File, private val credentials: Crede
         throw SyncFailure(SyncError.CREDENTIAL_UNAVAILABLE)
     }
 
-    companion object { private val processLock = Any() }
+    companion object {
+        private val processLock = Any()
+    }
 }

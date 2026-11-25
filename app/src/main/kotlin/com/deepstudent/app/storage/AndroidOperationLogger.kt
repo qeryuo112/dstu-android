@@ -1,6 +1,7 @@
 package com.deepstudent.app.storage
 
 import android.util.Log
+import com.deepstudent.app.diagnostics.S231Diagnostics
 import com.deepstudent.core.common.json.JsonValue
 import com.deepstudent.core.common.logging.LogRecord
 import com.deepstudent.core.common.logging.Logger
@@ -9,14 +10,18 @@ import com.deepstudent.core.common.logging.Logger
 internal object AndroidOperationLogger : Logger {
     private val allowed = setOf(
         "owner", "stage", "status", "state", "phase", "outcome", "durationMillis", "duration_ms", "elapsedMs",
-        "generation", "change", "result", "purpose", "category", "reason", "capMs", "remainingMs",
+        "generation", "change", "result", "purpose", "category", "reason", "capMs", "remainingMs", "database",
     )
 
+    private val databaseNames = setOf("vfs", "chat_v2", "mistakes", "llm_usage")
+
     override fun log(record: LogRecord) {
+        // Diagnostics must not change the outcome of a business operation.
+        runCatching { S231Diagnostics.record(record) }
         val fields = allowed.mapNotNull { key ->
             when (val value = record.fields[key]) {
-                is JsonValue.Text -> "$key=${value.value}"
-                is JsonValue.Number -> "$key=${value.literal}"
+                is JsonValue.Text -> if (key != "database" || value.value in databaseNames) "$key=${value.value}" else null
+                is JsonValue.Number -> if (key == "database") null else "$key=${value.literal}"
                 else -> null
             }
         }

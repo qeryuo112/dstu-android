@@ -22,20 +22,21 @@ import com.deepstudent.services.sync.backend.transfer.SyncCompression
 import com.deepstudent.services.sync.backend.transfer.SyncUploadState
 import com.deepstudent.services.sync.data.LocalSyncStore
 import com.deepstudent.services.sync.data.transfer.DsbkSyncCryptography
+import kotlinx.coroutines.coroutineScope
+import org.json.JSONObject
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotEquals
+import org.junit.Assert.assertTrue
 import java.io.IOException
 import java.security.KeyPair
 import java.security.Signature
 import java.time.Instant
 import java.util.UUID
-import kotlinx.coroutines.coroutineScope
-import org.json.JSONObject
-import org.junit.Assert.*
 
 /** True App composition over an isolated legacy snapshot, trusted signer and governed TLS WebDAV fixture. */
-internal class ManagedContinuityScenario(
-    private val repo: ManagedContinuityTestRepository,
-    private val administrator: KeyPair,
-) : AutoCloseable {
+internal class ManagedContinuityScenario(private val repo: ManagedContinuityTestRepository, private val administrator: KeyPair) :
+    AutoCloseable {
     val fixture = LegacyMobileFixtureSupport()
     val target = fixture.target
     private val syncDirectory = target.noBackupFilesDir.canonicalFile.resolve("sync")
@@ -60,8 +61,11 @@ internal class ManagedContinuityScenario(
         return if (claimed && expireAfterClaimCheckpoint) now.plusSeconds(3_600) else now
     }
 
-    fun coordinator() = BackupRestoreCoordinator(target, OrdinaryRestoreIdentity(target, ::openSecurity),
-        ContinuityQueuedRestore(target, managed))
+    fun coordinator() = BackupRestoreCoordinator(
+        target,
+        OrdinaryRestoreIdentity(target, ::openSecurity),
+        ContinuityQueuedRestore(target, managed),
+    )
 
     suspend fun seedTargetBeforeRestore() {
         fixture.seedLocalState()
@@ -76,13 +80,16 @@ internal class ManagedContinuityScenario(
         document.getJSONObject("expected").getJSONObject("state").useRepository(repo.url)
         val side = document.toString().toByteArray()
         val installation = document.getJSONObject("source_installation")
-        val signed = (listOf("dstu-continuity-grant-v1", repo.url, ManagedContinuityTestRepository.INSTANCE, "webdav", repo.url,
+        val fields = listOf(
+            "dstu-continuity-grant-v1", repo.url, ManagedContinuityTestRepository.INSTANCE, "webdav", repo.url,
             installation.getString("applicationId"), installation.getString("versionName"), installation.getLong("versionCode").toString(),
             installation.getString("installationId"), ManagedContinuityTestRepository.WRITER, sequence.toString(),
             Digests.sha256Hex(source.readBytes()), Digests.sha256Hex(side), request.installationId, request.operationId,
             issued.epochSecond.toString(), issued.plusSeconds(600).epochSecond.toString(), "writer-permanently-revoked",
             "snapshot-sequence-verified", "claim-store-atomic-immutable", "2", ManagedContinuityTestRepository.WRITER,
-            ManagedContinuityTestRepository.PEER).joinToString("\n") + "\n").toByteArray()
+            ManagedContinuityTestRepository.PEER,
+        )
+        val signed = fields.joinToString("\n", postfix = "\n").toByteArray()
         val signature = Signature.getInstance("SHA256withRSA").run {
             initSign(administrator.private)
             update(signed)
@@ -105,8 +112,12 @@ internal class ManagedContinuityScenario(
     }
 
     private fun savedDocuments(files: ContinuityFiles): Map<ContinuityDocument, android.net.Uri> {
-        val data = mapOf(ContinuityDocument.SIDECAR to files.sidecar, ContinuityDocument.GRANT to files.grant,
-            ContinuityDocument.SIGNATURE to files.signature, ContinuityDocument.KEY to files.keyDer)
+        val data = mapOf(
+            ContinuityDocument.SIDECAR to files.sidecar,
+            ContinuityDocument.GRANT to files.grant,
+            ContinuityDocument.SIGNATURE to files.signature,
+            ContinuityDocument.KEY to files.keyDer,
+        )
         return data.mapValues { (kind, bytes) ->
             fixture.uri(fixture.scratch.resolve("managed-${kind.name}").apply { writeBytes(bytes) })
         } + (ContinuityDocument.ARCHIVE to sourceUri)
@@ -144,9 +155,11 @@ internal class ManagedContinuityScenario(
         val request = PendingBackupRestore(root.resolve("backup-restore")).request()
         assertEquals(operationId, request?.id)
         assertTrue(request?.continuity == true)
-        val paths = mutableListOf("backup-restore/pending", "backup-restore/confirmed.zip", "backup-continuity/continuity-target",
+        val paths = mutableListOf(
+            "backup-restore/pending", "backup-restore/confirmed.zip", "backup-continuity/continuity-target",
             "backup-continuity/continuity-sidecar", "backup-continuity/continuity-grant", "backup-continuity/continuity-signature",
-            "backup-continuity/continuity-key", "backup-continuity/continuity-receipt", "backup-continuity/continuity-claim-intent")
+            "backup-continuity/continuity-key", "backup-continuity/continuity-receipt", "backup-continuity/continuity-claim-intent",
+        )
         val claim = root.resolve("backup-continuity/continuity-claim")
         assertEquals(confirmedClaim, claim.isFile)
         if (confirmedClaim) paths += "backup-continuity/continuity-claim"
@@ -165,10 +178,18 @@ internal class ManagedContinuityScenario(
             val migrations = BundledMigrationSource(target)
             val encryption = RepositoryEncryption(DsbkSyncCryptography(ports.dsbk))
             MainStorageResources.open(target).use { storage ->
-                storage.notes.create(com.deepstudent.features.notes.api.CreateNote("after migration", "published through the new installation"))
-                val transfer = MainSyncFactory(encryption, migrations).open(storage.databaseForSync(),
-                    storage.activeRoot.resolve("vfs_blobs"), local, repo.providerFactory, this, syncDirectory,
-                    storage::incomingDecksDatabaseForSync)
+                storage.notes.create(
+                    com.deepstudent.features.notes.api.CreateNote("after migration", "published through the new installation"),
+                )
+                val transfer = MainSyncFactory(encryption, migrations).open(
+                    storage.databaseForSync(),
+                    storage.activeRoot.resolve("vfs_blobs"),
+                    local,
+                    repo.providerFactory,
+                    this,
+                    syncDirectory,
+                    incomingDecksDatabase = storage::incomingDecksDatabaseForSync,
+                )
                 assertEquals(SyncResult.Success(Unit), transfer.synchronize())
             }
         }
@@ -177,15 +198,22 @@ internal class ManagedContinuityScenario(
 
     /** A second in-process protocol reader starts at cursor 4; this is not a second physical device. */
     suspend fun checkIndependentReaderConsumedFiveAndSix() {
-        val provider = repo.providerFactory.open(repo.url, ManagedContinuityTestRepository.USER, "",
-            ManagedContinuityTestRepository.NEW_PASSWORD.toCharArray())
+        val provider = repo.providerFactory.open(
+            repo.url,
+            ManagedContinuityTestRepository.USER,
+            "",
+            ManagedContinuityTestRepository.NEW_PASSWORD.toCharArray(),
+        )
         val seen = mutableListOf<Pair<Long, Int>>()
         var cursor = 4L
         val writerHash = SyncWireCodec.deviceHash(ManagedContinuityTestRepository.WRITER)
         val adapter = object : DomainSyncAdapter {
             override fun pending() = emptyList<ByteArray>()
             override fun markPublished(changeLogIds: List<Long>, version: Long) = Unit
-            override fun cursor(device: String): Long { assertEquals(writerHash, device); return cursor }
+            override fun cursor(device: String): Long {
+                assertEquals(writerHash, device)
+                return cursor
+            }
             override fun apply(device: String, seq: Long, changes: List<ByteArray>) {
                 assertEquals(writerHash, device)
                 cursor = seq
@@ -209,8 +237,15 @@ internal class ManagedContinuityScenario(
     private suspend fun pair(): String = openSecurity().use { ports ->
         val store = local(ports)
         val service = PairingService(store, store, repo.providerFactory)
-        val result = service.pair(PairingMode.JOIN, PairingRequest(repo.url, ManagedContinuityTestRepository.USER, "",
-            ManagedContinuityTestRepository.NEW_PASSWORD.toCharArray()))
+        val result = service.pair(
+            PairingMode.JOIN,
+            PairingRequest(
+                repo.url,
+                ManagedContinuityTestRepository.USER,
+                "",
+                ManagedContinuityTestRepository.NEW_PASSWORD.toCharArray(),
+            ),
+        )
         assertTrue(result.toString(), result is SyncResult.Success)
         (result as SyncResult.Success).value.deviceId
     }
@@ -222,7 +257,11 @@ internal class ManagedContinuityScenario(
     private fun local(ports: SecurityPorts) = LocalSyncStore(syncDirectory, ports.credentials)
 
     override fun close() {
-        try { AndroidKeystoreKeyWrapper(alias).deleteKey() } finally { fixture.close() }
+        try {
+            AndroidKeystoreKeyWrapper(alias).deleteKey()
+        } finally {
+            fixture.close()
+        }
     }
 
     private fun JSONObject.useRepository(url: String) {

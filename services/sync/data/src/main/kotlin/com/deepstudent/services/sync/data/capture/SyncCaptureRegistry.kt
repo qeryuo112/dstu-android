@@ -34,14 +34,13 @@ class SyncCaptureEntry internal constructor(
     internal val triggers: List<FrozenTrigger> get() = schema.triggers
 }
 
-internal data class FrozenTrigger(
-    val name: String,
-    val operation: CaptureOperation,
-    val captures: Boolean,
-    val sha256: String,
-)
+internal data class FrozenTrigger(val name: String, val operation: CaptureOperation, val captures: Boolean, val sha256: String)
 
-class SyncCaptureRegistry internal constructor(entries: List<SyncCaptureEntry>, internal val versions: Map<SharedDatabase, Int>, internal val changeLogSchemas: Map<SharedDatabase, String>) {
+class SyncCaptureRegistry internal constructor(
+    entries: List<SyncCaptureEntry>,
+    internal val versions: Map<SharedDatabase, Int>,
+    internal val changeLogSchemas: Map<SharedDatabase, String>,
+) {
     val entries: List<SyncCaptureEntry> = Collections.unmodifiableList(entries.toList())
     private val byKey = entries.associateBy { it.database to it.table }
 
@@ -50,6 +49,10 @@ class SyncCaptureRegistry internal constructor(entries: List<SyncCaptureEntry>, 
     /** Effective shared-schema versions, including verified coordinated repairs. */
     fun schemaVersions(): Map<String, Int> = Collections.unmodifiableMap(
         versions.entries.associate { it.key.id to it.value },
+    )
+
+    fun rowSyncKeys(database: SharedDatabase): Map<String, List<String>> = Collections.unmodifiableMap(
+        entries.filter { it.database == database && it.category == SyncCategory.RowSync }.associate { it.table to it.logicalPrimaryKey },
     )
 
     /** For the existing single-column manifest checksum. Fails rather than dropping composite keys. */

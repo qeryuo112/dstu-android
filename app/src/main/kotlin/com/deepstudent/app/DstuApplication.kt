@@ -31,6 +31,7 @@ import com.deepstudent.app.storage.AndroidOperationLogger
 import com.deepstudent.app.storage.MainDataSpaceAccess
 import com.deepstudent.app.storage.MainStorageResources
 import com.deepstudent.app.sync.LazySyncOwner
+import com.deepstudent.app.sync.MainSyncDatabaseSources
 import com.deepstudent.app.sync.MainSyncFactory
 import com.deepstudent.app.sync.MainSyncResources
 import com.deepstudent.app.terminal.MainTerminalResources
@@ -170,7 +171,7 @@ class DstuApplication :
                     providers,
                     scope,
                     directory,
-                    storage::incomingDecksDatabaseForSync,
+                    MainSyncDatabaseSources(storage::incomingDecksDatabaseForSync, storage::allDatabasesForSync),
                 )
             },
         )
@@ -253,6 +254,9 @@ class DstuApplication :
         super.onCreate()
         val startedAt = SystemClock.elapsedRealtime()
         processIdentity = AndroidProcessIdentityResolver.resolve(this)
+        if (processIdentity.role == ProcessRole.MAIN) {
+            runCatching { com.deepstudent.app.diagnostics.S231Diagnostics.initialize(noBackupFilesDir) }
+        }
         val storageFactory = if (processIdentity.role == ProcessRole.MAIN) {
             MainResourceFactory { MainStorageResources.openManaged(this, dataSpaceAccess.value) }
         } else {

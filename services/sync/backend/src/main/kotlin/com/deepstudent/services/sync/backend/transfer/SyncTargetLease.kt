@@ -4,10 +4,6 @@ import com.deepstudent.core.common.json.JsonValue
 import com.deepstudent.services.sync.api.SyncError
 import com.deepstudent.services.sync.backend.ObjectProvider
 import com.deepstudent.services.sync.backend.SyncFailure
-import java.time.Clock
-import java.time.Instant
-import java.util.UUID
-import java.util.concurrent.atomic.AtomicReference
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -16,10 +12,14 @@ import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.ensureActive
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
+import java.time.Clock
+import java.time.Instant
+import java.util.UUID
+import java.util.concurrent.atomic.AtomicReference
 
 private const val PREFIX = "data_governance/locks/sync-target/"
 private const val TARGET = "data_governance"
@@ -33,7 +33,9 @@ class SyncTargetLease(
     private val ttlMillis: Long = 600_000,
     private val sleep: suspend (Long) -> Unit = { delay(it) },
 ) {
-    init { require(deviceId.isNotBlank() && ttlMillis >= 3) }
+    init {
+        require(deviceId.isNotBlank() && ttlMillis >= 3)
+    }
 
     suspend fun acquire(): LeaseHandle {
         if (scan().isNotEmpty()) fail(SyncError.ALREADY_EXISTS)
@@ -65,8 +67,9 @@ class SyncTargetLease(
         for (key in keys) {
             val bytes = leaseIo { provider.get(key) } ?: fail(SyncError.NETWORK)
             val record = decodeLease(bytes, key)
-            if (record.expires > clock.instant()) active.add(record)
-            else {
+            if (record.expires > clock.instant()) {
+                active.add(record)
+            } else {
                 val current = leaseIo { provider.get(key) } ?: fail(SyncError.NETWORK)
                 if (!current.contentEquals(bytes)) fail(SyncError.ALREADY_EXISTS)
                 leaseIo { provider.delete(key) }
@@ -131,6 +134,10 @@ class LeaseHandle internal constructor(
 private class LeaseCheckedProvider(private val delegate: ObjectProvider, private val handle: LeaseHandle) : ObjectProvider {
     override suspend fun get(key: String): ByteArray? = checked { delegate.get(key) }
     override suspend fun put(key: String, value: ByteArray, ifAbsent: Boolean) = checked { delegate.put(key, value, ifAbsent) }
+    override suspend fun <T> readStream(key: String, limit: Int, read: (java.io.InputStream) -> T): T? =
+        checked { delegate.readStream(key, limit, read) }
+    override suspend fun putStream(key: String, size: Long, ifAbsent: Boolean, open: () -> java.io.InputStream) =
+        checked { delegate.putStream(key, size, ifAbsent, open) }
     override suspend fun list(prefix: String): List<String> = checked { delegate.list(prefix) }
     override suspend fun delete(key: String) = checked { delegate.delete(key) }
     private suspend fun <T> checked(block: suspend () -> T): T {
@@ -143,7 +150,13 @@ private class LeaseCheckedProvider(private val delegate: ObjectProvider, private
     }
 }
 
-internal data class LeaseRecord(val device: String, val operation: String, val created: Instant, val expires: Instant, val committed: Boolean)
+internal data class LeaseRecord(
+    val device: String,
+    val operation: String,
+    val created: Instant,
+    val expires: Instant,
+    val committed: Boolean,
+)
 
 private fun leaseKey(operation: String) = "$PREFIX$operation.json"
 private fun fail(error: SyncError): Nothing = throw SyncFailure(error)
@@ -163,7 +176,9 @@ private fun decodeLease(bytes: ByteArray, key: String): LeaseRecord = try {
     require(UUID.fromString(operation).toString() == operation && leaseKey(operation) == key)
     val device = text("holder_device_id").also { require(it.isNotBlank()) }
     LeaseRecord(device, operation, Instant.parse(text("created_at")), Instant.parse(text("expires_at")), leaseCommitted(root))
-} catch (_: Exception) { fail(SyncError.INVALID_REPOSITORY) }
+} catch (_: Exception) {
+    fail(SyncError.INVALID_REPOSITORY)
+}
 
 private fun leaseCommitted(root: JsonValue.Object): Boolean = when (val value = root["activation_committed"]) {
     null -> false
@@ -190,14 +205,24 @@ private suspend fun releaseCandidate(provider: ObjectProvider, operation: String
 private suspend fun cleanupCandidate(provider: ObjectProvider, operation: String, original: Throwable) {
     try {
         withContext(NonCancellable) { withTimeout(CLEANUP_TIMEOUT) { releaseCandidate(provider, operation) } }
-    } catch (cleanup: Throwable) { original.addSuppressed(cleanup) }
+    } catch (cleanup: Throwable) {
+        original.addSuppressed(cleanup)
+    }
 }
 
 private suspend fun <T> leaseIo(block: suspend () -> T): T {
     currentCoroutineContext().ensureActive()
-    val result = try { block() } catch (cancelled: CancellationException) { throw cancelled }
-    catch (failure: SyncFailure) { throw failure }
-    catch (_: Exception) { fail(SyncError.NETWORK) }
+    val result = try {
+        block()
+    } catch (
+        cancelled: CancellationException,
+    ) {
+        throw cancelled
+    } catch (failure: SyncFailure) {
+        throw failure
+    } catch (_: Exception) {
+        fail(SyncError.NETWORK)
+    }
     currentCoroutineContext().ensureActive()
     return result
 }

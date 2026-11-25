@@ -1,5 +1,6 @@
 package com.deepstudent.services.resources.backend
 
+import com.deepstudent.core.common.error.DstuError
 import com.deepstudent.core.common.error.DstuException
 import com.deepstudent.core.common.id.CorrelationId
 import com.deepstudent.core.common.json.JsonValue
@@ -8,11 +9,11 @@ import com.deepstudent.core.common.logging.LogRecord
 import com.deepstudent.core.common.logging.Logger
 import com.deepstudent.core.common.time.ClockChecks
 import com.deepstudent.core.common.time.MonotonicClock
+import kotlinx.coroutines.withContext
 import java.util.UUID
 import kotlin.coroutines.AbstractCoroutineContextElement
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.cancellation.CancellationException
-import kotlinx.coroutines.withContext
 
 /** Fixed phases only; no caller-controlled paths, names, hashes or payload enter the log. */
 enum class ResourcePhase { PREFLIGHT, PREPARE, PUBLISH, DATABASE, READ, CLEANUP }
@@ -40,8 +41,9 @@ class ResourceTrace internal constructor(
     }
 
     fun recoverableCleanup(failure: Exception) {
-        try { emit(ResourcePhase.CLEANUP.name, "recoverable", clock.nowNanos(), failure) }
-        catch (_: Exception) { }
+        try {
+            emit(ResourcePhase.CLEANUP.name, "recoverable", clock.nowNanos(), failure)
+        } catch (_: Exception) { }
     }
 
     internal fun emit(phase: String, status: String, start: Long, failure: Exception? = null) {
@@ -52,10 +54,15 @@ class ResourceTrace internal constructor(
                 .put("phase", phase).put("stage", diagnostic?.first ?: phase).put("status", status)
                 .put("durationMillis", duration)
             diagnostic?.let { (_, cause) -> fields.put("state", cause) }
-            logger.log(LogRecord(
-                level = if (status == "failed") LogLevel.ERROR else LogLevel.INFO,
-                event = "resources.operation", correlationId = correlation, fields = fields.build(),
-            ))
+            logger.log(
+                LogRecord(
+                    level = if (status == "failed") LogLevel.ERROR else LogLevel.INFO,
+                    event = "resources.operation",
+                    correlationId = correlation,
+                    fields = fields.build(),
+                    error = failure?.let { DstuError.internal(resourceCode(it), "operation failed") },
+                ),
+            )
         } catch (_: Exception) { }
     }
 }
@@ -99,8 +106,27 @@ private fun safeFailure(failure: Exception?, phase: String): Pair<String, String
 private fun safeStorageDetails(details: Map<String, String>): Pair<String, String>? {
     val stage = details["stage"] ?: return null
     val cause = details["causeClass"] ?: return null
-    if (stage !in setOf("ROOT", "RESOLVE", "DIRECTORY", "TEMP_WRITE", "PUBLISH", "CLEANUP", "READ", "SOURCE_READ", "OUTPUT", "SPACE")) return null
-    if (cause !in setOf("AccessDeniedException", "FileAlreadyExistsException", "NoSuchFileException",
-            "AtomicMoveNotSupportedException", "FileSystemException", "IOException", "SecurityException", "Other")) return null
+    val validStages = setOf("ROOT", "RESOLVE", "DIRECTORY", "TEMP_WRITE", "PUBLISH", "CLEANUP", "READ", "SOURCE_READ", "OUTPUT", "SPACE")
+    if (stage !in validStages) return null
+    if (cause !in setOf(
+            "AccessDeniedException",
+            "FileAlreadyExistsException",
+            "NoSuchFileException",
+            "AtomicMoveNotSupportedException",
+            "FileSystemException",
+            "IOException",
+            "SecurityException",
+            "Other",
+        )
+    ) {
+        return null
+    }
     return stage to cause
 }
+
+private fun resourceCode(failure: Exception): String {
+    val code = (failure as? DstuException)?.error?.code
+    return code?.takeIf { it in attachmentCodes } ?: "OTHER"
+}
+
+private val attachmentCodes = setOf("RESOURCE_INSUFFICIENT_SPACE", "INVALID_ATTACHMENT", "INVALID_ATTACHMENT_SIZE", "ATTACHMENT_CORRUPT")

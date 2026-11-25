@@ -14,7 +14,9 @@ internal suspend fun verifyHostRestoreRoundtrip(directory: File, data: File) {
     val fixture = hostRestoreFixture(directory)
     val stateRoot = directory.resolve("writer")
     val openSecurity = { SecurityFactory.create(directory.resolve("secrets"), Wrapper) }
-    RestoreSyncScenario(fixture, directory, data) { checkNotNull(System.getenv("DSTU_S216_HOST_$it")) }
+    fun parameter(name: String) = checkNotNull(System.getenv("DSTU_S216_HOST_$name"))
+    val attachments = if (System.getenv("DSTU_S230_HOST_ATTACHMENTS") == "true") RestoreApplyAttachments(data, ::parameter) else null
+    RestoreSyncScenario(fixture, directory, data, applyAttachments = attachments, parameters = ::parameter)
         .verify(stateRoot, openSecurity) { zip ->
             val operation = UUID.randomUUID().toString()
             assertEquals(

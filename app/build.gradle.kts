@@ -160,6 +160,7 @@ dependencies {
     androidTestImplementation(libs.okhttp.mockwebserver)
     androidTestImplementation(project(":features:review:api"))
     androidTestImplementation(project(":features:review:backend"))
+    androidTestImplementation(project(":features:settings:api"))
     debugImplementation(libs.compose.ui.test.manifest)
 }
 

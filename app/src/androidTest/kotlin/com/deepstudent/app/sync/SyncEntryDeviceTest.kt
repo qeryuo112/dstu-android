@@ -1,7 +1,7 @@
 package com.deepstudent.app.sync
 
-import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.compose.material3.Text
+import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.test.platform.app.InstrumentationRegistry
 import com.deepstudent.app.editor.EditorTestHost
@@ -15,12 +15,12 @@ import com.deepstudent.services.sync.api.SyncResult
 import com.deepstudent.services.sync.api.SyncTransfer
 import com.deepstudent.services.sync.api.SyncTransferPhase
 import com.deepstudent.services.sync.api.SyncTransferState
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Rule
@@ -66,8 +66,7 @@ class SyncEntryDeviceTest {
         val service = object : SyncConfigurationService {
             override suspend fun updateEncryptionPassword(password: CharArray) = error("not used")
             override suspend fun current(): SyncResult<SyncConfiguration?> = SyncResult.Success(config)
-            override suspend fun pair(mode: PairingMode, request: PairingRequest): SyncResult<SyncConfiguration> =
-                error("not used")
+            override suspend fun pair(mode: PairingMode, request: PairingRequest): SyncResult<SyncConfiguration> = error("not used")
             override suspend fun clear(): SyncResult<Unit> = SyncResult.Success(Unit)
         }
         val pending = CompletableDeferred<SyncResult<Unit>>()
@@ -79,7 +78,8 @@ class SyncEntryDeviceTest {
             }
         }
         val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
-        val controller = SyncController(service, scope, { transfer })
+        val generation = SyncInvalidation.generation.value
+        val controller = SyncController(service, scope, { transfer }, SyncInvalidation::notifyChanged)
         val host = EditorTestHost()
         try {
             host.start()
@@ -94,6 +94,7 @@ class SyncEntryDeviceTest {
             host.setContent { SyncEntry { controller } }
             awaitTag("sync-transfer-start")
             assertEquals(SyncTransferPhase.COMPLETE, controller.transfer.value.phase)
+            assertEquals(generation + 1, SyncInvalidation.generation.value)
         } finally {
             host.close()
             scope.cancel()

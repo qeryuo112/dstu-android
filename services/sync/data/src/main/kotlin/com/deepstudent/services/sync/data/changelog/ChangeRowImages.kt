@@ -30,6 +30,14 @@ internal class ChangeRowImages(private val sql: SqlReadOperations, private val p
             .put("change_log_id", entry.id).put("database_name", databaseName).build().literal().toByteArray(Charsets.UTF_8)
     }
 
+    fun seed(table: String, key: String, keys: List<String>, changedAt: String): ByteArray {
+        val meta = metadata.getOrPut(table) { tableMetadata(sql, table, keys) }
+        val data = requireNotNull(read(table, key, meta)) { "seed row no longer resolves" }
+        return JsonValue.Object.Builder().put("table_name", table).put("record_id", key)
+            .put("data", data).put("operation", "Insert").put("changed_at", changedAt)
+            .build().literal().toByteArray(Charsets.UTF_8)
+    }
+
     private fun read(table: String, recordId: String, meta: TableMetadata): JsonValue.Object? {
         val keyValues = parseRecordKey(table, recordId, meta.keys)
         val predicate = meta.keys.joinToString(" AND ") { "${quoteIdentifier(it)}=?" }
@@ -52,8 +60,10 @@ internal class ChangeRowImages(private val sql: SqlReadOperations, private val p
 
     private fun unknown(table: String, id: String): Map<String, JsonValue> {
         if (!hasVault) return emptyMap()
-        val raw = sql.query("SELECT fields_json FROM __sync_unknown_fields WHERE table_name=? AND record_id=?",
-            listOf(SqlValue.Text(table), SqlValue.Text(id))) { it.text(0) }.singleOrNull() ?: return emptyMap()
+        val raw = sql.query(
+            "SELECT fields_json FROM __sync_unknown_fields WHERE table_name=? AND record_id=?",
+            listOf(SqlValue.Text(table), SqlValue.Text(id)),
+        ) { it.text(0) }.singleOrNull() ?: return emptyMap()
         val stored = (JsonValue.parse(raw) as? JsonValue.Object)?.asMap()?.filterKeys { !isLocalDerived(table, it) }
             ?: return emptyMap()
         return vaultValues(table, stored, preserveVaultClocks)
@@ -81,7 +91,9 @@ private fun mergeDeltas(data: JsonValue.Object, table: String, raw: JsonValue): 
     val previous = data["__sync_field_deltas"]
     val merged = if (previous is JsonValue.Object && incoming is JsonValue.Object) {
         JsonValue.Object.from(previous.asMap() + incoming.asMap())
-    } else incoming
+    } else {
+        incoming
+    }
     return JsonValue.Object.from(data.asMap() + ("__sync_field_deltas" to merged))
 }
 

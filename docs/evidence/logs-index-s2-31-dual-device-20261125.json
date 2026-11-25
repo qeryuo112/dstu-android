@@ -1,0 +1,248 @@
+{
+  "format": "dstu-evidence-index/v1",
+  "generatedAt": "2026-11-25T07:38:39.622Z",
+  "source": {
+    "repository": "dstu-android",
+    "ref": "d750e661b7756a4659062313655361b3c12f9d5b",
+    "revision": "d750e661b7756a4659062313655361b3c12f9d5b",
+    "selection": "worktree",
+    "entryCount": 26,
+    "trackedCount": 0,
+    "presentCount": 26,
+    "missingFromWorktree": []
+  },
+  "archive": {
+    "format": "tar.gz",
+    "root": "PRIVATE_ARTIFACT_ROOT",
+    "relativeLocation": "s2-31-dual-device-20261125/evidence.tar.gz",
+    "location": "PRIVATE_ARTIFACT_ROOT/s2-31-dual-device-20261125/evidence.tar.gz",
+    "size": 39790,
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "c47029a222f9ec892e0fe9108ebe7dbbcdc77bf31e623933204a8f4f3ca0d412"
+    },
+    "manifest": {
+      "relativeLocation": "s2-31-dual-device-20261125/manifest.json",
+      "location": "PRIVATE_ARTIFACT_ROOT/s2-31-dual-device-20261125/manifest.json",
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "dc24f61cb9c35f882397a351a2393a0765f55ba48e3a6dd53cbc7b1597984545"
+      }
+    }
+  },
+  "entries": [
+    {
+      "path": "logs/s231-build-and-quality-recheck.log",
+      "size": 105902,
+      "sha256": "80d4e2f54b3e231aaa0f3c6bfcf961e81320516c181905fb7e76d58c9bef9347",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s231-candidate-SHA256SUMS.txt",
+      "size": 172,
+      "sha256": "20a11a3071c2c35b730b99f68e9f365001189ddb54a263c317ef81ef6f4066cb",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s231-candidate-SOURCE_REVISION.txt",
+      "size": 41,
+      "sha256": "ae2710cb29b1f2c8954cd95f96de69477559c6ee83a0c37134d29a36f7cd29b3",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s231-device-comparison.json",
+      "size": 1505,
+      "sha256": "19451f25b6f5a84ed7f4ec3901a5e7f2b357cadacec141f61189bde819b71284",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s231-ipad2475-20261125-chooser-cancel.log",
+      "size": 853,
+      "sha256": "40b5db6721e87b22ea13eb8b9fb2a1dab5d34b647221613e3fc4826aee887eab",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s231-ipad2475-20261125-driver.log",
+      "size": 150,
+      "sha256": "de5cd4999dc6dafcfad0ff8e4c23f452777f0bcdb99149e1c33ee9d0d51ed14a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s231-ipad2475-20261125-live-auth-redaction.log",
+      "size": 869,
+      "sha256": "2cf2f3004133633f99c3ecc2429af557b3199e581344f2f1c81f751b695aa59f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s231-ipad2475-20261125-live-route.log",
+      "size": 857,
+      "sha256": "c66d0fcdb4b65f0fb9f1781bbf404bc0a2ce9aa5c86e51141c629336a6fc216a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s231-ipad2475-20261125-preserve-workspace.log",
+      "size": 833,
+      "sha256": "00b8007546480f3df7528f968b4c5967619b821d624c584703462b1ba5391e5d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s231-ipad2475-20261125-read-only-file.log",
+      "size": 833,
+      "sha256": "0802c838627a4a931e15a5acb8c415644912990e28df9326dc468b4fb4a695ba",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s231-ipad2475-20261125-receipt.json",
+      "size": 1768,
+      "sha256": "bc50db653e8e74125dd47361da5f63183b40294ca74b630573386327fd905982",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s231-jvm-summary.json",
+      "size": 656,
+      "sha256": "c3aaa0f5a449bc29e29a8d358f302010527afbd9429b28784609ec395b4556da",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s231-normal-app-compile.log",
+      "size": 73073,
+      "sha256": "c7c299c65fc802a78532eff15843168bcc60f0463f49a76be926b571c9f69bf8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s231-preflight-s231-ipad-foreground-chooser-cancel.log",
+      "size": 4908,
+      "sha256": "d889cb219bd9237f105054a73c4747754bf2ccd0959924401975bfd2effaac6e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s231-preflight-s231-ipad-live-route.log",
+      "size": 491,
+      "sha256": "6a7022fda4ab7bfb8c966e418ad84153e8efc5904c0222053f3a910cd3f5d617",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s231-repository-final.log",
+      "size": 23473,
+      "sha256": "028289c614793d53f2b2d4019f65986191b0f9755aac33fd53f10c4986fb9dd4",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s231-reproduction-scope.txt",
+      "size": 1753,
+      "sha256": "520db7e2f7dac5b6fb6920fcc75bf44211b884a8a64bb1be28704cc1a2e78678",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s231-ui-wait-build.log",
+      "size": 102302,
+      "sha256": "fe32fd01e55e4aa8d1e963412e80c2d2a9f68aba28e246371c7595edecd962f1",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s231-ui-wait-seal.log",
+      "size": 1021,
+      "sha256": "bb8ac6a64d89ab9c9813215bc26f735ace8b473fb30a01761220bbf9302877a4",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s231-v2232a-20261125-chooser-cancel.log",
+      "size": 853,
+      "sha256": "d2f5b07517cd48dc0a2ffcdb713d2bfbb6d8faef800277bb9322e6ae784257b2",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s231-v2232a-20261125-driver.log",
+      "size": 149,
+      "sha256": "7fc6967969649adb03aa8073d9c61bcb19b7ad186e5a84e9e1a86c1428313076",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s231-v2232a-20261125-live-auth-redaction.log",
+      "size": 868,
+      "sha256": "6de5668837eb72d5f6de093519c598c202e6b1dfc3b62b94c132a31000b0ae1d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s231-v2232a-20261125-live-route.log",
+      "size": 861,
+      "sha256": "d858469676ea4db002e04da7e5c01f9b91466f0401fad6dc056596ecf0b11170",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s231-v2232a-20261125-preserve-workspace.log",
+      "size": 833,
+      "sha256": "0b3fda0d48c6c0054e292b6aa485383dcf2bd9500c8438c6da7c93075f034ebc",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s231-v2232a-20261125-read-only-file.log",
+      "size": 833,
+      "sha256": "fe4095f84e73fdaf01dd69dfbb322f173937d0584fce4c47dfaf829bd5ee429d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s231-v2232a-20261125-receipt.json",
+      "size": 2004,
+      "sha256": "44104c918d09c96cb7a30ebf51217c233866806e98aecf8f6c4d39b3bca92d48",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    }
+  ],
+  "compatibility": {
+    "legacyPathPolicy": "Entries retain original logs/... paths; historical docs/config references are lookup keys, not tracked files.",
+    "localWrites": "logs/ is gitignored; existing tools may continue writing local evidence.",
+    "restoreCommand": "node tools/evidence/restore.mjs <logs/path>"
+  }
+}

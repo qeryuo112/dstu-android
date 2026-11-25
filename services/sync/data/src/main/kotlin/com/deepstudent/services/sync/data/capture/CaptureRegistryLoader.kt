@@ -5,7 +5,6 @@ import com.deepstudent.platform.database.MigrationDiagnostic
 import com.deepstudent.platform.database.MigrationException
 import com.deepstudent.platform.database.MigrationSource
 import com.deepstudent.platform.database.SharedDatabase
-import java.security.MessageDigest
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
@@ -15,9 +14,12 @@ import kotlinx.serialization.json.int
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
+import java.security.MessageDigest
+import java.util.concurrent.CancellationException
 
 internal object CaptureRegistryLoader {
     private const val LOCK = "config/schema/final-lock.json"
+
     // The S0.G main-thread acceptance receipt anchors this byte hash; it is not another registry.
     private const val ACCEPTED_LOCK_SHA = "5fd1b3a4bd4288ce577c3f17677c9ca6accfab56c03a80130a8797baed5c08e8"
     private const val BASE = "config/sync-registry-contract.json"
@@ -54,6 +56,8 @@ internal object CaptureRegistryLoader {
             validate(lock, repairedEntries, coordinated)
             val schemas = changeLogSchemas(parse(artifact(source, lock, "S0.08", SCHEMA)))
             return SyncCaptureRegistry(repairedEntries, versions + (repair.database to repair.version), schemas)
+        } catch (e: CancellationException) {
+            throw e
         } catch (e: SyncCaptureSourceException) {
             throw e
         } catch (e: MigrationException) {
@@ -66,14 +70,20 @@ internal object CaptureRegistryLoader {
     private fun sourceError(error: MigrationException): SyncCaptureSourceException {
         val diagnostic = when {
             error.diagnostic == MigrationDiagnostic.SQL_BYTES_DRIFT -> CaptureSourceDiagnostic.BYTES_DRIFT
-            error.diagnostic == MigrationDiagnostic.SOURCE_INVALID && error.causeClass == "SourceReadFailure" -> CaptureSourceDiagnostic.UNAVAILABLE
+
+            error.diagnostic == MigrationDiagnostic.SOURCE_INVALID && error.causeClass == "SourceReadFailure" ->
+                CaptureSourceDiagnostic.UNAVAILABLE
+
             else -> CaptureSourceDiagnostic.CONTRACT_INVALID
         }
         return SyncCaptureSourceException(diagnostic)
     }
 
     private fun baselineEntries(
-        baseline: JsonObject, template: JsonObject, final: JsonObject, coordinated: Map<String, List<FrozenTrigger>>,
+        baseline: JsonObject,
+        template: JsonObject,
+        final: JsonObject,
+        coordinated: Map<String, List<FrozenTrigger>>,
     ): List<SyncCaptureEntry> {
         val changes = final.arr("changedEntries").map { it.jsonObject }
         return baseline.arr("registry").map { element ->
@@ -93,7 +103,9 @@ internal object CaptureRegistryLoader {
     }
 
     private fun appendNewEntries(
-        entries: MutableList<SyncCaptureEntry>, final: JsonObject, candidates: List<JsonObject>,
+        entries: MutableList<SyncCaptureEntry>,
+        final: JsonObject,
+        candidates: List<JsonObject>,
         coordinated: Map<String, List<FrozenTrigger>>,
     ) {
         final.arr("newEntries").forEach { element ->
@@ -124,21 +136,40 @@ internal object CaptureRegistryLoader {
             FrozenTrigger(it.str("name"), operation(it.str("event")), it.bool("capturesChangeLog"), it.str("sha256"))
         }
         val info = changed ?: row
-        val keys = if (changed == null) row.arr("businessUniqueKeys").map { it.jsonPrimitive.content }
-        else info.str("business_unique_keys").split(',').map(String::trim).filter(String::isNotEmpty)
-        return SyncCaptureEntry(database(row.str("database")), row.str("table"), SyncCategory.valueOf(info.str("category")),
+        val keys = if (changed == null) {
+            row.arr("businessUniqueKeys").map { it.jsonPrimitive.content }
+        } else {
+            info.str("business_unique_keys").split(',').map(String::trim).filter(String::isNotEmpty)
+        }
+        return SyncCaptureEntry(
+            database(row.str("database")),
+            row.str("table"),
+            SyncCategory.valueOf(info.str("category")),
             if (changed == null) info.str("conflictPolicy") else info.str("conflict_policy"),
-            primary.arr("logical").map { it.jsonPrimitive.content }, keys,
-            CaptureEntrySchema(primary.bool("virtual"), row.obj("schema").bool("present"),
-                primary.arr("sqlite").map { it.jsonPrimitive.content }, triggers + extra,
-                if (changed == null) info.bool("hasJsonBlobs") else info.bool("has_json_blobs")))
+            primary.arr("logical").map { it.jsonPrimitive.content },
+            keys,
+            CaptureEntrySchema(
+                primary.bool("virtual"),
+                row.obj("schema").bool("present"),
+                primary.arr("sqlite").map { it.jsonPrimitive.content },
+                triggers + extra,
+                if (changed == null) info.bool("hasJsonBlobs") else info.bool("has_json_blobs"),
+            ),
+        )
     }
 
     private fun newEntry(row: JsonObject, triggers: List<FrozenTrigger>): SyncCaptureEntry {
         val pk = row.str("primary_key").split(',').map(String::trim).filter(String::isNotEmpty)
         val keys = row.str("business_unique_keys").split(',').map(String::trim).filter(String::isNotEmpty)
-        return SyncCaptureEntry(database(row.str("database")), row.str("table_name"), SyncCategory.valueOf(row.str("category")),
-            row.str("conflict_policy"), pk, keys, CaptureEntrySchema(false, true, pk, triggers, row.bool("has_json_blobs")))
+        return SyncCaptureEntry(
+            database(row.str("database")),
+            row.str("table_name"),
+            SyncCategory.valueOf(row.str("category")),
+            row.str("conflict_policy"),
+            pk,
+            keys,
+            CaptureEntrySchema(false, true, pk, triggers, row.bool("has_json_blobs")),
+        )
     }
 
     private fun artifact(source: MigrationSource, lock: JsonObject, unit: String, path: String): ByteArray {
@@ -171,8 +202,15 @@ internal object CaptureRegistryLoader {
         val frozen = original.triggers.single { it.name == replacement.name }
         check(frozen.operation == replacement.operation && frozen.captures && frozen.sha256 != replacement.sha256)
         val schema = original.schema.copy(triggers = original.triggers.map { if (it.name == frozen.name) replacement else it })
-        val updated = SyncCaptureEntry(original.database, original.table, original.category, original.conflictPolicy,
-            original.logicalPrimaryKey, original.businessUniqueKeys, schema)
+        val updated = SyncCaptureEntry(
+            original.database,
+            original.table,
+            original.category,
+            original.conflictPolicy,
+            original.logicalPrimaryKey,
+            original.businessUniqueKeys,
+            schema,
+        )
         return entries.map { if (it === original) updated else it }
     }
 
@@ -197,10 +235,14 @@ internal object CaptureRegistryLoader {
             if (entry.category == SyncCategory.RowSync) {
                 check(captureOps.size == captureOps.toSet().size)
                 check(captureOps.toSet() == CaptureOperation.entries.toSet() - exemption)
-            } else check(captureOps.isEmpty() && exemption.isEmpty())
+            } else {
+                check(captureOps.isEmpty() && exemption.isEmpty())
+            }
         }
-        check(exceptions.size == 1 && exceptions.single().str("key") == "vfs.note_document_revisions" &&
-            operation(exceptions.single().str("operation")) == CaptureOperation.DELETE)
+        check(
+            exceptions.size == 1 && exceptions.single().str("key") == "vfs.note_document_revisions" &&
+                operation(exceptions.single().str("operation")) == CaptureOperation.DELETE,
+        )
     }
 
     private fun validatePrimaryKeys(contract: JsonObject, entries: List<SyncCaptureEntry>) {
@@ -223,7 +265,11 @@ internal object CaptureRegistryLoader {
     private fun checked(source: MigrationSource, path: String, expected: String): ByteArray = read(source, path).also {
         if (sha256(it) != expected) throw SyncCaptureSourceException(CaptureSourceDiagnostic.BYTES_DRIFT)
     }
-    private fun read(source: MigrationSource, path: String): ByteArray = try { source.read(path) } catch (_: Exception) {
+    private fun read(source: MigrationSource, path: String): ByteArray = try {
+        source.read(path)
+    } catch (cancelled: CancellationException) {
+        throw cancelled
+    } catch (_: Exception) {
         throw SyncCaptureSourceException(CaptureSourceDiagnostic.UNAVAILABLE)
     }
     private fun parse(bytes: ByteArray): JsonObject = Json.parseToJsonElement(bytes.toString(Charsets.UTF_8)).jsonObject
@@ -235,4 +281,5 @@ internal fun JsonObject.arr(key: String): JsonArray = getValue(key).jsonArray
 internal fun JsonObject.str(key: String): String = getValue(key).jsonPrimitive.content
 internal fun JsonObject.bool(key: String): Boolean = getValue(key).jsonPrimitive.boolean
 internal fun operation(value: String): CaptureOperation = CaptureOperation.valueOf(value.uppercase())
-internal fun sha256(bytes: ByteArray): String = MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it.toInt() and 255) }
+internal fun sha256(bytes: ByteArray): String =
+    MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it.toInt() and 255) }

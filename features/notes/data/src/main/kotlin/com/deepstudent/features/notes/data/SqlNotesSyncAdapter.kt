@@ -30,10 +30,19 @@ class SqlNotesSyncAdapter(
     }
 
     override fun pending(): List<ByteArray> = guarded("pending") {
-        pendingSource.read { sql, wire ->
-            val changes = wire.map { checkCancelled(); NoteSyncChange.parse(it) }
-            require(changes.all { it.table in NoteSyncRows.tables })
-            sql.syncDependencies(changes, checkCancelled).map { checkCancelled(); it.bytes() }
+        pendingSource.read(::enrichCaptured)
+    }
+
+    /** Notes are enriched inside the caller's existing read snapshot. */
+    fun enrichCaptured(sql: SqlReadOperations, wire: List<ByteArray>): List<ByteArray> {
+        val changes = wire.map {
+            checkCancelled()
+            NoteSyncChange.parse(it)
+        }
+        require(changes.all { it.table in NoteSyncRows.tables })
+        return sql.syncDependencies(changes, checkCancelled).map {
+            checkCancelled()
+            it.bytes()
         }
     }
 
@@ -42,8 +51,10 @@ class SqlNotesSyncAdapter(
         database.transaction {
             for (id in changeLogIds) {
                 checkCancelled()
-                execute("UPDATE __change_log SET sync_version=? WHERE id=? AND COALESCE(sync_version,0)=0",
-                    listOf(SqlValue.Integer(version), SqlValue.Integer(id)))
+                execute(
+                    "UPDATE __change_log SET sync_version=? WHERE id=? AND COALESCE(sync_version,0)=0",
+                    listOf(SqlValue.Integer(version), SqlValue.Integer(id)),
+                )
             }
         }
     }
@@ -53,22 +64,47 @@ class SqlNotesSyncAdapter(
     override fun apply(device: String, seq: Long, changes: List<ByteArray>) = guarded("apply") {
         require(device.isNotBlank() && seq > 0)
         if (seq <= database.syncCursor(instanceId, device)) return@guarded
-        val decoded = changes.map { checkCancelled(); NoteSyncChange.parse(it) }
-        require(decoded.all { it.table in NoteSyncRows.tables })
-        val complete = syncRequireImagesOrMatchingDelete(decoded)
-        complete.forEach(::verifyIncomingBlob)
+        val prepared = prepareIncoming(changes)
         database.transaction {
             if (seq <= syncCursor(instanceId, device)) return@transaction
             val max = query("SELECT COALESCE(MAX(id),0) FROM __change_log") { it.long(0) }.single()
-            val effective = syncCoalesce(complete)
-            for (change in syncSort(effective)) {
+            for (change in prepared) {
                 checkCancelled()
                 applyRow(change, device, seq)
             }
             checkCancelled()
             execute("UPDATE __change_log SET sync_version=1 WHERE id>? AND COALESCE(sync_version,0)=0", listOf(SqlValue.Integer(max)))
-            execute("INSERT INTO __android_sync_cursor_v2(instance,device,seq) VALUES(?,?,?) ON CONFLICT(instance,device) DO UPDATE SET seq=excluded.seq",
-                listOf(text(instanceId), text(device), SqlValue.Integer(seq)))
+            execute(
+                "INSERT INTO __android_sync_cursor_v2(instance,device,seq) VALUES(?,?,?) ON CONFLICT(instance,device) DO UPDATE SET seq=excluded.seq",
+                listOf(text(instanceId), text(device), SqlValue.Integer(seq)),
+            )
+        }
+    }
+
+    /** Validate the same incoming changes before any other database commits. */
+    fun validateIncoming(changes: List<ByteArray>) = guarded("validate") {
+        prepareIncoming(changes)
+        Unit
+    }
+
+    private fun prepareIncoming(changes: List<ByteArray>): List<NoteSyncChange> {
+        val decoded = changes.map {
+            checkCancelled()
+            NoteSyncChange.parse(it)
+        }
+        require(decoded.all { it.table in NoteSyncRows.tables })
+        val complete = syncRequireImagesOrMatchingDelete(decoded)
+        complete.forEach(::verifyIncomingBlob)
+        return syncSort(syncCoalesce(complete)).also { effective ->
+            effective.forEach { change ->
+                if (change.operation != "DELETE") {
+                    val incoming = change.data as? JsonValue.Object ?: error("invalid")
+                    require((incoming[syncKey(change.table)] as? JsonValue.Text)?.value == change.id)
+                    val columns = database.syncColumns(change.table).toSet()
+                    incoming.asMap().filterKeys { it in columns && !NoteSyncRows.derived(change.table, it) }
+                        .values.forEach(::syncSqlValue)
+                }
+            }
         }
     }
 
@@ -88,9 +124,12 @@ class SqlNotesSyncAdapter(
         } catch (cancelled: CancellationException) {
             throw cancelled
         } catch (failure: Exception) {
-            logger.info("notes_sync.row_failed", JsonValue.Object.Builder().put("owner", "notes")
-                .put("table", change.table).put("operation", change.operation)
-                .put("errorType", failure.javaClass.simpleName).build())
+            logger.info(
+                "notes_sync.row_failed",
+                JsonValue.Object.Builder().put("owner", "notes")
+                    .put("table", change.table).put("operation", change.operation)
+                    .put("errorType", failure.javaClass.simpleName).build(),
+            )
             throw IllegalStateException("Sync row apply failed")
         }
     }
@@ -112,9 +151,12 @@ class SqlNotesSyncAdapter(
     }
 
     private fun diagnostic(phase: String, correlation: String, start: Long, status: String) {
-        logger.info("notes_sync", JsonValue.Object.Builder().put("correlationId", correlation)
-            .put("owner", "notes").put("phase", phase).put("status", status)
-            .put("elapsedMs", JsonValue.integer((System.nanoTime() - start) / 1_000_000)).build())
+        logger.info(
+            "notes_sync",
+            JsonValue.Object.Builder().put("correlationId", correlation)
+                .put("owner", "notes").put("phase", phase).put("status", status)
+                .put("elapsedMs", JsonValue.integer((System.nanoTime() - start) / 1_000_000)).build(),
+        )
     }
 }
 
@@ -131,8 +173,9 @@ private fun SqlOperations.syncCursor(instance: String, device: String): Long =
 private fun syncRequireImagesOrMatchingDelete(changes: List<NoteSyncChange>): List<NoteSyncChange> {
     val deleted = changes.filter { it.operation == "DELETE" }.map { it.table to it.id }.toSet()
     return changes.filter { change ->
-        if (change.operation == "DELETE" || change.data != null) true
-        else {
+        if (change.operation == "DELETE" || change.data != null) {
+            true
+        } else {
             require(change.table to change.id in deleted) { "upsert has no image or matching delete" }
             false
         }
@@ -141,12 +184,14 @@ private fun syncRequireImagesOrMatchingDelete(changes: List<NoteSyncChange>): Li
 
 private fun syncCoalesce(changes: List<NoteSyncChange>): List<NoteSyncChange> {
     val groups = changes.filter { it.table != "note_document_revisions" }.groupBy { it.table to it.id }
-    val winners = groups.mapValues { (_, group) -> group.reduce { left, right ->
-        val leftTime = syncTimestamp((left.data as? JsonValue.Object)?.get("updated_at")) ?: left.changedAt
-        val rightTime = syncTimestamp((right.data as? JsonValue.Object)?.get("updated_at")) ?: right.changedAt
-        val order = syncCompare(leftTime, left.source, "", rightTime, right.source, "")
-        if (order > 0 || (order == 0 && left.operation == "DELETE" && right.operation != "DELETE")) left else right
-    } }
+    val winners = groups.mapValues { (_, group) ->
+        group.reduce { left, right ->
+            val leftTime = syncTimestamp((left.data as? JsonValue.Object)?.get("updated_at")) ?: left.changedAt
+            val rightTime = syncTimestamp((right.data as? JsonValue.Object)?.get("updated_at")) ?: right.changedAt
+            val order = syncCompare(leftTime, left.source, "", rightTime, right.source, "")
+            if (order > 0 || (order == 0 && left.operation == "DELETE" && right.operation != "DELETE")) left else right
+        }
+    }
     return changes.filter { it.table == "note_document_revisions" || winners[it.table to it.id] === it }
 }
 
@@ -170,8 +215,10 @@ private fun syncSort(changes: List<NoteSyncChange>): List<NoteSyncChange> {
     return ordered + others.filter { it.operation != "DELETE" } + deletes + folderDeletes
 }
 
-private val syncRanks = mapOf("blobs" to 0, "resources" to 1, "folders" to 2, "files" to 3, "notes" to 4,
-    "folder_items" to 5, "note_document_formats" to 5, "note_document_revisions" to 6, "note_learning_relations" to 6)
+private val syncRanks = mapOf(
+    "blobs" to 0, "resources" to 1, "folders" to 2, "files" to 3, "notes" to 4,
+    "folder_items" to 5, "note_document_formats" to 5, "note_document_revisions" to 6, "note_learning_relations" to 6,
+)
 
 private fun syncOrder(change: NoteSyncChange): Int {
     val rank = syncRanks[change.table] ?: error("invalid")

@@ -1,10 +1,13 @@
 package com.deepstudent.services.sync.data
 
 import com.deepstudent.services.sync.api.SyncError
+import com.deepstudent.services.sync.backend.BoundedObjectInput
 import com.deepstudent.services.sync.backend.ObjectProvider
 import com.deepstudent.services.sync.backend.ProviderFactory
 import com.deepstudent.services.sync.backend.SyncFailure
-import java.io.IOException
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.suspendCancellableCoroutine
 import okhttp3.Call
 import okhttp3.Callback
@@ -13,15 +16,18 @@ import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
+import okio.BufferedSink
+import okio.source
+import java.io.IOException
+import java.io.InputStream
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
-class WebDavProviderFactory(
-    private val client: OkHttpClient = OkHttpClient(),
-    private val allowLoopbackHttp: Boolean = false,
-) : ProviderFactory {
+class WebDavProviderFactory(private val client: OkHttpClient = OkHttpClient(), private val allowLoopbackHttp: Boolean = false) :
+    ProviderFactory {
     override fun open(endpoint: String, username: String, root: String, password: CharArray): ObjectProvider {
         val url = endpoint.toHttpUrlOrNull() ?: throw SyncFailure(SyncError.INVALID_CONFIGURATION)
         if (url.username.isNotEmpty() || url.password.isNotEmpty() || url.query != null || url.fragment != null) {
@@ -46,7 +52,58 @@ class WebDavProvider internal constructor(
     override suspend fun get(key: String): ByteArray? = getBounded(key, MAX_BYTES)
 
     override suspend fun getBounded(key: String, maxBytes: Int): ByteArray? = request("GET", WebDavPaths.append(base, key), null) {
-        if (it.code == 404) null else { check(it); boundedDavBody(it, minOf(maxBytes, MAX_BYTES)) }
+        if (it.code == 404) {
+            null
+        } else {
+            check(it)
+            boundedDavBody(it, minOf(maxBytes, MAX_BYTES))
+        }
+    }
+
+    override suspend fun <T> readStream(key: String, limit: Int, read: (InputStream) -> T): T? {
+        val context = currentCoroutineContext()
+        val maximum = minOf(limit, MAX_BYTES)
+        return request("GET", WebDavPaths.append(base, key), null) { response ->
+            if (response.code == 404) return@request null
+            check(response)
+            val body = response.body ?: throw SyncFailure(SyncError.NETWORK)
+            if (body.contentLength() > maximum) throw SyncFailure(SyncError.LIMIT_EXCEEDED)
+            BoundedObjectInput(body.byteStream(), maximum.toLong()) { context.ensureActive() }.use { input ->
+                val value = read(input)
+                if (input.read() != -1 || (body.contentLength() >= 0 && input.count != body.contentLength())) {
+                    throw SyncFailure(SyncError.NETWORK)
+                }
+                value
+            }
+        }
+    }
+
+    override suspend fun putStream(key: String, size: Long, ifAbsent: Boolean, open: () -> InputStream) {
+        if (size !in 0..MAX_BYTES.toLong()) throw SyncFailure(SyncError.LIMIT_EXCEEDED)
+        val context = currentCoroutineContext()
+        val target = preparePut(key)
+        val body = object : RequestBody() {
+            override fun contentType(): okhttp3.MediaType? = null
+            override fun contentLength(): Long = size
+            override fun writeTo(sink: BufferedSink) {
+                try {
+                    open().use { raw ->
+                        writePutStream(raw, sink, size) { context.ensureActive() }
+                    }
+                } catch (_: RuntimeException) {
+                    throw IOException("stream terminated")
+                }
+            }
+        }
+        val builder = Request.Builder().url(target).header("Authorization", authorization).put(body)
+        if (ifAbsent) builder.header("If-None-Match", "*")
+        execute(client.newCall(builder.build()), ::check)
+    }
+
+    private fun writePutStream(input: InputStream, sink: BufferedSink, size: Long, check: () -> Unit) {
+        // The caller's use owns input; closing this source would close that same stream again.
+        val source = BoundedObjectInput(input, size, check).source()
+        if (sink.writeAll(source) != size) throw IOException("stream length mismatch")
     }
 
     override suspend fun getPrefix(key: String, bytes: Int, objectBytes: Long): ByteArray? {
@@ -54,46 +111,67 @@ class WebDavProvider internal constructor(
         val builder = Request.Builder().url(WebDavPaths.append(base, key)).header("Authorization", authorization)
             .header("Accept-Encoding", "identity").header("Range", "bytes=0-${bytes - 1}")
         return execute(client.newCall(builder.build())) {
-            if (it.code == 404) null else { check(it); readDavPrefix(it, bytes, objectBytes) }
+            if (it.code == 404) {
+                null
+            } else {
+                check(it)
+                readDavPrefix(it, bytes, objectBytes)
+            }
         }
     }
 
     override suspend fun replaceClaimed(key: String, observed: ByteArray, value: ByteArray): Boolean =
         mutateClaimed("PUT", key, observed, value)
 
-    override suspend fun deleteClaimed(key: String, observed: ByteArray): Boolean =
-        mutateClaimed("DELETE", key, observed, null)
+    override suspend fun deleteClaimed(key: String, observed: ByteArray): Boolean = mutateClaimed("DELETE", key, observed, null)
 
     private suspend fun mutateClaimed(method: String, key: String, observed: ByteArray, value: ByteArray?): Boolean {
         val target = WebDavPaths.append(base, key)
         val snapshot = request("GET", target, null) {
-            if (it.code == 404) null else { check(it); readClaimSnapshot(it, observed) }
+            if (it.code == 404) {
+                null
+            } else {
+                check(it)
+                readClaimSnapshot(it, observed)
+            }
         } ?: return false
         val builder = Request.Builder().url(target).header("Authorization", authorization)
         snapshot.tag?.let { builder.header("If-Match", it) }
         builder.method(method, value?.toRequestBody())
         return execute(client.newCall(builder.build())) {
-            if (it.code in setOf(404, 409, 412)) false else { check(it); true }
+            if (it.code in setOf(404, 409, 412)) {
+                false
+            } else {
+                check(it)
+                true
+            }
         }
     }
 
     override suspend fun put(key: String, value: ByteArray, ifAbsent: Boolean) {
+        if (value.size > MAX_BYTES) throw SyncFailure(SyncError.LIMIT_EXCEEDED)
+        request("PUT", preparePut(key), value, ifAbsent) { check(it) }
+    }
+
+    private suspend fun preparePut(key: String): HttpUrl {
         val target = WebDavPaths.append(base, key)
         if (key.isEmpty() || key.endsWith('/')) throw SyncFailure(SyncError.INVALID_CONFIGURATION)
-        if (value.size > MAX_BYTES) throw SyncFailure(SyncError.LIMIT_EXCEEDED)
         ensureBase()
         val parts = key.split('/')
         for (index in 1 until parts.size) {
             val url = WebDavPaths.append(base, parts.take(index).joinToString("/"), true)
             mkdir(url)
         }
-        request("PUT", target, value, ifAbsent) { check(it) }
+        return target
     }
 
     private suspend fun ensureBase() {
         val builder = endpoint.newBuilder().encodedPath("/")
         val parts = endpoint.pathSegments.filter { it.isNotEmpty() } + WebDavPaths.segments(root, true)
-        for (segment in parts) { builder.addPathSegment(segment); mkdir(builder.build()) }
+        for (segment in parts) {
+            builder.addPathSegment(segment)
+            mkdir(builder.build())
+        }
     }
 
     private suspend fun mkdir(url: HttpUrl) {
@@ -124,7 +202,9 @@ class WebDavProvider internal constructor(
     private suspend fun listDirectory(dir: String): List<DavEntry> {
         val url = WebDavPaths.append(base, dir, true)
         return request("PROPFIND", url, PROPFIND) {
-            if (it.code == 404 && dir.isEmpty()) emptyList() else {
+            if (it.code == 404 && dir.isEmpty()) {
+                emptyList()
+            } else {
                 if (it.code != 207) throw SyncFailure(SyncError.NETWORK)
                 WebDavListing.parse(boundedDavBody(it, MAX_BYTES), base, url)
             }
@@ -133,14 +213,22 @@ class WebDavProvider internal constructor(
 
     private fun addEntries(entries: List<DavEntry>, queue: ArrayDeque<String>, found: MutableSet<String>, seen: Int) {
         for (entry in entries) {
-            if (entry.directory) queue.add(entry.key) else if (!found.add(entry.key)) {
+            if (entry.directory) {
+                queue.add(entry.key)
+            } else if (!found.add(entry.key)) {
                 throw SyncFailure(SyncError.INVALID_REPOSITORY)
             }
             if (queue.size + seen + found.size >= MAX_ENTRIES) throw SyncFailure(SyncError.LIMIT_EXCEEDED)
         }
     }
 
-    private suspend fun <T> request(method: String, url: HttpUrl, bytes: ByteArray?, ifAbsent: Boolean = false, handle: (Response) -> T): T {
+    private suspend fun <T> request(
+        method: String,
+        url: HttpUrl,
+        bytes: ByteArray?,
+        ifAbsent: Boolean = false,
+        handle: (Response) -> T,
+    ): T {
         val builder = Request.Builder().url(url).header("Authorization", authorization)
         if (method == "PROPFIND") builder.header("Depth", "1")
         if (ifAbsent) builder.header("If-None-Match", "*")
@@ -158,6 +246,8 @@ class WebDavProvider internal constructor(
                 try {
                     val result = response.use(handle)
                     if (continuation.isActive) continuation.resume(result)
+                } catch (failure: CancellationException) {
+                    continuation.cancel(failure)
                 } catch (failure: SyncFailure) {
                     if (continuation.isActive) continuation.resumeWithException(failure)
                 } catch (_: Exception) {
@@ -182,6 +272,9 @@ class WebDavProvider internal constructor(
         private const val MAX_PROOF_BYTES = 64 * 1024 * 1024 + 128
         private const val MAX_DIRECTORIES = 749
         private const val MAX_ENTRIES = 10000
-        private val PROPFIND = "<?xml version=\"1.0\"?><d:propfind xmlns:d=\"DAV:\"><d:prop><d:resourcetype/></d:prop></d:propfind>".toByteArray()
+        private val PROPFIND = (
+            "<?xml version=\"1.0\"?><d:propfind xmlns:d=\"DAV:\">" +
+                "<d:prop><d:resourcetype/></d:prop></d:propfind>"
+            ).toByteArray()
     }
 }

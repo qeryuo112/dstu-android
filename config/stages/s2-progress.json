@@ -1,7 +1,63 @@
 {
   "stage": "S2",
   "reviewer": "main-thread",
-  "s2GateAccepted": false,
+  "s2GateAccepted": true,
+  "stageGate": {
+    "id": "S2.G",
+    "milestone": "M2",
+    "status": "accepted",
+    "reviewer": "main-thread",
+    "acceptedAt": "2026-11-25T16:24:59+08:00",
+    "prerequisite": "S1.G",
+    "acceptedUnitCount": 31,
+    "unitEvidenceReferencesVerified": 124,
+    "review": "docs/archive/handoff-s2.md",
+    "testLimitations": "docs/archive/handoff-s2.md",
+    "evidenceIndex": "docs/evidence/logs-index-s2-g-20261125.json",
+    "archiveSha256": "f44ce5357b40cbd6b6c20130ceb2838c17e87879e907eda073135330d20be3f2",
+    "quality": {
+      "hostTests": 1231,
+      "hostSkipped": 0,
+      "repositoryTests": 101,
+      "s2ToolTests": 73,
+      "frozenInputsVerified": 286,
+      "architectureModules": 78,
+      "projectDependencyCycles": 0,
+      "serviceToFeatureDependencies": 0
+    },
+    "candidate": {
+      "sourceCommit": "53e0f0e3d153b88848ec90f1398d92e61a333829",
+      "applicationId": "com.deepstudent.app.s2device",
+      "apkSetSha256": "4b068a7577d3ffd67e3b79103e3319b391dae144518ab7d3e88a666754b172fd",
+      "devices": {
+        "iPA2475": 6,
+        "V2232A": 6
+      }
+    },
+    "checks": {
+      "databaseMigrationAndFrozenBackup": [
+        "logs/desktop-fixtures.log",
+        "logs/s2g-host-test-summary.json",
+        "logs/s2g-unit-evidence-audit.json"
+      ],
+      "singleTaskAndApprovalAuthorities": [
+        "logs/s2g-contract-review.json",
+        "logs/s2g-unit-evidence-audit.json",
+        "logs/s2g-device-comparison.json"
+      ],
+      "architectureAndSubstitutableAdapters": [
+        "logs/s2g-architecture-graph.json",
+        "logs/s2g-candidate-architecture-sources.json",
+        "logs/s2g-contract-review.json",
+        "logs/s2g-final-quality.log"
+      ],
+      "physicalRecoveryPermissionsSyncAndDiagnostics": [
+        "logs/s2g-unit-evidence-audit.json",
+        "logs/s2g-s207-tablet-summary.log",
+        "logs/s2g-device-comparison.json"
+      ]
+    }
+  },
   "frozenQueue": "config/execution-plan.json",
   "units": [
     {
@@ -13,7 +69,7 @@
         "S1.04",
         "S1.G"
       ],
-      "review": "docs/handoff-s2.md",
+      "review": "docs/archive/handoff-s2.md",
       "evidence": [
         "logs/s2-01-main-host.log",
         "logs/s2-01-main-tablet.log",
@@ -31,7 +87,7 @@
         "S2.01",
         "S1.G"
       ],
-      "review": "docs/handoff-s2.md",
+      "review": "docs/archive/handoff-s2.md",
       "evidence": [
         "logs/s2-02-main-host.log",
         "logs/s2-02-main-tablet.log",
@@ -48,7 +104,7 @@
         "S2.01",
         "S1.G"
       ],
-      "review": "docs/handoff-s2.md",
+      "review": "docs/archive/handoff-s2.md",
       "evidence": [
         "logs/s2-03-main-host.log",
         "logs/s2-03-main-tablet.log",
@@ -72,7 +128,7 @@
         "S2.03",
         "S1.G"
       ],
-      "review": "docs/handoff-s2.md",
+      "review": "docs/archive/handoff-s2.md",
       "evidence": [
         "logs/s2-04-05-repair-main-host.log",
         "logs/s2-04-05-repair-main-tablet.log",
@@ -91,7 +147,7 @@
         "S2.03",
         "S1.G"
       ],
-      "review": "docs/handoff-s2.md",
+      "review": "docs/archive/handoff-s2.md",
       "evidence": [
         "logs/s2-04-05-repair-main-host.log",
         "logs/s2-04-05-repair-main-tablet.log",
@@ -112,7 +168,7 @@
         "S2.05",
         "S1.G"
       ],
-      "review": "docs/handoff-s2.md",
+      "review": "docs/archive/handoff-s2.md",
       "evidence": [
         "logs/s2-06-main-host.log",
         "logs/s2-06-main-tablet.log",
@@ -140,7 +196,7 @@
         "S2.05",
         "S1.G"
       ],
-      "review": "docs/handoff-s2.md",
+      "review": "docs/archive/handoff-s2.md",
       "evidence": [
         "logs/s2-07-phone-signoff-host.log",
         "logs/s2-07-phone-signoff-device.log",
@@ -172,7 +228,7 @@
         "S2.07",
         "S1.G"
       ],
-      "review": "docs/handoff-s2.md",
+      "review": "docs/archive/handoff-s2.md",
       "evidence": [
         "logs/s2-08-phone-signoff-host.log",
         "logs/s2-08-phone-signoff-device.log",
@@ -196,7 +252,7 @@
         "S2.08",
         "S1.G"
       ],
-      "review": "docs/handoff-s2.md",
+      "review": "docs/archive/handoff-s2.md",
       "evidence": [
         "logs/s2-09-main-host.log",
         "logs/s2-09-main-tablet.log",
@@ -220,7 +276,7 @@
         "S2.08",
         "S1.G"
       ],
-      "review": "docs/handoff-s2.md",
+      "review": "docs/archive/handoff-s2.md",
       "evidence": [
         "logs/s2-10-main-host.log",
         "logs/s2-10-main-tablet.log",
@@ -245,7 +301,7 @@
         "S2.09",
         "S1.G"
       ],
-      "review": "docs/handoff-s2.md",
+      "review": "docs/archive/handoff-s2.md",
       "evidence": [
         "logs/s2-11-main-host.log",
         "logs/s2-11-main-tablet.log",
@@ -272,7 +328,7 @@
         "S2.10",
         "S1.G"
       ],
-      "review": "docs/handoff-s2.md",
+      "review": "docs/archive/handoff-s2.md",
       "evidence": [
         "logs/s2-12-main-host.log",
         "logs/s2-12-main-tablet.log",
@@ -300,7 +356,7 @@
         "S2.12",
         "S1.G"
       ],
-      "review": "docs/handoff-s2.md",
+      "review": "docs/archive/handoff-s2.md",
       "evidence": [
         "logs/s2-13-main-host.log",
         "logs/s2-13-main-phone.log",
@@ -328,7 +384,7 @@
         "S2.12",
         "S1.G"
       ],
-      "review": "docs/handoff-s2.md",
+      "review": "docs/archive/handoff-s2.md",
       "evidence": [
         "logs/s2-14-audit-main-host.log",
         "logs/s2-14-audit-main-tablet.log",
@@ -357,7 +413,7 @@
         "S2.13",
         "S1.G"
       ],
-      "review": "docs/handoff-s2.md",
+      "review": "docs/archive/handoff-s2.md",
       "evidence": [
         "logs/s2-15-audit-main-host.log",
         "logs/s2-15-audit-main-tablet.log",
@@ -375,7 +431,7 @@
         "S2.11",
         "S1.G"
       ],
-      "review": "docs/handoff-s2.md",
+      "review": "docs/archive/handoff-s2.md",
       "evidence": [
         "logs/s2-16-18-ipad2475-receipt.json",
         "logs/s2-16-18-v2232a-receipt.json",
@@ -394,7 +450,7 @@
         "S2.14",
         "S1.G"
       ],
-      "review": "docs/handoff-s2.md",
+      "review": "docs/archive/handoff-s2.md",
       "evidence": [
         "logs/s2-16-18-ipad2475-receipt.json",
         "logs/s2-16-18-v2232a-receipt.json",
@@ -414,7 +470,7 @@
         "S1.26",
         "S1.G"
       ],
-      "review": "docs/handoff-s2.md",
+      "review": "docs/archive/handoff-s2.md",
       "evidence": [
         "logs/s2-16-18-ipad2475-receipt.json",
         "logs/s2-16-18-v2232a-receipt.json",
@@ -433,7 +489,7 @@
         "S2.18",
         "S1.G"
       ],
-      "review": "docs/handoff-s2.md",
+      "review": "docs/archive/handoff-s2.md",
       "evidence": [
         "logs/s219-22-ipa2475-ledger.log",
         "logs/s219-22-v2232a-ledger.log",
@@ -451,7 +507,7 @@
         "S1.G"
       ],
       "scope": "任务租约、取消及受控 Activity/JobScheduler 同任务竞争；生产 WorkManager 接入不在此回执",
-      "review": "docs/handoff-s2.md",
+      "review": "docs/archive/handoff-s2.md",
       "evidence": [
         "logs/s220-22-ipad2475-baseline.log",
         "logs/s220-22-ipad2475-final.log",
@@ -470,7 +526,7 @@
         "S1.G"
       ],
       "scope": "脚本纵切的同事务完成事实、消费者游标和跨库幂等对账；不签收默认装配或聊天投递",
-      "review": "docs/handoff-s2.md",
+      "review": "docs/archive/handoff-s2.md",
       "evidence": [
         "logs/s220-22-ipad2475-baseline.log",
         "logs/s220-22-ipad2475-final.log",
@@ -490,7 +546,7 @@
         "S1.G"
       ],
       "scope": "隔离 App 中显式调用恢复计划，在真实 VFS 和运行时数据库验证进程退出及重复重启；不签收普通 App 的默认启动接线",
-      "review": "docs/handoff-s2.md",
+      "review": "docs/archive/handoff-s2.md",
       "evidence": [
         "logs/s220-22-ipad2475-baseline.log",
         "logs/s220-22-ipad2475-final.log",
@@ -510,7 +566,7 @@
         "S1.G"
       ],
       "scope": "笔记导入正式入口、前台职责引用、定向通知停止和服务对账；Sticky 条件由本机用例验证，双机空动作重建不计为系统自然 Sticky 重启",
-      "review": "docs/handoff-s2.md",
+      "review": "docs/archive/handoff-s2.md",
       "evidence": [
         "logs/s223-25-ipad2475-final.log",
         "logs/s223-25-ipad2475-cases.txt",
@@ -528,7 +584,7 @@
         "S1.G"
       ],
       "scope": "真实终端常驻、本地偏好、两种实际电池优化状态及有上限的 WakeLock；不签收外部接入、持续 Agent 或长时耗电矩阵",
-      "review": "docs/handoff-s2.md",
+      "review": "docs/archive/handoff-s2.md",
       "evidence": [
         "logs/s223-25-ipad2475-final.log",
         "logs/s223-25-ipad2475-cases.txt",
@@ -548,7 +604,7 @@
         "S1.G"
       ],
       "scope": "真实 WorkManager 与可续笔记纵切、唯一工作、系统停止与强停分别复验、提醒重排及受控投递；不签收整机重启、精确到点或后续领域调度",
-      "review": "docs/handoff-s2.md",
+      "review": "docs/archive/handoff-s2.md",
       "evidence": [
         "logs/s223-25-ipad2475-final.log",
         "logs/s223-25-ipad2475-cases.txt",
@@ -568,7 +624,7 @@
         "S1.G"
       ],
       "scope": "真实工作台 Activity 重建保留同一待审批；拒绝不执行不写文件，批准/撤权与任务审计可对账",
-      "review": "docs/handoff-s2.md",
+      "review": "docs/archive/handoff-s2.md",
       "evidence": [
         "logs/s226-28-v2232a-withdrawal-base.log",
         "logs/s226-28-v2232a-withdrawal-markers.txt",
@@ -589,7 +645,7 @@
         "S1.G"
       ],
       "scope": "平板 APP/PRoot Linux/Shizuku/独立 su 真机核对身份与取消；普通手机以 Shizuku ADB UID 2000 验证第四档，独立 Root 不可用时拒绝且不回退",
-      "review": "docs/handoff-s2.md",
+      "review": "docs/archive/handoff-s2.md",
       "evidence": [
         "logs/s226-28-v2232a-withdrawal-routes.log",
         "logs/s226-28-v2232a-withdrawal-receipt.txt",
@@ -610,7 +666,7 @@
         "S1.G"
       ],
       "scope": "同包双机验证 DocumentsUI 独立 UID 读写、一次变更、稳定文档 ID、只读附件和治理隔离；Provider 撤回在系统 grant 残留或新授予时仍拒绝外部访问",
-      "review": "docs/handoff-s2.md",
+      "review": "docs/archive/handoff-s2.md",
       "evidence": [
         "logs/s226-28-v2232a-withdrawal-base.log",
         "logs/s226-28-v2232a-withdrawal-markers.txt",
@@ -618,6 +674,188 @@
         "logs/s226-28-ipad2475-final-base.log",
         "logs/s226-28-ipad2475-final-markers.txt"
       ]
+    },
+    {
+      "id": "S2.29",
+      "card": "S2.29/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-25T13:46:07+08:00",
+      "dependsOn": [
+        "S1.25",
+        "S1.26",
+        "S2.05",
+        "S2.08",
+        "S2.15",
+        "S2.16",
+        "S2.17",
+        "S2.18",
+        "S2.28",
+        "S1.G"
+      ],
+      "scope": "同一封存候选双真机：跨库复合发布回执、全量 seed 边界、远端已写后密文重放、流式取消清理和冻结桌面笔记/附件往返；不签全域 apply、强杀或超过现行同步预算的大对象矩阵",
+      "review": "docs/archive/handoff-s2.md",
+      "evidence": [
+        "logs/s229-ipad2475-20261125-repaired-restore-receipt.json",
+        "logs/s229-ipad2475-20261125-publication-test-cases.json",
+        "logs/s229-ipad2475-20261125-repaired-publication-trace.log",
+        "logs/s229-v2232a-20261125-same-candidate-receipt.json",
+        "logs/s229-v2232a-20261125-publication-instrumentation.log",
+        "logs/s229-v2232a-20261125-publication-trace.log",
+        "logs/s229-v2232a-20261125-plain-desktop.log",
+        "logs/s229-v2232a-20261125-encrypted-desktop.log",
+        "logs/s229-v2232a-20261125-device-cleanup.log"
+      ],
+      "candidate": {
+        "status": "accepted-dual-device",
+        "sourceCommit": "f23ff738c684ccb31ed43d6a16325b0f6d3d622b",
+        "applicationId": "com.deepstudent.app.s2device",
+        "abi": "arm64-v8a",
+        "apkSetSha256": "9ebba8fc11f2178bb413b389e368953b61dae78d1c0ad30e8a1e1fa0a1161bec",
+        "sha256ByFile": {
+          "app-debug.apk": "56a720c8a10cfc1bcd09bf1a19f34a801f8c9113f1b1cd5761a4789df0533260",
+          "app-debug-androidTest.apk": "f9297be05643e7e7bf990d94f3049e854e62e5719a6abfcefc067605e1e3aa54",
+          "data-debug-androidTest.apk": "9b1e279554bf148b9ff1d59acd8821ed594eeb75476f93ff69556747976ba286"
+        },
+        "caseSelectionSha256": "b512624f24e3b38e8cc82d3859de2df88d6d4cdeb682821c6383df2018b1c97c",
+        "casesPerDevice": {
+          "publication": 24,
+          "restore": 19,
+          "plaintext": 4,
+          "encrypted": 8,
+          "total": 55,
+          "failed": 0,
+          "skipped": 0
+        },
+        "verifiedDevices": [
+          {
+            "model": "iPA2475",
+            "api": 36,
+            "standaloneDispatch": "single instrumentation with temporary foreground host per case"
+          },
+          {
+            "model": "V2232A",
+            "api": 36,
+            "adbShellUid": 2000,
+            "standaloneDispatch": "one instrumentation per method; optional host Activity omitted",
+            "finishedAt": "2026-11-25T13:43:49+08:00"
+          }
+        ],
+        "evidenceIndexes": [
+          "docs/evidence/logs-index-s2-29-ipad2475-20261125.json",
+          "docs/evidence/logs-index-s2-29-v2232a-20261125.json"
+        ]
+      }
+    },
+    {
+      "id": "S2.30",
+      "card": "S2.30/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-25T15:19:47+08:00",
+      "dependsOn": [
+        "S2.29",
+        "S1.G"
+      ],
+      "scope": "同封存包双机：真实迁移四库采集/应用、末库失败游标不推进与分库幂等重放、配置独立白名单、流式资源中断清理及恢复重配后冻结桌面笔记/附件双向往返。S8 完整冲突及大对象矩阵未签收。",
+      "review": "docs/archive/handoff-s2.md",
+      "evidence": [
+        "logs/s230-device-comparison.json",
+        "logs/s230-ipad2475-20261125-receipt.json",
+        "logs/s230-v2232a-20261125-receipt.json",
+        "logs/s230-ipad2475-20261125-apply-trace.log",
+        "logs/s230-v2232a-20261125-apply-trace.log",
+        "logs/s230-jvm-summary.json"
+      ],
+      "candidate": {
+        "status": "accepted-dual-device",
+        "sourceCommit": "81e7d26cec70296d54e078651865a6c1a154a19e",
+        "applicationId": "com.deepstudent.app.s2device",
+        "abi": "arm64-v8a",
+        "apkSetSha256": "16290b6a561319a2df1233dbbf75b864aa4f9a95ff16e4544a86c7e50707aafb",
+        "sha256ByFile": {
+          "app-debug.apk": "ff938ef9439d3999f76f5efbd3db086f49eec2a5c716d7822b557798327819c1",
+          "app-debug-androidTest.apk": "03be4df19eeebd5449e817721bc55214f9db1535fa726b15a7dc6f89b03a7033"
+        },
+        "caseSelectionSha256": "25dcaf50cfe7b25a97e12ed2ec0ddf315c6188e7b6df76bcb98b016312025a8e",
+        "casesPerDevice": {
+          "total": 8,
+          "failed": 0,
+          "skipped": 0
+        },
+        "verifiedDevices": [
+          {
+            "model": "iPA2475",
+            "api": 36,
+            "adbUid": 0,
+            "finishedAt": "2026-11-25T07:14:31.244Z"
+          },
+          {
+            "model": "V2232A",
+            "api": 36,
+            "adbUid": 2000,
+            "finishedAt": "2026-11-25T07:18:07.852Z"
+          }
+        ],
+        "evidenceIndexes": [
+          "docs/evidence/logs-index-s2-30-dual-device-20261125.json"
+        ]
+      }
+    },
+    {
+      "id": "S2.31",
+      "card": "S2.31/implementation",
+      "status": "accepted",
+      "acceptedAt": "2026-11-25T15:39:24+08:00",
+      "dependsOn": [
+        "S2.03",
+        "S2.22",
+        "S2.30",
+        "S1.G"
+      ],
+      "scope": "同封存包双机验证正式诊断页/重建与工作台保留、固定错误目录与别名、真实回环 HTTP 401 的脱敏只读分享及关闭系统选择器；不发送第三方、不导出原始系统日志。",
+      "review": "docs/archive/handoff-s2.md",
+      "evidence": [
+        "logs/s231-device-comparison.json",
+        "logs/s231-ipad2475-20261125-receipt.json",
+        "logs/s231-v2232a-20261125-receipt.json",
+        "logs/s231-ipad2475-20261125-live-auth-redaction.log",
+        "logs/s231-v2232a-20261125-live-auth-redaction.log",
+        "logs/s231-jvm-summary.json",
+        "logs/s231-reproduction-scope.txt"
+      ],
+      "candidate": {
+        "status": "accepted-dual-device",
+        "sourceCommit": "d750e661b7756a4659062313655361b3c12f9d5b",
+        "applicationId": "com.deepstudent.app.s2device",
+        "abi": "arm64-v8a",
+        "apkSetSha256": "20a11a3071c2c35b730b99f68e9f365001189ddb54a263c317ef81ef6f4066cb",
+        "sha256ByFile": {
+          "app-debug.apk": "274c8fd299b6a402610e34f641dbce05d6ba955435d4bb0fd8f5729dc882866e",
+          "app-debug-androidTest.apk": "c3d7104f4a5963d369920240fc587c5f320b5877cb33f5a21c2e6ff1115a7583"
+        },
+        "caseSelectionSha256": "c119b351a68cc0a85293518cc03eabafaf63f6f28f2c324b6f3ffde2f1da0d5a",
+        "casesPerDevice": {
+          "total": 5,
+          "failed": 0,
+          "skipped": 0
+        },
+        "verifiedDevices": [
+          {
+            "model": "iPA2475",
+            "api": 36,
+            "adbUid": 0,
+            "finishedAt": "2026-11-25T07:34:45.689Z"
+          },
+          {
+            "model": "V2232A",
+            "api": 36,
+            "adbUid": 2000,
+            "finishedAt": "2026-11-25T07:36:05.633Z"
+          }
+        ],
+        "evidenceIndexes": [
+          "docs/evidence/logs-index-s2-31-dual-device-20261125.json"
+        ]
+      }
     }
   ],
   "previousCandidates": {
@@ -1546,10 +1784,10 @@
     "backupDataTestSha256": "d0f7f14ef84b675c705165a1d8cf6c0efec1397c83d61e8fe268fd05a0e13b93",
     "managedWebDavFixtureVerified": true
   },
-  "next": "S2.29",
+  "next": "S3.01",
   "planRevision": "2026-11-23-s2-desktop-compatibility",
   "currentPlan": "config/planning/active-plan.json",
-  "nextName": "完善同步采集与发布基础",
+  "nextName": "定义聊天模型、仓储与TurnSnapshot",
   "plannedRemediations": [
     {
       "id": "S2.16",

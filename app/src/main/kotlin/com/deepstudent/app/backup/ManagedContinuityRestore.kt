@@ -33,10 +33,10 @@ import com.deepstudent.services.sync.data.WebDavProviderFactory
 import com.deepstudent.services.sync.data.transfer.DsbkSyncCryptography
 import com.deepstudent.services.sync.data.transfer.StoredEncryptionPassword
 import com.deepstudent.services.sync.data.transfer.StoredWebDavProvider
-import java.io.File
-import java.time.Instant
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
+import java.io.File
+import java.time.Instant
 
 /** Composition of independently pinned management proof, real paired repository and the existing writer store. */
 internal class ManagedContinuityRestore(
@@ -58,7 +58,10 @@ internal class ManagedContinuityRestore(
     }
 
     private suspend fun claimPaired(
-        ports: SecurityPorts, verified: VerifiedContinuityRestore, checkPending: () -> Boolean, beforeCreate: () -> Unit,
+        ports: SecurityPorts,
+        verified: VerifiedContinuityRestore,
+        checkPending: () -> Boolean,
+        beforeCreate: () -> Unit,
     ) {
         val store = store(ports)
         val actual = pairedConfig(store)
@@ -67,32 +70,49 @@ internal class ManagedContinuityRestore(
         val encryption = RepositoryEncryption(DsbkSyncCryptography(ports.dsbk))
         StoredEncryptionPassword(store).use(actual) { password ->
             val policy = encryption.check(provider, actual.encrypted, password)
-            val codec = encryption.codec(password)
-            claimAuthorized(provider, verified, policy, codec, checkPending, beforeCreate)
+            encryption.codec(password).use { codec ->
+                claimAuthorized(provider, verified, policy, codec, checkPending, beforeCreate)
+            }
         }
     }
 
     private fun requirePairedGrant(actual: SyncConfiguration, verified: VerifiedContinuityRestore) {
         val grant = verified.grant
         if (ContinuitySyncBinding.repositoryUrl(actual) != grant.repositoryUrl || actual.instanceId != grant.repository.instanceId ||
-            actual.deviceId == grant.writerId) failContinuity(ContinuityRestoreError.REPOSITORY_CHANGED)
+            actual.deviceId == grant.writerId
+        ) {
+            failContinuity(ContinuityRestoreError.REPOSITORY_CHANGED)
+        }
     }
 
     private suspend fun claimAuthorized(
-        provider: ObjectProvider, verified: VerifiedContinuityRestore, policy: EncryptionExpectation,
-        codec: SyncPayloadCodec, checkPending: () -> Boolean, beforeCreate: () -> Unit,
+        provider: ObjectProvider,
+        verified: VerifiedContinuityRestore,
+        policy: EncryptionExpectation,
+        codec: SyncPayloadCodec,
+        checkPending: () -> Boolean,
+        beforeCreate: () -> Unit,
     ) {
         val grant = verified.grant
-        val request = ContinuityClaimRequest(grant.repository.instanceId, grant.writerId, grant.targetInstallationId,
-            grant.operationId, grant.archiveSha256, grant.sidecarSha256)
-        val claim = ContinuityRemoteClaim(provider,
+        val request = ContinuityClaimRequest(
+            grant.repository.instanceId,
+            grant.writerId,
+            grant.targetInstallationId,
+            grant.operationId,
+            grant.archiveSha256,
+            grant.sidecarSha256,
+        )
+        val claim = ContinuityRemoteClaim(
+            provider,
             // The independently verified grant affirms the managed namespace's atomicity and protection;
             // an ordinary WebDAV response is not enough to assume these guarantees.
             conditionalCreate = { remote, instance ->
                 grant.bind(verified.matched, now())
                 if (remote === provider && instance == grant.repository.instanceId) {
                     ContinuityClaimConditionalCreateProof(provider, instance)
-                } else null
+                } else {
+                    null
+                }
             },
             retirement = { observed ->
                 grant.bind(verified.matched, now())
@@ -100,10 +120,19 @@ internal class ManagedContinuityRestore(
                 requireSequence(provider, codec, verified)
                 ContinuityClaimRetirementProof(observed)
             },
-            ledger = { if (it == request && checkPending()) ContinuityClaimAttemptStatus.PENDING
-                else ContinuityClaimAttemptStatus.MISSING_OR_MISMATCHED },
+            ledger = {
+                if (it == request && checkPending()) {
+                    ContinuityClaimAttemptStatus.PENDING
+                } else {
+                    ContinuityClaimAttemptStatus.MISSING_OR_MISMATCHED
+                }
+            },
             logger = AndroidOperationLogger,
-            beforeConditionalCreate = { observed -> check(observed == request); beforeCreate() })
+            beforeConditionalCreate = { observed ->
+                check(observed == request)
+                beforeCreate()
+            },
+        )
         check(claim.claim(request).request == request)
     }
 
@@ -114,7 +143,9 @@ internal class ManagedContinuityRestore(
     }
 
     fun stage(
-        base: RestoreCandidateVerifier, verified: VerifiedContinuityRestore, authorization: BackupIdentityAuthorization,
+        base: RestoreCandidateVerifier,
+        verified: VerifiedContinuityRestore,
+        authorization: BackupIdentityAuthorization,
     ): RestoreCandidateVerifier = object : RestoreCandidateVerifier by base {
         override fun verifyDatabases(candidate: File) {
             base.verifyDatabases(candidate)
@@ -133,13 +164,21 @@ internal class ManagedContinuityRestore(
         withVfs(active, verified.grant.operationId) { it.requireAuthorizedContinuityCommit(expected) }
         openSecurity().use { ports ->
             val grant = verified.grant
-            store(ports).adoptWriterForContinuity(ContinuitySyncBinding(grant.operationId, grant.writerId,
-                grant.repository.instanceId, grant.repositoryUrl))
+            store(ports).adoptWriterForContinuity(
+                ContinuitySyncBinding(
+                    grant.operationId,
+                    grant.writerId,
+                    grant.repository.instanceId,
+                    grant.repositoryUrl,
+                ),
+            )
         }
     }
 
     private fun <T> withVfs(root: File, operationId: String, action: (BackupIdentityStore) -> T): T = DatabaseRegistry.openShared(
-        root.resolve("databases/vfs.db"), SharedDatabase.VFS, BundledMigrationSource(context),
+        root.resolve("databases/vfs.db"),
+        SharedDatabase.VFS,
+        BundledMigrationSource(context),
     ).use { action(BackupIdentityStore(it, identityLog(operationId))) }
 
     private fun store(ports: SecurityPorts) = LocalSyncStore(context.noBackupFilesDir.canonicalFile.resolve("sync"), ports.credentials)
@@ -152,6 +191,9 @@ internal class ManagedContinuityRestore(
 }
 
 private fun identityLog(operationId: String) = BackupIdentityLog { event ->
-    Log.i("DstuRestoreIdentity", "event=backup.continuity owner=${event.owner} correlationId=$operationId " +
-        "phase=${event.phase} state=${event.status} elapsedMs=${event.elapsedMillis} code=${event.diagnostic ?: "none"}")
+    Log.i(
+        "DstuRestoreIdentity",
+        "event=backup.continuity owner=${event.owner} correlationId=$operationId " +
+            "phase=${event.phase} state=${event.status} elapsedMs=${event.elapsedMillis} code=${event.diagnostic ?: "none"}",
+    )
 }

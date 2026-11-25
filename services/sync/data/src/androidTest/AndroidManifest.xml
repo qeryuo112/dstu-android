@@ -1,3 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <application android:networkSecurityConfig="@xml/sync_test_network_security" />
+    <application android:networkSecurityConfig="@xml/sync_test_network_security">
+        <activity
+            android:name="com.deepstudent.services.sync.data.S229PublicationHostActivity"
+            android:exported="false" />
+    </application>
 </manifest>

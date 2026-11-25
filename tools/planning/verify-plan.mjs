@@ -14,7 +14,9 @@ export const OLD_HANDOFF = 'docs/handoff.md';
 export const ARCHIVE_HANDOFF = 'docs/archive/handoff-s0.md';
 export const OLD_S1_HANDOFF = 'docs/handoff-s1.md';
 export const S1_ARCHIVE_HANDOFF = 'docs/archive/handoff-s1.md';
-export const CURRENT_HANDOFF = 'docs/handoff-s2.md';
+export const OLD_S2_HANDOFF = 'docs/handoff-s2.md';
+export const S2_ARCHIVE_HANDOFF = 'docs/archive/handoff-s2.md';
+export const CURRENT_HANDOFF = 'docs/handoff-s3.md';
 export const REQUIRED_REFERENCE_IDS = [
   'source-lock',
   'execution-inputs',
@@ -688,23 +690,42 @@ function verifyReceipt(metadata, finalLock, review, refs) {
   if (review.policy?.file !== gate.file || review.policy?.sha256 !== gate.sha256) fail('signed receipt gate binding');
 }
 
-function verifyHandoffs(metadata, refs, readFile, exists) {
+function verifyHandoffs(metadata, progress, refs, readFile, exists) {
   const archives = [
     ['archive', 's0-handoff-archive', ARCHIVE_HANDOFF, OLD_HANDOFF],
     ['s1Archive', 's1-handoff-archive', S1_ARCHIVE_HANDOFF, OLD_S1_HANDOFF]
   ];
+  const s2Archived = progress.s2GateAccepted === true;
+  const s2ArchiveId = 's2-handoff-archive';
+  if (s2Archived) {
+    if (progress.stageGate?.id !== 'S2.G' || progress.stageGate.status !== 'accepted') {
+      fail('S3 handoff requires an accepted S2.G receipt');
+    }
+    archives.push(['s2Archive', s2ArchiveId, S2_ARCHIVE_HANDOFF, OLD_S2_HANDOFF]);
+    if (progress.stageGate.review !== S2_ARCHIVE_HANDOFF || progress.stageGate.testLimitations !== S2_ARCHIVE_HANDOFF) {
+      fail('S2.G receipt must point to the archived S2 review and test coverage');
+    }
+    for (const unit of progress.units) {
+      if (unit.review !== S2_ARCHIVE_HANDOFF) fail(`${unit.id} receipt must point to the archived S2 review`);
+    }
+  } else if (metadata.handoffs?.s2Archive || refs.has(s2ArchiveId) || exists(S2_ARCHIVE_HANDOFF) || exists(CURRENT_HANDOFF)) {
+    fail('S2 archiving and the S3 handoff require an accepted S2.G');
+  }
   for (const [key, id, file, source] of archives) {
     const archive = metadata.handoffs?.[key];
     const ref = refs.get(id);
     if (archive?.file !== file || archive?.source !== source) fail(`${id}: handoff archive metadata`);
-    if (file !== ref.file || archive.sha256 !== ref.sha256) fail(`${id}: handoff archive does not match frozen reference`);
+    if (!ref) fail(`missing reference ${id}`);
+    if (ref.gitRef || file !== ref.file || archive.sha256 !== ref.sha256) {
+      fail(`${id}: handoff archive does not match frozen reference`);
+    }
     if (exists(source)) fail(`legacy handoff still exists: ${source}`);
     if (!exists(file)) fail(`handoff archive missing: ${file}`);
     const { length } = Buffer.from(readRequired(readFile, file, 'handoff archive'));
     if (length !== archive.bytes) fail(`${id}: handoff archive bytes: ${length} !== ${archive.bytes}`);
   }
   const current = metadata.handoffs?.current;
-  if (current?.file !== CURRENT_HANDOFF) fail('current handoff metadata');
+  if (current?.file !== (s2Archived ? CURRENT_HANDOFF : OLD_S2_HANDOFF)) fail('current handoff metadata');
   if (!exists(current.file)) fail(`current handoff missing: ${current.file}`);
   const currentBytes = Buffer.from(readRequired(readFile, current.file, 'current handoff'));
   if (currentBytes.length === 0) fail('current handoff is empty');
@@ -781,10 +802,11 @@ export function verifyPlan(input) {
   verifyFrozenQueueIdentity(queue, functional.oldPlan, functional.revision);
   verifyCurrentCounts(metadata, functional.currentPlan);
   verifyReceipt(metadata, finalLock, review, refs);
-  verifyHandoffs(metadata, refs, readFile, exists);
   verifyProgress(metadata, progress, functional.currentPlan);
+  verifyHandoffs(metadata, progress, refs, readFile, exists);
   return {
     activePlan: metadata.activePlan.file,
+    currentHandoff: metadata.handoffs.current.file,
     documentSha256: sha256(Buffer.from(asText(documentText))),
     functionalPlanSha256: sha256(Buffer.from(asText(functionalPlanText))),
     activeUnits: parsed.units.length,

@@ -1,7 +1,11 @@
 package com.deepstudent.services.sync.backend.transfer
 
+import com.deepstudent.core.common.id.CorrelationId
 import com.deepstudent.core.common.json.JsonValue
+import com.deepstudent.core.common.logging.LogLevel
+import com.deepstudent.core.common.logging.LogRecord
 import com.deepstudent.services.sync.api.DomainSyncAdapter
+import com.deepstudent.services.sync.api.SyncChangeReceipt
 import com.deepstudent.services.sync.api.SyncError
 import com.deepstudent.services.sync.backend.ObjectProvider
 import com.deepstudent.services.sync.backend.PlainSyncPayload
@@ -10,10 +14,10 @@ import com.deepstudent.services.sync.backend.SyncBatchCodec
 import com.deepstudent.services.sync.backend.SyncFailure
 import com.deepstudent.services.sync.backend.SyncPayloadCodec
 import com.deepstudent.services.sync.backend.SyncWireCodec
-import java.time.Instant
-import java.util.UUID
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
+import java.time.Instant
+import java.util.UUID
 
 class ChangeTransfer(
     private val provider: ObjectProvider,
@@ -22,54 +26,119 @@ class ChangeTransfer(
     private val adapter: DomainSyncAdapter,
     private val deviceId: String,
     private val codec: SyncPayloadCodec = PlainSyncPayload,
+    private val publication: PublicationOptions = PublicationOptions(),
 ) {
-    suspend fun upload(minReader: Int) {
+    suspend fun upload(minReader: Int, correlationId: String = UUID.randomUUID().toString()) {
+        val started = System.nanoTime()
         if (minReader !in 3..4) throw SyncFailure(SyncError.INCOMPATIBLE_FORMAT)
         val journal = state as? PublicationJournal
         val reserved = journal?.pending()
         val pending = reserved ?: prepare(minReader) ?: return
-        // A reserved batch already contains its exact wire bytes. Never re-encrypt on retry.
-        if (reserved != null) {
-            val decoded = codec.decode(pending.payload)
-            if (decoded !== pending.payload) decoded.fill(0)
-        }
+        validateReservation(pending, journal)
+        if (reserved != null) authenticateReserved(pending)
         journal?.reserve(pending)
+        report(if (reserved == null) "RESERVE" else "REPLAY", pending, correlationId, started)
+        publishVerified(pending)
+        report("READBACK", pending, correlationId, started)
         currentCoroutineContext().ensureActive()
-        val existing = provider.get(pending.key)
-        if (existing == null) provider.put(pending.key, pending.payload, ifAbsent = true)
-        if (provider.get(pending.key)?.contentEquals(pending.payload) != true) {
-            throw SyncFailure(SyncError.INVALID_REPOSITORY)
-        }
-        currentCoroutineContext().ensureActive()
-        adapter.markPublished(pending.changeLogIds, pending.version)
+        adapter.markPublishedReceipts(pending.receipts, pending.version)
         if (journal == null) state.markPublished(pending.sequence) else journal.complete(pending)
+        report("ACKNOWLEDGE", pending, correlationId, started)
+    }
+
+    private fun validateReservation(pending: PendingPublication, journal: PublicationJournal?) {
+        if (publication.seed != null && state.published() == 0L && !pending.seed) invalid()
+        if (pending.seed && (pending.sequence != 1L || journal == null)) invalid()
+    }
+
+    private fun authenticateReserved(pending: PendingPublication) {
+        // A reserved batch already contains its exact wire bytes. Never re-encrypt on retry.
+        val decoded = codec.decode(pending.payload)
+        if (decoded !== pending.payload) decoded.fill(0)
+    }
+
+    private suspend fun publishVerified(pending: PendingPublication) {
+        currentCoroutineContext().ensureActive()
+        if (provider.get(pending.key) == null) {
+            try {
+                provider.put(pending.key, pending.payload, ifAbsent = true)
+            } catch (
+                failure: SyncFailure,
+            ) {
+                if (failure.error != SyncError.ALREADY_EXISTS) throw failure
+            }
+        }
+        if (provider.get(pending.key)?.contentEquals(pending.payload) != true) invalid()
+    }
+
+    private fun report(stage: String, pending: PendingPublication, correlationId: String, started: Long) {
+        runCatching {
+            val fields = JsonValue.Object.Builder().put("owner", "sync").put("stage", stage)
+                .put("status", "ok").put("elapsedMs", (System.nanoTime() - started) / 1_000_000)
+                .put("sequence", pending.sequence).put("count", pending.receipts.size)
+                .put("category", if (pending.seed) "seed" else "incremental").build()
+            publication.logger.log(
+                LogRecord(LogLevel.INFO, "sync.publication", correlationId = CorrelationId.parse(correlationId), fields = fields),
+            )
+        }
     }
 
     private suspend fun prepare(minReader: Int): PendingPublication? {
-        val changes = adapter.pending()
-        if (changes.isEmpty()) return null
-        val local = allKeys().filter { it.matchesDevice(deviceId) }
-        val sequence = Math.addExact(maxOf(state.published(), local.maxOfOrNull { it.sequence } ?: 0), 1)
+        val inventory = if (state.published() == 0L) publication.seed?.snapshot() else null
+        val changes = inventory?.changes ?: adapter.pending()
+        if (changes.isEmpty() && inventory == null) return null
+        val sequence = nextSequence(inventory != null)
         val version = Instant.now().epochSecond
         val operation = UUID.randomUUID().toString()
         val v4 = minReader >= 4
         val key = SyncWireCodec.changeKey(deviceId, sequence.toULong(), version.toULong(), operation, v4)
-        val objects = changes.map { JsonValue.parseObject(SyncWireCodec.encodeChange(it).decodeToString()) }
-        val payload = SyncBatchCodec.encode(SyncBatch(objects, deviceId, if (v4) 4u else 3u, sequence.toULong(),
-            deviceId, if (v4) operation else null))
-        val ids = objects.mapNotNull { (it["change_log_id"] as? JsonValue.Number)?.asLongOrNull() }
-        return PendingPublication(key, sequence, version, codec.encode(compression.encode(payload)), ids)
+        val objects = normalizedChanges(changes)
+        val payload = SyncBatchCodec.encode(
+            SyncBatch(
+                objects,
+                deviceId,
+                if (v4) 4u else 3u,
+                sequence.toULong(),
+                deviceId,
+                if (v4) operation else null,
+            ),
+        )
+        com.deepstudent.services.sync.backend.SyncObjectLimits.requirePayload(payload)
+        val receipts = inventory?.receipts ?: objects.mapNotNull(::receipt)
+        if (receipts.distinct().size != receipts.size) invalid()
+        return PendingPublication(key, sequence, version, codec.encode(compression.encode(payload)), receipts, inventory != null)
     }
 
-    suspend fun resumePending() {
-        if ((state as? PublicationJournal)?.pending() != null) upload(3)
+    private suspend fun nextSequence(seeding: Boolean): Long {
+        val local = allKeys().filter { it.matchesDevice(deviceId) }
+        if (seeding && local.isNotEmpty()) invalid()
+        return Math.addExact(maxOf(state.published(), local.maxOfOrNull { it.sequence } ?: 0), 1)
     }
 
-    suspend fun download() {
+    private suspend fun normalizedChanges(changes: List<ByteArray>): List<JsonValue.Object> = changes.map {
+        currentCoroutineContext().ensureActive()
+        JsonValue.parseObject(SyncWireCodec.encodeChange(it).decodeToString())
+    }
+
+    private fun receipt(change: JsonValue.Object): SyncChangeReceipt? {
+        val id = (change["change_log_id"] as? JsonValue.Number)?.asLongOrNull() ?: return null
+        val database = (change["database_name"] as? JsonValue.Text)?.value ?: SyncChangeReceipt.VFS
+        return try {
+            SyncChangeReceipt(database, id)
+        } catch (_: IllegalArgumentException) {
+            invalid()
+        }
+    }
+
+    suspend fun resumePending(correlationId: String = UUID.randomUUID().toString()) {
+        if ((state as? PublicationJournal)?.pending() != null) upload(3, correlationId)
+    }
+
+    suspend fun download(correlationId: String = UUID.randomUUID().toString()) {
         val manifests = DeviceManifests(provider, codec).read()
         val keys = allKeys().filterNot { it.matchesDevice(deviceId) }
         val groups = keys.groupBy { key -> canonicalPath(key.pathDevice, manifests.keys) }
-        for ((device, files) in groups) downloadDevice(device, files)
+        for ((device, files) in groups) downloadDevice(device, files, correlationId)
         verifyPublishedWatermarks(manifests)
     }
 
@@ -86,7 +155,7 @@ class ChangeTransfer(
         }
     }
 
-    private suspend fun downloadDevice(device: String, files: List<TransferChangeKey>) {
+    private suspend fun downloadDevice(device: String, files: List<TransferChangeKey>, correlationId: String) {
         val ordered = files.sortedBy { it.sequence }
         if (ordered.map { it.sequence }.distinct().size != ordered.size) invalid()
         for (file in ordered) {
@@ -97,19 +166,22 @@ class ChangeTransfer(
             val bytes = provider.get(file.key) ?: invalid()
             val batch = SyncBatchCodec.decode(decodePayload(codec.decode(bytes)))
             validateBatch(file, batch)
-            val changes = batch.changes.map { change -> JsonValue.Object.Builder().putAll(change)
-                .put("source_device_id", batch.sourceDeviceId)
-                .put("source_seq", JsonValue.Number.raw(batch.sourceSeq.toString())).build().literal().toByteArray() }
+            val changes = batch.changes.map { change ->
+                JsonValue.Object.Builder().putAll(change)
+                    .put("source_device_id", batch.sourceDeviceId)
+                    .put("source_seq", JsonValue.Number.raw(batch.sourceSeq.toString())).build().literal().toByteArray()
+            }
             currentCoroutineContext().ensureActive()
-            adapter.apply(device, file.sequence, changes)
+            adapter.applyWithCorrelation(device, file.sequence, changes, correlationId)
         }
     }
 
-    private fun decodePayload(bytes: ByteArray): ByteArray {
-        return if (bytes.take(4).toByteArray().contentEquals(byteArrayOf(0x28, 0xb5.toByte(), 0x2f, 0xfd.toByte()))) {
+    private fun decodePayload(bytes: ByteArray): ByteArray =
+        if (bytes.take(4).toByteArray().contentEquals(byteArrayOf(0x28, 0xb5.toByte(), 0x2f, 0xfd.toByte()))) {
             compression.decode(bytes)
-        } else bytes
-    }
+        } else {
+            bytes
+        }
 
     private fun validateBatch(file: TransferChangeKey, batch: SyncBatch) {
         if (batch.sourceSeq != file.sequence.toULong() || batch.sourceDeviceId != batch.deviceId) invalid()

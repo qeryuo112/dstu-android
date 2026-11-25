@@ -20,14 +20,25 @@ const app = candidate ? resolve(candidate, 'app-debug.apk') : resolve(project, '
 const test = candidate ? resolve(candidate, 'app-debug-androidTest.apk') : resolve(project, 'app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk');
 const args = process.argv.slice(2);
 const flags = new Set(args);
-assert.ok(flags.size === args.length && args.every(flag => ['--encrypted', '--reuse-verified-app'].includes(flag)),
+assert.ok(flags.size === args.length && args.every(flag => ['--encrypted', '--reuse-verified-app', '--isolated'].includes(flag)),
   'unexpected roundtrip argument');
 const encrypted = flags.has('--encrypted');
 const reuseVerifiedApp = flags.has('--reuse-verified-app');
+const isolated = flags.has('--isolated');
+assert.ok(!isolated || (candidate && !reuseVerifiedApp && process.env.ANDROID_SERIAL && process.env.DSTU_S2_DEVICE_MODEL),
+  'isolated replay requires a sealed APK directory, an explicit device serial and model, and no reuse');
+const appId = isolated ? 'com.deepstudent.app.s2device' : 'com.deepstudent.app';
+const testId = `${appId}.test`;
 assert.ok(existsSync(app) && existsSync(test), 'build app and androidTest APKs first');
-const connected = execFileSync(adb, ['devices'], { encoding: 'utf8' }).split('\n').filter(line => /\tdevice$/u.test(line));
+const listedDevices = execFileSync(adb, ['devices', ...(isolated ? ['-l'] : [])], { encoding: 'utf8' });
+const connected = listedDevices.trim().split(/\r?\n/u).slice(1).filter(line => isolated ? line.trim() : /\tdevice$/u.test(line));
 assert.equal(connected.length, 1, 'exactly one device is required');
-const serial = connected[0].split('\t')[0];
+const [serial, transport, usb] = connected[0].trim().split(/\s+/u);
+if (isolated) {
+  assert.equal(serial, process.env.ANDROID_SERIAL, 'selected test device changed');
+  assert.equal(transport, 'device');
+  assert.match(usb ?? '', /^usb:/u, 'isolated replay requires a physically connected USB device');
+}
 const quietAdb = (args, encoding = 'utf8') => {
   try { return execFileSync(adb, ['-s', serial, ...args], { encoding, timeout: 30_000,
     maxBuffer: 256 * 1024 * 1024, stdio: ['ignore', 'pipe', 'pipe'] }); }
@@ -36,11 +47,17 @@ const quietAdb = (args, encoding = 'utf8') => {
 };
 const user = quietAdb(['shell', 'am', 'get-current-user']).trim();
 assert.match(user, /^\d+$/u, 'could not determine current Android user');
+if (isolated) {
+  const prop = name => quietAdb(['shell', 'getprop', name]).trim();
+  assert.equal(prop('ro.product.model'), process.env.DSTU_S2_DEVICE_MODEL);
+  assert.equal(prop('ro.product.cpu.abi'), 'arm64-v8a');
+  assert.ok(![prop('ro.kernel.qemu'), prop('ro.boot.qemu')].includes('1') && user === '0', 'physical owner-user device required');
+}
 const digest = bytes => createHash('sha256').update(bytes).digest('hex');
-const packageApks = [['com.deepstudent.app', app], ['com.deepstudent.app.test', test]].map(([pkg, apk]) => {
+const packageApks = [[appId, app], [testId, test]].map(([pkg, apk]) => {
   const badging = execFileSync(resolve(sdk, 'build-tools/36.0.0/aapt'), ['dump', 'badging', apk], { encoding: 'utf8' });
   assert.ok(badging.match(/^package: name='([^']+)'/mu)?.[1] === pkg, 'unexpected fixture APK identity');
-  const reuse = reuseVerifiedApp && pkg === 'com.deepstudent.app' &&
+  const reuse = reuseVerifiedApp && pkg === appId &&
     quietAdb(['shell', 'pm', 'path', '--user', user, pkg]).trim() !== '';
   if (!reuse) assert.ok(quietAdb(['shell', 'dumpsys', 'package', pkg]).trim() === `Unable to find package: ${pkg}`,
     'fixture packages must be absent for all Android users; refusing to replace or clear existing data');
@@ -48,6 +65,14 @@ const packageApks = [['com.deepstudent.app', app], ['com.deepstudent.app.test', 
   if (reuse) verifyInstalled(entry); // Never reinstall, clear data or uninstall the existing App in this mode.
   return entry;
 });
+if (isolated) {
+  const names = ['app-debug.apk', 'app-debug-androidTest.apk'];
+  const expected = packageApks.map((entry, index) => `${entry.sha256}  ${names[index]}\n`).join('');
+  assert.equal(readFileSync(resolve(candidate, 'SHA256SUMS'), 'utf8'), expected, 'sealed APK digest mismatch');
+}
+const normalPackage = () => quietAdb(['shell', 'dumpsys', 'package', 'com.deepstudent.app']).trim() ===
+  'Unable to find package: com.deepstudent.app' ? null : quietAdb(['shell', 'pm', 'path', '--user', user, 'com.deepstudent.app']).trim();
+const normalBefore = isolated ? normalPackage() : null;
 function verifyInstalled({ pkg, sha256 }) {
   const path = quietAdb(['shell', 'pm', 'path', '--user', user, pkg]).trim();
   assert.ok(/^package:\/data\/app\/[a-zA-Z0-9_+=.,~\/-]+\.apk$/u.test(path), 'expected exactly one installed APK');
@@ -64,6 +89,7 @@ const stage = encrypted ? 's1-26' : 's1-25';
 const installed = [];
 let ready = false;
 let desktop, tunnel, deviceEndpoint, seeded, secondNote, desktopSequence = 0n, androidDevice;
+let appUid;
 let activeStep = 'setup', failed = null, androidFrame;
 
 const run = async (args, label) => {
@@ -92,12 +118,13 @@ const phase = async name => {
   const output = await run(['shell', 'am', 'instrument', '--user', user, '-w', '-r', '-e', 'class', 'com.deepstudent.app.sync.PlainNotesRoundtripDeviceTest',
     '-e', 'testId', id, '-e', 'phase', name, '-e', 'endpoint', deviceEndpoint, '-e', 'noteId', seeded?.noteId ?? 'cleanup',
     '-e', 'repository', stage, '-e', 'secondNote', secondNote ?? 'unused', '-e', 'desktopSeq', desktopSequence.toString(),
-    '-e', 'blobHash', seeded?.hash ?? 'cleanup', 'com.deepstudent.app.test/androidx.test.runner.AndroidJUnitRunner'], `instrumentation ${name}`);
-  assert.doesNotMatch(output, /FAILURES!!!|INSTRUMENTATION_FAILED|Process crashed|shortMsg=/u);
+    '-e', 'blobHash', seeded?.hash ?? 'cleanup', `${testId}/androidx.test.runner.AndroidJUnitRunner`], `instrumentation ${name}`);
+  assert.doesNotMatch(output, /FAILURES!!!|INSTRUMENTATION_FAILED|Process crashed|shortMsg=|^INSTRUMENTATION_STATUS_CODE: -\d+\r?$/mu);
+  assert.equal((output.match(/^INSTRUMENTATION_STATUS_CODE: 0\r?$/gmu) ?? []).length, 1);
   assert.match(output, /OK \(1 test\)/u);
   assert.match(output, /INSTRUMENTATION_CODE: -1/u);
   // Filter only this app's sync tags, never clear the shared device log and never print it.
-  await run(['logcat', '-d', '-v', 'brief', '-s', 'DstuOperation:I', 'DstuSyncTest:I', '*:S'], 'sync log scan');
+  await run(['logcat', '-d', ...(appUid ? [`--uid=${appUid}`] : []), '-v', 'brief', '-s', 'DstuOperation:I', 'DstuSyncTest:I', '*:S'], 'sync log scan');
   console.log(JSON.stringify({ event: 's1.sync.fixture.phase', phase: name, result: 'verified' }));
 };
 
@@ -200,6 +227,12 @@ try {
     }
     verifyInstalled(entry);
   }
+  if (isolated) {
+    const packages = quietAdb(['shell', 'pm', 'list', 'packages', '-U', '--user', user, appId]);
+    const line = packages.split(/\r?\n/u).find(row => row.startsWith(`package:${appId} uid:`));
+    appUid = line?.split('uid:').at(-1);
+    assert.match(appUid ?? '', /^\d+$/u, 'isolated App UID not found');
+  }
   ready = true;
   console.log(JSON.stringify({ event: 's1.sync.fixture.installed-apks', appSha256: packageApks[0].sha256,
     testSha256: packageApks[1].sha256, noReplacement: true, reusedApp: packageApks[0].reuse }));
@@ -254,6 +287,12 @@ try {
       failed ??= { step: 'apk-cleanup', type: 'Error' };
     }
   }
+  try {
+    if (isolated) {
+      assert.equal(normalPackage(), normalBefore, 'normal App package state changed');
+      console.log(JSON.stringify({ event: 's1.sync.fixture.normal-app-unchanged' }));
+    }
+  } catch { failed ??= { step: 'normal-app-check', type: 'Error' }; }
   try { if (tunnel) await run(['reverse', '--remove', tunnel], 'adb reverse cleanup'); }
   catch { failed ??= { step: 'reverse-cleanup', type: 'Error' }; }
   try { desktop?.close(); } catch { failed ??= { step: 'desktop-cleanup', type: 'Error' }; }

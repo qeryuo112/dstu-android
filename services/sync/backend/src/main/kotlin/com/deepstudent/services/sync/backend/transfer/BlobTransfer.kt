@@ -1,17 +1,23 @@
 package com.deepstudent.services.sync.backend.transfer
 
+import com.deepstudent.core.common.id.Digests
 import com.deepstudent.services.sync.api.SyncError
 import com.deepstudent.services.sync.backend.ObjectProvider
 import com.deepstudent.services.sync.backend.PlainSyncPayload
 import com.deepstudent.services.sync.backend.SyncFailure
 import com.deepstudent.services.sync.backend.SyncPayloadCodec
-import com.deepstudent.core.common.id.Digests
-import java.time.Instant
-import java.util.UUID
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
+import java.time.Instant
+import java.util.UUID
 
-class BlobTransfer(private val provider: ObjectProvider, private val blobs: SyncBlobs, private val codec: SyncPayloadCodec = PlainSyncPayload) {
+class BlobTransfer(
+    private val provider: ObjectProvider,
+    private val blobs: SyncBlobs,
+    private val codec: SyncPayloadCodec = PlainSyncPayload,
+    stageDirectory: java.io.File? = null,
+) {
+    private val streaming = stageDirectory?.let { StreamingBlobObjects(provider, blobs, codec, it) }
     suspend fun synchronize() {
         val tombstones = BlobTombstones(provider, codec).read()
         val remote = readManifests()
@@ -35,28 +41,45 @@ class BlobTransfer(private val provider: ObjectProvider, private val blobs: Sync
 
     private suspend fun download(remote: Map<String, BlobManifestEntry>, local: Map<String, SyncBlob>, deleted: Map<String, String>) {
         for ((hash, entry) in remote) {
-            val (blob, cipher) = entry
+            val blob = entry.blob
             if (suppressed(blob, deleted)) continue
             val existing = local[hash]
-            if (existing != null && readLocal(existing) != null) continue
-            val wire = provider.blobGet(blobKey(blob)) ?: blobFailure(SyncError.NOT_FOUND)
-            cipher?.verify(wire)
-            val bytes = codec.decode(wire, blob = true)
-            verifyBlob(blob, bytes)
-            currentCoroutineContext().ensureActive()
-            blobs.install(blob, bytes)
-            currentCoroutineContext().ensureActive()
+            if (existing != null && localAvailable(existing)) continue
+            if (streaming != null) {
+                streaming.download(blobKey(blob), entry)
+                continue
+            }
+            downloadBuffered(entry)
         }
     }
 
-    private suspend fun upload(remote: Map<String, BlobManifestEntry>, local: Map<String, SyncBlob>, deleted: Map<String, String>): Map<String, BlobManifestEntry> {
+    private suspend fun downloadBuffered(entry: BlobManifestEntry) {
+        val (blob, cipher) = entry
+        val wire = provider.blobGet(blobKey(blob)) ?: blobFailure(SyncError.NOT_FOUND)
+        cipher?.verify(wire)
+        val bytes = codec.decode(wire, blob = true)
+        verifyBlob(blob, bytes)
+        currentCoroutineContext().ensureActive()
+        blobs.install(blob, bytes)
+        currentCoroutineContext().ensureActive()
+    }
+
+    private suspend fun upload(
+        remote: Map<String, BlobManifestEntry>,
+        local: Map<String, SyncBlob>,
+        deleted: Map<String, String>,
+    ): Map<String, BlobManifestEntry> {
         val uploaded = mutableMapOf<String, BlobManifestEntry>()
         for ((hash, blob) in local) {
             if (suppressed(blob, deleted)) continue
             val existing = remote[hash]?.blob
             if (existing != null && !suppressed(existing, deleted)) continue
-            val bytes = readLocal(blob) ?: blobFailure(SyncError.NOT_FOUND)
-            val cipher = publishBlob(blob, bytes)
+            val cipher = if (streaming != null) {
+                streaming.upload(blobKey(blob), blob)
+            } else {
+                val bytes = readLocal(blob) ?: blobFailure(SyncError.NOT_FOUND)
+                publishBlob(blob, bytes)
+            }
             uploaded[hash] = BlobManifestEntry(blob, cipher)
         }
         return uploaded
@@ -78,18 +101,32 @@ class BlobTransfer(private val provider: ObjectProvider, private val blobs: Sync
         // An earlier attempt (or another device) may have placed these immutable bytes.
         // Re-encryption would change the hash and invalidate already published manifests.
         val plaintext = codec.decode(observed, blob = true)
-        try { verifyBlob(blob, plaintext) } finally { plaintext.fill(0) }
+        try {
+            verifyBlob(blob, plaintext)
+        } finally {
+            plaintext.fill(0)
+        }
         return CipherBlob(Digests.sha256Hex(observed), observed.size.toLong())
     }
 
     private suspend fun writeEncryptedBlob(blob: SyncBlob, key: String, bytes: ByteArray): CipherBlob {
         val wire = codec.encode(bytes, blob = true)
-        try { provider.blobPut(key, wire, ifAbsent = true) }
-        catch (failure: SyncFailure) { if (failure.error != SyncError.ALREADY_EXISTS) throw failure }
+        try {
+            provider.blobPut(key, wire, ifAbsent = true)
+        } catch (
+            failure: SyncFailure,
+        ) {
+            if (failure.error != SyncError.ALREADY_EXISTS) throw failure
+        }
         val observed = provider.blobGet(key) ?: blobFailure(SyncError.NETWORK)
-        return if (observed.contentEquals(wire)) CipherBlob(Digests.sha256Hex(wire), wire.size.toLong())
-        else verifyEncryptedBlob(blob, observed)
+        return if (observed.contentEquals(wire)) {
+            CipherBlob(Digests.sha256Hex(wire), wire.size.toLong())
+        } else {
+            verifyEncryptedBlob(blob, observed)
+        }
     }
+
+    private suspend fun localAvailable(blob: SyncBlob): Boolean = streaming?.localAvailable(blob) ?: (readLocal(blob) != null)
 
     private suspend fun readLocal(blob: SyncBlob): ByteArray? {
         currentCoroutineContext().ensureActive()

@@ -9,6 +9,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Dstu">
         <provider
+            android:name=".diagnostics.S231FileProvider"
+            android:authorities="${applicationId}.diagnostic-share"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/s231_diagnostic_share_paths" />
+        </provider>
+        <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
             android:exported="false"

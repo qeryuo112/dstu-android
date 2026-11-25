@@ -34,7 +34,7 @@ internal class MainStorageResources private constructor(
     private val notePorts: MainNotePorts,
     private val assetPorts: MainAssetPorts,
     val network: NetworkTransport,
-    private val incomingDecksDatabase: Lazy<SqlDatabase>,
+    private val syncDatabases: MainSyncDatabases,
     private val slot: StorageSlot,
 ) : MainProcessResources {
     override val description: String = "main-storage"
@@ -49,7 +49,8 @@ internal class MainStorageResources private constructor(
     val activeRoot: File get() = slot.root
 
     internal fun databaseForSync(): SqlDatabase = database
-    internal fun incomingDecksDatabaseForSync(): SqlDatabase = incomingDecksDatabase.value
+    internal fun incomingDecksDatabaseForSync(): SqlDatabase = syncDatabases.get(SharedDatabase.MISTAKES)
+    internal fun allDatabasesForSync(): Map<SharedDatabase, SqlDatabase> = syncDatabases.all()
 
     override fun close() {
         // Release the chat lease before its borrowed VFS lease, and close all ports before unpinning the slot.
@@ -57,8 +58,7 @@ internal class MainStorageResources private constructor(
     }
 
     private fun closeActiveResources() = database.use {
-        val decks = if (incomingDecksDatabase.isInitialized()) incomingDecksDatabase.value else null
-        decks.use { network.use { assetPorts.close() } }
+        syncDatabases.use { network.use { assetPorts.close() } }
     }
 
     companion object {
@@ -127,10 +127,10 @@ internal class MainStorageResources private constructor(
                                 "state=${event.phase} elapsedMs=${event.elapsedMillis}",
                         )
                     },
-                    lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
+                    MainSyncDatabases(database) { owner ->
                         DatabaseRegistry.openShared(
-                            File(databases, "mistakes.db"),
-                            SharedDatabase.MISTAKES,
+                            File(databases, "${owner.id}.db"),
+                            owner,
                             BundledMigrationSource(context),
                             log = AndroidDatabaseLog,
                             migrationLog = AndroidMigrationLog,

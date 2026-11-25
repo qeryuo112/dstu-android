@@ -5,7 +5,6 @@ import com.deepstudent.services.sync.api.PairingRequest
 import com.deepstudent.services.sync.api.SyncConfiguration
 import com.deepstudent.services.sync.api.SyncError
 import com.deepstudent.services.sync.api.SyncResult
-import java.security.MessageDigest
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
@@ -14,6 +13,7 @@ import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertThrows
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import java.security.MessageDigest
 
 /** Tests the authorization boundary; real Argon2/DSBK interoperability is tested in sync/data. */
 class EncryptedPairingSafetyTest {
@@ -77,6 +77,7 @@ class EncryptedPairingSafetyTest {
 
         memory.objects[markerKey] = originalObjects.getValue(markerKey).copyOf()
         val valid = request("correct")
+        assertTrue(created.value.requiresInitialSeed)
         assertEquals(created.value, (service.pair(PairingMode.JOIN, valid) as SyncResult.Success).value)
         assertCleared(valid)
     }
@@ -163,7 +164,11 @@ class EncryptedPairingSafetyTest {
     }
 
     private fun request(encryption: String) = PairingRequest(
-        "https://fixture.invalid/dav", "fixture", "repository", "webdav".toCharArray(), encryption.toCharArray(),
+        "https://fixture.invalid/dav",
+        "fixture",
+        "repository",
+        "webdav".toCharArray(),
+        encryption.toCharArray(),
     )
 
     private fun assertCleared(request: PairingRequest) {
@@ -180,7 +185,11 @@ class EncryptedPairingSafetyTest {
             .digest(String(password).toByteArray()).joinToString("") { "%02x".format(it.toInt() and 255) }
     }
 
-    private class Memory : ObjectProvider, ConfigurationStore, DeviceIdentity, ProviderFactory {
+    private class Memory :
+        ObjectProvider,
+        ConfigurationStore,
+        DeviceIdentity,
+        ProviderFactory {
         val objects = linkedMapOf<String, ByteArray>()
         var config: SyncConfiguration? = null
         var encryptionPassword: String? = null
@@ -207,7 +216,9 @@ class EncryptedPairingSafetyTest {
             objects[key] = value.copyOf()
         }
         override suspend fun list(prefix: String) = objects.keys.filter { it.startsWith(prefix) }
-        override suspend fun delete(key: String) { objects.remove(key) }
+        override suspend fun delete(key: String) {
+            objects.remove(key)
+        }
         override fun read() = config
         override fun save(configuration: SyncConfiguration, password: CharArray, encryptionPassword: CharArray?) {
             saves++
@@ -219,7 +230,10 @@ class EncryptedPairingSafetyTest {
             replacements++
             encryptionPassword = password.concatToString()
         }
-        override fun clear() { config = null; encryptionPassword = null }
+        override fun clear() {
+            config = null
+            encryptionPassword = null
+        }
         override fun getOrCreate() = "fixture-device"
         override fun open(endpoint: String, username: String, root: String, password: CharArray) = this
     }

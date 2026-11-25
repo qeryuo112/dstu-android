@@ -1,5 +1,7 @@
 package com.deepstudent.app.backup
 
+import com.deepstudent.app.storage.MainSyncDatabases
+import com.deepstudent.app.sync.MainSyncDatabaseSources
 import com.deepstudent.app.sync.MainSyncFactory
 import com.deepstudent.core.common.id.Digests
 import com.deepstudent.core.common.id.ResourceId
@@ -40,6 +42,7 @@ internal class RestoreSyncScenario(
     private val scratch: File,
     private val fixtureData: File,
     private val logger: Logger = NoopLogger,
+    private val applyAttachments: RestoreApplyAttachments? = null,
     private val parameters: (String) -> String,
 ) {
     private val endpoint = parameters("ENDPOINT")
@@ -88,7 +91,7 @@ internal class RestoreSyncScenario(
         val operationScope = CoroutineScope(Job())
         try {
             fixture.open(root, SharedDatabase.VFS).use { db ->
-                fixture.open(root, SharedDatabase.MISTAKES).use { decks ->
+                MainSyncDatabases(db) { fixture.open(root, it) }.use { sources ->
                     val captureLog = com.deepstudent.services.sync.data.capture.CaptureLog { report ->
                         report.issues.forEach { println("capture ${it.database.id} ${it.table} ${it.diagnostic}") }
                     }
@@ -100,21 +103,39 @@ internal class RestoreSyncScenario(
                         providers,
                         operationScope,
                         scratch.resolve("locks").apply { mkdir() },
-                    ) { decks }
+                        MainSyncDatabaseSources({ sources.get(SharedDatabase.MISTAKES) }, sources::all),
+                    )
                     val notes = notes(db)
                     assertEquals("Public desktop note: 中文 😀\n", notes.get(original)?.content)
                     assertNull(notes.get(incoming))
                     assertEquals("first sync", SyncResult.Success(Unit), transfer.synchronize())
                     assertTrue(publishedChanges(store).isEmpty())
-                    assertEquals("Desktop second batch", notes.get(incoming)?.content)
+                    if (applyAttachments == null) {
+                        assertEquals("Desktop second batch", notes.get(incoming)?.content)
+                    } else {
+                        applyAttachments.verifyIncoming(db, root, notes, incoming)
+                    }
                     val saved = checkNotNull(notes.get(original))
                     notes.edit(EditNote(saved.id, saved.updatedAt, saved.title, "Edited after normal restore", saved.tags))
                     notes.create(CreateNote("New on restored installation", "Created after normal restore"))
+                    val outbound = applyAttachments?.createOutgoing(db, root, notes, original)
                     assertEquals("publish edits", SyncResult.Success(Unit), transfer.synchronize())
                     assertEquals(1, publishedChanges(store).size)
+                    if (outbound != null) {
+                        checkNotNull(applyAttachments).awaitDesktopReadback()
+                        outbound.rename()
+                        assertEquals("publish asset rename", SyncResult.Success(Unit), transfer.synchronize())
+                        assertEquals(2, publishedChanges(store).size)
+                        outbound.delete()
+                    }
                     notes.delete(incoming)
                     assertEquals("publish deletion", SyncResult.Success(Unit), transfer.synchronize())
-                    assertEquals(2, publishedChanges(store).size)
+                    val count = if (outbound == null) 2 else 3
+                    assertEquals(count, publishedChanges(store).size)
+                    if (outbound != null) {
+                        assertEquals("repeat after deletion", SyncResult.Success(Unit), transfer.synchronize())
+                        assertEquals(count, publishedChanges(store).size)
+                    }
                 }
             }
         } finally {

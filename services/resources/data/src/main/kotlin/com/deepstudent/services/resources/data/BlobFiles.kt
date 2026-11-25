@@ -30,18 +30,25 @@ internal class BlobFiles(
 
     /** All blob publishers, including sync, share this process and filesystem lock. */
     fun <T> locked(block: () -> T): T = synchronized(publicationLock) {
-        fileOperation(FileStage.ROOT) { ensureRoot() }
+        fileOperation(FileStage.ROOT) { ensureRoot(root) }
         fileOperation(FileStage.PUBLISH) {
-            FileChannel.open(root.resolve(".publication.lock"), StandardOpenOption.CREATE,
-                StandardOpenOption.WRITE, NOFOLLOW_LINKS).use { channel ->
+            FileChannel.open(
+                root.resolve(".publication.lock"),
+                StandardOpenOption.CREATE,
+                StandardOpenOption.WRITE,
+                NOFOLLOW_LINKS,
+            ).use { channel ->
                 channel.lock().use { block() }
             }
         }
     }
 
     fun prepare(
-        input: InputStream, expectedSize: Long?, maxSize: Long,
-        check: () -> Unit = {}, progress: (Long) -> Unit = {},
+        input: InputStream,
+        expectedSize: Long?,
+        maxSize: Long,
+        check: () -> Unit = {},
+        progress: (Long) -> Unit = {},
     ): PreparedBlob {
         if (expectedSize != null && (expectedSize < 0 || expectedSize > maxSize)) invalidSize()
         val prepared = createTemporary()
@@ -50,7 +57,11 @@ internal class BlobFiles(
             fillPrepared(prepared, input, expectedSize, maxSize, check, progress)
             return prepared
         } catch (failure: Throwable) {
-            try { prepared.close() } catch (cleanup: Throwable) { failure.addSuppressed(cleanup) }
+            try {
+                prepared.close()
+            } catch (cleanup: Throwable) {
+                failure.addSuppressed(cleanup)
+            }
             throw failure
         }
     }
@@ -58,23 +69,41 @@ internal class BlobFiles(
     private fun createTemporary(): PreparedBlob = locked {
         val path = root.resolve(".prepare-${UUID.randomUUID()}.tmp")
         fileOperation(FileStage.TEMP_WRITE) {
-            val channel = FileChannel.open(path, StandardOpenOption.CREATE_NEW, StandardOpenOption.WRITE,
-                StandardOpenOption.READ, NOFOLLOW_LINKS)
-            try { PreparedBlob(path, channel, channel.lock(), faults).also { livePrepared.add(path) } }
-            catch (failure: Throwable) { channel.close(); Files.deleteIfExists(path); throw failure }
+            val channel = FileChannel.open(
+                path,
+                StandardOpenOption.CREATE_NEW,
+                StandardOpenOption.WRITE,
+                StandardOpenOption.READ,
+                NOFOLLOW_LINKS,
+            )
+            try {
+                PreparedBlob(path, channel, channel.lock(), faults).also { livePrepared.add(path) }
+            } catch (
+                failure: Throwable,
+            ) {
+                channel.close()
+                Files.deleteIfExists(path)
+                throw failure
+            }
         }
     }
 
     private fun fillPrepared(
-        prepared: PreparedBlob, input: InputStream, expected: Long?, max: Long,
-        check: () -> Unit, progress: (Long) -> Unit,
+        prepared: PreparedBlob,
+        input: InputStream,
+        expected: Long?,
+        max: Long,
+        check: () -> Unit,
+        progress: (Long) -> Unit,
     ) {
         val digest = MessageDigest.getInstance("SHA-256")
         val buffer = ByteArray(BUFFER_SIZE)
         var total = 0L
-        check(); progress(0L)
+        check()
+        progress(0L)
         while (true) {
-            check(); faults.hit(ResourceCut.PREPARE_READ, total)
+            check()
+            faults.hit(ResourceCut.PREPARE_READ, total)
             val count = fileOperation(FileStage.SOURCE_READ) { input.read(buffer) }
             if (count < 0) break
             if (count == 0) continue
@@ -215,20 +244,29 @@ internal class BlobFiles(
         }
     }
 
-    fun put(hash: String, bytes: ByteArray, previousPath: String? = null): String {
-        val prepared = prepare(ByteArrayInputStream(bytes), bytes.size.toLong(), MAX_BYTES)
+    fun put(hash: String, bytes: ByteArray, previousPath: String? = null): String =
+        putVerified(hash, ByteArrayInputStream(bytes), bytes.size.toLong(), previousPath)
+
+    fun putVerified(hash: String, input: InputStream, size: Long, previousPath: String?, check: () -> Unit = {}): String {
+        val prepared = prepare(input, size, MAX_BYTES, check)
         try {
             if (prepared.hash != hash) corruptAttachment()
             return locked {
+                check()
                 val relative = publish(prepared, previousPath)
                 fileOperation(FileStage.CLEANUP) {
                     // Remove our marker while holding the publication lock: sync is now the owner.
-                    prepared.marker?.let { Files.deleteIfExists(it); prepared.marker = null }
+                    prepared.marker?.let {
+                        Files.deleteIfExists(it)
+                        prepared.marker = null
+                    }
                     adoptAbandoned(resolve(relative, hash))
                 }
                 relative
             }
-        } finally { prepared.close() }
+        } finally {
+            prepared.close()
+        }
     }
 
     fun read(relative: String, hash: String): ByteArray? {
@@ -239,8 +277,13 @@ internal class BlobFiles(
 
     /** Returns false for a missing blob; validates bounded size/hash before reporting success. */
     fun copy(
-        relative: String, hash: String, expectedSize: Long?, output: OutputStream,
-        check: () -> Unit = {}, progress: (Long) -> Unit = {}, verify: Boolean = false,
+        relative: String,
+        hash: String,
+        expectedSize: Long?,
+        output: OutputStream,
+        check: () -> Unit = {},
+        progress: (Long) -> Unit = {},
+        verify: Boolean = false,
     ): Boolean = fileOperation(FileStage.READ) {
         val path = readablePath(relative, hash) ?: return false
         copyFrom(path, hash, expectedSize, output, check, progress, verify)
@@ -251,45 +294,11 @@ internal class BlobFiles(
 
     private fun readablePath(relative: String, hash: String): Path? {
         if (Files.notExists(root, NOFOLLOW_LINKS)) return null
-        ensureRoot()
+        ensureRoot(root)
         val path = resolve(relative, hash)
         if (Files.notExists(path, NOFOLLOW_LINKS)) return null
         if (!Files.isRegularFile(path, NOFOLLOW_LINKS) || Files.size(path) > MAX_BYTES) corruptAttachment()
         return path
-    }
-
-    private fun copyFrom(
-        path: Path, hash: String, expected: Long?, output: OutputStream,
-        check: () -> Unit, progress: (Long) -> Unit, verify: Boolean,
-    ) {
-        val digest = if (verify) MessageDigest.getInstance("SHA-256") else null
-        check(); progress(0L)
-        val total = Files.newInputStream(path, StandardOpenOption.READ, NOFOLLOW_LINKS).use { input ->
-            transfer(input, output, expected, digest, check, progress)
-        }
-        check()
-        if (expected != null && total != expected) corruptAttachment()
-        if (digest != null && digest.hex() != hash) corruptAttachment()
-    }
-
-    private fun transfer(
-        input: InputStream, output: OutputStream, expected: Long?, digest: MessageDigest?,
-        check: () -> Unit, progress: (Long) -> Unit,
-    ): Long {
-        var total = 0L
-        val bytes = ByteArray(BUFFER_SIZE)
-        while (true) {
-            check()
-            val count = input.read(bytes)
-            if (count < 0) break
-            if (count == 0) continue
-            total += count
-            if (total > MAX_BYTES || (expected != null && total > expected)) corruptAttachment()
-            digest?.update(bytes, 0, count)
-            fileOperation(FileStage.OUTPUT) { output.write(bytes, 0, count) }
-            progress(total)
-        }
-        return total
     }
 
     private fun checkSpace(required: Long) {
@@ -297,17 +306,6 @@ internal class BlobFiles(
         if (available <= 0L || available < required) {
             throw DstuException(DstuError.internal("RESOURCE_INSUFFICIENT_SPACE", "insufficient resource storage space"))
         }
-    }
-
-    private fun ensureRoot() {
-        if (Files.isSymbolicLink(root.parent) || !Files.isDirectory(root.parent, NOFOLLOW_LINKS)) storageFailure()
-        try { Files.createDirectory(root) } catch (_: java.nio.file.FileAlreadyExistsException) { }
-        if (Files.isSymbolicLink(root) || !Files.isDirectory(root, NOFOLLOW_LINKS)) storageFailure()
-    }
-
-    private fun ensureDirectory(path: Path) {
-        try { Files.createDirectory(path) } catch (_: java.nio.file.FileAlreadyExistsException) { }
-        if (Files.isSymbolicLink(path) || !Files.isDirectory(path, NOFOLLOW_LINKS)) storageFailure()
     }
 
     private fun resolve(relative: String, hash: String): Path {
@@ -328,19 +326,9 @@ internal class BlobFiles(
         return root.resolve(".reap-${match.groupValues[3]}.tmp")
     }
 
-    private inline fun withUnlockedFile(path: Path, action: () -> Unit) {
-        try {
-            FileChannel.open(path, StandardOpenOption.WRITE, NOFOLLOW_LINKS).use { channel ->
-                val lock = try { channel.tryLock() } catch (_: OverlappingFileLockException) { null }
-                lock?.use { action() }
-            }
-        } catch (_: java.nio.file.NoSuchFileException) { }
-    }
-
     companion object {
         internal val publicationLock = Any()
         internal val livePrepared = mutableSetOf<Path>()
-        private const val BUFFER_SIZE = 64 * 1024
         const val MAX_BYTES = 200L * 1024 * 1024
         private val HASH = Regex("[0-9a-f]{64}")
         private const val UUID_V4 = "[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}"
@@ -350,17 +338,94 @@ internal class BlobFiles(
     }
 }
 
-internal class PreparedBlob(
-    var path: Path, val channel: FileChannel, private val lock: FileLock, private val faults: ResourceFaults,
-) : AutoCloseable {
+private const val BUFFER_SIZE = 64 * 1024
+
+private fun ensureRoot(root: Path) {
+    if (Files.isSymbolicLink(root.parent) || !Files.isDirectory(root.parent, NOFOLLOW_LINKS)) storageFailure()
+    try {
+        Files.createDirectory(root)
+    } catch (_: java.nio.file.FileAlreadyExistsException) { }
+    if (Files.isSymbolicLink(root) || !Files.isDirectory(root, NOFOLLOW_LINKS)) storageFailure()
+}
+
+private fun ensureDirectory(path: Path) {
+    try {
+        Files.createDirectory(path)
+    } catch (_: java.nio.file.FileAlreadyExistsException) { }
+    if (Files.isSymbolicLink(path) || !Files.isDirectory(path, NOFOLLOW_LINKS)) storageFailure()
+}
+
+private inline fun withUnlockedFile(path: Path, action: () -> Unit) {
+    try {
+        FileChannel.open(path, StandardOpenOption.WRITE, NOFOLLOW_LINKS).use { channel ->
+            val lock = try {
+                channel.tryLock()
+            } catch (_: OverlappingFileLockException) {
+                null
+            }
+            lock?.use { action() }
+        }
+    } catch (_: java.nio.file.NoSuchFileException) { }
+}
+
+private fun copyFrom(
+    path: Path,
+    hash: String,
+    expected: Long?,
+    output: OutputStream,
+    check: () -> Unit,
+    progress: (Long) -> Unit,
+    verify: Boolean,
+) {
+    val digest = if (verify) MessageDigest.getInstance("SHA-256") else null
+    check()
+    progress(0L)
+    val total = Files.newInputStream(path, StandardOpenOption.READ, NOFOLLOW_LINKS).use { input ->
+        transfer(input, output, expected, digest, check, progress)
+    }
+    check()
+    if (expected != null && total != expected) corruptAttachment()
+    if (digest != null && digest.hex() != hash) corruptAttachment()
+}
+
+private fun transfer(
+    input: InputStream,
+    output: OutputStream,
+    expected: Long?,
+    digest: MessageDigest?,
+    check: () -> Unit,
+    progress: (Long) -> Unit,
+): Long {
+    var total = 0L
+    val bytes = ByteArray(BUFFER_SIZE)
+    while (true) {
+        check()
+        val count = input.read(bytes)
+        if (count < 0) break
+        if (count == 0) continue
+        total += count
+        if (total > BlobFiles.MAX_BYTES || (expected != null && total > expected)) corruptAttachment()
+        digest?.update(bytes, 0, count)
+        fileOperation(FileStage.OUTPUT) { output.write(bytes, 0, count) }
+        progress(total)
+    }
+    return total
+}
+
+internal class PreparedBlob(var path: Path, val channel: FileChannel, private val lock: FileLock, private val faults: ResourceFaults) :
+    AutoCloseable {
     var hash: String = ""
     var size: Long = 0
     var marker: Path? = null
     var published: Boolean = false
     val pending: Boolean get() = marker != null
     override fun close() = synchronized(BlobFiles.publicationLock) {
-        try { lock.release() } finally {
-            try { channel.close() } finally {
+        try {
+            lock.release()
+        } finally {
+            try {
+                channel.close()
+            } finally {
                 BlobFiles.livePrepared.remove(path)
                 // An unsettled marker must survive so the next DB-aware recovery can decide ownership.
                 if (!pending && !published) fileOperation(FileStage.CLEANUP) { Files.deleteIfExists(path) }
@@ -368,10 +433,8 @@ internal class PreparedBlob(
             }
         }
     }
-
 }
 
-internal fun invalidSize(): Nothing =
-    throw DstuException(DstuError.validation("INVALID_ATTACHMENT_SIZE", "attachment size is invalid"))
+internal fun invalidSize(): Nothing = throw DstuException(DstuError.validation("INVALID_ATTACHMENT_SIZE", "attachment size is invalid"))
 
 private fun MessageDigest.hex(): String = digest().joinToString("") { "%02x".format(it.toInt() and 0xff) }

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { inspectRemediationTrace, parseInstrumentResults } from './s2-16-18-results.mjs';
+import { inspectPublicationTrace, inspectRemediationTrace, parseInstrumentResults } from './s2-16-18-results.mjs';
 
 const status = (name, code) => `INSTRUMENTATION_STATUS: class=Example\nINSTRUMENTATION_STATUS: test=${name}\nINSTRUMENTATION_STATUS_CODE: ${code}\n`;
 const ok = (count = 1) => `OK (${count} ${count === 1 ? 'test' : 'tests'})\nINSTRUMENTATION_CODE: -1\n`;
@@ -32,4 +32,21 @@ test('trace requires event ordering, matching operation IDs and marker failure o
   assert.throws(() => inspectRemediationTrace(trace.replace(unit17[0], unit17[0].replace('00001 elapsed', '00009 elapsed'))), /S2\.17/u);
   assert.throws(() => inspectRemediationTrace(trace.replace('status=CANCELLED', 'status=none')), /S2\.18/u);
   assert.throws(() => inspectRemediationTrace(trace.replace('database=vfs', 'database=vfs url=http://example.invalid')), /sensitive/u);
+});
+
+const publicationId = '00000000-0000-0000-0000-000000000099';
+const publicationTrace = ['RESERVE', 'READBACK', 'ACKNOWLEDGE'].map((stage, index) =>
+  `I/DstuOperation: event=sync.publication taskId=null correlationId=${publicationId} owner=sync ` +
+  `stage=${stage} status=ok elapsedMs=${index + 1} category=incremental`).concat(
+  `I/DstuOperation: event=sync.transfer.finished taskId=null correlationId=${publicationId} owner=sync ` +
+  'stage=COMPLETE status=none phase=COMPLETE elapsedMs=4').join('\n');
+
+test('publication evidence checks actual LogRecord correlation, order, time and privacy', () => {
+  assert.equal(inspectPublicationTrace(publicationTrace).publishedOperations, 1);
+  assert.equal(inspectPublicationTrace(publicationTrace.replace('stage=RESERVE', 'stage=REPLAY')).checkedEvents, 4);
+  assert.throws(() => inspectPublicationTrace(publicationTrace.replace(publicationId, 'null')), /correlation missing/u);
+  assert.throws(() => inspectPublicationTrace(publicationTrace.replace('stage=READBACK', 'stage=ACKNOWLEDGE')), /read back/u);
+  assert.throws(() => inspectPublicationTrace(publicationTrace.replace('elapsedMs=2', 'elapsedMs=0')), /timings/u);
+  assert.throws(() => inspectPublicationTrace(publicationTrace.replace('status=ok', 'status=ok password=secret')), /unexpected fields/u);
+  assert.throws(() => inspectPublicationTrace(publicationTrace.replace('phase=COMPLETE', 'phase=FAILED')), /successful transfer/u);
 });

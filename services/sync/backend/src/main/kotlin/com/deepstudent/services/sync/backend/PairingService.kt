@@ -13,13 +13,13 @@ import com.deepstudent.services.sync.api.SyncConfigurationService
 import com.deepstudent.services.sync.api.SyncError
 import com.deepstudent.services.sync.api.SyncResult
 import com.deepstudent.services.sync.backend.transfer.RemoteGate
-import java.time.Instant
-import java.util.UUID
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import java.time.Instant
+import java.util.UUID
 
 class PairingService(
     private val store: ConfigurationStore,
@@ -82,21 +82,43 @@ class PairingService(
         val checked = if (mode == PairingMode.JOIN) encryption.inspect(provider, password != null, password) else null
         val descriptor = provider.get(FORMAT_KEY)
         val instance = provider.get(INSTANCE_KEY)
-        val instanceId = if (checked == null) create(provider, descriptor, instance, password)
-            else RemoteGate.read(descriptor, instance).instanceId
+        val instanceId = if (checked == null) {
+            create(provider, descriptor, instance, password)
+        } else {
+            RemoteGate.read(descriptor, instance).instanceId
+        }
         if (checked != null) {
             val policy = finishJoinPolicy(provider, checked, instanceId, password, identity::getOrCreate)
             if (checked.legacy != null) RemoteGate(provider, instanceId).minimumReader()
             policy.requireUnchanged(provider)
         }
         currentCoroutineContext().ensureActive()
-        val config = SyncConfiguration(request.endpoint, request.username, request.root, identity.getOrCreate(), instanceId, password != null)
+        val writer = identity.getOrCreate()
+        val config = SyncConfiguration(
+            request.endpoint,
+            request.username,
+            request.root,
+            writer,
+            instanceId,
+            password != null,
+            requiresInitialSeed = requiresSeed(mode, instanceId, writer),
+        )
         store.save(config, request.password, password)
         return config
     }
 
+    private fun requiresSeed(mode: PairingMode, instanceId: String, writer: String): Boolean {
+        if (mode == PairingMode.CREATE) return true
+        val prior = store.read() ?: return false
+        return prior.requiresInitialSeed && prior.instanceId == instanceId && prior.deviceId == writer
+    }
+
     private suspend fun finishJoinPolicy(
-        provider: ObjectProvider, checked: MarkerCheck, instance: String, password: CharArray?, device: () -> String,
+        provider: ObjectProvider,
+        checked: MarkerCheck,
+        instance: String,
+        password: CharArray?,
+        device: () -> String,
     ): EncryptionExpectation {
         if (checked.legacy == null) return checked.expectation
         return encryption.upgrade(provider, checked, checkNotNull(password), device) {
@@ -135,12 +157,16 @@ class PairingService(
     private suspend fun <T> result(operation: String, block: suspend () -> T): SyncResult<T> = mutex.withLock {
         val started = System.nanoTime()
         val correlation = CorrelationId.parse(UUID.randomUUID().toString())
-        fun trace(event: String, state: String, status: String = "none") = logger.log(LogRecord(
-            LogLevel.INFO, "sync.configuration.$event", correlationId = correlation,
-            fields = JsonValue.Object.Builder().put("owner", "sync.configuration").put("phase", operation)
-                .put("state", state).put("status", status).put("elapsedMs", (System.nanoTime() - started) / 1_000_000)
-                .build(),
-        ))
+        fun trace(event: String, state: String, status: String = "none") = logger.log(
+            LogRecord(
+                LogLevel.INFO,
+                "sync.configuration.$event",
+                correlationId = correlation,
+                fields = JsonValue.Object.Builder().put("owner", "sync.configuration").put("phase", operation)
+                    .put("state", state).put("status", status).put("elapsedMs", (System.nanoTime() - started) / 1_000_000)
+                    .build(),
+            ),
+        )
         trace("started", "started")
         val result = try {
             currentCoroutineContext().ensureActive()
@@ -153,8 +179,11 @@ class PairingService(
         } catch (_: Exception) {
             SyncResult.Failure(SyncError.STORAGE)
         }
-        trace("finished", if (result is SyncResult.Success) "succeeded" else "failed",
-            (result as? SyncResult.Failure)?.error?.name ?: "none")
+        trace(
+            "finished",
+            if (result is SyncResult.Success) "succeeded" else "failed",
+            (result as? SyncResult.Failure)?.error?.name ?: "none",
+        )
         result
     }
 

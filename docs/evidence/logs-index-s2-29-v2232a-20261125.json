@@ -1,0 +1,200 @@
+{
+  "format": "dstu-evidence-index/v1",
+  "generatedAt": "2026-11-25T05:44:52.335Z",
+  "source": {
+    "repository": "dstu-android",
+    "ref": "f23ff738c684ccb31ed43d6a16325b0f6d3d622b",
+    "revision": "f23ff738c684ccb31ed43d6a16325b0f6d3d622b",
+    "selection": "worktree",
+    "entryCount": 20,
+    "trackedCount": 0,
+    "presentCount": 20,
+    "missingFromWorktree": []
+  },
+  "archive": {
+    "format": "tar.gz",
+    "root": "PRIVATE_ARTIFACT_ROOT",
+    "relativeLocation": "s229-v2232a-20261125/evidence.tar.gz",
+    "location": "PRIVATE_ARTIFACT_ROOT/s229-v2232a-20261125/evidence.tar.gz",
+    "size": 15362,
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "da497b81e4143119a3858589f8718abe0dea94f2be547a7fb00f3986fb11ec81"
+    },
+    "manifest": {
+      "relativeLocation": "s229-v2232a-20261125/manifest.json",
+      "location": "PRIVATE_ARTIFACT_ROOT/s229-v2232a-20261125/manifest.json",
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "eb95cd7f05f02535788ed59cf6077fc290fc1dc9378195d119116e041fa65696"
+      }
+    }
+  },
+  "entries": [
+    {
+      "path": "logs/s229-v2232a-20261125-apk-sha256sums.txt",
+      "size": 265,
+      "sha256": "9ebba8fc11f2178bb413b389e368953b61dae78d1c0ad30e8a1e1fa0a1161bec",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-v2232a-20261125-device-cleanup.log",
+      "size": 298,
+      "sha256": "25fec02c3029977ace5129d5d5f0ceba6051e7a43555ec66342ad477e530984a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-v2232a-20261125-device-preflight.log",
+      "size": 543,
+      "sha256": "38b8471d802d6478bd61ab33258ebe37f34533e5dd46d33c0be9dac2b212e55b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-v2232a-20261125-encrypted-desktop.log",
+      "size": 1422,
+      "sha256": "da8fb4977738c26a570546f1144e36d5b3f0372cce44ee84e16411001e6c195c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-v2232a-20261125-host-repository.log",
+      "size": 22155,
+      "sha256": "4429a02966134f889b444a80e1cce93eb10958924147403c3609dfe6d7efc298",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-v2232a-20261125-initial-standalone-attempt.log",
+      "size": 435,
+      "sha256": "b634f08bfd12ca8edfa181660dcfb093857f687afb65cc97cf969fe7e773f61b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-v2232a-20261125-initial-standalone-exit.log",
+      "size": 763,
+      "sha256": "bba675faa393d958daba0ce2e7db3f30d8e9b21d5945f0b6fa85eb0b6954c06b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-v2232a-20261125-legacy-marker.log",
+      "size": 7235,
+      "sha256": "c26d65cf4ea8bbde61403f9c7e99d43e9ed9f364a8563fe6f274a99533bede50",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-v2232a-20261125-no-activity-batch-attempt.log",
+      "size": 1900,
+      "sha256": "43e4f11858e573846acdaf1a41164db8280c6424a642ee4f372fd8c23c936473",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-v2232a-20261125-plain-desktop.log",
+      "size": 1125,
+      "sha256": "07aaeda5ffee695a4caf363c08914f7e140180b651ac19b2d4d47287d8a721e6",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-v2232a-20261125-publication-cases.json",
+      "size": 3045,
+      "sha256": "5939c06c0fc01a2cc4d317e53a96021727ee544f3f444399fdaaf27dbdd9791f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-v2232a-20261125-publication-instrumentation.log",
+      "size": 24115,
+      "sha256": "a22081da4f424324c2de4d126f5f5dbfd0bf2422878b63ffaa94348c5bc0b3ee",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-v2232a-20261125-publication-run.log",
+      "size": 5049,
+      "sha256": "dabaf67a80519425aec0691e5dff0be1663fdda4e5b60d118e4106fe50d55408",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-v2232a-20261125-publication-trace.log",
+      "size": 1423,
+      "sha256": "6049578f79cc4dd81d44166ce8bfc1af2e4bf5fc3395ab933afc9b1b95ac2102",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-v2232a-20261125-restoration-receipt.json",
+      "size": 4590,
+      "sha256": "32631ada36f521a6e6e67842fe4fa2a8599799ff173251be0830dca213f5870f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-v2232a-20261125-restoration.log",
+      "size": 502,
+      "sha256": "0bf35df4637be51686152d9628b517342fd6f6830704cf0421211c63f9db53ec",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-v2232a-20261125-restore-baseline.log",
+      "size": 2239,
+      "sha256": "819be0ce7aa762e1cf6d7c5e80e6aa6ae56abf58a3cf2af03787e62296cac6ce",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-v2232a-20261125-restore-resources.log",
+      "size": 4469,
+      "sha256": "7e504bf642b39dc2fc849070385527f88bceff53aa0b595c709562342d339479",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-v2232a-20261125-restore-trace.log",
+      "size": 15556,
+      "sha256": "6e86ccf23532f526024543c00f1a47e2c672c6b708cde35aa16bf46703d8e8aa",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-v2232a-20261125-same-candidate-receipt.json",
+      "size": 8061,
+      "sha256": "99cbf9642ba7728518ad9a2e549248e412301fa8d2a4cfab4ada280d66542ed0",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    }
+  ],
+  "compatibility": {
+    "legacyPathPolicy": "Entries retain original logs/... paths; historical docs/config references are lookup keys, not tracked files.",
+    "localWrites": "logs/ is gitignored; existing tools may continue writing local evidence.",
+    "restoreCommand": "node tools/evidence/restore.mjs <logs/path>"
+  }
+}

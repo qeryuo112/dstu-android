@@ -4,9 +4,9 @@ import com.deepstudent.core.common.json.JsonValue
 import com.deepstudent.services.sync.api.SyncError
 import com.deepstudent.services.sync.backend.transfer.DeviceManifests
 import com.deepstudent.services.sync.backend.transfer.TransferChangeKey
-import java.time.Instant
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
+import java.time.Instant
 
 private const val BACKUP_PREFIX = "backups/"
 private const val BACKUP_MANIFEST_PREFIX = "manifests/"
@@ -35,9 +35,13 @@ internal class LegacyBackupPassword(private val provider: ObjectProvider, privat
     suspend fun recheckEmpty() = requireEmpty(provider.list(""))
 
     private fun requireEmpty(objects: List<String>) {
-        if (objects.any { it !in emptyControlKeys && !it.startsWith("$MARKER_KEY.pending/") &&
-                !it.startsWith("data_governance/locks/")
-            }) proofRequired()
+        if (objects.any {
+                it !in emptyControlKeys && !it.startsWith("$MARKER_KEY.pending/") &&
+                    !it.startsWith("data_governance/locks/")
+            }
+        ) {
+            proofRequired()
+        }
     }
 
     private suspend fun backupVersions(objects: List<String>): List<LegacyBackupVersion> {
@@ -54,7 +58,10 @@ internal class LegacyBackupPassword(private val provider: ObjectProvider, privat
 
     private suspend fun rootManifest(): ByteArray? {
         val primary = provider.getBounded("manifest.json", BACKUP_MANIFEST_BYTES) ?: return null
-        try { decodeVersions(primary); return primary } catch (failure: SyncFailure) {
+        try {
+            decodeVersions(primary)
+            return primary
+        } catch (failure: SyncFailure) {
             if (failure.error != SyncError.ENCRYPTION_PROOF_REQUIRED) throw failure
             return provider.getBounded("manifest.json.bak", BACKUP_MANIFEST_BYTES) ?: throw failure
         }
@@ -76,14 +83,21 @@ internal class LegacyBackupPassword(private val provider: ObjectProvider, privat
 
     private suspend fun verifySyncExample(key: String, password: CharArray) {
         val raw = provider.get(key) ?: proofRequired()
-        val plain = try { crypto.payload(password).decode(raw) } catch (failure: SyncFailure) {
+        val plain = try {
+            crypto.payload(password).use { it.decode(raw) }
+        } catch (failure: SyncFailure) {
             if (failure.error == SyncError.ENCRYPTED_DATA_INVALID) throw SyncFailure(SyncError.ENCRYPTION_PASSWORD_INCORRECT)
             throw failure
         }
         try {
-            if (key.startsWith("data_governance/manifests/")) DeviceManifests.decodeForKey(key, plain)
-            else if (plain.isEmpty()) proofRequired()
-        } finally { if (plain !== raw) plain.fill(0) }
+            if (key.startsWith("data_governance/manifests/")) {
+                DeviceManifests.decodeForKey(key, plain)
+            } else if (plain.isEmpty()) {
+                proofRequired()
+            }
+        } finally {
+            if (plain !== raw) plain.fill(0)
+        }
     }
 
     private fun syncExamples(keys: List<String>): List<String> {
@@ -92,8 +106,14 @@ internal class LegacyBackupPassword(private val provider: ObjectProvider, privat
     }
 
     private companion object {
-        val emptyControlKeys = setOf(MARKER_KEY, LEASE_KEY_FOR_PROOF, PairingService.INSTANCE_KEY, PairingService.FORMAT_KEY,
-            "manifest.json", "manifest.json.bak")
+        val emptyControlKeys = setOf(
+            MARKER_KEY,
+            LEASE_KEY_FOR_PROOF,
+            PairingService.INSTANCE_KEY,
+            PairingService.FORMAT_KEY,
+            "manifest.json",
+            "manifest.json.bak",
+        )
         const val LEASE_KEY_FOR_PROOF = "$MARKER_KEY.lease"
     }
 }
@@ -111,7 +131,9 @@ private fun decodeVersions(raw: ByteArray): List<LegacyBackupVersion> = try {
     val latest = WireValues.optionalText(manifest["latest"])
     require(ids.size == versions.size && if (ids.isEmpty()) latest == null else latest in ids)
     versions
-} catch (_: Exception) { proofRequired() }
+} catch (_: Exception) {
+    proofRequired()
+}
 
 private fun decodeVersion(row: JsonValue.Object): LegacyBackupVersion {
     val id = WireValues.text(row["id"]).also { require(backupId.matches(it)) }

@@ -65,3 +65,52 @@ export function inspectRemediationTrace(log) {
     'CANCELLED', 'ENCRYPTION_UPGRADE_UNCERTAIN']) assert.ok(statuses.includes(expected), `S2.18 missing trace outcome ${expected}`);
   return { lines, correlatedOperations: groups.size, pairingOutcomes: [...new Set(statuses)].sort() };
 }
+
+// Inspect only these events from the isolated APK UID and testing window. Unknown fields never enter evidence.
+export function inspectPublicationTrace(log) {
+  const byOperation = new Map();
+  const lines = [];
+  for (const line of log.replaceAll('\r', '').split('\n')) {
+    if (!/\bevent=sync\.(?:publication|transfer\.finished) /u.test(line)) continue;
+    const row = fields(line);
+    const publication = row.event === 'sync.publication';
+    const expected = ['event', 'taskId', 'correlationId', 'owner', 'stage', 'status', 'elapsedMs', publication ? 'category' : 'phase'];
+    assert.equal(line.trim().split(/\s+/u).length, expected.length + 1, 'publication trace contains unexpected fields');
+    assert.ok(expected.every(key => Object.hasOwn(row, key)), 'publication trace lacks required fields');
+    assert.match(row.correlationId ?? '', /^[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/u, 'publication trace correlation missing');
+    assert.equal(row.owner, 'sync');
+    assert.equal(row.taskId, 'null');
+    assert.match(row.elapsedMs ?? '', /^\d{1,13}$/u);
+    if (publication) {
+      assert.match(row.stage ?? '', /^(?:RESERVE|REPLAY|READBACK|ACKNOWLEDGE)$/u);
+      assert.match(row.category ?? '', /^(?:seed|incremental)$/u);
+      assert.equal(row.status, 'ok');
+    } else {
+      assert.match(row.stage ?? '', /^(?:IDLE|BLOBS|DOWNLOAD|UPLOAD|COMPLETE)$/u);
+      assert.match(row.phase ?? '', /^(?:COMPLETE|FAILED)$/u);
+      assert.match(row.status ?? '', /^(?:none|[A-Z_]{1,48})$/u);
+    }
+    const run = byOperation.get(row.correlationId) ?? [];
+    run.push(row);
+    byOperation.set(row.correlationId, run);
+    lines.push(expected.map(key => `${key}=${row[key]}`).join(' '));
+  }
+  const confirmed = [...byOperation.values()].filter(run => run.some(row => row.event === 'sync.publication'));
+  assert.ok(confirmed.length > 0, 'no correlated publication observed');
+  for (const run of confirmed) {
+    const finished = run.at(-1);
+    assert.ok(finished?.event === 'sync.transfer.finished' && finished.phase === 'COMPLETE' && finished.status === 'none',
+      'publication must end with correlated successful transfer');
+    const steps = run.slice(0, -1);
+    assert.equal(steps.length % 3, 0, 'incomplete publication sequence');
+    for (let i = 0; i < steps.length; i += 3) {
+      const [start, readback, ack] = steps.slice(i, i + 3);
+      assert.ok(['RESERVE', 'REPLAY'].includes(start.stage) && readback.stage === 'READBACK' && ack.stage === 'ACKNOWLEDGE',
+        'publication must reserve/replay, read back, then acknowledge');
+      assert.ok(start.category === readback.category && start.category === ack.category &&
+        Number(start.elapsedMs) <= Number(readback.elapsedMs) && Number(readback.elapsedMs) <= Number(ack.elapsedMs),
+      'publication category or timings changed mid-batch');
+    }
+  }
+  return { lines, publishedOperations: confirmed.length, checkedEvents: lines.length };
+}

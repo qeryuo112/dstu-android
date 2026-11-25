@@ -1,0 +1,416 @@
+{
+  "format": "dstu-evidence-index/v1",
+  "generatedAt": "2026-11-25T08:23:42.815Z",
+  "source": {
+    "repository": "dstu-android",
+    "ref": "HEAD",
+    "revision": "53e0f0e3d153b88848ec90f1398d92e61a333829",
+    "selection": "worktree",
+    "entryCount": 47,
+    "trackedCount": 0,
+    "presentCount": 47,
+    "missingFromWorktree": []
+  },
+  "archive": {
+    "format": "tar.gz",
+    "root": "PRIVATE_ARTIFACT_ROOT",
+    "relativeLocation": "s2-g-20261125/evidence.tar.gz",
+    "location": "PRIVATE_ARTIFACT_ROOT/s2-g-20261125/evidence.tar.gz",
+    "size": 64210,
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "f44ce5357b40cbd6b6c20130ceb2838c17e87879e907eda073135330d20be3f2"
+    },
+    "manifest": {
+      "relativeLocation": "s2-g-20261125/manifest.json",
+      "location": "PRIVATE_ARTIFACT_ROOT/s2-g-20261125/manifest.json",
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "2be71db04682ec112fc0a8274aa33454d8b00599c5e4233ec4599d41f8417c1f"
+      }
+    }
+  },
+  "entries": [
+    {
+      "path": "logs/desktop-fixtures.log",
+      "size": 3188,
+      "sha256": "ec35def9950363362f005c0b1edf1ccf8387ee6a15b0c36546277aaa66d78529",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/host-quality-and-tests.log",
+      "size": 132621,
+      "sha256": "3195d5cfac2a31615e951fe04257c931d412f4d27355d6dc39adf8816b0680af",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s207-tablet-host-picker-actions.log",
+      "size": 302,
+      "sha256": "936c2b4a69b19ac0042006eae1523784948469b243c3406b086738591016e721",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s207-tablet-replay-console.log",
+      "size": 18530,
+      "sha256": "f269447ebd5de434abc1ce52b51370dea5ff5d7e6c7b5ec4bf8ee24ba0b0f925",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-architecture-graph.json",
+      "size": 54947,
+      "sha256": "24b689119fc9ab0598a954d745f1a41771b350d8793f4adb514367bba6063edf",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-architecture-sources.json",
+      "size": 402,
+      "sha256": "e6f23faf4a0ff3f7c9574ec4ef1da74d9cdd0094c3e26273a30c504cc8df3df6",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-candidate-apks.sha256",
+      "size": 172,
+      "sha256": "4b068a7577d3ffd67e3b79103e3319b391dae144518ab7d3e88a666754b172fd",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-candidate-architecture-sources.json",
+      "size": 402,
+      "sha256": "2e19e7b351db9e359d3e7fdc101fc67e7d5410c55a574d3828d53783f01ad503",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-candidate-source.txt",
+      "size": 41,
+      "sha256": "042d1e79017647346003b92b8fa2d99465ca4ce3428eae8b68ca3be1472786da",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-complexity-psi.json",
+      "size": 931,
+      "sha256": "777cd833e3611be1fd6d4aac6aa1aeb78acab358cc9f8e95876c6569b18964b8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-contract-review.json",
+      "size": 2450,
+      "sha256": "8d3bb42b802b76e9cbb67b65708585024efa834eff4d7b384f822a90fae038bb",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-device-comparison.json",
+      "size": 2343,
+      "sha256": "2644077e002644d5491eca3567843f4d2f55bd27ea2ba4445c7da695b91a19f7",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-final-quality.log",
+      "size": 16676,
+      "sha256": "f9d1824ac0f81daa8a262d48fcf6dd146ab41673c020b6737a7f3771ae3ca13d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-frozen-inputs.log",
+      "size": 260,
+      "sha256": "b536713d2cac8efcba7d90ad38ee11e45ec90318f2de20c467691dec5c4b8694",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-host-test-summary.json",
+      "size": 493,
+      "sha256": "27123aa01b8151909ebc0a7d8fc31855d8dd1b4fd16e3fd9c97e4ed66754104d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-ipad2475-allowed-exact.log",
+      "size": 1077,
+      "sha256": "dbaf9172427613b2d15ac34c7c2b1bc5d8de25f39821e44e0b33b101691fa4f9",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-ipad2475-allowed-inexact.log",
+      "size": 1078,
+      "sha256": "feb4314fe55e5e5a1b72e8254145c3dc6fb76fa1e642fc84cd43685fc3b9f6c7",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-ipad2475-console.log",
+      "size": 725,
+      "sha256": "fd04dad17e60e5087afbd1f78b8f1f23ef8fdaa6c501e82cf0e61daf89c14638",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-ipad2475-data-space.log",
+      "size": 862,
+      "sha256": "a7f74bf854173b0db0d6b4013a59834e06c06796fe1e09c96a5e09cf6317670b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-ipad2475-diagnostics.log",
+      "size": 869,
+      "sha256": "4e9ad36810c6296d75c950e566a520fbdf6be5e2553cc925d18036524fa0a282",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-ipad2475-receipt.json",
+      "size": 1912,
+      "sha256": "8383c9402d633fca53fa06d64af579453d47a6128eb8bea5b63c1cae8271efac",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-ipad2475-runtime-unique-commit.log",
+      "size": 803,
+      "sha256": "2843137a191b803065a363880fa3be5c0b4e73d205610e0f0a1a84b3a6f1a1b5",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-ipad2475-sync-replay.log",
+      "size": 840,
+      "sha256": "73ad5ecb0a266fba7a7eb5e68bd82d8e1f0b09b5ab2008153a97c8d8c5154620",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-repository-tests.log",
+      "size": 18570,
+      "sha256": "33095b34f45d9b2bf0cd9e5e6910d14da6e5b71c74e008eba9c57eaca946a9c7",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-s2-tool-tests.log",
+      "size": 16908,
+      "sha256": "84bc3b263fc63b022dbeb8f5b59f67048a9467ecdec58ec8ebd15045be018bb1",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-s207-tablet-cross-uid-original-first.log",
+      "size": 10422,
+      "sha256": "b856974ab12ca3a1e64b6789b225272a0bca36332748b9e127441d5a2885f61c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-s207-tablet-cross-uid-remaining.log",
+      "size": 90417,
+      "sha256": "2552b3658458b272d8b6dacf56bf4e7382f72471e34d846b8a5c1a1c9c3b9efc",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-s207-tablet-resource-trace.log",
+      "size": 74123,
+      "sha256": "03eb2adb3b12c0e772b4916256c61d48cc5fa4f86d263cb282236923e857b46f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-s207-tablet-summary.log",
+      "size": 18530,
+      "sha256": "f269447ebd5de434abc1ce52b51370dea5ff5d7e6c7b5ec4bf8ee24ba0b0f925",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-s207-tablet-system-create.log",
+      "size": 13016,
+      "sha256": "6830e5263d8c87126cc0e6d159380a43ff54e0b7e9842a52e19ddd5516b26b44",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-s207-tablet-system-open.log",
+      "size": 11200,
+      "sha256": "478f6b8b95790de25ab58fffc7701518cf6cd9684e47a63db05d255337dee938",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-source-lock.log",
+      "size": 2682,
+      "sha256": "8459a19e0c22ce5c18661bbf21b1b3bfbdcb4cd99b1f0a93f73beb0b0e8f068a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-test-candidate-build.log",
+      "size": 100075,
+      "sha256": "922a9aefd0c74407ace5e93cfc72c128fe78db01e9f58f3b3e96dc030609cc80",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-unit-evidence-audit.json",
+      "size": 34179,
+      "sha256": "c509c819b4106a6634ad83f96e1921c6d95571bda68af84b7355b48d2ac126d0",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-v2232a-allowed-exact.log",
+      "size": 4115,
+      "sha256": "4176a3561d5aa1a489c9859f76ed08b37510561470b38869e4ab3d694360895b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-v2232a-allowed-inexact.log",
+      "size": 1079,
+      "sha256": "e0a490b76a2aacfad3f169ff238cb150ced32bd306ab73c6c9e2103b7c69dc1d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-v2232a-console.log",
+      "size": 912,
+      "sha256": "d811550604029431f0431cf9a2845999c29644d0c734d46da7cd91817ec4479f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-v2232a-exact-uid-appop.log",
+      "size": 38,
+      "sha256": "f2dbf0a2265deb0ebe7205e3cc0560f572cd4a4fdf52e1827813e691dbcdf1c9",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-v2232a-receipt.json",
+      "size": 1280,
+      "sha256": "369eebba6024618a640006a41ee1863c50b9782466aeb94fc85f145678cc9ad3",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-v2232a-replay-allowed-exact-direct.log",
+      "size": 4115,
+      "sha256": "4615c7424c562c0c272ec7a3a169a4a957ce0d098465b85685e39a3c9043b592",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-v2232a-replay-allowed-exact-settings.log",
+      "size": 1077,
+      "sha256": "264c81e77fa8843635c7f63a0ee199e32a87b2ca4bf35913b4f85da043bec10b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-v2232a-replay-console.log",
+      "size": 482,
+      "sha256": "3d734d7aefeb9f4f465f6ae3623a45293d4c0a7bca053669cb1963656342638b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-v2232a-replay-data-space.log",
+      "size": 861,
+      "sha256": "b293640b80f3f53b423dd69b85acc00c8be417f7b675288cdd15ae99aaeed4c5",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-v2232a-replay-diagnostics.log",
+      "size": 869,
+      "sha256": "a6a0e1036460d13c6098ad6071a188fd9910cccfe4717c32021b0714a44766c0",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-v2232a-replay-receipt.json",
+      "size": 1847,
+      "sha256": "dae089d9cb06cc265f53b547f3bd3b8749f0fa4622c4aa1dabce225819b5d158",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-v2232a-replay-runtime-unique-commit.log",
+      "size": 803,
+      "sha256": "4ed8028ea6ce1619ba97e18009a89d07bbe5d2184b1d63601e3c77a84d96dee7",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s2g-v2232a-replay-sync-replay.log",
+      "size": 840,
+      "sha256": "4b75a1f318710244281fd7168023612f5704a87c1cf5e873abc066425e81c8ae",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    }
+  ],
+  "compatibility": {
+    "legacyPathPolicy": "Entries retain original logs/... paths; historical docs/config references are lookup keys, not tracked files.",
+    "localWrites": "logs/ is gitignored; existing tools may continue writing local evidence.",
+    "restoreCommand": "node tools/evidence/restore.mjs <logs/path>"
+  }
+}

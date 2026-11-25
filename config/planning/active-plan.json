@@ -16,7 +16,7 @@
   },
   "functionalPlan": {
     "file": "docs/plans/2026-11-15-mobile-full-feature-refactor.md",
-    "sha256": "349f0071c4e66313ed6020fee12bcf0513f1bd1ae7b8ee762b8f2f29f162313f",
+    "sha256": "4a56463ee935f16218f5d9a1b5ca05c30f2eb5163976cd3e27cb7fe0261524ca",
     "hashStatus": "sealed",
     "role": "live-functional-plan"
   },
@@ -216,8 +216,14 @@
       "bytes": 134297,
       "sha256": "2080fb13c58d862ab8427a371105276ed575d047337b6c5935aec9976f0b16e0"
     },
+    "s2Archive": {
+      "file": "docs/archive/handoff-s2.md",
+      "source": "docs/handoff-s2.md",
+      "bytes": 203033,
+      "sha256": "203b5de2c32b0cc23b6531198318dce4db6293538ef9befb5ba9b39cb8c3e68f"
+    },
     "current": {
-      "file": "docs/handoff-s2.md",
+      "file": "docs/handoff-s3.md",
       "frozen": false,
       "required": true
     }
@@ -268,6 +274,11 @@
       "id": "s1-handoff-archive",
       "file": "docs/archive/handoff-s1.md",
       "sha256": "2080fb13c58d862ab8427a371105276ed575d047337b6c5935aec9976f0b16e0"
+    },
+    {
+      "id": "s2-handoff-archive",
+      "file": "docs/archive/handoff-s2.md",
+      "sha256": "203b5de2c32b0cc23b6531198318dce4db6293538ef9befb5ba9b39cb8c3e68f"
     }
   ],
   "expected": {

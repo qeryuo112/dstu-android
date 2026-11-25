@@ -7,8 +7,10 @@ import {
   CURRENT_HANDOFF,
   OLD_HANDOFF,
   OLD_S1_HANDOFF,
+  OLD_S2_HANDOFF,
   S0_REF,
   S1_ARCHIVE_HANDOFF,
+  S2_ARCHIVE_HANDOFF,
   S2_PROGRESS,
   parseDependencyPlan,
   parsePlanDocument,
@@ -273,14 +275,14 @@ function makeFixture(options = {}) {
     PATHS.inputs,
     ARCHIVE_HANDOFF,
     S1_ARCHIVE_HANDOFF,
-    CURRENT_HANDOFF,
+    OLD_S2_HANDOFF,
     S2_PROGRESS
   ].forEach(file => put(file, `frozen bytes for ${file}`));
   put(PATHS.plan, functionalPlanText);
   put(PATHS.queue, JSON.stringify(queue));
   put(ARCHIVE_HANDOFF, 'archived handoff bytes');
   put(S1_ARCHIVE_HANDOFF, 'archived S1 handoff bytes');
-  put(CURRENT_HANDOFF, '# S2 handoff\n');
+  put(OLD_S2_HANDOFF, '# S2 handoff\n');
   put(S2_PROGRESS, JSON.stringify(progress));
   review.finalLock.sha256 = hash(PATHS.lock);
   review.policy.sha256 = hash(PATHS.gate);
@@ -317,7 +319,7 @@ function makeFixture(options = {}) {
         bytes: files.get(S1_ARCHIVE_HANDOFF).length,
         sha256: hash(S1_ARCHIVE_HANDOFF)
       },
-      current: { file: CURRENT_HANDOFF }
+      current: { file: OLD_S2_HANDOFF }
     },
     references: [
       { id: 'source-lock', file: PATHS.source, sha256: hash(PATHS.source) },
@@ -530,10 +532,77 @@ test('rejects a changed S1 archive byte count in metadata', () => {
   assert.throws(() => verifyPlan(fixture), /s1-handoff-archive: handoff archive bytes/u);
 });
 
-test('requires the current S2 handoff', () => {
+test('requires the current S2 handoff before S2.G', () => {
   const fixture = makeFixture();
-  fixture.files.delete(CURRENT_HANDOFF);
+  fixture.files.delete(OLD_S2_HANDOFF);
   assert.throws(() => verifyPlan(fixture), /current handoff missing: docs\/handoff-s2\.md/u);
+});
+
+function s3HandoffFixture() {
+  const fixture = makeFixture();
+  const { files, metadata, progress } = fixture;
+  acceptRepairs(fixture, 3);
+  for (const id of unitIds('S2', NEW_COUNTS).slice(progress.units.length)) {
+    progress.units.push({ id, status: 'accepted' });
+  }
+  progress.units.forEach(unit => { unit.review = S2_ARCHIVE_HANDOFF; });
+  Object.assign(progress, {
+    s2GateAccepted: true,
+    next: 'S3.01',
+    nextName: parseDependencyPlan(fixture.functionalPlanText).byId.get('S3.01').name,
+    stageGate: { id: 'S2.G', status: 'accepted', review: S2_ARCHIVE_HANDOFF, testLimitations: S2_ARCHIVE_HANDOFF }
+  });
+  const bytes = files.get(OLD_S2_HANDOFF);
+  files.delete(OLD_S2_HANDOFF);
+  files.set(S2_ARCHIVE_HANDOFF, bytes);
+  files.set(CURRENT_HANDOFF, Buffer.from('# S3 handoff\n'));
+  const sha256 = createHash('sha256').update(bytes).digest('hex');
+  metadata.handoffs.s2Archive = {
+    file: S2_ARCHIVE_HANDOFF, source: OLD_S2_HANDOFF, bytes: bytes.length, sha256
+  };
+  metadata.handoffs.current = { file: CURRENT_HANDOFF, frozen: false, required: true };
+  metadata.references.push({ id: 's2-handoff-archive', file: S2_ARCHIVE_HANDOFF, sha256 });
+  return fixture;
+}
+
+test('S2.G switches the active handoff to S3 and retains S2 as a verified archive', () => {
+  const result = verifyPlan(s3HandoffFixture());
+  assert.equal(result.next, 'S3.01');
+  assert.equal(result.currentHandoff, CURRENT_HANDOFF);
+  assert.equal(result.references, 10);
+});
+
+test('does not archive S2 or activate S3 before the S2.G receipt is accepted', () => {
+  const fixture = s3HandoffFixture();
+  fixture.progress.stageGate.status = 'pending';
+  assert.throws(() => verifyPlan(fixture), /S3 handoff requires an accepted S2\.G receipt/u);
+  Object.assign(fixture.progress, { s2GateAccepted: false, next: 'S2.G', nextName: 'S2 阶段出口' });
+  assert.throws(() => verifyPlan(fixture), /S2 archiving and the S3 handoff require an accepted S2\.G/u);
+});
+
+test('requires an intact S2 archive and only the S3 handoff at the document root', () => {
+  const fixture = s3HandoffFixture();
+  const reference = fixture.metadata.references.pop();
+  assert.throws(() => verifyPlan(fixture), /missing reference s2-handoff-archive/u);
+  fixture.metadata.references.push(reference);
+  const archive = fixture.files.get(S2_ARCHIVE_HANDOFF);
+  fixture.files.set(S2_ARCHIVE_HANDOFF, Buffer.from('changed archive'));
+  assert.throws(() => verifyPlan(fixture), /s2-handoff-archive: sha256 drift/u);
+  fixture.files.set(S2_ARCHIVE_HANDOFF, archive);
+  fixture.files.set(OLD_S2_HANDOFF, archive);
+  assert.throws(() => verifyPlan(fixture), /legacy handoff still exists: docs\/handoff-s2\.md/u);
+  fixture.files.delete(OLD_S2_HANDOFF);
+  fixture.files.delete(CURRENT_HANDOFF);
+  assert.throws(() => verifyPlan(fixture), /current handoff missing: docs\/handoff-s3\.md/u);
+});
+
+test('requires archived review and test coverage locations in the accepted S2 receipts', () => {
+  const fixture = s3HandoffFixture();
+  fixture.progress.stageGate.testLimitations = 'docs/test-limitations.md';
+  assert.throws(() => verifyPlan(fixture), /S2\.G receipt must point to the archived S2 review and test coverage/u);
+  fixture.progress.stageGate.testLimitations = S2_ARCHIVE_HANDOFF;
+  fixture.progress.units[0].review = OLD_S2_HANDOFF;
+  assert.throws(() => verifyPlan(fixture), /S2\.01 receipt must point to the archived S2 review/u);
 });
 
 test('rejects an unsigned M0 receipt', () => {

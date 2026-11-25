@@ -12,6 +12,11 @@ import com.deepstudent.platform.security.SecurityPorts
 /** Composition only: the application owns the returned ports and their lifetime. */
 internal object MainSecurityResources {
     private val audit = SecurityAudit { event ->
+        runCatching {
+            com.deepstudent.app.diagnostics.S231Diagnostics.record(
+                com.deepstudent.app.diagnostics.S231DomainEvents.security(event),
+            )
+        }
         // SecurityAuditEvent renders only its validated fixed fields.
         Log.i("DstuSecurity", event.toString())
     }
@@ -21,10 +26,7 @@ internal object MainSecurityResources {
     }
 
     /** Allows device tests to use isolated directories and a non-production Keystore alias. */
-    internal fun open(
-        context: Context,
-        factory: (Context, SecurityAudit) -> SecurityPorts,
-    ): SecurityPorts = try {
+    internal fun open(context: Context, factory: (Context, SecurityAudit) -> SecurityPorts): SecurityPorts = try {
         factory(context, audit)
     } catch (error: CredentialStoreException) {
         throw error

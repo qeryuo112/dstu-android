@@ -171,19 +171,21 @@ class TaskSupervisor(
             } else {
                 completion.finish(snapshot, token, state, error)
             }
-            log(snapshot, outcome.state, outcome.event, started)
+            log(snapshot, outcome.state, outcome.event, started, if (outcome.state == RuntimeState.FAILED) error else null)
         } catch (failure: Exception) {
             log(snapshot, null, "runtime.finish_unavailable", started)
         }
     }
 
-    private fun log(snapshot: RuntimeSnapshot, state: RuntimeState?, event: String, started: Long) {
+    private fun log(snapshot: RuntimeSnapshot, state: RuntimeState?, event: String, started: Long, error: DstuError? = null) {
         val fields = JsonValue.Object.Builder().put("owner", "runtime").apply {
             if (state != null) put("state", state.name.lowercase())
+            if (event == "runtime.finished") put("stage", "COMPLETE")
             ClockChecks.monotonicElapsedMillis(started, monotonicClock.nowNanos())?.let { put("duration_ms", it) }
         }.build()
         try {
-            logger.log(LogRecord(LogLevel.INFO, event, snapshot.taskId, snapshot.correlationId, fields))
+            val level = if (error == null) LogLevel.INFO else LogLevel.ERROR
+            logger.log(LogRecord(level, event, snapshot.taskId, snapshot.correlationId, fields, error))
         } catch (_: Exception) {
             // Diagnostics must not change task state.
         }

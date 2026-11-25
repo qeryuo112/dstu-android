@@ -10,10 +10,10 @@ import java.io.OutputStream
  * accepted only when reading a container header; test vectors use that read
  * path and never become the production write default.
  */
-class DsbkCrypto internal constructor(
-    private val engine: DsbkEngine,
-    private val audit: SecurityAudit,
-) {
+class DsbkCrypto internal constructor(private val engine: DsbkEngine, private val audit: SecurityAudit) {
+    /** Repository transfer only; backups keep independently salted containers. */
+    fun openSession(password: CharArray): DsbkCryptoSession = DsbkCryptoSession(engine, password)
+
     fun encryptV1(plaintext: ByteArray, password: CharArray): ByteArray {
         audit.record(SecurityOperation.DSBK_ENCRYPT, SecurityOutcome.STARTED, bytes = plaintext.size.toLong())
         return try {
@@ -36,12 +36,7 @@ class DsbkCrypto internal constructor(
         }
     }
 
-    fun encryptV2(
-        input: InputStream,
-        output: OutputStream,
-        password: CharArray,
-        maxInputBytes: Long = DEFAULT_MAX_INPUT_BYTES,
-    ) {
+    fun encryptV2(input: InputStream, output: OutputStream, password: CharArray, maxInputBytes: Long = DEFAULT_MAX_INPUT_BYTES) {
         audit.record(SecurityOperation.DSBK_ENCRYPT, SecurityOutcome.STARTED)
         try {
             engine.encryptV2(
@@ -80,8 +75,12 @@ class DsbkCrypto internal constructor(
         trace.start(SecurityPhase.HEADER)
         return try {
             DsbkPreflightReader.read(
-                input, containerBytes, maxOutputBytes, maxInputBytes,
-                PRODUCTION_MAX_MEMORY_KIB, PRODUCTION_MAX_CHUNK_BYTES,
+                input,
+                containerBytes,
+                maxOutputBytes,
+                maxInputBytes,
+                PRODUCTION_MAX_MEMORY_KIB,
+                PRODUCTION_MAX_CHUNK_BYTES,
             ).info.also { trace.succeed() }
         } catch (error: DsbkException) {
             trace.fail(error)
@@ -111,11 +110,7 @@ class DsbkCrypto internal constructor(
         }
     }
 
-    fun decryptToBytes(
-        input: InputStream,
-        password: CharArray,
-        maxOutputBytes: Long,
-    ): ByteArray {
+    fun decryptToBytes(input: InputStream, password: CharArray, maxOutputBytes: Long): ByteArray {
         if (maxOutputBytes < 0) throw DsbkException(DsbkError.OUTPUT_LIMIT_EXCEEDED)
         val sink = ByteArrayDsbkSink(minOf(maxOutputBytes, MAX_IN_MEMORY_BYTES))
         decrypt(input, password, sink, minOf(maxOutputBytes, MAX_IN_MEMORY_BYTES))
@@ -143,19 +138,19 @@ class DsbkCrypto internal constructor(
         const val DEFAULT_MAX_INPUT_BYTES = 1024L * 1024L * 1024L
         const val DEFAULT_MAX_CONTAINER_BYTES = DEFAULT_MAX_INPUT_BYTES + 16445L
         const val MAX_IN_MEMORY_BYTES = 64L * 1024L * 1024L
+
         // Read compatibility follows the frozen desktop bounds, not the write
         // defaults. The shared KDF gate prevents concurrent large derivations.
         const val PRODUCTION_MAX_MEMORY_KIB = DsbkFormat.MAX_MEMORY_KIB
         const val PRODUCTION_MAX_CHUNK_BYTES = DsbkFormat.MAX_STREAM_CHUNK
 
-        fun production(audit: SecurityAudit = SecurityAudit.NONE): DsbkCrypto =
-            DsbkCrypto(
-                DsbkEngine(
-                    Argon2idKeyDeriver(),
-                    maxMemoryKiB = PRODUCTION_MAX_MEMORY_KIB,
-                    maxChunkBytes = PRODUCTION_MAX_CHUNK_BYTES,
-                ),
-                audit,
-            )
+        fun production(audit: SecurityAudit = SecurityAudit.NONE): DsbkCrypto = DsbkCrypto(
+            DsbkEngine(
+                Argon2idKeyDeriver(),
+                maxMemoryKiB = PRODUCTION_MAX_MEMORY_KIB,
+                maxChunkBytes = PRODUCTION_MAX_CHUNK_BYTES,
+            ),
+            audit,
+        )
     }
 }

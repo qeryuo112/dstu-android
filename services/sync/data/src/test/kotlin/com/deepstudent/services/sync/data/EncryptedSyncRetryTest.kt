@@ -31,8 +31,6 @@ import com.deepstudent.services.sync.backend.transfer.SyncPipeline
 import com.deepstudent.services.sync.backend.transfer.SyncUploadState
 import com.deepstudent.services.sync.data.transfer.DsbkSyncCryptography
 import com.deepstudent.services.sync.data.transfer.SqlUploadState
-import java.io.File
-import java.nio.file.Files
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertArrayEquals
@@ -43,6 +41,8 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertThrows
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import java.io.File
+import java.nio.file.Files
 
 /** Real DSBK and SQLite publication journal, with in-memory network and domain ports. */
 class EncryptedSyncRetryTest {
@@ -54,7 +54,11 @@ class EncryptedSyncRetryTest {
         override fun encode(bytes: ByteArray) = bytes
         override fun decode(bytes: ByteArray) = bytes
     }
-    @After fun cleanup() { password.fill('\u0000'); root.deleteRecursively() }
+
+    @After fun cleanup() {
+        password.fill('\u0000')
+        root.deleteRecursively()
+    }
 
     @Test fun failedAuthenticationAndConflictingReservedObjectPreserveCheckpointsUntilExactRetry() = runBlocking {
         val remote = Provider()
@@ -79,7 +83,7 @@ class EncryptedSyncRetryTest {
             reservedKey = pending.key
             reservedWire = pending.payload.copyOf()
             assertEquals(1, pending.sequence)
-            assertEquals(listOf(17L), pending.changeLogIds)
+            assertEquals(listOf(17L), pending.receipts.map { it.changeLogId })
             assertArrayEquals(reservedWire, remote.objects.getValue(reservedKey))
             assertEquals(0, journal.published())
             assertFalse(local.marked)
@@ -266,21 +270,38 @@ class EncryptedSyncRetryTest {
         val factory = object : ProviderFactory {
             override fun open(endpoint: String, username: String, root: String, password: CharArray) = remote
         }
-        val identity = object : DeviceIdentity { override fun getOrCreate() = LOCAL }
+        val identity = object : DeviceIdentity {
+            override fun getOrCreate() = LOCAL
+        }
         val service = PairingService(store, identity, factory, encryption = encryption)
-        val result = service.pair(PairingMode.CREATE, PairingRequest(
-            "https://fixture.invalid/dav", "fixture", "root", "webdav".toCharArray(), password.copyOf(),
-        ))
+        val result = service.pair(
+            PairingMode.CREATE,
+            PairingRequest(
+                "https://fixture.invalid/dav",
+                "fixture",
+                "root",
+                "webdav".toCharArray(),
+                password.copyOf(),
+            ),
+        )
         assertTrue(result is SyncResult.Success)
         return (result as SyncResult.Success).value
     }
 
     // Mirrors the configured preflight boundary, but does not claim to exercise app/Android wiring.
-    private suspend fun pipeline(remote: Provider, config: SyncConfiguration, journal: PublicationJournal,
-        domain: Domain, codec: SyncPayloadCodec): SyncPipeline {
+    private suspend fun pipeline(
+        remote: Provider,
+        config: SyncConfiguration,
+        journal: PublicationJournal,
+        domain: Domain,
+        codec: SyncPayloadCodec,
+    ): SyncPipeline {
         val guarded = encryption.check(remote, true, password).guardWrites(remote)
-        return SyncPipeline(ChangeTransfer(guarded, compression, journal, domain, LOCAL, codec),
-            BlobTransfer(guarded, Blobs(), codec), { RemoteGate(guarded, config.instanceId).minimumReader() })
+        return SyncPipeline(
+            ChangeTransfer(guarded, compression, journal, domain, LOCAL, codec),
+            BlobTransfer(guarded, Blobs(), codec),
+            { RemoteGate(guarded, config.instanceId).minimumReader() },
+        )
     }
 
     private fun assertSafePoint(journal: PublicationJournal, domain: Domain, key: String, wire: ByteArray) {
@@ -288,7 +309,7 @@ class EncryptedSyncRetryTest {
         assertNotNull(pending)
         assertEquals(key, pending!!.key)
         assertEquals(1, pending.sequence)
-        assertEquals(listOf(17L), pending.changeLogIds)
+        assertEquals(listOf(17L), pending.receipts.map { it.changeLogId })
         assertArrayEquals(wire, pending.payload)
         assertEquals(0, journal.published())
         assertFalse(domain.marked)
@@ -313,10 +334,15 @@ class EncryptedSyncRetryTest {
             if (ifAbsent && key in objects) throw SyncFailure(SyncError.ALREADY_EXISTS)
             objects[key] = value.copyOf()
             puts += key
-            if (loseNextPutResponse) { loseNextPutResponse = false; throw SyncFailure(SyncError.NETWORK) }
+            if (loseNextPutResponse) {
+                loseNextPutResponse = false
+                throw SyncFailure(SyncError.NETWORK)
+            }
         }
         override suspend fun list(prefix: String) = objects.keys.filter { it.startsWith(prefix) }
-        override suspend fun delete(key: String) { objects.remove(key) }
+        override suspend fun delete(key: String) {
+            objects.remove(key)
+        }
         fun snapshot() = objects.mapValues { it.value.copyOf() }
         fun assertSnapshot(expected: Map<String, ByteArray>) {
             assertEquals(expected.keys, objects.keys)
@@ -327,15 +353,22 @@ class EncryptedSyncRetryTest {
     private class Store : ConfigurationStore {
         private var configuration: SyncConfiguration? = null
         override fun read() = configuration
-        override fun save(configuration: SyncConfiguration, password: CharArray, encryptionPassword: CharArray?) { this.configuration = configuration }
+        override fun save(configuration: SyncConfiguration, password: CharArray, encryptionPassword: CharArray?) {
+            this.configuration =
+                configuration
+        }
         override fun replaceEncryptionPassword(configuration: SyncConfiguration, password: CharArray) = error("not used")
-        override fun clear() { configuration = null }
+        override fun clear() {
+            configuration = null
+        }
     }
 
     private class VolatileState : SyncUploadState {
         var seq = 0L
         override fun published() = seq
-        override fun markPublished(seq: Long) { this.seq = seq }
+        override fun markPublished(seq: Long) {
+            this.seq = seq
+        }
     }
 
     private class Domain(private val id: Long, private val note: String) : DomainSyncAdapter {
@@ -344,10 +377,21 @@ class EncryptedSyncRetryTest {
         var markCount = 0
         val applied = mutableListOf<ByteArray>()
         private val cursors = mutableMapOf<String, Long>()
-        override fun pending() = if (marked) emptyList() else listOf(
-            """{"table_name":"notes","record_id":"$note","operation":"Insert","data":{},"changed_at":"2026-11-18T00:00:00Z","change_log_id":$id}""".toByteArray(),
-        )
-        override fun markPublished(changeLogIds: List<Long>, version: Long) { marked = true; markedIds = changeLogIds; markCount++ }
+        override fun pending() = if (marked) {
+            emptyList()
+        } else {
+            listOf(
+                (
+                    """{"table_name":"notes","record_id":"$note","operation":"Insert","data":{},""" +
+                        """"changed_at":"2026-11-18T00:00:00Z","change_log_id":$id}"""
+                    ).toByteArray(),
+            )
+        }
+        override fun markPublished(changeLogIds: List<Long>, version: Long) {
+            marked = true
+            markedIds = changeLogIds
+            markCount++
+        }
         override fun cursor(device: String) = cursors[device] ?: 0
         override fun apply(device: String, seq: Long, changes: List<ByteArray>) {
             check(seq == cursor(device) + 1)
@@ -360,7 +404,11 @@ class EncryptedSyncRetryTest {
         var installs = 0
         override fun list() = listOfNotNull(blob)
         override fun read(blob: SyncBlob) = bytes?.copyOf()
-        override fun install(blob: SyncBlob, bytes: ByteArray) { installs++; this.blob = blob; this.bytes = bytes.copyOf() }
+        override fun install(blob: SyncBlob, bytes: ByteArray) {
+            installs++
+            this.blob = blob
+            this.bytes = bytes.copyOf()
+        }
     }
 
     companion object {

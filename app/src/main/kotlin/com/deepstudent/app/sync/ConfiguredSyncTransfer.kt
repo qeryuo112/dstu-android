@@ -18,7 +18,6 @@ import com.deepstudent.services.sync.data.LocalSyncStore
 import com.deepstudent.services.sync.data.transfer.StoredEncryptionPassword
 import com.deepstudent.services.sync.data.transfer.StoredWebDavProvider
 import com.deepstudent.services.sync.data.transfer.SyncProcessLock
-import java.io.File
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
@@ -28,6 +27,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import java.io.File
 
 internal class SyncRunGuards(val lockDirectory: File, val validateCapture: () -> Unit)
 
@@ -49,6 +49,7 @@ internal class ConfiguredSyncTransfer(
             val config = configuration.read() ?: throw SyncFailure(SyncError.INVALID_CONFIGURATION)
             SyncProcessLock.acquire(guards.lockDirectory).use {
                 guards.validateCapture()
+                clearAbandonedSyncStages(File(guards.lockDirectory, "transfer-stage"))
                 synchronizeConfigured(config)
             }
         } catch (cancelled: CancellationException) {
@@ -70,7 +71,7 @@ internal class ConfiguredSyncTransfer(
             try {
                 val guarded = lease.guarded()
                 policy.requireUnchanged(guarded)
-                observe(assemble(config, policy.guardWrites(guarded), encryption.codec(password)))
+                encryption.codec(password).use { codec -> observe(assemble(config, policy.guardWrites(guarded), codec)) }
             } finally {
                 lease.release()
             }
@@ -87,8 +88,22 @@ internal class ConfiguredSyncTransfer(
 
     private fun failed(error: SyncError): SyncResult<Unit> {
         mutableState.value = SyncTransferState(SyncTransferPhase.FAILED, error = error)
-        logger.info("sync.transfer.preflight_failed", JsonValue.Object.Builder()
-            .put("owner", "sync").put("error", error.name).build())
+        logger.info(
+            "sync.transfer.preflight_failed",
+            JsonValue.Object.Builder()
+                .put("owner", "sync").put("error", error.name).build(),
+        )
         return SyncResult.Failure(error)
+    }
+}
+
+/** The process lock is held. Never follow links or delete anything except our owned stage names. */
+private fun clearAbandonedSyncStages(directory: File) {
+    val path = directory.toPath()
+    val noFollow = java.nio.file.LinkOption.NOFOLLOW_LINKS
+    if (java.nio.file.Files.notExists(path, noFollow)) return
+    check(java.nio.file.Files.isDirectory(path, noFollow))
+    java.nio.file.Files.newDirectoryStream(path, "sync-object-*.stage").use { paths ->
+        for (stage in paths) if (java.nio.file.Files.isRegularFile(stage, noFollow)) java.nio.file.Files.delete(stage)
     }
 }

@@ -40,30 +40,42 @@ class RestoreBaselineDeviceTest {
             val openSecurity = { SecurityFactory.create(fixture.scratch.canonicalFile.resolve("security"), alias) }
             val identity = OrdinaryRestoreIdentity(fixture.target, openSecurity)
             try {
-                RestoreSyncScenario(androidRestoreFixture(temp.root), temp.root, remediationCorpus(), AndroidOperationLogger) { name ->
-                    checkNotNull(args.getString("s216_$name")) { "Missing fixture argument $name" }
-                }.verify(stateRoot, openSecurity) { zip ->
-                    val source = fixture.uri(zip.copyTo(fixture.scratch.resolve("incoming.zip")))
-                    val originalId = stateRoot.resolve("device-id").readText()
-                    val coordinator = BackupRestoreCoordinator(fixture.target, identity).also { it.beforeBusinessOpen() }
-                    val plan = fixture.reader.read(source)
-                    assertTrue(plan.problems.toString(), plan.canStage)
-                    val scheduled = coordinator.schedule(source, plan)
-                    assertTrue("ordinary queue status=${coordinator.status.value}", scheduled)
-                    assertEquals(originalId, stateRoot.resolve("device-id").readText())
-                    assertEquals(BackupRestoreUiStatus.QUEUED, coordinator.status.value)
-                    val queue = PendingBackupRestore(fixture.target.noBackupFilesDir.resolve("backup-restore"))
-                    val operation = checkNotNull(queue.request()).id
-                    val cold = BackupRestoreCoordinator(fixture.target, identity).also { it.beforeBusinessOpen() }
-                    assertEquals(BackupRestoreUiStatus.APPLIED_REPAIR_SYNC, cold.status.value)
-                    val restarted = BackupRestoreCoordinator(fixture.target, identity).also { it.beforeBusinessOpen() }
-                    assertEquals(BackupRestoreUiStatus.APPLIED_REPAIR_SYNC, restarted.status.value)
-                    assertEquals("local-only", old.root.resolve("local-state.txt").readText())
-                    MainStorageResources.open(fixture.target).use { storage ->
-                        assertNotEquals(old.root, storage.activeRoot)
-                        RestoreSyncScenario.RestoredSlot(storage.activeRoot, operation)
-                    }
+                fun parameter(name: String) = checkNotNull(args.getString("s216_$name")) { "Missing fixture argument $name" }
+                val assets = if (args.getString("s230_attachments") == "true") {
+                    RestoreApplyAttachments(remediationCorpus(), ::parameter)
+                } else {
+                    null
                 }
+                RestoreSyncScenario(
+                    androidRestoreFixture(temp.root),
+                    temp.root,
+                    remediationCorpus(),
+                    AndroidOperationLogger,
+                    assets,
+                    ::parameter,
+                )
+                    .verify(stateRoot, openSecurity) { zip ->
+                        val source = fixture.uri(zip.copyTo(fixture.scratch.resolve("incoming.zip")))
+                        val originalId = stateRoot.resolve("device-id").readText()
+                        val coordinator = BackupRestoreCoordinator(fixture.target, identity).also { it.beforeBusinessOpen() }
+                        val plan = fixture.reader.read(source)
+                        assertTrue(plan.problems.toString(), plan.canStage)
+                        val scheduled = coordinator.schedule(source, plan)
+                        assertTrue("ordinary queue status=${coordinator.status.value}", scheduled)
+                        assertEquals(originalId, stateRoot.resolve("device-id").readText())
+                        assertEquals(BackupRestoreUiStatus.QUEUED, coordinator.status.value)
+                        val queue = PendingBackupRestore(fixture.target.noBackupFilesDir.resolve("backup-restore"))
+                        val operation = checkNotNull(queue.request()).id
+                        val cold = BackupRestoreCoordinator(fixture.target, identity).also { it.beforeBusinessOpen() }
+                        assertEquals(BackupRestoreUiStatus.APPLIED_REPAIR_SYNC, cold.status.value)
+                        val restarted = BackupRestoreCoordinator(fixture.target, identity).also { it.beforeBusinessOpen() }
+                        assertEquals(BackupRestoreUiStatus.APPLIED_REPAIR_SYNC, restarted.status.value)
+                        assertEquals("local-only", old.root.resolve("local-state.txt").readText())
+                        MainStorageResources.open(fixture.target).use { storage ->
+                            assertNotEquals(old.root, storage.activeRoot)
+                            RestoreSyncScenario.RestoredSlot(storage.activeRoot, operation)
+                        }
+                    }
             } finally {
                 AndroidKeystoreKeyWrapper(alias).deleteKey()
             }

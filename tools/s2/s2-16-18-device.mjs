@@ -10,7 +10,7 @@ import { parseArgs, promisify } from 'node:util';
 import { bindDisposableReverse, classifyAdbFailure } from '../s1/benchmark-device-lib.mjs';
 import { DESKTOP_COMMIT, makeOrphanFixture } from './s2-14-desktop-interop.mjs';
 import { verifyRestoreRoundtrip } from './s2-16-host-roundtrip.mjs';
-import { inspectRemediationTrace, parseInstrumentResults } from './s2-16-18-results.mjs';
+import { inspectPublicationTrace, inspectRemediationTrace, parseInstrumentResults } from './s2-16-18-results.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const app = 'com.deepstudent.app.s2device';
@@ -22,7 +22,7 @@ const aapt = join(sdk, 'build-tools/36.0.0/aapt');
 const run = promisify(execFile);
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
 const options = Object.fromEntries(['serial', 'model', 'candidate', 'output'].map(key => [key, { type: 'string' }]));
-const { values: args } = parseArgs({ options });
+const { values: args } = parseArgs({ options: { ...options, 'require-publication-trace': { type: 'boolean' } } });
 assert.ok(Object.keys(options).every(key => args[key]),
   'usage: node tools/s2/s2-16-18-device.mjs --serial SERIAL --model MODEL --candidate DIR --output NEW_PRIVATE_DIR');
 assert.match(args.serial, /^[A-Za-z0-9_.:-]+$/u);
@@ -150,7 +150,10 @@ async function captureTrace(uid, since) {
   const raw = await shell(`logcat -d --uid=${uid} -b main -v tag -T '${since}' -s DstuBackupRestore DstuBackupCrypto DstuRestoreIdentity DstuOperation '*:S'`);
   const { lines, ...audit } = inspectRemediationTrace(raw);
   await writeFile(join(out, 'trace.log'), `${lines.join('\n')}\n`, { mode: 0o600 });
-  return audit;
+  if (!args['require-publication-trace']) return audit;
+  const { lines: publicationLines, ...publication } = inspectPublicationTrace(raw);
+  await writeFile(join(out, 'publication-trace.log'), `${publicationLines.join('\n')}\n`, { mode: 0o600 });
+  return { ...audit, publication };
 }
 
 try {

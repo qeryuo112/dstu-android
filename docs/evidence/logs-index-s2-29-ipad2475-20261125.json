@@ -1,0 +1,256 @@
+{
+  "format": "dstu-evidence-index/v1",
+  "generatedAt": "2026-11-25T05:05:32.586Z",
+  "source": {
+    "repository": "dstu-android",
+    "ref": "f23ff738c684ccb31ed43d6a16325b0f6d3d622b",
+    "revision": "f23ff738c684ccb31ed43d6a16325b0f6d3d622b",
+    "selection": "worktree",
+    "entryCount": 27,
+    "trackedCount": 0,
+    "presentCount": 27,
+    "missingFromWorktree": []
+  },
+  "archive": {
+    "format": "tar.gz",
+    "root": "PRIVATE_ARTIFACT_ROOT",
+    "relativeLocation": "s229-ipad2475-20261125/evidence.tar.gz",
+    "location": "PRIVATE_ARTIFACT_ROOT/s229-ipad2475-20261125/evidence.tar.gz",
+    "size": 44951,
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "c78fa9f0b7f964f0f2fb1bd73f5923774536d51570603ee5f55f15805af9633b"
+    },
+    "manifest": {
+      "relativeLocation": "s229-ipad2475-20261125/manifest.json",
+      "location": "PRIVATE_ARTIFACT_ROOT/s229-ipad2475-20261125/manifest.json",
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "0e352784ea23e79865e981c2a3b06ee2a40c8077b055a47077665eec219ae5e9"
+      }
+    }
+  },
+  "entries": [
+    {
+      "path": "logs/s229-ipad2475-20261125-candidate-SHA256SUMS.txt",
+      "size": 265,
+      "sha256": "9ebba8fc11f2178bb413b389e368953b61dae78d1c0ad30e8a1e1fa0a1161bec",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-ipad2475-20261125-cleanup.log",
+      "size": 261,
+      "sha256": "9f14b44433b68eaa02d61ce97ad00093b2179c50681b628b845b41b430fa9d2c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-ipad2475-20261125-encrypted-desktop.log",
+      "size": 1422,
+      "sha256": "da8fb4977738c26a570546f1144e36d5b3f0372cce44ee84e16411001e6c195c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-ipad2475-20261125-first-fixture-attempt.log",
+      "size": 2708,
+      "sha256": "24af800811f53496781ad95728a6d392d2c93b4dfdbcaf56b0bda90754264098",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-ipad2475-20261125-fixture-exit-diagnostic.log",
+      "size": 1327,
+      "sha256": "98a3a71805e604fd44388282ca5870128b6403b21f7047f47a5919778d3b788c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-ipad2475-20261125-fixture-freezer-diagnostic.log",
+      "size": 422,
+      "sha256": "a763a09f223658d7a77d35707a89ad35a3546d869aea25c9de6e85e79a05f00c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-ipad2475-20261125-host-gradle-supplement.log",
+      "size": 24740,
+      "sha256": "7fcb437c2eb1a9166a14fa2f141314848b52fddf98bde52a350fa8c3746d5eb9",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-ipad2475-20261125-host-gradle.log",
+      "size": 120820,
+      "sha256": "871c68f78f23eda5bd3d7c7d1fb925ac93eddac4bc675f7842b5b42703d70d1d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-ipad2475-20261125-host-rebuild.log",
+      "size": 101823,
+      "sha256": "9b1f0aa6088eaaf5b0de57cea9a1ca9969ba283ef268285c77ef8d75479e4c58",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-ipad2475-20261125-host-repository.log",
+      "size": 22016,
+      "sha256": "d9f669ca91b490531d2e96b516d69f2aa7b106c067979d3a39e0c73d1e525329",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-ipad2475-20261125-original-apk-verify.log",
+      "size": 229,
+      "sha256": "eb45ed49c577990929d20ec0b1614bfcf8c754a513ebbf3b53130bc59c06327e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-ipad2475-20261125-original-publication-trace.log",
+      "size": 2737,
+      "sha256": "450c7b0f010c61e2401c366c4954584b12a46fa2358963a999050024bb4a7bb4",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-ipad2475-20261125-original-replay.log",
+      "size": 505,
+      "sha256": "e35726eb6b6e8e4e9a90b5b031070ff0788d83ee49fe5ee0707baad8f0f2df8e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-ipad2475-20261125-original-restore-receipt.json",
+      "size": 4506,
+      "sha256": "ede02c4729ef9e3fd09a72133dbc7ee9c6333fe811609e25b696a63fe5efa285",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-ipad2475-20261125-plaintext-desktop.log",
+      "size": 1125,
+      "sha256": "07aaeda5ffee695a4caf363c08914f7e140180b651ac19b2d4d47287d8a721e6",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-ipad2475-20261125-publication-instrumentation.log",
+      "size": 17729,
+      "sha256": "76764fe25c1726089e80953171c1867dd3485e565abcd838b12a832c9ba60986",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-ipad2475-20261125-publication-run.log",
+      "size": 849,
+      "sha256": "2064d17c59d1b4cd69ebf2747662abf07efc367f5be7c2ae2472b26544e5ccda",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-ipad2475-20261125-publication-test-cases.json",
+      "size": 3045,
+      "sha256": "5939c06c0fc01a2cc4d317e53a96021727ee544f3f444399fdaaf27dbdd9791f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-ipad2475-20261125-repaired-legacy-marker.log",
+      "size": 7235,
+      "sha256": "faace9dffa86ebe4ac2398185b58fa41c7b29f39097842b7f2fb86359859c026",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-ipad2475-20261125-repaired-publication-trace.log",
+      "size": 1426,
+      "sha256": "035178b5a581c9ae863a40b639ed9ed959da92e354249b5bc7112ac6ba252c3c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-ipad2475-20261125-repaired-resources.log",
+      "size": 4469,
+      "sha256": "e12149b41f975b1b8b3dbf5843a57a44c64e50aad17fa9a40ce6c24d28c01f7d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-ipad2475-20261125-repaired-restore-baseline.log",
+      "size": 2240,
+      "sha256": "b9206ef214a7b66a1b48ed776e2e3fc6390d56b523ebabc57eb7ab12eda4edb0",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-ipad2475-20261125-repaired-restore-receipt.json",
+      "size": 4591,
+      "sha256": "fba7ec95fb748719d30ab59806356f58fa88347087599d49272c3b313634a59e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-ipad2475-20261125-repaired-restore-trace.log",
+      "size": 15541,
+      "sha256": "42819fd4171be1044e223e8551063425c873e874ae8d7c1818f33f0c13065514",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-ipad2475-20261125-repaired-restore.log",
+      "size": 505,
+      "sha256": "e35726eb6b6e8e4e9a90b5b031070ff0788d83ee49fe5ee0707baad8f0f2df8e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-ipad2475-20261125-second-fixture-attempt.log",
+      "size": 2634,
+      "sha256": "46bc03375024134eb9ae9115cca162f553ac8457ad2155ee8df6e1a0fc34de15",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s229-ipad2475-20261125-source-revision.txt",
+      "size": 41,
+      "sha256": "4cea05aba0563f2c19dbb471ded8db2d03ef00b8903c0d1b2e580fdfa2ac787f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    }
+  ],
+  "compatibility": {
+    "legacyPathPolicy": "Entries retain original logs/... paths; historical docs/config references are lookup keys, not tracked files.",
+    "localWrites": "logs/ is gitignored; existing tools may continue writing local evidence.",
+    "restoreCommand": "node tools/evidence/restore.mjs <logs/path>"
+  }
+}

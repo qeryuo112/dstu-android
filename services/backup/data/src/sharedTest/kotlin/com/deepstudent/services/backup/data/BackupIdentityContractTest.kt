@@ -7,25 +7,45 @@ import com.deepstudent.platform.database.SharedDatabase
 import com.deepstudent.platform.database.SqlDatabase
 import com.deepstudent.platform.database.SqlOperations
 import com.deepstudent.platform.database.SqlValue
-import com.deepstudent.services.backup.backend.*
+import com.deepstudent.services.backup.backend.ContinuityArchiveEvidence
+import com.deepstudent.services.backup.backend.ContinuityCursor
+import com.deepstudent.services.backup.backend.ContinuityPublication
+import com.deepstudent.services.backup.backend.ContinuityRepository
+import com.deepstudent.services.backup.backend.ContinuitySourceInstallation
+import com.deepstudent.services.backup.backend.ContinuityState
+import com.deepstudent.services.backup.backend.ContinuityTrust
+import com.deepstudent.services.backup.backend.ContinuityValidation
+import com.deepstudent.services.backup.backend.ContinuityValidator
+import com.deepstudent.services.backup.backend.ContinuityWatermark
+import com.deepstudent.services.backup.backend.ContinuityWriterConfirmation
+import com.deepstudent.services.backup.backend.ManifestCodec
+import com.deepstudent.services.sync.api.SyncChangeReceipt
 import com.deepstudent.services.sync.backend.SyncWireCodec
 import com.deepstudent.services.sync.backend.transfer.PendingPublication
 import com.deepstudent.services.sync.data.transfer.SqlSyncManifest
 import com.deepstudent.services.sync.data.transfer.SqlUploadState
+import org.junit.After
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertSame
+import org.junit.Assert.assertThrows
+import org.junit.Assert.assertTrue
+import org.junit.Test
 import java.io.ByteArrayInputStream
 import java.io.File
 import java.security.MessageDigest
 import java.util.zip.ZipInputStream
-import org.junit.After
-import org.junit.Assert.*
-import org.junit.Test
 
 /** Same tests run with the actual platform database driver on JVM and Android. */
 abstract class BackupIdentityContractTest {
     protected abstract val root: File
     protected abstract val migrations: MigrationSource
     protected abstract fun fixture(name: String): ByteArray
-    @After fun cleanup() { root.deleteRecursively() }
+
+    @After fun cleanup() {
+        root.deleteRecursively()
+    }
 
     private fun open(): SqlDatabase = DatabaseFactory.openShared(File(root, "candidate-vfs.db"), SharedDatabase.VFS, migrations)
     private fun matched(transform: (ByteArray) -> ByteArray = { it }): ContinuityValidation.Matched {
@@ -46,7 +66,8 @@ abstract class BackupIdentityContractTest {
             ContinuityArchiveEvidence(hash(zip), zip.size.toLong(), manifest),
             ContinuitySourceInstallation("com.deepstudent.app", "0.20.0", 1114586, "installation-legacy-mobile-demo"),
             ContinuityRepository("default", "local", "file:///deep-student/local/sync"),
-            ContinuityWriterConfirmation("device-7f3a91c2", stopped = true, unchangedSinceSnapshot = true), hash(sidecar),
+            ContinuityWriterConfirmation("device-7f3a91c2", stopped = true, unchangedSinceSnapshot = true),
+            hash(sidecar),
         )
         return ContinuityValidator.validate(sidecar, trust) as ContinuityValidation.Matched
     }
@@ -77,7 +98,12 @@ abstract class BackupIdentityContractTest {
             assertEquals(matched.state.repository, snapshot.binding)
             assertEquals(5L, snapshot.publishedSequence)
             assertEquals(matched.state.cursors, snapshot.sourceCursors)
-            assertEquals(setOf("device-91bc4de0", SyncWireCodec.deviceHash("device-91bc4de0")), snapshot.cursors.map { it.uploaderDeviceId }.toSet())
+            assertEquals(
+                setOf("device-91bc4de0", SyncWireCodec.deviceHash("device-91bc4de0")),
+                snapshot.cursors.map {
+                    it.uploaderDeviceId
+                }.toSet(),
+            )
             assertTrue(snapshot.cursors.all { it.lastSeq == 12L })
             assertEquals(matched.state.watermarks.toSet(), snapshot.watermarks.toSet())
             assertEquals(matched.state.publications, snapshot.publications)
@@ -107,13 +133,26 @@ abstract class BackupIdentityContractTest {
             val store = BackupIdentityStore(db)
             store.restoreContinuity(matched, fakeClaim)
             val journal = SqlUploadState(db, "default", "device-7f3a91c2")
-            journal.reserve(PendingPublication("future-object", 6, 1, byteArrayOf(1, 2), listOf(5)))
+            journal.reserve(
+                PendingPublication(
+                    "future-object",
+                    6,
+                    1,
+                    byteArrayOf(1, 2),
+                    listOf(5).map {
+                        SyncChangeReceipt("vfs", it.toLong())
+                    },
+                ),
+            )
             db.execute("CREATE TABLE __android_sync_versions_v2(instance TEXT,record_id TEXT,deleted INTEGER)")
             db.execute("INSERT INTO __android_sync_versions_v2 VALUES('default','note',1)")
             assertSame(BackupIdentityRePairRequired, store.resetForOrdinaryRestore())
             val state = store.readSnapshot("default", "device-7f3a91c2")
             assertNull(state.binding)
-            assertTrue(state.cursors.isEmpty()); assertTrue(state.sourceCursors.isEmpty()); assertTrue(state.watermarks.isEmpty()); assertTrue(state.processedKeys.isEmpty())
+            assertTrue(state.cursors.isEmpty())
+            assertTrue(state.sourceCursors.isEmpty())
+            assertTrue(state.watermarks.isEmpty())
+            assertTrue(state.processedKeys.isEmpty())
             assertEquals(5L, state.publishedSequence)
             assertEquals(matched.state.publications, state.publications)
             assertEquals(matched.takeoverKey, state.receipts.single().takeoverKey)
@@ -133,18 +172,28 @@ abstract class BackupIdentityContractTest {
             assertEquals(BackupIdentityFailure.CLAIM_UNAVAILABLE, absent.diagnostic)
             var late: ((BackupIdentityPeerAliases) -> Unit)? = null
             val bad = object : BackupIdentityTestClaim() {
-                override fun withVerifiedExclusiveClaim(binding: BackupIdentityClaimBinding, commit: (BackupIdentityPeerAliases) -> Unit) { late = commit }
+                override fun withVerifiedExclusiveClaim(binding: BackupIdentityClaimBinding, commit: (BackupIdentityPeerAliases) -> Unit) {
+                    late =
+                        commit
+                }
             }
             val failure = assertThrows(BackupIdentityException::class.java) { store.restoreContinuity(matched, bad) }
             assertEquals(BackupIdentityFailure.CLAIM_PROTOCOL, failure.diagnostic)
-            assertEquals(BackupIdentityFailure.CLAIM_PROTOCOL, assertThrows(BackupIdentityException::class.java) { late!!(BackupIdentityPeerAliases(emptyMap())) }.diagnostic)
+            assertEquals(
+                BackupIdentityFailure.CLAIM_PROTOCOL,
+                assertThrows(BackupIdentityException::class.java) {
+                    late!!(BackupIdentityPeerAliases(emptyMap()))
+                }.diagnostic,
+            )
             val noLedger = object : BackupIdentityClaimPort() {
                 override fun withVerifiedExclusiveClaim(binding: BackupIdentityClaimBinding, commit: (BackupIdentityPeerAliases) -> Unit) {
                     commit(BackupIdentityPeerAliases(binding.uploaderIds.associateWith { it }))
                 }
             }
-            assertEquals(BackupIdentityFailure.CLAIM_UNAVAILABLE,
-                assertThrows(BackupIdentityException::class.java) { store.restoreContinuity(matched, noLedger) }.diagnostic)
+            assertEquals(
+                BackupIdentityFailure.CLAIM_UNAVAILABLE,
+                assertThrows(BackupIdentityException::class.java) { store.restoreContinuity(matched, noLedger) }.diagnostic,
+            )
             assertTrue(db.query("SELECT 1 FROM sqlite_master WHERE name='__dstu_identity_receipt'") { it.long(0) }.isEmpty())
         }
     }
@@ -153,8 +202,19 @@ abstract class BackupIdentityContractTest {
         val matched = matched()
         open().use { db ->
             val journal = SqlUploadState(db, "default", "device-7f3a91c2")
-            journal.reserve(PendingPublication("old-pending", 6, 1, byteArrayOf(9), listOf(2)))
-            val failure = assertThrows(BackupIdentityException::class.java) { BackupIdentityStore(db).restoreContinuity(matched, fakeClaim) }
+            journal.reserve(
+                PendingPublication(
+                    "old-pending",
+                    6,
+                    1,
+                    byteArrayOf(9),
+                    listOf(2).map {
+                        SyncChangeReceipt("vfs", it.toLong())
+                    },
+                ),
+            )
+            val failure =
+                assertThrows(BackupIdentityException::class.java) { BackupIdentityStore(db).restoreContinuity(matched, fakeClaim) }
             assertEquals(BackupIdentityFailure.PENDING_PUBLICATION, failure.diagnostic)
             assertEquals("old-pending", journal.pending()?.key)
             assertTrue(db.query("SELECT 1 FROM sqlite_master WHERE name='__dstu_identity_receipt'") { it.long(0) }.isEmpty())
@@ -182,10 +242,13 @@ abstract class BackupIdentityContractTest {
             }
             assertThrows(IllegalStateException::class.java) { BackupIdentityStore(throwing).restoreContinuity(matched, fakeClaim) }
             val after = store.readSnapshot("default", "device-7f3a91c2")
-            assertNull(after.binding); assertEquals(3L, after.publishedSequence)
+            assertNull(after.binding)
+            assertEquals(3L, after.publishedSequence)
             assertEquals(listOf(ContinuityCursor("prior", 2)), after.cursors)
-            assertTrue(after.watermarks.isEmpty()); assertTrue(after.publications.isEmpty())
-            assertTrue(after.processedKeys.isEmpty()); assertTrue(after.receipts.isEmpty())
+            assertTrue(after.watermarks.isEmpty())
+            assertTrue(after.publications.isEmpty())
+            assertTrue(after.processedKeys.isEmpty())
+            assertTrue(after.receipts.isEmpty())
         }
     }
 
@@ -215,8 +278,10 @@ abstract class BackupIdentityContractTest {
             db.execute("INSERT INTO sync_upload_state VALUES('default','device-7f3a91c2',3)")
             db.execute("INSERT INTO __dstu_identity_watermark VALUES('default','device-91bc4de0','blob',8)")
             db.execute("INSERT INTO __dstu_identity_publication VALUES('default','device-7f3a91c2','blob','different-op',4)")
-            assertEquals(BackupIdentityFailure.PUBLICATION_CONFLICT,
-                assertThrows(BackupIdentityException::class.java) { store.restoreContinuity(matched, fakeClaim) }.diagnostic)
+            assertEquals(
+                BackupIdentityFailure.PUBLICATION_CONFLICT,
+                assertThrows(BackupIdentityException::class.java) { store.restoreContinuity(matched, fakeClaim) }.diagnostic,
+            )
             assertTrue(store.readSnapshot("default", "device-7f3a91c2").receipts.isEmpty())
             db.execute("DELETE FROM __dstu_identity_publication")
             store.restoreContinuity(matched, fakeClaim)
@@ -232,12 +297,16 @@ abstract class BackupIdentityContractTest {
             val store = BackupIdentityStore(db)
             store.resetForOrdinaryRestore()
             db.execute("UPDATE __dstu_identity_meta SET version=2")
-            assertEquals(BackupIdentityFailure.CONTRACT_MISMATCH,
-                assertThrows(BackupIdentityException::class.java) { store.restoreContinuity(matched, fakeClaim) }.diagnostic)
+            assertEquals(
+                BackupIdentityFailure.CONTRACT_MISMATCH,
+                assertThrows(BackupIdentityException::class.java) { store.restoreContinuity(matched, fakeClaim) }.diagnostic,
+            )
             db.execute("UPDATE __dstu_identity_meta SET version=1")
             db.execute("CREATE TRIGGER bad_identity AFTER INSERT ON __dstu_identity_binding BEGIN DELETE FROM sync_upload_state; END")
-            assertEquals(BackupIdentityFailure.CONTRACT_MISMATCH,
-                assertThrows(BackupIdentityException::class.java) { store.restoreContinuity(matched, fakeClaim) }.diagnostic)
+            assertEquals(
+                BackupIdentityFailure.CONTRACT_MISMATCH,
+                assertThrows(BackupIdentityException::class.java) { store.restoreContinuity(matched, fakeClaim) }.diagnostic,
+            )
             assertEquals(0L, db.query("SELECT count(*) FROM __dstu_identity_receipt") { it.long(0) }.single())
         }
     }
@@ -251,7 +320,8 @@ abstract class BackupIdentityContractTest {
             assertEquals(listOf(BackupIdentityStatus.STARTED, BackupIdentityStatus.COMMITTED), events.map { it.status })
             assertEquals(1, events.map { it.correlationId }.distinct().size)
             assertTrue(events.all { it.owner == "services/backup/data" && it.phase == "identity-restore" && it.elapsedMillis >= 0 })
-            assertFalse(events.toString().contains("device-")); assertFalse(events.toString().contains("default"))
+            assertFalse(events.toString().contains("device-"))
+            assertFalse(events.toString().contains("default"))
             events.clear()
             assertThrows(BackupIdentityException::class.java) { store.restoreContinuity(matched, fakeClaim) }
             assertEquals(BackupIdentityFailure.DUPLICATE_TAKEOVER, events.last().diagnostic)
@@ -271,8 +341,10 @@ abstract class BackupIdentityContractTest {
             val failure = assertThrows(BackupIdentityException::class.java) { store.restoreContinuity(matched, broken) }
             assertEquals(BackupIdentityFailure.CLAIM_COMPLETION_UNKNOWN, failure.diagnostic)
             assertEquals(matched.takeoverKey, store.readSnapshot("default", "device-7f3a91c2").receipts.single().takeoverKey)
-            assertEquals(BackupIdentityFailure.DUPLICATE_TAKEOVER,
-                assertThrows(BackupIdentityException::class.java) { store.restoreContinuity(matched, fakeClaim) }.diagnostic)
+            assertEquals(
+                BackupIdentityFailure.DUPLICATE_TAKEOVER,
+                assertThrows(BackupIdentityException::class.java) { store.restoreContinuity(matched, fakeClaim) }.diagnostic,
+            )
         }
     }
 
@@ -282,10 +354,23 @@ abstract class BackupIdentityContractTest {
             var backgroundFailure: Throwable? = null
             val wrongThread = object : BackupIdentityTestClaim() {
                 override fun withVerifiedExclusiveClaim(binding: BackupIdentityClaimBinding, commit: (BackupIdentityPeerAliases) -> Unit) {
-                    Thread { try { commit(BackupIdentityPeerAliases(binding.uploaderIds.associateWith { it })) } catch (failure: Throwable) { backgroundFailure = failure } }.apply { start(); join() }
+                    Thread {
+                        try {
+                            commit(BackupIdentityPeerAliases(binding.uploaderIds.associateWith { it }))
+                        } catch (
+                            failure: Throwable,
+                        ) {
+                            backgroundFailure =
+                                failure
+                        }
+                    }.apply {
+                        start()
+                        join()
+                    }
                 }
             }
-            val failure = assertThrows(BackupIdentityException::class.java) { BackupIdentityStore(db).restoreContinuity(matched, wrongThread) }
+            val failure =
+                assertThrows(BackupIdentityException::class.java) { BackupIdentityStore(db).restoreContinuity(matched, wrongThread) }
             assertEquals(BackupIdentityFailure.CLAIM_PROTOCOL, failure.diagnostic)
             assertEquals(BackupIdentityFailure.CLAIM_PROTOCOL, (backgroundFailure as BackupIdentityException).diagnostic)
             assertTrue(db.query("SELECT 1 FROM sqlite_master WHERE name='__dstu_identity_receipt'") { it.long(0) }.isEmpty())
@@ -298,20 +383,28 @@ abstract class BackupIdentityContractTest {
             val store = BackupIdentityStore(db)
             store.resetForOrdinaryRestore()
             db.execute("INSERT INTO sync_upload_state VALUES('default','device-7f3a91c2',9223372036854775807)")
-            assertEquals(BackupIdentityFailure.INVALID_SEQUENCE,
-                assertThrows(BackupIdentityException::class.java) { store.restoreContinuity(matched, fakeClaim) }.diagnostic)
+            assertEquals(
+                BackupIdentityFailure.INVALID_SEQUENCE,
+                assertThrows(BackupIdentityException::class.java) { store.restoreContinuity(matched, fakeClaim) }.diagnostic,
+            )
             db.execute("DELETE FROM sync_upload_state")
             db.execute("INSERT INTO sync_upload_state VALUES('default','device-7f3a91c2',9)")
-            assertEquals(BackupIdentityFailure.INVALID_SEQUENCE,
-                assertThrows(BackupIdentityException::class.java) { store.restoreContinuity(matched, fakeClaim) }.diagnostic)
+            assertEquals(
+                BackupIdentityFailure.INVALID_SEQUENCE,
+                assertThrows(BackupIdentityException::class.java) { store.restoreContinuity(matched, fakeClaim) }.diagnostic,
+            )
             db.execute("DELETE FROM sync_upload_state")
             db.execute("INSERT INTO __dstu_identity_watermark VALUES('default','peer','blob','malformed')")
-            assertEquals(BackupIdentityFailure.INVALID_SEQUENCE,
-                assertThrows(BackupIdentityException::class.java) { store.restoreContinuity(matched, fakeClaim) }.diagnostic)
+            assertEquals(
+                BackupIdentityFailure.INVALID_SEQUENCE,
+                assertThrows(BackupIdentityException::class.java) { store.restoreContinuity(matched, fakeClaim) }.diagnostic,
+            )
             db.execute("DELETE FROM __dstu_identity_watermark")
             db.execute("CREATE VIEW SYNC_PENDING_PUBLICATION AS SELECT 'default' AS instance,'device-7f3a91c2' AS device")
-            assertEquals(BackupIdentityFailure.CONTRACT_MISMATCH,
-                assertThrows(BackupIdentityException::class.java) { store.restoreContinuity(matched, fakeClaim) }.diagnostic)
+            assertEquals(
+                BackupIdentityFailure.CONTRACT_MISMATCH,
+                assertThrows(BackupIdentityException::class.java) { store.restoreContinuity(matched, fakeClaim) }.diagnostic,
+            )
             assertTrue(store.readSnapshot("default", "device-7f3a91c2").receipts.isEmpty())
         }
     }
@@ -325,8 +418,10 @@ abstract class BackupIdentityContractTest {
                     commit(BackupIdentityPeerAliases(mapOf("device-91bc4de0" to "unrelated-peer")))
                 }
             }
-            assertEquals(BackupIdentityFailure.CURSOR_ALIAS_CONFLICT,
-                assertThrows(BackupIdentityException::class.java) { store.restoreContinuity(matched, bad) }.diagnostic)
+            assertEquals(
+                BackupIdentityFailure.CURSOR_ALIAS_CONFLICT,
+                assertThrows(BackupIdentityException::class.java) { store.restoreContinuity(matched, bad) }.diagnostic,
+            )
             assertTrue(db.query("SELECT 1 FROM sqlite_master WHERE name='__dstu_identity_receipt'") { it.long(0) }.isEmpty())
         }
     }
@@ -381,7 +476,9 @@ abstract class BackupIdentityContractTest {
 
     @Test fun caseVariantTableCannotBypassExactReaderOrTriggerChecks() {
         open().use { db ->
-            db.execute("CREATE TABLE __DSTU_IDENTITY_BINDING(instance_id TEXT NOT NULL PRIMARY KEY,provider TEXT NOT NULL,endpoint_hint TEXT NOT NULL)")
+            db.execute(
+                "CREATE TABLE __DSTU_IDENTITY_BINDING(instance_id TEXT NOT NULL PRIMARY KEY,provider TEXT NOT NULL,endpoint_hint TEXT NOT NULL)",
+            )
             val failure = assertThrows(BackupIdentityException::class.java) { BackupIdentityStore(db).resetForOrdinaryRestore() }
             assertEquals(BackupIdentityFailure.CONTRACT_MISMATCH, failure.diagnostic)
             assertTrue(db.query("SELECT 1 FROM sqlite_master WHERE name='__dstu_identity_receipt'") { it.long(0) }.isEmpty())
@@ -464,18 +561,24 @@ abstract class BackupIdentityContractTest {
         val matched = matched()
         val correct = attempt(matched)
         val wrongClaims = listOf(
-            correct.copy(instanceId = "other-instance"), correct.copy(writerId = "other-writer"),
-            correct.copy(archiveSha256 = "b".repeat(64)), correct.copy(sidecarSha256 = "c".repeat(64)),
+            correct.copy(instanceId = "other-instance"),
+            correct.copy(writerId = "other-writer"),
+            correct.copy(archiveSha256 = "b".repeat(64)),
+            correct.copy(sidecarSha256 = "c".repeat(64)),
         )
         open().use { db ->
             val store = BackupIdentityStore(db)
             for (wrong in wrongClaims) {
-                val failure = assertThrows(BackupIdentityException::class.java) { store.stageAuthorizedContinuity(matched, authorized(matched, wrong)) }
+                val failure =
+                    assertThrows(BackupIdentityException::class.java) {
+                        store.stageAuthorizedContinuity(matched, authorized(matched, wrong))
+                    }
                 assertEquals(BackupIdentityFailure.AUTHORIZATION_MISMATCH, failure.diagnostic)
                 assertTrue(db.query("SELECT 1 FROM sqlite_master WHERE name='__dstu_identity_receipt'") { it.long(0) }.isEmpty())
             }
             val otherSnapshot = matched { String(it).replace("device-91bc4de0", "device-91bc4de1").toByteArray() }
-            val failure = assertThrows(BackupIdentityException::class.java) { store.stageAuthorizedContinuity(otherSnapshot, authorized(matched)) }
+            val failure =
+                assertThrows(BackupIdentityException::class.java) { store.stageAuthorizedContinuity(otherSnapshot, authorized(matched)) }
             assertEquals(BackupIdentityFailure.AUTHORIZATION_MISMATCH, failure.diagnostic)
             assertTrue(db.query("SELECT 1 FROM sqlite_master WHERE name='__dstu_identity_receipt'") { it.long(0) }.isEmpty())
         }
@@ -492,17 +595,24 @@ abstract class BackupIdentityContractTest {
                 expected.copy(attempt = a.copy(operationId = "953e8192-cc41-484b-8f2f-1ef03937b330")),
                 expected.copy(attempt = a.copy(targetInstallationId = "cc531930-8c58-4ff4-b5b1-c84db1b7353b")),
                 expected.copy(attempt = a.copy(instanceId = "other-instance")), expected.copy(attempt = a.copy(writerId = "other-writer")),
-                expected.copy(attempt = a.copy(archiveSha256 = "b".repeat(64))), expected.copy(attempt = a.copy(sidecarSha256 = "c".repeat(64))),
+                expected.copy(
+                    attempt = a.copy(archiveSha256 = "b".repeat(64)),
+                ),
+                expected.copy(attempt = a.copy(sidecarSha256 = "c".repeat(64))),
                 expected.copy(takeoverKey = "different-key"), expected.copy(witness = "d".repeat(64)),
                 expected.copy(aliasesSha256 = "e".repeat(64)),
             )
             for (candidate in wrong) {
-                assertEquals(BackupIdentityFailure.COMMIT_MISMATCH,
-                    assertThrows(BackupIdentityException::class.java) { store.requireAuthorizedContinuityCommit(candidate) }.diagnostic)
+                assertEquals(
+                    BackupIdentityFailure.COMMIT_MISMATCH,
+                    assertThrows(BackupIdentityException::class.java) { store.requireAuthorizedContinuityCommit(candidate) }.diagnostic,
+                )
             }
             db.execute("DELETE FROM __dstu_identity_receipt")
-            assertEquals(BackupIdentityFailure.COMMIT_MISMATCH,
-                assertThrows(BackupIdentityException::class.java) { store.requireAuthorizedContinuityCommit(expected) }.diagnostic)
+            assertEquals(
+                BackupIdentityFailure.COMMIT_MISMATCH,
+                assertThrows(BackupIdentityException::class.java) { store.requireAuthorizedContinuityCommit(expected) }.diagnostic,
+            )
             assertTrue(db.query("SELECT 1 FROM __dstu_identity_receipt") { it.long(0) }.isEmpty())
         }
     }
@@ -514,30 +624,57 @@ abstract class BackupIdentityContractTest {
         open().use { db ->
             val store = BackupIdentityStore(db)
             store.resetForOrdinaryRestore()
-            db.execute("INSERT INTO __dstu_identity_receipt VALUES(?,?,?,?)", listOf(SqlValue.Text(expected.takeoverKey),
-                SqlValue.Text(expected.attempt.instanceId), SqlValue.Text(expected.attempt.writerId), SqlValue.Text(expected.attempt.sidecarSha256)))
-            assertEquals(BackupIdentityFailure.DUPLICATE_TAKEOVER,
-                assertThrows(BackupIdentityException::class.java) { store.stageAuthorizedContinuity(matched, authorization) }.diagnostic)
-            assertEquals(BackupIdentityFailure.COMMIT_MISMATCH,
-                assertThrows(BackupIdentityException::class.java) { store.requireAuthorizedContinuityCommit(expected) }.diagnostic)
+            db.execute(
+                "INSERT INTO __dstu_identity_receipt VALUES(?,?,?,?)",
+                listOf(
+                    SqlValue.Text(expected.takeoverKey),
+                    SqlValue.Text(expected.attempt.instanceId),
+                    SqlValue.Text(expected.attempt.writerId),
+                    SqlValue.Text(expected.attempt.sidecarSha256),
+                ),
+            )
+            assertEquals(
+                BackupIdentityFailure.DUPLICATE_TAKEOVER,
+                assertThrows(BackupIdentityException::class.java) { store.stageAuthorizedContinuity(matched, authorization) }.diagnostic,
+            )
+            assertEquals(
+                BackupIdentityFailure.COMMIT_MISMATCH,
+                assertThrows(BackupIdentityException::class.java) { store.requireAuthorizedContinuityCommit(expected) }.diagnostic,
+            )
             db.execute("DELETE FROM __dstu_identity_receipt")
-            db.execute("INSERT INTO __dstu_identity_commit VALUES(?,?,?,?,?,?,?,?,?)", listOf(
-                SqlValue.Text(expected.attempt.operationId), SqlValue.Text(expected.attempt.targetInstallationId),
-                SqlValue.Text(expected.attempt.instanceId), SqlValue.Text(expected.attempt.writerId),
-                SqlValue.Text(expected.attempt.archiveSha256), SqlValue.Text(expected.attempt.sidecarSha256),
-                SqlValue.Text(expected.takeoverKey), SqlValue.Text("0".repeat(64)), SqlValue.Text(expected.aliasesSha256),
-            ))
-            assertEquals(BackupIdentityFailure.DUPLICATE_TAKEOVER,
-                assertThrows(BackupIdentityException::class.java) { store.stageAuthorizedContinuity(matched, authorization) }.diagnostic)
-            db.execute("INSERT INTO __dstu_identity_receipt VALUES(?,?,?,?)", listOf(SqlValue.Text(expected.takeoverKey),
-                SqlValue.Text(expected.attempt.instanceId), SqlValue.Text(expected.attempt.writerId), SqlValue.Text(expected.attempt.sidecarSha256)))
-            assertEquals(BackupIdentityFailure.COMMIT_MISMATCH,
-                assertThrows(BackupIdentityException::class.java) { store.requireAuthorizedContinuityCommit(expected) }.diagnostic)
+            db.execute(
+                "INSERT INTO __dstu_identity_commit VALUES(?,?,?,?,?,?,?,?,?)",
+                listOf(
+                    SqlValue.Text(expected.attempt.operationId), SqlValue.Text(expected.attempt.targetInstallationId),
+                    SqlValue.Text(expected.attempt.instanceId), SqlValue.Text(expected.attempt.writerId),
+                    SqlValue.Text(expected.attempt.archiveSha256), SqlValue.Text(expected.attempt.sidecarSha256),
+                    SqlValue.Text(expected.takeoverKey), SqlValue.Text("0".repeat(64)), SqlValue.Text(expected.aliasesSha256),
+                ),
+            )
+            assertEquals(
+                BackupIdentityFailure.DUPLICATE_TAKEOVER,
+                assertThrows(BackupIdentityException::class.java) { store.stageAuthorizedContinuity(matched, authorization) }.diagnostic,
+            )
+            db.execute(
+                "INSERT INTO __dstu_identity_receipt VALUES(?,?,?,?)",
+                listOf(
+                    SqlValue.Text(expected.takeoverKey),
+                    SqlValue.Text(expected.attempt.instanceId),
+                    SqlValue.Text(expected.attempt.writerId),
+                    SqlValue.Text(expected.attempt.sidecarSha256),
+                ),
+            )
+            assertEquals(
+                BackupIdentityFailure.COMMIT_MISMATCH,
+                assertThrows(BackupIdentityException::class.java) { store.requireAuthorizedContinuityCommit(expected) }.diagnostic,
+            )
             // Even if every fake field happened to match, staging itself cannot skip the transaction.
             val digest = hash(("dstu-continuity-commit-v1\u0000" + expected.witness).toByteArray())
             db.execute("UPDATE __dstu_identity_commit SET witness_sha256=?", listOf(SqlValue.Text(digest)))
-            assertEquals(BackupIdentityFailure.DUPLICATE_TAKEOVER,
-                assertThrows(BackupIdentityException::class.java) { store.stageAuthorizedContinuity(matched, authorization) }.diagnostic)
+            assertEquals(
+                BackupIdentityFailure.DUPLICATE_TAKEOVER,
+                assertThrows(BackupIdentityException::class.java) { store.stageAuthorizedContinuity(matched, authorization) }.diagnostic,
+            )
             assertNull(store.readSnapshot("default", "device-7f3a91c2").binding)
         }
     }
@@ -555,18 +692,31 @@ abstract class BackupIdentityContractTest {
                             override fun execute(sql: String, args: List<SqlValue>) {
                                 actual.execute(sql, args)
                                 if ((fault == "receipt" && sql.startsWith("INSERT INTO __dstu_identity_receipt")) ||
-                                    (fault == "commit" && sql.startsWith("INSERT INTO __dstu_identity_commit"))) error("injected write failure")
+                                    (fault == "commit" && sql.startsWith("INSERT INTO __dstu_identity_commit"))
+                                ) {
+                                    error("injected write failure")
+                                }
                             }
-                            override fun <T> query(sql: String, args: List<SqlValue>, map: (com.deepstudent.platform.database.SqlRow) -> T): List<T> {
+                            override fun <T> query(
+                                sql: String,
+                                args: List<SqlValue>,
+                                map: (com.deepstudent.platform.database.SqlRow) -> T,
+                            ): List<T> {
                                 val result = actual.query(sql, args, map)
-                                if (fault == "readback" && sql.startsWith("SELECT 1 FROM __dstu_identity_commit WHERE operation_id=? AND")) error("injected read failure")
+                                if (fault == "readback" &&
+                                    sql.startsWith("SELECT 1 FROM __dstu_identity_commit WHERE operation_id=? AND")
+                                ) {
+                                    error("injected read failure")
+                                }
                                 return result
                             }
                         }
                         wrapper.block()
                     }
                 }
-                assertThrows(IllegalStateException::class.java) { BackupIdentityStore(throwing).stageAuthorizedContinuity(matched, authorization) }
+                assertThrows(IllegalStateException::class.java) {
+                    BackupIdentityStore(throwing).stageAuthorizedContinuity(matched, authorization)
+                }
                 assertTrue(db.query("SELECT 1 FROM sqlite_master WHERE name='__dstu_identity_receipt'") { it.long(0) }.isEmpty())
                 BackupIdentityStore(db).stageAuthorizedContinuity(matched, authorization)
                 BackupIdentityStore(db).requireAuthorizedContinuityCommit(authorization.expected)
@@ -587,10 +737,14 @@ abstract class BackupIdentityContractTest {
             assertEquals(matched.state.upload.lastSeq, snapshot.publishedSequence)
             assertEquals(matched.takeoverKey, snapshot.receipts.single().takeoverKey)
             assertTrue(snapshot.cursors.isEmpty())
-            assertEquals(BackupIdentityFailure.COMMIT_MISMATCH,
-                assertThrows(BackupIdentityException::class.java) { store.requireAuthorizedContinuityCommit(auth.expected) }.diagnostic)
-            assertEquals(BackupIdentityFailure.DUPLICATE_TAKEOVER,
-                assertThrows(BackupIdentityException::class.java) { store.stageAuthorizedContinuity(matched, auth) }.diagnostic)
+            assertEquals(
+                BackupIdentityFailure.COMMIT_MISMATCH,
+                assertThrows(BackupIdentityException::class.java) { store.requireAuthorizedContinuityCommit(auth.expected) }.diagnostic,
+            )
+            assertEquals(
+                BackupIdentityFailure.DUPLICATE_TAKEOVER,
+                assertThrows(BackupIdentityException::class.java) { store.stageAuthorizedContinuity(matched, auth) }.diagnostic,
+            )
         }
     }
 
@@ -600,10 +754,16 @@ abstract class BackupIdentityContractTest {
         val auth = authorized(matched, aliases = aliases)
         aliases.clear()
         assertEquals(64, BackupIdentityTrustedComposition.newWitness().length)
-        assertEquals(BackupIdentityFailure.AUTHORIZATION_MISMATCH,
-            assertThrows(BackupIdentityException::class.java) { authorized(matched, witness = "not-a-witness") }.diagnostic)
-        assertEquals(BackupIdentityFailure.AUTHORIZATION_MISMATCH,
-            assertThrows(BackupIdentityException::class.java) { authorized(matched, attempt(matched).copy(operationId = "bad-id")) }.diagnostic)
+        assertEquals(
+            BackupIdentityFailure.AUTHORIZATION_MISMATCH,
+            assertThrows(BackupIdentityException::class.java) { authorized(matched, witness = "not-a-witness") }.diagnostic,
+        )
+        assertEquals(
+            BackupIdentityFailure.AUTHORIZATION_MISMATCH,
+            assertThrows(BackupIdentityException::class.java) {
+                authorized(matched, attempt(matched).copy(operationId = "bad-id"))
+            }.diagnostic,
+        )
         open().use { db ->
             val store = BackupIdentityStore(db)
             store.stageAuthorizedContinuity(matched, auth)
@@ -619,7 +779,8 @@ abstract class BackupIdentityContractTest {
         // verifies the data bridge does not merely compare hashes when handed a different object.
         val stateConstructor = ContinuityState::class.java.declaredConstructors.single()
         fun stateWith(index: Int, value: Any): ContinuityState {
-            val values: Array<Any> = arrayOf(state.repository, state.upload, state.cursors, state.watermarks, state.publications, state.processedKeys)
+            val values: Array<Any> =
+                arrayOf(state.repository, state.upload, state.cursors, state.watermarks, state.publications, state.processedKeys)
             values[index] = value
             return stateConstructor.newInstance(*values) as ContinuityState
         }
@@ -633,21 +794,31 @@ abstract class BackupIdentityContractTest {
         )
         val matchedConstructor = ContinuityValidation.Matched::class.java.declaredConstructors.single()
         fun changed(index: Int, value: Any): ContinuityValidation.Matched {
-            val values: Array<Any> = arrayOf(matched.snapshotEpoch, matched.archiveSha256, matched.sidecarSha256,
-                matched.sourceInstallation, matched.takeoverKey, state)
+            val values: Array<Any> = arrayOf(
+                matched.snapshotEpoch,
+                matched.archiveSha256,
+                matched.sidecarSha256,
+                matched.sourceInstallation,
+                matched.takeoverKey,
+                state,
+            )
             values[index] = value
             return matchedConstructor.newInstance(*values) as ContinuityValidation.Matched
         }
         val variants = listOf(
-            changed(0, "other-epoch"), changed(1, "b".repeat(64)), changed(2, "c".repeat(64)),
+            changed(0, "other-epoch"),
+            changed(1, "b".repeat(64)),
+            changed(2, "c".repeat(64)),
             changed(3, matched.sourceInstallation.copy(versionCode = matched.sourceInstallation.versionCode + 1)),
             changed(4, "other-key"),
         ) + stateVariants.map { changed(5, it) }
         open().use { db ->
             val store = BackupIdentityStore(db)
             for (variant in variants) {
-                assertEquals(BackupIdentityFailure.AUTHORIZATION_MISMATCH,
-                    assertThrows(BackupIdentityException::class.java) { store.stageAuthorizedContinuity(variant, auth) }.diagnostic)
+                assertEquals(
+                    BackupIdentityFailure.AUTHORIZATION_MISMATCH,
+                    assertThrows(BackupIdentityException::class.java) { store.stageAuthorizedContinuity(variant, auth) }.diagnostic,
+                )
                 assertTrue(db.query("SELECT 1 FROM sqlite_master WHERE name='__dstu_identity_receipt'") { it.long(0) }.isEmpty())
             }
             store.stageAuthorizedContinuity(matched, auth)
@@ -661,18 +832,24 @@ abstract class BackupIdentityContractTest {
             val store = BackupIdentityStore(db)
             store.resetForOrdinaryRestore()
             db.execute("INSERT INTO __dstu_identity_watermark VALUES('default','device-91bc4de0','blob',1000)")
-            assertEquals(BackupIdentityFailure.APPLIED_STATE_MISMATCH,
-                assertThrows(BackupIdentityException::class.java) { store.stageAuthorizedContinuity(matched, auth) }.diagnostic)
+            assertEquals(
+                BackupIdentityFailure.APPLIED_STATE_MISMATCH,
+                assertThrows(BackupIdentityException::class.java) { store.stageAuthorizedContinuity(matched, auth) }.diagnostic,
+            )
             assertEquals(1000L, db.query("SELECT last_applied_offset FROM __dstu_identity_watermark") { it.long(0) }.single())
             assertTrue(db.query("SELECT 1 FROM __dstu_identity_receipt") { it.long(0) }.isEmpty())
             db.execute("DELETE FROM __dstu_identity_watermark")
             db.execute("INSERT INTO __dstu_identity_legacy_key VALUES('default','unapproved-extra')")
-            assertEquals(BackupIdentityFailure.APPLIED_STATE_MISMATCH,
-                assertThrows(BackupIdentityException::class.java) { store.stageAuthorizedContinuity(matched, auth) }.diagnostic)
+            assertEquals(
+                BackupIdentityFailure.APPLIED_STATE_MISMATCH,
+                assertThrows(BackupIdentityException::class.java) { store.stageAuthorizedContinuity(matched, auth) }.diagnostic,
+            )
             db.execute("DELETE FROM __dstu_identity_legacy_key")
             db.execute("INSERT INTO __dstu_identity_publication VALUES('default','device-7f3a91c2','blob','unapproved',99)")
-            assertEquals(BackupIdentityFailure.APPLIED_STATE_MISMATCH,
-                assertThrows(BackupIdentityException::class.java) { store.stageAuthorizedContinuity(matched, auth) }.diagnostic)
+            assertEquals(
+                BackupIdentityFailure.APPLIED_STATE_MISMATCH,
+                assertThrows(BackupIdentityException::class.java) { store.stageAuthorizedContinuity(matched, auth) }.diagnostic,
+            )
             db.execute("DELETE FROM __dstu_identity_publication")
             store.stageAuthorizedContinuity(matched, auth)
             store.requireAuthorizedContinuityCommit(auth.expected)
@@ -685,14 +862,19 @@ abstract class BackupIdentityContractTest {
         open().use { db ->
             val store = BackupIdentityStore(db)
             val invalid = authorized(matched, aliases = emptyMap())
-            assertEquals(BackupIdentityFailure.CURSOR_ALIAS_CONFLICT,
-                assertThrows(BackupIdentityException::class.java) { store.stageAuthorizedContinuity(matched, invalid) }.diagnostic)
+            assertEquals(
+                BackupIdentityFailure.CURSOR_ALIAS_CONFLICT,
+                assertThrows(BackupIdentityException::class.java) { store.stageAuthorizedContinuity(matched, invalid) }.diagnostic,
+            )
             assertTrue(db.query("SELECT 1 FROM sqlite_master WHERE name='__dstu_identity_receipt'") { it.long(0) }.isEmpty())
             store.stageAuthorizedContinuity(matched, auth)
             val unreadable = object : SqlDatabase by db {
-                override fun <T> readSnapshot(block: com.deepstudent.platform.database.SqlReadOperations.() -> T): T = error("injected read failure")
+                override fun <T> readSnapshot(block: com.deepstudent.platform.database.SqlReadOperations.() -> T): T =
+                    error("injected read failure")
             }
-            assertThrows(IllegalStateException::class.java) { BackupIdentityStore(unreadable).requireAuthorizedContinuityCommit(auth.expected) }
+            assertThrows(IllegalStateException::class.java) {
+                BackupIdentityStore(unreadable).requireAuthorizedContinuityCommit(auth.expected)
+            }
             store.requireAuthorizedContinuityCommit(auth.expected)
         }
     }
@@ -715,7 +897,10 @@ abstract class BackupIdentityContractTest {
                 }.apply { start() }
             }
             gate.countDown()
-            threads.forEach { it.join(30_000); assertFalse(it.isAlive) }
+            threads.forEach {
+                it.join(30_000)
+                assertFalse(it.isAlive)
+            }
             assertEquals(listOf("DUPLICATE_TAKEOVER", "committed"), results.sorted())
             BackupIdentityStore(db).requireAuthorizedContinuityCommit(auth.expected)
         }
@@ -729,14 +914,28 @@ abstract class BackupIdentityContractTest {
             val store = BackupIdentityStore(db, BackupIdentityLog(events::add))
             store.stageAuthorizedContinuity(matched, auth)
             store.requireAuthorizedContinuityCommit(auth.expected)
-            assertEquals(listOf(BackupIdentityStatus.STARTED, BackupIdentityStatus.COMMITTED,
-                BackupIdentityStatus.STARTED, BackupIdentityStatus.VERIFIED), events.map { it.status })
-            assertTrue(events.all { it.correlationId == auth.expected.attempt.operationId && it.owner == "services/backup/data" && it.elapsedMillis >= 0 })
+            assertEquals(
+                listOf(
+                    BackupIdentityStatus.STARTED,
+                    BackupIdentityStatus.COMMITTED,
+                    BackupIdentityStatus.STARTED,
+                    BackupIdentityStatus.VERIFIED,
+                ),
+                events.map { it.status },
+            )
+            assertTrue(
+                events.all {
+                    it.correlationId == auth.expected.attempt.operationId && it.owner == "services/backup/data" &&
+                        it.elapsedMillis >= 0
+                },
+            )
             assertFalse(events.toString().contains(auth.expected.witness))
             assertFalse(events.toString().contains(auth.expected.attempt.sidecarSha256))
             assertFalse(events.toString().contains(auth.expected.attempt.writerId))
         }
     }
 
-    private fun hash(bytes: ByteArray) = MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it.toInt() and 255) }
+    private fun hash(bytes: ByteArray) = MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") {
+        "%02x".format(it.toInt() and 255)
+    }
 }

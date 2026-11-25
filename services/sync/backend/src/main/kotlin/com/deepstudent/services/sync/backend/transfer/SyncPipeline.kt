@@ -3,7 +3,10 @@ package com.deepstudent.services.sync.backend.transfer
 import com.deepstudent.core.common.error.DstuError
 import com.deepstudent.core.common.error.DstuException
 import com.deepstudent.core.common.error.errorFromThrowable
+import com.deepstudent.core.common.id.CorrelationId
 import com.deepstudent.core.common.json.JsonValue
+import com.deepstudent.core.common.logging.LogLevel
+import com.deepstudent.core.common.logging.LogRecord
 import com.deepstudent.core.common.logging.Logger
 import com.deepstudent.core.common.logging.NoopLogger
 import com.deepstudent.services.sync.api.SyncError
@@ -40,19 +43,19 @@ class SyncPipeline(
         var unexpectedFailure = false
         try {
             val reader = minReader()
-            changes.resumePending()
+            changes.resumePending(correlation)
             stage = SyncTransferPhase.BLOBS
             phase(stage, correlation)
             blobs.synchronize()
             stage = SyncTransferPhase.DOWNLOAD
             phase(stage, correlation)
-            changes.download()
+            changes.download(correlation)
             stage = SyncTransferPhase.BLOBS
             phase(stage, correlation)
             blobs.synchronize()
             stage = SyncTransferPhase.UPLOAD
             phase(stage, correlation)
-            changes.upload(reader)
+            changes.upload(reader, correlation)
             publishManifest()
             stage = SyncTransferPhase.COMPLETE
             phase(stage, correlation)
@@ -78,11 +81,8 @@ class SyncPipeline(
     private suspend fun phase(phase: SyncTransferPhase, correlation: String) {
         currentCoroutineContext().ensureActive()
         mutableState.value = SyncTransferState(phase, correlation)
-        logger.info(
-            "sync.transfer.phase",
-            JsonValue.Object.Builder().put("owner", "sync")
-                .put("correlationId", correlation).put("phase", phase.name).build(),
-        )
+        val fields = JsonValue.Object.Builder().put("owner", "sync").put("phase", phase.name).build()
+        logger.log(LogRecord(LogLevel.INFO, "sync.transfer.phase", correlationId = CorrelationId.parse(correlation), fields = fields))
     }
 
     private fun failed(correlation: String, error: SyncError): SyncResult<Unit> {
@@ -93,7 +93,7 @@ class SyncPipeline(
     private fun unexpected(correlation: String, stage: SyncTransferPhase, failure: Exception) {
         mutableState.value = SyncTransferState(SyncTransferPhase.FAILED, correlation)
         val fields = JsonValue.Object.Builder().put("owner", "sync")
-            .put("correlationId", correlation).put("stage", stage.name)
+            .put("stage", stage.name)
             .put("error", "UNEXPECTED").build()
         try {
             val diagnostic = if (failure is DstuException) {
@@ -101,7 +101,15 @@ class SyncPipeline(
             } else {
                 errorFromThrowable(failure)
             }
-            logger.error("sync.transfer.unexpected", diagnostic, fields)
+            logger.log(
+                LogRecord(
+                    LogLevel.ERROR,
+                    "sync.transfer.unexpected",
+                    correlationId = CorrelationId.parse(correlation),
+                    fields = fields,
+                    error = diagnostic,
+                ),
+            )
         } catch (_: Exception) {
             // Diagnostics must not replace the original failure.
         }
@@ -109,13 +117,15 @@ class SyncPipeline(
 
     private fun finished(correlation: String, stage: SyncTransferPhase, start: Long, unexpected: Boolean) {
         val state = mutableState.value
+        val outcome = if (unexpected) "UNEXPECTED" else state.error?.name ?: "none"
         val fields = JsonValue.Object.Builder().put("owner", "sync")
-            .put("correlationId", correlation).put("phase", state.phase.name)
-            .put("stage", stage.name)
-            .put("error", if (unexpected) "UNEXPECTED" else state.error?.name ?: "none")
+            .put("phase", state.phase.name).put("stage", stage.name)
+            .put("error", outcome).put("status", outcome)
             .put("elapsedMs", (System.nanoTime() - start) / 1_000_000).build()
         try {
-            logger.info("sync.transfer.finished", fields)
+            logger.log(
+                LogRecord(LogLevel.INFO, "sync.transfer.finished", correlationId = CorrelationId.parse(correlation), fields = fields),
+            )
         } catch (_: Exception) {
             // Diagnostics must not change the synchronization result.
         }

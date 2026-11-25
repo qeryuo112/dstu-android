@@ -1,12 +1,17 @@
 package com.deepstudent.services.sync.backend
 
 import com.deepstudent.services.sync.api.SyncError
-import java.time.Instant
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
+import java.time.Instant
 
-data class SyncPasswordVerifier(val memoryKiB: Long, val iterations: Long, val parallelism: Long,
-    val saltHex: String, val digestHex: String)
+data class SyncPasswordVerifier(
+    val memoryKiB: Long,
+    val iterations: Long,
+    val parallelism: Long,
+    val saltHex: String,
+    val digestHex: String,
+)
 
 /** Implementations borrow the password only for the operation or the codec's enclosing run. */
 interface SyncCryptography {
@@ -14,9 +19,8 @@ interface SyncCryptography {
     fun verify(password: CharArray, verifier: SyncPasswordVerifier): Boolean
     fun payload(password: CharArray): SyncPayloadCodec
 
-    suspend fun proveBackupPassword(provider: ObjectProvider, key: String, size: Long, checksum: String, password: CharArray) {
+    suspend fun proveBackupPassword(provider: ObjectProvider, key: String, size: Long, checksum: String, password: CharArray): Unit =
         throw SyncFailure(SyncError.ENCRYPTION_PROOF_REQUIRED)
-    }
 }
 
 class RepositoryEncryption(private val crypto: SyncCryptography? = null) {
@@ -42,7 +46,11 @@ class RepositoryEncryption(private val crypto: SyncCryptography? = null) {
     }
 
     internal suspend fun upgrade(
-        provider: ObjectProvider, checked: MarkerCheck, password: CharArray, device: () -> String, recheck: suspend () -> Unit,
+        provider: ObjectProvider,
+        checked: MarkerCheck,
+        password: CharArray,
+        device: () -> String,
+        recheck: suspend () -> Unit,
     ): EncryptionExpectation {
         val marker = checked.legacy ?: return checked.expectation
         val crypto = requireCrypto()
@@ -60,8 +68,11 @@ class RepositoryEncryption(private val crypto: SyncCryptography? = null) {
 
     fun codec(password: CharArray?): SyncPayloadCodec = if (password == null) PlainSyncPayload else requireCrypto().payload(password)
 
-    internal fun createMarker(device: String, password: CharArray): ByteArray =
-        RepositoryMarker(SyncWireCodec.deviceHash(device), Instant.now().toString(), null).encodeV2(requireCrypto().createVerifier(password))
+    internal fun createMarker(device: String, password: CharArray): ByteArray = RepositoryMarker(
+        SyncWireCodec.deviceHash(device),
+        Instant.now().toString(),
+        null,
+    ).encodeV2(requireCrypto().createVerifier(password))
 
     private fun requireCrypto(): SyncCryptography = crypto ?: throw SyncFailure(SyncError.CREDENTIAL_UNAVAILABLE)
 }
@@ -82,6 +93,10 @@ class EncryptionExpectation internal constructor(marker: ByteArray?) {
         override suspend fun put(key: String, value: ByteArray, ifAbsent: Boolean) {
             requireUnchanged(provider)
             provider.put(key, value, ifAbsent)
+        }
+        override suspend fun putStream(key: String, size: Long, ifAbsent: Boolean, open: () -> java.io.InputStream) {
+            requireUnchanged(provider)
+            provider.putStream(key, size, ifAbsent, open)
         }
     }
 }

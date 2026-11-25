@@ -5,7 +5,7 @@ DeepStudent 的 Kotlin / Jetpack Compose 原生 Android 重构工程（`dstu-and
 而不是精简版或伴侣应用；平台能力使用 Android 原生实现。
 
 **开发状态：进行中。** 当前业务验收队列、已验收内容和未完成项见
-[计划与文档入口](docs/README.md)及[最新交接](docs/handoff-s2.md)。
+[计划与文档入口](docs/README.md)及[最新交接](docs/handoff-s3.md)。
 工程质量检查通过不等于整个产品已经交付。
 
 ## 构建与测试

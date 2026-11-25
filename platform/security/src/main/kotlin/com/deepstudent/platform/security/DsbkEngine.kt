@@ -4,6 +4,7 @@ import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 import java.security.SecureRandom
+import java.util.concurrent.CancellationException
 
 internal fun interface RandomBytesSource {
     fun next(length: Int): ByteArray
@@ -28,39 +29,36 @@ internal class DsbkEngine(
         }
     }
 
+    fun cached(keys: DsbkSessionKeys): DsbkEngine = DsbkEngine(keys.wrap(deriver), random, maxMemoryKiB, maxChunkBytes)
+
     fun newSalt(): ByteArray = random.next(DsbkFormat.SALT_LEN)
 
     fun newNonce(): ByteArray = random.next(DsbkFormat.V1_NONCE_LEN)
 
     fun newPrefix(): ByteArray = random.next(DsbkFormat.V2_PREFIX_LEN)
 
-    fun encryptV1(
-        plaintext: ByteArray,
-        password: CharArray,
-        salt: ByteArray,
-        params: DsbkKdfParams,
-        nonce: ByteArray,
-    ): ByteArray = synchronized(DsbkMemoryBudget.operationGate) {
-        if (plaintext.size.toLong() > DsbkCrypto.MAX_IN_MEMORY_BYTES) {
-            throw DsbkException(DsbkError.INPUT_LIMIT_EXCEEDED)
+    fun encryptV1(plaintext: ByteArray, password: CharArray, salt: ByteArray, params: DsbkKdfParams, nonce: ByteArray): ByteArray =
+        synchronized(DsbkMemoryBudget.operationGate) {
+            if (plaintext.size.toLong() > DsbkCrypto.MAX_IN_MEMORY_BYTES) {
+                throw DsbkException(DsbkError.INPUT_LIMIT_EXCEEDED)
+            }
+            validateParams(params)
+            DsbkMemoryBudget.requireAvailable(
+                params,
+                reserveBytes = (plaintext.size.toLong() + DsbkFormat.GCM_TAG_LEN) * DsbkMemoryBudget.V2_ARRAY_FACTOR,
+            )
+            val key = deriveKey(password, salt, params)
+            return try {
+                val header = DsbkHeaderCodec.writeV1(params, salt, nonce)
+                header + AesGcm.seal(key, nonce, plaintext)
+            } catch (error: DsbkException) {
+                throw error
+            } catch (_: Exception) {
+                throw DsbkException(DsbkError.CRYPTO_FAILED)
+            } finally {
+                key.wipe()
+            }
         }
-        validateParams(params)
-        DsbkMemoryBudget.requireAvailable(
-            params,
-            reserveBytes = (plaintext.size.toLong() + DsbkFormat.GCM_TAG_LEN) * DsbkMemoryBudget.V2_ARRAY_FACTOR,
-        )
-        val key = deriveKey(password, salt, params)
-        return try {
-            val header = DsbkHeaderCodec.writeV1(params, salt, nonce)
-            header + AesGcm.seal(key, nonce, plaintext)
-        } catch (error: DsbkException) {
-            throw error
-        } catch (_: Exception) {
-            throw DsbkException(DsbkError.CRYPTO_FAILED)
-        } finally {
-            key.wipe()
-        }
-    }
 
     fun encryptV2(
         input: InputStream,
@@ -86,29 +84,12 @@ internal class DsbkEngine(
         }
         try {
             output.write(DsbkHeaderCodec.writeV2(params, salt, prefix))
-            var counter = 0L
-            var size = DsbkIo.fill(bounded, plaintext, -1, DsbkFormat.STREAM_CHUNK)
-            while (true) {
-                val lookahead = bounded.read()
-                val final = lookahead == -1
-                val ciphertext = AesGcm.seal(
-                    key,
-                    DsbkHeaderCodec.chunkNonce(prefix, counter, final),
-                    plaintext,
-                    0,
-                    size,
-                )
-                output.write(ciphertext)
-                ciphertext.wipe()
-                plaintext.wipe()
-                if (final) break
-                if (counter == 0xffffffffL) throw DsbkException(DsbkError.CHUNK_INVALID)
-                size = DsbkIo.fill(bounded, plaintext, lookahead, DsbkFormat.STREAM_CHUNK)
-                counter++
-            }
+            encryptV2Chunks(bounded, output, prefix, key, plaintext)
             output.flush()
         } catch (error: DsbkException) {
             throw error
+        } catch (cancelled: CancellationException) {
+            throw cancelled
         } catch (_: IOException) {
             throw DsbkException(DsbkError.IO_FAILED)
         } catch (_: Exception) {
@@ -116,6 +97,29 @@ internal class DsbkEngine(
         } finally {
             plaintext.wipe()
             key.wipe()
+        }
+    }
+
+    private fun encryptV2Chunks(input: DsbkInput, output: OutputStream, prefix: ByteArray, key: ByteArray, plaintext: ByteArray) {
+        var counter = 0L
+        var size = DsbkIo.fill(input, plaintext, -1, DsbkFormat.STREAM_CHUNK)
+        while (true) {
+            val lookahead = input.read()
+            val final = lookahead == -1
+            val ciphertext = AesGcm.seal(
+                key,
+                DsbkHeaderCodec.chunkNonce(prefix, counter, final),
+                plaintext,
+                0,
+                size,
+            )
+            output.write(ciphertext)
+            ciphertext.wipe()
+            plaintext.wipe()
+            if (final) break
+            if (counter == 0xffffffffL) throw DsbkException(DsbkError.CHUNK_INVALID)
+            size = DsbkIo.fill(input, plaintext, lookahead, DsbkFormat.STREAM_CHUNK)
+            counter++
         }
     }
 
@@ -130,13 +134,19 @@ internal class DsbkEngine(
         try {
             val bounded = DsbkInput(input, maxInputBytes)
             val header = DsbkPreflightReader.read(
-                bounded, null, maxOutputBytes, maxInputBytes, maxMemoryKiB, maxChunkBytes,
+                bounded,
+                null,
+                maxOutputBytes,
+                maxInputBytes,
+                maxMemoryKiB,
+                maxChunkBytes,
             )
             when (header.info.version) {
                 DsbkFormat.VERSION_1 -> {
                     trace?.start(SecurityPhase.V1_DECRYPT)
                     decryptV1(bounded, checkNotNull(header.v1), password, sink, maxOutputBytes)
                 }
+
                 DsbkFormat.VERSION_2 -> {
                     trace?.start(SecurityPhase.V2_DECRYPT)
                     decryptV2(bounded, checkNotNull(header.v2), password, sink, maxOutputBytes)
@@ -144,6 +154,9 @@ internal class DsbkEngine(
             }
             trace?.start(SecurityPhase.COMMIT)
             sink.commit()
+        } catch (cancelled: CancellationException) {
+            sink.abortQuietly()
+            throw cancelled
         } catch (error: DsbkException) {
             sink.abortQuietly()
             throw error
@@ -159,13 +172,7 @@ internal class DsbkEngine(
         }
     }
 
-    private fun decryptV1(
-        input: InputStream,
-        header: DsbkV1Header,
-        password: CharArray,
-        sink: DsbkSink,
-        maxOutputBytes: Long,
-    ) {
+    private fun decryptV1(input: InputStream, header: DsbkV1Header, password: CharArray, sink: DsbkSink, maxOutputBytes: Long) {
         // Admission happens before either the bounded read or key derivation.
         val heapCap = DsbkMemoryBudget.v1PlaintextCapacity(header.params, maxOutputBytes)
         val plainCap = minOf(maxOutputBytes, DsbkCrypto.MAX_IN_MEMORY_BYTES, heapCap)
@@ -197,15 +204,10 @@ internal class DsbkEngine(
         }
     }
 
-    private fun decryptV2(
-        input: InputStream,
-        header: DsbkV2Header,
-        password: CharArray,
-        sink: DsbkSink,
-        maxOutputBytes: Long,
-    ) {
+    private fun decryptV2(input: InputStream, header: DsbkV2Header, password: CharArray, sink: DsbkSink, maxOutputBytes: Long) {
         val cipherChunk = header.chunkSize + DsbkFormat.GCM_TAG_LEN
-        val buffer = ByteArray(minOf(cipherChunk.toLong(), maxOutputBytes.coerceAtMost(Int.MAX_VALUE.toLong()) + DsbkFormat.GCM_TAG_LEN).toInt())
+        val buffer =
+            ByteArray(minOf(cipherChunk.toLong(), maxOutputBytes.coerceAtMost(Int.MAX_VALUE.toLong()) + DsbkFormat.GCM_TAG_LEN).toInt())
         var key: ByteArray? = null
         try {
             var first = -1
@@ -244,14 +246,7 @@ internal class DsbkEngine(
         if (size < DsbkFormat.GCM_TAG_LEN) throw DsbkException(DsbkError.AUTHENTICATION_FAILED)
     }
 
-    private fun decryptChunk(
-        key: ByteArray,
-        nonce: ByteArray,
-        bytes: ByteArray,
-        length: Int,
-        sink: DsbkSink,
-        remaining: Long,
-    ): Long {
+    private fun decryptChunk(key: ByteArray, nonce: ByteArray, bytes: ByteArray, length: Int, sink: DsbkSink, remaining: Long): Long {
         val plaintext = AesGcm.open(
             key,
             nonce,
@@ -276,10 +271,17 @@ internal class DsbkEngine(
             val key = deriveKey(password, header.salt, header.params)
             val offset = DsbkFormat.V2_HEADER_LEN
             try {
-                val plaintext = AesGcm.open(key, DsbkHeaderCodec.chunkNonce(header.prefix, 0, prefix.size.toLong() == size),
-                    prefix, offset, prefix.size - offset) ?: throw DsbkException(DsbkError.AUTHENTICATION_FAILED)
+                val plaintext = AesGcm.open(
+                    key,
+                    DsbkHeaderCodec.chunkNonce(header.prefix, 0, prefix.size.toLong() == size),
+                    prefix,
+                    offset,
+                    prefix.size - offset,
+                ) ?: throw DsbkException(DsbkError.AUTHENTICATION_FAILED)
                 plaintext.wipe()
-            } finally { key.wipe() }
+            } finally {
+                key.wipe()
+            }
         }
 
     private fun validateParams(params: DsbkKdfParams) {
@@ -307,6 +309,8 @@ internal class DsbkEngine(
     private fun writeSink(sink: DsbkSink, bytes: ByteArray) {
         try {
             sink.write(bytes, 0, bytes.size)
+        } catch (cancelled: CancellationException) {
+            throw cancelled
         } catch (error: DsbkException) {
             throw error
         } catch (_: Exception) {

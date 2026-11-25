@@ -77,7 +77,7 @@ node --test tools/evidence/evidence-store.test.mjs && node tools/evidence/check-
 
 ## 旧引用与工具兼容
 
-历史文档和配置仍保留原 `logs/...` 路径，这是有意的：索引条目就是这些路径的查找键。涉及文件包括 `docs/archive/handoff-s0.md`、`docs/archive/handoff-s1.md`、`docs/handoff-s2.md`、`config/stages/s1-progress.json`、`config/stages/s2-progress.json`、`config/s0-gate.json`、`config/schema/final-lock.json`。不要为了“让链接看起来存在”重新提交原始日志；需要查看时按索引还原。
+历史文档和配置仍保留原 `logs/...` 路径，这是有意的：索引条目就是这些路径的查找键。涉及文件包括 `docs/archive/handoff-s0.md`、`docs/archive/handoff-s1.md`、`docs/archive/handoff-s2.md`、`config/stages/s1-progress.json`、`config/stages/s2-progress.json`、`config/s0-gate.json`、`config/schema/final-lock.json`。不要为了“让链接看起来存在”重新提交原始日志；需要查看时按索引还原。
 
 已确认的真实读取依赖及影响：
 

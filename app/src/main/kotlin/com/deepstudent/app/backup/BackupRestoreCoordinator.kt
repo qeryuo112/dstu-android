@@ -4,6 +4,8 @@ import android.content.Context
 import android.net.Uri
 import android.os.SystemClock
 import android.util.Log
+import com.deepstudent.app.diagnostics.S231Diagnostics
+import com.deepstudent.app.diagnostics.S231DomainEvents
 import com.deepstudent.platform.backupzip.CheckedZipArchive
 import com.deepstudent.platform.database.BundledMigrationSource
 import com.deepstudent.platform.storage.FileDataSpace
@@ -13,16 +15,16 @@ import com.deepstudent.services.backup.backend.ArchivePreflight
 import com.deepstudent.services.backup.data.RestoreAudit
 import com.deepstudent.services.backup.data.RestoreExecutionResult
 import com.deepstudent.services.backup.data.RestoreExecutor
-import java.io.File
-import java.nio.file.Files
-import java.nio.file.LinkOption.NOFOLLOW_LINKS
-import java.util.UUID
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.withContext
+import java.io.File
+import java.nio.file.Files
+import java.nio.file.LinkOption.NOFOLLOW_LINKS
+import java.util.UUID
 
 internal enum class BackupRestoreUiStatus(val message: String?) {
     IDLE(null),
@@ -94,25 +96,24 @@ internal class BackupRestoreCoordinator(
         }
     }
 
-    suspend fun scheduleContinuity(source: Uri, files: ContinuityFiles, reviewed: ContinuityReview): Boolean =
-        withContext(Dispatchers.IO) {
-            val checkCancellation = { coroutineContext.ensureActive() }
-            synchronized(lock) {
-                if (mutable.value in BUSY || queue.request() != null) return@synchronized false
-                val trace = RestoreQueueTrace(reviewed.attempt.operationId)
-                mutable.value = BackupRestoreUiStatus.QUEUING
-                trace.log("continuity_queue", "started")
-                try {
-                    mutable.value = checkNotNull(continuity).queue(queue, source, files, reviewed, checkCancellation)
-                    trace.log("continuity_queue", mutable.value.name)
-                    mutable.value == BackupRestoreUiStatus.QUEUED
-                } catch (error: Exception) {
-                    mutable.value = BackupRestoreUiStatus.IDLE
-                    trace.log("continuity_queue", if (error is CancellationException) "cancelled" else "failed")
-                    throw error
-                }
+    suspend fun scheduleContinuity(source: Uri, files: ContinuityFiles, reviewed: ContinuityReview): Boolean = withContext(Dispatchers.IO) {
+        val checkCancellation = { coroutineContext.ensureActive() }
+        synchronized(lock) {
+            if (mutable.value in BUSY || queue.request() != null) return@synchronized false
+            val trace = RestoreQueueTrace(reviewed.attempt.operationId)
+            mutable.value = BackupRestoreUiStatus.QUEUING
+            trace.log("continuity_queue", "started")
+            try {
+                mutable.value = checkNotNull(continuity).queue(queue, source, files, reviewed, checkCancellation)
+                trace.log("continuity_queue", mutable.value.name)
+                mutable.value == BackupRestoreUiStatus.QUEUED
+            } catch (error: Exception) {
+                mutable.value = BackupRestoreUiStatus.IDLE
+                trace.log("continuity_queue", if (error is CancellationException) "cancelled" else "failed")
+                throw error
             }
         }
+    }
 
     suspend fun schedule(source: Uri, confirmed: RestorePlan) = scheduleInput(confirmed, RestoreAdmission.STANDARD) { dest, cancel ->
         copyBackupSource(context, source, dest, cancel, durable = true)
@@ -126,7 +127,9 @@ internal class BackupRestoreCoordinator(
         }
 
     private suspend fun scheduleInput(
-        confirmed: RestorePlan, admission: RestoreAdmission, operationId: UUID = UUID.randomUUID(),
+        confirmed: RestorePlan,
+        admission: RestoreAdmission,
+        operationId: UUID = UUID.randomUUID(),
         copy: (File, () -> Unit) -> Unit,
     ) = withContext(Dispatchers.IO) {
         val checkCancellation = { coroutineContext.ensureActive() }
@@ -151,7 +154,11 @@ internal class BackupRestoreCoordinator(
     }
 
     private fun scheduleLocked(
-        confirmed: RestorePlan, admission: RestoreAdmission, id: String, cancel: () -> Unit, copy: (File, () -> Unit) -> Unit,
+        confirmed: RestorePlan,
+        admission: RestoreAdmission,
+        id: String,
+        cancel: () -> Unit,
+        copy: (File, () -> Unit) -> Unit,
     ): BackupRestoreUiStatus {
         if (!permitsOrdinaryRestore()) return BackupRestoreUiStatus.SYNC_BOUND
         if (!confirmed.canStage || confirmed.manifestSha256 == null || confirmed.source.admission != admission) {
@@ -199,8 +206,13 @@ internal class BackupRestoreCoordinator(
 
     private fun executeRestore(space: FileDataSpace, operationId: String, plan: RestorePlan): BackupRestoreUiStatus {
         val legacy = plan.legacyImport?.let { LegacyRestoreChecks(plan, operationId) }
-        val verifier = ordinaryRestoreVerifier(BundledMigrationSource(context), plan, legacy,
-            androidIdentityLog(operationId), androidBaselineLog(operationId))
+        val verifier = ordinaryRestoreVerifier(
+            BundledMigrationSource(context),
+            plan,
+            legacy,
+            androidIdentityLog(operationId),
+            androidBaselineLog(operationId),
+        )
         val executor = RestoreExecutor(verifier, plan.source.admission, audit = AndroidRestoreAudit)
         return when (executor.execute(space, operationId, plan) { CheckedZipArchive(queue.input) }) {
             is RestoreExecutionResult.Committed -> finishIdentity(operationId)
@@ -211,7 +223,9 @@ internal class BackupRestoreCoordinator(
 
     private fun finishIdentity(operationId: String) = if (identity?.finish(operationId) == true) {
         BackupRestoreUiStatus.APPLIED_REPAIR_SYNC
-    } else BackupRestoreUiStatus.APPLIED
+    } else {
+        BackupRestoreUiStatus.APPLIED
+    }
 
     private fun readPlan(file: File, admission: RestoreAdmission, cancel: () -> Unit = {}): RestorePlan = CheckedZipArchive(file).use {
         when (admission) {
@@ -232,19 +246,31 @@ internal class BackupRestoreCoordinator(
     }
 
     private companion object {
-        val BUSY = setOf(BackupRestoreUiStatus.QUEUING, BackupRestoreUiStatus.QUEUED, BackupRestoreUiStatus.APPLYING, BackupRestoreUiStatus.NEEDS_REVIEW)
+        val BUSY = setOf(
+            BackupRestoreUiStatus.QUEUING,
+            BackupRestoreUiStatus.QUEUED,
+            BackupRestoreUiStatus.APPLYING,
+            BackupRestoreUiStatus.NEEDS_REVIEW,
+        )
     }
 }
 
 internal val AndroidRestoreAudit = RestoreAudit { event ->
-    Log.i("DstuBackupRestore", "event=backup.restore owner=${event.owner} correlationId=${event.operationId} " +
-        "phase=${event.phase} state=${event.status} elapsedMs=${event.elapsedMillis} code=${event.error ?: "none"}")
+    runCatching { S231Diagnostics.record(S231DomainEvents.restore(event)) }
+    Log.i(
+        "DstuBackupRestore",
+        "event=backup.restore owner=${event.owner} correlationId=${event.operationId} " +
+            "phase=${event.phase} state=${event.status} elapsedMs=${event.elapsedMillis} code=${event.error ?: "none"}",
+    )
 }
 
 private class RestoreQueueTrace(private val id: String) {
     private val start = SystemClock.elapsedRealtime()
     fun log(phase: String, state: String) {
-        Log.i("DstuBackupRestore", "event=backup.queue owner=app.backup correlationId=$id " +
-            "phase=$phase state=$state elapsedMs=${SystemClock.elapsedRealtime() - start}")
+        Log.i(
+            "DstuBackupRestore",
+            "event=backup.queue owner=app.backup correlationId=$id " +
+                "phase=$phase state=$state elapsedMs=${SystemClock.elapsedRealtime() - start}",
+        )
     }
 }

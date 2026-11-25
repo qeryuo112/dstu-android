@@ -6,6 +6,9 @@ import com.deepstudent.core.common.logging.NoopLogger
 import com.deepstudent.platform.database.SqlDatabase
 import com.deepstudent.platform.database.SqlReadOperations
 import com.deepstudent.platform.database.SqlValue
+import com.deepstudent.services.sync.api.SyncError
+import com.deepstudent.services.sync.backend.SyncFailure
+import com.deepstudent.services.sync.backend.SyncObjectLimits
 import java.util.concurrent.CancellationException
 
 /**
@@ -20,16 +23,23 @@ class ChangeLogReader(
     private val logger: Logger = NoopLogger,
     // The existing Notes adapter published vault clocks even when the log had no delta for that field.
     private val preserveVaultClocks: Boolean = false,
+    private val rowSyncOnly: Boolean = false,
 ) {
-    init { require(databaseName in setOf("vfs", "chat_v2", "mistakes", "llm_usage")) }
+    init {
+        require(databaseName in setOf("vfs", "chat_v2", "mistakes", "llm_usage"))
+    }
 
     /** The snapshot and its SQL operations are valid only for the duration of [block]. */
     fun <T> withSnapshot(block: (SqlReadOperations, ChangeLogSnapshot) -> T): T {
         val started = System.nanoTime()
         try {
             val result = database.readSnapshot {
-                val snapshot = ChangeLogSnapshot(this, databaseName, logicalKey, preserveVaultClocks)
-                try { block(this, snapshot) } finally { snapshot.closeScope() }
+                val snapshot = ChangeLogSnapshot(this, databaseName, logicalKey, preserveVaultClocks, rowSyncOnly)
+                try {
+                    block(this, snapshot)
+                } finally {
+                    snapshot.closeScope()
+                }
             }
             diagnostic("complete", started)
             return result
@@ -48,11 +58,14 @@ class ChangeLogReader(
         enrich: (SqlReadOperations, List<ByteArray>) -> List<ByteArray> = { _, changes -> changes },
     ): List<ByteArray> = withSnapshot { sql, snapshot ->
         val changes = mutableListOf<ByteArray>()
+        var bytes = 0L
         var after: Long? = null
         var more = true
         while (more) {
             checkCancelled()
             val page = snapshot.page(after)
+            bytes += page.changes.sumOf { it.size.toLong() + 1 }
+            if (bytes > SyncObjectLimits.PAYLOAD_BYTES) throw SyncFailure(SyncError.LIMIT_EXCEEDED)
             changes.addAll(page.changes)
             after = page.nextAfterId
             more = page.hasMore
@@ -62,9 +75,12 @@ class ChangeLogReader(
     }
 
     private fun diagnostic(status: String, started: Long) {
-        logger.info("sync.change_log.read", JsonValue.Object.Builder().put("owner", "sync/changelog")
-            .put("database", databaseName).put("status", status)
-            .put("elapsedMs", (System.nanoTime() - started) / 1_000_000).build())
+        logger.info(
+            "sync.change_log.read",
+            JsonValue.Object.Builder().put("owner", "sync/changelog")
+                .put("database", databaseName).put("status", status)
+                .put("elapsedMs", (System.nanoTime() - started) / 1_000_000).build(),
+        )
     }
 }
 
@@ -76,11 +92,15 @@ class ChangeLogSnapshot internal constructor(
     private val databaseName: String,
     private val logicalKey: (String) -> List<String>?,
     preserveVaultClocks: Boolean,
+    private val rowSyncOnly: Boolean,
 ) {
     private val owner = Thread.currentThread()
     private var active = true
     private val highWater = sql.query("SELECT MAX(id) FROM __change_log") { if (it.isNull(0)) null else it.long(0) }.single()
-    val highWaterId: Long? get() { requireScope(); return highWater }
+    val highWaterId: Long? get() {
+        requireScope()
+        return highWater
+    }
     private val fieldDeltas = sql.query("SELECT name FROM pragma_table_info('__change_log')") { it.text(0) }
         .contains("field_deltas_json")
     private val images = ChangeRowImages(sql, preserveVaultClocks)
@@ -94,21 +114,35 @@ class ChangeLogSnapshot internal constructor(
         val after = if (afterId == null) "" else " AND id>?".also { args += SqlValue.Integer(afterId) }
         args += SqlValue.Integer((limit + 1).toLong())
         val delta = if (fieldDeltas) "field_deltas_json" else "NULL"
-        val rows = sql.query("SELECT id,table_name,record_id,operation,changed_at,$delta FROM __change_log " +
-            "WHERE COALESCE(sync_version,0)=0 AND id<=?$after ORDER BY id LIMIT ?", args) { row ->
-            ChangeLogEntry(row.long(0), row.text(1), row.text(2), row.text(3), row.text(4),
-                if (row.isNull(5)) null else row.text(5))
+        val rows = sql.query(
+            "SELECT id,table_name,record_id,operation,changed_at,$delta FROM __change_log " +
+                "WHERE COALESCE(sync_version,0)=0 AND id<=?$after ORDER BY id LIMIT ?",
+            args,
+        ) { row ->
+            ChangeLogEntry(
+                row.long(0),
+                row.text(1),
+                row.text(2),
+                row.text(3),
+                row.text(4),
+                if (row.isNull(5)) null else row.text(5),
+            )
         }
         val selected = rows.take(limit)
-        val changes = selected.map { entry ->
-            val keys = requireNotNull(logicalKey(entry.table)) { "change log table is not registered for RowSync" }
-            images.encode(databaseName, entry, keys)
+        val changes = selected.mapNotNull { entry ->
+            val keys = logicalKey(entry.table)
+            if (keys == null && rowSyncOnly) return@mapNotNull null
+            images.encode(databaseName, entry, requireNotNull(keys) { "change log table is not registered for RowSync" })
         }
         return ChangeLogPage(changes, selected.lastOrNull()?.id ?: afterId, rows.size > limit)
     }
 
-    internal fun closeScope() { active = false }
-    private fun requireScope() { check(active && Thread.currentThread() === owner) { "change log snapshot is out of scope" } }
+    internal fun closeScope() {
+        active = false
+    }
+    private fun requireScope() {
+        check(active && Thread.currentThread() === owner) { "change log snapshot is out of scope" }
+    }
 
     companion object {
         const val DEFAULT_PAGE_SIZE: Int = 128

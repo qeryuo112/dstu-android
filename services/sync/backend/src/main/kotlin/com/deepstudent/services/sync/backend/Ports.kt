@@ -1,8 +1,9 @@
 package com.deepstudent.services.sync.backend
 
-import com.deepstudent.services.sync.api.SyncConfiguration
 import com.deepstudent.services.sync.api.PairingMode
+import com.deepstudent.services.sync.api.SyncConfiguration
 import com.deepstudent.services.sync.api.SyncError
+import java.io.InputStream
 
 class SyncFailure(val error: SyncError) : RuntimeException(error.name)
 
@@ -14,6 +15,19 @@ interface ObjectProvider {
 
     suspend fun getBounded(key: String, maxBytes: Int): ByteArray? = get(key)?.also {
         if (it.size > maxBytes) throw SyncFailure(SyncError.LIMIT_EXCEEDED)
+    }
+
+    suspend fun <T> readStream(key: String, limit: Int, read: (InputStream) -> T): T? = getBounded(key, limit)?.inputStream()?.use(read)
+
+    suspend fun putStream(key: String, size: Long, ifAbsent: Boolean, open: () -> InputStream) {
+        if (size !in 0..SyncObjectLimits.WIRE_BYTES.toLong()) throw SyncFailure(SyncError.LIMIT_EXCEEDED)
+        val bytes = open().use { input ->
+            val buffer = ByteArray(size.toInt())
+            java.io.DataInputStream(input).readFully(buffer)
+            if (input.read() != -1) throw SyncFailure(SyncError.LIMIT_EXCEEDED)
+            buffer
+        }
+        put(key, bytes, ifAbsent)
     }
 
     suspend fun getPrefix(key: String, bytes: Int, objectBytes: Long): ByteArray? = get(key)?.let {
@@ -41,6 +55,7 @@ interface ProviderFactory {
 
 interface ConfigurationStore {
     fun read(): SyncConfiguration?
+
     /** Check local identity restrictions before opening a remote provider (CREATE can modify it). */
     fun requirePairingTarget(mode: PairingMode, endpoint: String, root: String) = Unit
     fun verifyCredentialReferences(configuration: SyncConfiguration) = Unit

@@ -17,6 +17,8 @@ export const fixtureBytes = Buffer.alloc(1024 * 1024 + 17, 0x61);
 export const fixtureHash = createHash('sha256').update(fixtureBytes).digest('hex');
 export const androidFixtureBytes = Buffer.alloc(1024 * 1024 + 31, 0x62);
 export const androidFixtureHash = createHash('sha256').update(androidFixtureBytes).digest('hex');
+export const desktopRestoreBytes = Buffer.alloc(1024 * 1024 + 47, 0x63);
+export const desktopRestoreHash = createHash('sha256').update(desktopRestoreBytes).digest('hex');
 export const encryptionFixturePassword = 'public S1.26 仓库 🔐';
 
 export async function openDesktopFixture(root, fixture, encrypted = false) {
@@ -100,16 +102,22 @@ export async function openDesktopFixture(root, fixture, encrypted = false) {
     assert.deepEqual(result.upload_failures, []);
     return result;
   }
+  async function attachNote(noteId, name, data) {
+    const attachment = await attachmentRepo.uploadBytesWithFolderConn(db, blobsDir,
+      { name, mimeType: 'text/plain', type: 'file' }, data, null);
+    const relationId = randomUUID();
+    const resourceId = db.get('SELECT resource_id FROM files WHERE id = ?1', [attachment.sourceId])?.resource_id;
+    assert.ok(resourceId);
+    relations.noteRelationRepository.put(db, null, { id: relationId, note_id: noteId, block_id: null,
+      type: 'source', resource_id: resourceId, locator: { type: 'whole' } });
+    return { attachment, resourceId, relationId };
+  }
   return {
     storage, db, cloud, notes: notes.noteRepository, options, openState, deviceId, diagnosticCounts,
     async seed() {
       const note = notes.noteRepository.createNoteInFolder({ title: 'Public S1.25', content: fixtureContent, tags: ['public'] }, null, db);
-      const attachment = await new attachments.AttachmentRepo().uploadBytesWithFolderConn(db, blobsDir, { name: 'fixture.txt', mimeType: 'text/plain', type: 'file' }, fixtureBytes, null);
+      const { attachment, resourceId, relationId } = await attachNote(note.id, 'fixture.txt', fixtureBytes);
       assert.equal(attachment.resourceHash, fixtureHash);
-      const relationId = randomUUID();
-      const resourceId = db.get('SELECT resource_id FROM files WHERE id = ?1', [attachment.sourceId])?.resource_id;
-      assert.ok(resourceId);
-      relations.noteRelationRepository.put(db, null, { id: relationId, note_id: note.id, block_id: null, type: 'source', resource_id: resourceId, locator: { type: 'whole' } });
       const result = await publish();
       assert.ok(result.uploaded > 0);
       return { noteId: note.id, resourceId, fileId: attachment.sourceId, relationId, hash: fixtureHash };
@@ -118,6 +126,19 @@ export async function openDesktopFixture(root, fixture, encrypted = false) {
       const note = notes.noteRepository.createNoteInFolder({ title: 'Public retry', content: 'Desktop second batch', tags: [] }, null, db);
       await publish();
       return note.id;
+    },
+    async publishRestoreAttachmentScenario(originalFileId) {
+      const note = notes.noteRepository.createNoteInFolder({ title: 'Public retry', content: 'Desktop second batch', tags: [] }, null, db);
+      const removed = notes.noteRepository.createNoteInFolder({ title: 'Public desktop deletion', content: 'Synthetic deletion', tags: [] }, null, db);
+      const { attachment } = await attachNote(note.id, 'desktop-restored-live.txt', desktopRestoreBytes);
+      assert.equal(attachment.resourceHash, desktopRestoreHash);
+      await publish();
+      notes.noteRepository.updateNote(note.id, { content: 'Desktop second batch edited' }, db);
+      attachmentRepo.setFavorite(db, attachment.sourceId, true);
+      attachmentRepo.deleteAttachment(db, originalFileId);
+      notes.noteRepository.deleteNoteWithFolderItem(removed.id, db);
+      await publish();
+      return { noteId: note.id, removedNoteId: removed.id, fileId: attachment.sourceId };
     },
     snapshotVfs(file) {
       db.run('VACUUM INTO ?1', [file]);
@@ -215,10 +236,10 @@ export async function openDesktopFixture(root, fixture, encrypted = false) {
         return result;
       } finally { rmSync(temp, { recursive: true, force: true }); }
     },
-    verifyAndroidAttachment(noteId, originalResourceId) {
+    verifyAndroidAttachment(noteId, originalResourceId, name = 'android-fixture.txt') {
       const attachment = attachmentRepo.getByHash(db, androidFixtureHash);
       assert.ok(attachment, 'Android attachment found by content hash');
-      assert.equal(attachment.name, 'android-fixture.txt');
+      assert.equal(attachment.name, name);
       assert.equal(attachment.blobHash, androidFixtureHash);
       assert.equal(attachment.size, androidFixtureBytes.length);
       const content = attachmentRepo.getContentBounded(db, blobsDir, attachment.id, androidFixtureBytes.length);
@@ -231,6 +252,14 @@ export async function openDesktopFixture(root, fixture, encrypted = false) {
       assert.ok(links.some(link => link.resource_id === originalResourceId));
       assert.ok(links.some(link => link.resource_id === attachment.resourceId));
       return attachment;
+    },
+    verifyAndroidAttachmentDeletion(fileId, previousResource) {
+      const attachment = attachmentRepo.getByHash(db, androidFixtureHash);
+      assert.equal(attachment?.id, fileId);
+      assert.equal(attachment?.resourceId, previousResource);
+      assert.equal(attachment?.name, 'restored-android-renamed.txt');
+      assert.ok(attachment.deletedAt);
+      assert.ok(!attachmentRepo.list(db, null, 100, 0).some(row => row.id === fileId), 'deleted attachment must not appear in the live list');
     },
     close() { encryptedCodec?.dispose(); applyHooks.setDefaultNoteHistory(null); deps.configureNoteResourceRepos(null); storage.shutdown(); for (const increment of increments.reverse()) increment.unregister(); },
   };

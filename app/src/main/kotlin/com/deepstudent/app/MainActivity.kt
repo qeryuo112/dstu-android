@@ -9,6 +9,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.setValue
+import com.deepstudent.app.diagnostics.S231Host
 import com.deepstudent.app.scheduling.refreshVisibleSchedules
 import com.deepstudent.app.ui.MainScreen
 
@@ -23,13 +24,15 @@ class MainActivity : ComponentActivity() {
         Log.i("DstuBootstrap", "{\"owner\":\"app\",\"event\":\"activity.created\",\"graphId\":\"$graphId\"}")
         val application = DstuApplication.from(this)
         setContent {
-            MainScreen(
-                loadWorkspace = { application.workspace() },
-                retryState = application.migrationRetryState,
-                retryMigration = { application.retryMigration() },
-                restoreStatus = application.backupRestore.status,
-                openSchedules = scheduleLaunch,
-            )
+            S231Host {
+                MainScreen(
+                    loadWorkspace = { application.workspace() },
+                    retryState = application.migrationRetryState,
+                    retryMigration = { application.retryMigration() },
+                    restoreStatus = application.backupRestore.status,
+                    openSchedules = scheduleLaunch,
+                )
+            }
         }
     }
 
