@@ -3,7 +3,7 @@ package com.deepstudent.app.storage
 import com.deepstudent.platform.database.SharedDatabase
 import com.deepstudent.platform.database.SqlDatabase
 
-/** Extra database leases share the active slot and are acquired only when sync needs them. */
+/** Extra database leases share the active slot and open on first use by their domain or sync. */
 internal class MainSyncDatabases(private val vfs: SqlDatabase, open: (SharedDatabase) -> SqlDatabase) : AutoCloseable {
     private val extra = SharedDatabase.entries.filter { it != SharedDatabase.VFS }.associateWith { owner ->
         lazy(LazyThreadSafetyMode.SYNCHRONIZED) { open(owner) }

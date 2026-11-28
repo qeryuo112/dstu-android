@@ -7,11 +7,6 @@ import com.deepstudent.platform.network.SseDecoder
 import com.deepstudent.platform.network.SseEnd
 import com.deepstudent.platform.network.SseEvent
 import com.deepstudent.platform.network.SseLimits
-import java.io.ByteArrayOutputStream
-import java.io.IOException
-import java.io.InputStream
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
@@ -20,12 +15,18 @@ import kotlinx.coroutines.withContext
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
+import java.io.ByteArrayOutputStream
+import java.io.IOException
+import java.io.InputStream
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 
 internal suspend fun Call.awaitResponse(): Response = suspendCancellableCoroutine { continuation ->
     continuation.invokeOnCancellation { cancel() }
     enqueue(object : Callback {
         override fun onFailure(call: Call, e: IOException) {
-            continuation.resumeWithException(NetworkException(NetworkError.CONNECTION))
+            val error = if (e is ProxyAuthenticationRequired) NetworkError.PROXY_AUTHENTICATION else NetworkError.CONNECTION
+            continuation.resumeWithException(NetworkException(error))
         }
 
         override fun onResponse(call: Call, response: Response) {
@@ -48,11 +49,7 @@ internal suspend fun readHttpBody(response: Response, limits: HttpLimits): ByteA
     }
 }
 
-internal suspend fun readSseBody(
-    response: Response,
-    limits: SseLimits,
-    onEvent: suspend (SseEvent) -> Unit,
-): SseEnd {
+internal suspend fun readSseBody(response: Response, limits: SseLimits, onEvent: suspend (SseEvent) -> Unit): SseEnd {
     val decoder = SseDecoder(limits)
     val input = response.body?.byteStream() ?: return decoder.finish()
     val buffer = ByteArray(8192)
@@ -62,6 +59,7 @@ internal suspend fun readSseBody(
         for (event in decoder.accept(buffer, length = count)) {
             currentCoroutineContext().ensureActive()
             onEvent(event)
+            if (limits.stopAfterEvent?.invoke(event) == true) return SseEnd.COMPLETE
         }
     }
 }

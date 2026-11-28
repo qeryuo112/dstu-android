@@ -33,6 +33,7 @@ internal class WorkspaceToolPorts(
     val sync: (suspend () -> com.deepstudent.features.sync.ui.SyncController)? = null,
     val runtime: WorkspaceRuntimeTools = WorkspaceRuntimeTools(),
     val documents: WorkspaceDocumentPrivacy? = null,
+    val playground: com.deepstudent.features.chat.api.ModelPlaygroundPorts? = null,
 )
 
 internal class WorkspaceRuntimeTools(

@@ -3,12 +3,25 @@ package com.deepstudent.features.chat.api
 import com.deepstudent.core.common.id.TaskId
 import kotlinx.coroutines.flow.Flow
 
-data class ChatStreamRequest(val endpoint: String, val prompt: String) {
+data class ChatStreamRequest(
+    val endpoint: String,
+    val prompt: String,
+    val model: String? = null,
+    val credentialReference: String? = null,
+) {
     init {
         require(endpoint.length <= 2048 && endpoint.isNotBlank())
         require(prompt.isNotBlank() && prompt.length <= 32_768)
+        require(model == null || (model.isNotBlank() && model.length <= 512)) { "invalid chat model" }
+        require(credentialReference == null || (model != null && CREDENTIAL.matches(credentialReference))) {
+            "invalid chat credential reference"
+        }
     }
     override fun toString(): String = "ChatStreamRequest(redacted)"
+
+    private companion object {
+        val CREDENTIAL = Regex("[A-Za-z0-9][A-Za-z0-9._:-]{0,127}")
+    }
 }
 
 enum class ChatStreamPhase { Running, Completed, Cancelled, Failed, Interrupted }

@@ -1,0 +1,400 @@
+{
+  "format": "dstu-evidence-index/v1",
+  "generatedAt": "2026-11-25T18:47:13.361Z",
+  "source": {
+    "repository": "dstu-android",
+    "ref": "HEAD",
+    "revision": "3f5a98f88069f5a47e54e1ed560d086fee7fe720",
+    "selection": "worktree",
+    "entryCount": 45,
+    "trackedCount": 0,
+    "presentCount": 45,
+    "missingFromWorktree": []
+  },
+  "archive": {
+    "format": "tar.gz",
+    "root": "PRIVATE_ARTIFACT_ROOT",
+    "relativeLocation": "s3-01-03-ipa2475-20261126/evidence.tar.gz",
+    "location": "PRIVATE_ARTIFACT_ROOT/s3-01-03-ipa2475-20261126/evidence.tar.gz",
+    "size": 31818,
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "7b323b76a95620259e093f14eabc1b0bcbaefda9a6725e2176a8bbba7c46cbbf"
+    },
+    "manifest": {
+      "relativeLocation": "s3-01-03-ipa2475-20261126/manifest.json",
+      "location": "PRIVATE_ARTIFACT_ROOT/s3-01-03-ipa2475-20261126/manifest.json",
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "e0655424825051381bc33009d3a16bd3a4407e2fd93a650e3e517d3669ce9cc3"
+      }
+    }
+  },
+  "entries": [
+    {
+      "path": "logs/s301-303-frozen-inputs.log",
+      "size": 260,
+      "sha256": "ce028c3c4d9277d6bed869e70c161bff7bddcd45aa87b3d0fbac2cee7925c3a2",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-303-repository-tests.log",
+      "size": 19476,
+      "sha256": "a7fec88dd903c3c126b4b1459708534188881e9219005645fc0644d6e79d7900",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-303-tablet-final-counts.json",
+      "size": 342,
+      "sha256": "770bc032e1caaeb4f63c443ecfb4a4d5c76c06bc2895ed611e06924ef2d8010a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-303-tablet-postflight.log",
+      "size": 216,
+      "sha256": "4fe692b470068e5dd7a556a7733541cdbbd0e00f0fc7ebd167ced1843082132d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-303-targeted-jvm.log",
+      "size": 20986,
+      "sha256": "275a0f8621a299bdad60676bd81194c438d163eceae2a8e1ca66d7aa3ca4c7a8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-tablet-apk-identity.log",
+      "size": 1693,
+      "sha256": "f73698e4a1ddc2fc655430fdf463776d99f632b2c46e68e4eccc65fdf86e0f90",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-tablet-build.log",
+      "size": 22271,
+      "sha256": "279d2007c6638659ac46c70b4e5c931e32dfe39d2413541a730194eb91819112",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-tablet-cancellationBeforeCommitRollsBack.log",
+      "size": 821,
+      "sha256": "70d8873132910fee21e4d0bf7dd6ac86d1bf3fd9fae8f0017142c346249119eb",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-tablet-cleanup.log",
+      "size": 37,
+      "sha256": "4e7772136055519ad5eb031127c0d75519ccfa72a72d63dd74bf78d2515206ac",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-tablet-controller.log",
+      "size": 953,
+      "sha256": "dcbc6577de6adae93f798885fc34106857fd288df69a7dedb5c934ec5c90abc1",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-tablet-desktop-fixture.log",
+      "size": 819,
+      "sha256": "10bcecce2f635e602ece9775404f01f7371c283390983472800c954fd141a5fa",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-tablet-desktop-oracle.mjs",
+      "size": 4801,
+      "sha256": "a453bd1387cf3c7fabf7239aabe32bed1ecbcfaba038d6f78a7ee37791df652b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-tablet-desktop-read.log",
+      "size": 129,
+      "sha256": "cbc4e49b991099253595ae907d1a14dbb266aecd861a046ce661a08c581047b8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-tablet-desktop-write.log",
+      "size": 80,
+      "sha256": "7bfa2b1b185e015b603793b545e5234ae69e00c5ce1b877ce6856c9e8da4abde",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-tablet-fixture-hashes.log",
+      "size": 189,
+      "sha256": "5e581727dea2ed6f1128e343685622d765f0fb2804d478e018e3245c3e47034f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-tablet-force-stop.log",
+      "size": 61,
+      "sha256": "a18b3eac3ebd2b0a6ec908061ff4e2662dde3302d82c8df144c5e2f1e96fc039",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-tablet-install.log",
+      "size": 496,
+      "sha256": "9d53b61bc3479361c89338c03e94cbd2ffcca950be74674ee02fa4a92b7f21e6",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-tablet-partialUpdateAndReplay.log",
+      "size": 799,
+      "sha256": "aeefe3c7a1cb11ee5d73ece7fbc97e88796da7e120b573b1885b18c8e986df86",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-tablet-readSnapshotIsConsistent.log",
+      "size": 803,
+      "sha256": "1da09eea0ed03d05e1faf83ac57261a51b93539b37256a6e977f3ea7ad89e5e9",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-tablet-restartAndProjection.log",
+      "size": 795,
+      "sha256": "584d416430ea7b0038e88ec0327d648fc33479a115ea74257427969da65da444",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-tablet-rollbackOnFailedRow.log",
+      "size": 793,
+      "sha256": "338171fdca33895fc234de89a7fdec072edb88c1b50aadc5814892cbe0f270ab",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-tablet-runner.sh",
+      "size": 5535,
+      "sha256": "31f88471f33e5187a92c5cadfc07ba43df338e3b4b1b9fd114d8adb25549ced5",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-tablet-stream-default.log",
+      "size": 819,
+      "sha256": "abb6718e099ceb175c9c6aa044188c93bc6cf36a9fe209fd934d054694d04dc3",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-tablet-stream-reopen.log",
+      "size": 819,
+      "sha256": "bcf46efd9678fc07073e915e94b1abe4955327254ec3ec3aad9fa3d11c1657ed",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-tablet-stream-write.log",
+      "size": 819,
+      "sha256": "916c39f566ae11dbfef9eaa012f9164b4c90f6bbe3437a86f76d22e66467a57e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s302-303-tablet-apk-identity.log",
+      "size": 1189,
+      "sha256": "9f6f7d69bbca5bd236e763e6d7d44ff89d90f0471985ea990f333bc5fd059ed2",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s302-303-tablet-app-build.log",
+      "size": 109558,
+      "sha256": "f7d0d3b56613d262546dca27a3f68c70755e787b99c0975d2f097d0c6a293c57",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s302-303-tablet-app-controller.log",
+      "size": 757,
+      "sha256": "b00fcedb95f537738f28579262b2c651d68f1f6d03b1676129e6a19db731ff53",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s302-303-tablet-receipt.json",
+      "size": 2963,
+      "sha256": "aea7c234ee5f8a032d0cb397d52611308c3a5c2924312fb052891a2e0c9347bd",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s302-303-tablet-runner.mjs",
+      "size": 6117,
+      "sha256": "1cf3d29abf39ec5fd28176ba31319279f27ca8976dcbd13aeb0b4b4e21c382ec",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s302-customProxyNativeOverridesAndDeepSeekModelGateStayDesktopCompatible.log",
+      "size": 850,
+      "sha256": "865c263bbcaea44735c96be7d1f7852aa9948769dc67d1eef26f91d4b28ee292",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s302-frozenProvidersResolveTheirExpectedDefaultProtocolsAndRoutes.log",
+      "size": 836,
+      "sha256": "37931b565f667bd7fc9c24926368a3fc2282ad799d10fe2ec2d4c02339c0a970",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s302-invalidConfigurationsFailBeforeAdapterCredentialAndNetworkAccess.log",
+      "size": 844,
+      "sha256": "c7f80362bddefe9ab2574835633aa8f0faff4591f9c36846b0c31386058872c4",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s302-protocolSwitchesAndOpenCodeRootRoutingAreResolvedByTheRealResolver.log",
+      "size": 848,
+      "sha256": "f3a2d94f3868c3ddff5ba39bf6ad41d98016a76aba9b3579418bd8a4afc09897",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s303-cancelled.log",
+      "size": 770,
+      "sha256": "e25150ee59137e99d4b56c58211ccbf817f8822effbb5101de88d46377f9f286",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s303-completed.log",
+      "size": 817,
+      "sha256": "ca8f24e5bae2934db4202492c2369a663b79f2296c0058a91d7f2aedda82ab2c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s303-disconnect.log",
+      "size": 776,
+      "sha256": "b58201309747c4cc4789578c9178f439b551fcd6bedd7ca205582d4028d6ffef",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s303-force-stop.json",
+      "size": 185,
+      "sha256": "9afec1ceebaaa83da82720ba4232cd0915c3583695eb29c92e4488d1e7ab5d63",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s303-incomplete-usage.log",
+      "size": 822,
+      "sha256": "f072d17daedcff9cfc060c9e5ce71f4ceea76b53be6968aa3d7844b0528033d4",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s303-interrupted-reopen.log",
+      "size": 774,
+      "sha256": "2884734d6a042ff520587ab7dc98f221eaa28fa4cb10920ae4119b404e14e03a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s303-interrupted-writer.log",
+      "size": 447,
+      "sha256": "9af3040c886a60f6d9517759b06383f0c84b69be299448edd673f302ac90d2cc",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s303-legacy-cancel-regression.log",
+      "size": 852,
+      "sha256": "3366a16d8ddb1fc3f382f9ffaa38477ea20e0c0cb00263b622690a9992ff320f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s303-legacy-runtime-regression.log",
+      "size": 827,
+      "sha256": "314dc8939f9b8157d1c73a187d9c838746f29f23806269da1591f5f9ce70f561",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s303-legacy-sse.log",
+      "size": 828,
+      "sha256": "cf915714f33f567d4f4d5e559b4bfb97c31bc757369ee099c33973949391394e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s303-structured-events.log",
+      "size": 10973,
+      "sha256": "3c646f0756ec85bd6e2a292a45fee59922b865d2a2da25de0f3f1105f0134503",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    }
+  ],
+  "compatibility": {
+    "legacyPathPolicy": "Entries retain original logs/... paths; historical docs/config references are lookup keys, not tracked files.",
+    "localWrites": "logs/ is gitignored; existing tools may continue writing local evidence.",
+    "restoreCommand": "node tools/evidence/restore.mjs <logs/path>"
+  }
+}

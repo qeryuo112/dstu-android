@@ -1,0 +1,216 @@
+{
+  "format": "dstu-evidence-index/v1",
+  "generatedAt": "2026-11-25T14:11:00.801Z",
+  "source": {
+    "repository": "dstu-android",
+    "ref": "HEAD",
+    "revision": "190daa2b6a5591edda5e39b0664b267887e23640",
+    "selection": "worktree",
+    "entryCount": 22,
+    "trackedCount": 0,
+    "presentCount": 22,
+    "missingFromWorktree": []
+  },
+  "archive": {
+    "format": "tar.gz",
+    "root": "PRIVATE_ARTIFACT_ROOT",
+    "relativeLocation": "s3-01-local-20261125/evidence.tar.gz",
+    "location": "PRIVATE_ARTIFACT_ROOT/s3-01-local-20261125/evidence.tar.gz",
+    "size": 29813,
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "71dc7f8bacc7a633315d9b352d51e6a3aa747eceb97ac6a708e89cbfb7031b91"
+    },
+    "manifest": {
+      "relativeLocation": "s3-01-local-20261125/manifest.json",
+      "location": "PRIVATE_ARTIFACT_ROOT/s3-01-local-20261125/manifest.json",
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "6f1ac645fecc59d6d772d4bb2688bc8d7753b5a107a66216e224d871ca82b12d"
+      }
+    }
+  },
+  "entries": [
+    {
+      "path": "logs/s301-android-desktop-fixture.log",
+      "size": 819,
+      "sha256": "4a63f61d3ff2b14e1468f58daf4a705885bb911da899ee926fc550b3a01cd080",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-android-force-stop.log",
+      "size": 94,
+      "sha256": "095da74797f5db7a01c2010aaff3fbd3423f8c710cc2ad9ac7f94ac661db1a8f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-android-initial-fixture-failure.log",
+      "size": 28714,
+      "sha256": "22e15cdbf169afc2f807f40aa3381c7e87aa64b9a140508ffc8f477316f2f6f5",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-android-instrumentation.log",
+      "size": 4146,
+      "sha256": "a1d10941faaa5a196585691dbee5104145f72c8d5d8d11f57b786d76f608dc10",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-android-stream-reopen.log",
+      "size": 819,
+      "sha256": "a74f55df0060fac45e5bf0868a508fac270ad4359832713917d6962de85303ad",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-android-stream-write.log",
+      "size": 819,
+      "sha256": "af084c9f46db0b8a40072fb8440d787a4a1ef93ef5b62f44560b04f254d4efc4",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-desktop-oracle.mjs",
+      "size": 4801,
+      "sha256": "a453bd1387cf3c7fabf7239aabe32bed1ecbcfaba038d6f78a7ee37791df652b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-desktop-read-android.log",
+      "size": 129,
+      "sha256": "cbc4e49b991099253595ae907d1a14dbb266aecd861a046ce661a08c581047b8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-desktop-write.log",
+      "size": 80,
+      "sha256": "7bfa2b1b185e015b603793b545e5234ae69e00c5ce1b877ce6856c9e8da4abde",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-emulator-abi-config.gradle",
+      "size": 384,
+      "sha256": "4620198cf17e3446065cc0c1068fde68880bd5455f560f69a936860de2663a37",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-frozen-desktop-tests.log",
+      "size": 649,
+      "sha256": "a095757f72fb97014c7c484105cb07c3d5260df314abd71b543193c496e815bc",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-host-quality-and-tests.log",
+      "size": 86555,
+      "sha256": "4ec175432db7de3356c63747e522c972c1cbb0e0f1baa61155d63ce3a6290e38",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-initial-quality-constructors.log",
+      "size": 45487,
+      "sha256": "9a72ed7ef22aab211b15be6d23989297d4f824fc804549173b27f0f8a114a14d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-jvm-test-summary.json",
+      "size": 745,
+      "sha256": "672802cbbe9c6bfb65d3fe29cb8833071220e7517853bccefde4324e40129285",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-local-emulator-cleanup.log",
+      "size": 74,
+      "sha256": "b7440c066ebcdabc2db805aace8be79792044a2fd3f4d8046e39d8a0fa7eff29",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-local-environment.log",
+      "size": 386,
+      "sha256": "4c9daad158fe82c930d9d0545f360568f32f33ea32000e609d6d5fcd61032c6d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-local-runner.sh",
+      "size": 2612,
+      "sha256": "d6e2390343db7c4e799c60e6f602a007326eaebd6aff440067937284b83eab4f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-repository-tests.log",
+      "size": 19744,
+      "sha256": "79b5f682baa1e1d4f671185305623078f84d768c553fba7eb06a0443c206b97b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-repository-verification.log",
+      "size": 4936,
+      "sha256": "d991aa1e3c6763953393fd7bc17838dd6c89f5f2f49d1b8f87cc83dda6f64100",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-test-apk-assembly.log",
+      "size": 21062,
+      "sha256": "95c56d58f794627537b62921fe036e21104122002cc9af6c49ade435203a88e2",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-test-apk-identity.log",
+      "size": 222,
+      "sha256": "69af8bd2722e6842446c6d77f172189037cdabbf157c1e2b7357262b410646a0",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-test-apk.sha256",
+      "size": 185,
+      "sha256": "d30b3dc857746293d05fb7d5c90325e530bbc0790713da25c3412692f8d4b6ce",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    }
+  ],
+  "compatibility": {
+    "legacyPathPolicy": "Entries retain original logs/... paths; historical docs/config references are lookup keys, not tracked files.",
+    "localWrites": "logs/ is gitignored; existing tools may continue writing local evidence.",
+    "restoreCommand": "node tools/evidence/restore.mjs <logs/path>"
+  }
+}

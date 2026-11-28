@@ -1,0 +1,64 @@
+{
+  "format": "dstu-evidence-index/v1",
+  "generatedAt": "2026-11-28T12:17:34.553Z",
+  "source": {
+    "repository": "proxy-final-archive",
+    "ref": "HEAD",
+    "revision": "0a367cde96a54baae24af9ae40d04113289d2aa0",
+    "selection": "worktree",
+    "entryCount": 3,
+    "trackedCount": 0,
+    "presentCount": 3,
+    "missingFromWorktree": []
+  },
+  "archive": {
+    "format": "tar.gz",
+    "root": "PRIVATE_ARTIFACT_ROOT",
+    "relativeLocation": "s3-08-proxy-host-20261128/evidence.tar.gz",
+    "location": "PRIVATE_ARTIFACT_ROOT/s3-08-proxy-host-20261128/evidence.tar.gz",
+    "size": 1972,
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "218065778403963f9d33cf405824ffe3ee0b913331891e29bb1361ce651f86b3"
+    },
+    "manifest": {
+      "relativeLocation": "s3-08-proxy-host-20261128/manifest.json",
+      "location": "PRIVATE_ARTIFACT_ROOT/s3-08-proxy-host-20261128/manifest.json",
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "597f64682032a1ca57222bc2246dfe7a5a94f608f79fac6e23c247e567dae50d"
+      }
+    }
+  },
+  "entries": [
+    {
+      "path": "logs/s304-08-proxy-host-final-counts.json",
+      "size": 66,
+      "sha256": "93b14eda2d89b059a48604d664c4b34cc4a6f3140de773eef18ccbe187e1b899",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-proxy-host-final-source.sha256",
+      "size": 159,
+      "sha256": "ad9bc494cb90a47bf6724f1b218c073cd2984a9ff89ff71012ed96c037920fe8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-proxy-host-final.log",
+      "size": 14695,
+      "sha256": "bd129e80aa207014c408f03d086196ac933c039051612d7c36c2127ad4497663",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    }
+  ],
+  "compatibility": {
+    "legacyPathPolicy": "Entries retain original logs/... paths; historical docs/config references are lookup keys, not tracked files.",
+    "localWrites": "logs/ is gitignored; existing tools may continue writing local evidence.",
+    "restoreCommand": "node tools/evidence/restore.mjs <logs/path>"
+  }
+}

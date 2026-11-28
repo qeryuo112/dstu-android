@@ -8,12 +8,14 @@ import com.deepstudent.app.storage.AndroidOperationLogger
 import com.deepstudent.app.storage.MainStorageResources
 import com.deepstudent.core.common.id.TaskId
 import com.deepstudent.core.common.time.SystemWallClock
+import com.deepstudent.features.chat.api.ChatTurnContract
 import com.deepstudent.features.chat.backend.application.ChatStreamHandler
 import com.deepstudent.features.chat.backend.application.RuntimeChatStreams
 import com.deepstudent.features.chat.data.NetworkChatStream
 import com.deepstudent.features.notes.backend.application.NoteStreamImport
 import com.deepstudent.platform.database.DatabaseRegistry
 import com.deepstudent.platform.database.SqlDatabase
+import com.deepstudent.platform.security.CredentialStore
 import com.deepstudent.services.runtime.api.TaskKind
 import com.deepstudent.services.runtime.backend.CapabilityBroker
 import com.deepstudent.services.runtime.backend.HandlerRegistry
@@ -36,6 +38,8 @@ import java.util.UUID
 internal class MainRuntimeResources private constructor(
     private val database: SqlDatabase,
     val script: MainScriptResources,
+    val chat: MainChatRuntime,
+    val providers: MainProviderRuntime,
     private val composition: MainRuntimeComposition,
     private val processLock: RuntimeProcessLock,
 ) : AutoCloseable {
@@ -48,6 +52,7 @@ internal class MainRuntimeResources private constructor(
     val capabilities: CapabilityBroker get() = composition.capabilities
     val shell get() = composition.shell
     val startup = RuntimeStartupRecovery(this)
+    val chatStreams = RuntimeChatStreams(controller, controller, controller, ChatTurnContract.KIND, chat::persistedText)
 
     suspend fun prepare(): MainRuntimeResources = try {
         ledger.closePreviousCapabilityRequests(SystemWallClock.now())
@@ -66,6 +71,7 @@ internal class MainRuntimeResources private constructor(
         } catch (thrown: Throwable) {
             failure = thrown
         }
+        failure = closeResource(providers, failure)
         failure = closeResource(script, failure)
         failure = closeResource(database, failure)
         failure = closeResource(processLock, failure)
@@ -82,6 +88,7 @@ internal class MainRuntimeResources private constructor(
             activeRoot: File,
             storage: MainStorageResources,
             shellRouter: ShellRouter = ShellRouter(emptyMap()),
+            credentials: suspend () -> CredentialStore? = { null },
         ): MainRuntimeResources {
             val parent = File(activeRoot, "databases")
             check(parent.isDirectory || parent.mkdirs()) { "private runtime directory unavailable" }
@@ -95,19 +102,25 @@ internal class MainRuntimeResources private constructor(
                 throw failure
             }
             var script: MainScriptResources? = null
+            var providers: MainProviderRuntime? = null
             try {
                 val openedScript = MainScriptResources.open(parent)
                 script = openedScript
+                val openedProviders = MainProviderRuntime.create(storage.network, storage.chatRepository, credentials)
+                providers = openedProviders
+                val chat = MainChatRuntime.create(storage, openedProviders)
                 val composition = MainRuntimeComposition.create(
                     database,
                     processLock.ownerId,
                     storage,
                     openedScript,
                     shellRouter,
+                    chat,
                 )
-                return MainRuntimeResources(database, openedScript, composition, processLock)
+                return MainRuntimeResources(database, openedScript, chat, openedProviders, composition, processLock)
             } catch (failure: Exception) {
                 var cleanupFailure: Throwable? = failure
+                cleanupFailure = closeResource(providers, cleanupFailure)
                 cleanupFailure = closeResource(script, cleanupFailure)
                 cleanupFailure = closeResource(database, cleanupFailure)
                 closeResource(processLock, cleanupFailure)
@@ -133,6 +146,7 @@ private class MainRuntimeComposition(
             storage: MainStorageResources,
             script: MainScriptResources,
             shellRouter: ShellRouter,
+            chat: MainChatRuntime,
         ): MainRuntimeComposition {
             val ledger = SqlTaskLedger(database, AndroidOperationLogger)
             val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -140,7 +154,7 @@ private class MainRuntimeComposition(
                 val capabilities = CapabilityBroker(ledger, ledger, storage.capabilityEpochs, SystemWallClock)
                 val shell = MainShellTasks(shellRouter, capabilities)
                 val source = NotesCompletionSource(storage.noteTasks, storage.noteCancellations)
-                val registry = runtimeRegistry(storage, script, shell, source)
+                val registry = runtimeRegistry(storage, script, shell, source, chat)
                 val leases = LeaseManager(
                     ledger,
                     SystemWallClock,
@@ -176,6 +190,7 @@ private fun runtimeRegistry(
     script: MainScriptResources,
     shell: MainShellTasks,
     source: NotesCompletionSource,
+    chat: MainChatRuntime,
 ): HandlerRegistry {
     val createNote = NoteCreationHandler(storage.noteTasks)
     return HandlerRegistry(
@@ -187,7 +202,8 @@ private fun runtimeRegistry(
                 storage.noteStreamReader(),
                 NoteImportStorageAdapter(storage),
             ),
-            RuntimeChatStreams.KIND to ChatStreamHandler(NetworkChatStream(storage.network)),
+            RuntimeChatStreams.KIND to ChatStreamHandler(NetworkChatStream(storage.network), storage.chatRepository),
+            ChatTurnContract.KIND to chat.handler,
             MainScriptResources.KIND to script.handler,
             MainShellTasks.KIND to shell.handler,
         ),
@@ -196,6 +212,7 @@ private fun runtimeRegistry(
             MainRuntimeResources.SCHEDULED_NOTE_CREATE to source,
             MainRuntimeResources.NOTE_IMPORT to source,
             MainScriptResources.KIND to script.completionSource,
+            ChatTurnContract.KIND to chat.completion,
         ),
         resumableKinds = setOf(MainRuntimeResources.SCHEDULED_NOTE_CREATE),
     )

@@ -1,0 +1,2706 @@
+{
+  "version": 1,
+  "desktopRevision": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+  "desktopTree": "3bee0f058851b9eb113bdc036d9f60433ed29944",
+  "token": "s305-synthetic-bearer",
+  "codexAccount": "fixture-codex-account",
+  "cases": [
+    {
+      "id": "openai",
+      "provider": "openai",
+      "auth": "bearer_api_key",
+      "session": "fixture-s305-session",
+      "headers": {
+        "x-fixture-provider": "s305",
+        "content-type": "text/plain"
+      },
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": "high",
+        "thinkingBudget": 512,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "model": "gpt-5.6-fixture",
+        "baseUrl": "https://api.openai.com/v1",
+        "modelAdapter": "general",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions."
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "协议回放 🧪"
+            },
+            {
+              "type": "input_image",
+              "image_url": "data:image/png;base64,iVBORw0KGgo=",
+              "detail": "low"
+            }
+          ]
+        },
+        {
+          "role": "assistant",
+          "content": [
+            {
+              "type": "output_text",
+              "text": "先前答案"
+            },
+            {
+              "type": "refusal",
+              "refusal": "synthetic refusal"
+            }
+          ],
+          "response_reasoning_item": {
+            "type": "reasoning",
+            "id": "rs_fixture",
+            "summary": [
+              {
+                "type": "summary_text",
+                "text": "合成思考"
+              }
+            ],
+            "encrypted_content": "fixture-only-encrypted-reasoning"
+          },
+          "response_web_search_items": [
+            {
+              "type": "web_search_call",
+              "id": "ws_fixture",
+              "status": "completed",
+              "action": {
+                "type": "open_page",
+                "url": "https://example.com/fixture"
+              },
+              "page": {
+                "url": "https://example.com/fixture",
+                "title": "Synthetic citation"
+              },
+              "signature": "fixture-only-search-signature"
+            }
+          ],
+          "tool_calls": [
+            {
+              "type": "function",
+              "id": "call_fixture",
+              "function": {
+                "name": "fixture_lookup",
+                "arguments": "{\"q\":\"🧪\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_fixture",
+          "content": [
+            {
+              "type": "text",
+              "text": "第一行"
+            },
+            {
+              "type": "text",
+              "text": "第二行"
+            }
+          ]
+        },
+        {
+          "role": "user",
+          "content": "Continue"
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "fixture_lookup",
+            "description": "Read synthetic test inputs",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "q": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            "strict": true
+          }
+        }
+      ],
+      "adapter": "general",
+      "historyScope": "[\"openai\",\"764509af\",\"gpt-5.6-fixture\",\"openai_responses\"]",
+      "request": {
+        "url": "https://api.openai.com/v1/responses",
+        "body": {
+          "model": "gpt-5.6-fixture",
+          "input": [
+            {
+              "role": "developer",
+              "content": [
+                {
+                  "type": "input_text",
+                  "text": "Fixture instructions.",
+                  "prompt_cache_breakpoint": {
+                    "mode": "explicit"
+                  }
+                }
+              ]
+            },
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "input_text",
+                  "text": "协议回放 🧪"
+                },
+                {
+                  "type": "input_image",
+                  "image_url": "data:image/png;base64,iVBORw0KGgo=",
+                  "detail": "low"
+                }
+              ]
+            },
+            {
+              "type": "reasoning",
+              "id": "rs_fixture",
+              "summary": [
+                {
+                  "type": "summary_text",
+                  "text": "合成思考"
+                }
+              ],
+              "encrypted_content": "fixture-only-encrypted-reasoning"
+            },
+            {
+              "type": "web_search_call",
+              "id": "ws_fixture",
+              "status": "completed",
+              "action": {
+                "type": "open_page",
+                "url": "https://example.com/fixture"
+              },
+              "page": {
+                "url": "https://example.com/fixture",
+                "title": "Synthetic citation"
+              },
+              "signature": "fixture-only-search-signature"
+            },
+            {
+              "role": "assistant",
+              "content": [
+                {
+                  "type": "output_text",
+                  "text": "先前答案"
+                },
+                {
+                  "type": "refusal",
+                  "refusal": "synthetic refusal"
+                }
+              ]
+            },
+            {
+              "type": "function_call",
+              "call_id": "call_fixture",
+              "name": "fixture_lookup",
+              "arguments": "{\"q\":\"🧪\"}"
+            },
+            {
+              "type": "function_call_output",
+              "call_id": "call_fixture",
+              "output": "第一行\n第二行"
+            },
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "input_text",
+                  "text": "Continue"
+                }
+              ]
+            }
+          ],
+          "stream": true,
+          "store": false,
+          "reasoning": {
+            "summary": "auto",
+            "effort": "high"
+          },
+          "include": [
+            "reasoning.encrypted_content"
+          ],
+          "max_output_tokens": 1536,
+          "tools": [
+            {
+              "type": "function",
+              "name": "fixture_lookup",
+              "description": "Read synthetic test inputs",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "q": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "strict": true
+            }
+          ],
+          "tool_choice": "auto",
+          "prompt_cache_key": "fixture-s305-session"
+        },
+        "headers": {
+          "authorization": "Bearer s305-synthetic-bearer",
+          "content-type": "application/json",
+          "x-fixture-provider": "s305"
+        }
+      },
+      "stream": {
+        "frames": [
+          {
+            "data": {
+              "type": "response.reasoning_summary_text.delta",
+              "delta": "合成思考"
+            }
+          },
+          {
+            "data": {
+              "type": "response.output_item.done",
+              "item": {
+                "type": "reasoning",
+                "id": "rs_fixture",
+                "summary": [
+                  {
+                    "type": "summary_text",
+                    "text": "合成思考"
+                  }
+                ],
+                "encrypted_content": "fixture-only-encrypted-reasoning"
+              },
+              "output_index": 0
+            }
+          },
+          {
+            "data": {
+              "type": "response.output_text.delta",
+              "delta": "哈"
+            }
+          },
+          {
+            "data": {
+              "type": "response.output_text.delta",
+              "delta": "哈"
+            }
+          },
+          {
+            "data": {
+              "type": "response.output_item.added",
+              "item": {
+                "type": "function_call",
+                "id": "fc_fixture",
+                "call_id": "call_fixture",
+                "name": "fixture_lookup",
+                "arguments": ""
+              },
+              "output_index": 2
+            }
+          },
+          {
+            "data": {
+              "type": "response.function_call_arguments.delta",
+              "item_id": "fc_fixture",
+              "output_index": 2,
+              "delta": "{\"q\""
+            }
+          },
+          {
+            "data": {
+              "type": "response.function_call_arguments.delta",
+              "item_id": "fc_fixture",
+              "output_index": 2,
+              "delta": ":\"🧪\"}"
+            }
+          },
+          {
+            "data": {
+              "type": "response.output_item.done",
+              "item": {
+                "type": "function_call",
+                "id": "fc_fixture",
+                "call_id": "call_fixture",
+                "name": "fixture_lookup",
+                "arguments": ""
+              },
+              "output_index": 2
+            }
+          },
+          {
+            "data": {
+              "type": "response.completed",
+              "response": {
+                "status": "completed",
+                "output": [
+                  {
+                    "type": "reasoning",
+                    "id": "rs_fixture",
+                    "summary": [
+                      {
+                        "type": "summary_text",
+                        "text": "合成思考"
+                      }
+                    ],
+                    "encrypted_content": "fixture-only-encrypted-reasoning"
+                  },
+                  {
+                    "type": "message",
+                    "id": "msg_fixture",
+                    "content": [
+                      {
+                        "type": "output_text",
+                        "text": "哈哈"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "function_call",
+                    "id": "fc_fixture",
+                    "call_id": "call_fixture",
+                    "name": "fixture_lookup",
+                    "arguments": "{\"q\":\"🧪\"}"
+                  }
+                ],
+                "usage": {
+                  "input_tokens": 2147483650,
+                  "output_tokens": 5,
+                  "total_tokens": 2147483655,
+                  "input_tokens_details": {
+                    "cached_tokens": 2
+                  },
+                  "output_tokens_details": {
+                    "reasoning_tokens": 3
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "events": [
+          {
+            "kind": "reasoning",
+            "value": "合成思考"
+          },
+          {
+            "kind": "reasoning_item",
+            "value": {
+              "type": "reasoning",
+              "id": "rs_fixture",
+              "summary": [
+                {
+                  "type": "summary_text",
+                  "text": "合成思考"
+                }
+              ],
+              "encrypted_content": "fixture-only-encrypted-reasoning"
+            }
+          },
+          {
+            "kind": "text",
+            "value": "哈"
+          },
+          {
+            "kind": "text",
+            "value": "哈"
+          },
+          {
+            "kind": "tool",
+            "value": {
+              "index": 2,
+              "id": "call_fixture",
+              "type": "function",
+              "function": {
+                "name": "fixture_lookup",
+                "arguments": ""
+              }
+            }
+          },
+          {
+            "kind": "tool",
+            "value": {
+              "index": 2,
+              "type": "function",
+              "function": {
+                "arguments": "{\"q\""
+              }
+            }
+          },
+          {
+            "kind": "tool",
+            "value": {
+              "index": 2,
+              "type": "function",
+              "function": {
+                "arguments": ":\"🧪\"}"
+              }
+            }
+          },
+          {
+            "kind": "tool",
+            "value": {
+              "index": 2,
+              "id": "call_fixture",
+              "type": "function",
+              "function": {
+                "name": "fixture_lookup",
+                "arguments": "{\"q\":\"🧪\"}"
+              }
+            }
+          },
+          {
+            "kind": "usage",
+            "value": {
+              "input_tokens": 2147483650,
+              "output_tokens": 5,
+              "total_tokens": 2147483655,
+              "input_tokens_details": {
+                "cached_tokens": 2
+              },
+              "output_tokens_details": {
+                "reasoning_tokens": 3
+              }
+            }
+          },
+          {
+            "kind": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "openai_codex",
+      "provider": "openai_codex",
+      "auth": "openai_codex_oauth",
+      "session": "fixture-s305-session",
+      "headers": {
+        "x-fixture-provider": "s305",
+        "content-type": "text/plain"
+      },
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": "high",
+        "thinkingBudget": 512,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "model": "gpt-5-codex",
+        "baseUrl": "https://chatgpt.com/backend-api/codex",
+        "modelAdapter": "general",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions."
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "协议回放 🧪"
+            },
+            {
+              "type": "input_image",
+              "image_url": "data:image/png;base64,iVBORw0KGgo=",
+              "detail": "low"
+            }
+          ]
+        },
+        {
+          "role": "assistant",
+          "content": [
+            {
+              "type": "output_text",
+              "text": "先前答案"
+            },
+            {
+              "type": "refusal",
+              "refusal": "synthetic refusal"
+            }
+          ],
+          "response_reasoning_item": {
+            "type": "reasoning",
+            "id": "rs_fixture",
+            "summary": [
+              {
+                "type": "summary_text",
+                "text": "合成思考"
+              }
+            ],
+            "encrypted_content": "fixture-only-encrypted-reasoning"
+          },
+          "response_web_search_items": [
+            {
+              "type": "web_search_call",
+              "id": "ws_fixture",
+              "status": "completed",
+              "action": {
+                "type": "open_page",
+                "url": "https://example.com/fixture"
+              },
+              "page": {
+                "url": "https://example.com/fixture",
+                "title": "Synthetic citation"
+              },
+              "signature": "fixture-only-search-signature"
+            }
+          ],
+          "tool_calls": [
+            {
+              "type": "function",
+              "id": "call_fixture",
+              "function": {
+                "name": "fixture_lookup",
+                "arguments": "{\"q\":\"🧪\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_fixture",
+          "content": [
+            {
+              "type": "text",
+              "text": "第一行"
+            },
+            {
+              "type": "text",
+              "text": "第二行"
+            }
+          ]
+        },
+        {
+          "role": "user",
+          "content": "Continue"
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "fixture_lookup",
+            "description": "Read synthetic test inputs",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "q": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            "strict": true
+          }
+        }
+      ],
+      "adapter": "general",
+      "historyScope": "[\"openai_codex\",\"31b1b750\",\"gpt-5-codex\",\"openai_responses\"]",
+      "request": {
+        "url": "https://chatgpt.com/backend-api/codex/responses",
+        "body": {
+          "model": "gpt-5-codex",
+          "input": [
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "input_text",
+                  "text": "协议回放 🧪"
+                },
+                {
+                  "type": "input_image",
+                  "image_url": "data:image/png;base64,iVBORw0KGgo=",
+                  "detail": "low"
+                }
+              ]
+            },
+            {
+              "type": "reasoning",
+              "id": "rs_fixture",
+              "summary": [
+                {
+                  "type": "summary_text",
+                  "text": "合成思考"
+                }
+              ],
+              "encrypted_content": "fixture-only-encrypted-reasoning"
+            },
+            {
+              "type": "web_search_call",
+              "id": "ws_fixture",
+              "status": "completed",
+              "action": {
+                "type": "open_page",
+                "url": "https://example.com/fixture"
+              },
+              "page": {
+                "url": "https://example.com/fixture",
+                "title": "Synthetic citation"
+              },
+              "signature": "fixture-only-search-signature"
+            },
+            {
+              "role": "assistant",
+              "content": [
+                {
+                  "type": "output_text",
+                  "text": "先前答案"
+                },
+                {
+                  "type": "refusal",
+                  "refusal": "synthetic refusal"
+                }
+              ]
+            },
+            {
+              "type": "function_call",
+              "call_id": "call_fixture",
+              "name": "fixture_lookup",
+              "arguments": "{\"q\":\"🧪\"}"
+            },
+            {
+              "type": "function_call_output",
+              "call_id": "call_fixture",
+              "output": "第一行\n第二行"
+            },
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "input_text",
+                  "text": "Continue"
+                }
+              ]
+            }
+          ],
+          "stream": true,
+          "store": false,
+          "instructions": "Fixture instructions.",
+          "reasoning": {
+            "summary": "auto",
+            "effort": "high"
+          },
+          "tool_choice": "auto",
+          "include": [
+            "reasoning.encrypted_content"
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "name": "fixture_lookup",
+              "description": "Read synthetic test inputs",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "q": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "strict": true
+            }
+          ],
+          "prompt_cache_key": "fixture-s305-session"
+        },
+        "headers": {
+          "authorization": "Bearer s305-synthetic-bearer",
+          "chatgpt-account-id": "fixture-codex-account",
+          "originator": "codex_cli_rs",
+          "openai-beta": "responses=experimental",
+          "session-id": "fixture-s305-session",
+          "session_id": "fixture-s305-session",
+          "conversation_id": "fixture-s305-session",
+          "x-openai-fedramp": "true",
+          "content-type": "application/json",
+          "accept": "text/event-stream, application/json",
+          "x-fixture-provider": "s305"
+        }
+      },
+      "stream": {
+        "frames": [
+          {
+            "data": {
+              "type": "response.created",
+              "response": {
+                "status": "in_progress"
+              }
+            }
+          },
+          {
+            "data": {
+              "type": "response.completed",
+              "response": {
+                "status": "completed",
+                "output": [
+                  {
+                    "type": "reasoning",
+                    "id": "rs_fixture",
+                    "summary": [
+                      {
+                        "type": "summary_text",
+                        "text": "合成思考"
+                      }
+                    ],
+                    "encrypted_content": "fixture-only-encrypted-reasoning"
+                  },
+                  {
+                    "type": "message",
+                    "id": "msg_fixture",
+                    "content": [
+                      {
+                        "type": "output_text",
+                        "text": "Codex 文本"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "function_call",
+                    "id": "fc_fixture",
+                    "call_id": "call_fixture",
+                    "name": "fixture_lookup",
+                    "arguments": "{\"q\":\"🧪\"}"
+                  }
+                ],
+                "usage": {
+                  "input_tokens": 2147483650,
+                  "output_tokens": 5,
+                  "total_tokens": 2147483655,
+                  "input_tokens_details": {
+                    "cached_tokens": 2
+                  },
+                  "output_tokens_details": {
+                    "reasoning_tokens": 3
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "events": [
+          {
+            "kind": "text",
+            "value": "Codex 文本"
+          },
+          {
+            "kind": "reasoning",
+            "value": "合成思考"
+          },
+          {
+            "kind": "usage",
+            "value": {
+              "input_tokens": 2147483650,
+              "output_tokens": 5,
+              "total_tokens": 2147483655,
+              "input_tokens_details": {
+                "cached_tokens": 2
+              },
+              "output_tokens_details": {
+                "reasoning_tokens": 3
+              }
+            }
+          },
+          {
+            "kind": "reasoning_item",
+            "value": {
+              "type": "reasoning",
+              "id": "rs_fixture",
+              "summary": [
+                {
+                  "type": "summary_text",
+                  "text": "合成思考"
+                }
+              ],
+              "encrypted_content": "fixture-only-encrypted-reasoning"
+            }
+          },
+          {
+            "kind": "tool",
+            "value": {
+              "index": 2,
+              "id": "call_fixture",
+              "type": "function",
+              "function": {
+                "name": "fixture_lookup",
+                "arguments": "{\"q\":\"🧪\"}"
+              }
+            }
+          },
+          {
+            "kind": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "deepseek",
+      "provider": "deepseek",
+      "auth": "bearer_api_key",
+      "session": "fixture-s305-session",
+      "headers": {
+        "x-fixture-provider": "s305",
+        "content-type": "text/plain"
+      },
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": "high",
+        "thinkingBudget": 512,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "model": "deepseek-flash",
+        "baseUrl": "https://api.deepseek.com/v1",
+        "modelAdapter": "deepseek",
+        "extraBody": {
+          "safety_check": {
+            "level": "high"
+          },
+          "title": "synthetic title"
+        }
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions."
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "input_file",
+              "file_id": "file-synthetic"
+            },
+            {
+              "type": "text",
+              "text": "总结"
+            }
+          ]
+        },
+        {
+          "role": "system",
+          "content": "Keep this later instruction in history."
+        },
+        {
+          "role": "assistant",
+          "content": [
+            {
+              "type": "output_text",
+              "text": "先前答案"
+            },
+            {
+              "type": "refusal",
+              "refusal": "synthetic refusal"
+            }
+          ],
+          "response_web_search_items": [
+            {
+              "type": "web_search_call",
+              "id": "ws_fixture",
+              "status": "completed",
+              "action": {
+                "type": "open_page",
+                "url": "https://example.com/fixture"
+              },
+              "page": {
+                "url": "https://example.com/fixture",
+                "title": "Synthetic citation"
+              },
+              "signature": "fixture-only-search-signature"
+            }
+          ],
+          "tool_calls": [
+            {
+              "type": "function",
+              "id": "call_fixture",
+              "function": {
+                "name": "fixture_lookup",
+                "arguments": "{\"q\":\"🧪\"}"
+              }
+            }
+          ],
+          "reasoning_content": "DeepSeek reasoning passback"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_fixture",
+          "content": [
+            {
+              "type": "text",
+              "text": "第一行"
+            },
+            {
+              "type": "text",
+              "text": "第二行"
+            }
+          ]
+        },
+        {
+          "role": "user",
+          "content": "Continue"
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "fixture_lookup",
+            "description": "Read synthetic test inputs",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "q": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            "strict": true
+          }
+        },
+        {
+          "type": "deepseek_web_search"
+        },
+        {
+          "type": "deepseek_read_url"
+        }
+      ],
+      "adapter": "deepseek",
+      "historyScope": "[\"deepseek\",\"351f6d2f\",\"deepseek-flash\",\"openai_responses\"]",
+      "request": {
+        "url": "https://api.deepseek.com/v1/responses",
+        "body": {
+          "model": "deepseek-flash",
+          "input": [
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "input_file",
+                  "file_id": "file-synthetic"
+                },
+                {
+                  "type": "input_text",
+                  "text": "总结"
+                }
+              ]
+            },
+            {
+              "role": "system",
+              "content": [
+                {
+                  "type": "input_text",
+                  "text": "Keep this later instruction in history."
+                }
+              ]
+            },
+            {
+              "type": "reasoning",
+              "content": [
+                {
+                  "type": "reasoning_text",
+                  "text": "DeepSeek reasoning passback"
+                }
+              ]
+            },
+            {
+              "type": "web_search_call",
+              "id": "ws_fixture",
+              "status": "completed",
+              "action": {
+                "type": "open_page",
+                "url": "https://example.com/fixture"
+              },
+              "page": {
+                "url": "https://example.com/fixture",
+                "title": "Synthetic citation"
+              },
+              "signature": "fixture-only-search-signature"
+            },
+            {
+              "role": "assistant",
+              "content": [
+                {
+                  "type": "output_text",
+                  "text": "先前答案"
+                },
+                {
+                  "type": "refusal",
+                  "refusal": "synthetic refusal"
+                }
+              ]
+            },
+            {
+              "type": "function_call",
+              "call_id": "call_fixture",
+              "name": "fixture_lookup",
+              "arguments": "{\"q\":\"🧪\"}"
+            },
+            {
+              "type": "function_call_output",
+              "call_id": "call_fixture",
+              "output": "第一行\n第二行"
+            },
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "input_text",
+                  "text": "Continue"
+                }
+              ]
+            }
+          ],
+          "stream": true,
+          "store": false,
+          "instructions": "Fixture instructions.",
+          "reasoning": {
+            "effort": "high"
+          },
+          "max_output_tokens": 1536,
+          "top_p": 0.95,
+          "safety_check": {
+            "level": "high"
+          },
+          "title": "synthetic title",
+          "tools": [
+            {
+              "type": "function",
+              "name": "fixture_lookup",
+              "description": "Read synthetic test inputs",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "q": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "strict": true
+            },
+            {
+              "type": "deepseek_web_search"
+            },
+            {
+              "type": "deepseek_read_url"
+            }
+          ],
+          "tool_choice": "auto"
+        },
+        "headers": {
+          "authorization": "Bearer s305-synthetic-bearer",
+          "content-type": "application/json",
+          "x-fixture-provider": "s305"
+        }
+      },
+      "stream": {
+        "frames": [
+          {
+            "data": {
+              "type": "response.output_text.delta",
+              "delta": "UNREVIEWED"
+            }
+          },
+          {
+            "data": {
+              "type": "response.output_item.added",
+              "item": {
+                "type": "function_call",
+                "id": "fc_fixture",
+                "call_id": "call_fixture",
+                "name": "fixture_lookup",
+                "arguments": "{\"q\":\"🧪\"}"
+              },
+              "output_index": 2
+            }
+          },
+          {
+            "data": {
+              "type": "response.output_item.done",
+              "item": {
+                "type": "function_call",
+                "id": "fc_fixture",
+                "call_id": "call_fixture",
+                "name": "fixture_lookup",
+                "arguments": "{\"q\":\"🧪\"}"
+              },
+              "output_index": 2
+            }
+          },
+          {
+            "data": {
+              "type": "response.output_item.done",
+              "item": {
+                "type": "web_search_call",
+                "id": "ws_fixture",
+                "status": "completed",
+                "action": {
+                  "type": "open_page",
+                  "url": "https://example.com/fixture"
+                },
+                "page": {
+                  "url": "https://example.com/fixture",
+                  "title": "Synthetic citation"
+                },
+                "signature": "fixture-only-search-signature"
+              },
+              "output_index": 0
+            }
+          },
+          {
+            "data": {
+              "type": "response.completed",
+              "response": {
+                "status": "completed",
+                "output": [
+                  {
+                    "type": "web_search_call",
+                    "id": "ws_fixture",
+                    "status": "completed",
+                    "action": {
+                      "type": "open_page",
+                      "url": "https://example.com/fixture"
+                    },
+                    "page": {
+                      "url": "https://example.com/fixture",
+                      "title": "Synthetic citation"
+                    },
+                    "signature": "fixture-only-search-signature"
+                  },
+                  {
+                    "type": "message",
+                    "id": "msg_fixture",
+                    "content": [
+                      {
+                        "type": "output_text",
+                        "text": "🌱结论。",
+                        "annotations": [
+                          {
+                            "type": "url_citation",
+                            "url": "https://example.com/a_(b)",
+                            "start_index": 0,
+                            "end_index": 3
+                          },
+                          {
+                            "type": "url_citation",
+                            "url": "javascript:alert(1)",
+                            "start_index": 0,
+                            "end_index": 4
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "function_call",
+                    "id": "fc_fixture",
+                    "call_id": "call_fixture",
+                    "name": "fixture_lookup",
+                    "arguments": "{\"q\":\"🧪\"}"
+                  }
+                ],
+                "usage": {
+                  "input_tokens": 2147483650,
+                  "output_tokens": 5,
+                  "total_tokens": 2147483655,
+                  "input_tokens_details": {
+                    "cached_tokens": 2
+                  },
+                  "output_tokens_details": {
+                    "reasoning_tokens": 3
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "events": [
+          {
+            "kind": "web_search",
+            "value": {
+              "id": "ws_fixture",
+              "stage": "completed",
+              "sources": [
+                {
+                  "title": "Synthetic citation",
+                  "url": "https://example.com/fixture",
+                  "snippet": ""
+                }
+              ],
+              "item": {
+                "type": "web_search_call",
+                "id": "ws_fixture",
+                "status": "completed",
+                "action": {
+                  "type": "open_page",
+                  "url": "https://example.com/fixture"
+                },
+                "page": {
+                  "url": "https://example.com/fixture",
+                  "title": "Synthetic citation"
+                },
+                "signature": "fixture-only-search-signature"
+              }
+            }
+          },
+          {
+            "kind": "text",
+            "value": "🌱结论 [1](<https://example.com/a_(b)>)。"
+          },
+          {
+            "kind": "usage",
+            "value": {
+              "input_tokens": 2147483650,
+              "output_tokens": 5,
+              "total_tokens": 2147483655,
+              "input_tokens_details": {
+                "cached_tokens": 2
+              },
+              "output_tokens_details": {
+                "reasoning_tokens": 3
+              }
+            }
+          },
+          {
+            "kind": "tool",
+            "value": {
+              "index": 2,
+              "id": "call_fixture",
+              "type": "function",
+              "function": {
+                "name": "fixture_lookup",
+                "arguments": "{\"q\":\"🧪\"}"
+              }
+            }
+          },
+          {
+            "kind": "web_search",
+            "value": {
+              "id": "resp_web_search",
+              "stage": "completed",
+              "sources": [
+                {
+                  "title": "Synthetic citation",
+                  "url": "https://example.com/fixture",
+                  "snippet": ""
+                },
+                {
+                  "title": "",
+                  "url": "https://example.com/a_(b)",
+                  "snippet": ""
+                },
+                {
+                  "title": "",
+                  "url": "javascript:alert(1)",
+                  "snippet": ""
+                }
+              ]
+            }
+          },
+          {
+            "kind": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "grok",
+      "provider": "grok",
+      "auth": "bearer_api_key",
+      "session": "fixture-s305-session",
+      "headers": {
+        "x-fixture-provider": "s305",
+        "content-type": "text/plain"
+      },
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": "high",
+        "thinkingBudget": 512,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "model": "grok-4.20-reasoning",
+        "baseUrl": "https://api.x.ai/v1",
+        "modelAdapter": "grok",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions."
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "协议回放 🧪"
+            },
+            {
+              "type": "input_image",
+              "image_url": "data:image/png;base64,iVBORw0KGgo=",
+              "detail": "low"
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "fixture_lookup",
+            "description": "Read synthetic test inputs",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "q": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            "strict": true
+          }
+        }
+      ],
+      "adapter": "grok",
+      "historyScope": "[\"grok\",\"8cd8528c\",\"grok-4.20-reasoning\",\"openai_responses\"]",
+      "request": {
+        "url": "https://api.x.ai/v1/responses",
+        "body": {
+          "model": "grok-4.20-reasoning",
+          "input": [
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "input_text",
+                  "text": "协议回放 🧪"
+                },
+                {
+                  "type": "input_image",
+                  "image_url": "data:image/png;base64,iVBORw0KGgo=",
+                  "detail": "low"
+                }
+              ]
+            }
+          ],
+          "stream": true,
+          "store": false,
+          "instructions": "Fixture instructions.",
+          "reasoning": {
+            "summary": "auto",
+            "effort": "high"
+          },
+          "max_output_tokens": 1536,
+          "tools": [
+            {
+              "type": "function",
+              "name": "fixture_lookup",
+              "description": "Read synthetic test inputs",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "q": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "strict": true
+            }
+          ],
+          "tool_choice": "auto",
+          "prompt_cache_key": "fixture-s305-session"
+        },
+        "headers": {
+          "authorization": "Bearer s305-synthetic-bearer",
+          "content-type": "application/json",
+          "x-fixture-provider": "s305"
+        }
+      },
+      "stream": {
+        "frames": [
+          {
+            "data": {
+              "type": "response.web_search_call.in_progress",
+              "item_id": "ws_fixture"
+            }
+          },
+          {
+            "data": {
+              "type": "response.web_search_call.searching",
+              "item_id": "ws_fixture"
+            }
+          },
+          {
+            "data": {
+              "type": "response.output_item.done",
+              "item": {
+                "type": "web_search_call",
+                "id": "ws_fixture",
+                "status": "completed",
+                "action": {
+                  "type": "open_page",
+                  "url": "https://example.com/fixture"
+                },
+                "page": {
+                  "url": "https://example.com/fixture",
+                  "title": "Synthetic citation"
+                },
+                "signature": "fixture-only-search-signature"
+              },
+              "output_index": 0
+            }
+          },
+          {
+            "data": {
+              "type": "response.output_text.delta",
+              "delta": "Grok 文本"
+            }
+          },
+          {
+            "data": {
+              "type": "response.completed",
+              "response": {
+                "status": "completed",
+                "output": [
+                  {
+                    "type": "web_search_call",
+                    "id": "ws_fixture",
+                    "status": "completed",
+                    "action": {
+                      "type": "open_page",
+                      "url": "https://example.com/fixture"
+                    },
+                    "page": {
+                      "url": "https://example.com/fixture",
+                      "title": "Synthetic citation"
+                    },
+                    "signature": "fixture-only-search-signature"
+                  },
+                  {
+                    "type": "message",
+                    "id": "msg_fixture",
+                    "content": [
+                      {
+                        "type": "output_text",
+                        "text": "Grok 文本"
+                      }
+                    ]
+                  }
+                ],
+                "usage": {
+                  "input_tokens": 2147483650,
+                  "output_tokens": 5,
+                  "total_tokens": 2147483655,
+                  "input_tokens_details": {
+                    "cached_tokens": 2
+                  },
+                  "output_tokens_details": {
+                    "reasoning_tokens": 3
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "events": [
+          {
+            "kind": "web_search",
+            "value": {
+              "id": "ws_fixture",
+              "stage": "in_progress"
+            }
+          },
+          {
+            "kind": "web_search",
+            "value": {
+              "id": "ws_fixture",
+              "stage": "searching"
+            }
+          },
+          {
+            "kind": "web_search",
+            "value": {
+              "id": "ws_fixture",
+              "stage": "completed",
+              "sources": [
+                {
+                  "title": "Synthetic citation",
+                  "url": "https://example.com/fixture",
+                  "snippet": ""
+                }
+              ],
+              "item": {
+                "type": "web_search_call",
+                "id": "ws_fixture",
+                "status": "completed",
+                "action": {
+                  "type": "open_page",
+                  "url": "https://example.com/fixture"
+                },
+                "page": {
+                  "url": "https://example.com/fixture",
+                  "title": "Synthetic citation"
+                },
+                "signature": "fixture-only-search-signature"
+              }
+            }
+          },
+          {
+            "kind": "text",
+            "value": "Grok 文本"
+          },
+          {
+            "kind": "usage",
+            "value": {
+              "input_tokens": 2147483650,
+              "output_tokens": 5,
+              "total_tokens": 2147483655,
+              "input_tokens_details": {
+                "cached_tokens": 2
+              },
+              "output_tokens_details": {
+                "reasoning_tokens": 3
+              }
+            }
+          },
+          {
+            "kind": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "xai",
+      "provider": "xai",
+      "auth": "bearer_api_key",
+      "session": "fixture-s305-session",
+      "headers": {
+        "x-fixture-provider": "s305",
+        "content-type": "text/plain"
+      },
+      "input": {
+        "isReasoning": false,
+        "supportsReasoning": false,
+        "supportsTools": true,
+        "thinkingEnabled": false,
+        "reasoningEffort": null,
+        "thinkingBudget": 512,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "model": "grok-4-fast-non-reasoning",
+        "baseUrl": "https://api.x.ai/v1",
+        "modelAdapter": "grok",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions."
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "协议回放 🧪"
+            },
+            {
+              "type": "input_image",
+              "image_url": "data:image/png;base64,iVBORw0KGgo=",
+              "detail": "low"
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "fixture_lookup",
+            "description": "Read synthetic test inputs",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "q": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            "strict": true
+          }
+        }
+      ],
+      "adapter": "grok",
+      "historyScope": "[\"xai\",\"8cd8528c\",\"grok-4-fast-non-reasoning\",\"openai_responses\"]",
+      "request": {
+        "url": "https://api.x.ai/v1/responses",
+        "body": {
+          "model": "grok-4-fast-non-reasoning",
+          "input": [
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "input_text",
+                  "text": "协议回放 🧪"
+                },
+                {
+                  "type": "input_image",
+                  "image_url": "data:image/png;base64,iVBORw0KGgo=",
+                  "detail": "low"
+                }
+              ]
+            }
+          ],
+          "stream": true,
+          "store": false,
+          "instructions": "Fixture instructions.",
+          "max_output_tokens": 1536,
+          "temperature": 0.25,
+          "tools": [
+            {
+              "type": "function",
+              "name": "fixture_lookup",
+              "description": "Read synthetic test inputs",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "q": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "strict": true
+            }
+          ],
+          "tool_choice": "auto",
+          "prompt_cache_key": "fixture-s305-session"
+        },
+        "headers": {
+          "authorization": "Bearer s305-synthetic-bearer",
+          "content-type": "application/json",
+          "x-fixture-provider": "s305"
+        }
+      },
+      "stream": {
+        "frames": [
+          {
+            "event": "response.output_text.delta",
+            "data": {
+              "delta": "xAI"
+            }
+          },
+          {
+            "data": {
+              "type": "response.output_text.done",
+              "text": "xAI must not duplicate"
+            }
+          },
+          {
+            "data": {
+              "type": "response.done",
+              "response": {
+                "status": "completed",
+                "output": [
+                  {
+                    "type": "message",
+                    "id": "msg_fixture",
+                    "content": [
+                      {
+                        "type": "output_text",
+                        "text": "xAI"
+                      }
+                    ]
+                  }
+                ],
+                "usage": {
+                  "input_tokens": 2147483650,
+                  "output_tokens": 5,
+                  "total_tokens": 2147483655,
+                  "input_tokens_details": {
+                    "cached_tokens": 2
+                  },
+                  "output_tokens_details": {
+                    "reasoning_tokens": 3
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "events": [
+          {
+            "kind": "text",
+            "value": "xAI"
+          },
+          {
+            "kind": "usage",
+            "value": {
+              "input_tokens": 2147483650,
+              "output_tokens": 5,
+              "total_tokens": 2147483655,
+              "input_tokens_details": {
+                "cached_tokens": 2
+              },
+              "output_tokens_details": {
+                "reasoning_tokens": 3
+              }
+            }
+          },
+          {
+            "kind": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "openai-json-schema",
+      "provider": "openai",
+      "auth": "bearer_api_key",
+      "session": "fixture-s305-session",
+      "headers": {
+        "x-fixture-provider": "s305",
+        "content-type": "text/plain"
+      },
+      "input": {
+        "isReasoning": false,
+        "supportsReasoning": false,
+        "supportsTools": true,
+        "thinkingEnabled": false,
+        "reasoningEffort": null,
+        "thinkingBudget": 512,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "model": "gpt-4.1-fixture",
+        "baseUrl": "https://api.openai.com/v1",
+        "modelAdapter": "general",
+        "extraBody": {
+          "response_format": {
+            "type": "json_schema",
+            "json_schema": {
+              "name": "fixture",
+              "schema": {
+                "type": "object"
+              },
+              "strict": true
+            }
+          },
+          "verbosity": "low",
+          "parallel_tool_calls": false
+        }
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions."
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "协议回放 🧪"
+            },
+            {
+              "type": "input_image",
+              "image_url": "data:image/png;base64,iVBORw0KGgo=",
+              "detail": "low"
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "fixture_lookup",
+            "description": "Read synthetic test inputs",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "q": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            "strict": true
+          }
+        }
+      ],
+      "adapter": "general",
+      "historyScope": "[\"openai\",\"764509af\",\"gpt-4.1-fixture\",\"openai_responses\"]",
+      "request": {
+        "url": "https://api.openai.com/v1/responses",
+        "body": {
+          "model": "gpt-4.1-fixture",
+          "input": [
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "input_text",
+                  "text": "协议回放 🧪"
+                },
+                {
+                  "type": "input_image",
+                  "image_url": "data:image/png;base64,iVBORw0KGgo=",
+                  "detail": "low"
+                }
+              ]
+            }
+          ],
+          "stream": true,
+          "store": false,
+          "instructions": "Fixture instructions.",
+          "max_output_tokens": 1536,
+          "temperature": 0.25,
+          "text": {
+            "format": {
+              "type": "json_schema",
+              "name": "fixture",
+              "schema": {
+                "type": "object"
+              },
+              "strict": true
+            },
+            "verbosity": "low"
+          },
+          "tools": [
+            {
+              "type": "function",
+              "name": "fixture_lookup",
+              "description": "Read synthetic test inputs",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "q": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "strict": true
+            }
+          ],
+          "tool_choice": "auto",
+          "parallel_tool_calls": false,
+          "prompt_cache_key": "fixture-s305-session"
+        },
+        "headers": {
+          "authorization": "Bearer s305-synthetic-bearer",
+          "content-type": "application/json",
+          "x-fixture-provider": "s305"
+        }
+      }
+    },
+    {
+      "id": "openai-cache-alias",
+      "provider": "openai",
+      "auth": "bearer_api_key",
+      "session": "fixture-s305-session",
+      "headers": {
+        "x-fixture-provider": "s305",
+        "content-type": "text/plain"
+      },
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": "high",
+        "thinkingBudget": 512,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "supportsOpenaiResponses": true,
+        "model": "gpt-5.6-fixture",
+        "baseUrl": "https://fixture.invalid/v1",
+        "modelAdapter": "general",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions."
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "协议回放 🧪"
+            },
+            {
+              "type": "input_image",
+              "image_url": "data:image/png;base64,iVBORw0KGgo=",
+              "detail": "low"
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "fixture_lookup",
+            "description": "Read synthetic test inputs",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "q": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            "strict": true
+          }
+        }
+      ],
+      "adapter": "general",
+      "historyScope": "[\"openai\",\"d419ebea\",\"gpt-5.6-fixture\",\"openai_responses\"]",
+      "request": {
+        "url": "https://fixture.invalid/v1/responses",
+        "body": {
+          "model": "gpt-5.6-fixture",
+          "input": [
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "input_text",
+                  "text": "协议回放 🧪"
+                },
+                {
+                  "type": "input_image",
+                  "image_url": "data:image/png;base64,iVBORw0KGgo=",
+                  "detail": "low"
+                }
+              ]
+            }
+          ],
+          "stream": true,
+          "store": false,
+          "instructions": "Fixture instructions.",
+          "reasoning": {
+            "summary": "auto",
+            "effort": "high"
+          },
+          "include": [
+            "reasoning.encrypted_content"
+          ],
+          "max_output_tokens": 1536,
+          "tools": [
+            {
+              "type": "function",
+              "name": "fixture_lookup",
+              "description": "Read synthetic test inputs",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "q": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "strict": true
+            }
+          ],
+          "tool_choice": "auto",
+          "prompt_cache_key": "fixture-s305-session"
+        },
+        "headers": {
+          "authorization": "Bearer s305-synthetic-bearer",
+          "content-type": "application/json",
+          "x-fixture-provider": "s305"
+        }
+      }
+    },
+    {
+      "id": "codex-background",
+      "provider": "openai_codex",
+      "auth": "openai_codex_oauth",
+      "session": null,
+      "headers": {
+        "x-fixture-provider": "s305",
+        "content-type": "text/plain"
+      },
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": "high",
+        "thinkingBudget": 512,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "model": "gpt-5-codex",
+        "baseUrl": "https://chatgpt.com/backend-api/codex",
+        "modelAdapter": "general",
+        "extraBody": {
+          "include": [
+            "message.output_text.logprobs"
+          ],
+          "store": true
+        }
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions."
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "协议回放 🧪"
+            },
+            {
+              "type": "input_image",
+              "image_url": "data:image/png;base64,iVBORw0KGgo=",
+              "detail": "low"
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "fixture_lookup",
+            "description": "Read synthetic test inputs",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "q": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            "strict": true
+          }
+        }
+      ],
+      "adapter": "general",
+      "historyScope": "[\"openai_codex\",\"31b1b750\",\"gpt-5-codex\",\"openai_responses\"]",
+      "request": {
+        "url": "https://chatgpt.com/backend-api/codex/responses",
+        "body": {
+          "model": "gpt-5-codex",
+          "input": [
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "input_text",
+                  "text": "协议回放 🧪"
+                },
+                {
+                  "type": "input_image",
+                  "image_url": "data:image/png;base64,iVBORw0KGgo=",
+                  "detail": "low"
+                }
+              ]
+            }
+          ],
+          "stream": true,
+          "store": false,
+          "instructions": "Fixture instructions.",
+          "reasoning": {
+            "summary": "auto",
+            "effort": "high"
+          },
+          "tool_choice": "auto",
+          "include": [
+            "message.output_text.logprobs",
+            "reasoning.encrypted_content"
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "name": "fixture_lookup",
+              "description": "Read synthetic test inputs",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "q": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "strict": true
+            }
+          ],
+          "prompt_cache_key": "deep-student-background"
+        },
+        "headers": {
+          "authorization": "Bearer s305-synthetic-bearer",
+          "chatgpt-account-id": "fixture-codex-account",
+          "originator": "codex_cli_rs",
+          "openai-beta": "responses=experimental",
+          "session-id": "deep-student-background",
+          "session_id": "deep-student-background",
+          "conversation_id": "deep-student-background",
+          "x-openai-fedramp": "true",
+          "content-type": "application/json",
+          "accept": "text/event-stream, application/json",
+          "x-fixture-provider": "s305"
+        }
+      }
+    },
+    {
+      "id": "deepseek-thinking-off",
+      "provider": "deepseek",
+      "auth": "bearer_api_key",
+      "session": "fixture-s305-session",
+      "headers": {
+        "x-fixture-provider": "s305",
+        "content-type": "text/plain"
+      },
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": false,
+        "reasoningEffort": "high",
+        "thinkingBudget": 512,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "enableThinking": false,
+        "model": "deepseek-flash",
+        "baseUrl": "https://api.deepseek.com/v1",
+        "modelAdapter": "deepseek",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions."
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "协议回放 🧪"
+            },
+            {
+              "type": "input_image",
+              "image_url": "data:image/png;base64,iVBORw0KGgo=",
+              "detail": "low"
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "fixture_lookup",
+            "description": "Read synthetic test inputs",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "q": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            "strict": true
+          }
+        }
+      ],
+      "adapter": "deepseek",
+      "historyScope": "[\"deepseek\",\"351f6d2f\",\"deepseek-flash\",\"openai_responses\"]",
+      "request": {
+        "url": "https://api.deepseek.com/v1/responses",
+        "body": {
+          "model": "deepseek-flash",
+          "input": [
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "input_text",
+                  "text": "协议回放 🧪"
+                },
+                {
+                  "type": "input_image",
+                  "image_url": "data:image/png;base64,iVBORw0KGgo=",
+                  "detail": "low"
+                }
+              ]
+            }
+          ],
+          "stream": true,
+          "store": false,
+          "instructions": "Fixture instructions.",
+          "reasoning": {
+            "effort": "none"
+          },
+          "max_output_tokens": 1536,
+          "temperature": 0.25,
+          "tools": [
+            {
+              "type": "function",
+              "name": "fixture_lookup",
+              "description": "Read synthetic test inputs",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "q": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "strict": true
+            }
+          ],
+          "tool_choice": "auto"
+        },
+        "headers": {
+          "authorization": "Bearer s305-synthetic-bearer",
+          "content-type": "application/json",
+          "x-fixture-provider": "s305"
+        }
+      }
+    },
+    {
+      "id": "deepseek-v4-passback",
+      "provider": "deepseek",
+      "auth": "bearer_api_key",
+      "session": "fixture-s305-session",
+      "headers": {
+        "x-fixture-provider": "s305",
+        "content-type": "text/plain"
+      },
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": "medium",
+        "thinkingBudget": 512,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "model": "deepseek-v4-flash",
+        "baseUrl": "https://api.deepseek.com/v1",
+        "modelAdapter": "deepseek",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions."
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "input_file",
+              "file_id": "file-synthetic"
+            },
+            {
+              "type": "text",
+              "text": "总结"
+            }
+          ]
+        },
+        {
+          "role": "system",
+          "content": "Keep this later instruction in history."
+        },
+        {
+          "role": "assistant",
+          "content": [
+            {
+              "type": "output_text",
+              "text": "先前答案"
+            },
+            {
+              "type": "refusal",
+              "refusal": "synthetic refusal"
+            }
+          ],
+          "response_web_search_items": [
+            {
+              "type": "web_search_call",
+              "id": "ws_fixture",
+              "status": "completed",
+              "action": {
+                "type": "open_page",
+                "url": "https://example.com/fixture"
+              },
+              "page": {
+                "url": "https://example.com/fixture",
+                "title": "Synthetic citation"
+              },
+              "signature": "fixture-only-search-signature"
+            }
+          ],
+          "tool_calls": [
+            {
+              "type": "function",
+              "id": "call_fixture",
+              "function": {
+                "name": "fixture_lookup",
+                "arguments": "{\"q\":\"🧪\"}"
+              }
+            }
+          ],
+          "reasoning_content": "DeepSeek reasoning passback"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_fixture",
+          "content": [
+            {
+              "type": "text",
+              "text": "第一行"
+            },
+            {
+              "type": "text",
+              "text": "第二行"
+            }
+          ]
+        },
+        {
+          "role": "user",
+          "content": "Continue"
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "fixture_lookup",
+            "description": "Read synthetic test inputs",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "q": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            "strict": true
+          }
+        }
+      ],
+      "adapter": "deepseek",
+      "historyScope": "[\"deepseek\",\"351f6d2f\",\"deepseek-v4-flash\",\"openai_responses\"]",
+      "request": {
+        "url": "https://api.deepseek.com/v1/responses",
+        "body": {
+          "model": "deepseek-v4-flash",
+          "input": [
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "input_file",
+                  "file_id": "file-synthetic"
+                },
+                {
+                  "type": "input_text",
+                  "text": "总结"
+                }
+              ]
+            },
+            {
+              "role": "system",
+              "content": [
+                {
+                  "type": "input_text",
+                  "text": "Keep this later instruction in history."
+                }
+              ]
+            },
+            {
+              "type": "reasoning",
+              "content": [
+                {
+                  "type": "reasoning_text",
+                  "text": "DeepSeek reasoning passback"
+                }
+              ]
+            },
+            {
+              "type": "web_search_call",
+              "id": "ws_fixture",
+              "status": "completed",
+              "action": {
+                "type": "open_page",
+                "url": "https://example.com/fixture"
+              },
+              "page": {
+                "url": "https://example.com/fixture",
+                "title": "Synthetic citation"
+              },
+              "signature": "fixture-only-search-signature"
+            },
+            {
+              "role": "assistant",
+              "content": [
+                {
+                  "type": "output_text",
+                  "text": "先前答案"
+                },
+                {
+                  "type": "refusal",
+                  "refusal": "synthetic refusal"
+                }
+              ]
+            },
+            {
+              "type": "function_call",
+              "call_id": "call_fixture",
+              "name": "fixture_lookup",
+              "arguments": "{\"q\":\"🧪\"}"
+            },
+            {
+              "type": "function_call_output",
+              "call_id": "call_fixture",
+              "output": "第一行\n第二行"
+            },
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "input_text",
+                  "text": "Continue"
+                }
+              ]
+            }
+          ],
+          "stream": true,
+          "store": false,
+          "instructions": "Fixture instructions.",
+          "reasoning": {
+            "effort": "high"
+          },
+          "max_output_tokens": 1536,
+          "top_p": 0.95,
+          "tools": [
+            {
+              "type": "function",
+              "name": "fixture_lookup",
+              "description": "Read synthetic test inputs",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "q": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "strict": true
+            }
+          ],
+          "tool_choice": "auto"
+        },
+        "headers": {
+          "authorization": "Bearer s305-synthetic-bearer",
+          "content-type": "application/json",
+          "x-fixture-provider": "s305"
+        }
+      }
+    },
+    {
+      "id": "xai-no-auth",
+      "provider": "xai",
+      "auth": "none",
+      "session": "fixture-s305-session",
+      "headers": {
+        "x-fixture-provider": "s305",
+        "content-type": "text/plain"
+      },
+      "input": {
+        "isReasoning": false,
+        "supportsReasoning": false,
+        "supportsTools": true,
+        "thinkingEnabled": false,
+        "reasoningEffort": null,
+        "thinkingBudget": 512,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "model": "grok-4-fast-non-reasoning",
+        "baseUrl": "https://api.x.ai/v1",
+        "modelAdapter": "grok",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions."
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "协议回放 🧪"
+            },
+            {
+              "type": "input_image",
+              "image_url": "data:image/png;base64,iVBORw0KGgo=",
+              "detail": "low"
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "fixture_lookup",
+            "description": "Read synthetic test inputs",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "q": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            "strict": true
+          }
+        }
+      ],
+      "adapter": "grok",
+      "historyScope": "[\"xai\",\"8cd8528c\",\"grok-4-fast-non-reasoning\",\"openai_responses\"]",
+      "request": {
+        "url": "https://api.x.ai/v1/responses",
+        "body": {
+          "model": "grok-4-fast-non-reasoning",
+          "input": [
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "input_text",
+                  "text": "协议回放 🧪"
+                },
+                {
+                  "type": "input_image",
+                  "image_url": "data:image/png;base64,iVBORw0KGgo=",
+                  "detail": "low"
+                }
+              ]
+            }
+          ],
+          "stream": true,
+          "store": false,
+          "instructions": "Fixture instructions.",
+          "max_output_tokens": 1536,
+          "temperature": 0.25,
+          "tools": [
+            {
+              "type": "function",
+              "name": "fixture_lookup",
+              "description": "Read synthetic test inputs",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "q": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "strict": true
+            }
+          ],
+          "tool_choice": "auto",
+          "prompt_cache_key": "fixture-s305-session"
+        },
+        "headers": {
+          "content-type": "application/json",
+          "x-fixture-provider": "s305"
+        }
+      }
+    }
+  ]
+}

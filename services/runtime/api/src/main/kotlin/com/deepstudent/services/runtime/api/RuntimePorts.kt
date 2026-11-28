@@ -41,6 +41,10 @@ interface RuntimeTaskContext {
      * Scheduled handlers use it to continue the same task instead of starting a new one.
      */
     val resumeCheckpoint: JsonValue? get() = null
+
+    /** Durable user cancellation, distinct from supervisor/system yield cancellation. */
+    val cancelRequested: Boolean get() = false
+
     suspend fun checkpoint(value: JsonValue?)
     suspend fun transition(state: RuntimeState)
     suspend fun renewLease()

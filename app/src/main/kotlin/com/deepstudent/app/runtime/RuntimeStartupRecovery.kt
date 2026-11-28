@@ -6,6 +6,7 @@ import com.deepstudent.app.storage.AndroidOperationLogger
 import com.deepstudent.core.common.id.TaskId
 import com.deepstudent.core.common.time.SystemMonotonicClock
 import com.deepstudent.core.common.time.SystemWallClock
+import com.deepstudent.features.chat.api.ChatTurnContract
 import com.deepstudent.features.chat.backend.application.ChatCheckpointSource
 import com.deepstudent.features.chat.backend.application.RuntimeChatStreams
 import com.deepstudent.services.runtime.api.DeadOwnerPredicate
@@ -30,6 +31,7 @@ internal class RuntimeStartupRecovery(private val runtime: MainRuntimeResources)
             RecoveryRegistration(it, runtime.completionSource, handler)
         } + listOf(
             RecoveryRegistration(RuntimeChatStreams.KIND, ChatCheckpointSource, handler),
+            RecoveryRegistration(ChatTurnContract.KIND, runtime.chat.completion, runtime.chat.recovery),
             RecoveryRegistration(MainShellTasks.KIND, MainShellTasks.noBusinessCompletion, handler),
             RecoveryRegistration(MainScriptResources.KIND, runtime.script.completionSource, handler),
             RecoveryRegistration(MainRuntimeResources.SCHEDULED_NOTE_CREATE, runtime.completionSource) { snapshot ->

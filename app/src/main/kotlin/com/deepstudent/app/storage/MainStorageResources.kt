@@ -6,6 +6,8 @@ import com.deepstudent.app.graph.MainProcessResources
 import com.deepstudent.core.common.id.ResourceId
 import com.deepstudent.core.common.logging.Logger
 import com.deepstudent.core.common.time.SystemWallClock
+import com.deepstudent.features.chat.api.ChatRepository
+import com.deepstudent.features.chat.data.SqlChatRepository
 import com.deepstudent.features.notes.api.Notes
 import com.deepstudent.features.notes.backend.application.NotesService
 import com.deepstudent.features.notes.data.NoteResourceWriter
@@ -38,6 +40,12 @@ internal class MainStorageResources private constructor(
     private val slot: StorageSlot,
 ) : MainProcessResources {
     override val description: String = "main-storage"
+    private val chatStorage = SqlChatRepository(
+        database = ::chatDatabase,
+        logger = AndroidOperationLogger,
+    )
+    val chatRepository: ChatRepository get() = chatStorage
+    internal val chatTurns get() = chatStorage.turns
     val notes: Notes get() = notePorts.notes
     val noteTasks: SqlNoteTaskStore get() = notePorts.tasks
     val noteCancellations: NoteTaskCancellations get() = notePorts.cancellations
@@ -48,6 +56,8 @@ internal class MainStorageResources private constructor(
     val capabilityEpochs get() = assetPorts.capabilityEpochs
     val activeRoot: File get() = slot.root
 
+    internal fun chatDatabase(): SqlDatabase = syncDatabases.get(SharedDatabase.CHAT_V2)
+    internal fun chatUsageDatabase(): SqlDatabase = syncDatabases.get(SharedDatabase.LLM_USAGE)
     internal fun databaseForSync(): SqlDatabase = database
     internal fun incomingDecksDatabaseForSync(): SqlDatabase = syncDatabases.get(SharedDatabase.MISTAKES)
     internal fun allDatabasesForSync(): Map<SharedDatabase, SqlDatabase> = syncDatabases.all()

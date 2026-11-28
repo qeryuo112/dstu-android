@@ -38,5 +38,5 @@ internal fun FourPanelWorkspace(ports: WorkspacePorts, openSchedules: Int = 0) {
         }
     }
     val contents = nativePanelContents(ports)
-    WorkspaceRoute(ports.workspace, launchers) { panel, active -> contents[panel.key]?.invoke(panel, active) }
+    WorkspaceRoute(ports.workspace, launchers + playgroundLauncher(ports)) { panel, active -> contents[panel.key]?.invoke(panel, active) }
 }

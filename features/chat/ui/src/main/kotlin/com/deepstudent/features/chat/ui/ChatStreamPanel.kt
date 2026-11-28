@@ -31,10 +31,12 @@ import com.deepstudent.features.chat.api.ChatStreamSnapshot
 import com.deepstudent.features.chat.api.ChatStreams
 import kotlinx.coroutines.launch
 
+@Suppress("ktlint:standard:function-naming") // Compose entry points use PascalCase.
 @Composable
 fun ChatStreamPanel(streams: ChatStreams, taskId: TaskId?, onTask: (TaskId) -> Unit, modifier: Modifier = Modifier) {
     var endpoint by remember { mutableStateOf("") }
     var prompt by remember { mutableStateOf("") }
+    var model by remember { mutableStateOf("") }
     var snapshot by remember(taskId) { mutableStateOf<ChatStreamSnapshot?>(null) }
     val scope = rememberCoroutineScope()
     val onTaskState = rememberUpdatedState(onTask)
@@ -44,20 +46,45 @@ fun ChatStreamPanel(streams: ChatStreams, taskId: TaskId?, onTask: (TaskId) -> U
     }
     val running = actions.submitting || isRunning(taskId, snapshot)
     Column(modifier.fillMaxSize().padding(12.dp)) {
-        OutlinedTextField(endpoint, { endpoint = it }, Modifier.fillMaxWidth().testTag("chat-endpoint"),
-            label = { Text("SSE 地址") }, singleLine = true, enabled = !running)
-        Text(snapshot?.text.orEmpty(), Modifier.weight(1f).fillMaxWidth()
-            .verticalScroll(rememberScrollState()).testTag("chat-output"))
+        OutlinedTextField(
+            endpoint,
+            { endpoint = it },
+            Modifier.fillMaxWidth().testTag("chat-endpoint"),
+            label = { Text("SSE 地址") },
+            singleLine = true,
+            enabled = !running,
+        )
+        OutlinedTextField(
+            model,
+            { model = it },
+            Modifier.fillMaxWidth().testTag("chat-model"),
+            label = { Text("模型（可选）") },
+            singleLine = true,
+            enabled = !running,
+        )
+        Text(
+            snapshot?.text.orEmpty(),
+            Modifier.weight(1f).fillMaxWidth()
+                .verticalScroll(rememberScrollState()).testTag("chat-output"),
+        )
         snapshot?.phase?.takeIf { it != ChatStreamPhase.Running }?.let { Text(phaseLabel(it)) }
         if (actions.failed) Text("无法启动请求，请检查地址")
         Row(Modifier.fillMaxWidth()) {
-            OutlinedTextField(prompt, { prompt = it }, Modifier.weight(1f).testTag("chat-prompt"),
-                label = { Text("消息") }, enabled = !running, maxLines = 4)
+            OutlinedTextField(
+                prompt,
+                { prompt = it },
+                Modifier.weight(1f).testTag("chat-prompt"),
+                label = { Text("消息") },
+                enabled = !running,
+                maxLines = 4,
+            )
             IconButton(onClick = {
-                scope.launch { actions.submit(running, taskId, endpoint, prompt) }
+                scope.launch { actions.submit(running, taskId, endpoint, prompt, model) }
             }, enabled = !actions.submitting, modifier = Modifier.testTag("chat-submit")) {
-                Icon(if (running) Icons.Default.Stop else Icons.AutoMirrored.Filled.Send,
-                    if (running) "停止" else "发送")
+                Icon(
+                    if (running) Icons.Default.Stop else Icons.AutoMirrored.Filled.Send,
+                    if (running) "停止" else "发送",
+                )
             }
         }
     }

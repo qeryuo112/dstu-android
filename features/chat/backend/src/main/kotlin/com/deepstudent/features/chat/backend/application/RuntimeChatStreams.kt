@@ -20,20 +20,30 @@ class RuntimeChatStreams(
     private val submitter: TaskSubmitter,
     private val observer: RuntimeSnapshotObserver,
     private val canceller: RuntimeTaskCanceller,
+    private val taskKind: TaskKind = KIND,
+    private val readPersistedText: suspend (TaskId, Long) -> String? = { _, _ -> null },
 ) : ChatStreams {
-    override suspend fun start(request: ChatStreamRequest): TaskId = submitter.submit(TaskSubmission(
-        KIND, JsonValue.Object.Builder().put("endpoint", request.endpoint).put("prompt", request.prompt).build(),
-    )).taskId
+    override suspend fun start(request: ChatStreamRequest): TaskId {
+        val payload = JsonValue.Object.Builder().put("endpoint", request.endpoint).put("prompt", request.prompt)
+        request.model?.let { payload.put("model", it) }
+        request.credentialReference?.let { payload.put("credentialReference", it) }
+        return submitter.submit(TaskSubmission(taskKind, payload.build())).taskId
+    }
 
     override fun observe(taskId: TaskId): Flow<ChatStreamSnapshot> = observer.observeSnapshots(taskId)
         .filterNotNull().map { snapshot ->
-            val text = ((snapshot.execution.checkpoint as? JsonValue.Object)?.get("text") as? JsonValue.Text)?.value.orEmpty()
-            ChatStreamSnapshot(taskId, text, phase(snapshot.state))
+            val checkpoint = (snapshot.execution.checkpoint as? JsonValue.Object)?.get("text") as? JsonValue.Text
+            val persisted = if (snapshot.state.terminal) readPersistedText(taskId, snapshot.ownership.generation) else null
+            ChatStreamSnapshot(taskId, persisted ?: checkpoint?.value.orEmpty(), phase(snapshot.state))
         }
 
-    override suspend fun cancel(taskId: TaskId) { canceller.cancel(taskId) }
+    override suspend fun cancel(taskId: TaskId) {
+        canceller.cancel(taskId)
+    }
 
-    companion object { val KIND = TaskKind.parse("chat.minimal_stream") }
+    companion object {
+        val KIND = TaskKind.parse("chat.minimal_stream")
+    }
 }
 
 private fun phase(state: RuntimeState): ChatStreamPhase = when (state) {

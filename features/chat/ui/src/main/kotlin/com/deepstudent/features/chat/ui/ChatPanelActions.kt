@@ -14,16 +14,21 @@ internal class ChatPanelActions(private val streams: ChatStreams, private val on
     var failed by mutableStateOf(false)
         private set
 
-    suspend fun submit(running: Boolean, taskId: TaskId?, endpoint: String, prompt: String) {
+    suspend fun submit(running: Boolean, taskId: TaskId?, endpoint: String, prompt: String, model: String) {
         try {
             failed = false
-            if (running) taskId?.let { streams.cancel(it) }
-            else {
+            if (running) {
+                taskId?.let { streams.cancel(it) }
+            } else {
                 submitting = true
-                onTask(streams.start(ChatStreamRequest(endpoint, prompt)))
+                onTask(streams.start(ChatStreamRequest(endpoint, prompt, model.trim().takeIf { it.isNotEmpty() })))
             }
-        } catch (cancelled: CancellationException) { throw cancelled }
-        catch (_: Exception) { failed = true }
-        finally { submitting = false }
+        } catch (cancelled: CancellationException) {
+            throw cancelled
+        } catch (_: Exception) {
+            failed = true
+        } finally {
+            submitting = false
+        }
     }
 }

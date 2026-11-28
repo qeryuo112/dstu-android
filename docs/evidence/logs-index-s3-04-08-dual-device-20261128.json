@@ -1,0 +1,3040 @@
+{
+  "format": "dstu-evidence-index/v1",
+  "generatedAt": "2026-11-28T12:12:21.752Z",
+  "source": {
+    "repository": "archive-stage",
+    "ref": "HEAD",
+    "revision": "0a367cde96a54baae24af9ae40d04113289d2aa0",
+    "selection": "worktree",
+    "entryCount": 375,
+    "trackedCount": 0,
+    "presentCount": 375,
+    "missingFromWorktree": []
+  },
+  "archive": {
+    "format": "tar.gz",
+    "root": "PRIVATE_ARTIFACT_ROOT",
+    "relativeLocation": "s3-04-08-dual-device-20261128/evidence.tar.gz",
+    "location": "PRIVATE_ARTIFACT_ROOT/s3-04-08-dual-device-20261128/evidence.tar.gz",
+    "size": 245310,
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "daeee86f99dce1c2e8b784e8af0bb9616f96dac11e20426151eb34df47f5394f"
+    },
+    "manifest": {
+      "relativeLocation": "s3-04-08-dual-device-20261128/manifest.json",
+      "location": "PRIVATE_ARTIFACT_ROOT/s3-04-08-dual-device-20261128/manifest.json",
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "e8f454b64a606a309b99c9f98c5f80607cfdcf21d7ce0030f6c72d4f0b79bfdb"
+      }
+    }
+  },
+  "entries": [
+    {
+      "path": "logs/s304-08-attempt1--phone--receipt.json",
+      "size": 1168,
+      "sha256": "fb29064f47237b7b8e663ff336274e8dbe3da48b8de57b3e19ccfb26a242b069",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-attempt1--phone--s3-08-S308PlaygroundDeviceTest.log",
+      "size": 391,
+      "sha256": "6a4d7d7687b97b60f0b28e81af96874d83b33cb80224cd16743020cb4b212a61",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-attempt1--phone--s3-08-S308RelayBoundaryDeviceTest.log",
+      "size": 9510,
+      "sha256": "5596e5f2fcb15f97f98d0ee0ed37be6731437e9b5587c29ff85be22303c5c2a4",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-attempt1--tablet--receipt.json",
+      "size": 932,
+      "sha256": "18d9801f6110d78fd432e275eef7bfc1d2923159da65ef4d0ba4cd6334750d9c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-attempt1--tablet--s3-08-S308PlaygroundDeviceTest.log",
+      "size": 391,
+      "sha256": "6a4d7d7687b97b60f0b28e81af96874d83b33cb80224cd16743020cb4b212a61",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-attempt1--tablet--s3-08-S308RelayBoundaryDeviceTest.log",
+      "size": 9510,
+      "sha256": "d62753921db3396d56e3d5000cc88d0a8dbd0a97a2968bff83e570f2c42d7ad9",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-attempt2--phone--receipt.json",
+      "size": 1168,
+      "sha256": "fdebe5962b4bc2bcdaa83116e593bdeca3bf8e77abfab15f0c50e2fba0465102",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-attempt2--phone--s3-08-S308PlaygroundDeviceTest.log",
+      "size": 2714,
+      "sha256": "d844b13897ffb84c9b1746d143d38f9c95f31b6d10ab12ad2d78503fdb321c3d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-attempt2--phone--s3-08-S308RelayBoundaryDeviceTest.log",
+      "size": 9510,
+      "sha256": "507119a7ff4647f267af743779792d6089d8e8c6dc6b74b92bf22953bd8534d8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-attempt2--tablet--receipt.json",
+      "size": 932,
+      "sha256": "2f6484f6e5537e3eadaddc8ea6ad5740e2019a9c23c4ac96a6ef20f5dcbf8411",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-attempt2--tablet--s3-08-S308PlaygroundDeviceTest.log",
+      "size": 2713,
+      "sha256": "65522dc876e43023f1dd963abf1eb1eddb7adbe32b5eefe0ada557b482438ac5",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-attempt2--tablet--s3-08-S308RelayBoundaryDeviceTest.log",
+      "size": 9510,
+      "sha256": "9de26e5b3e50c004a8c3578c7eb26c0cc0f6cffb2d0b610479d6cc7390a5bdea",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--apk-SHA256SUMS",
+      "size": 172,
+      "sha256": "882a0dd9f5664f1b1de60fde394a6f74d01d67a0e741739b45f8901da581bb52",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--apk-SOURCE_REVISION",
+      "size": 41,
+      "sha256": "07373d6049c9098d9d6a36251939b2f85d4a184fe823c00c820e97c29ca997ea",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--build-no-incremental.log",
+      "size": 104241,
+      "sha256": "89502e8d30f87b760ed87eb9b89c23bc3f0232fefed66afbed0c8a78499f0f70",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--build.log",
+      "size": 244762,
+      "sha256": "66843931cd41dd778846a0ba3711097589f8fa3b7fa9debb264644d12de3b46d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--collect-verification.mjs",
+      "size": 3421,
+      "sha256": "25235491644b0e09d29a8415ecca8a24541299a2c3e317d6ace3d734ab9acb09",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--frozen--s3-04.log",
+      "size": 1513,
+      "sha256": "45099d4aee5a9800981cd5a7a596179d03e00911e5dd71de91499d1fd9b5cce2",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--frozen--s3-05.log",
+      "size": 984,
+      "sha256": "3782787b08f2b68dba87c140f5ef6fe2b6723991b8f7e8fb200b7228eafe7572",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--frozen--s3-06.log",
+      "size": 1355,
+      "sha256": "863e37712bc89038437f31c38eec18fc60aa7d24c046cd083ad8bb5985d509b8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--frozen--s3-07.log",
+      "size": 2961,
+      "sha256": "933fa98c440b7dcf13fb65e302cf3938f60f7663fa01d3a40d8c86e8c5265350",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--frozen--s3-08.log",
+      "size": 1061,
+      "sha256": "b000ddcb4dbc554968def444951c9b402ae05e57be3116092a7891abbef68b90",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--host-test-summary.json",
+      "size": 1573,
+      "sha256": "5b11d2ad5150ba8c73ee440b2072949ca66fbab2830c9e27caf509939b1d2b0e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-doubao-error-cancel.json",
+      "size": 374,
+      "sha256": "c71e3f94f1f2ec8ac4fc8fdccaea25503cbc2e66ad96b3188c317be24ad83a75",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-doubao-request.json",
+      "size": 663,
+      "sha256": "ca7ed900c379899581e1b9dd8db9a9e00e66a1986adb5c3841b583283ef5f17d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-doubao-stream.json",
+      "size": 756,
+      "sha256": "75cfe2ddc2b8219c96ca63b764b7462515aad5ff21ae15488ddfe8d13c26042c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-ernie-error-cancel.json",
+      "size": 372,
+      "sha256": "ad4e319bdbe69e1ffdb9a24ff5affef6e21a5d221733c5064e636e3c93563c6e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-ernie-hosted-deepseek-request.json",
+      "size": 686,
+      "sha256": "8f19f923111e8f806053eb10bcdba08babfaea21c44709935afaead44baf1e87",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-ernie-request.json",
+      "size": 654,
+      "sha256": "07ce4425889b096128403113c25896fafd3e084b7724f1c62560a043083523a1",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-ernie-stream.json",
+      "size": 752,
+      "sha256": "6b10b8f559bf2862d198a61706877a705f0ffd9367ec7867a259176fd7d509ae",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-mimo-error-cancel.json",
+      "size": 370,
+      "sha256": "458ecd74ca664d7e91b8b4a408dbc6a1dba9021bd956a92ab5b5903530a5f76c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-mimo-request.json",
+      "size": 601,
+      "sha256": "1322c20ae44d0e57015ae1036eba4bcafc635e66a6a39bced91bfb6e7dc6490b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-mimo-stream.json",
+      "size": 748,
+      "sha256": "8abede70222dbca0f910c9040c881cb5070935b71f550898018fcaf86757ca1a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-mimo-tool-history-request.json",
+      "size": 920,
+      "sha256": "b55c04c60e8aa3d43c816d69d046362ce73657b88262416d2a58c4074437f5d8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-minimax-error-cancel.json",
+      "size": 376,
+      "sha256": "1248386e79556b1ed70a8c7194e159a6502fae78f60ca746c6e282dfe9025a36",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-minimax-legacy-request.json",
+      "size": 525,
+      "sha256": "b254a036d721ef43b64dbb71616828417a8a85dd31e2166ed0c4972f0f20c940",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-minimax-request.json",
+      "size": 546,
+      "sha256": "51bd4282be5825b6dbcd53074c5d86a30325d08353313ee3ead2f120473fd706",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-minimax-stream.json",
+      "size": 801,
+      "sha256": "0634f39041fe5b8945c3874fe87836eb838697db85ea5674437a70ad79e80190",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-minimax-tool-history-request.json",
+      "size": 894,
+      "sha256": "c525eb0878a6e837d92ddcb387f168b15a70c3f0f08a1309a5ef80357b6cdb6c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-mistral-error-cancel.json",
+      "size": 376,
+      "sha256": "3fb50bb6c71ba84640a04662b3ceb20cec2e9d1b5596606d3d9d2870621019ad",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-mistral-magistral-request.json",
+      "size": 649,
+      "sha256": "50f8e4331148e578e68f77b5e87a5d8d556f53231fc884b65a30bfbafba65383",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-mistral-request.json",
+      "size": 638,
+      "sha256": "de8fbc2e2b0b5968c2668eb98a994df70e608e1e24d6a698b2acbe03bcd8dad7",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-mistral-stream.json",
+      "size": 818,
+      "sha256": "a651194e811c2a4d23f5d50552da6de74355579fc0f7ae99ddf1ac3b6a525ee8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-moonshot-code-request.json",
+      "size": 546,
+      "sha256": "3acde054da94cf1a415777803953e64d0828fb67bc9c06fb3150bd988139b1f3",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-moonshot-error-cancel.json",
+      "size": 378,
+      "sha256": "735ca027ffef8c010cb001c004491bfdbb1934bcc2378aaca087fee403a2b16f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-moonshot-request.json",
+      "size": 516,
+      "sha256": "c144b54b96f7378c6bd1379760f3aff0aa05e23d30331f519cee12f95a6edeed",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-moonshot-stream.json",
+      "size": 764,
+      "sha256": "b03131cd6bf5831104ae6718393dd46d96405cdd1415b4ebc4f01e47b5c8bc5d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-moonshot-tool-schema-request.json",
+      "size": 769,
+      "sha256": "e807c9274f9c8b0509bb6293dd40355b57e7684af78e12d330a9855086133033",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-nvidia-error-cancel.json",
+      "size": 374,
+      "sha256": "bcb6183bbed593823505445c0f1f5a89a0e18fa129ad5fc4f55ebd23f34318b5",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-nvidia-request.json",
+      "size": 662,
+      "sha256": "6cac256039a20d883a05d42d8f474fe48d5d6771e6b9d6ce8a78d85133792df8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-nvidia-stream.json",
+      "size": 756,
+      "sha256": "d1d537879ee4ce12f215e3feb1d2fd3ff0043090f00ad8a5f3e9bd04bc61180b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-qwen-error-cancel.json",
+      "size": 370,
+      "sha256": "5123acdeb954e4d41812bb7f4f863643fed90a051d0b458b585be8ea5381c83f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-qwen-omni-request.json",
+      "size": 756,
+      "sha256": "65e0e0e4dda86ffec49216ba05cb5aadbdbe59208b5e317ac3fc5cf1bb15b96b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-qwen-request.json",
+      "size": 700,
+      "sha256": "32aa69ca0fb19ca1042409557629c273701a1764b1e5e98d34fe9aa3cd2deea5",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-qwen-stream.json",
+      "size": 780,
+      "sha256": "451831159313e3252a4499b5fbf81a50568b6684e4f2d7ff0078c54b102fa4a5",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-qwen-tool-history-request.json",
+      "size": 998,
+      "sha256": "6bcd89e3c0f637c5b021142ea3cff213f7426e090e8625f81a039024594eeb2e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-siliconflow-deepseek-request.json",
+      "size": 690,
+      "sha256": "0af7104bce3637dc49b0642aba25455d71a7e54dd64882e515541ab7fe4b909d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-siliconflow-deepseek-v32-request.json",
+      "size": 689,
+      "sha256": "586713204cbf074899afea0a81e7eb3f51c73431229ecc812b15995f36d2688b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-siliconflow-error-cancel.json",
+      "size": 384,
+      "sha256": "57280be65da1a95d82613d113dbe50ec8ce3001c8b52440e525d632d3bb98e5d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-siliconflow-qwen-request.json",
+      "size": 688,
+      "sha256": "cc1d603ee1eadb1f9b7f2189d54eb21114f2111d8496dc6eb56d4f160f823a2f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-siliconflow-request.json",
+      "size": 682,
+      "sha256": "23fe8ccfd3d4963bd371ecc6c290a64e73cf4efc4e78a227980e912a5c7f9600",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-siliconflow-stream.json",
+      "size": 776,
+      "sha256": "030bbe0e983dae827f996e1eab497b5369bfaad13b881ddfc7d7632b22d7efbf",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-zhipu-error-cancel.json",
+      "size": 372,
+      "sha256": "d7f7d8fa35283b72f1e49e36f30b930baa5b6e7c0a8e138a6a84cb18d7e1dffe",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-zhipu-request.json",
+      "size": 699,
+      "sha256": "0b2b653fc4f4605b31ca813088fa9b6a70b2dddb2a46de88f2ed16b35332512a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-04--s304-zhipu-stream.json",
+      "size": 752,
+      "sha256": "d22f9b0b5f4bbff0261c29f2e9e9dc7c6c825e987504d9de1f070c2d5e70f6e9",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-05--s305-codex-background-request.json",
+      "size": 834,
+      "sha256": "2068fcc910b2b1a225bb52a7d22e14b49b1cac0dc9f32d82a9b0db8127ae3e24",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-05--s305-deepseek-error-cancel.json",
+      "size": 230,
+      "sha256": "796f7638566922aa13dc61d84c4773385669b34579ccc885415b00706fa7e79a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-05--s305-deepseek-request.json",
+      "size": 1614,
+      "sha256": "7c9b3336ba9bb77b2dfb719a89e6943d4b1245e73f672248ea6e1e97767b34a7",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-05--s305-deepseek-stream.json",
+      "size": 1225,
+      "sha256": "e0123c01d8363270ecc6a992b3f1007d11c64cdbe92d20c49b7526edb749b904",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-05--s305-deepseek-thinking-off-request.json",
+      "size": 728,
+      "sha256": "5dee1f2c154f235f5952d873d573eb89f4708c1d0527ded85fb882f5d327feea",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-05--s305-deepseek-v4-passback-request.json",
+      "size": 1511,
+      "sha256": "ea6f55a7619b6aed165bf0a0f40952ec967bfde5b479d949158203c4f9e6f1dd",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-05--s305-grok-error-cancel.json",
+      "size": 222,
+      "sha256": "774443cc782c64e8e8f0dc690a028ce241cdd0ca34622f34138bdfe64ded3adb",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-05--s305-grok-request.json",
+      "size": 752,
+      "sha256": "1f6129dd5fe2c7a984620f1d57ab8c0ecc0bf5945b434d1ee923fbe0ac830a4e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-05--s305-grok-stream.json",
+      "size": 901,
+      "sha256": "f9ef6afa83dcc7bcc8b3625aac9eee00c947bd3cbff072090d36325c7cee760d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-05--s305-openai_codex-error-cancel.json",
+      "size": 238,
+      "sha256": "738f9892449d55ad6a646e6f23150a85ff19fecaecd504bf50d2cacd1038fe79",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-05--s305-openai_codex-request.json",
+      "size": 1587,
+      "sha256": "7c09356cef6305eab3732d2021d4f0d8ace47e062c69b467613074a9d763e11e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-05--s305-openai_codex-stream.json",
+      "size": 729,
+      "sha256": "e3028f8e30c0985b150858b97e8185bd54302ec7e47c25c8df8583cee6c69dfc",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-05--s305-openai-cache-alias-request.json",
+      "size": 806,
+      "sha256": "2fd4266b1ef1654881e4b52d50e37808455b05c0a846871952e8a160d54182bf",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-05--s305-openai-error-cancel.json",
+      "size": 226,
+      "sha256": "6b06b67a3b2ee9101eb1b759684a924270fabae283e8820453defa4a7da9f7bc",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-05--s305-openai-json-schema-request.json",
+      "size": 881,
+      "sha256": "f77c15daa0041b0fdb1140714aab7f421051ea5ad6e7b164b7ab86f8c2071fc9",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-05--s305-openai-request.json",
+      "size": 1678,
+      "sha256": "2b6e44fca735c23e35ebb0bc1b533d4be452921bca8d8be14c215e66ebcbacef",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-05--s305-openai-stream.json",
+      "size": 1044,
+      "sha256": "6693a071c3f99ac3e6d17d00f8017acf0c17646bb6d4e430ce97a9d102a6a780",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-05--s305-xai-error-cancel.json",
+      "size": 220,
+      "sha256": "2af55e9fc8d0011e6279125f56b05d5edbded10f4e08fc11ee36f06716cfa4cd",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-05--s305-xai-no-auth-request.json",
+      "size": 726,
+      "sha256": "ea42d620400332822c78d3313c182d98aed0575343550588ba88c6500282b3d0",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-05--s305-xai-request.json",
+      "size": 728,
+      "sha256": "7d6267c1a644417ff52caae24e4f141123f60a2cf98ca7b68a0c4b74844223de",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-05--s305-xai-stream.json",
+      "size": 330,
+      "sha256": "b63cdbe0aa23050543e53721e209fa2e9fc3865b952627badd445583e0d5c381",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-07--s307-gemini-provider-request.json",
+      "size": 843,
+      "sha256": "1edd0dbdcc835244fcaf9916e1dd49a71d9082689a76e6a46c347b5aa3d240da",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-07--s307-gemini-provider-stream.json",
+      "size": 477,
+      "sha256": "c3cfc702ee44011bee648d93ac842876586358edf4b976f690a52d73462af605",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-07--s307-google-2.5-budget-request.json",
+      "size": 846,
+      "sha256": "11ba111ba53af914c1c628a97b579c975cc7479b8140d2cae996fe67236b4645",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-07--s307-google-2.5-budget-stream.json",
+      "size": 479,
+      "sha256": "f487ac0bdbf755a95bdb66d21b7adbbda86b5bd7a5e1df6443d39a68ed06172f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-07--s307-google-basic-thinking-request.json",
+      "size": 849,
+      "sha256": "62b1dc25ec0110e1de01a2d6e5bd899ef6a8cac73cc7a77f5eb16272765e67b7",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-07--s307-google-basic-thinking-stream.json",
+      "size": 483,
+      "sha256": "d8bf8e9c06630f63ca9fa67f72e7e12ba1a49435611da6a0c07c353c8ba3fde8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-07--s307-google-error-finish-max-tokens-request.json",
+      "size": 859,
+      "sha256": "01eafe542bf646ecd382f9f6cacf9d89d85eedfcb0c6cce245bdd68c9bec30f1",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-07--s307-google-error-finish-safety-request.json",
+      "size": 855,
+      "sha256": "014af59b9c4b3e472f8c36e51667e9cc95373ea113c48409ebe619eab255eb9f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-07--s307-google-error-prompt-blocked-request.json",
+      "size": 856,
+      "sha256": "4bd32da469772f950418179ba5f455e1894a5ee6b9a7a1a8c98dcda9085c684d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-07--s307-google-gemini3-flash-off-request.json",
+      "size": 830,
+      "sha256": "6d6bdd55baa2847c4b5f0cdd2f26d1aba966a893ec6419e0615acbf9d8f23e05",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-07--s307-google-gemini3-levels-request.json",
+      "size": 848,
+      "sha256": "c001f65f77d48c08a9b5ff36a21e5002c7a5323089b3e8e6a6a2294dab481490",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-07--s307-google-gemini3-levels-stream.json",
+      "size": 952,
+      "sha256": "c789e982375e8355116585f5c64ec8a0b7f296f5e434ec0c797f0b40b7ffdd0b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-07--s307-google-images-tools-request.json",
+      "size": 848,
+      "sha256": "3c771f6804547ff5637ef7e40fb927f4cab5c6532c968811455db5b964667558",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-07--s307-google-images-tools-stream.json",
+      "size": 950,
+      "sha256": "6ecd846485edf4aa4c39efa5c9c47355698a7c8b071ae9c423c3c02d5d4cf885",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-07--s307-google-prefix-version-request.json",
+      "size": 850,
+      "sha256": "46e727763b3a6a8e538b4ea2e76698c846858c9be5df637ef43c6d7cd4a58e16",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-07--s307-google-response-format-request.json",
+      "size": 899,
+      "sha256": "7fdcf207d2ef0f278dde9669d34492a8d7b4f77102ae474daca835ad44848571",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-07--s307-google-signature-history-request.json",
+      "size": 974,
+      "sha256": "571ba580106c6abe989e27e4144c8c718d966eba6fa375027b67f7bc3584cf3a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-07--s307-google-stream-delta-parts-request.json",
+      "size": 854,
+      "sha256": "c1b2f6488592b921147da8a94f77cb24c77410d303407314cb9623b940ea583e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-07--s307-google-stream-delta-parts-stream.json",
+      "size": 372,
+      "sha256": "f1f4919379d58d699961f347420a2210f50b61c8f635b7fa4933e39b20b01968",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-07--s307-google-stream-done-marker-request.json",
+      "size": 854,
+      "sha256": "cb3412fd5615230ee21cf7ee0cf7c2586f0d07a443e6358590a8b756b4312b82",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-07--s307-google-stream-done-marker-stream.json",
+      "size": 176,
+      "sha256": "9298fa362b315fa3ce1fd7e568c27a5e59e32970e70ef5b4a28c5dbb679a283a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-07--s307-google-stream-late-native-id-request.json",
+      "size": 857,
+      "sha256": "17f573418c1011616ffffa200196de819a5363235e57a10061f2accc4b885702",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-07--s307-google-stream-late-native-id-stream.json",
+      "size": 515,
+      "sha256": "cd78690ea54eec40bbc4a9f99c29ad7674f805f4a5671947aef0b410ae0924ee",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-07--s307-google-stream-thought-variants-request.json",
+      "size": 859,
+      "sha256": "d362f8ff6d92bd9202cb752fde79c3900b39c4be63d21c27cc16ee1ba8f22cf6",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-07--s307-google-stream-thought-variants-stream.json",
+      "size": 700,
+      "sha256": "0b4244360ee9f34075cf8d8521df7fe271171a96409eafddc3cb7b9b2177ed39",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-07--s307-google-v1-system-merge-request.json",
+      "size": 865,
+      "sha256": "e3a5fcdabd8a0f1e9f3445470c6cfe3413a7a7844e449ed7c0f8fa3010ca5156",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-custom-relay-error-cancel.json",
+      "size": 380,
+      "sha256": "b897e8bf03a26995fca2df11022ef3dc6485056e47cba355840a5bc4ff3eeb79",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-custom-relay-max-error-cancel.json",
+      "size": 384,
+      "sha256": "ec214b29ff690a9bb7483e8273e58d7f1fc23e00d284ecfaa44db736fc0145cc",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-custom-relay-max-request.json",
+      "size": 311,
+      "sha256": "539dba5dedc71c630839f85cf0c6e731c9e3056486d838721265d8d7fbe155fb",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-custom-relay-max-stream.json",
+      "size": 699,
+      "sha256": "648760607481201b44a3b2de3d5d67493fb4e099f0a9d79c68866c9663387e03",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-custom-relay-request.json",
+      "size": 291,
+      "sha256": "a2763663ea542163e5dd327738096d49d248165fc6d1df5c7eb8a4dea700257c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-custom-relay-stream.json",
+      "size": 695,
+      "sha256": "a5c1c0ddf717f95ba7945a553cf5aa8167b5015f97e06cc53b3e555033be2594",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-custom-responses-responses.json",
+      "size": 178,
+      "sha256": "695490ebbb3f218a44bef81bb79330cda7974f119ec186ae00222cf2abc2db4d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-custom-responses-route-route.json",
+      "size": 176,
+      "sha256": "8bffeb9ae673870bbf43db93aafb3f796800e481bfdf49566b408619c472a2d8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-general-reasoning-error-cancel.json",
+      "size": 386,
+      "sha256": "3b5f1ddaf8a5be51f6e5868ccebbebc7b59a6772fe12f575a53b0daa4f6a3fb1",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-general-reasoning-request.json",
+      "size": 343,
+      "sha256": "42b32489c2174507ee4368062f7b3bbadecd94e295a7d68d6ffb2daf9811349f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-general-reasoning-stream.json",
+      "size": 701,
+      "sha256": "7b7b1d0d24bf8dd8137ddf99a38e44668fba84a6f31fabbaa3dabe858e4c8ae1",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-model-list-canary.json",
+      "size": 156,
+      "sha256": "8e123c1d15bbb04c89d513332816767d7dbeeffcdb1f4f16e7b8c0587ec54843",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-ollama-local-error-cancel.json",
+      "size": 380,
+      "sha256": "736bd9d936c3469f82c5dc490de201caff1da22c32ce826178326712110b3c95",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-ollama-local-request.json",
+      "size": 291,
+      "sha256": "48638408ccc6750e91d6ddf3c2944dfa7345e50935a620bbc9e7eea70b425fb2",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-ollama-local-stream.json",
+      "size": 695,
+      "sha256": "3e5d35084c428b2424b19c3680e11d80dc2b2ce7b111c5cd576654ca33d980d7",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-opencode-go-anthropic-route-route.json",
+      "size": 190,
+      "sha256": "7e8f1ed4615f70987768e32110c137eb63de801aac561963967f77fc1b40ef49",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-opencode-go-google-route-route.json",
+      "size": 189,
+      "sha256": "e5576e3f3ad9e9116a0e07d9560ec38e62a4cf98c28eaf59e1e3c1e0b2b1b070",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-opencode-go-session-error-cancel.json",
+      "size": 392,
+      "sha256": "dc5b170b1f81b47a412695afd37e1f03f307b36ae451f0444be82bf56046d470",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-opencode-go-session-request.json",
+      "size": 311,
+      "sha256": "b8ee4b3276314dbfe36d59c89154132df269927ee581199114e2b96537e97caa",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-opencode-go-session-stream.json",
+      "size": 707,
+      "sha256": "83145acfb4c4f77d5407dbbbdef55bf1dbfbb55a813766c070a886c8c0570558",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-opencode-go-task-error-cancel.json",
+      "size": 389,
+      "sha256": "3191d98d26431edf9046de598a582675f87f28f5f5d72af59b7b487a7b899d99",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-opencode-go-task-request.json",
+      "size": 320,
+      "sha256": "87b603fca7eff814a2d60c1a65fc303481d6fcf5a9027989eff057370a73b272",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-opencode-go-task-stream.json",
+      "size": 704,
+      "sha256": "33d93ba4145958da125023872438e148edb0b5f20ba8967db80371fda52a47f9",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-openrouter-implicit-error-cancel.json",
+      "size": 391,
+      "sha256": "d1dcaeb5cf5b78189f9f2148cc0b6b273dadf05a3e05c44633ee421425a11c8c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-openrouter-implicit-request.json",
+      "size": 332,
+      "sha256": "fbd444030d23a9b6a08ad13115d7f90421d8a17636234de0146bb2ece35e0b1c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-openrouter-implicit-stream.json",
+      "size": 706,
+      "sha256": "c9961f3c15c3de8e061ba12ec2c3fdc9f9815d0e24e3f51155bcdc8d51018675",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-openrouter-legacy-error-cancel.json",
+      "size": 389,
+      "sha256": "00e3bd72ab7ed5b605740f355a510de302a10cb3b53074f2e9e071f25c16db3b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-openrouter-legacy-request.json",
+      "size": 328,
+      "sha256": "fb985b5cc4138df65c9e0a8a85e8c99441a9ec7e9790fd5a1e109c019f56c20d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-openrouter-legacy-stream.json",
+      "size": 704,
+      "sha256": "667b81b992d01d24ab2247d17926a3085f2b09bd3e8952b82783a8b9dbd25622",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-openrouter-reasoning-error-cancel.json",
+      "size": 392,
+      "sha256": "cd22becc2dfcc05c57de4275313798ec4dec0b4214b43a4a8c6130947f6b917e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-openrouter-reasoning-request.json",
+      "size": 323,
+      "sha256": "1c02aab539fb65fd5711c96367bffbacbc2c97dccc13c2d9b52c5ca6fea4e67f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-openrouter-reasoning-stream.json",
+      "size": 707,
+      "sha256": "06b4bb9bb7f077f6568a023528f319c64446e5d1fd688f9ac3ce262d1cf8782f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--captures--s3-08--s308-openrouter-responses-route-route.json",
+      "size": 184,
+      "sha256": "233ff4ab78be1543f8fac1887b0c1f2231f3d8dee66788c2e1c91b95952f4cca",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--receipt.json",
+      "size": 2524,
+      "sha256": "7efdd73e4687997583f73df6baabbe2842598eab0ce5f60f4f2edc3b7e9bba12",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-04-S304ApplicationDeviceTest.log",
+      "size": 815,
+      "sha256": "f446427e9db1c1f0efaf9e9de0c901c191e34273fb6faedec6d33ad86f6a4608",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-04-S304DirectChatRegressionTest.log",
+      "size": 1488,
+      "sha256": "ae5ff3ae033bcbe828e4aa86ef1bfd53db8279b2af68da88b32de6a06be0b28b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-04-S304FrozenRequestTest.log",
+      "size": 13840,
+      "sha256": "4f6e0ba6d95caf25cee25b59ce25832e933fc6047362002ed4eb107df105a681",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-04-S304FrozenStreamTest.log",
+      "size": 6195,
+      "sha256": "86d317a0b5bbb86db67ff807f0cf78bcaf5453ce781687dad8ebb67778a6913a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-04-S304ProviderFailureTest.log",
+      "size": 6418,
+      "sha256": "b2c15989b83650d2cc75334749e43b87e92f61734e602f1fd8e92806a932941c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-04-S304TerminalEdgeTest.log",
+      "size": 2784,
+      "sha256": "75e61626b21a25a6d89b220c48a705192f88ab6a649a9a9eda38bf64721edf88",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-05-S305ApplicationDeviceTest.log",
+      "size": 869,
+      "sha256": "7e945e88c37bc4cceb2daaead50ebce1e5e9e95212476edc4e67482b79b39cb2",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-05-S305CodexAccountIntegrationTest.log",
+      "size": 883,
+      "sha256": "cb83d67252048711ec95bdcfedf4aa0a4c0855ae4daa8b7ec07a8ca245ee0a7a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-05-S305CodexLoopbackTest.log",
+      "size": 1513,
+      "sha256": "dfef53f5c31272552aec9b6262913d46ba2cf0dc570d50289c0798ea8fb0bb48",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-05-S305CodexSessionVaultTest.log",
+      "size": 1502,
+      "sha256": "4bb725d98031627472aeb3a2e86f7b59952e05de8acb1bcf783eede5b3fefdb0",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-05-S305CodexTransportTest.log",
+      "size": 3635,
+      "sha256": "b6a04ae1cfdac93e2ce1a20e31213d24bfea1b00cd24bf01a438bb3c5e68e5df",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-05-S305ErrorCancelTest.log",
+      "size": 3565,
+      "sha256": "3b04fd248b5703e2006bb89f810568e0b8cf463ab2d1290c441e5700062fd7cc",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-05-S305FrozenRequestTest.log",
+      "size": 7973,
+      "sha256": "ca705af6ceba95f0c36cb1eb48a61916d28d5b8a40b94a82347415d4dab76f4a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-05-S305FrozenStreamTest.log",
+      "size": 3557,
+      "sha256": "e50867a7eaa2c25d90c77017841f253a4d44c4387011083630191ae6c951df17",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-05-S305ProviderConversationFailureTest.log",
+      "size": 1547,
+      "sha256": "0cbc5ffe4df4ed462afabbffdca5bba8340c03a7d21e8c09025840278ce1e002",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-05-S305ProviderConversationTest.log",
+      "size": 868,
+      "sha256": "7e9d9437e7f279ff0afb13e74a6043560f515511056c7c7b6f0dc3e11f097d57",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-05-S305ResponsesBoundaryTest.log",
+      "size": 4958,
+      "sha256": "b91b5ec316111a49780f056a0ec94e50732069511e3f9bdf027b93c4fb4c3c60",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-06-S306ApplicationDeviceTest.log",
+      "size": 821,
+      "sha256": "f5cdef41217241b46491e38f6ad8bf95ef82e7f7892c4f6a4b1da35043e95bef",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-06-S306ErrorCancelTest.log",
+      "size": 1581,
+      "sha256": "52919bf854041b3412e64baba155f43308c60c7d16e48014148afd566d8ff07a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-06-S306FrozenRequestTest.log",
+      "size": 7226,
+      "sha256": "db8584abd8f963a229ad024a4b23104b2046f82304a09821acace53ed93b20dc",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-06-S306FrozenStreamTest.log",
+      "size": 5247,
+      "sha256": "3e775aba1df58a55efb1c6bf14e7440781de28d898c3d2bf102bc382ce7fd0e2",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-06-S306ReplayBoundaryTest.log",
+      "size": 1470,
+      "sha256": "b3828cd1561141586dc95654e9b8527712548499101cb620712e91051987a5e1",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-07-S307ApplicationDeviceTest.log",
+      "size": 857,
+      "sha256": "eef3587680dea2822f9916f9b6f8abff5755311913c554aa82a4db5b17c7635f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-07-S307FrozenRequestTest.log",
+      "size": 12355,
+      "sha256": "a0bfefcd53cd3b74800e90b96141068c3c59157d260a1020eaa0ed95d61216e6",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-07-S307FrozenStreamTest.log",
+      "size": 6577,
+      "sha256": "4163f466ba13af667a02e1fa3ba22c6790448174e5bd19a9666857842304eee2",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-07-S307GeminiErrorCancelTest.log",
+      "size": 4099,
+      "sha256": "510e712d3bca217821e8750079a24a18b4132833783e942b65de4ed647b4185e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-07-S307GeminiSetupTest.log",
+      "size": 2114,
+      "sha256": "fe4262f097824c583d346969511ec8af323ef6e3435d23cb341fa5a091be4e15",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-07-S307GeminiSignatureScopeTest.log",
+      "size": 834,
+      "sha256": "32bbee6dbe6baa4de11200d041cb41f30f4004cc56e78f9030cc056df805ac51",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-07-S307StoredToolHistoryTest.log",
+      "size": 849,
+      "sha256": "1d9fe1f34fc9ee35dbbb19ddac4db35a5ab63e4a6ac006ed4ad40b13d83bafc5",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-08-S308FrozenRequestTest.log",
+      "size": 5788,
+      "sha256": "a8dd75a9398501f4f8f4666b6740411a79df034dd8b9f42e08db29be744d5c00",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-08-S308FrozenResponsesTest.log",
+      "size": 737,
+      "sha256": "07e87a63f7278c753fed1ac6997a10ba0ac198e2d53a8ba111cbc599f48cdc8d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-08-S308FrozenRouteTest.log",
+      "size": 719,
+      "sha256": "a62795f34f755e070d6c95835b0df6a72ba765aa58e3f5ad110ba06ab222969b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-08-S308FrozenStreamTest.log",
+      "size": 5751,
+      "sha256": "5d4d3d1852eb856b8d6dd60ae3ec05e135829624c52550ddcb8a5691b087043c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-08-S308ModelListCanaryTest.log",
+      "size": 1389,
+      "sha256": "9569fdd59e2c9b47ee71ce119a892152da6ec9f31b36090437ca69407803ee13",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-08-S308PlaygroundDeviceTest.log",
+      "size": 1486,
+      "sha256": "aa3c6ee498043deacab2485673477c503bab77da9cc60fe5517aca25d4db3057",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-08-S308ProviderFailureTest.log",
+      "size": 5952,
+      "sha256": "127c340c9ca493099730754ccae6ce60236f3f70f0c2fc7b3cf7a5b0becec10e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--s3-08-S308RelayBoundaryDeviceTest.log",
+      "size": 1549,
+      "sha256": "5928f6648dc8032ce401211d75dbb1768190ea3b6587d60b866c910f9336eac7",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone--test-summary.json",
+      "size": 21451,
+      "sha256": "601824c858d707afa7aa47f96ba96153d751f7120a7b71ecd0f7fe2be5e453a4",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone-verified-s3-04.json",
+      "size": 419,
+      "sha256": "f13267bc26b2a591995f57d3670faf5dc31d817d5807a83f837e020c24064387",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone-verified-s3-05.json",
+      "size": 417,
+      "sha256": "d7e4fdaff6b9e73acb2b22293ea6f0808194bc81ccfb1865eb1f83c70dcad00e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone-verified-s3-07.json",
+      "size": 422,
+      "sha256": "ca05d4ef8ef94974a699834ad38dadd1b52f954b524e561af622c73cc53228da",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--phone-verified-s3-08.json",
+      "size": 470,
+      "sha256": "c551371e777eeb50522e9d78c5e3376ab415c1735360f48441343db7d9df0632",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--precheck.log",
+      "size": 78043,
+      "sha256": "6b2193fded37b0a0449d8191efa6850b66707ff26160277d1d2b430f83d55401",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--prepare.mjs",
+      "size": 6305,
+      "sha256": "38124cb99985253cc6e052e7801d577e36123d906ac351b667ac81382cd8ca66",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--ProviderTabletEnvironment.kt",
+      "size": 1034,
+      "sha256": "119d30e1289c4ac366598429383f24852ccb7537afa93220c171e4ae86b96914",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--proxy-host-verification.log",
+      "size": 15995,
+      "sha256": "b38d0639c14053d51c8155845038442c5e893b2c58785a6ce16766fa58014408",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--proxy-test-summary.json",
+      "size": 218,
+      "sha256": "97c4a12372766c8482425372b15fb8b8a8f345a739fb840f32f126cf282ab6c9",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--quality.log",
+      "size": 127952,
+      "sha256": "d909dc3fc7326633891ac2818693ad2a064880e711ab8ad5af4942de6cfb7033",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--run-device.mjs",
+      "size": 7571,
+      "sha256": "8226d12d31c2cf7186863668ddfbba7ef864d1f5a6f3f5bbcb2ec2671d32690f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--run-phone.log",
+      "size": 4120,
+      "sha256": "fe66dbac3f1b988437b6bda4244f26f3ce1de2e7130d4d7bd499cd7ea7f393ac",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--run-tablet.log",
+      "size": 4157,
+      "sha256": "29b165bfc983779ff59ea455684be6bbd85907366fdcbdb537a50c0d3808c904",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--sealed-apk-location.txt",
+      "size": 84,
+      "sha256": "dd2f55721037bd1ce8d94ed04b4f4677f839fe068963363b10a45f4bd37e33cf",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--source-inputs.sha256",
+      "size": 329645,
+      "sha256": "cc2ed44ae38ae6be7c0193b66ff2d5a7d6279387888af7665926c7cf3e5ee5a6",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--supplemental-host-source.sha256",
+      "size": 159,
+      "sha256": "55135210cf39343c7f4d70656f301c00b1e67e7920b08ae3e1db4fee59b90c79",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-doubao-error-cancel.json",
+      "size": 374,
+      "sha256": "c71e3f94f1f2ec8ac4fc8fdccaea25503cbc2e66ad96b3188c317be24ad83a75",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-doubao-request.json",
+      "size": 663,
+      "sha256": "ca7ed900c379899581e1b9dd8db9a9e00e66a1986adb5c3841b583283ef5f17d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-doubao-stream.json",
+      "size": 756,
+      "sha256": "75cfe2ddc2b8219c96ca63b764b7462515aad5ff21ae15488ddfe8d13c26042c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-ernie-error-cancel.json",
+      "size": 372,
+      "sha256": "ad4e319bdbe69e1ffdb9a24ff5affef6e21a5d221733c5064e636e3c93563c6e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-ernie-hosted-deepseek-request.json",
+      "size": 686,
+      "sha256": "8f19f923111e8f806053eb10bcdba08babfaea21c44709935afaead44baf1e87",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-ernie-request.json",
+      "size": 654,
+      "sha256": "07ce4425889b096128403113c25896fafd3e084b7724f1c62560a043083523a1",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-ernie-stream.json",
+      "size": 752,
+      "sha256": "6b10b8f559bf2862d198a61706877a705f0ffd9367ec7867a259176fd7d509ae",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-mimo-error-cancel.json",
+      "size": 370,
+      "sha256": "458ecd74ca664d7e91b8b4a408dbc6a1dba9021bd956a92ab5b5903530a5f76c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-mimo-request.json",
+      "size": 601,
+      "sha256": "1322c20ae44d0e57015ae1036eba4bcafc635e66a6a39bced91bfb6e7dc6490b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-mimo-stream.json",
+      "size": 748,
+      "sha256": "8abede70222dbca0f910c9040c881cb5070935b71f550898018fcaf86757ca1a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-mimo-tool-history-request.json",
+      "size": 920,
+      "sha256": "b55c04c60e8aa3d43c816d69d046362ce73657b88262416d2a58c4074437f5d8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-minimax-error-cancel.json",
+      "size": 376,
+      "sha256": "1248386e79556b1ed70a8c7194e159a6502fae78f60ca746c6e282dfe9025a36",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-minimax-legacy-request.json",
+      "size": 525,
+      "sha256": "b254a036d721ef43b64dbb71616828417a8a85dd31e2166ed0c4972f0f20c940",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-minimax-request.json",
+      "size": 546,
+      "sha256": "51bd4282be5825b6dbcd53074c5d86a30325d08353313ee3ead2f120473fd706",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-minimax-stream.json",
+      "size": 801,
+      "sha256": "0634f39041fe5b8945c3874fe87836eb838697db85ea5674437a70ad79e80190",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-minimax-tool-history-request.json",
+      "size": 894,
+      "sha256": "c525eb0878a6e837d92ddcb387f168b15a70c3f0f08a1309a5ef80357b6cdb6c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-mistral-error-cancel.json",
+      "size": 376,
+      "sha256": "3fb50bb6c71ba84640a04662b3ceb20cec2e9d1b5596606d3d9d2870621019ad",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-mistral-magistral-request.json",
+      "size": 649,
+      "sha256": "50f8e4331148e578e68f77b5e87a5d8d556f53231fc884b65a30bfbafba65383",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-mistral-request.json",
+      "size": 638,
+      "sha256": "de8fbc2e2b0b5968c2668eb98a994df70e608e1e24d6a698b2acbe03bcd8dad7",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-mistral-stream.json",
+      "size": 818,
+      "sha256": "a651194e811c2a4d23f5d50552da6de74355579fc0f7ae99ddf1ac3b6a525ee8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-moonshot-code-request.json",
+      "size": 546,
+      "sha256": "3acde054da94cf1a415777803953e64d0828fb67bc9c06fb3150bd988139b1f3",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-moonshot-error-cancel.json",
+      "size": 378,
+      "sha256": "735ca027ffef8c010cb001c004491bfdbb1934bcc2378aaca087fee403a2b16f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-moonshot-request.json",
+      "size": 516,
+      "sha256": "c144b54b96f7378c6bd1379760f3aff0aa05e23d30331f519cee12f95a6edeed",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-moonshot-stream.json",
+      "size": 764,
+      "sha256": "b03131cd6bf5831104ae6718393dd46d96405cdd1415b4ebc4f01e47b5c8bc5d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-moonshot-tool-schema-request.json",
+      "size": 769,
+      "sha256": "e807c9274f9c8b0509bb6293dd40355b57e7684af78e12d330a9855086133033",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-nvidia-error-cancel.json",
+      "size": 374,
+      "sha256": "bcb6183bbed593823505445c0f1f5a89a0e18fa129ad5fc4f55ebd23f34318b5",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-nvidia-request.json",
+      "size": 662,
+      "sha256": "6cac256039a20d883a05d42d8f474fe48d5d6771e6b9d6ce8a78d85133792df8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-nvidia-stream.json",
+      "size": 756,
+      "sha256": "d1d537879ee4ce12f215e3feb1d2fd3ff0043090f00ad8a5f3e9bd04bc61180b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-qwen-error-cancel.json",
+      "size": 370,
+      "sha256": "5123acdeb954e4d41812bb7f4f863643fed90a051d0b458b585be8ea5381c83f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-qwen-omni-request.json",
+      "size": 756,
+      "sha256": "65e0e0e4dda86ffec49216ba05cb5aadbdbe59208b5e317ac3fc5cf1bb15b96b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-qwen-request.json",
+      "size": 700,
+      "sha256": "32aa69ca0fb19ca1042409557629c273701a1764b1e5e98d34fe9aa3cd2deea5",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-qwen-stream.json",
+      "size": 780,
+      "sha256": "451831159313e3252a4499b5fbf81a50568b6684e4f2d7ff0078c54b102fa4a5",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-qwen-tool-history-request.json",
+      "size": 998,
+      "sha256": "6bcd89e3c0f637c5b021142ea3cff213f7426e090e8625f81a039024594eeb2e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-siliconflow-deepseek-request.json",
+      "size": 690,
+      "sha256": "0af7104bce3637dc49b0642aba25455d71a7e54dd64882e515541ab7fe4b909d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-siliconflow-deepseek-v32-request.json",
+      "size": 689,
+      "sha256": "586713204cbf074899afea0a81e7eb3f51c73431229ecc812b15995f36d2688b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-siliconflow-error-cancel.json",
+      "size": 384,
+      "sha256": "57280be65da1a95d82613d113dbe50ec8ce3001c8b52440e525d632d3bb98e5d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-siliconflow-qwen-request.json",
+      "size": 688,
+      "sha256": "cc1d603ee1eadb1f9b7f2189d54eb21114f2111d8496dc6eb56d4f160f823a2f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-siliconflow-request.json",
+      "size": 682,
+      "sha256": "23fe8ccfd3d4963bd371ecc6c290a64e73cf4efc4e78a227980e912a5c7f9600",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-siliconflow-stream.json",
+      "size": 776,
+      "sha256": "030bbe0e983dae827f996e1eab497b5369bfaad13b881ddfc7d7632b22d7efbf",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-zhipu-error-cancel.json",
+      "size": 372,
+      "sha256": "d7f7d8fa35283b72f1e49e36f30b930baa5b6e7c0a8e138a6a84cb18d7e1dffe",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-zhipu-request.json",
+      "size": 699,
+      "sha256": "0b2b653fc4f4605b31ca813088fa9b6a70b2dddb2a46de88f2ed16b35332512a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-04--s304-zhipu-stream.json",
+      "size": 752,
+      "sha256": "d22f9b0b5f4bbff0261c29f2e9e9dc7c6c825e987504d9de1f070c2d5e70f6e9",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-05--s305-codex-background-request.json",
+      "size": 834,
+      "sha256": "2068fcc910b2b1a225bb52a7d22e14b49b1cac0dc9f32d82a9b0db8127ae3e24",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-05--s305-deepseek-error-cancel.json",
+      "size": 230,
+      "sha256": "796f7638566922aa13dc61d84c4773385669b34579ccc885415b00706fa7e79a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-05--s305-deepseek-request.json",
+      "size": 1614,
+      "sha256": "7c9b3336ba9bb77b2dfb719a89e6943d4b1245e73f672248ea6e1e97767b34a7",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-05--s305-deepseek-stream.json",
+      "size": 1225,
+      "sha256": "e0123c01d8363270ecc6a992b3f1007d11c64cdbe92d20c49b7526edb749b904",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-05--s305-deepseek-thinking-off-request.json",
+      "size": 728,
+      "sha256": "5dee1f2c154f235f5952d873d573eb89f4708c1d0527ded85fb882f5d327feea",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-05--s305-deepseek-v4-passback-request.json",
+      "size": 1511,
+      "sha256": "ea6f55a7619b6aed165bf0a0f40952ec967bfde5b479d949158203c4f9e6f1dd",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-05--s305-grok-error-cancel.json",
+      "size": 222,
+      "sha256": "774443cc782c64e8e8f0dc690a028ce241cdd0ca34622f34138bdfe64ded3adb",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-05--s305-grok-request.json",
+      "size": 752,
+      "sha256": "1f6129dd5fe2c7a984620f1d57ab8c0ecc0bf5945b434d1ee923fbe0ac830a4e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-05--s305-grok-stream.json",
+      "size": 901,
+      "sha256": "f9ef6afa83dcc7bcc8b3625aac9eee00c947bd3cbff072090d36325c7cee760d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-05--s305-openai_codex-error-cancel.json",
+      "size": 238,
+      "sha256": "738f9892449d55ad6a646e6f23150a85ff19fecaecd504bf50d2cacd1038fe79",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-05--s305-openai_codex-request.json",
+      "size": 1587,
+      "sha256": "7c09356cef6305eab3732d2021d4f0d8ace47e062c69b467613074a9d763e11e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-05--s305-openai_codex-stream.json",
+      "size": 729,
+      "sha256": "e3028f8e30c0985b150858b97e8185bd54302ec7e47c25c8df8583cee6c69dfc",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-05--s305-openai-cache-alias-request.json",
+      "size": 806,
+      "sha256": "2fd4266b1ef1654881e4b52d50e37808455b05c0a846871952e8a160d54182bf",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-05--s305-openai-error-cancel.json",
+      "size": 226,
+      "sha256": "6b06b67a3b2ee9101eb1b759684a924270fabae283e8820453defa4a7da9f7bc",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-05--s305-openai-json-schema-request.json",
+      "size": 881,
+      "sha256": "f77c15daa0041b0fdb1140714aab7f421051ea5ad6e7b164b7ab86f8c2071fc9",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-05--s305-openai-request.json",
+      "size": 1678,
+      "sha256": "2b6e44fca735c23e35ebb0bc1b533d4be452921bca8d8be14c215e66ebcbacef",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-05--s305-openai-stream.json",
+      "size": 1044,
+      "sha256": "6693a071c3f99ac3e6d17d00f8017acf0c17646bb6d4e430ce97a9d102a6a780",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-05--s305-xai-error-cancel.json",
+      "size": 220,
+      "sha256": "2af55e9fc8d0011e6279125f56b05d5edbded10f4e08fc11ee36f06716cfa4cd",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-05--s305-xai-no-auth-request.json",
+      "size": 726,
+      "sha256": "ea42d620400332822c78d3313c182d98aed0575343550588ba88c6500282b3d0",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-05--s305-xai-request.json",
+      "size": 728,
+      "sha256": "7d6267c1a644417ff52caae24e4f141123f60a2cf98ca7b68a0c4b74844223de",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-05--s305-xai-stream.json",
+      "size": 330,
+      "sha256": "b63cdbe0aa23050543e53721e209fa2e9fc3865b952627badd445583e0d5c381",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-07--s307-gemini-provider-request.json",
+      "size": 843,
+      "sha256": "1edd0dbdcc835244fcaf9916e1dd49a71d9082689a76e6a46c347b5aa3d240da",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-07--s307-gemini-provider-stream.json",
+      "size": 477,
+      "sha256": "c3cfc702ee44011bee648d93ac842876586358edf4b976f690a52d73462af605",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-07--s307-google-2.5-budget-request.json",
+      "size": 846,
+      "sha256": "11ba111ba53af914c1c628a97b579c975cc7479b8140d2cae996fe67236b4645",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-07--s307-google-2.5-budget-stream.json",
+      "size": 479,
+      "sha256": "f487ac0bdbf755a95bdb66d21b7adbbda86b5bd7a5e1df6443d39a68ed06172f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-07--s307-google-basic-thinking-request.json",
+      "size": 849,
+      "sha256": "62b1dc25ec0110e1de01a2d6e5bd899ef6a8cac73cc7a77f5eb16272765e67b7",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-07--s307-google-basic-thinking-stream.json",
+      "size": 483,
+      "sha256": "d8bf8e9c06630f63ca9fa67f72e7e12ba1a49435611da6a0c07c353c8ba3fde8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-07--s307-google-error-finish-max-tokens-request.json",
+      "size": 859,
+      "sha256": "01eafe542bf646ecd382f9f6cacf9d89d85eedfcb0c6cce245bdd68c9bec30f1",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-07--s307-google-error-finish-safety-request.json",
+      "size": 855,
+      "sha256": "014af59b9c4b3e472f8c36e51667e9cc95373ea113c48409ebe619eab255eb9f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-07--s307-google-error-prompt-blocked-request.json",
+      "size": 856,
+      "sha256": "4bd32da469772f950418179ba5f455e1894a5ee6b9a7a1a8c98dcda9085c684d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-07--s307-google-gemini3-flash-off-request.json",
+      "size": 830,
+      "sha256": "6d6bdd55baa2847c4b5f0cdd2f26d1aba966a893ec6419e0615acbf9d8f23e05",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-07--s307-google-gemini3-levels-request.json",
+      "size": 848,
+      "sha256": "c001f65f77d48c08a9b5ff36a21e5002c7a5323089b3e8e6a6a2294dab481490",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-07--s307-google-gemini3-levels-stream.json",
+      "size": 952,
+      "sha256": "c789e982375e8355116585f5c64ec8a0b7f296f5e434ec0c797f0b40b7ffdd0b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-07--s307-google-images-tools-request.json",
+      "size": 848,
+      "sha256": "3c771f6804547ff5637ef7e40fb927f4cab5c6532c968811455db5b964667558",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-07--s307-google-images-tools-stream.json",
+      "size": 950,
+      "sha256": "6ecd846485edf4aa4c39efa5c9c47355698a7c8b071ae9c423c3c02d5d4cf885",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-07--s307-google-prefix-version-request.json",
+      "size": 850,
+      "sha256": "46e727763b3a6a8e538b4ea2e76698c846858c9be5df637ef43c6d7cd4a58e16",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-07--s307-google-response-format-request.json",
+      "size": 899,
+      "sha256": "7fdcf207d2ef0f278dde9669d34492a8d7b4f77102ae474daca835ad44848571",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-07--s307-google-signature-history-request.json",
+      "size": 974,
+      "sha256": "571ba580106c6abe989e27e4144c8c718d966eba6fa375027b67f7bc3584cf3a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-07--s307-google-stream-delta-parts-request.json",
+      "size": 854,
+      "sha256": "c1b2f6488592b921147da8a94f77cb24c77410d303407314cb9623b940ea583e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-07--s307-google-stream-delta-parts-stream.json",
+      "size": 372,
+      "sha256": "f1f4919379d58d699961f347420a2210f50b61c8f635b7fa4933e39b20b01968",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-07--s307-google-stream-done-marker-request.json",
+      "size": 854,
+      "sha256": "cb3412fd5615230ee21cf7ee0cf7c2586f0d07a443e6358590a8b756b4312b82",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-07--s307-google-stream-done-marker-stream.json",
+      "size": 176,
+      "sha256": "9298fa362b315fa3ce1fd7e568c27a5e59e32970e70ef5b4a28c5dbb679a283a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-07--s307-google-stream-late-native-id-request.json",
+      "size": 857,
+      "sha256": "17f573418c1011616ffffa200196de819a5363235e57a10061f2accc4b885702",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-07--s307-google-stream-late-native-id-stream.json",
+      "size": 515,
+      "sha256": "cd78690ea54eec40bbc4a9f99c29ad7674f805f4a5671947aef0b410ae0924ee",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-07--s307-google-stream-thought-variants-request.json",
+      "size": 859,
+      "sha256": "d362f8ff6d92bd9202cb752fde79c3900b39c4be63d21c27cc16ee1ba8f22cf6",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-07--s307-google-stream-thought-variants-stream.json",
+      "size": 700,
+      "sha256": "0b4244360ee9f34075cf8d8521df7fe271171a96409eafddc3cb7b9b2177ed39",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-07--s307-google-v1-system-merge-request.json",
+      "size": 865,
+      "sha256": "e3a5fcdabd8a0f1e9f3445470c6cfe3413a7a7844e449ed7c0f8fa3010ca5156",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-custom-relay-error-cancel.json",
+      "size": 380,
+      "sha256": "b897e8bf03a26995fca2df11022ef3dc6485056e47cba355840a5bc4ff3eeb79",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-custom-relay-max-error-cancel.json",
+      "size": 384,
+      "sha256": "ec214b29ff690a9bb7483e8273e58d7f1fc23e00d284ecfaa44db736fc0145cc",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-custom-relay-max-request.json",
+      "size": 311,
+      "sha256": "539dba5dedc71c630839f85cf0c6e731c9e3056486d838721265d8d7fbe155fb",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-custom-relay-max-stream.json",
+      "size": 699,
+      "sha256": "648760607481201b44a3b2de3d5d67493fb4e099f0a9d79c68866c9663387e03",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-custom-relay-request.json",
+      "size": 291,
+      "sha256": "a2763663ea542163e5dd327738096d49d248165fc6d1df5c7eb8a4dea700257c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-custom-relay-stream.json",
+      "size": 695,
+      "sha256": "a5c1c0ddf717f95ba7945a553cf5aa8167b5015f97e06cc53b3e555033be2594",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-custom-responses-responses.json",
+      "size": 178,
+      "sha256": "695490ebbb3f218a44bef81bb79330cda7974f119ec186ae00222cf2abc2db4d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-custom-responses-route-route.json",
+      "size": 176,
+      "sha256": "8bffeb9ae673870bbf43db93aafb3f796800e481bfdf49566b408619c472a2d8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-general-reasoning-error-cancel.json",
+      "size": 386,
+      "sha256": "3b5f1ddaf8a5be51f6e5868ccebbebc7b59a6772fe12f575a53b0daa4f6a3fb1",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-general-reasoning-request.json",
+      "size": 343,
+      "sha256": "42b32489c2174507ee4368062f7b3bbadecd94e295a7d68d6ffb2daf9811349f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-general-reasoning-stream.json",
+      "size": 701,
+      "sha256": "7b7b1d0d24bf8dd8137ddf99a38e44668fba84a6f31fabbaa3dabe858e4c8ae1",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-model-list-canary.json",
+      "size": 156,
+      "sha256": "8e123c1d15bbb04c89d513332816767d7dbeeffcdb1f4f16e7b8c0587ec54843",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-ollama-local-error-cancel.json",
+      "size": 380,
+      "sha256": "736bd9d936c3469f82c5dc490de201caff1da22c32ce826178326712110b3c95",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-ollama-local-request.json",
+      "size": 291,
+      "sha256": "48638408ccc6750e91d6ddf3c2944dfa7345e50935a620bbc9e7eea70b425fb2",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-ollama-local-stream.json",
+      "size": 695,
+      "sha256": "3e5d35084c428b2424b19c3680e11d80dc2b2ce7b111c5cd576654ca33d980d7",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-opencode-go-anthropic-route-route.json",
+      "size": 190,
+      "sha256": "7e8f1ed4615f70987768e32110c137eb63de801aac561963967f77fc1b40ef49",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-opencode-go-google-route-route.json",
+      "size": 189,
+      "sha256": "e5576e3f3ad9e9116a0e07d9560ec38e62a4cf98c28eaf59e1e3c1e0b2b1b070",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-opencode-go-session-error-cancel.json",
+      "size": 392,
+      "sha256": "dc5b170b1f81b47a412695afd37e1f03f307b36ae451f0444be82bf56046d470",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-opencode-go-session-request.json",
+      "size": 311,
+      "sha256": "b8ee4b3276314dbfe36d59c89154132df269927ee581199114e2b96537e97caa",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-opencode-go-session-stream.json",
+      "size": 707,
+      "sha256": "83145acfb4c4f77d5407dbbbdef55bf1dbfbb55a813766c070a886c8c0570558",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-opencode-go-task-error-cancel.json",
+      "size": 389,
+      "sha256": "3191d98d26431edf9046de598a582675f87f28f5f5d72af59b7b487a7b899d99",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-opencode-go-task-request.json",
+      "size": 320,
+      "sha256": "87b603fca7eff814a2d60c1a65fc303481d6fcf5a9027989eff057370a73b272",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-opencode-go-task-stream.json",
+      "size": 704,
+      "sha256": "33d93ba4145958da125023872438e148edb0b5f20ba8967db80371fda52a47f9",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-openrouter-implicit-error-cancel.json",
+      "size": 391,
+      "sha256": "d1dcaeb5cf5b78189f9f2148cc0b6b273dadf05a3e05c44633ee421425a11c8c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-openrouter-implicit-request.json",
+      "size": 332,
+      "sha256": "fbd444030d23a9b6a08ad13115d7f90421d8a17636234de0146bb2ece35e0b1c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-openrouter-implicit-stream.json",
+      "size": 706,
+      "sha256": "c9961f3c15c3de8e061ba12ec2c3fdc9f9815d0e24e3f51155bcdc8d51018675",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-openrouter-legacy-error-cancel.json",
+      "size": 389,
+      "sha256": "00e3bd72ab7ed5b605740f355a510de302a10cb3b53074f2e9e071f25c16db3b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-openrouter-legacy-request.json",
+      "size": 328,
+      "sha256": "fb985b5cc4138df65c9e0a8a85e8c99441a9ec7e9790fd5a1e109c019f56c20d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-openrouter-legacy-stream.json",
+      "size": 704,
+      "sha256": "667b81b992d01d24ab2247d17926a3085f2b09bd3e8952b82783a8b9dbd25622",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-openrouter-reasoning-error-cancel.json",
+      "size": 392,
+      "sha256": "cd22becc2dfcc05c57de4275313798ec4dec0b4214b43a4a8c6130947f6b917e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-openrouter-reasoning-request.json",
+      "size": 323,
+      "sha256": "1c02aab539fb65fd5711c96367bffbacbc2c97dccc13c2d9b52c5ca6fea4e67f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-openrouter-reasoning-stream.json",
+      "size": 707,
+      "sha256": "06b4bb9bb7f077f6568a023528f319c64446e5d1fd688f9ac3ce262d1cf8782f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--captures--s3-08--s308-openrouter-responses-route-route.json",
+      "size": 184,
+      "sha256": "233ff4ab78be1543f8fac1887b0c1f2231f3d8dee66788c2e1c91b95952f4cca",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--receipt.json",
+      "size": 2289,
+      "sha256": "04d10fc5eb7bf6e5422f202b3931071251124d074aaff9546d4d76557769c922",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-04-S304ApplicationDeviceTest.log",
+      "size": 815,
+      "sha256": "3018fb4081b5a64a8eea1f83923bf2f0382d42d9180464914696039f66cbf1f9",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-04-S304DirectChatRegressionTest.log",
+      "size": 1488,
+      "sha256": "66e072e9549861a5432f86506028037194787a68e27dcae1cfd0ef2b2ed6d1f6",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-04-S304FrozenRequestTest.log",
+      "size": 13840,
+      "sha256": "3f9b121a7396cf6726df130e16c2c9641616c1d3d263d56e922f1bc18fe37b61",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-04-S304FrozenStreamTest.log",
+      "size": 6195,
+      "sha256": "36e66a1ac93742f0094de2ee8eaa7a0b4f072c47aea690bbaf5b615e9aabb975",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-04-S304ProviderFailureTest.log",
+      "size": 6418,
+      "sha256": "781427310d13161573018d913350b92475c35e9010338121309980824092d32b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-04-S304TerminalEdgeTest.log",
+      "size": 2784,
+      "sha256": "fedf012017e9dec6363e2017fc49cbd699cee38bb01b57b012363880eb16a16c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-05-S305ApplicationDeviceTest.log",
+      "size": 869,
+      "sha256": "92f2b1f21f7cda92c44e1b0b012e150e34ab40e42eb6531f92e158608c82fd31",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-05-S305CodexAccountIntegrationTest.log",
+      "size": 883,
+      "sha256": "f473a03ba42e4a49b08e4f089f114d1198662c9d59d196c0fcab673f8e1ffdc0",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-05-S305CodexLoopbackTest.log",
+      "size": 1513,
+      "sha256": "b03370c2874f368b6d666e00aa99207dc2f2c67b72ff478e61f4b9e36c293e4f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-05-S305CodexSessionVaultTest.log",
+      "size": 1503,
+      "sha256": "99094d16c4bed1785c76dd661a10235371ae3c854f3ecd6c8de1b5deb0bdc2e2",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-05-S305CodexTransportTest.log",
+      "size": 3635,
+      "sha256": "cfc2819e7c5f17743773fef4ca2c82a5c7e3c5900e55a5dbea6a13a9eb22a9d1",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-05-S305ErrorCancelTest.log",
+      "size": 3566,
+      "sha256": "7940fcfaf2b476ffb660846f10d9dd24cdfa768384d9913fd46d705f5280c6f7",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-05-S305FrozenRequestTest.log",
+      "size": 7973,
+      "sha256": "241bda85f7118bf77704a5bfd5885a88e632bfc659cdaf0c8ef5bb79ead420e6",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-05-S305FrozenStreamTest.log",
+      "size": 3557,
+      "sha256": "71d387544489c531ae458f28a874a3d552e49ff05bc25154e34cc10b7f001988",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-05-S305ProviderConversationFailureTest.log",
+      "size": 1547,
+      "sha256": "2d556d8082eec44111f87c71c89b6b229b8a2fceefb517b7c7f51512c4396595",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-05-S305ProviderConversationTest.log",
+      "size": 868,
+      "sha256": "09a38c11e966272c1378447c9aa8f780398aec65083d67ff9fcc98d636e91c42",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-05-S305ResponsesBoundaryTest.log",
+      "size": 4958,
+      "sha256": "427239f6088334e51a295c338658fd2f8091b81edcdef175ceccdc38a362477b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-06-S306ApplicationDeviceTest.log",
+      "size": 821,
+      "sha256": "cebe05610f740140338dbd43a8ee6cfb0ad41cee9386be922cf3a4e89005984b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-06-S306ErrorCancelTest.log",
+      "size": 1581,
+      "sha256": "6cbd8ed3b163cbfca15140f943b6fdc3b507f832229d93b1c028ec7c4217e827",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-06-S306FrozenRequestTest.log",
+      "size": 7226,
+      "sha256": "c450892c09fd1579f70da6d0dbce0093c72d48747921d0e034a4540d883c6adf",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-06-S306FrozenStreamTest.log",
+      "size": 5247,
+      "sha256": "da349319264d977698935cd18edb64dd21167779f0491d74cf9c5c92a2f957a3",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-06-S306ReplayBoundaryTest.log",
+      "size": 1470,
+      "sha256": "e94e34a6e371b6be5f1b434dd34b9e6afe2fd8295673bb230b5bb879179ce969",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-07-S307ApplicationDeviceTest.log",
+      "size": 857,
+      "sha256": "03a7e18c81d19037e9768f6b64371462877e1a0731b0bb9fb215a2dac98e1ab0",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-07-S307FrozenRequestTest.log",
+      "size": 12354,
+      "sha256": "e6d61447407bba95a0aa26aa1590344e00439d535b64caf8b101abb63b6bb509",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-07-S307FrozenStreamTest.log",
+      "size": 6576,
+      "sha256": "c15f4f527a9e7355c2d0a4bfc3953b3daf375ccefc418100054c9cf9ba1b5612",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-07-S307GeminiErrorCancelTest.log",
+      "size": 4099,
+      "sha256": "97e6186d8a8c8d0390c62d79baf6cc60754b1eb58e9c6ffc61fd32cf68b39c82",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-07-S307GeminiSetupTest.log",
+      "size": 2114,
+      "sha256": "fe4262f097824c583d346969511ec8af323ef6e3435d23cb341fa5a091be4e15",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-07-S307GeminiSignatureScopeTest.log",
+      "size": 834,
+      "sha256": "46610ea47efb8f4de5b2d3cd3477fa38d18fe033783e6d976f81482f4fb7446d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-07-S307StoredToolHistoryTest.log",
+      "size": 849,
+      "sha256": "206eb3c0fb961cfcb257dea09d62666257e25ab4ab0333eb4c447aab84afae8a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-08-S308FrozenRequestTest.log",
+      "size": 5788,
+      "sha256": "e439edd047d47c25582da5d4db4977446338a9dc69ee1b73b942a9d824b6ff44",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-08-S308FrozenResponsesTest.log",
+      "size": 737,
+      "sha256": "c9e5b769ecdf4fcf9e1e0cf165b59556ebdd6428384d98973336c70bd5d573d7",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-08-S308FrozenRouteTest.log",
+      "size": 719,
+      "sha256": "00e9b968ec025a6d2a6c41f0c6c3cdf7bf56f2a8214e3b243c353421049b8cc8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-08-S308FrozenStreamTest.log",
+      "size": 5751,
+      "sha256": "be9cfa7cfa175c86a4da4112ed122a09ab0568383a1be75a7d7885d343cb2838",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-08-S308ModelListCanaryTest.log",
+      "size": 1389,
+      "sha256": "b27a5fb9b16de39e8ab6b3732e444fe4169a5d6efee07ee01d619e0e1034f4d1",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-08-S308PlaygroundDeviceTest.log",
+      "size": 1486,
+      "sha256": "e3473622f4f753ac567049952c3c96aabaab23e5e9b3caeb6651dfcb6eddae93",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-08-S308ProviderFailureTest.log",
+      "size": 5952,
+      "sha256": "4cafc98f3daab6d2c67aee43337952f95a460108ec312b7ac2a81cf0e96aaee4",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--s3-08-S308RelayBoundaryDeviceTest.log",
+      "size": 1549,
+      "sha256": "32d08c2c530b5b74579b9d3a203960f556fd1091de9b61a5f557dc45b7f68782",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet--test-summary.json",
+      "size": 21452,
+      "sha256": "7625e04e81fd75032bd0db2f588c646ef0260893bde1dbba3565b51e4603f0a2",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet-verified-s3-04.json",
+      "size": 419,
+      "sha256": "f13267bc26b2a591995f57d3670faf5dc31d817d5807a83f837e020c24064387",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet-verified-s3-05.json",
+      "size": 417,
+      "sha256": "d7e4fdaff6b9e73acb2b22293ea6f0808194bc81ccfb1865eb1f83c70dcad00e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet-verified-s3-07.json",
+      "size": 422,
+      "sha256": "ca05d4ef8ef94974a699834ad38dadd1b52f954b524e561af622c73cc53228da",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet-verified-s3-08.json",
+      "size": 470,
+      "sha256": "c551371e777eeb50522e9d78c5e3376ab415c1735360f48441343db7d9df0632",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--tablet.init.gradle",
+      "size": 638,
+      "sha256": "ef8bb115d906361fc80b055a3e1ec23f47eba3d2d5f7d2363654cc6510f49e8d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--test-overlay.json",
+      "size": 10131,
+      "sha256": "e2172fb777ce8e629004492ba76d7f132d59fb74b7350a81c544b689d407b2ff",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--verified-dual.json",
+      "size": 1395,
+      "sha256": "bca99a443de0222ef7ed3ce75f46bcbea67fd3831a6d0e6e214a2e3e72d80b57",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--verify-dual.mjs",
+      "size": 3725,
+      "sha256": "947e25176eef7f13c6e67eccca1d1fa0c094d2afa49a438fdc08f6c4efb6927b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--verify-gemini-receipts.mjs",
+      "size": 1923,
+      "sha256": "ef8315cfd22843c7bc57a0483d21361db9001d2f50bd8c74729f3b83390ed690",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-final--worktree-status-before.txt",
+      "size": 14975,
+      "sha256": "cd0cb0b5eb7a1815b98b5faff85650ec34c69e4c96f1ea55fc5f17f0cdcb6de7",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-ordered-validation--s305--receipt.json",
+      "size": 1510,
+      "sha256": "d815b6afadfede7e21960d662403fb50b1d5875a813a18f454f183f9b10d2111",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-ordered-validation--s305--responses-real-runtime-history.log",
+      "size": 869,
+      "sha256": "c7a6d4188945b0850737edf554969e395a46a7ee41e812c89d6e08b7616f2522",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-ordered-validation--s306--anthropic-real-runtime-history.log",
+      "size": 820,
+      "sha256": "d63c1b26048a0879b9619de3e4b6dea5dd22c6b924e77604789a88ef80b66d92",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s304-08-ordered-validation--s306--receipt.json",
+      "size": 1226,
+      "sha256": "6c21e2c660c4323b6cd3fcb008a1f24dcd75b4628e6d74d166b4eee8adb11221",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    }
+  ],
+  "compatibility": {
+    "legacyPathPolicy": "Entries retain original logs/... paths; historical docs/config references are lookup keys, not tracked files.",
+    "localWrites": "logs/ is gitignored; existing tools may continue writing local evidence.",
+    "restoreCommand": "node tools/evidence/restore.mjs <logs/path>"
+  }
+}

@@ -55,7 +55,7 @@ class WorkspaceRestartDeviceTest {
         clearCaptures()
         root.deleteRecursively()
         WorkspaceTestPorts(context, root).use { owner ->
-            WorkspaceChatRuntime(root).use { runtime ->
+            WorkspaceChatRuntime(root, context).use { runtime ->
                 ChatSsePeer().use { stream ->
                     val ports = owner.open(runtime.streams)
                     val task = runtime.streams.start(ChatStreamRequest(stream.url, "workspace test"))

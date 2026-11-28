@@ -1,0 +1,392 @@
+{
+  "format": "dstu-evidence-index/v1",
+  "generatedAt": "2026-11-25T19:05:39.270Z",
+  "source": {
+    "repository": "dstu-android",
+    "ref": "HEAD",
+    "revision": "d107a01a31b197c8716fdadaa281506f3dbe19de",
+    "selection": "worktree",
+    "entryCount": 44,
+    "trackedCount": 0,
+    "presentCount": 44,
+    "missingFromWorktree": []
+  },
+  "archive": {
+    "format": "tar.gz",
+    "root": "PRIVATE_ARTIFACT_ROOT",
+    "relativeLocation": "s3-01-03-v2232a-20261126/evidence.tar.gz",
+    "location": "PRIVATE_ARTIFACT_ROOT/s3-01-03-v2232a-20261126/evidence.tar.gz",
+    "size": 19615,
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "53ae63103ec8ad02df63bbdcf1e69f40a072fba5260a56e34330dde7e8e13f90"
+    },
+    "manifest": {
+      "relativeLocation": "s3-01-03-v2232a-20261126/manifest.json",
+      "location": "PRIVATE_ARTIFACT_ROOT/s3-01-03-v2232a-20261126/manifest.json",
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "a10e6a798183daad0877875d01a0d93514442292c5155be49936e9647290524e"
+      }
+    }
+  },
+  "entries": [
+    {
+      "path": "logs/s301-303-compare-devices.mjs",
+      "size": 4818,
+      "sha256": "c640b1e20db72b2dcd054450fff7cdddc4d579de529a07df9887e813e1dbab57",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-303-dual-device-matrix.json",
+      "size": 4210,
+      "sha256": "e5eb36cec6d6b870745f2ab3825c1d4184a6bf04fb5600d57d4c399b865dbb2f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-303-phone-frozen-inputs.log",
+      "size": 260,
+      "sha256": "b1ee89d7733030cfb0f55cfdff0db243a2aca19f90abc41511ca5ea8beb2ce93",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-303-phone-host-tests.log",
+      "size": 19487,
+      "sha256": "b192679c5504699b58a86a837cdbe248beadb0d4efccabe73c454b3b24c12ed0",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-303-phone-integrity.log",
+      "size": 75,
+      "sha256": "2fd5668251e787ef80f46b272ea15e2daeceb0b4c9c1b351140fdcaedd93baec",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-303-phone-postflight.log",
+      "size": 273,
+      "sha256": "cabb272e92537fd7a238c190fda896a6563484d4d3b08b2291dc65f819fdee71",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-303-phone-tablet-baseline.log",
+      "size": 505,
+      "sha256": "d5234a33859ca8190639c7c6ccf66b208bb3d175af814fd7ecf5f1bf552dbd27",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-phone-cancellationBeforeCommitRollsBack.log",
+      "size": 821,
+      "sha256": "b41fe77b1f6b931c78863528633af99d75d15c871b8c4ce307e917654067fbcb",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-phone-cleanup.log",
+      "size": 37,
+      "sha256": "4e7772136055519ad5eb031127c0d75519ccfa72a72d63dd74bf78d2515206ac",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-phone-controller.log",
+      "size": 953,
+      "sha256": "dcbc6577de6adae93f798885fc34106857fd288df69a7dedb5c934ec5c90abc1",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-phone-desktop-fixture.log",
+      "size": 819,
+      "sha256": "baf1a2280afc415c1a055d6fb42d7e428962ab68d6e58bce8cc2687ae154bc9b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-phone-desktop-oracle.mjs",
+      "size": 4801,
+      "sha256": "a453bd1387cf3c7fabf7239aabe32bed1ecbcfaba038d6f78a7ee37791df652b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-phone-desktop-read.log",
+      "size": 129,
+      "sha256": "cbc4e49b991099253595ae907d1a14dbb266aecd861a046ce661a08c581047b8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-phone-fixture-hashes.log",
+      "size": 188,
+      "sha256": "43d68e1405007f65b49c59f6cae6f487470f4e8a054228bcb2563caeb0204e03",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-phone-force-stop.log",
+      "size": 62,
+      "sha256": "c91ebe4d5812cd099a6a29236593fa5550f26f6fe2a6bd526e1abc0d2b388967",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-phone-install-receipt.json",
+      "size": 236,
+      "sha256": "092b225c59d54fdd6fd1b1a0c24c68eeb2e66f313143b16a72843f76bb19c529",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-phone-install.log",
+      "size": 524,
+      "sha256": "07e1b802ce4485253e0607577380c7a1778e545f0fee575699bf992b66dcd93f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-phone-install.mjs",
+      "size": 4092,
+      "sha256": "4f68dc9bfa09345db79f7099b635945011d24770dce8295a9500c3e1a799e554",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-phone-partialUpdateAndReplay.log",
+      "size": 799,
+      "sha256": "2d3cfb97d83fa922c2b5ee84b00a241d2a1c15295aede2b07aec028b4e501744",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-phone-readSnapshotIsConsistent.log",
+      "size": 803,
+      "sha256": "c388cd9f2f9d0c85b53b57a274f4271bd87b424d4d3cd12f552fa86e0dd88056",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-phone-restartAndProjection.log",
+      "size": 795,
+      "sha256": "a20c2a0a9a1005c5be383e1553dafa2534c56cb40e99b8b239f2ff256fc95b25",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-phone-rollbackOnFailedRow.log",
+      "size": 793,
+      "sha256": "572cfe41da44a672629a4e1987c5c77014e996d9ffdbc020b188f85a003ba3da",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-phone-runner.sh",
+      "size": 5653,
+      "sha256": "87723301ff712c56f03c70c7013d2102107b657d31792ee0d8f0959d5f568b56",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-phone-stream-default.log",
+      "size": 819,
+      "sha256": "2efa8b72f92a1316abe6f1d6bce75ea422b468f6435ff7b1d5450cbce10b6a55",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-phone-stream-reopen.log",
+      "size": 819,
+      "sha256": "ddef7725aa8942c2a9b57b2cbe333b03cfdb24d3339e17ba9d6921aeffc4d0e8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s301-phone-stream-write.log",
+      "size": 819,
+      "sha256": "a0217d6f8a1647d0a6ec396f33d171ab07c7587089198e4fa323b51091a768c4",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s302-303-phone-app-controller.log",
+      "size": 757,
+      "sha256": "ed46254f3889d332fc7daf0d63be4869662e163e37aaa397f5c62d253cb74dcc",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s302-303-phone-receipt.json",
+      "size": 3200,
+      "sha256": "ec00411669ef4ec6dfbbb8eeb00c6362bbf12c8be9ce9a85b1c54bbb7968ae37",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s302-303-phone-runner.mjs",
+      "size": 6154,
+      "sha256": "cd1f0c0de258a0a00452787977f5907bce29de60d40e02e91ebc4ad16adc16ea",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s302-customProxyNativeOverridesAndDeepSeekModelGateStayDesktopCompatible.log",
+      "size": 850,
+      "sha256": "05f83ed5f8ed9c0eba281d0bff17596cc7ea5768fcff8c54052a23cf8ca930cf",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s302-frozenProvidersResolveTheirExpectedDefaultProtocolsAndRoutes.log",
+      "size": 836,
+      "sha256": "1bdda1ec088eaf8a18123598965fed349dc26b1d04085792858e78d131d7c701",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s302-invalidConfigurationsFailBeforeAdapterCredentialAndNetworkAccess.log",
+      "size": 844,
+      "sha256": "af705d1fd46e6caada484062dc9fa9c93a6a41cb972ff10b64ab95e8144ac014",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s302-protocolSwitchesAndOpenCodeRootRoutingAreResolvedByTheRealResolver.log",
+      "size": 847,
+      "sha256": "24022d5e78f82e4023e8ae7aebe3e9183ccba99aa94d6fa3af69414328adf2c6",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s303-cancelled.log",
+      "size": 770,
+      "sha256": "cd5924744dcbf5c6abd970390e0a2463e827f1542676b52837dc77949c063b3d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s303-completed.log",
+      "size": 817,
+      "sha256": "39c378544144c4d5e3b42503f57db728d36704386a386bc59c33b92d4c4bbd6a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s303-disconnect.log",
+      "size": 776,
+      "sha256": "38eeec0ccdd987f035b0ad8cdd4cea3583a92122e1934c4dcf73bc5621449625",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s303-force-stop.json",
+      "size": 186,
+      "sha256": "8ff775e94934c8900267abcb521dc2ec08cda8a3cbf4952846eef1a9b380a035",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s303-incomplete-usage.log",
+      "size": 821,
+      "sha256": "80552e3aa85ec1d3e674beaad91425bcddb02295e1e4ea503086cb2147591aa3",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s303-interrupted-reopen.log",
+      "size": 774,
+      "sha256": "f146ce5741941007df233be92bd0856f49bf962302397dec697c529b3d5d23ca",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s303-interrupted-writer.log",
+      "size": 447,
+      "sha256": "9af3040c886a60f6d9517759b06383f0c84b69be299448edd673f302ac90d2cc",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s303-legacy-cancel-regression.log",
+      "size": 852,
+      "sha256": "d712513fa1ec62411e858514a1aa9ce5c27a3b420e9043ae1e9094f7cc210aa2",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s303-legacy-runtime-regression.log",
+      "size": 827,
+      "sha256": "45204bb2bf61d671d39ebeceade9567096e6f9ac9620082a209a3bc9720966ed",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s303-legacy-sse.log",
+      "size": 828,
+      "sha256": "fd509331f7cb5159834e81bc5747d261537c34c75913fd8104af49c097a6a974",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s303-structured-events.log",
+      "size": 10976,
+      "sha256": "380e17920e22bb137d195df172695a97174d249671b4ab6867a782e4631d97ab",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    }
+  ],
+  "compatibility": {
+    "legacyPathPolicy": "Entries retain original logs/... paths; historical docs/config references are lookup keys, not tracked files.",
+    "localWrites": "logs/ is gitignored; existing tools may continue writing local evidence.",
+    "restoreCommand": "node tools/evidence/restore.mjs <logs/path>"
+  }
+}

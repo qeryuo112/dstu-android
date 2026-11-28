@@ -129,7 +129,9 @@ class TaskSupervisor(
         try {
             kotlinx.coroutines.currentCoroutineContext().ensureActive()
             val current = ledger.snapshot(snapshot.taskId) ?: throw LeaseLostException()
-            val context = TaskContext(ledger, leases, clock, token, current.execution.checkpoint)
+            val context = TaskContext(ledger, leases, clock, token, current.execution.checkpoint) {
+                current.execution.cancelRequested || slot.cancelRequested
+            }
             contexts[snapshot.taskId] = context
             if (current.state != RuntimeState.RUNNING) context.transition(RuntimeState.RUNNING)
             val handler = handlers.find(current.kind) ?: throw MissingHandlerException()
@@ -209,6 +211,9 @@ private class TaskSlot {
     private var yielded = false
     private var ownerEpoch = 0L
 
+    @get:Synchronized
+    val cancelRequested: Boolean get() = cancelled
+
     @Synchronized
     fun install(value: Job, executionEpoch: Long) {
         ownerEpoch = executionEpoch
@@ -244,11 +249,14 @@ private class TaskContext(
     private val clock: WallClock,
     private val token: LeaseToken,
     override val resumeCheckpoint: JsonValue?,
+    private val isUserCancellationRequested: () -> Boolean,
 ) : RuntimeTaskContext {
     private val checkpointLock = Mutex()
     private var checkpointValue: JsonValue? = null
     override val taskId: TaskId get() = token.taskId
     override val generation: Long get() = token.generation
+
+    override val cancelRequested: Boolean get() = isUserCancellationRequested()
 
     override suspend fun checkpoint(value: JsonValue?) {
         checkpointLock.withLock {

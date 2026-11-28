@@ -1,0 +1,96 @@
+{
+  "format": "dstu-evidence-index/v1",
+  "generatedAt": "2026-11-25T16:51:48.526Z",
+  "source": {
+    "repository": "dstu-android",
+    "ref": "58244e515dca760cd0049c274147f1a4d57d7b7c",
+    "revision": "58244e515dca760cd0049c274147f1a4d57d7b7c",
+    "selection": "worktree",
+    "entryCount": 7,
+    "trackedCount": 0,
+    "presentCount": 7,
+    "missingFromWorktree": []
+  },
+  "archive": {
+    "format": "tar.gz",
+    "root": "PRIVATE_ARTIFACT_ROOT",
+    "relativeLocation": "s3-02-local-20261126/evidence.tar.gz",
+    "location": "PRIVATE_ARTIFACT_ROOT/s3-02-local-20261126/evidence.tar.gz",
+    "size": 7896,
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "471993c9288723a471779939b6f87a93983540a1fbb15cca4e2640bd15fd001e"
+    },
+    "manifest": {
+      "relativeLocation": "s3-02-local-20261126/manifest.json",
+      "location": "PRIVATE_ARTIFACT_ROOT/s3-02-local-20261126/manifest.json",
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "465b996429221434c1ddbf219f2d91ab9400d8ca632028ba182246acd1a950a7"
+      }
+    }
+  },
+  "entries": [
+    {
+      "path": "logs/s302-accepted-host-checks.log",
+      "size": 15468,
+      "sha256": "bb0d86adfa08f41bc79dc3886d34f5cecf3d95fdcc163cf109008e06df47a98e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s302-compare-provider-catalog.log",
+      "size": 1538,
+      "sha256": "bd1edbe79d1cd264acb3f88c0e598e264dba673f2f748467928fd6a3f4925ca3",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s302-compare-provider-catalog.mjs",
+      "size": 2029,
+      "sha256": "1f9a15b2c547acd197440cdf31a43cdab6e371cd911a9144e77084c1bf923bea",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s302-frozen-desktop-provider-tests.log",
+      "size": 1827,
+      "sha256": "83a672f023d304d43a43363d273671c871bf47a82c83d7baeb5f015297bb31c1",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s302-frozen-inputs.log",
+      "size": 260,
+      "sha256": "2770cc0ec415dbfb9458fd6150c31d42f4b69f57bc98f720dbab2455a561ed37",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s302-provider-jvm-summary.json",
+      "size": 178,
+      "sha256": "2bf659746a4955760e064ed467f2d8d45b9e2c9782d81a67c1945355e8ae8551",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s302-repository-tests.log",
+      "size": 19479,
+      "sha256": "40a8f05234b601a5340e667556075d8dfc703c6ef542894ef7af3a6a8e797646",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    }
+  ],
+  "compatibility": {
+    "legacyPathPolicy": "Entries retain original logs/... paths; historical docs/config references are lookup keys, not tracked files.",
+    "localWrites": "logs/ is gitignored; existing tools may continue writing local evidence.",
+    "restoreCommand": "node tools/evidence/restore.mjs <logs/path>"
+  }
+}

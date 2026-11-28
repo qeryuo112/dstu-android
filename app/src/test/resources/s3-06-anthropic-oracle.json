@@ -1,0 +1,2542 @@
+{
+  "version": 1,
+  "desktopRevision": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+  "desktopTree": "3bee0f058851b9eb113bdc036d9f60433ed29944",
+  "token": "s306-synthetic-key",
+  "codexAccount": null,
+  "configuredHeaders": {
+    "x-fixture-provider": "s306",
+    "content-type": "text/plain"
+  },
+  "imageCache": {
+    "https://example.com/cat.png": {
+      "media_type": "image/png",
+      "data": "AQID"
+    }
+  },
+  "cases": [
+    {
+      "id": "manual-thinking-tools",
+      "provider": "anthropic",
+      "auth": "x_api_key",
+      "session": "fixture-s306-session",
+      "adapter": "anthropic",
+      "historyScope": "[\"anthropic\",\"9e243fb5\",\"claude-sonnet-4-5-20250929\",\"anthropic_messages\"]",
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": "high",
+        "thinkingBudget": 512,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "model": "claude-sonnet-4-5-20250929",
+        "baseUrl": "https://api.anthropic.com/v1",
+        "modelAdapter": "anthropic",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions. 保持简洁。"
+        },
+        {
+          "role": "user",
+          "content": "总结错题 🧪"
+        },
+        {
+          "role": "assistant",
+          "content": [
+            {
+              "type": "thinking",
+              "thinking": "先调用检索工具",
+              "signature": "sig_round_1"
+            },
+            {
+              "type": "redacted_thinking",
+              "data": "opaque_payload"
+            },
+            {
+              "type": "tool_use",
+              "id": "toolu_1",
+              "name": "lookup_notes",
+              "input": {
+                "q": "错题"
+              }
+            },
+            {
+              "type": "text",
+              "text": "找到了 3 条。"
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "toolu_1",
+          "content": "共 3 道错题"
+        },
+        {
+          "role": "user",
+          "content": "整理成卡片"
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "lookup_notes",
+            "description": "Synthetic lookup_notes tool",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "q": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "sidecarBlocks": {
+        "2": [
+          {
+            "type": "thinking",
+            "thinking": "先调用检索工具",
+            "signature": "sig_round_1"
+          },
+          {
+            "type": "redacted_thinking",
+            "data": "opaque_payload"
+          },
+          {
+            "type": "tool_use",
+            "id": "toolu_1",
+            "name": "lookup_notes",
+            "input": {
+              "q": "错题"
+            }
+          },
+          {
+            "type": "text",
+            "text": "找到了 3 条。"
+          }
+        ]
+      },
+      "request": {
+        "url": "https://api.anthropic.com/v1/messages",
+        "body": {
+          "model": "claude-sonnet-4-5-20250929",
+          "max_tokens": 1536,
+          "messages": [
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "总结错题 🧪"
+                }
+              ]
+            },
+            {
+              "role": "assistant",
+              "content": [
+                {
+                  "type": "thinking",
+                  "thinking": "先调用检索工具",
+                  "signature": "sig_round_1"
+                },
+                {
+                  "type": "redacted_thinking",
+                  "data": "opaque_payload"
+                },
+                {
+                  "type": "tool_use",
+                  "id": "toolu_1",
+                  "name": "lookup_notes",
+                  "input": {
+                    "q": "错题"
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "找到了 3 条。"
+                }
+              ]
+            },
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "tool_result",
+                  "tool_use_id": "toolu_1",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "共 3 道错题"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "text": "整理成卡片"
+                }
+              ]
+            }
+          ],
+          "system": [
+            {
+              "type": "text",
+              "text": "Fixture instructions. 保持简洁。",
+              "cache_control": {
+                "type": "ephemeral"
+              }
+            }
+          ],
+          "tools": [
+            {
+              "name": "lookup_notes",
+              "description": "Synthetic lookup_notes tool",
+              "input_schema": {
+                "type": "object",
+                "properties": {
+                  "q": {
+                    "type": "string"
+                  }
+                }
+              },
+              "cache_control": {
+                "type": "ephemeral"
+              }
+            }
+          ],
+          "tool_choice": {
+            "type": "auto"
+          },
+          "stream": true,
+          "thinking": {
+            "type": "enabled",
+            "budget_tokens": 1024
+          },
+          "cache_control": {
+            "type": "ephemeral"
+          }
+        },
+        "headers": {
+          "x-api-key": "s306-synthetic-key",
+          "anthropic-version": "2023-06-01",
+          "content-type": "application/json",
+          "anthropic-beta": "interleaved-thinking-2025-05-14",
+          "x-fixture-provider": "s306"
+        }
+      }
+    },
+    {
+      "id": "adaptive-effort",
+      "provider": "anthropic",
+      "auth": "x_api_key",
+      "session": "fixture-s306-session",
+      "adapter": "anthropic",
+      "historyScope": "[\"anthropic\",\"9e243fb5\",\"claude-opus-4-8\",\"anthropic_messages\"]",
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": "high",
+        "thinkingBudget": 512,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "model": "claude-opus-4-8",
+        "baseUrl": "https://api.anthropic.com/v1",
+        "modelAdapter": "anthropic",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions. 保持简洁。"
+        },
+        {
+          "role": "user",
+          "content": "总结错题 🧪"
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "lookup_notes",
+            "description": "Synthetic lookup_notes tool",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "q": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "sidecarBlocks": {},
+      "request": {
+        "url": "https://api.anthropic.com/v1/messages",
+        "body": {
+          "model": "claude-opus-4-8",
+          "max_tokens": 1536,
+          "messages": [
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "总结错题 🧪"
+                }
+              ]
+            }
+          ],
+          "system": [
+            {
+              "type": "text",
+              "text": "Fixture instructions. 保持简洁。",
+              "cache_control": {
+                "type": "ephemeral"
+              }
+            }
+          ],
+          "tools": [
+            {
+              "name": "lookup_notes",
+              "description": "Synthetic lookup_notes tool",
+              "input_schema": {
+                "type": "object",
+                "properties": {
+                  "q": {
+                    "type": "string"
+                  }
+                }
+              },
+              "cache_control": {
+                "type": "ephemeral"
+              }
+            }
+          ],
+          "tool_choice": {
+            "type": "auto"
+          },
+          "stream": true,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "output_config": {
+            "effort": "high"
+          },
+          "cache_control": {
+            "type": "ephemeral"
+          }
+        },
+        "headers": {
+          "x-api-key": "s306-synthetic-key",
+          "anthropic-version": "2023-06-01",
+          "content-type": "application/json",
+          "x-fixture-provider": "s306"
+        }
+      }
+    },
+    {
+      "id": "adaptive-budget-derived",
+      "provider": "anthropic",
+      "auth": "x_api_key",
+      "session": "fixture-s306-session",
+      "adapter": "anthropic",
+      "historyScope": "[\"anthropic\",\"9e243fb5\",\"claude-fable-5\",\"anthropic_messages\"]",
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": null,
+        "thinkingBudget": 20000,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "includeThoughts": true,
+        "model": "claude-fable-5",
+        "baseUrl": "https://api.anthropic.com/v1",
+        "modelAdapter": "anthropic",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions. 保持简洁。"
+        },
+        {
+          "role": "user",
+          "content": "总结错题 🧪"
+        }
+      ],
+      "tools": [],
+      "sidecarBlocks": {},
+      "request": {
+        "url": "https://api.anthropic.com/v1/messages",
+        "body": {
+          "model": "claude-fable-5",
+          "max_tokens": 1536,
+          "messages": [
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "总结错题 🧪"
+                }
+              ]
+            }
+          ],
+          "system": [
+            {
+              "type": "text",
+              "text": "Fixture instructions. 保持简洁。",
+              "cache_control": {
+                "type": "ephemeral"
+              }
+            }
+          ],
+          "stream": true,
+          "thinking": {
+            "type": "adaptive",
+            "display": "summarized"
+          },
+          "output_config": {
+            "effort": "high"
+          },
+          "cache_control": {
+            "type": "ephemeral"
+          }
+        },
+        "headers": {
+          "x-api-key": "s306-synthetic-key",
+          "anthropic-version": "2023-06-01",
+          "content-type": "application/json",
+          "x-fixture-provider": "s306"
+        }
+      }
+    },
+    {
+      "id": "legacy-sampling",
+      "provider": "anthropic",
+      "auth": "x_api_key",
+      "session": "fixture-s306-session",
+      "adapter": "anthropic",
+      "historyScope": "[\"anthropic\",\"9e243fb5\",\"claude-3-7-sonnet\",\"anthropic_messages\"]",
+      "input": {
+        "isReasoning": false,
+        "supportsReasoning": false,
+        "supportsTools": true,
+        "thinkingEnabled": false,
+        "reasoningEffort": null,
+        "thinkingBudget": null,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "topK": 40,
+        "model": "claude-3-7-sonnet",
+        "baseUrl": "https://api.anthropic.com/v1",
+        "modelAdapter": "anthropic",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions. 保持简洁。"
+        },
+        {
+          "role": "user",
+          "content": "总结错题 🧪"
+        }
+      ],
+      "tools": [],
+      "sidecarBlocks": {},
+      "request": {
+        "url": "https://api.anthropic.com/v1/messages",
+        "body": {
+          "model": "claude-3-7-sonnet",
+          "max_tokens": 1536,
+          "messages": [
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "总结错题 🧪"
+                }
+              ]
+            }
+          ],
+          "system": [
+            {
+              "type": "text",
+              "text": "Fixture instructions. 保持简洁。",
+              "cache_control": {
+                "type": "ephemeral"
+              }
+            }
+          ],
+          "temperature": 0.25,
+          "top_k": 40,
+          "stream": true,
+          "cache_control": {
+            "type": "ephemeral"
+          }
+        },
+        "headers": {
+          "x-api-key": "s306-synthetic-key",
+          "anthropic-version": "2023-06-01",
+          "content-type": "application/json",
+          "x-fixture-provider": "s306"
+        }
+      }
+    },
+    {
+      "id": "structured-output",
+      "provider": "anthropic",
+      "auth": "x_api_key",
+      "session": "fixture-s306-session",
+      "adapter": "anthropic",
+      "historyScope": "[\"anthropic\",\"9e243fb5\",\"claude-sonnet-4-5-20250929\",\"anthropic_messages\"]",
+      "input": {
+        "isReasoning": false,
+        "supportsReasoning": false,
+        "supportsTools": true,
+        "thinkingEnabled": false,
+        "reasoningEffort": null,
+        "thinkingBudget": null,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "model": "claude-sonnet-4-5-20250929",
+        "baseUrl": "https://api.anthropic.com/v1",
+        "modelAdapter": "anthropic",
+        "extraBody": {
+          "response_format": {
+            "type": "json_schema",
+            "json_schema": {
+              "name": "answer",
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "strict": true
+            }
+          }
+        }
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions. 保持简洁。"
+        },
+        {
+          "role": "user",
+          "content": "总结错题 🧪"
+        }
+      ],
+      "tools": [],
+      "sidecarBlocks": {},
+      "request": {
+        "url": "https://api.anthropic.com/v1/messages",
+        "body": {
+          "model": "claude-sonnet-4-5-20250929",
+          "max_tokens": 1536,
+          "messages": [
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "总结错题 🧪"
+                }
+              ]
+            }
+          ],
+          "system": [
+            {
+              "type": "text",
+              "text": "Fixture instructions. 保持简洁。",
+              "cache_control": {
+                "type": "ephemeral"
+              }
+            }
+          ],
+          "temperature": 0.25,
+          "stream": true,
+          "output_config": {
+            "format": {
+              "type": "json_schema",
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          },
+          "cache_control": {
+            "type": "ephemeral"
+          }
+        },
+        "headers": {
+          "x-api-key": "s306-synthetic-key",
+          "anthropic-version": "2023-06-01",
+          "content-type": "application/json",
+          "x-fixture-provider": "s306"
+        }
+      }
+    },
+    {
+      "id": "cache-breakpoints",
+      "provider": "anthropic",
+      "auth": "x_api_key",
+      "session": "fixture-s306-session",
+      "adapter": "anthropic",
+      "historyScope": "[\"anthropic\",\"9e243fb5\",\"claude-sonnet-5\",\"anthropic_messages\"]",
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": "high",
+        "thinkingBudget": 512,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "model": "claude-sonnet-5",
+        "baseUrl": "https://api.anthropic.com/v1",
+        "modelAdapter": "anthropic",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions. 保持简洁。"
+        },
+        {
+          "role": "user",
+          "content": "总结错题 🧪"
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "cache_control": {
+            "type": "ephemeral"
+          },
+          "function": {
+            "name": "tool_one",
+            "parameters": {
+              "type": "object"
+            }
+          }
+        },
+        {
+          "type": "function",
+          "cache_control": {
+            "type": "ephemeral",
+            "ttl": "1h"
+          },
+          "function": {
+            "name": "tool_two",
+            "parameters": {
+              "type": "object"
+            }
+          }
+        },
+        {
+          "type": "function",
+          "cache_control": {
+            "type": "ephemeral"
+          },
+          "function": {
+            "name": "tool_three",
+            "parameters": {
+              "type": "object"
+            }
+          }
+        },
+        {
+          "type": "function",
+          "cache_control": {
+            "type": "ephemeral"
+          },
+          "function": {
+            "name": "tool_four",
+            "parameters": {
+              "type": "object"
+            }
+          }
+        }
+      ],
+      "sidecarBlocks": {},
+      "request": {
+        "url": "https://api.anthropic.com/v1/messages",
+        "body": {
+          "model": "claude-sonnet-5",
+          "max_tokens": 1536,
+          "messages": [
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "总结错题 🧪"
+                }
+              ]
+            }
+          ],
+          "system": [
+            {
+              "type": "text",
+              "text": "Fixture instructions. 保持简洁。",
+              "cache_control": {
+                "type": "ephemeral"
+              }
+            }
+          ],
+          "tools": [
+            {
+              "name": "tool_one",
+              "input_schema": {
+                "type": "object"
+              }
+            },
+            {
+              "name": "tool_two",
+              "input_schema": {
+                "type": "object"
+              }
+            },
+            {
+              "name": "tool_three",
+              "input_schema": {
+                "type": "object"
+              },
+              "cache_control": {
+                "type": "ephemeral"
+              }
+            },
+            {
+              "name": "tool_four",
+              "input_schema": {
+                "type": "object"
+              },
+              "cache_control": {
+                "type": "ephemeral"
+              }
+            }
+          ],
+          "tool_choice": {
+            "type": "auto"
+          },
+          "stream": true,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "output_config": {
+            "effort": "high"
+          },
+          "cache_control": {
+            "type": "ephemeral"
+          }
+        },
+        "headers": {
+          "x-api-key": "s306-synthetic-key",
+          "anthropic-version": "2023-06-01",
+          "content-type": "application/json",
+          "x-fixture-provider": "s306"
+        }
+      }
+    },
+    {
+      "id": "images",
+      "provider": "anthropic",
+      "auth": "x_api_key",
+      "session": "fixture-s306-session",
+      "adapter": "anthropic",
+      "historyScope": "[\"anthropic\",\"9e243fb5\",\"claude-sonnet-4-5-20250929\",\"anthropic_messages\"]",
+      "input": {
+        "isReasoning": false,
+        "supportsReasoning": false,
+        "supportsTools": true,
+        "thinkingEnabled": false,
+        "reasoningEffort": null,
+        "thinkingBudget": null,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "model": "claude-sonnet-4-5-20250929",
+        "baseUrl": "https://api.anthropic.com/v1",
+        "modelAdapter": "anthropic",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "看这张图"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,iVBORw0KGgo="
+              }
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "https://example.com/cat.png"
+              }
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "https://example.com/missing.png"
+              }
+            }
+          ]
+        }
+      ],
+      "tools": [],
+      "sidecarBlocks": {},
+      "request": {
+        "url": "https://api.anthropic.com/v1/messages",
+        "body": {
+          "model": "claude-sonnet-4-5-20250929",
+          "max_tokens": 1536,
+          "messages": [
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "看这张图"
+                },
+                {
+                  "type": "image",
+                  "source": {
+                    "type": "base64",
+                    "media_type": "image/png",
+                    "data": "iVBORw0KGgo="
+                  }
+                },
+                {
+                  "type": "image",
+                  "source": {
+                    "type": "base64",
+                    "media_type": "image/png",
+                    "data": "AQID"
+                  }
+                }
+              ]
+            }
+          ],
+          "temperature": 0.25,
+          "stream": true,
+          "cache_control": {
+            "type": "ephemeral"
+          }
+        },
+        "headers": {
+          "x-api-key": "s306-synthetic-key",
+          "anthropic-version": "2023-06-01",
+          "content-type": "application/json",
+          "x-fixture-provider": "s306"
+        }
+      }
+    },
+    {
+      "id": "replay-turn2",
+      "provider": "anthropic",
+      "auth": "x_api_key",
+      "session": "fixture-s306-session",
+      "adapter": "anthropic",
+      "historyScope": "[\"anthropic\",\"9e243fb5\",\"claude-fable-5\",\"anthropic_messages\"]",
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": "high",
+        "thinkingBudget": 512,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "model": "claude-fable-5",
+        "baseUrl": "https://api.anthropic.com/v1",
+        "modelAdapter": "anthropic",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions. 保持简洁。"
+        },
+        {
+          "role": "user",
+          "content": "总结错题 🧪"
+        },
+        {
+          "role": "assistant",
+          "content": [
+            {
+              "type": "thinking",
+              "thinking": "先调用检索工具",
+              "signature": "sig_round_1"
+            },
+            {
+              "type": "redacted_thinking",
+              "data": "opaque_payload"
+            },
+            {
+              "type": "tool_use",
+              "id": "toolu_1",
+              "name": "lookup_notes",
+              "input": {
+                "q": "错题"
+              }
+            },
+            {
+              "type": "text",
+              "text": "找到了 3 条。"
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "toolu_1",
+          "content": "共 3 道错题"
+        },
+        {
+          "role": "user",
+          "content": "整理成卡片"
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "lookup_notes",
+            "description": "Synthetic lookup_notes tool",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "q": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "sidecarBlocks": {
+        "2": [
+          {
+            "type": "thinking",
+            "thinking": "先调用检索工具",
+            "signature": "sig_round_1"
+          },
+          {
+            "type": "redacted_thinking",
+            "data": "opaque_payload"
+          },
+          {
+            "type": "tool_use",
+            "id": "toolu_1",
+            "name": "lookup_notes",
+            "input": {
+              "q": "错题"
+            }
+          },
+          {
+            "type": "text",
+            "text": "找到了 3 条。"
+          }
+        ]
+      },
+      "request": {
+        "url": "https://api.anthropic.com/v1/messages",
+        "body": {
+          "model": "claude-fable-5",
+          "max_tokens": 1536,
+          "messages": [
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "总结错题 🧪"
+                }
+              ]
+            },
+            {
+              "role": "assistant",
+              "content": [
+                {
+                  "type": "thinking",
+                  "thinking": "先调用检索工具",
+                  "signature": "sig_round_1"
+                },
+                {
+                  "type": "redacted_thinking",
+                  "data": "opaque_payload"
+                },
+                {
+                  "type": "tool_use",
+                  "id": "toolu_1",
+                  "name": "lookup_notes",
+                  "input": {
+                    "q": "错题"
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "找到了 3 条。"
+                }
+              ]
+            },
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "tool_result",
+                  "tool_use_id": "toolu_1",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "共 3 道错题"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "text": "整理成卡片"
+                }
+              ]
+            }
+          ],
+          "system": [
+            {
+              "type": "text",
+              "text": "Fixture instructions. 保持简洁。",
+              "cache_control": {
+                "type": "ephemeral"
+              }
+            }
+          ],
+          "tools": [
+            {
+              "name": "lookup_notes",
+              "description": "Synthetic lookup_notes tool",
+              "input_schema": {
+                "type": "object",
+                "properties": {
+                  "q": {
+                    "type": "string"
+                  }
+                }
+              },
+              "cache_control": {
+                "type": "ephemeral"
+              }
+            }
+          ],
+          "tool_choice": {
+            "type": "auto"
+          },
+          "stream": true,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "output_config": {
+            "effort": "high"
+          },
+          "cache_control": {
+            "type": "ephemeral"
+          }
+        },
+        "headers": {
+          "x-api-key": "s306-synthetic-key",
+          "anthropic-version": "2023-06-01",
+          "content-type": "application/json",
+          "x-fixture-provider": "s306"
+        }
+      }
+    },
+    {
+      "id": "offtarget-replay",
+      "provider": "anthropic",
+      "auth": "x_api_key",
+      "session": "fixture-s306-session",
+      "adapter": "anthropic",
+      "historyScope": "[\"anthropic\",\"9e243fb5\",\"claude-sonnet-5\",\"anthropic_messages\"]",
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": null,
+        "thinkingBudget": null,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "model": "claude-sonnet-5",
+        "baseUrl": "https://api.anthropic.com/v1",
+        "modelAdapter": "anthropic",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions. 保持简洁。"
+        },
+        {
+          "role": "user",
+          "content": "总结错题 🧪"
+        },
+        {
+          "role": "assistant",
+          "content": [
+            {
+              "type": "text",
+              "text": "先调用检索工具"
+            },
+            {
+              "type": "tool_use",
+              "id": "toolu_1",
+              "name": "lookup_notes",
+              "input": {
+                "q": "错题"
+              }
+            },
+            {
+              "type": "text",
+              "text": "找到了 3 条。"
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "toolu_1",
+          "content": "共 3 道错题"
+        },
+        {
+          "role": "user",
+          "content": "整理成卡片"
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "lookup_notes",
+            "description": "Synthetic lookup_notes tool",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "q": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "sidecarBlocks": {
+        "2": [
+          {
+            "type": "text",
+            "text": "先调用检索工具"
+          },
+          {
+            "type": "tool_use",
+            "id": "toolu_1",
+            "name": "lookup_notes",
+            "input": {
+              "q": "错题"
+            }
+          },
+          {
+            "type": "text",
+            "text": "找到了 3 条。"
+          }
+        ]
+      },
+      "request": {
+        "url": "https://api.anthropic.com/v1/messages",
+        "body": {
+          "model": "claude-sonnet-5",
+          "max_tokens": 1536,
+          "messages": [
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "总结错题 🧪"
+                }
+              ]
+            },
+            {
+              "role": "assistant",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "先调用检索工具"
+                },
+                {
+                  "type": "tool_use",
+                  "id": "toolu_1",
+                  "name": "lookup_notes",
+                  "input": {
+                    "q": "错题"
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "找到了 3 条。"
+                }
+              ]
+            },
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "tool_result",
+                  "tool_use_id": "toolu_1",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "共 3 道错题"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "text": "整理成卡片"
+                }
+              ]
+            }
+          ],
+          "system": [
+            {
+              "type": "text",
+              "text": "Fixture instructions. 保持简洁。",
+              "cache_control": {
+                "type": "ephemeral"
+              }
+            }
+          ],
+          "tools": [
+            {
+              "name": "lookup_notes",
+              "description": "Synthetic lookup_notes tool",
+              "input_schema": {
+                "type": "object",
+                "properties": {
+                  "q": {
+                    "type": "string"
+                  }
+                }
+              },
+              "cache_control": {
+                "type": "ephemeral"
+              }
+            }
+          ],
+          "tool_choice": {
+            "type": "auto"
+          },
+          "stream": true,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "cache_control": {
+            "type": "ephemeral"
+          }
+        },
+        "headers": {
+          "x-api-key": "s306-synthetic-key",
+          "anthropic-version": "2023-06-01",
+          "content-type": "application/json",
+          "x-fixture-provider": "s306"
+        }
+      }
+    },
+    {
+      "id": "branch-bare-base",
+      "provider": "anthropic",
+      "auth": "x_api_key",
+      "session": "fixture-s306-session",
+      "adapter": "anthropic",
+      "historyScope": "[\"anthropic\",\"419fe23c\",\"claude-haiku-4-5\",\"anthropic_messages\"]",
+      "input": {
+        "isReasoning": false,
+        "supportsReasoning": false,
+        "supportsTools": true,
+        "thinkingEnabled": false,
+        "reasoningEffort": null,
+        "thinkingBudget": null,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "model": "claude-haiku-4-5",
+        "baseUrl": "https://relay.fixture",
+        "modelAdapter": "anthropic",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions. 保持简洁。"
+        },
+        {
+          "role": "user",
+          "content": "总结错题 🧪"
+        }
+      ],
+      "tools": [],
+      "sidecarBlocks": {},
+      "request": {
+        "url": "https://relay.fixture/v1/messages",
+        "body": {
+          "model": "claude-haiku-4-5",
+          "max_tokens": 1536,
+          "messages": [
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "总结错题 🧪"
+                }
+              ]
+            }
+          ],
+          "system": [
+            {
+              "type": "text",
+              "text": "Fixture instructions. 保持简洁。",
+              "cache_control": {
+                "type": "ephemeral"
+              }
+            }
+          ],
+          "temperature": 0.25,
+          "stream": true,
+          "cache_control": {
+            "type": "ephemeral"
+          }
+        },
+        "headers": {
+          "x-api-key": "s306-synthetic-key",
+          "anthropic-version": "2023-06-01",
+          "content-type": "application/json",
+          "x-fixture-provider": "s306"
+        }
+      }
+    },
+    {
+      "id": "stream-complete-thinking-tool",
+      "provider": "anthropic",
+      "auth": "x_api_key",
+      "session": "fixture-s306-session",
+      "adapter": "anthropic",
+      "historyScope": "[\"anthropic\",\"9e243fb5\",\"claude-fable-5\",\"anthropic_messages\"]",
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": "high",
+        "thinkingBudget": 512,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "model": "claude-fable-5",
+        "baseUrl": "https://api.anthropic.com/v1",
+        "modelAdapter": "anthropic",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions. 保持简洁。"
+        },
+        {
+          "role": "user",
+          "content": "总结错题 🧪"
+        }
+      ],
+      "tools": [],
+      "request": {
+        "url": "https://api.anthropic.com/v1/messages",
+        "body": {
+          "model": "claude-fable-5",
+          "max_tokens": 1536,
+          "messages": [
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "总结错题 🧪"
+                }
+              ]
+            }
+          ],
+          "system": [
+            {
+              "type": "text",
+              "text": "Fixture instructions. 保持简洁。",
+              "cache_control": {
+                "type": "ephemeral"
+              }
+            }
+          ],
+          "stream": true,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "output_config": {
+            "effort": "high"
+          },
+          "cache_control": {
+            "type": "ephemeral"
+          }
+        },
+        "headers": {
+          "x-api-key": "s306-synthetic-key",
+          "anthropic-version": "2023-06-01",
+          "content-type": "application/json",
+          "x-fixture-provider": "s306"
+        }
+      },
+      "stream": {
+        "frames": [
+          {
+            "data": {
+              "type": "message_start",
+              "message": {
+                "id": "msg_1",
+                "usage": {
+                  "input_tokens": 123,
+                  "output_tokens": 0,
+                  "cache_read_input_tokens": 900,
+                  "cache_creation_input_tokens": 50
+                }
+              }
+            }
+          },
+          {
+            "data": {
+              "type": "content_block_start",
+              "index": 0,
+              "content_block": {
+                "type": "thinking",
+                "thinking": ""
+              }
+            }
+          },
+          {
+            "data": {
+              "type": "content_block_delta",
+              "index": 0,
+              "delta": {
+                "type": "thinking_delta",
+                "thinking": "需要工具"
+              }
+            }
+          },
+          {
+            "data": {
+              "type": "content_block_delta",
+              "index": 0,
+              "delta": {
+                "type": "signature_delta",
+                "signature": "EqQBCg"
+              }
+            }
+          },
+          {
+            "data": {
+              "type": "content_block_delta",
+              "index": 0,
+              "delta": {
+                "type": "signature_delta",
+                "signature": "XYZ123"
+              }
+            }
+          },
+          {
+            "data": {
+              "type": "content_block_stop",
+              "index": 0
+            }
+          },
+          {
+            "data": {
+              "type": "content_block_delta",
+              "index": 1,
+              "delta": {
+                "type": "text_delta",
+                "text": "查一下"
+              }
+            }
+          },
+          {
+            "data": {
+              "type": "content_block_stop",
+              "index": 1
+            }
+          },
+          {
+            "data": {
+              "type": "content_block_start",
+              "index": 2,
+              "content_block": {
+                "type": "tool_use",
+                "id": "toolu_1",
+                "name": "lookup_notes",
+                "input": {}
+              }
+            }
+          },
+          {
+            "data": {
+              "type": "content_block_delta",
+              "index": 2,
+              "delta": {
+                "type": "input_json_delta",
+                "partial_json": "{\"q\""
+              }
+            }
+          },
+          {
+            "data": {
+              "type": "content_block_delta",
+              "index": 2,
+              "delta": {
+                "type": "input_json_delta",
+                "partial_json": ":\"北京\"}"
+              }
+            }
+          },
+          {
+            "data": {
+              "type": "content_block_stop",
+              "index": 2
+            }
+          },
+          {
+            "data": {
+              "type": "message_delta",
+              "delta": {
+                "stop_reason": "end_turn",
+                "usage": {
+                  "output_tokens": 42
+                }
+              }
+            }
+          },
+          {
+            "data": {
+              "type": "message_stop"
+            }
+          }
+        ],
+        "events": [
+          {
+            "kind": "usage",
+            "value": {
+              "input_tokens": 123,
+              "output_tokens": 0,
+              "total_tokens": 123,
+              "input_tokens_details": {
+                "cached_tokens": 900,
+                "cache_write_tokens": 50
+              }
+            }
+          },
+          {
+            "kind": "reasoning",
+            "value": "需要工具"
+          },
+          {
+            "kind": "thought_signature",
+            "value": "EqQBCgXYZ123"
+          },
+          {
+            "kind": "text",
+            "value": "查一下"
+          },
+          {
+            "kind": "tool",
+            "value": {
+              "id": "toolu_1",
+              "type": "function",
+              "function": {
+                "name": "lookup_notes",
+                "arguments": "{\"q\":\"北京\"}"
+              },
+              "index": 2
+            }
+          },
+          {
+            "kind": "usage",
+            "value": {
+              "input_tokens": 123,
+              "output_tokens": 42,
+              "total_tokens": 165,
+              "input_tokens_details": {
+                "cached_tokens": 900,
+                "cache_write_tokens": 50
+              }
+            }
+          },
+          {
+            "kind": "completed"
+          }
+        ],
+        "replayBlocks": [
+          {
+            "type": "thinking",
+            "thinking": "需要工具",
+            "signature": "EqQBCgXYZ123"
+          }
+        ],
+        "androidResult": "complete",
+        "androidText": "查一下",
+        "androidStop": "TOOL_CALL",
+        "androidEvents": [
+          {
+            "kind": "usage",
+            "value": {
+              "input_tokens": 123,
+              "output_tokens": 0,
+              "total_tokens": 123,
+              "input_tokens_details": {
+                "cached_tokens": 900,
+                "cache_write_tokens": 50
+              }
+            }
+          },
+          {
+            "kind": "reasoning",
+            "value": "需要工具"
+          },
+          {
+            "kind": "text",
+            "value": "查一下"
+          },
+          {
+            "kind": "tool",
+            "value": {
+              "id": "toolu_1",
+              "type": "function",
+              "function": {
+                "name": "lookup_notes",
+                "arguments": "{\"q\":\"北京\"}"
+              },
+              "index": 2
+            }
+          },
+          {
+            "kind": "usage",
+            "value": {
+              "input_tokens": 123,
+              "output_tokens": 42,
+              "total_tokens": 165,
+              "input_tokens_details": {
+                "cached_tokens": 900,
+                "cache_write_tokens": 50
+              }
+            }
+          },
+          {
+            "kind": "completed"
+          }
+        ],
+        "deviation": null
+      }
+    },
+    {
+      "id": "stream-refusal",
+      "provider": "anthropic",
+      "auth": "x_api_key",
+      "session": "fixture-s306-session",
+      "adapter": "anthropic",
+      "historyScope": "[\"anthropic\",\"9e243fb5\",\"claude-opus-4-8\",\"anthropic_messages\"]",
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": "high",
+        "thinkingBudget": 512,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "model": "claude-opus-4-8",
+        "baseUrl": "https://api.anthropic.com/v1",
+        "modelAdapter": "anthropic",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions. 保持简洁。"
+        },
+        {
+          "role": "user",
+          "content": "总结错题 🧪"
+        }
+      ],
+      "tools": [],
+      "request": {
+        "url": "https://api.anthropic.com/v1/messages",
+        "body": {
+          "model": "claude-opus-4-8",
+          "max_tokens": 1536,
+          "messages": [
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "总结错题 🧪"
+                }
+              ]
+            }
+          ],
+          "system": [
+            {
+              "type": "text",
+              "text": "Fixture instructions. 保持简洁。",
+              "cache_control": {
+                "type": "ephemeral"
+              }
+            }
+          ],
+          "stream": true,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "output_config": {
+            "effort": "high"
+          },
+          "cache_control": {
+            "type": "ephemeral"
+          }
+        },
+        "headers": {
+          "x-api-key": "s306-synthetic-key",
+          "anthropic-version": "2023-06-01",
+          "content-type": "application/json",
+          "x-fixture-provider": "s306"
+        }
+      },
+      "stream": {
+        "frames": [
+          {
+            "data": {
+              "type": "message_start",
+              "message": {
+                "id": "msg_2",
+                "usage": {
+                  "input_tokens": 10,
+                  "output_tokens": 0
+                }
+              }
+            }
+          },
+          {
+            "data": {
+              "type": "content_block_delta",
+              "index": 0,
+              "delta": {
+                "type": "text_delta",
+                "text": "无法"
+              }
+            }
+          },
+          {
+            "data": {
+              "type": "message_delta",
+              "delta": {
+                "stop_reason": "refusal",
+                "stop_details": {
+                  "category": "cyber"
+                }
+              }
+            }
+          },
+          {
+            "data": {
+              "type": "message_stop"
+            }
+          }
+        ],
+        "events": [
+          {
+            "kind": "usage",
+            "value": {
+              "input_tokens": 10,
+              "output_tokens": 0,
+              "total_tokens": 10
+            }
+          },
+          {
+            "kind": "text",
+            "value": "无法"
+          },
+          {
+            "kind": "safety_blocked",
+            "value": {
+              "type": "content_blocked",
+              "reason": "refusal",
+              "stop_details": {
+                "category": "cyber"
+              }
+            }
+          },
+          {
+            "kind": "completed"
+          }
+        ],
+        "replayBlocks": [],
+        "androidResult": "fail:PROVIDER_ERROR",
+        "androidText": null,
+        "androidStop": null,
+        "androidEvents": [
+          {
+            "kind": "usage",
+            "value": {
+              "input_tokens": 10,
+              "output_tokens": 0,
+              "total_tokens": 10
+            }
+          },
+          {
+            "kind": "text",
+            "value": "无法"
+          }
+        ],
+        "deviation": "Android maps refusal/safety stop reasons to a fixed PROVIDER_ERROR end; the desktop emits SafetyBlocked and keeps the stream Done-able."
+      }
+    },
+    {
+      "id": "stream-stream-error",
+      "provider": "anthropic",
+      "auth": "x_api_key",
+      "session": "fixture-s306-session",
+      "adapter": "anthropic",
+      "historyScope": "[\"anthropic\",\"9e243fb5\",\"claude-fable-5\",\"anthropic_messages\"]",
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": "high",
+        "thinkingBudget": 512,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "model": "claude-fable-5",
+        "baseUrl": "https://api.anthropic.com/v1",
+        "modelAdapter": "anthropic",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions. 保持简洁。"
+        },
+        {
+          "role": "user",
+          "content": "总结错题 🧪"
+        }
+      ],
+      "tools": [],
+      "request": {
+        "url": "https://api.anthropic.com/v1/messages",
+        "body": {
+          "model": "claude-fable-5",
+          "max_tokens": 1536,
+          "messages": [
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "总结错题 🧪"
+                }
+              ]
+            }
+          ],
+          "system": [
+            {
+              "type": "text",
+              "text": "Fixture instructions. 保持简洁。",
+              "cache_control": {
+                "type": "ephemeral"
+              }
+            }
+          ],
+          "stream": true,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "output_config": {
+            "effort": "high"
+          },
+          "cache_control": {
+            "type": "ephemeral"
+          }
+        },
+        "headers": {
+          "x-api-key": "s306-synthetic-key",
+          "anthropic-version": "2023-06-01",
+          "content-type": "application/json",
+          "x-fixture-provider": "s306"
+        }
+      },
+      "stream": {
+        "frames": [
+          {
+            "data": {
+              "type": "error",
+              "error": {
+                "type": "overloaded_error",
+                "message": "Overloaded"
+              }
+            }
+          }
+        ],
+        "events": [
+          {
+            "kind": "safety_blocked",
+            "value": {
+              "type": "provider_error",
+              "reason": "stream_error",
+              "details": {
+                "type": "overloaded_error",
+                "message": "Overloaded"
+              }
+            }
+          },
+          {
+            "kind": "completed"
+          }
+        ],
+        "replayBlocks": [],
+        "androidResult": "fail:PROVIDER_ERROR",
+        "androidText": null,
+        "androidStop": null,
+        "androidEvents": [],
+        "deviation": "Android ends with PROVIDER_ERROR and never logs or forwards the upstream error detail."
+      }
+    },
+    {
+      "id": "stream-context-window",
+      "provider": "anthropic",
+      "auth": "x_api_key",
+      "session": "fixture-s306-session",
+      "adapter": "anthropic",
+      "historyScope": "[\"anthropic\",\"9e243fb5\",\"claude-fable-5\",\"anthropic_messages\"]",
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": "high",
+        "thinkingBudget": 512,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "model": "claude-fable-5",
+        "baseUrl": "https://api.anthropic.com/v1",
+        "modelAdapter": "anthropic",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions. 保持简洁。"
+        },
+        {
+          "role": "user",
+          "content": "总结错题 🧪"
+        }
+      ],
+      "tools": [],
+      "request": {
+        "url": "https://api.anthropic.com/v1/messages",
+        "body": {
+          "model": "claude-fable-5",
+          "max_tokens": 1536,
+          "messages": [
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "总结错题 🧪"
+                }
+              ]
+            }
+          ],
+          "system": [
+            {
+              "type": "text",
+              "text": "Fixture instructions. 保持简洁。",
+              "cache_control": {
+                "type": "ephemeral"
+              }
+            }
+          ],
+          "stream": true,
+          "thinking": {
+            "type": "adaptive"
+          },
+          "output_config": {
+            "effort": "high"
+          },
+          "cache_control": {
+            "type": "ephemeral"
+          }
+        },
+        "headers": {
+          "x-api-key": "s306-synthetic-key",
+          "anthropic-version": "2023-06-01",
+          "content-type": "application/json",
+          "x-fixture-provider": "s306"
+        }
+      },
+      "stream": {
+        "frames": [
+          {
+            "data": {
+              "type": "content_block_delta",
+              "index": 0,
+              "delta": {
+                "type": "text_delta",
+                "text": "部分"
+              }
+            }
+          },
+          {
+            "data": {
+              "type": "message_delta",
+              "delta": {
+                "stop_reason": "model_context_window_exceeded"
+              }
+            }
+          }
+        ],
+        "events": [
+          {
+            "kind": "text",
+            "value": "部分"
+          },
+          {
+            "kind": "safety_blocked",
+            "value": {
+              "type": "provider_error",
+              "reason": "model_context_window_exceeded",
+              "details": {
+                "message": "输出因达到模型上下文窗口上限而被截断 (model_context_window_exceeded)"
+              }
+            }
+          }
+        ],
+        "replayBlocks": [],
+        "androidResult": "fail:STREAM_TRUNCATED",
+        "androidText": null,
+        "androidStop": null,
+        "androidEvents": [
+          {
+            "kind": "text",
+            "value": "部分"
+          }
+        ],
+        "deviation": "Android maps the context-window stop reason to STREAM_TRUNCATED instead of a provider_error block."
+      }
+    },
+    {
+      "id": "stream-truncated-tool",
+      "provider": "anthropic",
+      "auth": "x_api_key",
+      "session": "fixture-s306-session",
+      "adapter": "anthropic",
+      "historyScope": "[\"anthropic\",\"9e243fb5\",\"claude-sonnet-4-5-20250929\",\"anthropic_messages\"]",
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": "high",
+        "thinkingBudget": 512,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "model": "claude-sonnet-4-5-20250929",
+        "baseUrl": "https://api.anthropic.com/v1",
+        "modelAdapter": "anthropic",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions. 保持简洁。"
+        },
+        {
+          "role": "user",
+          "content": "总结错题 🧪"
+        }
+      ],
+      "tools": [],
+      "request": {
+        "url": "https://api.anthropic.com/v1/messages",
+        "body": {
+          "model": "claude-sonnet-4-5-20250929",
+          "max_tokens": 1536,
+          "messages": [
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "总结错题 🧪"
+                }
+              ]
+            }
+          ],
+          "system": [
+            {
+              "type": "text",
+              "text": "Fixture instructions. 保持简洁。",
+              "cache_control": {
+                "type": "ephemeral"
+              }
+            }
+          ],
+          "stream": true,
+          "thinking": {
+            "type": "enabled",
+            "budget_tokens": 1024
+          },
+          "cache_control": {
+            "type": "ephemeral"
+          }
+        },
+        "headers": {
+          "x-api-key": "s306-synthetic-key",
+          "anthropic-version": "2023-06-01",
+          "content-type": "application/json",
+          "x-fixture-provider": "s306"
+        }
+      },
+      "stream": {
+        "frames": [
+          {
+            "data": {
+              "type": "content_block_delta",
+              "index": 0,
+              "delta": {
+                "type": "text_delta",
+                "text": "调用工具"
+              }
+            }
+          },
+          {
+            "data": {
+              "type": "content_block_start",
+              "index": 1,
+              "content_block": {
+                "type": "tool_use",
+                "id": "toolu_2",
+                "name": "lookup_notes",
+                "input": {}
+              }
+            }
+          },
+          {
+            "data": {
+              "type": "content_block_delta",
+              "index": 1,
+              "delta": {
+                "type": "input_json_delta",
+                "partial_json": "{\"q\":\"北"
+              }
+            }
+          },
+          {
+            "data": {
+              "type": "content_block_stop",
+              "index": 1
+            }
+          },
+          {
+            "data": {
+              "type": "message_delta",
+              "delta": {
+                "stop_reason": "tool_use"
+              }
+            }
+          },
+          {
+            "data": {
+              "type": "message_stop"
+            }
+          }
+        ],
+        "events": [
+          {
+            "kind": "text",
+            "value": "调用工具"
+          },
+          {
+            "kind": "tool",
+            "value": {
+              "id": "toolu_2",
+              "type": "function",
+              "function": {
+                "name": "lookup_notes",
+                "arguments": "{}"
+              },
+              "index": 1
+            }
+          },
+          {
+            "kind": "completed"
+          }
+        ],
+        "replayBlocks": [],
+        "androidResult": "fail:PROVIDER_ERROR",
+        "androidText": null,
+        "androidStop": null,
+        "androidEvents": [
+          {
+            "kind": "text",
+            "value": "调用工具"
+          }
+        ],
+        "deviation": "The desktop wire fallback completes truncated arguments as an executable {}; the Android port fails instead of arming an unverifiable tool call."
+      }
+    },
+    {
+      "id": "stream-missing-tool-id",
+      "provider": "anthropic",
+      "auth": "x_api_key",
+      "session": "fixture-s306-session",
+      "adapter": "anthropic",
+      "historyScope": "[\"anthropic\",\"9e243fb5\",\"claude-sonnet-4-5-20250929\",\"anthropic_messages\"]",
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": "high",
+        "thinkingBudget": 512,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "model": "claude-sonnet-4-5-20250929",
+        "baseUrl": "https://api.anthropic.com/v1",
+        "modelAdapter": "anthropic",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions. 保持简洁。"
+        },
+        {
+          "role": "user",
+          "content": "总结错题 🧪"
+        }
+      ],
+      "tools": [],
+      "request": {
+        "url": "https://api.anthropic.com/v1/messages",
+        "body": {
+          "model": "claude-sonnet-4-5-20250929",
+          "max_tokens": 1536,
+          "messages": [
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "总结错题 🧪"
+                }
+              ]
+            }
+          ],
+          "system": [
+            {
+              "type": "text",
+              "text": "Fixture instructions. 保持简洁。",
+              "cache_control": {
+                "type": "ephemeral"
+              }
+            }
+          ],
+          "stream": true,
+          "thinking": {
+            "type": "enabled",
+            "budget_tokens": 1024
+          },
+          "cache_control": {
+            "type": "ephemeral"
+          }
+        },
+        "headers": {
+          "x-api-key": "s306-synthetic-key",
+          "anthropic-version": "2023-06-01",
+          "content-type": "application/json",
+          "x-fixture-provider": "s306"
+        }
+      },
+      "stream": {
+        "frames": [
+          {
+            "data": {
+              "type": "content_block_start",
+              "index": 0,
+              "content_block": {
+                "type": "tool_use",
+                "id": "",
+                "name": "lookup_notes",
+                "input": {
+                  "q": "x"
+                }
+              }
+            }
+          },
+          {
+            "data": {
+              "type": "content_block_stop",
+              "index": 0
+            }
+          },
+          {
+            "data": {
+              "type": "message_delta",
+              "delta": {
+                "stop_reason": "tool_use"
+              }
+            }
+          },
+          {
+            "data": {
+              "type": "message_stop"
+            }
+          }
+        ],
+        "events": [
+          {
+            "kind": "tool",
+            "value": {
+              "id": "",
+              "type": "function",
+              "function": {
+                "name": "lookup_notes",
+                "arguments": "{\"q\":\"x\"}"
+              },
+              "index": 0
+            }
+          },
+          {
+            "kind": "completed"
+          }
+        ],
+        "replayBlocks": [],
+        "androidResult": "fail:PROVIDER_ERROR",
+        "androidText": null,
+        "androidStop": null,
+        "androidEvents": [],
+        "deviation": "A tool_use block without an id never becomes a completed call on Android."
+      }
+    },
+    {
+      "id": "stream-done-marker",
+      "provider": "anthropic",
+      "auth": "x_api_key",
+      "session": "fixture-s306-session",
+      "adapter": "anthropic",
+      "historyScope": "[\"anthropic\",\"9e243fb5\",\"claude-haiku-4-5\",\"anthropic_messages\"]",
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": "high",
+        "thinkingBudget": 512,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "model": "claude-haiku-4-5",
+        "baseUrl": "https://api.anthropic.com/v1",
+        "modelAdapter": "anthropic",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions. 保持简洁。"
+        },
+        {
+          "role": "user",
+          "content": "总结错题 🧪"
+        }
+      ],
+      "tools": [],
+      "request": {
+        "url": "https://api.anthropic.com/v1/messages",
+        "body": {
+          "model": "claude-haiku-4-5",
+          "max_tokens": 1536,
+          "messages": [
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "总结错题 🧪"
+                }
+              ]
+            }
+          ],
+          "system": [
+            {
+              "type": "text",
+              "text": "Fixture instructions. 保持简洁。",
+              "cache_control": {
+                "type": "ephemeral"
+              }
+            }
+          ],
+          "stream": true,
+          "thinking": {
+            "type": "enabled",
+            "budget_tokens": 1024
+          },
+          "cache_control": {
+            "type": "ephemeral"
+          }
+        },
+        "headers": {
+          "x-api-key": "s306-synthetic-key",
+          "anthropic-version": "2023-06-01",
+          "content-type": "application/json",
+          "x-fixture-provider": "s306"
+        }
+      },
+      "stream": {
+        "frames": [
+          {
+            "data": {
+              "type": "content_block_delta",
+              "index": 0,
+              "delta": {
+                "type": "text_delta",
+                "text": "直接回答"
+              }
+            }
+          },
+          {
+            "data": "[DONE]"
+          }
+        ],
+        "events": [
+          {
+            "kind": "text",
+            "value": "直接回答"
+          },
+          {
+            "kind": "completed"
+          }
+        ],
+        "replayBlocks": [],
+        "androidResult": "complete",
+        "androidText": "直接回答",
+        "androidStop": "STOP",
+        "androidEvents": [
+          {
+            "kind": "text",
+            "value": "直接回答"
+          },
+          {
+            "kind": "completed"
+          }
+        ],
+        "deviation": null
+      }
+    }
+  ]
+}

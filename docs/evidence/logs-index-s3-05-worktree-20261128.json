@@ -1,0 +1,304 @@
+{
+  "format": "dstu-evidence-index/v1",
+  "generatedAt": "2026-11-27T17:44:26.941Z",
+  "source": {
+    "repository": "dstu-android",
+    "ref": "HEAD",
+    "revision": "0a367cde96a54baae24af9ae40d04113289d2aa0",
+    "selection": "worktree",
+    "entryCount": 33,
+    "trackedCount": 0,
+    "presentCount": 33,
+    "missingFromWorktree": []
+  },
+  "archive": {
+    "format": "tar.gz",
+    "root": "PRIVATE_ARTIFACT_ROOT",
+    "relativeLocation": "s3-05-worktree-20261128/evidence.tar.gz",
+    "location": "PRIVATE_ARTIFACT_ROOT/s3-05-worktree-20261128/evidence.tar.gz",
+    "size": 26500,
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "b95872d82bf55aadb43840d72c9507bf8003f21dd086fd69984369629306fb09"
+    },
+    "manifest": {
+      "relativeLocation": "s3-05-worktree-20261128/manifest.json",
+      "location": "PRIVATE_ARTIFACT_ROOT/s3-05-worktree-20261128/manifest.json",
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "ed59f64776bae4b3cdb65d98c73c60dce4b23db5c3383b473b43a1acad44013e"
+      }
+    }
+  },
+  "entries": [
+    {
+      "path": "logs/backup-regression-fixture.log",
+      "size": 3188,
+      "sha256": "5e01beb06a29981ff48785e9e5006347d1653d68210506713b6ca6e56104d272",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/frozen-desktop-tests.log",
+      "size": 1989,
+      "sha256": "eb33b9cfc11c22e5c2685f0cf941e44173806e4923ecf2457b27cf4e2f17af66",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/frozen-inputs.log",
+      "size": 260,
+      "sha256": "7f3bdf6b4f53bfb848fe26b33b13a9ecb1181ecb63ad29b669a0a75c8d1ef873",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/frozen-oracle.log",
+      "size": 984,
+      "sha256": "3782787b08f2b68dba87c140f5ef6fe2b6723991b8f7e8fb200b7228eafe7572",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/repository-tests.log",
+      "size": 19486,
+      "sha256": "b245df64d39160bfadf4e7e01f1d7e2818bad41d254424936d83383e54857e4d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/repository-verify.log",
+      "size": 5729,
+      "sha256": "e9504b81233513b9a8637e84272f27afcc7f547ccf18977634e15b4574ce3cca",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s305-codex-background-request.json",
+      "size": 834,
+      "sha256": "2068fcc910b2b1a225bb52a7d22e14b49b1cac0dc9f32d82a9b0db8127ae3e24",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s305-deepseek-error-cancel.json",
+      "size": 230,
+      "sha256": "796f7638566922aa13dc61d84c4773385669b34579ccc885415b00706fa7e79a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s305-deepseek-request.json",
+      "size": 1614,
+      "sha256": "7c9b3336ba9bb77b2dfb719a89e6943d4b1245e73f672248ea6e1e97767b34a7",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s305-deepseek-stream.json",
+      "size": 1225,
+      "sha256": "e0123c01d8363270ecc6a992b3f1007d11c64cdbe92d20c49b7526edb749b904",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s305-deepseek-thinking-off-request.json",
+      "size": 728,
+      "sha256": "5dee1f2c154f235f5952d873d573eb89f4708c1d0527ded85fb882f5d327feea",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s305-deepseek-v4-passback-request.json",
+      "size": 1511,
+      "sha256": "ea6f55a7619b6aed165bf0a0f40952ec967bfde5b479d949158203c4f9e6f1dd",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s305-final-host.log",
+      "size": 90332,
+      "sha256": "9772b8314d5e2dd240a497ef6825a0e1e78d991ddb17bff9a57e556510bc612a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s305-final-receipts.json",
+      "size": 417,
+      "sha256": "d7e4fdaff6b9e73acb2b22293ea6f0808194bc81ccfb1865eb1f83c70dcad00e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s305-grok-error-cancel.json",
+      "size": 222,
+      "sha256": "774443cc782c64e8e8f0dc690a028ce241cdd0ca34622f34138bdfe64ded3adb",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s305-grok-request.json",
+      "size": 752,
+      "sha256": "1f6129dd5fe2c7a984620f1d57ab8c0ecc0bf5945b434d1ee923fbe0ac830a4e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s305-grok-stream.json",
+      "size": 901,
+      "sha256": "f9ef6afa83dcc7bcc8b3625aac9eee00c947bd3cbff072090d36325c7cee760d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s305-jvm-results.json",
+      "size": 1042,
+      "sha256": "bc96b4557a732dce816dedbecedb10437e8fadae2810a970981e018d5aec2228",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s305-openai_codex-error-cancel.json",
+      "size": 238,
+      "sha256": "738f9892449d55ad6a646e6f23150a85ff19fecaecd504bf50d2cacd1038fe79",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s305-openai_codex-request.json",
+      "size": 1587,
+      "sha256": "7c09356cef6305eab3732d2021d4f0d8ace47e062c69b467613074a9d763e11e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s305-openai_codex-stream.json",
+      "size": 729,
+      "sha256": "e3028f8e30c0985b150858b97e8185bd54302ec7e47c25c8df8583cee6c69dfc",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s305-openai-cache-alias-request.json",
+      "size": 806,
+      "sha256": "2fd4266b1ef1654881e4b52d50e37808455b05c0a846871952e8a160d54182bf",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s305-openai-error-cancel.json",
+      "size": 226,
+      "sha256": "6b06b67a3b2ee9101eb1b759684a924270fabae283e8820453defa4a7da9f7bc",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s305-openai-json-schema-request.json",
+      "size": 881,
+      "sha256": "f77c15daa0041b0fdb1140714aab7f421051ea5ad6e7b164b7ab86f8c2071fc9",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s305-openai-request.json",
+      "size": 1678,
+      "sha256": "2b6e44fca735c23e35ebb0bc1b533d4be452921bca8d8be14c215e66ebcbacef",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s305-openai-stream.json",
+      "size": 1044,
+      "sha256": "6693a071c3f99ac3e6d17d00f8017acf0c17646bb6d4e430ce97a9d102a6a780",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s305-xai-error-cancel.json",
+      "size": 220,
+      "sha256": "2af55e9fc8d0011e6279125f56b05d5edbded10f4e08fc11ee36f06716cfa4cd",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s305-xai-no-auth-request.json",
+      "size": 726,
+      "sha256": "ea42d620400332822c78d3313c182d98aed0575343550588ba88c6500282b3d0",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s305-xai-request.json",
+      "size": 728,
+      "sha256": "7d6267c1a644417ff52caae24e4f141123f60a2cf98ca7b68a0c4b74844223de",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s305-xai-stream.json",
+      "size": 330,
+      "sha256": "b63cdbe0aa23050543e53721e209fa2e9fc3865b952627badd445583e0d5c381",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/source-files.sha256",
+      "size": 10753,
+      "sha256": "150b0f684b891cf277a9b6d12b61cb26da8c54f028c215d116ed5c9c81a81d04",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/spotless-signoff.log",
+      "size": 13392,
+      "sha256": "9608ea0d1dc3c267dfc5a19d80c92413d2e4ad6367dbe6614a6e11eec8c5cc4a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/worktree-base-revision.log",
+      "size": 41,
+      "sha256": "07373d6049c9098d9d6a36251939b2f85d4a184fe823c00c820e97c29ca997ea",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    }
+  ],
+  "compatibility": {
+    "legacyPathPolicy": "Entries retain original logs/... paths; historical docs/config references are lookup keys, not tracked files.",
+    "localWrites": "logs/ is gitignored; existing tools may continue writing local evidence.",
+    "restoreCommand": "node tools/evidence/restore.mjs <logs/path>"
+  }
+}

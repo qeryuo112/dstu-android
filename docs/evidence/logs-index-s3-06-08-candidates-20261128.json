@@ -1,0 +1,704 @@
+{
+  "format": "dstu-evidence-index/v1",
+  "generatedAt": "2026-11-27T20:41:21.390Z",
+  "source": {
+    "repository": "evidence-stage.fldsXI",
+    "ref": "HEAD",
+    "revision": "0a367cde96a54baae24af9ae40d04113289d2aa0",
+    "selection": "worktree",
+    "entryCount": 83,
+    "trackedCount": 0,
+    "presentCount": 83,
+    "missingFromWorktree": []
+  },
+  "archive": {
+    "format": "tar.gz",
+    "root": "PRIVATE_ARTIFACT_ROOT",
+    "relativeLocation": "s3-06-08-candidates-20261128/evidence.tar.gz",
+    "location": "PRIVATE_ARTIFACT_ROOT/s3-06-08-candidates-20261128/evidence.tar.gz",
+    "size": 33479,
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "7979f1289330276591438bc6471c51a6f4203ee11a67aa350deaf9b9d84abf2f"
+    },
+    "manifest": {
+      "relativeLocation": "s3-06-08-candidates-20261128/manifest.json",
+      "location": "PRIVATE_ARTIFACT_ROOT/s3-06-08-candidates-20261128/manifest.json",
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "a6775430edb32dc4401f8f33812693dd0ad9af5d6a3395128cf9049eee345d28"
+      }
+    }
+  },
+  "entries": [
+    {
+      "path": "logs/architecture-sources.json",
+      "size": 402,
+      "sha256": "42c41650ef104fecb80fb39638e155dc89bb12be4ca6d07fd1484572741fb925",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/candidate-format.log",
+      "size": 13392,
+      "sha256": "8c08c3746a4e5fb6890d7d7a5c249191502b588577f153cf512ce619e2f5f9f0",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/candidate-source-files.sha256",
+      "size": 9996,
+      "sha256": "7a400f6f2caf56c5b259224cd2408152dcc5fbccd34f2f3dcdc33d2e94260ed6",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/candidate-verification.log",
+      "size": 1102,
+      "sha256": "9bd6ea3244804744fabe69385b8c0370eb16f87cbcfc3bde3860676e9c8b655d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/complexity-psi.json",
+      "size": 931,
+      "sha256": "487253cb2f42aaa2b27f0bb4db086a2407fa2ce1d305d2924cae6ffdcb539664",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/frozen-desktop-host-retest.log",
+      "size": 1124,
+      "sha256": "c9fe24aafcb52a71f9b2b1de89cd477d6128c6ed59975f0acf2cbcda02c44706",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/frozen-inputs.log",
+      "size": 260,
+      "sha256": "1dd097415990b860c520a8662f0b08e364a9e7a9454cbb586b0a1c702767a523",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/jvm-results.json",
+      "size": 34919,
+      "sha256": "83dd0f14723b58eb719cb0c9b44a26230374411e26e06f805faf08bd5e91ced3",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/plan-S3.06.json",
+      "size": 528,
+      "sha256": "8ce731444e6c12ab65a667f05a8b102a5ee7fd16af86a219277747b849816e7c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/plan-S3.07.json",
+      "size": 683,
+      "sha256": "6c768d0096b562b1229bb433f395fe3d72cec8d000c1b025d7a37dd87857c8e3",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/plan-S3.08.json",
+      "size": 1352,
+      "sha256": "dcba1c2c0d8d8678ad1a7d4a76d33f9e1c1cc99f5b8d33fc50177a68cf09c309",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/protected-files-reverified.log",
+      "size": 136,
+      "sha256": "39a67bc77b5bde9dd25ea551410cc4335939c88659f108e62b2f6cc220de691b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/quality-and-jvm.log",
+      "size": 90165,
+      "sha256": "2c3286383af81ccf633ecea9785dac7e813c69d5391b34909577861e0495a386",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/repository-tests.log",
+      "size": 19477,
+      "sha256": "3393b2e26ff87064dd124aff108fba6dc88eff9649dbe7a538b2aa9d6e40086c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/repository-verify.log",
+      "size": 5864,
+      "sha256": "af418e04016d59d42cdce6200633bdb3eb937d8d831967cd4c1f81cc420692b5",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s3-05-archive-reverified.log",
+      "size": 431,
+      "sha256": "17762f0503836593ad895118a909f7c3e602d6022b29cd84b45eea6e9a4e2f0f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s3-05-receipts.json",
+      "size": 417,
+      "sha256": "d7e4fdaff6b9e73acb2b22293ea6f0808194bc81ccfb1865eb1f83c70dcad00e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s3-05-source-reverified.log",
+      "size": 6599,
+      "sha256": "39a63eab33cae231082d10e7680520626bb70fe2775b5280e738ed0f64efb83b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s3-06-frozen-oracle.log",
+      "size": 1355,
+      "sha256": "863e37712bc89038437f31c38eec18fc60aa7d24c046cd083ad8bb5985d509b8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s3-07-frozen-oracle.log",
+      "size": 2961,
+      "sha256": "933fa98c440b7dcf13fb65e302cf3938f60f7663fa01d3a40d8c86e8c5265350",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s3-07-receipts.json",
+      "size": 409,
+      "sha256": "ab6fd3e4d121783517650bd4f803755745f8f035e43f3ae41ac7d1a44917d699",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s3-08-frozen-oracle.log",
+      "size": 1061,
+      "sha256": "b000ddcb4dbc554968def444951c9b402ae05e57be3116092a7891abbef68b90",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s3-08-receipts.json",
+      "size": 470,
+      "sha256": "c551371e777eeb50522e9d78c5e3376ab415c1735360f48441343db7d9df0632",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s307-gemini-provider-request.json",
+      "size": 843,
+      "sha256": "1edd0dbdcc835244fcaf9916e1dd49a71d9082689a76e6a46c347b5aa3d240da",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s307-gemini-provider-stream.json",
+      "size": 477,
+      "sha256": "c3cfc702ee44011bee648d93ac842876586358edf4b976f690a52d73462af605",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s307-google-2.5-budget-request.json",
+      "size": 846,
+      "sha256": "11ba111ba53af914c1c628a97b579c975cc7479b8140d2cae996fe67236b4645",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s307-google-2.5-budget-stream.json",
+      "size": 479,
+      "sha256": "f487ac0bdbf755a95bdb66d21b7adbbda86b5bd7a5e1df6443d39a68ed06172f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s307-google-basic-thinking-request.json",
+      "size": 849,
+      "sha256": "62b1dc25ec0110e1de01a2d6e5bd899ef6a8cac73cc7a77f5eb16272765e67b7",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s307-google-basic-thinking-stream.json",
+      "size": 483,
+      "sha256": "d8bf8e9c06630f63ca9fa67f72e7e12ba1a49435611da6a0c07c353c8ba3fde8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s307-google-error-finish-max-tokens-request.json",
+      "size": 859,
+      "sha256": "01eafe542bf646ecd382f9f6cacf9d89d85eedfcb0c6cce245bdd68c9bec30f1",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s307-google-error-finish-safety-request.json",
+      "size": 855,
+      "sha256": "014af59b9c4b3e472f8c36e51667e9cc95373ea113c48409ebe619eab255eb9f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s307-google-error-prompt-blocked-request.json",
+      "size": 856,
+      "sha256": "4bd32da469772f950418179ba5f455e1894a5ee6b9a7a1a8c98dcda9085c684d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s307-google-gemini3-flash-off-request.json",
+      "size": 830,
+      "sha256": "6d6bdd55baa2847c4b5f0cdd2f26d1aba966a893ec6419e0615acbf9d8f23e05",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s307-google-gemini3-levels-request.json",
+      "size": 848,
+      "sha256": "c001f65f77d48c08a9b5ff36a21e5002c7a5323089b3e8e6a6a2294dab481490",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s307-google-gemini3-levels-stream.json",
+      "size": 952,
+      "sha256": "c789e982375e8355116585f5c64ec8a0b7f296f5e434ec0c797f0b40b7ffdd0b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s307-google-images-tools-request.json",
+      "size": 848,
+      "sha256": "3c771f6804547ff5637ef7e40fb927f4cab5c6532c968811455db5b964667558",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s307-google-images-tools-stream.json",
+      "size": 950,
+      "sha256": "6ecd846485edf4aa4c39efa5c9c47355698a7c8b071ae9c423c3c02d5d4cf885",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s307-google-prefix-version-request.json",
+      "size": 850,
+      "sha256": "46e727763b3a6a8e538b4ea2e76698c846858c9be5df637ef43c6d7cd4a58e16",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s307-google-response-format-request.json",
+      "size": 899,
+      "sha256": "7fdcf207d2ef0f278dde9669d34492a8d7b4f77102ae474daca835ad44848571",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s307-google-signature-history-request.json",
+      "size": 974,
+      "sha256": "571ba580106c6abe989e27e4144c8c718d966eba6fa375027b67f7bc3584cf3a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s307-google-stream-delta-parts-request.json",
+      "size": 854,
+      "sha256": "c1b2f6488592b921147da8a94f77cb24c77410d303407314cb9623b940ea583e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s307-google-stream-delta-parts-stream.json",
+      "size": 372,
+      "sha256": "f1f4919379d58d699961f347420a2210f50b61c8f635b7fa4933e39b20b01968",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s307-google-stream-done-marker-request.json",
+      "size": 854,
+      "sha256": "cb3412fd5615230ee21cf7ee0cf7c2586f0d07a443e6358590a8b756b4312b82",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s307-google-stream-done-marker-stream.json",
+      "size": 176,
+      "sha256": "9298fa362b315fa3ce1fd7e568c27a5e59e32970e70ef5b4a28c5dbb679a283a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s307-google-stream-late-native-id-request.json",
+      "size": 857,
+      "sha256": "17f573418c1011616ffffa200196de819a5363235e57a10061f2accc4b885702",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s307-google-stream-late-native-id-stream.json",
+      "size": 515,
+      "sha256": "cd78690ea54eec40bbc4a9f99c29ad7674f805f4a5671947aef0b410ae0924ee",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s307-google-stream-thought-variants-request.json",
+      "size": 859,
+      "sha256": "d362f8ff6d92bd9202cb752fde79c3900b39c4be63d21c27cc16ee1ba8f22cf6",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s307-google-stream-thought-variants-stream.json",
+      "size": 700,
+      "sha256": "0b4244360ee9f34075cf8d8521df7fe271171a96409eafddc3cb7b9b2177ed39",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s307-google-v1-system-merge-request.json",
+      "size": 865,
+      "sha256": "e3a5fcdabd8a0f1e9f3445470c6cfe3413a7a7844e449ed7c0f8fa3010ca5156",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-custom-relay-error-cancel.json",
+      "size": 380,
+      "sha256": "b897e8bf03a26995fca2df11022ef3dc6485056e47cba355840a5bc4ff3eeb79",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-custom-relay-max-error-cancel.json",
+      "size": 384,
+      "sha256": "ec214b29ff690a9bb7483e8273e58d7f1fc23e00d284ecfaa44db736fc0145cc",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-custom-relay-max-request.json",
+      "size": 311,
+      "sha256": "539dba5dedc71c630839f85cf0c6e731c9e3056486d838721265d8d7fbe155fb",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-custom-relay-max-stream.json",
+      "size": 699,
+      "sha256": "648760607481201b44a3b2de3d5d67493fb4e099f0a9d79c68866c9663387e03",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-custom-relay-request.json",
+      "size": 291,
+      "sha256": "a2763663ea542163e5dd327738096d49d248165fc6d1df5c7eb8a4dea700257c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-custom-relay-stream.json",
+      "size": 695,
+      "sha256": "a5c1c0ddf717f95ba7945a553cf5aa8167b5015f97e06cc53b3e555033be2594",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-custom-responses-responses.json",
+      "size": 178,
+      "sha256": "695490ebbb3f218a44bef81bb79330cda7974f119ec186ae00222cf2abc2db4d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-custom-responses-route-route.json",
+      "size": 176,
+      "sha256": "8bffeb9ae673870bbf43db93aafb3f796800e481bfdf49566b408619c472a2d8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-general-reasoning-error-cancel.json",
+      "size": 386,
+      "sha256": "3b5f1ddaf8a5be51f6e5868ccebbebc7b59a6772fe12f575a53b0daa4f6a3fb1",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-general-reasoning-request.json",
+      "size": 343,
+      "sha256": "42b32489c2174507ee4368062f7b3bbadecd94e295a7d68d6ffb2daf9811349f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-general-reasoning-stream.json",
+      "size": 701,
+      "sha256": "7b7b1d0d24bf8dd8137ddf99a38e44668fba84a6f31fabbaa3dabe858e4c8ae1",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-model-list-canary.json",
+      "size": 156,
+      "sha256": "8e123c1d15bbb04c89d513332816767d7dbeeffcdb1f4f16e7b8c0587ec54843",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-ollama-local-error-cancel.json",
+      "size": 380,
+      "sha256": "736bd9d936c3469f82c5dc490de201caff1da22c32ce826178326712110b3c95",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-ollama-local-request.json",
+      "size": 291,
+      "sha256": "48638408ccc6750e91d6ddf3c2944dfa7345e50935a620bbc9e7eea70b425fb2",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-ollama-local-stream.json",
+      "size": 695,
+      "sha256": "3e5d35084c428b2424b19c3680e11d80dc2b2ce7b111c5cd576654ca33d980d7",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-opencode-go-anthropic-route-route.json",
+      "size": 190,
+      "sha256": "7e8f1ed4615f70987768e32110c137eb63de801aac561963967f77fc1b40ef49",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-opencode-go-google-route-route.json",
+      "size": 189,
+      "sha256": "e5576e3f3ad9e9116a0e07d9560ec38e62a4cf98c28eaf59e1e3c1e0b2b1b070",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-opencode-go-session-error-cancel.json",
+      "size": 392,
+      "sha256": "dc5b170b1f81b47a412695afd37e1f03f307b36ae451f0444be82bf56046d470",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-opencode-go-session-request.json",
+      "size": 311,
+      "sha256": "b8ee4b3276314dbfe36d59c89154132df269927ee581199114e2b96537e97caa",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-opencode-go-session-stream.json",
+      "size": 707,
+      "sha256": "83145acfb4c4f77d5407dbbbdef55bf1dbfbb55a813766c070a886c8c0570558",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-opencode-go-task-error-cancel.json",
+      "size": 389,
+      "sha256": "3191d98d26431edf9046de598a582675f87f28f5f5d72af59b7b487a7b899d99",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-opencode-go-task-request.json",
+      "size": 320,
+      "sha256": "87b603fca7eff814a2d60c1a65fc303481d6fcf5a9027989eff057370a73b272",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-opencode-go-task-stream.json",
+      "size": 704,
+      "sha256": "33d93ba4145958da125023872438e148edb0b5f20ba8967db80371fda52a47f9",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-openrouter-implicit-error-cancel.json",
+      "size": 391,
+      "sha256": "d1dcaeb5cf5b78189f9f2148cc0b6b273dadf05a3e05c44633ee421425a11c8c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-openrouter-implicit-request.json",
+      "size": 332,
+      "sha256": "fbd444030d23a9b6a08ad13115d7f90421d8a17636234de0146bb2ece35e0b1c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-openrouter-implicit-stream.json",
+      "size": 706,
+      "sha256": "c9961f3c15c3de8e061ba12ec2c3fdc9f9815d0e24e3f51155bcdc8d51018675",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-openrouter-legacy-error-cancel.json",
+      "size": 389,
+      "sha256": "00e3bd72ab7ed5b605740f355a510de302a10cb3b53074f2e9e071f25c16db3b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-openrouter-legacy-request.json",
+      "size": 328,
+      "sha256": "fb985b5cc4138df65c9e0a8a85e8c99441a9ec7e9790fd5a1e109c019f56c20d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-openrouter-legacy-stream.json",
+      "size": 704,
+      "sha256": "667b81b992d01d24ab2247d17926a3085f2b09bd3e8952b82783a8b9dbd25622",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-openrouter-reasoning-error-cancel.json",
+      "size": 392,
+      "sha256": "cd22becc2dfcc05c57de4275313798ec4dec0b4214b43a4a8c6130947f6b917e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-openrouter-reasoning-request.json",
+      "size": 323,
+      "sha256": "1c02aab539fb65fd5711c96367bffbacbc2c97dccc13c2d9b52c5ca6fea4e67f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-openrouter-reasoning-stream.json",
+      "size": 707,
+      "sha256": "06b4bb9bb7f077f6568a023528f319c64446e5d1fd688f9ac3ce262d1cf8782f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/s308-openrouter-responses-route-route.json",
+      "size": 184,
+      "sha256": "233ff4ab78be1543f8fac1887b0c1f2231f3d8dee66788c2e1c91b95952f4cca",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/worktree-base.log",
+      "size": 41,
+      "sha256": "07373d6049c9098d9d6a36251939b2f85d4a184fe823c00c820e97c29ca997ea",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    }
+  ],
+  "compatibility": {
+    "legacyPathPolicy": "Entries retain original logs/... paths; historical docs/config references are lookup keys, not tracked files.",
+    "localWrites": "logs/ is gitignored; existing tools may continue writing local evidence.",
+    "restoreCommand": "node tools/evidence/restore.mjs <logs/path>"
+  }
+}

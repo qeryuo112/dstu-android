@@ -41,7 +41,6 @@ import com.deepstudent.app.workspace.WorkspaceRuntimeTools
 import com.deepstudent.app.workspace.WorkspaceToolPorts
 import com.deepstudent.core.common.logging.Logger
 import com.deepstudent.core.common.time.SystemWallClock
-import com.deepstudent.features.chat.backend.application.RuntimeChatStreams
 import com.deepstudent.features.environments.api.EnvironmentManager
 import com.deepstudent.features.sync.ui.SyncController
 import com.deepstudent.features.terminal.api.TerminalSessions
@@ -301,12 +300,13 @@ class DstuApplication :
         workspaceOwner.open(
             this@DstuApplication,
             storage().notes,
-            RuntimeChatStreams(runtime, runtime, runtime),
+            resources.chatStreams,
             WorkspaceToolPorts(
                 terminal = terminal(),
                 environments = { environments() },
                 execution = { execution() },
                 sync = { sync() },
+                playground = resources.providers.playground,
                 documents = com.deepstudent.app.storage.documents.WorkspaceDocumentPrivacy(this@DstuApplication, storage().workspaceFiles),
                 runtime = WorkspaceRuntimeTools(
                     noteImport = noteImport,
@@ -365,7 +365,9 @@ class DstuApplication :
     }
 
     private suspend fun openRuntimeResources(): MainRuntimeResources = storage().let {
-        MainRuntimeResources.open(it.activeRoot, it, mainShellRouter(this, environmentOwner::console, ::execution))
+        MainRuntimeResources.open(it.activeRoot, it, mainShellRouter(this, environmentOwner::console, ::execution)) {
+            security().credentials
+        }
     }
 
     private fun startRuntimeRecovery() {

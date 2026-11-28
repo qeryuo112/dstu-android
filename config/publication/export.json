@@ -1,6 +1,8 @@
 {
   "formatVersion": 1,
-  "sourceCommit": "1741409a714302e8e87cd33a1d00717725090448",
+  "testedSourceBaseline": "0a367cde96a54baae24af9ae40d04113289d2aa0",
+  "testedInputsSha256": "cc2ed44ae38ae6be7c0193b66ff2d5a7d6279387888af7665926c7cf3e5ee5a6",
+  "acceptedThrough": "S3.08",
   "formatBaseline": "481e81b9283d53be423b25e84b9428eeeb175d74",
   "excludesPrivateHistory": true,
   "excludesRawEvidence": true

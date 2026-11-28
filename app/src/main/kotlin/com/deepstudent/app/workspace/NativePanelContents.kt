@@ -70,7 +70,7 @@ internal fun nativePanelContents(ports: WorkspacePorts): Map<PanelKey, NativePan
                     }
                 }
             },
-        ) + backgroundPanels(ports.tools.runtime) + sharingPanels(ports.tools)
+        ) + backgroundPanels(ports.tools.runtime) + sharingPanels(ports.tools) + playgroundContent(ports)
     }
 }
 

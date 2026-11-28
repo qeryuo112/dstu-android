@@ -1,0 +1,1344 @@
+{
+  "format": "dstu-evidence-index/v1",
+  "generatedAt": "2026-11-28T10:05:28.361Z",
+  "source": {
+    "repository": "archive-stage",
+    "ref": "HEAD",
+    "revision": "0a367cde96a54baae24af9ae40d04113289d2aa0",
+    "selection": "worktree",
+    "entryCount": 163,
+    "trackedCount": 0,
+    "presentCount": 163,
+    "missingFromWorktree": []
+  },
+  "archive": {
+    "format": "tar.gz",
+    "root": "PRIVATE_ARTIFACT_ROOT",
+    "relativeLocation": "s3-04-08-v2232a-baseline-20261128/evidence.tar.gz",
+    "location": "PRIVATE_ARTIFACT_ROOT/s3-04-08-v2232a-baseline-20261128/evidence.tar.gz",
+    "size": 41817,
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "b0e36ad6b984de60feb4d34f181b93d95edb18ec5869d443093d9c75dba09286"
+    },
+    "manifest": {
+      "relativeLocation": "s3-04-08-v2232a-baseline-20261128/manifest.json",
+      "location": "PRIVATE_ARTIFACT_ROOT/s3-04-08-v2232a-baseline-20261128/manifest.json",
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "0ef91132293b9f93901c6165d89b4644588a7934277bd1a5e023fbe76fdec5b0"
+      }
+    }
+  },
+  "entries": [
+    {
+      "path": "logs/v2232a-baseline--candidate--SHA256SUMS",
+      "size": 172,
+      "sha256": "68d09419809bc7b3a341d0971ac55b0086071cab6a6e3854523205b86a890789",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--candidate--SOURCE_REVISION",
+      "size": 41,
+      "sha256": "07373d6049c9098d9d6a36251939b2f85d4a184fe823c00c820e97c29ca997ea",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--device--receipt.json",
+      "size": 1168,
+      "sha256": "41e55b09d9f1565774f1d944124590174d276edb80e2021a12d5795d7b9640f6",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--device--s3-04.log",
+      "size": 25441,
+      "sha256": "7ea102e97c329b1fe2f9db311002bef0d14bc5599e4aa7a5d79e36b59f401f91",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--device--s3-05.log",
+      "size": 14638,
+      "sha256": "e83f3aebd47bf28323bd93870e9a05c756067d9f02aaa4b1d0710df28d1de353",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--device--s3-06.log",
+      "size": 15310,
+      "sha256": "0a611eb90bf665d6fe197810a65d030655236f31c6c183a214e5b8186b8e9be1",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--device--s3-07.log",
+      "size": 25712,
+      "sha256": "7608f7383633951fe29c750227dd38a13624212a9b62474e600c43e6247c6850",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--device--s3-08.log",
+      "size": 19608,
+      "sha256": "285d764340cb35612ff435a6f2ada9ef39a4d0354c028563cf00953066990744",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--device--test-summary.json",
+      "size": 8963,
+      "sha256": "55dcad777cb2e693785e17f3527ec31089859f9a1a33a624e054c1bbc7ffb003",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--device-2--receipt.json",
+      "size": 2346,
+      "sha256": "a1662035a6c9faf885b7cc08afa891092afe2ef21c3be54764be4bf58c08c47f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--device-2--s3-04-S304DirectChatRegressionTest.log",
+      "size": 1488,
+      "sha256": "305c2fadd90a923e96d243e54d35387a0b4f6def5ca8f7bdb86bd807958ce093",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--device-2--s3-04-S304FrozenRequestTest.log",
+      "size": 13840,
+      "sha256": "24059b2c8358f672f386613b15f74736c2b48a5767b4064ffc58b8257a5224ed",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--device-2--s3-04-S304FrozenStreamTest.log",
+      "size": 6195,
+      "sha256": "422722767d66caa5c7ca15f67829707a4e3da48f496612aabdf9149a4df0e6b5",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--device-2--s3-04-S304ProviderFailureTest.log",
+      "size": 6417,
+      "sha256": "20eb9dad05ecdf06e8320016af833d90f9d8653f576b62f39b3b8682bdbd169f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--device-2--s3-04-S304TerminalEdgeTest.log",
+      "size": 2784,
+      "sha256": "79e4ddeb3c0c441d40908cde404de413b01f137e14714ea19766d49ce8da26da",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--device-2--s3-05-S305CodexAccountIntegrationTest.log",
+      "size": 883,
+      "sha256": "154d59006b9aeeb1add56010e1e03c5087ba6167ffb1dcf80455bf74e10440e6",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--device-2--s3-05-S305CodexLoopbackTest.log",
+      "size": 1513,
+      "sha256": "119c4a5b3040d524c8a5a50e8b11a0b4a5b483b548c9e1a9d66f612632419d43",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--device-2--s3-05-S305CodexSessionVaultTest.log",
+      "size": 1503,
+      "sha256": "2c6a9d11a2ecdc7f69864186f3c9f87a4f6a9d4051c734a8fb7b30eb2ea1063b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--device-2--s3-05-S305CodexTransportTest.log",
+      "size": 3635,
+      "sha256": "745fbadd9f8f72c21572218ec40131cd1f16daf661b474be39d3ec167c1bcdb5",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--device-2--s3-05-S305ErrorCancelTest.log",
+      "size": 3566,
+      "sha256": "90643c16588a3e224b0a89494e1a08ceb79b47984a1a41cc4f462d09350324e4",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--device-2--s3-05-S305FrozenRequestTest.log",
+      "size": 7973,
+      "sha256": "7a4cd33cfaac4998a87807a24f20714cd8a9afa31e7afa0ea121c4470334784b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--device-2--s3-05-S305FrozenStreamTest.log",
+      "size": 3557,
+      "sha256": "b4d8114e8c831d42d11a071589f678f276fdedccc547dfbc45c6549f8224e36b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--device-2--s3-05-S305ResponsesBoundaryTest.log",
+      "size": 4958,
+      "sha256": "8aca60c2d2eb53f12b46977c704a0d9958e80644e0a534e80bdf710069b6d8b9",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--device-2--s3-08-S308FrozenRequestTest.log",
+      "size": 5787,
+      "sha256": "71b5b151ffd8a67b3ea91318c4c176f1ce50544c300d6b72450d03528a243d21",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--device-2--s3-08-S308FrozenResponsesTest.log",
+      "size": 737,
+      "sha256": "7773d68ead0875b8675d3b93ec6114ea98513635eb0b951a22e47843512dd013",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--device-2--s3-08-S308FrozenRouteTest.log",
+      "size": 719,
+      "sha256": "3976f049168562d96624b44b9a22b81b084be673843b24ce046fae9606f54a0f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--device-2--s3-08-S308FrozenStreamTest.log",
+      "size": 5751,
+      "sha256": "bec3ed016ae9197ce9cbbe8a0744d89c7c08eb5b73c669686a2b3537a8a0d6d7",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--device-2--s3-08-S308ModelListCanaryTest.log",
+      "size": 1389,
+      "sha256": "24a1222b57aeea92c92622a629dc05d41adb25d8c1beec8949c6f88d278ceb8d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--device-2--s3-08-S308ProviderFailureTest.log",
+      "size": 5952,
+      "sha256": "5c3d407c1936cb4b3c019b66c357b7c9cbcfa25ca9edae23d6583ccf6dc50ac4",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--device-2--test-summary.json",
+      "size": 12584,
+      "sha256": "d71791f72b449759350673c443563770d014bdbcfd783045f0c1ba5d9861ad7b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--device-run.log",
+      "size": 2493,
+      "sha256": "fb60ac19441c74e81eff199f82e9a33fa0cb03e617bfad459516077d93380373",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--device-split-run.log",
+      "size": 2296,
+      "sha256": "71dfc07fc84e31cbdc4a30133fed611d5b7b55bb74b0aec9eac86154c24699df",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--run-phone-long.mjs",
+      "size": 7041,
+      "sha256": "5e43f600d28660295a51a1fc3f48c18d1f5138f007275020eaf2116935d31ea2",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--run-phone.mjs",
+      "size": 6517,
+      "sha256": "dcb8cf336e39b8796ec5fc80a51a048e22d287695c60b2697379ee72ed2d6dbb",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--test-overlay.json",
+      "size": 9085,
+      "sha256": "2cad222a313e76250005634349b43112bc4e43bddc59fae0d47d77e03be494fb",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--baseline-summary.json",
+      "size": 20029,
+      "sha256": "822b29ca5728c4efbfed374036efb4e3717ee8c87c8de155d20a10c95348f156",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-doubao-error-cancel.json",
+      "size": 374,
+      "sha256": "c71e3f94f1f2ec8ac4fc8fdccaea25503cbc2e66ad96b3188c317be24ad83a75",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-doubao-request.json",
+      "size": 663,
+      "sha256": "ca7ed900c379899581e1b9dd8db9a9e00e66a1986adb5c3841b583283ef5f17d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-doubao-stream.json",
+      "size": 756,
+      "sha256": "75cfe2ddc2b8219c96ca63b764b7462515aad5ff21ae15488ddfe8d13c26042c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-ernie-error-cancel.json",
+      "size": 372,
+      "sha256": "ad4e319bdbe69e1ffdb9a24ff5affef6e21a5d221733c5064e636e3c93563c6e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-ernie-hosted-deepseek-request.json",
+      "size": 686,
+      "sha256": "8f19f923111e8f806053eb10bcdba08babfaea21c44709935afaead44baf1e87",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-ernie-request.json",
+      "size": 654,
+      "sha256": "07ce4425889b096128403113c25896fafd3e084b7724f1c62560a043083523a1",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-ernie-stream.json",
+      "size": 752,
+      "sha256": "6b10b8f559bf2862d198a61706877a705f0ffd9367ec7867a259176fd7d509ae",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-mimo-error-cancel.json",
+      "size": 370,
+      "sha256": "458ecd74ca664d7e91b8b4a408dbc6a1dba9021bd956a92ab5b5903530a5f76c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-mimo-request.json",
+      "size": 601,
+      "sha256": "1322c20ae44d0e57015ae1036eba4bcafc635e66a6a39bced91bfb6e7dc6490b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-mimo-stream.json",
+      "size": 748,
+      "sha256": "8abede70222dbca0f910c9040c881cb5070935b71f550898018fcaf86757ca1a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-mimo-tool-history-request.json",
+      "size": 920,
+      "sha256": "b55c04c60e8aa3d43c816d69d046362ce73657b88262416d2a58c4074437f5d8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-minimax-error-cancel.json",
+      "size": 376,
+      "sha256": "1248386e79556b1ed70a8c7194e159a6502fae78f60ca746c6e282dfe9025a36",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-minimax-legacy-request.json",
+      "size": 525,
+      "sha256": "b254a036d721ef43b64dbb71616828417a8a85dd31e2166ed0c4972f0f20c940",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-minimax-request.json",
+      "size": 546,
+      "sha256": "51bd4282be5825b6dbcd53074c5d86a30325d08353313ee3ead2f120473fd706",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-minimax-stream.json",
+      "size": 801,
+      "sha256": "0634f39041fe5b8945c3874fe87836eb838697db85ea5674437a70ad79e80190",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-minimax-tool-history-request.json",
+      "size": 894,
+      "sha256": "c525eb0878a6e837d92ddcb387f168b15a70c3f0f08a1309a5ef80357b6cdb6c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-mistral-error-cancel.json",
+      "size": 376,
+      "sha256": "3fb50bb6c71ba84640a04662b3ceb20cec2e9d1b5596606d3d9d2870621019ad",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-mistral-magistral-request.json",
+      "size": 649,
+      "sha256": "50f8e4331148e578e68f77b5e87a5d8d556f53231fc884b65a30bfbafba65383",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-mistral-request.json",
+      "size": 638,
+      "sha256": "de8fbc2e2b0b5968c2668eb98a994df70e608e1e24d6a698b2acbe03bcd8dad7",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-mistral-stream.json",
+      "size": 818,
+      "sha256": "a651194e811c2a4d23f5d50552da6de74355579fc0f7ae99ddf1ac3b6a525ee8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-moonshot-code-request.json",
+      "size": 546,
+      "sha256": "3acde054da94cf1a415777803953e64d0828fb67bc9c06fb3150bd988139b1f3",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-moonshot-error-cancel.json",
+      "size": 378,
+      "sha256": "735ca027ffef8c010cb001c004491bfdbb1934bcc2378aaca087fee403a2b16f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-moonshot-request.json",
+      "size": 516,
+      "sha256": "c144b54b96f7378c6bd1379760f3aff0aa05e23d30331f519cee12f95a6edeed",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-moonshot-stream.json",
+      "size": 764,
+      "sha256": "b03131cd6bf5831104ae6718393dd46d96405cdd1415b4ebc4f01e47b5c8bc5d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-moonshot-tool-schema-request.json",
+      "size": 769,
+      "sha256": "e807c9274f9c8b0509bb6293dd40355b57e7684af78e12d330a9855086133033",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-nvidia-error-cancel.json",
+      "size": 374,
+      "sha256": "bcb6183bbed593823505445c0f1f5a89a0e18fa129ad5fc4f55ebd23f34318b5",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-nvidia-request.json",
+      "size": 662,
+      "sha256": "6cac256039a20d883a05d42d8f474fe48d5d6771e6b9d6ce8a78d85133792df8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-nvidia-stream.json",
+      "size": 756,
+      "sha256": "d1d537879ee4ce12f215e3feb1d2fd3ff0043090f00ad8a5f3e9bd04bc61180b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-qwen-error-cancel.json",
+      "size": 370,
+      "sha256": "5123acdeb954e4d41812bb7f4f863643fed90a051d0b458b585be8ea5381c83f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-qwen-omni-request.json",
+      "size": 756,
+      "sha256": "65e0e0e4dda86ffec49216ba05cb5aadbdbe59208b5e317ac3fc5cf1bb15b96b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-qwen-request.json",
+      "size": 700,
+      "sha256": "32aa69ca0fb19ca1042409557629c273701a1764b1e5e98d34fe9aa3cd2deea5",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-qwen-stream.json",
+      "size": 780,
+      "sha256": "451831159313e3252a4499b5fbf81a50568b6684e4f2d7ff0078c54b102fa4a5",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-qwen-tool-history-request.json",
+      "size": 998,
+      "sha256": "6bcd89e3c0f637c5b021142ea3cff213f7426e090e8625f81a039024594eeb2e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-siliconflow-deepseek-request.json",
+      "size": 690,
+      "sha256": "0af7104bce3637dc49b0642aba25455d71a7e54dd64882e515541ab7fe4b909d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-siliconflow-deepseek-v32-request.json",
+      "size": 689,
+      "sha256": "586713204cbf074899afea0a81e7eb3f51c73431229ecc812b15995f36d2688b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-siliconflow-error-cancel.json",
+      "size": 384,
+      "sha256": "57280be65da1a95d82613d113dbe50ec8ce3001c8b52440e525d632d3bb98e5d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-siliconflow-qwen-request.json",
+      "size": 688,
+      "sha256": "cc1d603ee1eadb1f9b7f2189d54eb21114f2111d8496dc6eb56d4f160f823a2f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-siliconflow-request.json",
+      "size": 682,
+      "sha256": "23fe8ccfd3d4963bd371ecc6c290a64e73cf4efc4e78a227980e912a5c7f9600",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-siliconflow-stream.json",
+      "size": 776,
+      "sha256": "030bbe0e983dae827f996e1eab497b5369bfaad13b881ddfc7d7632b22d7efbf",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-zhipu-error-cancel.json",
+      "size": 372,
+      "sha256": "d7f7d8fa35283b72f1e49e36f30b930baa5b6e7c0a8e138a6a84cb18d7e1dffe",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-zhipu-request.json",
+      "size": 699,
+      "sha256": "0b2b653fc4f4605b31ca813088fa9b6a70b2dddb2a46de88f2ed16b35332512a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-04--s304-zhipu-stream.json",
+      "size": 752,
+      "sha256": "d22f9b0b5f4bbff0261c29f2e9e9dc7c6c825e987504d9de1f070c2d5e70f6e9",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-05--s305-codex-background-request.json",
+      "size": 834,
+      "sha256": "2068fcc910b2b1a225bb52a7d22e14b49b1cac0dc9f32d82a9b0db8127ae3e24",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-05--s305-deepseek-error-cancel.json",
+      "size": 230,
+      "sha256": "796f7638566922aa13dc61d84c4773385669b34579ccc885415b00706fa7e79a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-05--s305-deepseek-request.json",
+      "size": 1614,
+      "sha256": "7c9b3336ba9bb77b2dfb719a89e6943d4b1245e73f672248ea6e1e97767b34a7",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-05--s305-deepseek-stream.json",
+      "size": 1225,
+      "sha256": "e0123c01d8363270ecc6a992b3f1007d11c64cdbe92d20c49b7526edb749b904",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-05--s305-deepseek-thinking-off-request.json",
+      "size": 728,
+      "sha256": "5dee1f2c154f235f5952d873d573eb89f4708c1d0527ded85fb882f5d327feea",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-05--s305-deepseek-v4-passback-request.json",
+      "size": 1511,
+      "sha256": "ea6f55a7619b6aed165bf0a0f40952ec967bfde5b479d949158203c4f9e6f1dd",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-05--s305-grok-error-cancel.json",
+      "size": 222,
+      "sha256": "774443cc782c64e8e8f0dc690a028ce241cdd0ca34622f34138bdfe64ded3adb",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-05--s305-grok-request.json",
+      "size": 752,
+      "sha256": "1f6129dd5fe2c7a984620f1d57ab8c0ecc0bf5945b434d1ee923fbe0ac830a4e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-05--s305-grok-stream.json",
+      "size": 901,
+      "sha256": "f9ef6afa83dcc7bcc8b3625aac9eee00c947bd3cbff072090d36325c7cee760d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-05--s305-openai_codex-error-cancel.json",
+      "size": 238,
+      "sha256": "738f9892449d55ad6a646e6f23150a85ff19fecaecd504bf50d2cacd1038fe79",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-05--s305-openai_codex-request.json",
+      "size": 1587,
+      "sha256": "7c09356cef6305eab3732d2021d4f0d8ace47e062c69b467613074a9d763e11e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-05--s305-openai_codex-stream.json",
+      "size": 729,
+      "sha256": "e3028f8e30c0985b150858b97e8185bd54302ec7e47c25c8df8583cee6c69dfc",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-05--s305-openai-cache-alias-request.json",
+      "size": 806,
+      "sha256": "2fd4266b1ef1654881e4b52d50e37808455b05c0a846871952e8a160d54182bf",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-05--s305-openai-error-cancel.json",
+      "size": 226,
+      "sha256": "6b06b67a3b2ee9101eb1b759684a924270fabae283e8820453defa4a7da9f7bc",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-05--s305-openai-json-schema-request.json",
+      "size": 881,
+      "sha256": "f77c15daa0041b0fdb1140714aab7f421051ea5ad6e7b164b7ab86f8c2071fc9",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-05--s305-openai-request.json",
+      "size": 1678,
+      "sha256": "2b6e44fca735c23e35ebb0bc1b533d4be452921bca8d8be14c215e66ebcbacef",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-05--s305-openai-stream.json",
+      "size": 1044,
+      "sha256": "6693a071c3f99ac3e6d17d00f8017acf0c17646bb6d4e430ce97a9d102a6a780",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-05--s305-xai-error-cancel.json",
+      "size": 220,
+      "sha256": "2af55e9fc8d0011e6279125f56b05d5edbded10f4e08fc11ee36f06716cfa4cd",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-05--s305-xai-no-auth-request.json",
+      "size": 726,
+      "sha256": "ea42d620400332822c78d3313c182d98aed0575343550588ba88c6500282b3d0",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-05--s305-xai-request.json",
+      "size": 728,
+      "sha256": "7d6267c1a644417ff52caae24e4f141123f60a2cf98ca7b68a0c4b74844223de",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-05--s305-xai-stream.json",
+      "size": 330,
+      "sha256": "b63cdbe0aa23050543e53721e209fa2e9fc3865b952627badd445583e0d5c381",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-07--s307-gemini-provider-request.json",
+      "size": 843,
+      "sha256": "1edd0dbdcc835244fcaf9916e1dd49a71d9082689a76e6a46c347b5aa3d240da",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-07--s307-gemini-provider-stream.json",
+      "size": 477,
+      "sha256": "c3cfc702ee44011bee648d93ac842876586358edf4b976f690a52d73462af605",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-07--s307-google-2.5-budget-request.json",
+      "size": 846,
+      "sha256": "11ba111ba53af914c1c628a97b579c975cc7479b8140d2cae996fe67236b4645",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-07--s307-google-2.5-budget-stream.json",
+      "size": 479,
+      "sha256": "f487ac0bdbf755a95bdb66d21b7adbbda86b5bd7a5e1df6443d39a68ed06172f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-07--s307-google-basic-thinking-request.json",
+      "size": 849,
+      "sha256": "62b1dc25ec0110e1de01a2d6e5bd899ef6a8cac73cc7a77f5eb16272765e67b7",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-07--s307-google-basic-thinking-stream.json",
+      "size": 483,
+      "sha256": "d8bf8e9c06630f63ca9fa67f72e7e12ba1a49435611da6a0c07c353c8ba3fde8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-07--s307-google-error-finish-max-tokens-request.json",
+      "size": 859,
+      "sha256": "01eafe542bf646ecd382f9f6cacf9d89d85eedfcb0c6cce245bdd68c9bec30f1",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-07--s307-google-error-finish-safety-request.json",
+      "size": 855,
+      "sha256": "014af59b9c4b3e472f8c36e51667e9cc95373ea113c48409ebe619eab255eb9f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-07--s307-google-error-prompt-blocked-request.json",
+      "size": 856,
+      "sha256": "4bd32da469772f950418179ba5f455e1894a5ee6b9a7a1a8c98dcda9085c684d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-07--s307-google-gemini3-flash-off-request.json",
+      "size": 830,
+      "sha256": "6d6bdd55baa2847c4b5f0cdd2f26d1aba966a893ec6419e0615acbf9d8f23e05",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-07--s307-google-gemini3-levels-request.json",
+      "size": 848,
+      "sha256": "c001f65f77d48c08a9b5ff36a21e5002c7a5323089b3e8e6a6a2294dab481490",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-07--s307-google-gemini3-levels-stream.json",
+      "size": 952,
+      "sha256": "c789e982375e8355116585f5c64ec8a0b7f296f5e434ec0c797f0b40b7ffdd0b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-07--s307-google-images-tools-request.json",
+      "size": 848,
+      "sha256": "3c771f6804547ff5637ef7e40fb927f4cab5c6532c968811455db5b964667558",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-07--s307-google-images-tools-stream.json",
+      "size": 950,
+      "sha256": "6ecd846485edf4aa4c39efa5c9c47355698a7c8b071ae9c423c3c02d5d4cf885",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-07--s307-google-prefix-version-request.json",
+      "size": 850,
+      "sha256": "46e727763b3a6a8e538b4ea2e76698c846858c9be5df637ef43c6d7cd4a58e16",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-07--s307-google-response-format-request.json",
+      "size": 899,
+      "sha256": "7fdcf207d2ef0f278dde9669d34492a8d7b4f77102ae474daca835ad44848571",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-07--s307-google-signature-history-request.json",
+      "size": 974,
+      "sha256": "571ba580106c6abe989e27e4144c8c718d966eba6fa375027b67f7bc3584cf3a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-07--s307-google-stream-delta-parts-request.json",
+      "size": 854,
+      "sha256": "c1b2f6488592b921147da8a94f77cb24c77410d303407314cb9623b940ea583e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-07--s307-google-stream-delta-parts-stream.json",
+      "size": 372,
+      "sha256": "f1f4919379d58d699961f347420a2210f50b61c8f635b7fa4933e39b20b01968",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-07--s307-google-stream-done-marker-request.json",
+      "size": 854,
+      "sha256": "cb3412fd5615230ee21cf7ee0cf7c2586f0d07a443e6358590a8b756b4312b82",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-07--s307-google-stream-done-marker-stream.json",
+      "size": 176,
+      "sha256": "9298fa362b315fa3ce1fd7e568c27a5e59e32970e70ef5b4a28c5dbb679a283a",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-07--s307-google-stream-late-native-id-request.json",
+      "size": 857,
+      "sha256": "17f573418c1011616ffffa200196de819a5363235e57a10061f2accc4b885702",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-07--s307-google-stream-late-native-id-stream.json",
+      "size": 515,
+      "sha256": "cd78690ea54eec40bbc4a9f99c29ad7674f805f4a5671947aef0b410ae0924ee",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-07--s307-google-stream-thought-variants-request.json",
+      "size": 859,
+      "sha256": "d362f8ff6d92bd9202cb752fde79c3900b39c4be63d21c27cc16ee1ba8f22cf6",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-07--s307-google-stream-thought-variants-stream.json",
+      "size": 700,
+      "sha256": "0b4244360ee9f34075cf8d8521df7fe271171a96409eafddc3cb7b9b2177ed39",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-07--s307-google-v1-system-merge-request.json",
+      "size": 865,
+      "sha256": "e3a5fcdabd8a0f1e9f3445470c6cfe3413a7a7844e449ed7c0f8fa3010ca5156",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-custom-relay-error-cancel.json",
+      "size": 380,
+      "sha256": "b897e8bf03a26995fca2df11022ef3dc6485056e47cba355840a5bc4ff3eeb79",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-custom-relay-max-error-cancel.json",
+      "size": 384,
+      "sha256": "ec214b29ff690a9bb7483e8273e58d7f1fc23e00d284ecfaa44db736fc0145cc",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-custom-relay-max-request.json",
+      "size": 311,
+      "sha256": "539dba5dedc71c630839f85cf0c6e731c9e3056486d838721265d8d7fbe155fb",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-custom-relay-max-stream.json",
+      "size": 699,
+      "sha256": "648760607481201b44a3b2de3d5d67493fb4e099f0a9d79c68866c9663387e03",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-custom-relay-request.json",
+      "size": 291,
+      "sha256": "a2763663ea542163e5dd327738096d49d248165fc6d1df5c7eb8a4dea700257c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-custom-relay-stream.json",
+      "size": 695,
+      "sha256": "a5c1c0ddf717f95ba7945a553cf5aa8167b5015f97e06cc53b3e555033be2594",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-custom-responses-responses.json",
+      "size": 178,
+      "sha256": "695490ebbb3f218a44bef81bb79330cda7974f119ec186ae00222cf2abc2db4d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-custom-responses-route-route.json",
+      "size": 176,
+      "sha256": "8bffeb9ae673870bbf43db93aafb3f796800e481bfdf49566b408619c472a2d8",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-general-reasoning-error-cancel.json",
+      "size": 386,
+      "sha256": "3b5f1ddaf8a5be51f6e5868ccebbebc7b59a6772fe12f575a53b0daa4f6a3fb1",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-general-reasoning-request.json",
+      "size": 343,
+      "sha256": "42b32489c2174507ee4368062f7b3bbadecd94e295a7d68d6ffb2daf9811349f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-general-reasoning-stream.json",
+      "size": 701,
+      "sha256": "7b7b1d0d24bf8dd8137ddf99a38e44668fba84a6f31fabbaa3dabe858e4c8ae1",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-model-list-canary.json",
+      "size": 156,
+      "sha256": "8e123c1d15bbb04c89d513332816767d7dbeeffcdb1f4f16e7b8c0587ec54843",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-ollama-local-error-cancel.json",
+      "size": 380,
+      "sha256": "736bd9d936c3469f82c5dc490de201caff1da22c32ce826178326712110b3c95",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-ollama-local-request.json",
+      "size": 291,
+      "sha256": "48638408ccc6750e91d6ddf3c2944dfa7345e50935a620bbc9e7eea70b425fb2",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-ollama-local-stream.json",
+      "size": 695,
+      "sha256": "3e5d35084c428b2424b19c3680e11d80dc2b2ce7b111c5cd576654ca33d980d7",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-opencode-go-anthropic-route-route.json",
+      "size": 190,
+      "sha256": "7e8f1ed4615f70987768e32110c137eb63de801aac561963967f77fc1b40ef49",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-opencode-go-google-route-route.json",
+      "size": 189,
+      "sha256": "e5576e3f3ad9e9116a0e07d9560ec38e62a4cf98c28eaf59e1e3c1e0b2b1b070",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-opencode-go-session-error-cancel.json",
+      "size": 392,
+      "sha256": "dc5b170b1f81b47a412695afd37e1f03f307b36ae451f0444be82bf56046d470",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-opencode-go-session-request.json",
+      "size": 311,
+      "sha256": "b8ee4b3276314dbfe36d59c89154132df269927ee581199114e2b96537e97caa",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-opencode-go-session-stream.json",
+      "size": 707,
+      "sha256": "83145acfb4c4f77d5407dbbbdef55bf1dbfbb55a813766c070a886c8c0570558",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-opencode-go-task-error-cancel.json",
+      "size": 389,
+      "sha256": "3191d98d26431edf9046de598a582675f87f28f5f5d72af59b7b487a7b899d99",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-opencode-go-task-request.json",
+      "size": 320,
+      "sha256": "87b603fca7eff814a2d60c1a65fc303481d6fcf5a9027989eff057370a73b272",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-opencode-go-task-stream.json",
+      "size": 704,
+      "sha256": "33d93ba4145958da125023872438e148edb0b5f20ba8967db80371fda52a47f9",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-openrouter-implicit-error-cancel.json",
+      "size": 391,
+      "sha256": "d1dcaeb5cf5b78189f9f2148cc0b6b273dadf05a3e05c44633ee421425a11c8c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-openrouter-implicit-request.json",
+      "size": 332,
+      "sha256": "fbd444030d23a9b6a08ad13115d7f90421d8a17636234de0146bb2ece35e0b1c",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-openrouter-implicit-stream.json",
+      "size": 706,
+      "sha256": "c9961f3c15c3de8e061ba12ec2c3fdc9f9815d0e24e3f51155bcdc8d51018675",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-openrouter-legacy-error-cancel.json",
+      "size": 389,
+      "sha256": "00e3bd72ab7ed5b605740f355a510de302a10cb3b53074f2e9e071f25c16db3b",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-openrouter-legacy-request.json",
+      "size": 328,
+      "sha256": "fb985b5cc4138df65c9e0a8a85e8c99441a9ec7e9790fd5a1e109c019f56c20d",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-openrouter-legacy-stream.json",
+      "size": 704,
+      "sha256": "667b81b992d01d24ab2247d17926a3085f2b09bd3e8952b82783a8b9dbd25622",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-openrouter-reasoning-error-cancel.json",
+      "size": 392,
+      "sha256": "cd22becc2dfcc05c57de4275313798ec4dec0b4214b43a4a8c6130947f6b917e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-openrouter-reasoning-request.json",
+      "size": 323,
+      "sha256": "1c02aab539fb65fd5711c96367bffbacbc2c97dccc13c2d9b52c5ca6fea4e67f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-openrouter-reasoning-stream.json",
+      "size": 707,
+      "sha256": "06b4bb9bb7f077f6568a023528f319c64446e5d1fd688f9ac3ce262d1cf8782f",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--s3-08--s308-openrouter-responses-route-route.json",
+      "size": 184,
+      "sha256": "233ff4ab78be1543f8fac1887b0c1f2231f3d8dee66788c2e1c91b95952f4cca",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--verified-s3-04.json",
+      "size": 419,
+      "sha256": "f13267bc26b2a591995f57d3670faf5dc31d817d5807a83f837e020c24064387",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--verified-s3-05.json",
+      "size": 417,
+      "sha256": "d7e4fdaff6b9e73acb2b22293ea6f0808194bc81ccfb1865eb1f83c70dcad00e",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--verified-s3-07.json",
+      "size": 422,
+      "sha256": "ca05d4ef8ef94974a699834ad38dadd1b52f954b524e561af622c73cc53228da",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verified--verified-s3-08.json",
+      "size": 470,
+      "sha256": "c551371e777eeb50522e9d78c5e3376ab415c1735360f48441343db7d9df0632",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    },
+    {
+      "path": "logs/v2232a-baseline--verify-baseline.mjs",
+      "size": 3809,
+      "sha256": "077c8703d4b6e10f674579077d8ba32712e65bd86262ce3b563e29d8f52dc646",
+      "storage": "evidence.tar.gz",
+      "worktree": "present",
+      "tracked": false
+    }
+  ],
+  "compatibility": {
+    "legacyPathPolicy": "Entries retain original logs/... paths; historical docs/config references are lookup keys, not tracked files.",
+    "localWrites": "logs/ is gitignored; existing tools may continue writing local evidence.",
+    "restoreCommand": "node tools/evidence/restore.mjs <logs/path>"
+  }
+}

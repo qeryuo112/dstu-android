@@ -52,11 +52,12 @@ internal suspend fun createWorkspacePorts(
             ReadOnlyPanelAdapter(PanelKey.parse("note-import"), "流式导入", "note-import"),
             ReadOnlyPanelAdapter(PanelKey.parse("background-power"), "后台与电池", "background-power"),
             ReadOnlyPanelAdapter(PanelKey.parse("schedules"), "计划与提醒", "schedules"),
-        ),
+        ) + playgroundHosts(tools),
     )
     val session = WorkspaceSession(registry, store, store, logger = AndroidOperationLogger)
     session.restore()
     check(session.state.value.status == WorkspaceStatus.Ready) { "workspace restore unavailable" }
+    if (!tools.hasPlayground()) removeRestoredPlayground(session)
     if (session.state.value.layout.panels.isEmpty()) session.open(OpenPanel(WorkspacePanelKeys.Notes))
     val bindings = PanelDraftBindings(session)
     return WorkspacePorts(

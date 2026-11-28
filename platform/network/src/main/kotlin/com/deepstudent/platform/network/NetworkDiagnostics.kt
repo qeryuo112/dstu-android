@@ -4,6 +4,7 @@ enum class NetworkError(val fixedMessage: String) {
     INVALID_REQUEST("network request is invalid"),
     CLOSED("network transport is closed"),
     CONNECTION("network connection failed"),
+    PROXY_AUTHENTICATION("network proxy requires authentication"),
     RESPONSE_TOO_LARGE("HTTP response exceeds its budget"),
     SSE_TOO_LARGE("SSE frame exceeds its budget"),
     SSE_INVALID_UTF8("SSE frame contains invalid UTF-8"),

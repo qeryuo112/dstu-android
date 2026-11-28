@@ -1,0 +1,1164 @@
+{
+  "format": "dstu-s3-08-endpoint-oracle/v1",
+  "desktop": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+  "desktopTree": "3bee0f058851b9eb113bdc036d9f60433ed29944",
+  "source": "Synthetic custom/local/relay endpoint inputs replayed with the frozen desktop implementations.",
+  "token": "s308-synthetic-bearer",
+  "sessionId": "fixture session_01:🧪 go",
+  "appVersion": "0.11.0",
+  "messages": [
+    {
+      "role": "user",
+      "content": "协议回放 fixture 🧪"
+    }
+  ],
+  "cases": [
+    {
+      "id": "custom-relay",
+      "provider": "custom",
+      "kind": "chat",
+      "auth": "bearer_api_key",
+      "session": null,
+      "input": {
+        "model": "fixture-relay-model",
+        "baseUrl": "https://relay.example.com/v1",
+        "headers": {
+          "X-Fixture-Trace": "s308",
+          "x-trace-lower": "case"
+        },
+        "config": {
+          "isReasoning": false,
+          "supportsReasoning": false,
+          "thinkingEnabled": false,
+          "reasoningEffort": null,
+          "maxOutputTokens": 1024,
+          "maxTokensLimit": 2048,
+          "temperature": 0.4,
+          "supportsTools": false
+        }
+      },
+      "adapter": "general",
+      "protocol": "openai_chat_completions",
+      "request": {
+        "url": "https://relay.example.com/v1/chat/completions",
+        "opencodeGo": false,
+        "body": {
+          "model": "fixture-relay-model",
+          "messages": [
+            {
+              "role": "user",
+              "content": "协议回放 fixture 🧪"
+            }
+          ],
+          "stream": true,
+          "max_tokens": 1024,
+          "temperature": 0.4
+        },
+        "headers": {
+          "authorization": "Bearer s308-synthetic-bearer",
+          "content-type": "application/json",
+          "x-fixture-trace": "s308",
+          "x-trace-lower": "case"
+        }
+      }
+    },
+    {
+      "id": "custom-relay-max",
+      "provider": "custom",
+      "kind": "chat",
+      "auth": "bearer_api_key",
+      "session": null,
+      "input": {
+        "model": "fixture-relay-max",
+        "baseUrl": "https://relay.example.com/v1",
+        "headers": {
+          "X-Fixture-Trace": "s308",
+          "x-trace-lower": "case"
+        },
+        "config": {
+          "isReasoning": true,
+          "supportsReasoning": true,
+          "thinkingEnabled": true,
+          "reasoningEffort": "max",
+          "maxOutputTokens": 1024,
+          "maxTokensLimit": 2048,
+          "temperature": 0.2,
+          "supportsTools": false
+        }
+      },
+      "adapter": "general",
+      "protocol": "openai_chat_completions",
+      "request": {
+        "url": "https://relay.example.com/v1/chat/completions",
+        "opencodeGo": false,
+        "body": {
+          "model": "fixture-relay-max",
+          "messages": [
+            {
+              "role": "user",
+              "content": "协议回放 fixture 🧪"
+            }
+          ],
+          "stream": true,
+          "reasoning_effort": "max",
+          "max_completion_tokens": 1024
+        },
+        "headers": {
+          "authorization": "Bearer s308-synthetic-bearer",
+          "content-type": "application/json",
+          "x-fixture-trace": "s308",
+          "x-trace-lower": "case"
+        }
+      }
+    },
+    {
+      "id": "general-reasoning",
+      "provider": "general",
+      "kind": "chat",
+      "auth": "bearer_api_key",
+      "session": null,
+      "input": {
+        "model": "fixture-general-reasoner",
+        "baseUrl": "https://gateway.example.com/v1",
+        "headers": {
+          "X-Fixture-Trace": "s308",
+          "x-trace-lower": "case"
+        },
+        "config": {
+          "isReasoning": true,
+          "supportsReasoning": true,
+          "thinkingEnabled": true,
+          "reasoningEffort": null,
+          "maxOutputTokens": 1024,
+          "maxTokensLimit": 2048,
+          "temperature": 0.25,
+          "supportsTools": false,
+          "thinkingBudget": 2048,
+          "topPOverride": 0.75,
+          "minP": 0.1,
+          "topK": 40
+        }
+      },
+      "adapter": "general",
+      "protocol": "openai_chat_completions",
+      "request": {
+        "url": "https://gateway.example.com/v1/chat/completions",
+        "opencodeGo": false,
+        "body": {
+          "model": "fixture-general-reasoner",
+          "messages": [
+            {
+              "role": "user",
+              "content": "协议回放 fixture 🧪"
+            }
+          ],
+          "stream": true,
+          "reasoning_effort": "low",
+          "min_p": 0.1,
+          "top_k": 40,
+          "max_completion_tokens": 1024
+        },
+        "headers": {
+          "authorization": "Bearer s308-synthetic-bearer",
+          "content-type": "application/json",
+          "x-fixture-trace": "s308",
+          "x-trace-lower": "case"
+        }
+      }
+    },
+    {
+      "id": "opencode-go-session",
+      "provider": "opencode_go",
+      "kind": "chat",
+      "auth": "bearer_api_key",
+      "session": "fixture session_01:🧪 go",
+      "input": {
+        "model": "glm-5.3",
+        "baseUrl": "https://opencode.ai/inference/go",
+        "headers": {
+          "X-Fixture-Go": "1"
+        },
+        "config": {
+          "isReasoning": false,
+          "supportsReasoning": false,
+          "thinkingEnabled": false,
+          "reasoningEffort": null,
+          "maxOutputTokens": 1024,
+          "maxTokensLimit": 2048,
+          "temperature": 0.4,
+          "supportsTools": false
+        }
+      },
+      "adapter": "general",
+      "protocol": "openai_chat_completions",
+      "request": {
+        "url": "https://opencode.ai/inference/go/openai/v1/chat/completions",
+        "opencodeGo": true,
+        "body": {
+          "model": "glm-5.3",
+          "messages": [
+            {
+              "role": "user",
+              "content": "协议回放 fixture 🧪"
+            }
+          ],
+          "stream": true,
+          "max_tokens": 1024,
+          "temperature": 0.4
+        },
+        "headers": {
+          "authorization": "Bearer s308-synthetic-bearer",
+          "content-type": "application/json",
+          "user-agent": "DeepStudent/0.11.0",
+          "x-opencode-session": "fixturesession_01:go",
+          "x-fixture-go": "1"
+        }
+      }
+    },
+    {
+      "id": "opencode-go-task",
+      "provider": "opencode_go",
+      "kind": "chat",
+      "auth": "bearer_api_key",
+      "session": null,
+      "input": {
+        "model": "deepseek-v4.1-flash",
+        "baseUrl": "https://opencode.ai/zen/go/v1",
+        "headers": null,
+        "config": {
+          "isReasoning": false,
+          "supportsReasoning": false,
+          "thinkingEnabled": false,
+          "reasoningEffort": null,
+          "maxOutputTokens": 1024,
+          "maxTokensLimit": 2048,
+          "temperature": 0.4,
+          "supportsTools": false
+        }
+      },
+      "adapter": "general",
+      "protocol": "openai_chat_completions",
+      "request": {
+        "url": "https://opencode.ai/inference/go/openai/v1/chat/completions",
+        "opencodeGo": true,
+        "body": {
+          "model": "deepseek-v4.1-flash",
+          "messages": [
+            {
+              "role": "user",
+              "content": "协议回放 fixture 🧪"
+            }
+          ],
+          "stream": true,
+          "max_tokens": 1024,
+          "temperature": 0.4
+        },
+        "headers": {
+          "authorization": "Bearer s308-synthetic-bearer",
+          "content-type": "application/json",
+          "user-agent": "DeepStudent/0.11.0",
+          "x-opencode-session": "deepstudent-task"
+        }
+      }
+    },
+    {
+      "id": "openrouter-reasoning",
+      "provider": "openrouter",
+      "kind": "chat",
+      "auth": "bearer_api_key",
+      "session": null,
+      "input": {
+        "model": "gpt-6-fixture",
+        "baseUrl": "https://openrouter.example.com/api/v1",
+        "headers": {
+          "X-Fixture-Trace": "s308",
+          "x-trace-lower": "case"
+        },
+        "config": {
+          "isReasoning": true,
+          "supportsReasoning": true,
+          "thinkingEnabled": true,
+          "reasoningEffort": "max",
+          "maxOutputTokens": 1024,
+          "maxTokensLimit": 2048,
+          "temperature": 0.2,
+          "supportsTools": false,
+          "extraBody": {
+            "reasoning": {
+              "max_tokens": 512,
+              "enabled": true
+            }
+          }
+        }
+      },
+      "adapter": "general",
+      "protocol": "openai_chat_completions",
+      "request": {
+        "url": "https://openrouter.example.com/api/v1/chat/completions",
+        "opencodeGo": false,
+        "body": {
+          "model": "gpt-6-fixture",
+          "messages": [
+            {
+              "role": "user",
+              "content": "协议回放 fixture 🧪"
+            }
+          ],
+          "stream": true,
+          "reasoning": {
+            "effort": "max"
+          },
+          "max_completion_tokens": 1024
+        },
+        "headers": {
+          "authorization": "Bearer s308-synthetic-bearer",
+          "content-type": "application/json",
+          "x-fixture-trace": "s308",
+          "x-trace-lower": "case"
+        }
+      }
+    },
+    {
+      "id": "openrouter-legacy",
+      "provider": "openrouter",
+      "kind": "chat",
+      "auth": "bearer_api_key",
+      "session": null,
+      "input": {
+        "model": "fixture-router-model",
+        "baseUrl": "https://openrouter.example.com/api/v1",
+        "headers": null,
+        "config": {
+          "isReasoning": true,
+          "supportsReasoning": true,
+          "thinkingEnabled": true,
+          "reasoningEffort": "high",
+          "maxOutputTokens": 1024,
+          "maxTokensLimit": 2048,
+          "temperature": 0.4,
+          "supportsTools": false,
+          "extraBody": {
+            "reasoning": {
+              "max_tokens": 512,
+              "enabled": true
+            }
+          }
+        }
+      },
+      "adapter": "general",
+      "protocol": "openai_chat_completions",
+      "request": {
+        "url": "https://openrouter.example.com/api/v1/chat/completions",
+        "opencodeGo": false,
+        "body": {
+          "model": "fixture-router-model",
+          "messages": [
+            {
+              "role": "user",
+              "content": "协议回放 fixture 🧪"
+            }
+          ],
+          "stream": true,
+          "reasoning": {
+            "effort": "high"
+          },
+          "max_completion_tokens": 1024
+        },
+        "headers": {
+          "authorization": "Bearer s308-synthetic-bearer",
+          "content-type": "application/json"
+        }
+      }
+    },
+    {
+      "id": "openrouter-implicit",
+      "provider": "openrouter",
+      "kind": "chat",
+      "auth": "bearer_api_key",
+      "session": null,
+      "input": {
+        "model": "fixture-router-thinker",
+        "baseUrl": "https://openrouter.example.com/api/v1",
+        "headers": null,
+        "config": {
+          "isReasoning": true,
+          "supportsReasoning": true,
+          "thinkingEnabled": true,
+          "reasoningEffort": null,
+          "maxOutputTokens": 1024,
+          "maxTokensLimit": 2048,
+          "temperature": 0.4,
+          "supportsTools": false,
+          "thinkingBudget": 16384
+        }
+      },
+      "adapter": "general",
+      "protocol": "openai_chat_completions",
+      "request": {
+        "url": "https://openrouter.example.com/api/v1/chat/completions",
+        "opencodeGo": false,
+        "body": {
+          "model": "fixture-router-thinker",
+          "messages": [
+            {
+              "role": "user",
+              "content": "协议回放 fixture 🧪"
+            }
+          ],
+          "stream": true,
+          "reasoning": {
+            "effort": "high"
+          },
+          "max_completion_tokens": 1024
+        },
+        "headers": {
+          "authorization": "Bearer s308-synthetic-bearer",
+          "content-type": "application/json"
+        }
+      }
+    },
+    {
+      "id": "ollama-local",
+      "provider": "ollama",
+      "kind": "chat",
+      "auth": "none",
+      "session": null,
+      "input": {
+        "model": "fixture-local-model",
+        "baseUrl": "https://fixture-ollama.invalid:11434/",
+        "headers": null,
+        "config": {
+          "isReasoning": false,
+          "supportsReasoning": false,
+          "thinkingEnabled": false,
+          "reasoningEffort": null,
+          "maxOutputTokens": 1024,
+          "maxTokensLimit": 2048,
+          "temperature": 0.4,
+          "supportsTools": false
+        }
+      },
+      "adapter": "general",
+      "protocol": "openai_chat_completions",
+      "request": {
+        "url": "https://fixture-ollama.invalid:11434/v1/chat/completions",
+        "opencodeGo": false,
+        "body": {
+          "model": "fixture-local-model",
+          "messages": [
+            {
+              "role": "user",
+              "content": "协议回放 fixture 🧪"
+            }
+          ],
+          "stream": true,
+          "max_tokens": 1024,
+          "temperature": 0.4
+        },
+        "headers": {
+          "content-type": "application/json"
+        }
+      }
+    },
+    {
+      "id": "opencode-go-anthropic-route",
+      "provider": "opencode_go",
+      "kind": "route",
+      "protocol": "anthropic_messages",
+      "auth": "bearer_api_key",
+      "input": {
+        "model": "qwen3.8-max",
+        "baseUrl": "https://opencode.ai/inference/go/openai/v1",
+        "headers": null,
+        "config": {
+          "isReasoning": false,
+          "supportsReasoning": false,
+          "thinkingEnabled": false,
+          "reasoningEffort": null,
+          "maxOutputTokens": 1024,
+          "maxTokensLimit": 2048,
+          "temperature": 0.4,
+          "supportsTools": false
+        }
+      },
+      "responsesEnabled": false,
+      "adapter": "anthropic",
+      "goBase": "https://opencode.ai/inference/go/anthropic/v1"
+    },
+    {
+      "id": "opencode-go-google-route",
+      "provider": "opencode_go",
+      "kind": "route",
+      "protocol": "google_generate_content",
+      "auth": "bearer_api_key",
+      "input": {
+        "model": "gemini-4-argon",
+        "baseUrl": "https://opencode.ai/zen/go",
+        "headers": null,
+        "config": {
+          "isReasoning": false,
+          "supportsReasoning": false,
+          "thinkingEnabled": false,
+          "reasoningEffort": null,
+          "maxOutputTokens": 1024,
+          "maxTokensLimit": 2048,
+          "temperature": 0.4,
+          "supportsTools": false
+        }
+      },
+      "responsesEnabled": false,
+      "adapter": "google",
+      "goBase": "https://opencode.ai/inference/go/google/v1beta"
+    },
+    {
+      "id": "custom-responses-route",
+      "provider": "custom",
+      "kind": "route",
+      "protocol": "openai_responses",
+      "auth": "bearer_api_key",
+      "input": {
+        "model": "fixture-relay-model",
+        "baseUrl": "https://relay.example.com/v1",
+        "headers": null,
+        "config": {
+          "isReasoning": false,
+          "supportsReasoning": false,
+          "thinkingEnabled": false,
+          "reasoningEffort": null,
+          "maxOutputTokens": 1024,
+          "maxTokensLimit": 2048,
+          "temperature": 0.4,
+          "supportsTools": false
+        }
+      },
+      "responsesEnabled": true,
+      "adapter": "general",
+      "goBase": null
+    },
+    {
+      "id": "openrouter-responses-route",
+      "provider": "openrouter",
+      "kind": "route",
+      "protocol": "openai_responses",
+      "auth": "bearer_api_key",
+      "input": {
+        "model": "fixture-router-model",
+        "baseUrl": "https://openrouter.example.com/api/v1",
+        "headers": null,
+        "config": {
+          "isReasoning": false,
+          "supportsReasoning": false,
+          "thinkingEnabled": false,
+          "reasoningEffort": null,
+          "maxOutputTokens": 1024,
+          "maxTokensLimit": 2048,
+          "temperature": 0.4,
+          "supportsTools": false
+        }
+      },
+      "responsesEnabled": true,
+      "adapter": "general",
+      "goBase": null
+    },
+    {
+      "id": "custom-responses",
+      "provider": "custom",
+      "kind": "responses",
+      "protocol": "openai_responses",
+      "auth": "bearer_api_key",
+      "input": {
+        "model": "fixture-relay-model",
+        "baseUrl": "https://relay.example.com/v1",
+        "headers": {
+          "X-Fixture-Trace": "s308",
+          "x-trace-lower": "case"
+        },
+        "config": {
+          "isReasoning": false,
+          "supportsReasoning": false,
+          "thinkingEnabled": false,
+          "reasoningEffort": null,
+          "maxOutputTokens": 1024,
+          "maxTokensLimit": 2048,
+          "temperature": 0.4,
+          "supportsTools": false
+        }
+      },
+      "responsesEnabled": true,
+      "session": "fixture session_01:🧪 go",
+      "adapter": "general",
+      "request": {
+        "url": "https://relay.example.com/v1/responses",
+        "body": {
+          "model": "fixture-relay-model",
+          "input": [
+            {
+              "role": "user",
+              "content": [
+                {
+                  "type": "input_text",
+                  "text": "协议回放 fixture 🧪"
+                }
+              ]
+            }
+          ],
+          "stream": true,
+          "store": false,
+          "max_output_tokens": 1024,
+          "temperature": 0.4,
+          "prompt_cache_key": "fixture session_01:🧪 go"
+        },
+        "headers": {
+          "authorization": "Bearer s308-synthetic-bearer",
+          "content-type": "application/json",
+          "x-fixture-trace": "s308",
+          "x-trace-lower": "case"
+        }
+      }
+    }
+  ],
+  "stream": {
+    "frames": [
+      "{\"choices\":[{\"delta\":{\"reasoning_content\":\"合成思考片段\"}}]}",
+      "{\"choices\":[{\"delta\":{\"content\":\"哈\"}}]}",
+      "{\"choices\":[{\"delta\":{\"tool_calls\":[{\"index\":0,\"id\":\"call_fixture\",\"type\":\"function\",\"function\":{\"name\":\"fixture_lookup\",\"arguments\":\"{\\\"q\\\"\"}}]}}]}",
+      "{\"choices\":[{\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\":\\\"🧪\\\"}\"}}]},\"finish_reason\":\"tool_calls\"}]}",
+      "{\"choices\":[],\"usage\":{\"prompt_tokens\":12,\"completion_tokens\":5,\"total_tokens\":17,\"prompt_tokens_details\":{\"cached_tokens\":2,\"cache_write_tokens\":1},\"completion_tokens_details\":{\"reasoning_tokens\":3}}}",
+      "[DONE]"
+    ],
+    "events": [
+      {
+        "kind": "reasoning",
+        "value": "合成思考片段"
+      },
+      {
+        "kind": "text",
+        "value": "哈"
+      },
+      {
+        "kind": "tool",
+        "value": "{\"index\":0,\"id\":\"call_fixture\",\"type\":\"function\",\"function\":{\"name\":\"fixture_lookup\",\"arguments\":\"{\\\"q\\\"\"}}"
+      },
+      {
+        "kind": "tool",
+        "value": "{\"index\":0,\"function\":{\"arguments\":\":\\\"🧪\\\"}\"}}"
+      },
+      {
+        "kind": "usage",
+        "value": {
+          "prompt_tokens": 12,
+          "completion_tokens": 5,
+          "total_tokens": 17,
+          "prompt_tokens_details": {
+            "cached_tokens": 2,
+            "cache_write_tokens": 1
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 3
+          }
+        }
+      },
+      {
+        "kind": "completed"
+      }
+    ]
+  },
+  "opencodeGo": {
+    "vendorId": "builtin-opencode-go",
+    "providerType": "opencode_go",
+    "openaiBaseUrl": "https://opencode.ai/inference/go/openai/v1",
+    "anthropicBaseUrl": "https://opencode.ai/inference/go/anthropic/v1",
+    "googleBaseUrl": "https://opencode.ai/inference/go/google/v1beta",
+    "usageUrl": "https://opencode.ai/zen/go/v1/usage",
+    "sessionHeader": "x-opencode-session",
+    "taskSessionId": "deepstudent-task",
+    "userAgent": "DeepStudent/0.11.0",
+    "detection": [
+      {
+        "vendorId": "builtin-opencode-go",
+        "providerType": null,
+        "baseUrl": "https://example.com/v1",
+        "value": true
+      },
+      {
+        "vendorId": null,
+        "providerType": "opencode_go",
+        "baseUrl": "https://example.com/v1",
+        "value": true
+      },
+      {
+        "vendorId": "custom-1",
+        "providerType": "openai",
+        "baseUrl": "https://opencode.ai/inference/go/openai/v1/",
+        "value": true
+      },
+      {
+        "vendorId": null,
+        "providerType": null,
+        "baseUrl": "https://OpenCode.ai/zen/go/v1",
+        "value": true
+      },
+      {
+        "vendorId": "builtin-deepseek",
+        "providerType": "deepseek",
+        "baseUrl": "https://api.deepseek.com/v1",
+        "value": false
+      },
+      {
+        "vendorId": null,
+        "providerType": "openai",
+        "baseUrl": "https://opencode.ai/zen/v1",
+        "value": false
+      }
+    ],
+    "sessionSanitized": "fixturesession_01:go",
+    "sessionEmpty": null,
+    "sessionOverflowLength": 128,
+    "identitySession": [
+      [
+        "User-Agent",
+        "DeepStudent/0.11.0"
+      ],
+      [
+        "x-opencode-session",
+        "sess_01HX-abc"
+      ]
+    ],
+    "identityTask": [
+      [
+        "User-Agent",
+        "DeepStudent/0.11.0"
+      ]
+    ],
+    "baseUrlForProtocol": {
+      "anthropic": "https://opencode.ai/inference/go/anthropic/v1",
+      "google": "https://opencode.ai/inference/go/google/v1beta",
+      "responsesBackToOpenai": "https://opencode.ai/inference/go/openai/v1",
+      "nonGoRootPassthrough": "https://proxy.example.com/v1"
+    },
+    "builtinModels": [
+      {
+        "id": "builtin-opencode-go-deepseek-v4.1-flash",
+        "label": "DeepSeek V4.1 Flash (Go)",
+        "model": "deepseek-v4.1-flash",
+        "protocol": "openai_chat_completions",
+        "isMultimodal": true,
+        "isReasoning": false,
+        "maxOutputTokens": 32768
+      },
+      {
+        "id": "builtin-opencode-go-deepseek-v4-pro",
+        "label": "DeepSeek V4 Pro (Go)",
+        "model": "deepseek-v4-pro",
+        "protocol": "openai_chat_completions",
+        "isMultimodal": false,
+        "isReasoning": false,
+        "maxOutputTokens": 32768
+      },
+      {
+        "id": "builtin-opencode-go-glm-5.3",
+        "label": "GLM-5.3 (Go)",
+        "model": "glm-5.3",
+        "protocol": "openai_chat_completions",
+        "isMultimodal": false,
+        "isReasoning": false,
+        "maxOutputTokens": 32768
+      },
+      {
+        "id": "builtin-opencode-go-glm-5.3-flash",
+        "label": "GLM-5.3-Flash (Go)",
+        "model": "glm-5.3-flash",
+        "protocol": "openai_chat_completions",
+        "isMultimodal": false,
+        "isReasoning": false,
+        "maxOutputTokens": 32768
+      },
+      {
+        "id": "builtin-opencode-go-kimi-k3",
+        "label": "Kimi K3 (Go)",
+        "model": "kimi-k3",
+        "protocol": "openai_chat_completions",
+        "isMultimodal": false,
+        "isReasoning": false,
+        "maxOutputTokens": 32768
+      },
+      {
+        "id": "builtin-opencode-go-kimi-k3.1-pro",
+        "label": "Kimi K3.1 Pro (Go)",
+        "model": "kimi-k3.1-pro",
+        "protocol": "openai_chat_completions",
+        "isMultimodal": false,
+        "isReasoning": false,
+        "maxOutputTokens": 32768
+      },
+      {
+        "id": "builtin-opencode-go-mimo-v2.6-pro",
+        "label": "MiMo-V2.6-Pro (Go)",
+        "model": "mimo-v2.6-pro",
+        "protocol": "openai_chat_completions",
+        "isMultimodal": false,
+        "isReasoning": false,
+        "maxOutputTokens": 32768
+      },
+      {
+        "id": "builtin-opencode-go-qwen3.8-max",
+        "label": "Qwen3.8 Max (Go)",
+        "model": "qwen3.8-max",
+        "protocol": "anthropic_messages",
+        "isMultimodal": false,
+        "isReasoning": false,
+        "maxOutputTokens": 32768
+      },
+      {
+        "id": "builtin-opencode-go-qwen3.8-flash",
+        "label": "Qwen3.8 Flash (Go)",
+        "model": "qwen3.8-flash",
+        "protocol": "anthropic_messages",
+        "isMultimodal": false,
+        "isReasoning": false,
+        "maxOutputTokens": 32768
+      },
+      {
+        "id": "builtin-opencode-go-minimax-m3",
+        "label": "MiniMax M3 (Go)",
+        "model": "minimax-m3",
+        "protocol": "anthropic_messages",
+        "isMultimodal": false,
+        "isReasoning": false,
+        "maxOutputTokens": 32768
+      },
+      {
+        "id": "builtin-opencode-go-claude-haiku-5-5",
+        "label": "Claude Haiku 5.5 (Go)",
+        "model": "claude-haiku-5-5",
+        "protocol": "anthropic_messages",
+        "isMultimodal": true,
+        "isReasoning": true,
+        "maxOutputTokens": 32768
+      },
+      {
+        "id": "builtin-opencode-go-gpt-6-luna",
+        "label": "GPT 6 Luna (Go)",
+        "model": "gpt-6-luna",
+        "protocol": "openai_responses",
+        "isMultimodal": true,
+        "isReasoning": true,
+        "maxOutputTokens": 32768
+      },
+      {
+        "id": "builtin-opencode-go-gemini-4-argon",
+        "label": "Gemini 4 Argon (Go)",
+        "model": "gemini-4-argon",
+        "protocol": "google_generate_content",
+        "isMultimodal": true,
+        "isReasoning": false,
+        "maxOutputTokens": 32768
+      }
+    ]
+  },
+  "modelLists": {
+    "probeKeys": {
+      "context": [
+        "context_length",
+        "context_window",
+        "max_context_length",
+        "max_model_len"
+      ],
+      "maxOutput": [
+        "max_output_tokens",
+        "max_completion_tokens",
+        "top_provider.max_completion_tokens"
+      ]
+    },
+    "probeU32": [
+      {
+        "input": {
+          "context_length": 128000
+        },
+        "keys": [
+          "context_length",
+          "context_window",
+          "max_context_length",
+          "max_model_len"
+        ],
+        "value": 128000
+      },
+      {
+        "input": {
+          "context_length": " 64000 "
+        },
+        "keys": [
+          "context_length",
+          "context_window",
+          "max_context_length",
+          "max_model_len"
+        ],
+        "value": 64000
+      },
+      {
+        "input": {
+          "context_length": 1099511627776
+        },
+        "keys": [
+          "context_length",
+          "context_window",
+          "max_context_length",
+          "max_model_len"
+        ],
+        "value": null
+      },
+      {
+        "input": {
+          "top_provider": {
+            "max_completion_tokens": 8192
+          }
+        },
+        "keys": [
+          "max_output_tokens",
+          "max_completion_tokens",
+          "top_provider.max_completion_tokens"
+        ],
+        "value": 8192
+      }
+    ],
+    "openai": {
+      "requests": [
+        {
+          "url": "https://api.example.com/v1/models",
+          "headers": {
+            "Authorization": "Bearer s308-synthetic-list-key"
+          },
+          "redirect": "manual"
+        },
+        {
+          "url": "https://api.example.com/v1/models?after=b-model",
+          "headers": {
+            "Authorization": "Bearer s308-synthetic-list-key"
+          },
+          "redirect": "manual"
+        },
+        {
+          "url": "https://api.example.com/v1/models",
+          "headers": {
+            "Authorization": "Bearer backup-key"
+          },
+          "redirect": "manual"
+        }
+      ],
+      "models": [
+        {
+          "id": "a-model",
+          "label": "a-model",
+          "contextWindow": null,
+          "maxOutputTokens": 1024
+        },
+        {
+          "id": "b-model",
+          "label": "Model B",
+          "contextWindow": 8192,
+          "maxOutputTokens": null
+        }
+      ]
+    },
+    "anthropic": {
+      "models": [
+        {
+          "id": "claude-fixture",
+          "label": "Claude Fixture",
+          "contextWindow": null,
+          "maxOutputTokens": 64000
+        }
+      ]
+    },
+    "gemini": {
+      "models": [
+        {
+          "id": "gemini-fixture-pro",
+          "label": "Gemini Fixture Pro",
+          "contextWindow": 1000000,
+          "maxOutputTokens": 65536
+        }
+      ]
+    },
+    "ollama": {
+      "normalizedRoot": "http://127.0.0.1:11434/v1",
+      "endpoint": "http://127.0.0.1:11434/v1/models",
+      "kind": "openai"
+    },
+    "openCodeGo": {
+      "calls": 0,
+      "models": [
+        {
+          "id": "deepseek-v4.1-flash",
+          "label": "DeepSeek V4.1 Flash (Go)",
+          "contextWindow": null,
+          "maxOutputTokens": 32768
+        },
+        {
+          "id": "deepseek-v4-pro",
+          "label": "DeepSeek V4 Pro (Go)",
+          "contextWindow": null,
+          "maxOutputTokens": 32768
+        },
+        {
+          "id": "glm-5.3",
+          "label": "GLM-5.3 (Go)",
+          "contextWindow": null,
+          "maxOutputTokens": 32768
+        },
+        {
+          "id": "glm-5.3-flash",
+          "label": "GLM-5.3-Flash (Go)",
+          "contextWindow": null,
+          "maxOutputTokens": 32768
+        },
+        {
+          "id": "kimi-k3",
+          "label": "Kimi K3 (Go)",
+          "contextWindow": null,
+          "maxOutputTokens": 32768
+        },
+        {
+          "id": "kimi-k3.1-pro",
+          "label": "Kimi K3.1 Pro (Go)",
+          "contextWindow": null,
+          "maxOutputTokens": 32768
+        },
+        {
+          "id": "mimo-v2.6-pro",
+          "label": "MiMo-V2.6-Pro (Go)",
+          "contextWindow": null,
+          "maxOutputTokens": 32768
+        },
+        {
+          "id": "qwen3.8-max",
+          "label": "Qwen3.8 Max (Go)",
+          "contextWindow": null,
+          "maxOutputTokens": 32768
+        },
+        {
+          "id": "qwen3.8-flash",
+          "label": "Qwen3.8 Flash (Go)",
+          "contextWindow": null,
+          "maxOutputTokens": 32768
+        },
+        {
+          "id": "minimax-m3",
+          "label": "MiniMax M3 (Go)",
+          "contextWindow": null,
+          "maxOutputTokens": 32768
+        },
+        {
+          "id": "claude-haiku-5-5",
+          "label": "Claude Haiku 5.5 (Go)",
+          "contextWindow": null,
+          "maxOutputTokens": 32768
+        },
+        {
+          "id": "gpt-6-luna",
+          "label": "GPT 6 Luna (Go)",
+          "contextWindow": null,
+          "maxOutputTokens": 32768
+        },
+        {
+          "id": "gemini-4-argon",
+          "label": "Gemini 4 Argon (Go)",
+          "contextWindow": null,
+          "maxOutputTokens": 32768
+        }
+      ]
+    },
+    "backupKey": {
+      "models": [
+        {
+          "id": "a-model",
+          "label": "a-model",
+          "contextWindow": null,
+          "maxOutputTokens": 1024
+        }
+      ],
+      "request": {
+        "url": "https://api.example.com/v1/models",
+        "headers": {
+          "Authorization": "Bearer backup-key"
+        },
+        "redirect": "manual"
+      }
+    },
+    "failures": {
+      "http401": {
+        "errorType": "Network",
+        "message": "获取供应商模型失败: 401 Unauthorized - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      },
+      "missingContainer": {
+        "errorType": "Network",
+        "message": "供应商模型响应缺少 data 数组"
+      },
+      "connect": {
+        "errorType": "Network",
+        "message": "获取供应商模型失败: fetch failed"
+      },
+      "detailLength": 2048
+    }
+  },
+  "headerMatrix": {
+    "openai": [
+      [
+        "X-Trace",
+        "1"
+      ],
+      [
+        "Authorization",
+        "Bearer s308-synthetic-list-key"
+      ]
+    ],
+    "gemini": [
+      [
+        "x-goog-api-key",
+        "s308-synthetic-list-key"
+      ]
+    ],
+    "anthropicEmptyKey": [
+      [
+        "anthropic-version",
+        "2023-06-01"
+      ]
+    ],
+    "anthropicCustomVersion": [
+      [
+        "anthropic-version",
+        "2023-06-01"
+      ],
+      [
+        "x-api-key",
+        "s308-synthetic-list-key"
+      ]
+    ]
+  },
+  "endpoints": {
+    "geminiRoot": "https://generativelanguage.googleapis.com/v1beta/models",
+    "geminiVersioned": "https://generativelanguage.googleapis.com/v1beta/models",
+    "anthropicMessages": "https://api.anthropic.com/v1/models",
+    "openaiChat": "https://api.openai.com/v1/models",
+    "relayResponses": "https://gateway.example.com/custom/models",
+    "explicitProtocolKeepsOpenai": {
+      "url": "https://api.openai.com/v1/models",
+      "kind": "openai"
+    },
+    "ollamaRoot": "http://127.0.0.1:11434/v1/models"
+  },
+  "parsedPages": {
+    "gemini": {
+      "models": {},
+      "cursor": "next"
+    },
+    "openai": {
+      "models": {},
+      "cursor": "gpt-5.4-mini"
+    },
+    "anthropic": {
+      "models": {},
+      "cursor": null
+    }
+  }
+}

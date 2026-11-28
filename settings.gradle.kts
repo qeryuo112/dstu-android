@@ -92,6 +92,9 @@ include(":features:environments:data")
 include(":features:environments:ui")
 
 include(":services:execution:api")
+include(":services:providers:api")
+include(":services:providers:backend")
+include(":services:providers:data")
 include(":platform:execution")
 include(":features:execution:ui")
 

@@ -1,0 +1,3225 @@
+{
+  "version": 1,
+  "desktopRevision": "e6b2657fd59014a73f5bbb1d14c2db732cf23e87",
+  "desktopTree": "3bee0f058851b9eb113bdc036d9f60433ed29944",
+  "token": "s307-synthetic-key",
+  "cases": [
+    {
+      "id": "google-basic-thinking",
+      "provider": "google",
+      "model": "gemini-2.5-flash",
+      "headers": {
+        "x-fixture-provider": "s307"
+      },
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": "high",
+        "thinkingBudget": null,
+        "includeThoughts": false,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "topK": 12,
+        "model": "gemini-2.5-flash",
+        "baseUrl": "https://generativelanguage.googleapis.com",
+        "modelAdapter": "google",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions for the S3.07 oracle."
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "协议回放 🧪"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,iVBORw0KGgo="
+              }
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "fixture_lookup",
+            "description": "Read synthetic test inputs",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array"
+                },
+                "mode": {
+                  "enum": [
+                    1,
+                    "auto",
+                    true
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ],
+      "adapter": "google",
+      "historyScope": "[\"google\",\"decc9e29\",\"gemini-2.5-flash\",\"google_generate_content\"]",
+      "request": {
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=s307-synthetic-key",
+        "body": {
+          "contents": [
+            {
+              "role": "user",
+              "parts": [
+                {
+                  "text": "协议回放 🧪"
+                },
+                {
+                  "inlineData": {
+                    "mimeType": "image/png",
+                    "data": "iVBORw0KGgo="
+                  }
+                }
+              ]
+            }
+          ],
+          "systemInstruction": {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Fixture instructions for the S3.07 oracle."
+              }
+            ]
+          },
+          "generationConfig": {
+            "maxOutputTokens": 1536,
+            "topK": 12,
+            "thinkingConfig": {
+              "thinkingBudget": -1,
+              "includeThoughts": true
+            }
+          },
+          "tools": [
+            {
+              "functionDeclarations": [
+                {
+                  "name": "fixture_lookup",
+                  "description": "Read synthetic test inputs",
+                  "parameters": {
+                    "type": "object",
+                    "properties": {
+                      "tags": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "mode": {
+                        "enum": [
+                          "1",
+                          "auto",
+                          "true"
+                        ],
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "toolConfig": {
+            "functionCallingConfig": {
+              "mode": "AUTO"
+            }
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "x-goog-api-key": "s307-synthetic-key",
+          "x-fixture-provider": "s307"
+        }
+      },
+      "stream": {
+        "frames": [
+          "{\"candidates\":[{\"content\":{\"role\":\"model\",\"parts\":[{\"thought\":true,\"text\":\"思考 gemini\"}]}}]}",
+          "{\"candidates\":[{\"content\":{\"role\":\"model\",\"parts\":[{\"text\":\"回答\"}]}}]}",
+          "{\"candidates\":[{\"content\":{\"role\":\"model\",\"parts\":[{\"text\":\" ✅\"}]}}],\"usageMetadata\":{\"promptTokenCount\":10,\"candidatesTokenCount\":4,\"totalTokenCount\":14,\"cachedContentTokenCount\":6,\"thoughtsTokenCount\":3}}",
+          "{\"candidates\":[{\"finishReason\":\"STOP\"}],\"usageMetadata\":{\"promptTokenCount\":10,\"candidatesTokenCount\":4,\"totalTokenCount\":14,\"cachedContentTokenCount\":6,\"thoughtsTokenCount\":3}}"
+        ],
+        "events": [
+          {
+            "kind": "reasoning",
+            "value": "思考 gemini"
+          },
+          {
+            "kind": "text",
+            "value": "回答"
+          },
+          {
+            "kind": "text",
+            "value": " ✅"
+          },
+          {
+            "kind": "usage",
+            "value": {
+              "input_tokens": 10,
+              "output_tokens": 4,
+              "total_tokens": 14,
+              "cached_tokens": 6,
+              "reasoning_tokens": 3
+            }
+          },
+          {
+            "kind": "usage",
+            "value": {
+              "input_tokens": 10,
+              "output_tokens": 4,
+              "total_tokens": 14,
+              "cached_tokens": 6,
+              "reasoning_tokens": 3
+            }
+          },
+          {
+            "kind": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "google-2.5-budget",
+      "provider": "google",
+      "model": "gemini-2.5-flash",
+      "headers": {
+        "x-fixture-provider": "s307"
+      },
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": "medium",
+        "thinkingBudget": 512,
+        "includeThoughts": false,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "topK": 12,
+        "model": "gemini-2.5-flash",
+        "baseUrl": "https://generativelanguage.googleapis.com",
+        "modelAdapter": "google",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions for the S3.07 oracle."
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "协议回放 🧪"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,iVBORw0KGgo="
+              }
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "fixture_lookup",
+            "description": "Read synthetic test inputs",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array"
+                },
+                "mode": {
+                  "enum": [
+                    1,
+                    "auto",
+                    true
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ],
+      "adapter": "google",
+      "historyScope": "[\"google\",\"decc9e29\",\"gemini-2.5-flash\",\"google_generate_content\"]",
+      "request": {
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=s307-synthetic-key",
+        "body": {
+          "contents": [
+            {
+              "role": "user",
+              "parts": [
+                {
+                  "text": "协议回放 🧪"
+                },
+                {
+                  "inlineData": {
+                    "mimeType": "image/png",
+                    "data": "iVBORw0KGgo="
+                  }
+                }
+              ]
+            }
+          ],
+          "systemInstruction": {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Fixture instructions for the S3.07 oracle."
+              }
+            ]
+          },
+          "generationConfig": {
+            "maxOutputTokens": 1536,
+            "topK": 12,
+            "thinkingConfig": {
+              "thinkingBudget": 512,
+              "includeThoughts": true
+            }
+          },
+          "tools": [
+            {
+              "functionDeclarations": [
+                {
+                  "name": "fixture_lookup",
+                  "description": "Read synthetic test inputs",
+                  "parameters": {
+                    "type": "object",
+                    "properties": {
+                      "tags": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "mode": {
+                        "enum": [
+                          "1",
+                          "auto",
+                          "true"
+                        ],
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "toolConfig": {
+            "functionCallingConfig": {
+              "mode": "AUTO"
+            }
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "x-goog-api-key": "s307-synthetic-key",
+          "x-fixture-provider": "s307"
+        }
+      },
+      "stream": {
+        "frames": [
+          "{\"candidates\":[{\"content\":{\"role\":\"model\",\"parts\":[{\"thought\":true,\"text\":\"思考 gemini\"}]}}]}",
+          "{\"candidates\":[{\"content\":{\"role\":\"model\",\"parts\":[{\"text\":\"回答\"}]}}]}",
+          "{\"candidates\":[{\"content\":{\"role\":\"model\",\"parts\":[{\"text\":\" ✅\"}]}}],\"usageMetadata\":{\"promptTokenCount\":10,\"candidatesTokenCount\":4,\"totalTokenCount\":14,\"cachedContentTokenCount\":6,\"thoughtsTokenCount\":3}}",
+          "{\"candidates\":[{\"finishReason\":\"STOP\"}],\"usageMetadata\":{\"promptTokenCount\":10,\"candidatesTokenCount\":4,\"totalTokenCount\":14,\"cachedContentTokenCount\":6,\"thoughtsTokenCount\":3}}"
+        ],
+        "events": [
+          {
+            "kind": "reasoning",
+            "value": "思考 gemini"
+          },
+          {
+            "kind": "text",
+            "value": "回答"
+          },
+          {
+            "kind": "text",
+            "value": " ✅"
+          },
+          {
+            "kind": "usage",
+            "value": {
+              "input_tokens": 10,
+              "output_tokens": 4,
+              "total_tokens": 14,
+              "cached_tokens": 6,
+              "reasoning_tokens": 3
+            }
+          },
+          {
+            "kind": "usage",
+            "value": {
+              "input_tokens": 10,
+              "output_tokens": 4,
+              "total_tokens": 14,
+              "cached_tokens": 6,
+              "reasoning_tokens": 3
+            }
+          },
+          {
+            "kind": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "google-prefix-version",
+      "provider": "google",
+      "model": "v1beta:gemini-2.5-flash",
+      "headers": {
+        "x-fixture-provider": "s307"
+      },
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": null,
+        "thinkingBudget": 128,
+        "includeThoughts": false,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "topK": 12,
+        "geminiApiVersion": "v1",
+        "model": "v1beta:gemini-2.5-flash",
+        "baseUrl": "https://generativelanguage.googleapis.com",
+        "modelAdapter": "google",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions for the S3.07 oracle."
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "协议回放 🧪"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,iVBORw0KGgo="
+              }
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "fixture_lookup",
+            "description": "Read synthetic test inputs",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array"
+                },
+                "mode": {
+                  "enum": [
+                    1,
+                    "auto",
+                    true
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ],
+      "adapter": "google",
+      "historyScope": "[\"google\",\"decc9e29\",\"v1beta:gemini-2.5-flash\",\"google_generate_content\"]",
+      "request": {
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=s307-synthetic-key",
+        "body": {
+          "contents": [
+            {
+              "role": "user",
+              "parts": [
+                {
+                  "text": "协议回放 🧪"
+                },
+                {
+                  "inlineData": {
+                    "mimeType": "image/png",
+                    "data": "iVBORw0KGgo="
+                  }
+                }
+              ]
+            }
+          ],
+          "systemInstruction": {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Fixture instructions for the S3.07 oracle."
+              }
+            ]
+          },
+          "generationConfig": {
+            "maxOutputTokens": 1536,
+            "topK": 12,
+            "thinkingConfig": {
+              "thinkingBudget": 128,
+              "includeThoughts": true
+            }
+          },
+          "tools": [
+            {
+              "functionDeclarations": [
+                {
+                  "name": "fixture_lookup",
+                  "description": "Read synthetic test inputs",
+                  "parameters": {
+                    "type": "object",
+                    "properties": {
+                      "tags": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "mode": {
+                        "enum": [
+                          "1",
+                          "auto",
+                          "true"
+                        ],
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "toolConfig": {
+            "functionCallingConfig": {
+              "mode": "AUTO"
+            }
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "x-goog-api-key": "s307-synthetic-key",
+          "x-fixture-provider": "s307"
+        }
+      }
+    },
+    {
+      "id": "google-v1-system-merge",
+      "provider": "google",
+      "model": "gemini-2.2-pro",
+      "headers": {
+        "x-fixture-provider": "s307"
+      },
+      "input": {
+        "isReasoning": false,
+        "supportsReasoning": false,
+        "supportsTools": true,
+        "thinkingEnabled": false,
+        "reasoningEffort": null,
+        "thinkingBudget": null,
+        "includeThoughts": false,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "topK": 12,
+        "geminiApiVersion": "v1",
+        "model": "gemini-2.2-pro",
+        "baseUrl": "https://generativelanguage.googleapis.com",
+        "modelAdapter": "google",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions for the S3.07 oracle."
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "协议回放 🧪"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,iVBORw0KGgo="
+              }
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "fixture_lookup",
+            "description": "Read synthetic test inputs",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array"
+                },
+                "mode": {
+                  "enum": [
+                    1,
+                    "auto",
+                    true
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ],
+      "adapter": "google",
+      "historyScope": "[\"google\",\"decc9e29\",\"gemini-2.2-pro\",\"google_generate_content\"]",
+      "request": {
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.2-pro:streamGenerateContent?alt=sse&key=s307-synthetic-key",
+        "body": {
+          "contents": [
+            {
+              "role": "user",
+              "parts": [
+                {
+                  "text": "协议回放 🧪"
+                },
+                {
+                  "inlineData": {
+                    "mimeType": "image/png",
+                    "data": "iVBORw0KGgo="
+                  }
+                }
+              ]
+            }
+          ],
+          "systemInstruction": {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Fixture instructions for the S3.07 oracle."
+              }
+            ]
+          },
+          "generationConfig": {
+            "temperature": 0.25,
+            "topP": 0.75,
+            "frequencyPenalty": 0.125,
+            "presencePenalty": 0.25,
+            "maxOutputTokens": 1536,
+            "topK": 12
+          },
+          "tools": [
+            {
+              "functionDeclarations": [
+                {
+                  "name": "fixture_lookup",
+                  "description": "Read synthetic test inputs",
+                  "parameters": {
+                    "type": "object",
+                    "properties": {
+                      "tags": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "mode": {
+                        "enum": [
+                          "1",
+                          "auto",
+                          "true"
+                        ],
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "toolConfig": {
+            "functionCallingConfig": {
+              "mode": "AUTO"
+            }
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "x-goog-api-key": "s307-synthetic-key",
+          "x-fixture-provider": "s307"
+        }
+      }
+    },
+    {
+      "id": "google-gemini3-levels",
+      "provider": "google",
+      "model": "gemini-3-pro",
+      "headers": {
+        "x-fixture-provider": "s307"
+      },
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": "xhigh",
+        "thinkingBudget": null,
+        "includeThoughts": true,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "topK": 12,
+        "model": "gemini-3-pro",
+        "baseUrl": "https://generativelanguage.googleapis.com",
+        "modelAdapter": "google",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions for the S3.07 oracle."
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "协议回放 🧪"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,iVBORw0KGgo="
+              }
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "fixture_lookup",
+            "description": "Read synthetic test inputs",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array"
+                },
+                "mode": {
+                  "enum": [
+                    1,
+                    "auto",
+                    true
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ],
+      "adapter": "google",
+      "historyScope": "[\"google\",\"decc9e29\",\"gemini-3-pro\",\"google_generate_content\"]",
+      "request": {
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-pro:streamGenerateContent?alt=sse&key=s307-synthetic-key",
+        "body": {
+          "contents": [
+            {
+              "role": "user",
+              "parts": [
+                {
+                  "text": "协议回放 🧪"
+                },
+                {
+                  "inlineData": {
+                    "mimeType": "image/png",
+                    "data": "iVBORw0KGgo="
+                  }
+                }
+              ]
+            }
+          ],
+          "systemInstruction": {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Fixture instructions for the S3.07 oracle."
+              }
+            ]
+          },
+          "generationConfig": {
+            "maxOutputTokens": 1536,
+            "topK": 12,
+            "thinkingConfig": {
+              "thinkingLevel": "high",
+              "includeThoughts": true
+            }
+          },
+          "tools": [
+            {
+              "functionDeclarations": [
+                {
+                  "name": "fixture_lookup",
+                  "description": "Read synthetic test inputs",
+                  "parameters": {
+                    "type": "object",
+                    "properties": {
+                      "tags": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "mode": {
+                        "enum": [
+                          "1",
+                          "auto",
+                          "true"
+                        ],
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "toolConfig": {
+            "functionCallingConfig": {
+              "mode": "AUTO"
+            }
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "x-goog-api-key": "s307-synthetic-key",
+          "x-fixture-provider": "s307"
+        }
+      },
+      "stream": {
+        "frames": [
+          "{\"candidates\":[{\"content\":{\"role\":\"model\",\"parts\":[{\"functionCall\":{\"id\":\"fc-native-1\",\"name\":\"lookup_a\",\"args\":{\"first\":1}}},{\"functionCall\":{\"id\":\"fc-native-2\",\"name\":\"lookup_b\",\"args\":{\"second\":2}}}]}}],\"usageMetadata\":{\"promptTokenCount\":10,\"candidatesTokenCount\":4,\"totalTokenCount\":14,\"cachedContentTokenCount\":6,\"thoughtsTokenCount\":3}}",
+          "{\"candidates\":[{\"content\":{\"role\":\"model\",\"parts\":[{\"thoughtSignature\":\"sig-part\"}]}}]}",
+          "{\"candidates\":[{\"content\":{\"role\":\"model\",\"parts\":[{\"functionCall\":{\"name\":\"lookup_c\",\"args\":{}}}]}}]}",
+          "{\"candidates\":[{\"content\":{\"role\":\"model\",\"parts\":[{\"functionCall\":{\"id\":\"fc-native-1\",\"name\":\"lookup_a\",\"args\":{\"first\":1,\"retried\":true}}}]}}]}",
+          "{\"candidates\":[{\"finishReason\":\"STOP\"}],\"usageMetadata\":{\"promptTokenCount\":10,\"candidatesTokenCount\":4,\"totalTokenCount\":14,\"cachedContentTokenCount\":6,\"thoughtsTokenCount\":3}}"
+        ],
+        "events": [
+          {
+            "kind": "tool",
+            "value": {
+              "index": 0,
+              "id": "fc-native-1",
+              "type": "function",
+              "function": {
+                "name": "lookup_a",
+                "arguments": "{\"first\":1}"
+              }
+            }
+          },
+          {
+            "kind": "tool",
+            "value": {
+              "index": 1,
+              "id": "fc-native-2",
+              "type": "function",
+              "function": {
+                "name": "lookup_b",
+                "arguments": "{\"second\":2}"
+              }
+            }
+          },
+          {
+            "kind": "usage",
+            "value": {
+              "input_tokens": 10,
+              "output_tokens": 4,
+              "total_tokens": 14,
+              "cached_tokens": 6,
+              "reasoning_tokens": 3
+            }
+          },
+          {
+            "kind": "signature",
+            "value": "sig-part"
+          },
+          {
+            "kind": "tool",
+            "value": {
+              "index": 2,
+              "id": "call-synthetic",
+              "type": "function",
+              "function": {
+                "name": "lookup_c",
+                "arguments": "{}"
+              }
+            }
+          },
+          {
+            "kind": "tool",
+            "value": {
+              "index": 0,
+              "id": "fc-native-1",
+              "type": "function",
+              "function": {
+                "name": "lookup_a",
+                "arguments": "{\"first\":1,\"retried\":true}"
+              }
+            }
+          },
+          {
+            "kind": "usage",
+            "value": {
+              "input_tokens": 10,
+              "output_tokens": 4,
+              "total_tokens": 14,
+              "cached_tokens": 6,
+              "reasoning_tokens": 3
+            }
+          },
+          {
+            "kind": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "google-gemini3-flash-off",
+      "provider": "google",
+      "model": "gemini-3-flash",
+      "headers": {
+        "x-fixture-provider": "s307"
+      },
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": false,
+        "reasoningEffort": null,
+        "thinkingBudget": null,
+        "includeThoughts": false,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "topK": 12,
+        "model": "gemini-3-flash",
+        "baseUrl": "https://generativelanguage.googleapis.com",
+        "modelAdapter": "google",
+        "extraBody": {
+          "google_thinking_config": {
+            "include_thoughts": true
+          }
+        }
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions for the S3.07 oracle."
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "协议回放 🧪"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,iVBORw0KGgo="
+              }
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "fixture_lookup",
+            "description": "Read synthetic test inputs",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array"
+                },
+                "mode": {
+                  "enum": [
+                    1,
+                    "auto",
+                    true
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ],
+      "adapter": "google",
+      "historyScope": "[\"google\",\"decc9e29\",\"gemini-3-flash\",\"google_generate_content\"]",
+      "request": {
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash:streamGenerateContent?alt=sse&key=s307-synthetic-key",
+        "body": {
+          "contents": [
+            {
+              "role": "user",
+              "parts": [
+                {
+                  "text": "协议回放 🧪"
+                },
+                {
+                  "inlineData": {
+                    "mimeType": "image/png",
+                    "data": "iVBORw0KGgo="
+                  }
+                }
+              ]
+            }
+          ],
+          "systemInstruction": {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Fixture instructions for the S3.07 oracle."
+              }
+            ]
+          },
+          "generationConfig": {
+            "maxOutputTokens": 1536,
+            "topK": 12,
+            "thinkingConfig": {
+              "includeThoughts": true
+            }
+          },
+          "tools": [
+            {
+              "functionDeclarations": [
+                {
+                  "name": "fixture_lookup",
+                  "description": "Read synthetic test inputs",
+                  "parameters": {
+                    "type": "object",
+                    "properties": {
+                      "tags": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "mode": {
+                        "enum": [
+                          "1",
+                          "auto",
+                          "true"
+                        ],
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "toolConfig": {
+            "functionCallingConfig": {
+              "mode": "AUTO"
+            }
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "x-goog-api-key": "s307-synthetic-key",
+          "x-fixture-provider": "s307"
+        }
+      }
+    },
+    {
+      "id": "google-images-tools",
+      "provider": "google",
+      "model": "gemini-2.5-flash",
+      "headers": {
+        "x-fixture-provider": "s307"
+      },
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": null,
+        "thinkingBudget": 128,
+        "includeThoughts": false,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "topK": 12,
+        "model": "gemini-2.5-flash",
+        "baseUrl": "https://generativelanguage.googleapis.com",
+        "modelAdapter": "google",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions for the S3.07 oracle."
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "协议回放 🧪"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,iVBORw0KGgo="
+              }
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "fixture_lookup",
+            "description": "Read synthetic test inputs",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array"
+                },
+                "mode": {
+                  "enum": [
+                    1,
+                    "auto",
+                    true
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ],
+      "adapter": "google",
+      "historyScope": "[\"google\",\"decc9e29\",\"gemini-2.5-flash\",\"google_generate_content\"]",
+      "request": {
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=s307-synthetic-key",
+        "body": {
+          "contents": [
+            {
+              "role": "user",
+              "parts": [
+                {
+                  "text": "协议回放 🧪"
+                },
+                {
+                  "inlineData": {
+                    "mimeType": "image/png",
+                    "data": "iVBORw0KGgo="
+                  }
+                }
+              ]
+            }
+          ],
+          "systemInstruction": {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Fixture instructions for the S3.07 oracle."
+              }
+            ]
+          },
+          "generationConfig": {
+            "maxOutputTokens": 1536,
+            "topK": 12,
+            "thinkingConfig": {
+              "thinkingBudget": 128,
+              "includeThoughts": true
+            }
+          },
+          "tools": [
+            {
+              "functionDeclarations": [
+                {
+                  "name": "fixture_lookup",
+                  "description": "Read synthetic test inputs",
+                  "parameters": {
+                    "type": "object",
+                    "properties": {
+                      "tags": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "mode": {
+                        "enum": [
+                          "1",
+                          "auto",
+                          "true"
+                        ],
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "toolConfig": {
+            "functionCallingConfig": {
+              "mode": "AUTO"
+            }
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "x-goog-api-key": "s307-synthetic-key",
+          "x-fixture-provider": "s307"
+        }
+      },
+      "stream": {
+        "frames": [
+          "{\"candidates\":[{\"content\":{\"role\":\"model\",\"parts\":[{\"functionCall\":{\"id\":\"fc-native-1\",\"name\":\"lookup_a\",\"args\":{\"first\":1}}},{\"functionCall\":{\"id\":\"fc-native-2\",\"name\":\"lookup_b\",\"args\":{\"second\":2}}}]}}],\"usageMetadata\":{\"promptTokenCount\":10,\"candidatesTokenCount\":4,\"totalTokenCount\":14,\"cachedContentTokenCount\":6,\"thoughtsTokenCount\":3}}",
+          "{\"candidates\":[{\"content\":{\"role\":\"model\",\"parts\":[{\"thoughtSignature\":\"sig-part\"}]}}]}",
+          "{\"candidates\":[{\"content\":{\"role\":\"model\",\"parts\":[{\"functionCall\":{\"name\":\"lookup_c\",\"args\":{}}}]}}]}",
+          "{\"candidates\":[{\"content\":{\"role\":\"model\",\"parts\":[{\"functionCall\":{\"id\":\"fc-native-1\",\"name\":\"lookup_a\",\"args\":{\"first\":1,\"retried\":true}}}]}}]}",
+          "{\"candidates\":[{\"finishReason\":\"STOP\"}],\"usageMetadata\":{\"promptTokenCount\":10,\"candidatesTokenCount\":4,\"totalTokenCount\":14,\"cachedContentTokenCount\":6,\"thoughtsTokenCount\":3}}"
+        ],
+        "events": [
+          {
+            "kind": "tool",
+            "value": {
+              "index": 0,
+              "id": "fc-native-1",
+              "type": "function",
+              "function": {
+                "name": "lookup_a",
+                "arguments": "{\"first\":1}"
+              }
+            }
+          },
+          {
+            "kind": "tool",
+            "value": {
+              "index": 1,
+              "id": "fc-native-2",
+              "type": "function",
+              "function": {
+                "name": "lookup_b",
+                "arguments": "{\"second\":2}"
+              }
+            }
+          },
+          {
+            "kind": "usage",
+            "value": {
+              "input_tokens": 10,
+              "output_tokens": 4,
+              "total_tokens": 14,
+              "cached_tokens": 6,
+              "reasoning_tokens": 3
+            }
+          },
+          {
+            "kind": "signature",
+            "value": "sig-part"
+          },
+          {
+            "kind": "tool",
+            "value": {
+              "index": 2,
+              "id": "call-synthetic",
+              "type": "function",
+              "function": {
+                "name": "lookup_c",
+                "arguments": "{}"
+              }
+            }
+          },
+          {
+            "kind": "tool",
+            "value": {
+              "index": 0,
+              "id": "fc-native-1",
+              "type": "function",
+              "function": {
+                "name": "lookup_a",
+                "arguments": "{\"first\":1,\"retried\":true}"
+              }
+            }
+          },
+          {
+            "kind": "usage",
+            "value": {
+              "input_tokens": 10,
+              "output_tokens": 4,
+              "total_tokens": 14,
+              "cached_tokens": 6,
+              "reasoning_tokens": 3
+            }
+          },
+          {
+            "kind": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "google-signature-history",
+      "provider": "google",
+      "model": "gemini-3-pro",
+      "headers": {
+        "x-fixture-provider": "s307"
+      },
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": null,
+        "thinkingBudget": null,
+        "includeThoughts": true,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "topK": 12,
+        "model": "gemini-3-pro",
+        "baseUrl": "https://generativelanguage.googleapis.com",
+        "modelAdapter": "google",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "What's the weather?"
+        },
+        {
+          "role": "assistant",
+          "thought_signature": "fixture-signature",
+          "tool_calls": [
+            {
+              "id": "fc-native-1",
+              "type": "function",
+              "function": {
+                "name": "fixture_lookup",
+                "arguments": "{\"q\":\"🧪\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "fc-native-1",
+          "content": "{\"temp\":25}"
+        },
+        {
+          "role": "user",
+          "content": "Continue"
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "fixture_lookup",
+            "description": "Read synthetic test inputs",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array"
+                },
+                "mode": {
+                  "enum": [
+                    1,
+                    "auto",
+                    true
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ],
+      "adapter": "google",
+      "historyScope": "[\"google\",\"decc9e29\",\"gemini-3-pro\",\"google_generate_content\"]",
+      "request": {
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-pro:streamGenerateContent?alt=sse&key=s307-synthetic-key",
+        "body": {
+          "contents": [
+            {
+              "role": "user",
+              "parts": [
+                {
+                  "text": "What's the weather?"
+                }
+              ]
+            },
+            {
+              "role": "model",
+              "parts": [
+                {
+                  "functionCall": {
+                    "name": "fixture_lookup",
+                    "args": {
+                      "q": "🧪"
+                    },
+                    "id": "fc-native-1"
+                  },
+                  "thoughtSignature": "fixture-signature"
+                }
+              ]
+            },
+            {
+              "role": "user",
+              "parts": [
+                {
+                  "functionResponse": {
+                    "name": "fixture_lookup",
+                    "response": {
+                      "temp": 25
+                    },
+                    "id": "fc-native-1"
+                  }
+                },
+                {
+                  "text": "Continue"
+                }
+              ]
+            }
+          ],
+          "generationConfig": {
+            "maxOutputTokens": 1536,
+            "topK": 12,
+            "thinkingConfig": {
+              "thinkingLevel": "high",
+              "includeThoughts": true
+            }
+          },
+          "tools": [
+            {
+              "functionDeclarations": [
+                {
+                  "name": "fixture_lookup",
+                  "description": "Read synthetic test inputs",
+                  "parameters": {
+                    "type": "object",
+                    "properties": {
+                      "tags": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "mode": {
+                        "enum": [
+                          "1",
+                          "auto",
+                          "true"
+                        ],
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "toolConfig": {
+            "functionCallingConfig": {
+              "mode": "AUTO"
+            }
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "x-goog-api-key": "s307-synthetic-key",
+          "x-fixture-provider": "s307"
+        }
+      },
+      "requestCrossTarget": {
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-pro:streamGenerateContent?alt=sse&key=s307-synthetic-key",
+        "body": {
+          "contents": [
+            {
+              "role": "user",
+              "parts": [
+                {
+                  "text": "What's the weather?"
+                }
+              ]
+            },
+            {
+              "role": "model",
+              "parts": [
+                {
+                  "text": "[Tool call: fixture_lookup({\"q\":\"🧪\"})]"
+                }
+              ]
+            },
+            {
+              "role": "user",
+              "parts": [
+                {
+                  "text": "[Tool result for fixture_lookup: {\"temp\":25}]"
+                },
+                {
+                  "text": "Continue"
+                }
+              ]
+            }
+          ],
+          "generationConfig": {
+            "maxOutputTokens": 1536,
+            "topK": 12,
+            "thinkingConfig": {
+              "thinkingLevel": "high",
+              "includeThoughts": true
+            }
+          },
+          "tools": [
+            {
+              "functionDeclarations": [
+                {
+                  "name": "fixture_lookup",
+                  "description": "Read synthetic test inputs",
+                  "parameters": {
+                    "type": "object",
+                    "properties": {
+                      "tags": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "mode": {
+                        "enum": [
+                          "1",
+                          "auto",
+                          "true"
+                        ],
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "toolConfig": {
+            "functionCallingConfig": {
+              "mode": "AUTO"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "google-response-format",
+      "provider": "google",
+      "model": "gemini-2.2-pro",
+      "headers": {
+        "x-fixture-provider": "s307"
+      },
+      "input": {
+        "isReasoning": false,
+        "supportsReasoning": false,
+        "supportsTools": true,
+        "thinkingEnabled": false,
+        "reasoningEffort": null,
+        "thinkingBudget": null,
+        "includeThoughts": false,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "topK": 12,
+        "model": "gemini-2.2-pro",
+        "baseUrl": "https://generativelanguage.googleapis.com",
+        "modelAdapter": "google",
+        "extraBody": {
+          "response_format": {
+            "type": "json_schema",
+            "json_schema": {
+              "name": "fixture",
+              "schema": {
+                "type": "object"
+              },
+              "strict": true
+            }
+          },
+          "stop": [
+            "END",
+            "STOP"
+          ]
+        }
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions for the S3.07 oracle."
+        },
+        {
+          "role": "user",
+          "content": "序列化"
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "fixture_lookup",
+            "description": "Read synthetic test inputs",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array"
+                },
+                "mode": {
+                  "enum": [
+                    1,
+                    "auto",
+                    true
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ],
+      "adapter": "google",
+      "historyScope": "[\"google\",\"decc9e29\",\"gemini-2.2-pro\",\"google_generate_content\"]",
+      "request": {
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.2-pro:streamGenerateContent?alt=sse&key=s307-synthetic-key",
+        "body": {
+          "contents": [
+            {
+              "role": "user",
+              "parts": [
+                {
+                  "text": "序列化"
+                }
+              ]
+            }
+          ],
+          "systemInstruction": {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Fixture instructions for the S3.07 oracle."
+              }
+            ]
+          },
+          "generationConfig": {
+            "temperature": 0.25,
+            "topP": 0.75,
+            "frequencyPenalty": 0.125,
+            "presencePenalty": 0.25,
+            "maxOutputTokens": 1536,
+            "stopSequences": [
+              "END",
+              "STOP"
+            ],
+            "responseMimeType": "application/json",
+            "responseSchema": {
+              "type": "object"
+            },
+            "topK": 12
+          },
+          "tools": [
+            {
+              "functionDeclarations": [
+                {
+                  "name": "fixture_lookup",
+                  "description": "Read synthetic test inputs",
+                  "parameters": {
+                    "type": "object",
+                    "properties": {
+                      "tags": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "mode": {
+                        "enum": [
+                          "1",
+                          "auto",
+                          "true"
+                        ],
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "toolConfig": {
+            "functionCallingConfig": {
+              "mode": "AUTO"
+            }
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "x-goog-api-key": "s307-synthetic-key",
+          "x-fixture-provider": "s307"
+        }
+      }
+    },
+    {
+      "id": "gemini-provider",
+      "provider": "gemini",
+      "model": "gemini-2.5-flash",
+      "headers": {
+        "x-fixture-provider": "s307"
+      },
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": "high",
+        "thinkingBudget": null,
+        "includeThoughts": false,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "topK": 12,
+        "model": "gemini-2.5-flash",
+        "baseUrl": "https://generativelanguage.googleapis.com",
+        "modelAdapter": "google",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions for the S3.07 oracle."
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "协议回放 🧪"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,iVBORw0KGgo="
+              }
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "fixture_lookup",
+            "description": "Read synthetic test inputs",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array"
+                },
+                "mode": {
+                  "enum": [
+                    1,
+                    "auto",
+                    true
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ],
+      "adapter": "google",
+      "historyScope": "[\"gemini\",\"decc9e29\",\"gemini-2.5-flash\",\"google_generate_content\"]",
+      "request": {
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=s307-synthetic-key",
+        "body": {
+          "contents": [
+            {
+              "role": "user",
+              "parts": [
+                {
+                  "text": "协议回放 🧪"
+                },
+                {
+                  "inlineData": {
+                    "mimeType": "image/png",
+                    "data": "iVBORw0KGgo="
+                  }
+                }
+              ]
+            }
+          ],
+          "systemInstruction": {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Fixture instructions for the S3.07 oracle."
+              }
+            ]
+          },
+          "generationConfig": {
+            "maxOutputTokens": 1536,
+            "topK": 12,
+            "thinkingConfig": {
+              "thinkingBudget": -1,
+              "includeThoughts": true
+            }
+          },
+          "tools": [
+            {
+              "functionDeclarations": [
+                {
+                  "name": "fixture_lookup",
+                  "description": "Read synthetic test inputs",
+                  "parameters": {
+                    "type": "object",
+                    "properties": {
+                      "tags": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "mode": {
+                        "enum": [
+                          "1",
+                          "auto",
+                          "true"
+                        ],
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "toolConfig": {
+            "functionCallingConfig": {
+              "mode": "AUTO"
+            }
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "x-goog-api-key": "s307-synthetic-key",
+          "x-fixture-provider": "s307"
+        }
+      },
+      "stream": {
+        "frames": [
+          "{\"candidates\":[{\"content\":{\"role\":\"model\",\"parts\":[{\"thought\":true,\"text\":\"思考 gemini\"}]}}]}",
+          "{\"candidates\":[{\"content\":{\"role\":\"model\",\"parts\":[{\"text\":\"回答\"}]}}]}",
+          "{\"candidates\":[{\"content\":{\"role\":\"model\",\"parts\":[{\"text\":\" ✅\"}]}}],\"usageMetadata\":{\"promptTokenCount\":10,\"candidatesTokenCount\":4,\"totalTokenCount\":14,\"cachedContentTokenCount\":6,\"thoughtsTokenCount\":3}}",
+          "{\"candidates\":[{\"finishReason\":\"STOP\"}],\"usageMetadata\":{\"promptTokenCount\":10,\"candidatesTokenCount\":4,\"totalTokenCount\":14,\"cachedContentTokenCount\":6,\"thoughtsTokenCount\":3}}"
+        ],
+        "events": [
+          {
+            "kind": "reasoning",
+            "value": "思考 gemini"
+          },
+          {
+            "kind": "text",
+            "value": "回答"
+          },
+          {
+            "kind": "text",
+            "value": " ✅"
+          },
+          {
+            "kind": "usage",
+            "value": {
+              "input_tokens": 10,
+              "output_tokens": 4,
+              "total_tokens": 14,
+              "cached_tokens": 6,
+              "reasoning_tokens": 3
+            }
+          },
+          {
+            "kind": "usage",
+            "value": {
+              "input_tokens": 10,
+              "output_tokens": 4,
+              "total_tokens": 14,
+              "cached_tokens": 6,
+              "reasoning_tokens": 3
+            }
+          },
+          {
+            "kind": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "google-stream-late-native-id",
+      "provider": "google",
+      "model": "gemini-2.5-flash",
+      "headers": {
+        "x-fixture-provider": "s307"
+      },
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": null,
+        "thinkingBudget": 128,
+        "includeThoughts": false,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "topK": 12,
+        "model": "gemini-2.5-flash",
+        "baseUrl": "https://generativelanguage.googleapis.com",
+        "modelAdapter": "google",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions for the S3.07 oracle."
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "协议回放 🧪"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,iVBORw0KGgo="
+              }
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "fixture_lookup",
+            "description": "Read synthetic test inputs",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array"
+                },
+                "mode": {
+                  "enum": [
+                    1,
+                    "auto",
+                    true
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ],
+      "adapter": "google",
+      "historyScope": "[\"google\",\"decc9e29\",\"gemini-2.5-flash\",\"google_generate_content\"]",
+      "request": {
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=s307-synthetic-key",
+        "body": {
+          "contents": [
+            {
+              "role": "user",
+              "parts": [
+                {
+                  "text": "协议回放 🧪"
+                },
+                {
+                  "inlineData": {
+                    "mimeType": "image/png",
+                    "data": "iVBORw0KGgo="
+                  }
+                }
+              ]
+            }
+          ],
+          "systemInstruction": {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Fixture instructions for the S3.07 oracle."
+              }
+            ]
+          },
+          "generationConfig": {
+            "maxOutputTokens": 1536,
+            "topK": 12,
+            "thinkingConfig": {
+              "thinkingBudget": 128,
+              "includeThoughts": true
+            }
+          },
+          "tools": [
+            {
+              "functionDeclarations": [
+                {
+                  "name": "fixture_lookup",
+                  "description": "Read synthetic test inputs",
+                  "parameters": {
+                    "type": "object",
+                    "properties": {
+                      "tags": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "mode": {
+                        "enum": [
+                          "1",
+                          "auto",
+                          "true"
+                        ],
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "toolConfig": {
+            "functionCallingConfig": {
+              "mode": "AUTO"
+            }
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "x-goog-api-key": "s307-synthetic-key",
+          "x-fixture-provider": "s307"
+        }
+      },
+      "stream": {
+        "frames": [
+          "{\"candidates\":[{\"content\":{\"role\":\"model\",\"parts\":[{\"functionCall\":{\"name\":\"lookup_c\",\"args\":{}}}]}}]}",
+          "{\"candidates\":[{\"content\":{\"role\":\"model\",\"parts\":[{\"functionCall\":{\"id\":\"fc-late\",\"name\":\"lookup_c\",\"args\":{\"late\":true}}}]}}]}",
+          "{\"candidates\":[{\"finishReason\":\"STOP\"}],\"usageMetadata\":{\"promptTokenCount\":10,\"candidatesTokenCount\":4,\"totalTokenCount\":14,\"cachedContentTokenCount\":6,\"thoughtsTokenCount\":3}}"
+        ],
+        "events": [
+          {
+            "kind": "tool",
+            "value": {
+              "index": 0,
+              "id": "call-synthetic",
+              "type": "function",
+              "function": {
+                "name": "lookup_c",
+                "arguments": "{}"
+              }
+            }
+          },
+          {
+            "kind": "tool",
+            "value": {
+              "index": 1,
+              "id": "fc-late",
+              "type": "function",
+              "function": {
+                "name": "lookup_c",
+                "arguments": "{\"late\":true}"
+              }
+            }
+          },
+          {
+            "kind": "usage",
+            "value": {
+              "input_tokens": 10,
+              "output_tokens": 4,
+              "total_tokens": 14,
+              "cached_tokens": 6,
+              "reasoning_tokens": 3
+            }
+          },
+          {
+            "kind": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "google-stream-delta-parts",
+      "provider": "google",
+      "model": "gemini-2.5-flash",
+      "headers": {
+        "x-fixture-provider": "s307"
+      },
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": null,
+        "thinkingBudget": 128,
+        "includeThoughts": false,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "topK": 12,
+        "model": "gemini-2.5-flash",
+        "baseUrl": "https://generativelanguage.googleapis.com",
+        "modelAdapter": "google",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions for the S3.07 oracle."
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "协议回放 🧪"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,iVBORw0KGgo="
+              }
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "fixture_lookup",
+            "description": "Read synthetic test inputs",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array"
+                },
+                "mode": {
+                  "enum": [
+                    1,
+                    "auto",
+                    true
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ],
+      "adapter": "google",
+      "historyScope": "[\"google\",\"decc9e29\",\"gemini-2.5-flash\",\"google_generate_content\"]",
+      "request": {
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=s307-synthetic-key",
+        "body": {
+          "contents": [
+            {
+              "role": "user",
+              "parts": [
+                {
+                  "text": "协议回放 🧪"
+                },
+                {
+                  "inlineData": {
+                    "mimeType": "image/png",
+                    "data": "iVBORw0KGgo="
+                  }
+                }
+              ]
+            }
+          ],
+          "systemInstruction": {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Fixture instructions for the S3.07 oracle."
+              }
+            ]
+          },
+          "generationConfig": {
+            "maxOutputTokens": 1536,
+            "topK": 12,
+            "thinkingConfig": {
+              "thinkingBudget": 128,
+              "includeThoughts": true
+            }
+          },
+          "tools": [
+            {
+              "functionDeclarations": [
+                {
+                  "name": "fixture_lookup",
+                  "description": "Read synthetic test inputs",
+                  "parameters": {
+                    "type": "object",
+                    "properties": {
+                      "tags": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "mode": {
+                        "enum": [
+                          "1",
+                          "auto",
+                          "true"
+                        ],
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "toolConfig": {
+            "functionCallingConfig": {
+              "mode": "AUTO"
+            }
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "x-goog-api-key": "s307-synthetic-key",
+          "x-fixture-provider": "s307"
+        }
+      },
+      "stream": {
+        "frames": [
+          "{\"candidates\":[{\"content\":{\"role\":\"model\",\"parts\":[{\"text\":\"main\"}]},\"delta\":{\"parts\":[{\"thought\":{\"value\":false},\"text\":\"not-thought\"},{\"thought\":true,\"text\":\"delta-thought\"}]}}]}",
+          "{\"candidates\":[{\"finishReason\":\"STOP\"}],\"usageMetadata\":{\"promptTokenCount\":10,\"candidatesTokenCount\":4,\"totalTokenCount\":14,\"cachedContentTokenCount\":6,\"thoughtsTokenCount\":3}}"
+        ],
+        "events": [
+          {
+            "kind": "text",
+            "value": "main"
+          },
+          {
+            "kind": "text",
+            "value": "not-thought"
+          },
+          {
+            "kind": "reasoning",
+            "value": "delta-thought"
+          },
+          {
+            "kind": "usage",
+            "value": {
+              "input_tokens": 10,
+              "output_tokens": 4,
+              "total_tokens": 14,
+              "cached_tokens": 6,
+              "reasoning_tokens": 3
+            }
+          },
+          {
+            "kind": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "google-stream-thought-variants",
+      "provider": "google",
+      "model": "gemini-2.5-flash",
+      "headers": {
+        "x-fixture-provider": "s307"
+      },
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": null,
+        "thinkingBudget": 128,
+        "includeThoughts": false,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "topK": 12,
+        "model": "gemini-2.5-flash",
+        "baseUrl": "https://generativelanguage.googleapis.com",
+        "modelAdapter": "google",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions for the S3.07 oracle."
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "协议回放 🧪"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,iVBORw0KGgo="
+              }
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "fixture_lookup",
+            "description": "Read synthetic test inputs",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array"
+                },
+                "mode": {
+                  "enum": [
+                    1,
+                    "auto",
+                    true
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ],
+      "adapter": "google",
+      "historyScope": "[\"google\",\"decc9e29\",\"gemini-2.5-flash\",\"google_generate_content\"]",
+      "request": {
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=s307-synthetic-key",
+        "body": {
+          "contents": [
+            {
+              "role": "user",
+              "parts": [
+                {
+                  "text": "协议回放 🧪"
+                },
+                {
+                  "inlineData": {
+                    "mimeType": "image/png",
+                    "data": "iVBORw0KGgo="
+                  }
+                }
+              ]
+            }
+          ],
+          "systemInstruction": {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Fixture instructions for the S3.07 oracle."
+              }
+            ]
+          },
+          "generationConfig": {
+            "maxOutputTokens": 1536,
+            "topK": 12,
+            "thinkingConfig": {
+              "thinkingBudget": 128,
+              "includeThoughts": true
+            }
+          },
+          "tools": [
+            {
+              "functionDeclarations": [
+                {
+                  "name": "fixture_lookup",
+                  "description": "Read synthetic test inputs",
+                  "parameters": {
+                    "type": "object",
+                    "properties": {
+                      "tags": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "mode": {
+                        "enum": [
+                          "1",
+                          "auto",
+                          "true"
+                        ],
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "toolConfig": {
+            "functionCallingConfig": {
+              "mode": "AUTO"
+            }
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "x-goog-api-key": "s307-synthetic-key",
+          "x-fixture-provider": "s307"
+        }
+      },
+      "stream": {
+        "frames": [
+          "{\"candidates\":[{\"content\":{\"parts\":[{\"metadata\":{\"type\":\"Thought\"},\"text\":\"meta-thought\"},{\"kind\":\"Thought\",\"text\":\"kind-thought\"},{\"type\":\"thought\",\"text\":\"type-thought\"}]},\"thoughts\":[{\"text\":\"candidate-thought\"},{\"content\":\"alias-thought\"},\"bare-thought\"]}],\"thoughts\":[\"payload-thought\"],\"usageMetadata\":{\"promptTokenCount\":10,\"candidatesTokenCount\":4,\"totalTokenCount\":14,\"cachedContentTokenCount\":6,\"thoughtsTokenCount\":3}}",
+          "{\"candidates\":[{\"finishReason\":\"STOP\"}],\"usageMetadata\":{\"promptTokenCount\":10,\"candidatesTokenCount\":4,\"totalTokenCount\":14,\"cachedContentTokenCount\":6,\"thoughtsTokenCount\":3}}"
+        ],
+        "events": [
+          {
+            "kind": "reasoning",
+            "value": "meta-thought"
+          },
+          {
+            "kind": "reasoning",
+            "value": "kind-thought"
+          },
+          {
+            "kind": "reasoning",
+            "value": "type-thought"
+          },
+          {
+            "kind": "reasoning",
+            "value": "candidate-thought"
+          },
+          {
+            "kind": "reasoning",
+            "value": "alias-thought"
+          },
+          {
+            "kind": "reasoning",
+            "value": "bare-thought"
+          },
+          {
+            "kind": "reasoning",
+            "value": "payload-thought"
+          },
+          {
+            "kind": "usage",
+            "value": {
+              "input_tokens": 10,
+              "output_tokens": 4,
+              "total_tokens": 14,
+              "cached_tokens": 6,
+              "reasoning_tokens": 3
+            }
+          },
+          {
+            "kind": "usage",
+            "value": {
+              "input_tokens": 10,
+              "output_tokens": 4,
+              "total_tokens": 14,
+              "cached_tokens": 6,
+              "reasoning_tokens": 3
+            }
+          },
+          {
+            "kind": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "google-stream-done-marker",
+      "provider": "google",
+      "model": "gemini-2.5-flash",
+      "headers": {
+        "x-fixture-provider": "s307"
+      },
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": null,
+        "thinkingBudget": 128,
+        "includeThoughts": false,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "topK": 12,
+        "model": "gemini-2.5-flash",
+        "baseUrl": "https://generativelanguage.googleapis.com",
+        "modelAdapter": "google",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions for the S3.07 oracle."
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "协议回放 🧪"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,iVBORw0KGgo="
+              }
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "fixture_lookup",
+            "description": "Read synthetic test inputs",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array"
+                },
+                "mode": {
+                  "enum": [
+                    1,
+                    "auto",
+                    true
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ],
+      "adapter": "google",
+      "historyScope": "[\"google\",\"decc9e29\",\"gemini-2.5-flash\",\"google_generate_content\"]",
+      "request": {
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=s307-synthetic-key",
+        "body": {
+          "contents": [
+            {
+              "role": "user",
+              "parts": [
+                {
+                  "text": "协议回放 🧪"
+                },
+                {
+                  "inlineData": {
+                    "mimeType": "image/png",
+                    "data": "iVBORw0KGgo="
+                  }
+                }
+              ]
+            }
+          ],
+          "systemInstruction": {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Fixture instructions for the S3.07 oracle."
+              }
+            ]
+          },
+          "generationConfig": {
+            "maxOutputTokens": 1536,
+            "topK": 12,
+            "thinkingConfig": {
+              "thinkingBudget": 128,
+              "includeThoughts": true
+            }
+          },
+          "tools": [
+            {
+              "functionDeclarations": [
+                {
+                  "name": "fixture_lookup",
+                  "description": "Read synthetic test inputs",
+                  "parameters": {
+                    "type": "object",
+                    "properties": {
+                      "tags": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "mode": {
+                        "enum": [
+                          "1",
+                          "auto",
+                          "true"
+                        ],
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "toolConfig": {
+            "functionCallingConfig": {
+              "mode": "AUTO"
+            }
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "x-goog-api-key": "s307-synthetic-key",
+          "x-fixture-provider": "s307"
+        }
+      },
+      "stream": {
+        "frames": [
+          "{\"candidates\":[{\"content\":{\"role\":\"model\",\"parts\":[{\"text\":\"before-done\"}]}}]}",
+          "[DONE]"
+        ],
+        "events": [
+          {
+            "kind": "text",
+            "value": "before-done"
+          },
+          {
+            "kind": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "google-error-prompt-blocked",
+      "provider": "google",
+      "model": "gemini-2.5-flash",
+      "headers": {
+        "x-fixture-provider": "s307"
+      },
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": null,
+        "thinkingBudget": 128,
+        "includeThoughts": false,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "topK": 12,
+        "model": "gemini-2.5-flash",
+        "baseUrl": "https://generativelanguage.googleapis.com",
+        "modelAdapter": "google",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions for the S3.07 oracle."
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "协议回放 🧪"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,iVBORw0KGgo="
+              }
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "fixture_lookup",
+            "description": "Read synthetic test inputs",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array"
+                },
+                "mode": {
+                  "enum": [
+                    1,
+                    "auto",
+                    true
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ],
+      "adapter": "google",
+      "historyScope": "[\"google\",\"decc9e29\",\"gemini-2.5-flash\",\"google_generate_content\"]",
+      "request": {
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=s307-synthetic-key",
+        "body": {
+          "contents": [
+            {
+              "role": "user",
+              "parts": [
+                {
+                  "text": "协议回放 🧪"
+                },
+                {
+                  "inlineData": {
+                    "mimeType": "image/png",
+                    "data": "iVBORw0KGgo="
+                  }
+                }
+              ]
+            }
+          ],
+          "systemInstruction": {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Fixture instructions for the S3.07 oracle."
+              }
+            ]
+          },
+          "generationConfig": {
+            "maxOutputTokens": 1536,
+            "topK": 12,
+            "thinkingConfig": {
+              "thinkingBudget": 128,
+              "includeThoughts": true
+            }
+          },
+          "tools": [
+            {
+              "functionDeclarations": [
+                {
+                  "name": "fixture_lookup",
+                  "description": "Read synthetic test inputs",
+                  "parameters": {
+                    "type": "object",
+                    "properties": {
+                      "tags": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "mode": {
+                        "enum": [
+                          "1",
+                          "auto",
+                          "true"
+                        ],
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "toolConfig": {
+            "functionCallingConfig": {
+              "mode": "AUTO"
+            }
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "x-goog-api-key": "s307-synthetic-key",
+          "x-fixture-provider": "s307"
+        }
+      },
+      "stream": {
+        "frames": [
+          "{\"candidates\":[{\"content\":{\"role\":\"model\",\"parts\":[{\"text\":\"partial\"}]}}]}",
+          "{\"promptFeedback\":{\"blockReason\":\"SAFETY\"}}"
+        ],
+        "events": [
+          {
+            "kind": "text",
+            "value": "partial"
+          },
+          {
+            "kind": "blocked",
+            "value": {
+              "type": "prompt_blocked",
+              "reason": "SAFETY"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "google-error-finish-safety",
+      "provider": "google",
+      "model": "gemini-2.5-flash",
+      "headers": {
+        "x-fixture-provider": "s307"
+      },
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": null,
+        "thinkingBudget": 128,
+        "includeThoughts": false,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "topK": 12,
+        "model": "gemini-2.5-flash",
+        "baseUrl": "https://generativelanguage.googleapis.com",
+        "modelAdapter": "google",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions for the S3.07 oracle."
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "协议回放 🧪"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,iVBORw0KGgo="
+              }
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "fixture_lookup",
+            "description": "Read synthetic test inputs",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array"
+                },
+                "mode": {
+                  "enum": [
+                    1,
+                    "auto",
+                    true
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ],
+      "adapter": "google",
+      "historyScope": "[\"google\",\"decc9e29\",\"gemini-2.5-flash\",\"google_generate_content\"]",
+      "request": {
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=s307-synthetic-key",
+        "body": {
+          "contents": [
+            {
+              "role": "user",
+              "parts": [
+                {
+                  "text": "协议回放 🧪"
+                },
+                {
+                  "inlineData": {
+                    "mimeType": "image/png",
+                    "data": "iVBORw0KGgo="
+                  }
+                }
+              ]
+            }
+          ],
+          "systemInstruction": {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Fixture instructions for the S3.07 oracle."
+              }
+            ]
+          },
+          "generationConfig": {
+            "maxOutputTokens": 1536,
+            "topK": 12,
+            "thinkingConfig": {
+              "thinkingBudget": 128,
+              "includeThoughts": true
+            }
+          },
+          "tools": [
+            {
+              "functionDeclarations": [
+                {
+                  "name": "fixture_lookup",
+                  "description": "Read synthetic test inputs",
+                  "parameters": {
+                    "type": "object",
+                    "properties": {
+                      "tags": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "mode": {
+                        "enum": [
+                          "1",
+                          "auto",
+                          "true"
+                        ],
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "toolConfig": {
+            "functionCallingConfig": {
+              "mode": "AUTO"
+            }
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "x-goog-api-key": "s307-synthetic-key",
+          "x-fixture-provider": "s307"
+        }
+      },
+      "stream": {
+        "frames": [
+          "{\"candidates\":[{\"content\":{\"role\":\"model\",\"parts\":[{\"text\":\"partial\"}]}}]}",
+          "{\"candidates\":[{\"finishReason\":\"SAFETY\",\"safetyRatings\":[{\"category\":\"HARM_CATEGORY_HARASSMENT\"}]}],\"usageMetadata\":{\"promptTokenCount\":10,\"candidatesTokenCount\":4,\"totalTokenCount\":14,\"cachedContentTokenCount\":6,\"thoughtsTokenCount\":3}}"
+        ],
+        "events": [
+          {
+            "kind": "text",
+            "value": "partial"
+          },
+          {
+            "kind": "usage",
+            "value": {
+              "input_tokens": 10,
+              "output_tokens": 4,
+              "total_tokens": 14,
+              "cached_tokens": 6,
+              "reasoning_tokens": 3
+            }
+          },
+          {
+            "kind": "blocked",
+            "value": {
+              "type": "content_blocked",
+              "reason": "SAFETY"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "google-error-finish-max-tokens",
+      "provider": "google",
+      "model": "gemini-2.5-flash",
+      "headers": {
+        "x-fixture-provider": "s307"
+      },
+      "input": {
+        "isReasoning": true,
+        "supportsReasoning": true,
+        "supportsTools": true,
+        "thinkingEnabled": true,
+        "reasoningEffort": null,
+        "thinkingBudget": 128,
+        "includeThoughts": false,
+        "maxOutputTokens": 2048,
+        "maxTokensLimit": 1536,
+        "temperature": 0.25,
+        "topPOverride": 0.75,
+        "frequencyPenaltyOverride": 0.125,
+        "presencePenaltyOverride": 0.25,
+        "topK": 12,
+        "model": "gemini-2.5-flash",
+        "baseUrl": "https://generativelanguage.googleapis.com",
+        "modelAdapter": "google",
+        "extraBody": {}
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Fixture instructions for the S3.07 oracle."
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "协议回放 🧪"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,iVBORw0KGgo="
+              }
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "fixture_lookup",
+            "description": "Read synthetic test inputs",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array"
+                },
+                "mode": {
+                  "enum": [
+                    1,
+                    "auto",
+                    true
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ],
+      "adapter": "google",
+      "historyScope": "[\"google\",\"decc9e29\",\"gemini-2.5-flash\",\"google_generate_content\"]",
+      "request": {
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=s307-synthetic-key",
+        "body": {
+          "contents": [
+            {
+              "role": "user",
+              "parts": [
+                {
+                  "text": "协议回放 🧪"
+                },
+                {
+                  "inlineData": {
+                    "mimeType": "image/png",
+                    "data": "iVBORw0KGgo="
+                  }
+                }
+              ]
+            }
+          ],
+          "systemInstruction": {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Fixture instructions for the S3.07 oracle."
+              }
+            ]
+          },
+          "generationConfig": {
+            "maxOutputTokens": 1536,
+            "topK": 12,
+            "thinkingConfig": {
+              "thinkingBudget": 128,
+              "includeThoughts": true
+            }
+          },
+          "tools": [
+            {
+              "functionDeclarations": [
+                {
+                  "name": "fixture_lookup",
+                  "description": "Read synthetic test inputs",
+                  "parameters": {
+                    "type": "object",
+                    "properties": {
+                      "tags": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "mode": {
+                        "enum": [
+                          "1",
+                          "auto",
+                          "true"
+                        ],
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "toolConfig": {
+            "functionCallingConfig": {
+              "mode": "AUTO"
+            }
+          }
+        },
+        "headers": {
+          "content-type": "application/json",
+          "x-goog-api-key": "s307-synthetic-key",
+          "x-fixture-provider": "s307"
+        }
+      },
+      "stream": {
+        "frames": [
+          "{\"candidates\":[{\"content\":{\"role\":\"model\",\"parts\":[{\"text\":\"partial\"}]}}]}",
+          "{\"candidates\":[{\"finishReason\":\"MAX_TOKENS\"}],\"usageMetadata\":{\"promptTokenCount\":10,\"candidatesTokenCount\":4,\"totalTokenCount\":14,\"cachedContentTokenCount\":6,\"thoughtsTokenCount\":3}}"
+        ],
+        "events": [
+          {
+            "kind": "text",
+            "value": "partial"
+          },
+          {
+            "kind": "usage",
+            "value": {
+              "input_tokens": 10,
+              "output_tokens": 4,
+              "total_tokens": 14,
+              "cached_tokens": 6,
+              "reasoning_tokens": 3
+            }
+          },
+          {
+            "kind": "blocked",
+            "value": {
+              "type": "provider_error",
+              "reason": "MAX_TOKENS"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -14,9 +14,6 @@ import com.deepstudent.platform.network.ResponseHead
 import com.deepstudent.platform.network.SseEnd
 import com.deepstudent.platform.network.SseEvent
 import com.deepstudent.platform.network.SseLimits
-import java.util.UUID
-import java.util.concurrent.TimeUnit
-import kotlin.coroutines.cancellation.CancellationException
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.awaitCancellation
@@ -27,22 +24,26 @@ import kotlinx.coroutines.launch
 import okhttp3.Call
 import okhttp3.OkHttpClient
 import okhttp3.Response
+import java.util.UUID
+import java.util.concurrent.TimeUnit
+import kotlin.coroutines.cancellation.CancellationException
 
 internal class OkHttpTransportEngine(private val log: NetworkLog) : NetworkTransport {
     private val client = OkHttpClient.Builder()
         .retryOnConnectionFailure(false)
         .followRedirects(false)
         .followSslRedirects(false)
+        .proxyAuthenticator(ProxyAuthentication.authenticator)
+        .addNetworkInterceptor(ProxyAuthentication.interceptor)
         .build()
     private val sseClient = client.newBuilder().readTimeout(0, TimeUnit.MILLISECONDS).build()
     private val calls = ActiveCalls()
 
-    override suspend fun execute(request: NetworkRequest, limits: HttpLimits): HttpResponse =
-        logged(NetworkOperation.HTTP) {
-            withResponse(request, streaming = false) { response ->
-                HttpResponse(response.toResponseHead(), readHttpBody(response, limits))
-            }
+    override suspend fun execute(request: NetworkRequest, limits: HttpLimits): HttpResponse = logged(NetworkOperation.HTTP) {
+        withResponse(request, streaming = false) { response ->
+            HttpResponse(response.toResponseHead(), readHttpBody(response, limits))
         }
+    }
 
     override suspend fun streamSse(
         request: NetworkRequest,
@@ -52,7 +53,17 @@ internal class OkHttpTransportEngine(private val log: NetworkLog) : NetworkTrans
     ): SseEnd = logged(NetworkOperation.SSE) {
         withResponse(request, streaming = true) { response ->
             onResponse(response.toResponseHead())
-            if (!response.isSuccessful) return@withResponse SseEnd.REJECTED_HTTP_STATUS
+            if (!response.isSuccessful) {
+                limits.rejectionBody?.takeIf { it.statusCode == response.code }?.let {
+                    val body = readRejectionBody(response, it.limits)
+                    try {
+                        it.onBody(body)
+                    } finally {
+                        body.fill(0)
+                    }
+                }
+                return@withResponse SseEnd.REJECTED_HTTP_STATUS
+            }
             val mediaType = response.body?.contentType()
             if (mediaType?.type != "text" || mediaType.subtype != "event-stream") {
                 throw NetworkException(NetworkError.SSE_INVALID_CONTENT_TYPE)
@@ -68,11 +79,12 @@ internal class OkHttpTransportEngine(private val log: NetworkLog) : NetworkTrans
         }
     }
 
-    private suspend fun <T> withResponse(
-        request: NetworkRequest,
-        streaming: Boolean,
-        block: suspend (Response) -> T,
-    ): T = coroutineScope {
+    private suspend fun readRejectionBody(response: Response, limits: HttpLimits): ByteArray {
+        response.body?.source()?.timeout()?.deadline(REJECTION_BODY_SECONDS, TimeUnit.SECONDS)
+        return readHttpBody(response, limits)
+    }
+
+    private suspend fun <T> withResponse(request: NetworkRequest, streaming: Boolean, block: suspend (Response) -> T): T = coroutineScope {
         val call = (if (streaming) sseClient else client).newCall(request.toOkHttpRequest())
         calls.add(call)
         try {
@@ -145,3 +157,5 @@ internal class OkHttpTransportEngine(private val log: NetworkLog) : NetworkTrans
         }
     }
 }
+
+private const val REJECTION_BODY_SECONDS = 5L
